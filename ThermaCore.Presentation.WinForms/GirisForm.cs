@@ -2,13 +2,14 @@
 using System;
 using System.Windows.Forms;
 using ThermaCore.Application.Interfaces.Configuration;
-using ThermaCore.Application.Services.Yonetim;
+using ThermaCore.Application.Services.Management;
+using ThermaCore.Application.DTOs.Management;
 
 namespace ThermaCore.Presentation.WinForms;
 
 public partial class GirisForm : Form
 {
-    private readonly IKullaniciService _kullaniciService;
+    private readonly IUserService _userService;
     private readonly IAppConfigService _appConfigService;
 
     // UI Skeleton Kontrolleri
@@ -18,9 +19,9 @@ public partial class GirisForm : Form
     private Label lblKullanici;
     private Label lblSifre;
 
-    public GirisForm(IKullaniciService kullaniciService, IAppConfigService appConfigService)
+    public GirisForm(IUserService userService, IAppConfigService appConfigService)
     {
-        _kullaniciService = kullaniciService;
+        _userService = userService;
         _appConfigService = appConfigService;
 
         InitializeSkeletonControls();
@@ -76,12 +77,12 @@ public partial class GirisForm : Form
             return;
         }
 
-        var kullanici = _kullaniciService.KullaniciGirisYap(kod, sifre);
+        var user = _userService.UserLogin(kod, sifre);
 
-        if (kullanici != null)
+        if (user != null)
         {
             _appConfigService.SetLastLoginUser(kod); // Başarılı girişte ayarı kaydet
-            MessageBox.Show($"Hoşgeldiniz {kullanici.Adi} {kullanici.Soyadi}!\nThermaCore Sistemine Giriş Yapıldı.", "Giriş Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show($"Hoşgeldiniz {user.FirstName} {user.LastName}!\nThermaCore Sistemine Giriş Yapıldı.", "Giriş Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
             
             // İleride MainForm'a yönlendirme kodları buraya yazılacak.
         }

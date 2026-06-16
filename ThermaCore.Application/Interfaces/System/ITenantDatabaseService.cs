@@ -5,4 +5,5 @@ namespace ThermaCore.Application.Interfaces.System;
 public interface ITenantDatabaseService
 {
     Task CreateDatabaseAsync(string connectionString);
+    Task CreateMasterDatabaseAsync(string connectionString);
 }

@@ -5,7 +5,7 @@ namespace ThermaCore.Application.Services.System;
 
 public class CodeGenerationManager : ICodeGenerationService
 {
-    public string GetNewCode(ModulTuru modul)
+    public string GetNewCode(ModuleType modul)
     {
         // Yeni kod üretim motoru (Numaratör)
         return string.Empty;

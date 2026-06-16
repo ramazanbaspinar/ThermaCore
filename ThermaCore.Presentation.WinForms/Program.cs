@@ -45,26 +45,12 @@ internal static class Program
 
         if (!isConnected)
         {
-            System.Windows.Forms.Application.Run(new BaglantiAyarlariForm(configService));
-            
-            connectionString = configService.GetConnectionString();
-            if (string.IsNullOrEmpty(connectionString))
-            {
-                return; // Kullanıcı ayarları kaydetmeden kapattıysa
-            }
-            
-            try
-            {
-                using (var conn = new SqlConnection(connectionString))
-                {
-                    conn.Open();
-                }
-            }
-            catch
-            {
-                MessageBox.Show("Bağlantı kurulamadı. Uygulama kapatılıyor.", "ThermaCore Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+            // Kurulum sihirbazı ve veritabanı servisleri için bağımlılıkları manuel çözüyoruz
+            ThermaCore.Application.Interfaces.System.ITenantDatabaseService tenantDbService = new ThermaCore.Infrastructure.System.TenantDatabaseManager();
+            ITenantDatabaseSetupService sistemVeritabaniService = new ThermaCore.Application.Services.System.TenantDatabaseSetupManager(null!, null!, tenantDbService);
+
+            System.Windows.Forms.Application.Run(new BaglantiHataForm(configService, sistemVeritabaniService));
+            return;
         }
 
         var host = Host.CreateDefaultBuilder()
@@ -87,7 +73,7 @@ internal static class Program
                 var licenseService = services.GetRequiredService<ILicenseService>();
                 var status = licenseService.CheckLicense(out string message);
                 
-                if (status != LisansDurumu.Gecerli && status != LisansDurumu.Demo)
+                if (status != LicenseStatus.Valid && status != LicenseStatus.Demo)
                 {
                     MessageBox.Show($"Lisans hatası: {message}\nLütfen sistem yöneticinizle iletişime geçin.", "ThermaCore Lisans", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;

@@ -17,4 +17,15 @@ public class TenantDatabaseManager : ITenantDatabaseService
             await context.Database.EnsureCreatedAsync();
         }
     }
+
+    public async Task CreateMasterDatabaseAsync(string connectionString)
+    {
+        var optionsBuilder = new DbContextOptionsBuilder<ThermaCoreMasterContext>();
+        optionsBuilder.UseSqlServer(connectionString);
+
+        using (var context = new ThermaCoreMasterContext(optionsBuilder.Options))
+        {
+            await context.Database.EnsureCreatedAsync();
+        }
+    }
 }

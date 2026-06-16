@@ -12,7 +12,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
     public partial class BaseEditForm : DevExpress.XtraBars.Ribbon.RibbonForm
     {
         protected long Id;
-        protected IslemTuru BaseIslemTuru;
+        protected ActionType BaseIslemTuru;
         protected bool IsLoaded;
         protected BaseDto OldEntity = default!;
         protected BaseDto CurrentEntity = default!;
@@ -91,14 +91,14 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
 
             GuncelNesneOlustur();
 
-            if (BaseIslemTuru == IslemTuru.EntityInsert)
+            if (BaseIslemTuru == ActionType.EntityInsert)
             {
                 if (MessageBox.Show("Yeni kayıt eklenecektir. Onaylıyor musunuz?", "Kayıt Onayı", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     islemSonucu = EntityInsert();
                 }
             }
-            else if (BaseIslemTuru == IslemTuru.EntityUpdate)
+            else if (BaseIslemTuru == ActionType.EntityUpdate)
             {
                 if (MessageBox.Show("Mevcut kayıt güncellenecektir. Onaylıyor musunuz?", "Güncelleme Onayı", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {

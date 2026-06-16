@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ThermaCore.Application.Interfaces.Security;
 using ThermaCore.Application.Interfaces.System;
-using ThermaCore.Domain.Entities.Yonetim;
+using ThermaCore.Domain.Entities.Management;
 using ThermaCore.Infrastructure.Persistence;
 
 namespace ThermaCore.Infrastructure.System;
@@ -23,39 +23,40 @@ public class DatabaseSeederManager : IDatabaseSeederService
     {
         await _context.Database.EnsureCreatedAsync();
 
-        if (!_context.KullaniciRolleri.Any(r => r.RolAdi == "Sistem Yöneticisi"))
+        if (!_context.UserRoles.Any(r => r.RoleName == "System Administrator"))
         {
-            var adminRol = new KullaniciRolu
+            var adminRol = new UserRole
             {
-                RolAdi = "Sistem Yöneticisi",
-                Aciklama = "Sistemin en yetkili rolüdür. Tüm modüllere tam erişimi vardır.",
-                Durum = true
+                Code = "ADMIN_ROLE",
+                RoleName = "System Administrator",
+                Description = "The most authorized role in the system. Full access to all modules.",
+                IsActive = true
             };
             
-            _context.KullaniciRolleri.Add(adminRol);
+            _context.UserRoles.Add(adminRol);
             await _context.SaveChangesAsync();
 
-            if (!_context.Kullanicilar.Any(k => k.Kod == "ADMIN"))
+            if (!_context.Users.Any(k => k.Code == "ADMIN"))
             {
-                var adminKullanici = new Kullanici
+                var adminKullanici = new User
                 {
-                    Kod = "ADMIN",
-                    Adi = "Sistem",
-                    Soyadi = "Yöneticisi",
+                    Code = "ADMIN",
+                    FirstName = "System",
+                    LastName = "Administrator",
                     Email = "admin@thermacore.com",
-                    Sifre = _cryptoService.EncryptMd5("thermacore"),
-                    KullaniciRoluId = adminRol.Id,
-                    Durum = true
+                    Password = _cryptoService.EncryptMd5("thermacore"),
+                    UserRoleId = adminRol.Id,
+                    IsActive = true
                 };
                 
-                _context.Kullanicilar.Add(adminKullanici);
+                _context.Users.Add(adminKullanici);
                 await _context.SaveChangesAsync();
             }
         }
 
         if (ilIlceYuklensin)
         {
-            // İleride 81 ilin temel insert işlemleri buraya eklenecektir.
+            // Future database seed operations
         }
     }
 }

@@ -7,12 +7,11 @@ using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
 using ThermaCore.Application.Interfaces.Base;
-using ThermaCore.Presentation.WinForms.Helpers;
+using ThermaCore.Application.DTOs.Base;
 using ThermaCore.Domain.Entities.Base;
-using ThermaCore.Domain.Entities.Base.Interfaces;
 using ThermaCore.Presentation.WinForms.Forms.BaseForms;
-using ThermaCore.Presentation.WinForms.Helpers;
 using ThermaCore.Presentation.WinForms.Interfaces;
+using ThermaCore.Presentation.WinForms.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -115,7 +114,7 @@ namespace ThermaCore.Presentation.WinForms.UserControls.Base
             if (Tablo.DataRowCount == 0) return;    //kayıt yoksa return yap
             if (Messages.SilMesaj("İşlem Satırı") != DialogResult.Yes) return;   //yes e basılmadıysa return yap
 
-            Tablo.GetRow<IBaseHareketEntity>().Delete = true;
+            Tablo.GetRow<BaseHareketDto>().Delete = true;
             Tablo.RefreshData();
             ButonEnabledDurumu(true);
         }
@@ -164,7 +163,7 @@ namespace ThermaCore.Presentation.WinForms.UserControls.Base
 
             if (Messages.HayirSeciliEvetHayir("Tüm Kayıtlar Silinecektir. Onaylıyor Musunuz?", "Tüm Kayıtları Silme Onayı") != DialogResult.Yes) return;
 
-            var source = Tablo.DataController.ListSource.Cast<IBaseHareketEntity>().ToList();
+            var source = Tablo.DataController.ListSource.Cast<BaseHareketDto>().ToList();
 
             foreach (var entity in source)
             {
@@ -189,9 +188,9 @@ namespace ThermaCore.Presentation.WinForms.UserControls.Base
             insUptNavigator.Navigator.Buttons.DoClick(insUptNavigator.Navigator.Buttons.EndEdit); //end edit butonuna tıklanmış gibi işlem yap (kullanıcı girdiği sayıyı onaylamadan kaydet butonuna basarsa kaydetsin diye)
             var source = Tablo.DataController.ListSource;
 
-            var insert = source.Cast<IBaseHareketEntity>().Where(x => x.Insert && !x.Delete).Cast<BaseHareketEntity>().ToList();
-            var update = source.Cast<IBaseHareketEntity>().Where(x => x.Update && !x.Delete).Cast<BaseHareketEntity>().ToList();
-            var delete = source.Cast<IBaseHareketEntity>().Where(x => x.Delete && !x.Insert).Cast<BaseHareketEntity>().ToList();//(1:28:00)
+            var insert = source.Cast<BaseHareketDto>().Where(x => x.Insert && !x.Delete).Cast<BaseHareketDto>().ToList();
+            var update = source.Cast<BaseHareketDto>().Where(x => x.Update && !x.Delete).Cast<BaseHareketDto>().ToList();
+            var delete = source.Cast<BaseHareketDto>().Where(x => x.Delete && !x.Insert).Cast<BaseHareketDto>().ToList();//(1:28:00)
 
             if (insert.Any())//insertde değer varsa
                 if (!((IBaseHareketService)Bll).Insert(insert))
@@ -271,7 +270,7 @@ namespace ThermaCore.Presentation.WinForms.UserControls.Base
         {
             if (!_isLoaded) return;
 
-            var entity = Tablo.GetRow<IBaseHareketEntity>();
+            var entity = Tablo.GetRow<BaseHareketDto>();
             if (!entity.Insert)
                 entity.Update = true;
 

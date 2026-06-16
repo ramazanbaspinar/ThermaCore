@@ -12,7 +12,7 @@ namespace ThermaCore.Application.Services.Base;
 public abstract class BaseMasterManager<TListDto, TDto, TEntity> 
     where TListDto : class
     where TDto : BaseDto 
-    where TEntity : BaseEntity
+    where TEntity : Entity
 {
     protected readonly IMapper _mapper;
     protected readonly IMasterRepository<TEntity> _repository;

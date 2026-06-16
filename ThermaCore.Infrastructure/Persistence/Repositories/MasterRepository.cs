@@ -3,11 +3,11 @@ using System.Linq;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using ThermaCore.Application.Interfaces.Repositories;
-using ThermaCore.Domain.Entities.Base.Interfaces;
+using ThermaCore.Domain.Entities.Base;
 
 namespace ThermaCore.Infrastructure.Persistence.Repositories;
 
-public class MasterRepository<TEntity> : IMasterRepository<TEntity> where TEntity : class, IBaseEntity
+public class MasterRepository<TEntity> : IMasterRepository<TEntity> where TEntity : Entity
 {
     protected readonly ThermaCoreMasterContext _context;
     protected readonly DbSet<TEntity> _dbSet;

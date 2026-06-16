@@ -4,8 +4,8 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using ThermaCore.Domain.Entities.Base.Interfaces;
-using ThermaCore.Domain.Entities.Yonetim;
+using ThermaCore.Domain.Entities.Base;
+using ThermaCore.Domain.Entities.Management;
 using ThermaCore.Domain.Entities.System;
 
 namespace ThermaCore.Infrastructure.Persistence;
@@ -16,25 +16,25 @@ public class ThermaCoreMasterContext : DbContext
     {
     }
 
-    public DbSet<KullaniciRolu> KullaniciRolleri { get; set; }
-    public DbSet<Kullanici> Kullanicilar { get; set; }
-    public DbSet<ModulIslemYetkisi> ModulIslemYetkileri { get; set; }
-    public DbSet<KullaniciBazliModulIslemYetkisi> KullaniciBazliModulIslemYetkileri { get; set; }
-    public DbSet<Terminal> Terminaller { get; set; }
-    public DbSet<KullaniciOturum> KullaniciOturumlari { get; set; }
-    public DbSet<SistemVeritabani> SistemVeritabanlari { get; set; }
+    public DbSet<UserRole> UserRoles { get; set; }
+    public DbSet<User> Users { get; set; }
+    public DbSet<ModulePermission> ModulePermissions { get; set; }
+    public DbSet<UserPermission> UserPermissions { get; set; }
+    public DbSet<Terminal> Terminals { get; set; }
+    public DbSet<UserSession> UserSessions { get; set; }
+    public DbSet<TenantDatabase> TenantDatabases { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
 
-        // Global Query Filter: ISoftDelete interface'ine sahip olanlara otomatik filtre ekler
+        // Global Query Filter: FullAuditableEntity'den türeyenlere otomatik IsDeleted = false filtresi ekler
         foreach (var entityType in modelBuilder.Model.GetEntityTypes())
         {
-            if (typeof(ISoftDelete).IsAssignableFrom(entityType.ClrType))
+            if (typeof(FullAuditableEntity).IsAssignableFrom(entityType.ClrType))
             {
                 var parameter = global::System.Linq.Expressions.Expression.Parameter(entityType.ClrType, "e");
-                var property = global::System.Linq.Expressions.Expression.Property(parameter, nameof(ISoftDelete.IsDeleted));
+                var property = global::System.Linq.Expressions.Expression.Property(parameter, nameof(FullAuditableEntity.IsDeleted));
                 var falseConstant = global::System.Linq.Expressions.Expression.Constant(false);
                 var body = global::System.Linq.Expressions.Expression.Equal(property, falseConstant);
                 var lambda = global::System.Linq.Expressions.Expression.Lambda(body, parameter);
@@ -62,7 +62,7 @@ public class ThermaCoreMasterContext : DbContext
 
         foreach (var entry in entries)
         {
-            if (entry.Entity is IAuditableEntity auditableEntity)
+            if (entry.Entity is AuditableEntity auditableEntity)
             {
                 long currentUserId = 1; 
 
@@ -76,12 +76,12 @@ public class ThermaCoreMasterContext : DbContext
                     auditableEntity.ModifiedDate = DateTime.Now;
                     auditableEntity.ModifiedUserId = currentUserId;
                     
-                    entry.Property(nameof(IAuditableEntity.CreatedDate)).IsModified = false;
-                    entry.Property(nameof(IAuditableEntity.CreatedUserId)).IsModified = false;
+                    entry.Property(nameof(AuditableEntity.CreatedDate)).IsModified = false;
+                    entry.Property(nameof(AuditableEntity.CreatedUserId)).IsModified = false;
                 }
             }
 
-            if (entry.Entity is ISoftDelete softDeleteEntity && entry.State == EntityState.Deleted)
+            if (entry.Entity is FullAuditableEntity softDeleteEntity && entry.State == EntityState.Deleted)
             {
                 entry.State = EntityState.Modified;
                 softDeleteEntity.IsDeleted = true;

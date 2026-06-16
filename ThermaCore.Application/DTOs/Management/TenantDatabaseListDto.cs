@@ -1,0 +1,16 @@
+using ThermaCore.Domain.Enums;
+
+namespace ThermaCore.Application.DTOs.Management;
+
+public class TenantDatabaseListDto
+{
+    public long Id { get; set; }
+    public string Code { get; set; } = string.Empty;
+    public bool IsActive { get; set; }
+    
+    public string CompanyCode { get; set; } = string.Empty;
+    public string CompanyName { get; set; } = string.Empty;
+    public string DatabaseName { get; set; } = string.Empty;
+    public string Server { get; set; } = string.Empty;
+    public AuthenticationType AuthType { get; set; }
+}

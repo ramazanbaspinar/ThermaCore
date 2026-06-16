@@ -2,15 +2,23 @@ using System;
 using System.IO;
 using System.Text.Json;
 using ThermaCore.Application.Interfaces.Configuration;
+using ThermaCore.Application.Interfaces.Security;
+using ThermaCore.Infrastructure.Security;
 
 namespace ThermaCore.Infrastructure.Configuration;
 
 public class AppConfigService : IAppConfigService
 {
     private readonly string _settingsPath;
+    private readonly ICryptoService _cryptoService;
 
-    public AppConfigService()
+    public AppConfigService() : this(new CryptoService())
     {
+    }
+
+    public AppConfigService(ICryptoService cryptoService)
+    {
+        _cryptoService = cryptoService;
         string appData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
         string folder = Path.Combine(appData, "ThermaCore");
         if (!Directory.Exists(folder))
@@ -49,14 +57,25 @@ public class AppConfigService : IAppConfigService
 
     public string GetConnectionString()
     {
-        return LoadSettings().ConnectionString;
+        string encrypted = LoadSettings().ConnectionString;
+        if (string.IsNullOrEmpty(encrypted))
+            return string.Empty;
+
+        try
+        {
+            return _cryptoService.Decrypt(encrypted);
+        }
+        catch
+        {
+            // Deşifre edilemezse (örneğin önceden şifresiz kaydedilmişse) düz metin olarak döner
+            return encrypted;
+        }
     }
 
     public void SetConnectionString(string connectionString)
     {
-        // İleride şifreleme/çözme mekanizmaları eklenebilir
         var settings = LoadSettings();
-        settings.ConnectionString = connectionString;
+        settings.ConnectionString = _cryptoService.Encrypt(connectionString);
         SaveSettings(settings);
     }
 

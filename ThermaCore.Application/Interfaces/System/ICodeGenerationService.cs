@@ -4,5 +4,5 @@ namespace ThermaCore.Application.Interfaces.System;
 
 public interface ICodeGenerationService
 {
-    string GetNewCode(ModulTuru modul);
+    string GetNewCode(ModuleType modul);
 }
