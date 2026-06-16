@@ -145,4 +145,16 @@
   <data name="snapdeletelist" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\snapdeletelist.svg;DevExpress.Utils.Svg.SvgImage, DevExpress.Data.v25.2, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
   </data>
+  <data name="bo_document" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bo_document.svg;DevExpress.Utils.Svg.SvgImage, DevExpress.Data.v25.2, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
+  </data>
+  <data name="bo_validation" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bo_validation.svg;DevExpress.Utils.Svg.SvgImage, DevExpress.Data.v25.2, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
+  </data>
+  <data name="compressweekend" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\compressweekend.svg;DevExpress.Utils.Svg.SvgImage, DevExpress.Data.v25.2, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
+  </data>
+  <data name="exportas" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\exportas.svg;DevExpress.Utils.Svg.SvgImage, DevExpress.Data.v25.2, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
+  </data>
 </root>
