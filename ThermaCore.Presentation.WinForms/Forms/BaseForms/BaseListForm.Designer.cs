@@ -29,9 +29,6 @@
         private void InitializeComponent()
         {
             ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
-            ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
-            ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            ribbonStatusBar = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             btnYeni = new DevExpress.XtraBars.BarButtonItem();
             btnSil = new DevExpress.XtraBars.BarButtonItem();
             btnSec = new DevExpress.XtraBars.BarButtonItem();
@@ -43,6 +40,9 @@
             btnKapat = new DevExpress.XtraBars.BarButtonItem();
             barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
             btnDisariAktar = new DevExpress.XtraBars.BarSubItem();
+            ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
+            ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            ribbonStatusBar = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             ((System.ComponentModel.ISupportInitialize)ribbon).BeginInit();
             SuspendLayout();
             // 
@@ -67,34 +67,6 @@
             ribbon.StatusBar = ribbonStatusBar;
             ribbon.Toolbar.ShowCustomizeItem = false;
             ribbon.ToolbarLocation = DevExpress.XtraBars.Ribbon.RibbonQuickAccessToolbarLocation.Hidden;
-            // 
-            // ribbonPage1
-            // 
-            ribbonPage1.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] { ribbonPageGroup1 });
-            ribbonPage1.Name = "ribbonPage1";
-            ribbonPage1.Text = "ribbonPage1";
-            // 
-            // ribbonPageGroup1
-            // 
-            ribbonPageGroup1.ItemLinks.Add(btnYeni);
-            ribbonPageGroup1.ItemLinks.Add(btnSil);
-            ribbonPageGroup1.ItemLinks.Add(btnSec);
-            ribbonPageGroup1.ItemLinks.Add(btnDuzelt);
-            ribbonPageGroup1.ItemLinks.Add(btnYenile);
-            ribbonPageGroup1.ItemLinks.Add(btnKolonlar);
-            ribbonPageGroup1.ItemLinks.Add(btnYazdir);
-            ribbonPageGroup1.ItemLinks.Add(btnBaskiOnizle);
-            ribbonPageGroup1.ItemLinks.Add(btnDisariAktar);
-            ribbonPageGroup1.ItemLinks.Add(btnKapat);
-            ribbonPageGroup1.Name = "ribbonPageGroup1";
-            ribbonPageGroup1.Text = "ribbonPageGroup1";
-            // 
-            // ribbonStatusBar
-            // 
-            ribbonStatusBar.Location = new Point(0, 401);
-            ribbonStatusBar.Name = "ribbonStatusBar";
-            ribbonStatusBar.Ribbon = ribbon;
-            ribbonStatusBar.Size = new Size(814, 24);
             // 
             // btnYeni
             // 
@@ -180,6 +152,34 @@
             btnDisariAktar.ImageOptions.SvgImage = Properties.Resources.exportas;
             btnDisariAktar.Name = "btnDisariAktar";
             // 
+            // ribbonPage1
+            // 
+            ribbonPage1.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] { ribbonPageGroup1 });
+            ribbonPage1.Name = "ribbonPage1";
+            ribbonPage1.Text = "ribbonPage1";
+            // 
+            // ribbonPageGroup1
+            // 
+            ribbonPageGroup1.ItemLinks.Add(btnYeni);
+            ribbonPageGroup1.ItemLinks.Add(btnSil);
+            ribbonPageGroup1.ItemLinks.Add(btnSec);
+            ribbonPageGroup1.ItemLinks.Add(btnDuzelt);
+            ribbonPageGroup1.ItemLinks.Add(btnYenile);
+            ribbonPageGroup1.ItemLinks.Add(btnKolonlar);
+            ribbonPageGroup1.ItemLinks.Add(btnYazdir);
+            ribbonPageGroup1.ItemLinks.Add(btnBaskiOnizle);
+            ribbonPageGroup1.ItemLinks.Add(btnDisariAktar);
+            ribbonPageGroup1.ItemLinks.Add(btnKapat);
+            ribbonPageGroup1.Name = "ribbonPageGroup1";
+            ribbonPageGroup1.Text = "ribbonPageGroup1";
+            // 
+            // ribbonStatusBar
+            // 
+            ribbonStatusBar.Location = new Point(0, 401);
+            ribbonStatusBar.Name = "ribbonStatusBar";
+            ribbonStatusBar.Ribbon = ribbon;
+            ribbonStatusBar.Size = new Size(814, 24);
+            // 
             // BaseListForm
             // 
             AutoScaleDimensions = new SizeF(6F, 13F);
@@ -193,7 +193,6 @@
             Ribbon = ribbon;
             ShowInTaskbar = false;
             StatusBar = ribbonStatusBar;
-            Text = "BaseListForm";
             ((System.ComponentModel.ISupportInitialize)ribbon).EndInit();
             ResumeLayout(false);
             PerformLayout();
