@@ -6,21 +6,16 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ThermaCore.Domain.Entities.Base.Interfaces;
 using ThermaCore.Domain.Entities.Yonetim;
+using ThermaCore.Domain.Entities.System;
 
 namespace ThermaCore.Infrastructure.Persistence;
 
-public class ThermaCoreContext : DbContext
+public class ThermaCoreTenantContext : DbContext
 {
-    public ThermaCoreContext(DbContextOptions<ThermaCoreContext> options) : base(options)
+    public ThermaCoreTenantContext(DbContextOptions<ThermaCoreTenantContext> options) : base(options)
     {
     }
 
-    public DbSet<KullaniciRolu> KullaniciRolleri { get; set; }
-    public DbSet<Kullanici> Kullanicilar { get; set; }
-    public DbSet<ModulIslemYetkisi> ModulIslemYetkileri { get; set; }
-    public DbSet<KullaniciBazliModulIslemYetkisi> KullaniciBazliModulIslemYetkileri { get; set; }
-    public DbSet<Terminal> Terminaller { get; set; }
-    public DbSet<KullaniciOturum> KullaniciOturumlari { get; set; }
     public DbSet<KodSablon> KodSablonlari { get; set; }
     public DbSet<KullaniciArayuzSablonu> KullaniciArayuzSablonlari { get; set; }
 
@@ -34,13 +29,15 @@ public class ThermaCoreContext : DbContext
         // Global Query Filter: ISoftDelete interface'ine sahip olanlara otomatik filtre ekler
         foreach (var entityType in modelBuilder.Model.GetEntityTypes())
         {
+            entityType.SetTableName("TCORE_" + entityType.GetTableName());
+
             if (typeof(ISoftDelete).IsAssignableFrom(entityType.ClrType))
             {
-                var parameter = System.Linq.Expressions.Expression.Parameter(entityType.ClrType, "e");
-                var property = System.Linq.Expressions.Expression.Property(parameter, nameof(ISoftDelete.IsDeleted));
-                var falseConstant = System.Linq.Expressions.Expression.Constant(false);
-                var body = System.Linq.Expressions.Expression.Equal(property, falseConstant);
-                var lambda = System.Linq.Expressions.Expression.Lambda(body, parameter);
+                var parameter = global::System.Linq.Expressions.Expression.Parameter(entityType.ClrType, "e");
+                var property = global::System.Linq.Expressions.Expression.Property(parameter, nameof(ISoftDelete.IsDeleted));
+                var falseConstant = global::System.Linq.Expressions.Expression.Constant(false);
+                var body = global::System.Linq.Expressions.Expression.Equal(property, falseConstant);
+                var lambda = global::System.Linq.Expressions.Expression.Lambda(body, parameter);
 
                 modelBuilder.Entity(entityType.ClrType).HasQueryFilter(lambda);
             }

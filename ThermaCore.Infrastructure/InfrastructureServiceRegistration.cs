@@ -17,10 +17,14 @@ public static class InfrastructureServiceRegistration
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, string connectionString)
     {
         // DbContext
-        services.AddDbContext<ThermaCoreContext>(options =>
+        services.AddDbContext<ThermaCoreMasterContext>(options =>
+            options.UseSqlServer(connectionString));
+
+        services.AddDbContext<ThermaCoreTenantContext>(options =>
             options.UseSqlServer(connectionString));
 
         // Repositories & UoW
+        services.AddScoped(typeof(IMasterRepository<>), typeof(MasterRepository<>));
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
@@ -30,6 +34,7 @@ public static class InfrastructureServiceRegistration
         services.AddScoped<IAppConfigService, AppConfigService>();
 
         services.AddScoped<ThermaCore.Application.Interfaces.System.IDatabaseSeederService, ThermaCore.Infrastructure.System.DatabaseSeederManager>();
+        services.AddScoped<ThermaCore.Application.Interfaces.System.ITenantDatabaseService, ThermaCore.Infrastructure.System.TenantDatabaseManager>();
         services.AddScoped<IHardwareInfoService, HardwareInfoService>();
         services.AddScoped<ILicenseService, LicenseService>();
 

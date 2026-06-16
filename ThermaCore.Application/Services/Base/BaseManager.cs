@@ -9,7 +9,8 @@ using ThermaCore.Domain.Entities.Base;
 
 namespace ThermaCore.Application.Services.Base;
 
-public abstract class BaseManager<TDto, TEntity> 
+public abstract class BaseManager<TListDto, TDto, TEntity> 
+    where TListDto : class
     where TDto : BaseDto 
     where TEntity : BaseEntity
 {
@@ -32,10 +33,10 @@ public abstract class BaseManager<TDto, TEntity>
         return _mapper.Map<TDto>(entity);
     }
 
-    public virtual IEnumerable<TDto> GetAll()
+    public virtual IEnumerable<TListDto> GetAll()
     {
         var entities = _repository.GetAll().ToList();
-        return _mapper.Map<IEnumerable<TDto>>(entities);
+        return _mapper.Map<IEnumerable<TListDto>>(entities);
     }
 
     public virtual long Insert(TDto dto)

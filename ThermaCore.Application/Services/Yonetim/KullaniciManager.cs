@@ -9,14 +9,14 @@ using ThermaCore.Domain.Entities.Yonetim;
 
 namespace ThermaCore.Application.Services.Yonetim;
 
-public class KullaniciManager : BaseManager<KullaniciDto, Kullanici>, IKullaniciService
+public class KullaniciManager : BaseMasterManager<KullaniciListDto, KullaniciDto, Kullanici>, IKullaniciService
 {
     private readonly ICryptoService _cryptoService;
 
     public KullaniciManager(
         IMapper mapper, 
-        IRepository<Kullanici> repository, 
-        IUnitOfWork unitOfWork, 
+        IMasterRepository<Kullanici> repository, 
+        IMasterUnitOfWork unitOfWork, 
         IValidator<KullaniciDto> validator,
         ICryptoService cryptoService) 
         : base(mapper, repository, unitOfWork, validator)
@@ -24,7 +24,7 @@ public class KullaniciManager : BaseManager<KullaniciDto, Kullanici>, IKullanici
         _cryptoService = cryptoService;
     }
 
-    public KullaniciDto KullaniciGirisYap(string kod, string sifre)
+    public KullaniciDto? KullaniciGirisYap(string kod, string sifre)
     {
         // Durumu aktif olan ve Kodu eşleşen kullanıcıyı bul
         var kullanici = _repository.Find(k => k.Kod == kod && k.Durum).FirstOrDefault();

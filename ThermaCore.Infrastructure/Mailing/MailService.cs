@@ -1,5 +1,6 @@
 using System;
 using System.Net.Mail;
+using ThermaCore.Application.Interfaces.Mailing;
 
 namespace ThermaCore.Infrastructure.Mailing;
 

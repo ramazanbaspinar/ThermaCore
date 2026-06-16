@@ -7,12 +7,12 @@ using ThermaCore.Domain.Entities.Yonetim;
 
 namespace ThermaCore.Application.Services.Yonetim;
 
-public class KullaniciRoluManager : BaseManager<KullaniciRoluDto, KullaniciRolu>, IKullaniciRoluService
+public class KullaniciRoluManager : BaseMasterManager<KullaniciRoluListDto, KullaniciRoluDto, KullaniciRolu>, IKullaniciRoluService
 {
     public KullaniciRoluManager(
         IMapper mapper, 
-        IRepository<KullaniciRolu> repository, 
-        IUnitOfWork unitOfWork, 
+        IMasterRepository<KullaniciRolu> repository, 
+        IMasterUnitOfWork unitOfWork, 
         IValidator<KullaniciRoluDto> validator) 
         : base(mapper, repository, unitOfWork, validator)
     {

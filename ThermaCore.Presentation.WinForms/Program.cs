@@ -16,6 +16,8 @@ namespace ThermaCore.Presentation.WinForms;
 
 internal static class Program
 {
+    public static IServiceProvider ServiceProvider { get; private set; } = default!;
+
     [STAThread]
     static void Main()
     {
@@ -43,7 +45,7 @@ internal static class Program
 
         if (!isConnected)
         {
-            Application.Run(new BaglantiAyarlariForm(configService));
+            System.Windows.Forms.Application.Run(new BaglantiAyarlariForm(configService));
             
             connectionString = configService.GetConnectionString();
             if (string.IsNullOrEmpty(connectionString))
@@ -75,6 +77,8 @@ internal static class Program
             })
             .Build();
 
+        ServiceProvider = host.Services;
+
         using (var scope = host.Services.CreateScope())
         {
             var services = scope.ServiceProvider;
@@ -100,6 +104,6 @@ internal static class Program
         }
 
         var mainForm = host.Services.GetRequiredService<GirisForm>();
-        Application.Run(mainForm);
+        System.Windows.Forms.Application.Run(mainForm);
     }
 }

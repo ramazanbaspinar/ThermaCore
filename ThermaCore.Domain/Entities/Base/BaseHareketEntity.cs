@@ -5,7 +5,7 @@ using ThermaCore.Domain.Entities.Base.Interfaces;
 
 namespace ThermaCore.Domain.Entities.Base;
 
-public abstract class BaseHareketEntity : IAuditableEntity, ISoftDelete
+public abstract class BaseHareketEntity : IAuditableEntity, ISoftDelete, IBaseHareketEntity
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -21,4 +21,14 @@ public abstract class BaseHareketEntity : IAuditableEntity, ISoftDelete
     public bool IsDeleted { get; set; } = false;
     public DateTime? DeletedDate { get; set; }
     public long? DeletedUserId { get; set; }
+
+    // UI Tracking (NotMapped)
+    [NotMapped]
+    public bool Insert { get; set; }
+
+    [NotMapped]
+    public bool Update { get; set; }
+
+    [NotMapped]
+    public bool Delete { get; set; }
 }

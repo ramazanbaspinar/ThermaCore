@@ -9,10 +9,10 @@ namespace ThermaCore.Infrastructure.Persistence.Repositories;
 
 public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, IBaseEntity
 {
-    protected readonly ThermaCoreContext _context;
+    protected readonly ThermaCoreTenantContext _context;
     protected readonly DbSet<TEntity> _dbSet;
 
-    public Repository(ThermaCoreContext context)
+    public Repository(ThermaCoreTenantContext context)
     {
         _context = context;
         _dbSet = _context.Set<TEntity>();
@@ -20,7 +20,7 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, I
 
     public TEntity GetById(long id)
     {
-        return _dbSet.Find(id);
+        return _dbSet.Find(id)!;
     }
 
     public IQueryable<TEntity> GetAll()

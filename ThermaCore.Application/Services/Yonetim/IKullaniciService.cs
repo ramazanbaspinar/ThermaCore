@@ -11,5 +11,5 @@ public interface IKullaniciService
     void Update(KullaniciDto dto);
     void Delete(long id);
 
-    KullaniciDto KullaniciGirisYap(string kod, string sifre);
+    KullaniciDto? KullaniciGirisYap(string kod, string sifre);
 }

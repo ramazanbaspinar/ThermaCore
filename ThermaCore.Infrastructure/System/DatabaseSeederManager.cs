@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
 using ThermaCore.Application.Interfaces.Security;
@@ -9,10 +10,10 @@ namespace ThermaCore.Infrastructure.System;
 
 public class DatabaseSeederManager : IDatabaseSeederService
 {
-    private readonly ThermaCoreContext _context;
+    private readonly ThermaCoreMasterContext _context;
     private readonly ICryptoService _cryptoService;
 
-    public DatabaseSeederManager(ThermaCoreContext context, ICryptoService cryptoService)
+    public DatabaseSeederManager(ThermaCoreMasterContext context, ICryptoService cryptoService)
     {
         _context = context;
         _cryptoService = cryptoService;

@@ -5,9 +5,9 @@ namespace ThermaCore.Infrastructure.Persistence.Repositories;
 
 public class UnitOfWork : IUnitOfWork
 {
-    private readonly ThermaCoreContext _context;
+    private readonly ThermaCoreTenantContext _context;
 
-    public UnitOfWork(ThermaCoreContext context)
+    public UnitOfWork(ThermaCoreTenantContext context)
     {
         _context = context;
     }

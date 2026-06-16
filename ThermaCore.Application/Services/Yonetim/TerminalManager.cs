@@ -8,12 +8,12 @@ using ThermaCore.Domain.Entities.Yonetim;
 
 namespace ThermaCore.Application.Services.Yonetim;
 
-public class TerminalManager : BaseManager<TerminalDto, Terminal>, ITerminalService
+public class TerminalManager : BaseMasterManager<TerminalListDto, TerminalDto, Terminal>, ITerminalService
 {
     public TerminalManager(
         IMapper mapper, 
-        IRepository<Terminal> repository, 
-        IUnitOfWork unitOfWork, 
+        IMasterRepository<Terminal> repository, 
+        IMasterUnitOfWork unitOfWork, 
         IValidator<TerminalDto> validator) 
         : base(mapper, repository, unitOfWork, validator)
     {
