@@ -27,6 +27,7 @@ public static class InfrastructureServiceRegistration
         services.AddScoped(typeof(IMasterRepository<>), typeof(MasterRepository<>));
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<IMasterUnitOfWork, MasterUnitOfWork>();
 
         // Infrastructure Services
         services.AddScoped<ICryptoService, CryptoService>();
