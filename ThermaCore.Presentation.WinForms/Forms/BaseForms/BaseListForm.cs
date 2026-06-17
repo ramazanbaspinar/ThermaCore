@@ -6,10 +6,11 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using ThermaCore.Application.Interfaces.System;
 using ThermaCore.Presentation.WinForms.Helpers;
+using DevExpress.XtraBars.Ribbon;
 
 namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
 {
-    public partial class BaseListForm : DevExpress.XtraBars.Ribbon.RibbonForm
+    public partial class BaseListForm : RibbonForm
     {
         protected GridView Tablo = default!;
         protected bool AktifKartlariGoster = true;
@@ -20,6 +21,8 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
 
         public BaseListForm()
         {
+            InitializeComponent();
+            
             if (!IsDesignMode)
             {
                 this.Load += BaseListForm_Load;

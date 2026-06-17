@@ -202,17 +202,17 @@
         private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPage1;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup1;
         private DevExpress.XtraBars.Ribbon.RibbonStatusBar ribbonStatusBar;
-        private DevExpress.XtraBars.BarButtonItem btnYeni;
-        private DevExpress.XtraBars.BarButtonItem btnSil;
-        private DevExpress.XtraBars.BarButtonItem btnSec;
         protected DevExpress.XtraBars.Ribbon.RibbonControl ribbon;
-        private DevExpress.XtraBars.BarButtonItem btnDuzelt;
-        private DevExpress.XtraBars.BarButtonItem btnYenile;
-        private DevExpress.XtraBars.BarButtonItem btnKolonlar;
-        private DevExpress.XtraBars.BarButtonItem btnYazdir;
-        private DevExpress.XtraBars.BarButtonItem btnBaskiOnizle;
-        private DevExpress.XtraBars.BarButtonItem btnKapat;
         private DevExpress.XtraBars.BarButtonItem barButtonItem1;
-        private DevExpress.XtraBars.BarSubItem btnDisariAktar;
+        protected DevExpress.XtraBars.BarButtonItem btnYeni;
+        protected DevExpress.XtraBars.BarButtonItem btnSil;
+        protected DevExpress.XtraBars.BarButtonItem btnSec;
+        protected DevExpress.XtraBars.BarButtonItem btnDuzelt;
+        protected DevExpress.XtraBars.BarButtonItem btnYenile;
+        protected DevExpress.XtraBars.BarButtonItem btnKolonlar;
+        protected DevExpress.XtraBars.BarButtonItem btnYazdir;
+        protected DevExpress.XtraBars.BarButtonItem btnBaskiOnizle;
+        protected DevExpress.XtraBars.BarButtonItem btnKapat;
+        protected DevExpress.XtraBars.BarSubItem btnDisariAktar;
     }
 }

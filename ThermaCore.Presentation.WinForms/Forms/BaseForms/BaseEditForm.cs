@@ -1,4 +1,5 @@
 using DevExpress.XtraBars;
+using DevExpress.XtraBars.Ribbon;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.ComponentModel;
@@ -9,7 +10,7 @@ using ThermaCore.Domain.Enums;
 
 namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
 {
-    public partial class BaseEditForm : DevExpress.XtraBars.Ribbon.RibbonForm
+    public partial class BaseEditForm : RibbonForm
     {
         protected long Id;
         protected ActionType BaseIslemTuru;
@@ -19,12 +20,17 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
         protected bool FormSablonKaydet = true;
 
         // UI nesnelerinin eksikliği nedeniyle derleme hatası vermemesi için
+        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public BarStaticItem statusBarAciklama { get; set; } = new BarStaticItem();
+        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public BarStaticItem statusBarKisaYol { get; set; } = new BarStaticItem();
+        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public BarStaticItem statusBarKisaYolAciklama { get; set; } = new BarStaticItem();
 
         public BaseEditForm()
         {
+            InitializeComponent();
+            
             if (!IsDesignMode)
             {
                 this.Load += BaseEditForm_Load;

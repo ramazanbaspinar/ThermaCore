@@ -42,12 +42,9 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             picExit = new DevExpress.XtraEditors.PictureEdit();
             panel6 = new Panel();
             pictureEdit4 = new DevExpress.XtraEditors.PictureEdit();
-            gluFabrika = new DevExpress.XtraEditors.GridLookUpEdit();
-            gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
             panel5 = new Panel();
+            gluSirket = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyLookUpEdit();
             pictureEdit3 = new DevExpress.XtraEditors.PictureEdit();
-            gluSirket = new DevExpress.XtraEditors.GridLookUpEdit();
-            gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             btnGiris = new DevExpress.XtraEditors.SimpleButton();
             panel4 = new Panel();
             txtSifre = new DevExpress.XtraEditors.TextEdit();
@@ -55,6 +52,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             panel2 = new Panel();
             txtKullaniciAdi = new DevExpress.XtraEditors.TextEdit();
             pictureEdit1 = new DevExpress.XtraEditors.PictureEdit();
+            gluFabrika = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyLookUpEdit();
             panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel1.SuspendLayout();
@@ -63,18 +61,16 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             ((System.ComponentModel.ISupportInitialize)picExit.Properties).BeginInit();
             panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureEdit4.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)gluFabrika.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)gridView2).BeginInit();
             panel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureEdit3.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)gluSirket.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)gridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureEdit3.Properties).BeginInit();
             panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)txtSifre.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picPassword.Properties).BeginInit();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)txtKullaniciAdi.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureEdit1.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)gluFabrika.Properties).BeginInit();
             SuspendLayout();
             // 
             // panel3
@@ -203,8 +199,8 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 
             // panel6
             // 
-            panel6.Controls.Add(pictureEdit4);
             panel6.Controls.Add(gluFabrika);
+            panel6.Controls.Add(pictureEdit4);
             panel6.Location = new Point(1, 115);
             panel6.Name = "panel6";
             panel6.Size = new Size(263, 33);
@@ -219,31 +215,42 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             pictureEdit4.Size = new Size(24, 28);
             pictureEdit4.TabIndex = 5;
             // 
-            // gluFabrika
-            // 
-            gluFabrika.Location = new Point(31, 6);
-            gluFabrika.Name = "gluFabrika";
-            gluFabrika.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
-            gluFabrika.Properties.NullText = "";
-            gluFabrika.Properties.PopupView = gridView2;
-            gluFabrika.Size = new Size(222, 20);
-            gluFabrika.TabIndex = 0;
-            // 
-            // gridView2
-            // 
-            gridView2.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
-            gridView2.Name = "gridView2";
-            gridView2.OptionsSelection.EnableAppearanceFocusedCell = false;
-            gridView2.OptionsView.ShowGroupPanel = false;
-            // 
             // panel5
             // 
-            panel5.Controls.Add(pictureEdit3);
             panel5.Controls.Add(gluSirket);
+            panel5.Controls.Add(pictureEdit3);
             panel5.Location = new Point(0, 75);
             panel5.Name = "panel5";
             panel5.Size = new Size(263, 33);
             panel5.TabIndex = 5;
+            // 
+            // gluSirket
+            // 
+            gluSirket.EnterMoveNextControl = true;
+            gluSirket.Location = new Point(32, 5);
+            gluSirket.Name = "gluSirket";
+            gluSirket.Properties.Appearance.Font = new Font("Segoe UI", 9F);
+            gluSirket.Properties.Appearance.Options.UseFont = true;
+            gluSirket.Properties.AppearanceDisabled.Font = new Font("Segoe UI", 9F);
+            gluSirket.Properties.AppearanceDisabled.Options.UseFont = true;
+            gluSirket.Properties.AppearanceDropDown.Font = new Font("Segoe UI", 9F);
+            gluSirket.Properties.AppearanceDropDown.Options.UseFont = true;
+            gluSirket.Properties.AppearanceDropDownHeader.Font = new Font("Segoe UI", 9F);
+            gluSirket.Properties.AppearanceDropDownHeader.Options.UseFont = true;
+            gluSirket.Properties.AppearanceFocused.BackColor = Color.FromArgb(255, 255, 192);
+            gluSirket.Properties.AppearanceFocused.Font = new Font("Segoe UI", 9F);
+            gluSirket.Properties.AppearanceFocused.Options.UseBackColor = true;
+            gluSirket.Properties.AppearanceFocused.Options.UseFont = true;
+            gluSirket.Properties.AppearanceReadOnly.Font = new Font("Segoe UI", 9F);
+            gluSirket.Properties.AppearanceReadOnly.Options.UseFont = true;
+            gluSirket.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
+            gluSirket.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] { new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Id", "Id", 20, DevExpress.Utils.FormatType.None, "", false, DevExpress.Utils.HorzAlignment.Default, DevExpress.Data.ColumnSortOrder.None, DevExpress.Utils.DefaultBoolean.Default), new DevExpress.XtraEditors.Controls.LookUpColumnInfo("CompanyName", "Şirket Adı") });
+            gluSirket.Properties.NullText = " ";
+            gluSirket.Size = new Size(222, 22);
+            gluSirket.StatusBarAciklama = null;
+            gluSirket.StatusBarKisaYol = "F4 :";
+            gluSirket.StatusBarKisaYolAciklama = null;
+            gluSirket.TabIndex = 5;
             // 
             // pictureEdit3
             // 
@@ -253,23 +260,6 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             pictureEdit3.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
             pictureEdit3.Size = new Size(24, 28);
             pictureEdit3.TabIndex = 4;
-            // 
-            // gluSirket
-            // 
-            gluSirket.Location = new Point(32, 7);
-            gluSirket.Name = "gluSirket";
-            gluSirket.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
-            gluSirket.Properties.NullText = "";
-            gluSirket.Properties.PopupView = gridView1;
-            gluSirket.Size = new Size(222, 20);
-            gluSirket.TabIndex = 0;
-            // 
-            // gridView1
-            // 
-            gridView1.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
-            gridView1.Name = "gridView1";
-            gridView1.OptionsSelection.EnableAppearanceFocusedCell = false;
-            gridView1.OptionsView.ShowGroupPanel = false;
             // 
             // btnGiris
             // 
@@ -342,6 +332,33 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             pictureEdit1.Size = new Size(24, 28);
             pictureEdit1.TabIndex = 2;
             // 
+            // gluFabrika
+            // 
+            gluFabrika.EnterMoveNextControl = true;
+            gluFabrika.Location = new Point(31, 6);
+            gluFabrika.Name = "gluFabrika";
+            gluFabrika.Properties.Appearance.Font = new Font("Segoe UI", 9F);
+            gluFabrika.Properties.Appearance.Options.UseFont = true;
+            gluFabrika.Properties.AppearanceDisabled.Font = new Font("Segoe UI", 9F);
+            gluFabrika.Properties.AppearanceDisabled.Options.UseFont = true;
+            gluFabrika.Properties.AppearanceDropDown.Font = new Font("Segoe UI", 9F);
+            gluFabrika.Properties.AppearanceDropDown.Options.UseFont = true;
+            gluFabrika.Properties.AppearanceDropDownHeader.Font = new Font("Segoe UI", 9F);
+            gluFabrika.Properties.AppearanceDropDownHeader.Options.UseFont = true;
+            gluFabrika.Properties.AppearanceFocused.BackColor = Color.FromArgb(255, 255, 192);
+            gluFabrika.Properties.AppearanceFocused.Font = new Font("Segoe UI", 9F);
+            gluFabrika.Properties.AppearanceFocused.Options.UseBackColor = true;
+            gluFabrika.Properties.AppearanceFocused.Options.UseFont = true;
+            gluFabrika.Properties.AppearanceReadOnly.Font = new Font("Segoe UI", 9F);
+            gluFabrika.Properties.AppearanceReadOnly.Options.UseFont = true;
+            gluFabrika.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
+            gluFabrika.Properties.NullText = " ";
+            gluFabrika.Size = new Size(222, 22);
+            gluFabrika.StatusBarAciklama = null;
+            gluFabrika.StatusBarKisaYol = "F4 :";
+            gluFabrika.StatusBarKisaYolAciklama = null;
+            gluFabrika.TabIndex = 6;
+            // 
             // GirisForm
             // 
             Appearance.Options.UseFont = true;
@@ -366,18 +383,16 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             ((System.ComponentModel.ISupportInitialize)picExit.Properties).EndInit();
             panel6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureEdit4.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)gluFabrika.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)gridView2).EndInit();
             panel5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureEdit3.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)gluSirket.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)gridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureEdit3.Properties).EndInit();
             panel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)txtSifre.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)picPassword.Properties).EndInit();
             panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)txtKullaniciAdi.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureEdit1.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)gluFabrika.Properties).EndInit();
             ResumeLayout(false);
 
         }
@@ -395,11 +410,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
         private DevExpress.XtraEditors.TextEdit txtKullaniciAdi;
         private DevExpress.XtraEditors.SimpleButton btnGiris;
         private System.Windows.Forms.Panel panel6;
-        private DevExpress.XtraEditors.GridLookUpEdit gluFabrika;
-        private DevExpress.XtraGrid.Views.Grid.GridView gridView2;
         private System.Windows.Forms.Panel panel5;
-        private DevExpress.XtraEditors.GridLookUpEdit gluSirket;
-        private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
         private DevExpress.XtraEditors.PictureEdit btnBaglantiAyarlari;
         private DevExpress.XtraEditors.PictureEdit picExit;
         private DevExpress.XtraEditors.PictureEdit pictureEdit4;
@@ -409,5 +420,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
         private DevExpress.XtraEditors.LabelControl lblVersiyon;
         private ThermaCore.Presentation.WinForms.UserControls.Controls.MyHyperlinkLabelControl linkSifremi;
         private DevExpress.XtraEditors.LabelControl lblLisansKalanGun;
+        private UserControls.Controls.MyLookUpEdit gluSirket;
+        private UserControls.Controls.MyLookUpEdit gluFabrika;
     }
 }

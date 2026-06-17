@@ -79,9 +79,22 @@ public class AppConfigService : IAppConfigService
         SaveSettings(settings);
     }
 
+    public long GetLastTenantId()
+    {
+        return LoadSettings().LastTenantId;
+    }
+
+    public void SetLastTenantId(long tenantId)
+    {
+        var settings = LoadSettings();
+        settings.LastTenantId = tenantId;
+        SaveSettings(settings);
+    }
+
     private class SettingsModel
     {
         public string LastLoginUser { get; set; } = string.Empty;
+        public long LastTenantId { get; set; } = 0;
         public string ConnectionString { get; set; } = string.Empty;
     }
 }

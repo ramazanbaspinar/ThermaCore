@@ -1,5 +1,4 @@
-﻿#pragma warning disable CS8618
-namespace ThermaCore.Presentation.WinForms.UserControls.Controls.Navigators
+﻿namespace RbaYazilim.WinRezistans.UI.Win.UserControls.Controls.Navigators
 {
     partial class SmallNavigator
     {
@@ -67,9 +66,13 @@ namespace ThermaCore.Presentation.WinForms.UserControls.Controls.Navigators
             // imageCollection
             // 
             this.imageCollection.ImageStream = ((DevExpress.Utils.ImageCollectionStreamer)(resources.GetObject("imageCollection.ImageStream")));
+            this.imageCollection.InsertImage(global::ThermaCore.Presentation.WinForms.Properties.Resources.first_16x16, "first_16x16", typeof(global::ThermaCore.Presentation.WinForms.Properties.Resources), 0);
             this.imageCollection.Images.SetKeyName(0, "first_16x16");
+            this.imageCollection.InsertImage(global::ThermaCore.Presentation.WinForms.Properties.Resources.prev_16x16, "prev_16x16", typeof(global::ThermaCore.Presentation.WinForms.Properties.Resources), 1);
             this.imageCollection.Images.SetKeyName(1, "prev_16x16");
+            this.imageCollection.InsertImage(global::ThermaCore.Presentation.WinForms.Properties.Resources.next_16x16, "next_16x16", typeof(global::ThermaCore.Presentation.WinForms.Properties.Resources), 2);
             this.imageCollection.Images.SetKeyName(2, "next_16x16");
+            this.imageCollection.InsertImage(global::ThermaCore.Presentation.WinForms.Properties.Resources.last_16x16, "last_16x16", typeof(global::ThermaCore.Presentation.WinForms.Properties.Resources), 3);
             this.imageCollection.Images.SetKeyName(3, "last_16x16");
             // 
             // SmallNavigator
@@ -90,8 +93,3 @@ namespace ThermaCore.Presentation.WinForms.UserControls.Controls.Navigators
         protected internal DevExpress.XtraEditors.ControlNavigator Navigator;
     }
 }
-
-
-
-
-

@@ -36,20 +36,39 @@ public class DatabaseSeederManager : IDatabaseSeederService
             _context.UserRoles.Add(adminRol);
             await _context.SaveChangesAsync();
 
-            if (!_context.Users.Any(k => k.Code == "ADMIN"))
+            if (!_context.Users.Any(k => k.Code.ToLower() == "thermacore"))
             {
                 var adminKullanici = new User
                 {
-                    Code = "ADMIN",
+                    Code = "thermacore",
                     FirstName = "System",
                     LastName = "Administrator",
                     Email = "admin@thermacore.com",
-                    Password = _cryptoService.EncryptMd5("thermacore"),
+                    Password = _cryptoService.EncryptMd5("ThermaCoreMaster!"),
                     UserRoleId = adminRol.Id,
                     IsActive = true
                 };
                 
                 _context.Users.Add(adminKullanici);
+                await _context.SaveChangesAsync();
+            }
+
+            if (!_context.TenantDatabases.Any(t => t.CompanyCode == "000"))
+            {
+                var defaultTenant = new TenantDatabase
+                {
+                    Code = "000",
+                    CompanyCode = "000",
+                    CompanyName = "ThermaCore",
+                    DatabaseName = "ThermaCore_Tenant_000",
+                    Server = "(localdb)\\MSSQLLocalDB",
+                    AuthType = ThermaCore.Domain.Enums.AuthenticationType.SqlServer,
+                    Username = "sa",
+                    Password = _cryptoService.Encrypt("sa"),
+                    IsActive = true
+                };
+
+                _context.TenantDatabases.Add(defaultTenant);
                 await _context.SaveChangesAsync();
             }
         }

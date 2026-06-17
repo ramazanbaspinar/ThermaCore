@@ -33,12 +33,20 @@ public class AuthManager : IAuthService
 
     public Task<List<TenantDatabaseDto>> GetAllowedTenantsByUsernameAsync(string username)
     {
-        // Kullanıcı varlık kontrolü (kullanıcı bazlı kısıtlama yapılacaksa UserTenant çapraz tablosundan süzülebilir)
-        var userExists = _userRepository.Find(u => u.Code == username && u.IsActive).Any();
-        if (!userExists)
+        // Şimdilik sistemdeki tüm aktif şirketler dönülüyor.
+        // TODO: İleride yetki (M2M) tablosu eklendiğinde Admin değilse sadece yetkili olduğu şirketler dönülecek.
+        var user = _userRepository.Find(u => u.Code.ToLower() == username.ToLower() && u.IsActive).FirstOrDefault();
+        if (user == null)
             return Task.FromResult(new List<TenantDatabaseDto>());
 
-        // Şimdilik sistemdeki tüm aktif tenantlar (firmalar) dönülüyor.
+        // Admin ise tüm aktif şirketleri listele
+        if (username.ToLower() == "admin")
+        {
+            var allTenants = _tenantRepository.Find(t => t.IsActive).ToList();
+            return Task.FromResult(_mapper.Map<List<TenantDatabaseDto>>(allTenants));
+        }
+
+        // İleride normal kullanıcılar için M2M UserTenant sorgusu gelecek, şimdilik hepsi
         var tenants = _tenantRepository.Find(t => t.IsActive).ToList();
         return Task.FromResult(_mapper.Map<List<TenantDatabaseDto>>(tenants));
     }
@@ -67,7 +75,7 @@ public class AuthManager : IAuthService
         if (tenant == null || !tenant.IsActive)
         {
             result.IsSuccess = false;
-            result.ErrorMessage = "Seçilen firma bulunamadı veya pasif.";
+            result.ErrorMessage = "Seçilen şirket bulunamadı veya pasif.";
             return Task.FromResult(result);
         }
 
@@ -76,13 +84,18 @@ public class AuthManager : IAuthService
         
         // TenantDatabase nesnesinden dinamik ConnectionString oluşturulması
         // Güvenlik gereği AuthType'a göre Windows Authentication veya SQL Authentication stringi oluşturulabilir.
-        result.TenantConnectionString = $"Server={tenant.Server};Database={tenant.DatabaseName};User Id={tenant.Username};Password={tenant.Password};TrustServerCertificate=True;";
+        string decryptedPassword = string.IsNullOrEmpty(tenant.Password) ? "" : _cryptoService.Decrypt(tenant.Password);
+        result.TenantConnectionString = $"Server={tenant.Server};Database={tenant.DatabaseName};User Id={tenant.Username};Password={decryptedPassword};TrustServerCertificate=True;";
 
         return Task.FromResult(result);
     }
 
-    public Task<bool> CheckTerminalAccessAsync(string hardwareFingerprint, long tenantId)
+    public Task<bool> CheckTerminalAccessAsync(string username, string hardwareFingerprint, long tenantId)
     {
+        // thermacore (SuperAdmin) kullanıcısı için terminal kontrolünü atla (Bypass)
+        if (username.ToLower() == "thermacore")
+            return Task.FromResult(true);
+
         var terminal = _terminalRepository
             .Find(t => t.HardwareFingerprint == hardwareFingerprint && t.IsActive)
             .FirstOrDefault();

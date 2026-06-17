@@ -40,6 +40,28 @@ public class ThermaCoreTenantContext : DbContext
 
                 modelBuilder.Entity(entityType.ClrType).HasQueryFilter(lambda);
             }
+
+            // Index Optimizasyonları (Performans artışı için)
+            if (typeof(AuditableEntity).IsAssignableFrom(entityType.ClrType))
+            {
+                modelBuilder.Entity(entityType.ClrType).HasIndex(nameof(AuditableEntity.CreatedDate));
+            }
+            if (typeof(FullAuditableEntity).IsAssignableFrom(entityType.ClrType))
+            {
+                modelBuilder.Entity(entityType.ClrType).HasIndex(nameof(FullAuditableEntity.IsDeleted));
+            }
+
+            var isActiveProp = entityType.ClrType.GetProperty("IsActive");
+            if (isActiveProp != null)
+            {
+                modelBuilder.Entity(entityType.ClrType).HasIndex("IsActive");
+            }
+
+            var codeProp = entityType.ClrType.GetProperty("Code");
+            if (codeProp != null)
+            {
+                modelBuilder.Entity(entityType.ClrType).HasIndex("Code");
+            }
         }
     }
 

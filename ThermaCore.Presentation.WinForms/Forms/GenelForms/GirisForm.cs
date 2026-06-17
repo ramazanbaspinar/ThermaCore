@@ -1,11 +1,14 @@
 using DevExpress.XtraEditors;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Configuration;
 using System.Windows.Forms;
 using System.Threading.Tasks;
 using ThermaCore.Application.Interfaces.Security;
 using ThermaCore.Application.Interfaces.System;
-using ThermaCore.Application.Services.Management; // IAuthService'in bulunduğu doğru namespace
+using ThermaCore.Application.Services.Management; 
+using ThermaCore.Application.Interfaces.Configuration;
+using ThermaCore.Presentation.WinForms.Helpers;
 
 namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
 {
@@ -17,6 +20,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
         private readonly ILicenseService _licenseService;
         private readonly IHardwareInfoService _hardwareService;
         private readonly ISessionService _sessionService;
+        private readonly IAppConfigService _appConfigService;
 
         // DI Container üzerinden servisleri alan Constructor
         public GirisForm(
@@ -24,7 +28,8 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             ITenantDatabaseService tenantService,
             ILicenseService licenseService,
             IHardwareInfoService hardwareService,
-            ISessionService sessionService)
+            ISessionService sessionService,
+            IAppConfigService appConfigService)
         {
             InitializeComponent();
             _authService = authService;
@@ -32,12 +37,14 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             _licenseService = licenseService;
             _hardwareService = hardwareService;
             _sessionService = sessionService;
+            _appConfigService = appConfigService;
 
             // Event bağlamaları (Designer'da yoksa diye kodla da bağlanabilir)
             this.Load += GirisForm_Load;
             this.btnGiris.Click += btnGiris_Click;
             this.txtKullaniciAdi.Leave += txtKullaniciAdi_Leave;
             this.gluSirket.EditValueChanged += gluSirket_EditValueChanged;
+            this.picExit.Click += picExit_Click;
         }
 
         private void GirisForm_Load(object? sender, EventArgs e)
@@ -65,11 +72,41 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             {
                 lblLisansKalanGun.Text = "Lisans Durumu: Geçersiz / Süresi Dolmuş";
             }
+
+            // 3. Yerel Ayarlardan (AppConfig) Son Kullanıcı ve Şirket Bilgilerini Getir
+            string lastUser = _appConfigService.GetLastLoginUser();
+            if (!string.IsNullOrEmpty(lastUser))
+            {
+                txtKullaniciAdi.Text = lastUser;
+                // Leave eventindeki işlemleri asenkron olarak manuel tetikleyip son tenant'ı seç
+                _ = LoadUserTenantsAsync(lastUser);
+            }
+        }
+
+        private async Task LoadUserTenantsAsync(string username)
+        {
+            try
+            {
+                var tenants = await _authService.GetAllowedTenantsByUsernameAsync(username);
+                if (tenants != null && tenants.Count > 0)
+                {
+                    gluSirket.Properties.DataSource = tenants;
+                    gluSirket.Properties.DisplayMember = "CompanyName";
+                    gluSirket.Properties.ValueMember = "Id";
+
+                    long lastTenantId = _appConfigService.GetLastTenantId();
+                    if (lastTenantId > 0)
+                    {
+                        gluSirket.EditValue = lastTenantId;
+                    }
+                }
+            }
+            catch { /* Ignore background load errors */ }
         }
 
         private async void txtKullaniciAdi_Leave(object? sender, EventArgs e)
         {
-            // 2. Kullanıcı Adı Doğrulama ve Firma Yükleme
+            // 2. Kullanıcı Adı Doğrulama ve Şirket Yükleme
             string username = txtKullaniciAdi.Text.Trim();
             if (string.IsNullOrEmpty(username)) return;
 
@@ -78,20 +115,20 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
                 // Kullanıcının Master DB'de tanımlı ve yetkili olduğu Tenant'ları getirir
                 var tenants = await _authService.GetAllowedTenantsByUsernameAsync(username);
                 
-                if (tenants != null)
+                if (tenants != null && tenants.Count > 0)
                 {
                     gluSirket.Properties.DataSource = tenants;
-                    gluSirket.Properties.DisplayMember = "Name"; // DB'den gelen Firma Adı kolonu
-                    gluSirket.Properties.ValueMember = "Id";     // DB'den gelen Firma Id kolonu
+                    gluSirket.Properties.DisplayMember = "CompanyName"; // DB'den gelen Şirket Adı kolonu
+                    gluSirket.Properties.ValueMember = "Id";     // DB'den gelen Şirket Id kolonu
                 }
                 else
                 {
-                    XtraMessageBox.Show("Bu kullanıcıya tanımlı herhangi bir firma (Tenant) bulunamadı.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    Messages.UyariBasligi("Bu kullanıcıya tanımlı herhangi bir şirket (Tenant) bulunamadı.", "Uyarı");
                 }
             }
             catch (Exception ex)
             {
-                XtraMessageBox.Show("Firma bilgileri getirilirken hata oluştu: " + ex.Message, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Messages.HataBasligi("Şirket bilgileri getirilirken hata oluştu: " + ex.Message, "Hata");
             }
         }
 
@@ -117,7 +154,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             
             if (gluSirket.EditValue == null)
             {
-                XtraMessageBox.Show("Lütfen giriş yapılacak firmayı (Sirket) seçiniz.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                Messages.UyariBasligi("Lütfen giriş yapılacak şirketi seçiniz.", "Uyarı");
                 return;
             }
 
@@ -130,16 +167,16 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
                 
                 if (loginResult != null && loginResult.IsSuccess)
                 {
-                    // Tenant Routing: Seçili firmanın veritabanı bağlantı cümlesini aktif (Scoped) Context'e ayarla
+                    // Tenant Routing: Seçili şirketin veritabanı bağlantı cümlesini aktif (Scoped) Context'e ayarla
                     // _tenantService.SetCurrentTenantConnectionString(loginResult.TenantConnectionString);
 
                     // Donanım bilgisi alarak Terminal / Cihaz yetki kontrolü (Hardware Fingerprint)
                     string fingerprint = _hardwareService.GetMachineFingerprint();
-                    bool isTerminalValid = await _authService.CheckTerminalAccessAsync(fingerprint, tenantId);
+                    bool isTerminalValid = await _authService.CheckTerminalAccessAsync(username, fingerprint, tenantId);
 
                     if (!isTerminalValid)
                     {
-                        XtraMessageBox.Show("Bu bilgisayardan/cihazdan (Terminal) bu firmaya giriş yapma yetkiniz bulunmamaktadır.", "Erişim Engellendi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        Messages.HataBasligi("Bu bilgisayardan/cihazdan (Terminal) bu şirkete giriş yapma yetkiniz bulunmamaktadır.", "Erişim Engellendi");
                         return;
                     }
 
@@ -148,23 +185,24 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
                     string pcName = Environment.MachineName;
                     await _sessionService.StartSessionAsync(loginResult.UserId, ipAddress, pcName);
 
+                    // Başarılı Girişte Hafızaya Yazma (Settings Cache)
+                    _appConfigService.SetLastLoginUser(username);
+                    _appConfigService.SetLastTenantId(tenantId);
+
                     // Mevcut formu gizle, Ana Formu göster
                     this.Hide();
                     
-                    // TODO: İleride yazılacak MainForm örneği
-                    // MainForm mainForm = new MainForm(); 
-                    // mainForm.Show();
-                    
-                    XtraMessageBox.Show("Giriş Başarılı! Ana sayfaya yönlendiriliyorsunuz.", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    var anaForm = Program.ServiceProvider.GetRequiredService<ThermaCore.Presentation.WinForms.Forms.GenelForms.AnaForm>();
+                    anaForm.Show();
                 }
                 else
                 {
-                    XtraMessageBox.Show("Kullanıcı adı veya şifre hatalı.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Messages.HataBasligi("Kullanıcı adı veya şifre hatalı.", "Hata");
                 }
             }
             catch (Exception ex)
             {
-                XtraMessageBox.Show("Giriş yapılırken beklenmeyen bir hata oluştu: " + ex.Message, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Messages.HataBasligi("Giriş yapılırken beklenmeyen bir hata oluştu: " + ex.Message, "Hata");
             }
         }
 
@@ -184,6 +222,11 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
                 txtSifre.Focus();
             else
                 txtKullaniciAdi.Focus();
+        }
+
+        private void picExit_Click(object? sender, EventArgs e)
+        {
+            System.Windows.Forms.Application.ExitThread();
         }
 
         public string GetConnectionString()

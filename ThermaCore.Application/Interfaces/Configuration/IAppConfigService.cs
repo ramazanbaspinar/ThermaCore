@@ -6,4 +6,6 @@ public interface IAppConfigService
     void SetLastLoginUser(string username);
     string GetConnectionString();
     void SetConnectionString(string connectionString);
+    long GetLastTenantId();
+    void SetLastTenantId(long tenantId);
 }

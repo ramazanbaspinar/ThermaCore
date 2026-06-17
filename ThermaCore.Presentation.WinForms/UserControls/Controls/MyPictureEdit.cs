@@ -5,7 +5,7 @@ using ThermaCore.Presentation.WinForms.Interfaces;
 using System.ComponentModel;
 using System.Drawing;
 
-namespace ThermaCore.Presentation.WinForms.UserControls
+namespace ThermaCore.Presentation.WinForms.UserControls.Controls
 {
     [ToolboxItem(true)]
     public class MyPictureEdit : PictureEdit, IStatusBarKisaYol

@@ -30,7 +30,7 @@ namespace ThermaCore.Presentation.WinForms.UserControls.Base
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.insUptNavigator = new ThermaCore.Presentation.WinForms.UserControls.Controls.Navigators.InsUptNavigator();
+            this.insUptNavigator = new RbaYazilim.WinRezistans.UI.Win.UserControls.Controls.Navigators.InsUptNavigator();
             this.popupMenu = new DevExpress.XtraBars.PopupMenu(this.components);
             this.btnHareketEkle = new DevExpress.XtraBars.BarButtonItem();
             this.btnHareketSil = new DevExpress.XtraBars.BarButtonItem();
@@ -222,7 +222,7 @@ namespace ThermaCore.Presentation.WinForms.UserControls.Base
         }
 
         #endregion
-        protected Controls.Navigators.InsUptNavigator insUptNavigator;
+        protected RbaYazilim.WinRezistans.UI.Win.UserControls.Controls.Navigators.InsUptNavigator insUptNavigator;
         protected DevExpress.XtraBars.PopupMenu popupMenu;
         private DevExpress.XtraBars.BarManager barManager;
         private DevExpress.XtraBars.BarDockControl barDockControlTop;
