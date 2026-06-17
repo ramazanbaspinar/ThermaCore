@@ -41,7 +41,17 @@ public static class Messages
         return XtraMessageBox.Show(mesaj, baslik, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
     }
 
-    public static void KayitMesaj()
+    public static DialogResult KayitMesaj()
+    {
+        return EvetSeciliEvetHayir("Kaydetmek İstiyor Musunuz?", "Kayıt Onayı");
+    }
+
+    public static DialogResult KapanisMesaj()
+    {
+        return EvetSeciliEvetHayirIptal("Kapatırken Değişiklikler Kaydedilsin Mi?", "Kapanış Onayı");
+    }
+
+    public static void KayitBasariliMesaji()
     {
         XtraMessageBox.Show("Kayıt işlemi başarıyla tamamlandı.", "Kayıt Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
     }

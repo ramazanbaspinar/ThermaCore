@@ -38,6 +38,7 @@ public static class InfrastructureServiceRegistration
         services.AddScoped<ThermaCore.Application.Interfaces.System.ITenantDatabaseService, ThermaCore.Infrastructure.System.TenantDatabaseManager>();
         services.AddScoped<IHardwareInfoService, HardwareInfoService>();
         services.AddScoped<ILicenseService, LicenseService>();
+        services.AddSingleton<ThermaCore.Application.Interfaces.System.ILayoutService, ThermaCore.Infrastructure.Services.System.LayoutService>();
 
         return services;
     }

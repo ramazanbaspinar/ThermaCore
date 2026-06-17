@@ -44,7 +44,7 @@
             // ribbon
             // 
             ribbon.ExpandCollapseItem.Id = 0;
-            ribbon.Size = new Size(666, 135);
+            ribbon.Size = new Size(1106, 135);
             ribbon.Toolbar.ShowCustomizeItem = false;
             // 
             // btnDisariAktar
@@ -55,9 +55,9 @@
             // 
             longNavigator1.Dock = DockStyle.Bottom;
             longNavigator1.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 162);
-            longNavigator1.Location = new Point(0, 302);
+            longNavigator1.Location = new Point(0, 418);
             longNavigator1.Name = "longNavigator1";
-            longNavigator1.Size = new Size(666, 30);
+            longNavigator1.Size = new Size(1106, 30);
             longNavigator1.TabIndex = 2;
             // 
             // myGridControl1
@@ -67,7 +67,7 @@
             myGridControl1.MainView = myGridView1;
             myGridControl1.MenuManager = ribbon;
             myGridControl1.Name = "myGridControl1";
-            myGridControl1.Size = new Size(666, 167);
+            myGridControl1.Size = new Size(1106, 283);
             myGridControl1.TabIndex = 3;
             myGridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] { myGridView1 });
             // 
@@ -136,6 +136,7 @@
             myGridView1.StatusBarAciklama = null;
             myGridView1.StatusBarKisaYol = null;
             myGridView1.StatusBarKisaYolAciklama = null;
+            myGridView1.ViewCaption = "Şirketler";
             // 
             // colId
             // 
@@ -160,7 +161,7 @@
             colKod.AppearanceHeader.Options.UseFont = true;
             colKod.AppearanceHeader.Options.UseForeColor = true;
             colKod.Caption = "Kod";
-            colKod.FieldName = "Kod";
+            colKod.FieldName = "CompanyCode";
             colKod.Name = "colKod";
             colKod.OptionsColumn.AllowEdit = false;
             colKod.StatusBarAciklama = null;
@@ -181,7 +182,7 @@
             colSirketAdi.AppearanceHeader.Options.UseFont = true;
             colSirketAdi.AppearanceHeader.Options.UseForeColor = true;
             colSirketAdi.Caption = "Şirket Adı";
-            colSirketAdi.FieldName = "SirketAdi";
+            colSirketAdi.FieldName = "CompanyName";
             colSirketAdi.Name = "colSirketAdi";
             colSirketAdi.OptionsColumn.AllowEdit = false;
             colSirketAdi.StatusBarAciklama = null;
@@ -202,7 +203,7 @@
             colVeritabaniAdi.AppearanceHeader.Options.UseFont = true;
             colVeritabaniAdi.AppearanceHeader.Options.UseForeColor = true;
             colVeritabaniAdi.Caption = "Veritabanı Adı";
-            colVeritabaniAdi.FieldName = "VeritabaniAdi";
+            colVeritabaniAdi.FieldName = "DatabaseName";
             colVeritabaniAdi.Name = "colVeritabaniAdi";
             colVeritabaniAdi.OptionsColumn.AllowEdit = false;
             colVeritabaniAdi.StatusBarAciklama = null;
@@ -216,7 +217,7 @@
             // 
             AutoScaleDimensions = new SizeF(6F, 13F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(666, 356);
+            ClientSize = new Size(1106, 472);
             Controls.Add(myGridControl1);
             Controls.Add(longNavigator1);
             IconOptions.ShowIcon = false;

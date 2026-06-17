@@ -27,6 +27,7 @@ public class DatabaseSeederManager : IDatabaseSeederService
         {
             var adminRol = new UserRole
             {
+                Id = 1,
                 Code = "ADMIN_ROLE",
                 RoleName = "System Administrator",
                 Description = "The most authorized role in the system. Full access to all modules.",
@@ -40,11 +41,12 @@ public class DatabaseSeederManager : IDatabaseSeederService
             {
                 var adminKullanici = new User
                 {
+                    Id = 1,
                     Code = "thermacore",
                     FirstName = "System",
                     LastName = "Administrator",
                     Email = "admin@thermacore.com",
-                    Password = _cryptoService.EncryptMd5("ThermaCoreMaster!"),
+                    Password = _cryptoService.EncryptMd5("thermacore!"),
                     UserRoleId = adminRol.Id,
                     IsActive = true
                 };
@@ -57,6 +59,7 @@ public class DatabaseSeederManager : IDatabaseSeederService
             {
                 var defaultTenant = new TenantDatabase
                 {
+                    Id = 1,
                     Code = "000",
                     CompanyCode = "000",
                     CompanyName = "ThermaCore",

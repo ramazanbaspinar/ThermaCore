@@ -40,6 +40,14 @@
             btnKapat = new DevExpress.XtraBars.BarButtonItem();
             barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
             btnDisariAktar = new DevExpress.XtraBars.BarSubItem();
+            btnExcelDosyalari = new DevExpress.XtraBars.BarSubItem();
+            btnStandartExcelDosyasi = new DevExpress.XtraBars.BarButtonItem();
+            btnFormatliExcelDosyasi = new DevExpress.XtraBars.BarButtonItem();
+            btnFormatsizExcelDosyasi = new DevExpress.XtraBars.BarButtonItem();
+            btnWordDosyasi = new DevExpress.XtraBars.BarButtonItem();
+            btnPdfDosyasi = new DevExpress.XtraBars.BarButtonItem();
+            btnTxtDosyasi = new DevExpress.XtraBars.BarButtonItem();
+            btnAktifPasifKayitlar = new DevExpress.XtraBars.BarButtonItem();
             ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             ribbonStatusBar = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
@@ -51,9 +59,9 @@
             ribbon.DrawGroupCaptions = DevExpress.Utils.DefaultBoolean.False;
             ribbon.DrawGroupsBorderMode = DevExpress.Utils.DefaultBoolean.False;
             ribbon.ExpandCollapseItem.Id = 0;
-            ribbon.Items.AddRange(new DevExpress.XtraBars.BarItem[] { ribbon.ExpandCollapseItem, btnYeni, btnSil, btnSec, btnDuzelt, btnYenile, btnKolonlar, btnYazdir, btnBaskiOnizle, btnKapat, barButtonItem1, btnDisariAktar });
+            ribbon.Items.AddRange(new DevExpress.XtraBars.BarItem[] { ribbon.ExpandCollapseItem, btnYeni, btnSil, btnSec, btnDuzelt, btnYenile, btnKolonlar, btnYazdir, btnBaskiOnizle, btnKapat, barButtonItem1, btnDisariAktar, btnAktifPasifKayitlar, btnExcelDosyalari, btnWordDosyasi, btnPdfDosyasi, btnTxtDosyasi, btnStandartExcelDosyasi, btnFormatliExcelDosyasi, btnFormatsizExcelDosyasi });
             ribbon.Location = new Point(0, 0);
-            ribbon.MaxItemId = 12;
+            ribbon.MaxItemId = 20;
             ribbon.Name = "ribbon";
             ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] { ribbonPage1 });
             ribbon.ShowApplicationButton = DevExpress.Utils.DefaultBoolean.False;
@@ -130,6 +138,7 @@
             btnBaskiOnizle.ImageOptions.SvgImage = Properties.Resources.showprintpreview;
             btnBaskiOnizle.ItemShortcut = new DevExpress.XtraBars.BarShortcut(Keys.Control | Keys.Shift | Keys.P);
             btnBaskiOnizle.Name = "btnBaskiOnizle";
+            btnBaskiOnizle.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
             // 
             // btnKapat
             // 
@@ -150,7 +159,72 @@
             btnDisariAktar.Caption = "Dışarı Aktar";
             btnDisariAktar.Id = 11;
             btnDisariAktar.ImageOptions.SvgImage = Properties.Resources.exportas;
+            btnDisariAktar.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] { new DevExpress.XtraBars.LinkPersistInfo(btnExcelDosyalari), new DevExpress.XtraBars.LinkPersistInfo(btnWordDosyasi), new DevExpress.XtraBars.LinkPersistInfo(btnPdfDosyasi), new DevExpress.XtraBars.LinkPersistInfo(btnTxtDosyasi) });
             btnDisariAktar.Name = "btnDisariAktar";
+            // 
+            // btnExcelDosyalari
+            // 
+            btnExcelDosyalari.Caption = "Excel Dosyaları";
+            btnExcelDosyalari.Id = 13;
+            btnExcelDosyalari.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] { new DevExpress.XtraBars.LinkPersistInfo(btnStandartExcelDosyasi), new DevExpress.XtraBars.LinkPersistInfo(btnFormatliExcelDosyasi), new DevExpress.XtraBars.LinkPersistInfo(btnFormatsizExcelDosyasi) });
+            btnExcelDosyalari.Name = "btnExcelDosyalari";
+            // 
+            // btnStandartExcelDosyasi
+            // 
+            btnStandartExcelDosyasi.Caption = "Excel Dosyası ( Standart )";
+            btnStandartExcelDosyasi.Id = 17;
+            btnStandartExcelDosyasi.Name = "btnStandartExcelDosyasi";
+            // 
+            // btnFormatliExcelDosyasi
+            // 
+            btnFormatliExcelDosyasi.Caption = "Excel Dosyası ( Formatlı ) ";
+            btnFormatliExcelDosyasi.Id = 18;
+            btnFormatliExcelDosyasi.Name = "btnFormatliExcelDosyasi";
+            // 
+            // btnFormatsizExcelDosyasi
+            // 
+            btnFormatsizExcelDosyasi.Caption = "Excel Dosyası ( Formatsız )";
+            btnFormatsizExcelDosyasi.Id = 19;
+            btnFormatsizExcelDosyasi.Name = "btnFormatsizExcelDosyasi";
+            // 
+            // btnWordDosyasi
+            // 
+            btnWordDosyasi.Caption = "Word Dosyası";
+            btnWordDosyasi.Id = 14;
+            btnWordDosyasi.Name = "btnWordDosyasi";
+            // 
+            // btnPdfDosyasi
+            // 
+            btnPdfDosyasi.Caption = "Pdf Dosyası";
+            btnPdfDosyasi.Id = 15;
+            btnPdfDosyasi.Name = "btnPdfDosyasi";
+            // 
+            // btnTxtDosyasi
+            // 
+            btnTxtDosyasi.Caption = "Txt Dosyası";
+            btnTxtDosyasi.Id = 16;
+            btnTxtDosyasi.Name = "btnTxtDosyasi";
+            // 
+            // btnAktifPasifKayitlar
+            // 
+            btnAktifPasifKayitlar.Alignment = DevExpress.XtraBars.BarItemLinkAlignment.Right;
+            btnAktifPasifKayitlar.Caption = "Pasif Kayıtlar";
+            btnAktifPasifKayitlar.Id = 12;
+            btnAktifPasifKayitlar.ImageOptions.Image = Properties.Resources.breakingchange_16x16;
+            btnAktifPasifKayitlar.ImageOptions.LargeImage = Properties.Resources.breakingchange_32x32;
+            btnAktifPasifKayitlar.ItemAppearance.Hovered.Font = new Font("Segoe UI", 8.25F, FontStyle.Bold);
+            btnAktifPasifKayitlar.ItemAppearance.Hovered.ForeColor = Color.DarkBlue;
+            btnAktifPasifKayitlar.ItemAppearance.Hovered.Options.UseFont = true;
+            btnAktifPasifKayitlar.ItemAppearance.Hovered.Options.UseForeColor = true;
+            btnAktifPasifKayitlar.ItemAppearance.Normal.Font = new Font("Segoe UI", 8.25F, FontStyle.Bold);
+            btnAktifPasifKayitlar.ItemAppearance.Normal.ForeColor = Color.Maroon;
+            btnAktifPasifKayitlar.ItemAppearance.Normal.Options.UseFont = true;
+            btnAktifPasifKayitlar.ItemAppearance.Normal.Options.UseForeColor = true;
+            btnAktifPasifKayitlar.ItemAppearance.Pressed.Font = new Font("Segoe UI", 8.25F, FontStyle.Bold);
+            btnAktifPasifKayitlar.ItemAppearance.Pressed.ForeColor = Color.Maroon;
+            btnAktifPasifKayitlar.ItemAppearance.Pressed.Options.UseFont = true;
+            btnAktifPasifKayitlar.ItemAppearance.Pressed.Options.UseForeColor = true;
+            btnAktifPasifKayitlar.Name = "btnAktifPasifKayitlar";
             // 
             // ribbonPage1
             // 
@@ -175,6 +249,7 @@
             // 
             // ribbonStatusBar
             // 
+            ribbonStatusBar.ItemLinks.Add(btnAktifPasifKayitlar);
             ribbonStatusBar.Location = new Point(0, 401);
             ribbonStatusBar.Name = "ribbonStatusBar";
             ribbonStatusBar.Ribbon = ribbon;
@@ -214,5 +289,13 @@
         protected DevExpress.XtraBars.BarButtonItem btnBaskiOnizle;
         protected DevExpress.XtraBars.BarButtonItem btnKapat;
         protected DevExpress.XtraBars.BarSubItem btnDisariAktar;
+        protected internal DevExpress.XtraBars.BarButtonItem btnAktifPasifKayitlar;
+        private DevExpress.XtraBars.BarSubItem btnExcelDosyalari;
+        private DevExpress.XtraBars.BarButtonItem btnStandartExcelDosyasi;
+        private DevExpress.XtraBars.BarButtonItem btnFormatliExcelDosyasi;
+        private DevExpress.XtraBars.BarButtonItem btnFormatsizExcelDosyasi;
+        private DevExpress.XtraBars.BarButtonItem btnWordDosyasi;
+        private DevExpress.XtraBars.BarButtonItem btnPdfDosyasi;
+        private DevExpress.XtraBars.BarButtonItem btnTxtDosyasi;
     }
 }

@@ -96,6 +96,7 @@
             btnYenile.ImageOptions.SvgImage = Properties.Resources.convertto;
             btnYenile.ItemShortcut = new DevExpress.XtraBars.BarShortcut(Keys.F5);
             btnYenile.Name = "btnYenile";
+            btnYenile.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
             // 
             // btnYazdir
             // 
@@ -104,6 +105,7 @@
             btnYazdir.ImageOptions.SvgImage = Properties.Resources.print;
             btnYazdir.ItemShortcut = new DevExpress.XtraBars.BarShortcut(Keys.Control | Keys.P);
             btnYazdir.Name = "btnYazdir";
+            btnYazdir.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
             // 
             // btnBaskiOnizle
             // 
@@ -112,6 +114,7 @@
             btnBaskiOnizle.ImageOptions.SvgImage = Properties.Resources.showprintpreview;
             btnBaskiOnizle.ItemShortcut = new DevExpress.XtraBars.BarShortcut(Keys.Control | Keys.Shift | Keys.P);
             btnBaskiOnizle.Name = "btnBaskiOnizle";
+            btnBaskiOnizle.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
             // 
             // btnKapat
             // 
@@ -127,6 +130,7 @@
             btnSifreDegistir.Id = 8;
             btnSifreDegistir.ImageOptions.SvgImage = Properties.Resources.bo_user;
             btnSifreDegistir.Name = "btnSifreDegistir";
+            btnSifreDegistir.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
             // 
             // btnSil
             // 

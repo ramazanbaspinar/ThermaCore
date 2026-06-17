@@ -13,17 +13,19 @@ namespace ThermaCore.Presentation.WinForms.Forms.SirketForms
 {
     public partial class SirketListForm : BaseListForm
     {
-        private readonly IMasterRepository<TenantDatabase> _tenantRepository = default!;
+        private readonly IMasterRepository<TenantDatabase> _tenantRepository;
+        private readonly IMasterUnitOfWork _uow;
 
         public SirketListForm()
         {
             InitializeComponent();
         }
 
-        public SirketListForm(IMasterRepository<TenantDatabase> tenantRepository)
+        public SirketListForm(IMasterRepository<TenantDatabase> tenantRepository, IMasterUnitOfWork uow)
         {
             InitializeComponent();
             _tenantRepository = tenantRepository;
+            _uow = uow;
 
             // BaseForm'daki korumalı (protected) Tablo referansına, 
             // bu formdaki gridView'ı bağlıyoruz ki base metodlar çalışabilsin.
@@ -75,7 +77,56 @@ namespace ThermaCore.Presentation.WinForms.Forms.SirketForms
                 
                 // Form kapandıktan sonra güncel listeyi tekrar çek
                 Listele();
+
+                // Ve eklenen/güncellenen satıra odaklan
+                if (editForm.Id > 0)
+                {
+                    Tablo.RowFocus("Id", editForm.Id);
+                }
             }
+        }
+
+        protected override void EntityDelete()
+        {
+            var selectedId = GetSelectedRowId();
+            if (selectedId < 0) return;
+
+            if (Messages.SilMesaj("Şirket") == DialogResult.Yes)
+            {
+                try
+                {
+                    Cursor.Current = Cursors.WaitCursor;
+                    var entity = _tenantRepository.GetById(selectedId);
+                    if (entity != null)
+                    {
+                        _tenantRepository.Remove(entity);
+                        _uow.SaveChanges();
+                        Listele();
+                        Messages.BilgiBasligi("Şirket başarıyla silindi.", "Bilgi");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Messages.HataBasligi($"Silme işlemi sırasında hata oluştu:\n\n{ex.Message}", "Hata");
+                }
+                finally
+                {
+                    Cursor.Current = Cursors.Default;
+                }
+            }
+        }
+
+        private long GetSelectedRowId()
+        {
+            if (Tablo != null && Tablo.FocusedRowHandle >= 0)
+            {
+                var rowObj = Tablo.GetRowCellValue(Tablo.FocusedRowHandle, "Id");
+                if (rowObj != null && long.TryParse(rowObj.ToString(), out long id))
+                {
+                    return id;
+                }
+            }
+            return -1;
         }
     }
 }

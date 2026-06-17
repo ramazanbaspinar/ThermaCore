@@ -2,7 +2,9 @@ using System;
 using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using ThermaCore.Application.DTOs.Management;
+using ThermaCore.Application.Interfaces.Repositories;
 using ThermaCore.Application.Interfaces.System;
+using ThermaCore.Domain.Entities.Management;
 using ThermaCore.Domain.Enums;
 using ThermaCore.Presentation.WinForms.Forms.BaseForms;
 using ThermaCore.Presentation.WinForms.Helpers;
@@ -12,44 +14,61 @@ namespace ThermaCore.Presentation.WinForms.Forms.SirketForms
     public partial class SirketEditForm : BaseEditForm
     {
         private readonly ITenantDatabaseSetupService _tenantDatabaseSetupService = default!;
+        private readonly IMasterRepository<TenantDatabase> _tenantRepository = default!;
+        private readonly IMasterUnitOfWork _uow = default!;
 
         public SirketEditForm()
         {
             InitializeComponent();
         }
 
-        public SirketEditForm(ITenantDatabaseSetupService tenantDatabaseSetupService)
+        public SirketEditForm(ITenantDatabaseSetupService tenantDatabaseSetupService, IMasterRepository<TenantDatabase> tenantRepository, IMasterUnitOfWork uow)
         {
             InitializeComponent();
             _tenantDatabaseSetupService = tenantDatabaseSetupService;
+            _tenantRepository = tenantRepository;
+            _uow = uow;
         }
 
         // BaseForm'daki protected Id alanına dışarıdan müdahale edip ShowDialog yapabilmek için 
-        public void IdAtaVeAc(long id)
+
+
+        protected override void EventsLoad()
         {
-            this.Id = id;
-            this.ShowDialog();
+            base.EventsLoad();
+
+            // Wire control changes to dirty tracking
+            txtSirketKodu.EditValueChanged += Control_EditValueChanged;
+            txtSirketAdi.EditValueChanged += Control_EditValueChanged;
+            txtVeritabaniAdi.EditValueChanged += Control_EditValueChanged;
+            txtSqlKullaniciAdi.EditValueChanged += Control_EditValueChanged;
+            txtSqlSifre.EditValueChanged += Control_EditValueChanged;
+            myToggleSwitch1.EditValueChanged += Control_EditValueChanged;
         }
 
-        protected override void Yukle()
+        public override void Yukle()
         {
-            if (Id > 0)
+            if (BaseIslemTuru == ActionType.EntityUpdate)
             {
-                BaseIslemTuru = ActionType.EntityUpdate;
-                
-                // TODO: İleride düzenleme modunda veritabanından çekilen kaydın alanlara atanması
-                txtSirketKodu.Enabled = false;
-                myToggleSwitch1.IsOn = true;
+                var entity = _tenantRepository.GetById(Id);
+                if (entity != null)
+                {
+                    txtSirketKodu.Text = entity.Code;
+                    txtSirketAdi.Text = entity.CompanyName;
+                    txtVeritabaniAdi.Text = entity.DatabaseName;
+                    txtSqlKullaniciAdi.Text = entity.Username;
+                    txtSqlSifre.Text = entity.Password;
+                    txtSirketKodu.Enabled = false;
+                    myToggleSwitch1.IsOn = entity.IsActive;
+                }
             }
             else
             {
-                BaseIslemTuru = ActionType.EntityInsert;
-                
                 txtSirketKodu.Enabled = true;
                 myToggleSwitch1.IsOn = true;
 
                 // Yeni şirket oluştururken varsayılan veritabanı ayarları
-                txtSqlKullaniciAdi.Text = "sa";
+                txtSqlKullaniciAdi.Text = ""; // LocalDB Windows Auth gerektirir
             }
         }
 
@@ -64,9 +83,10 @@ namespace ThermaCore.Presentation.WinForms.Forms.SirketForms
                 CompanyName = txtSirketAdi.Text,
                 DatabaseName = txtVeritabaniAdi.Text,
                 Server = "(localdb)\\MSSQLLocalDB", // Şimdilik varsayılan server adı
-                AuthType = AuthenticationType.SqlServer,
+                AuthType = AuthenticationType.Windows, // LocalDB için varsayılan Windows Auth
                 Username = txtSqlKullaniciAdi.Text,
-                Password = txtSqlSifre.Text
+                Password = txtSqlSifre.Text,
+                IsActive = myToggleSwitch1.IsOn
             };
         }
 
@@ -78,11 +98,14 @@ namespace ThermaCore.Presentation.WinForms.Forms.SirketForms
                 Cursor.Current = Cursors.WaitCursor;
                 
                 var dto = (TenantDatabaseDto)CurrentEntity;
+                dto.Id = BaseIslemTuru.IdOlustur(dto);
+                this.Id = dto.Id;
 
-                // Asenkron servisi arka planda bekleyerek (senkron blok) çalıştır.
-                // Bu metot hem Master DB'ye şirket kaydını atacak hem de 
-                // SQL Server'da bu şirkete özel bağımsız veritabanını oluşturacaktır.
-                _tenantDatabaseSetupService.CreateTenantDatabaseAsync(dto).GetAwaiter().GetResult();
+                // Asenkron servisi Task.Run içerisinde bekleyerek (UI deadlock önlemek için) çalıştır.
+                System.Threading.Tasks.Task.Run(async () => 
+                {
+                    await _tenantDatabaseSetupService.CreateTenantDatabaseAsync(dto);
+                }).GetAwaiter().GetResult();
 
                 Messages.BilgiBasligi("Şirket bilgileri Master veritabanına kaydedildi ve şirkete özel yepyeni fiziksel veritabanı (Tenant DB) başarıyla ayağa kaldırıldı!", "Kurulum Başarılı");
                     
@@ -101,9 +124,38 @@ namespace ThermaCore.Presentation.WinForms.Forms.SirketForms
 
         protected override bool EntityUpdate()
         {
-            // Düzenleme senaryosu (Henüz implemente edilmedi, UI mesajı döndürülüyor)
-            Messages.BilgiBasligi("Mevcut şirket bilgileri başarıyla güncellendi.", "Bilgi");
-            return true;
+            try
+            {
+                Cursor.Current = Cursors.WaitCursor;
+                var dto = (TenantDatabaseDto)CurrentEntity;
+                
+                var entity = _tenantRepository.GetById(dto.Id);
+                if (entity != null)
+                {
+                    entity.CompanyName = dto.CompanyName;
+                    entity.DatabaseName = dto.DatabaseName;
+                    entity.Server = dto.Server;
+                    entity.AuthType = dto.AuthType;
+                    entity.Username = dto.Username;
+                    entity.Password = dto.Password;
+                    entity.IsActive = dto.IsActive;
+                    
+                    _tenantRepository.Update(entity);
+                    _uow.SaveChanges();
+                    Messages.BilgiBasligi("Mevcut Şirket bilgileri başarıyla güncellendi.", "Bilgi");
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Messages.HataBasligi($"Güncelleme sırasında hata oluştu:\n\n{ex.Message}", "Hata");
+                return false;
+            }
+            finally
+            {
+                Cursor.Current = Cursors.Default;
+            }
         }
     }
 }
