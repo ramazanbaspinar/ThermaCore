@@ -1,4 +1,4 @@
-﻿namespace WinProjectUI.GenelForms
+namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
 {
     partial class GirisForm
     {
@@ -94,7 +94,7 @@
             // 
             lblLisansKalanGun.Appearance.ForeColor = Color.White;
             lblLisansKalanGun.Appearance.Options.UseForeColor = true;
-            lblLisansKalanGun.Location = new Point(112, 278);
+            lblLisansKalanGun.Location = new Point(7, 278);
             lblLisansKalanGun.Name = "lblLisansKalanGun";
             lblLisansKalanGun.Size = new Size(6, 13);
             lblLisansKalanGun.TabIndex = 14;
@@ -104,7 +104,7 @@
             // 
             lblVersiyon.Appearance.ForeColor = Color.White;
             lblVersiyon.Appearance.Options.UseForeColor = true;
-            lblVersiyon.Location = new Point(7, 278);
+            lblVersiyon.Location = new Point(7, 260);
             lblVersiyon.Name = "lblVersiyon";
             lblVersiyon.Size = new Size(105, 13);
             lblVersiyon.TabIndex = 12;

@@ -14,6 +14,7 @@ public static class ApplicationServiceRegistration
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
         // Manager (Service) Sınıflarının Kayıtları
+        services.AddScoped<IAuthService, AuthManager>();
         services.AddScoped<IUserService, UserManager>();
         services.AddScoped<IUserRoleService, UserRoleManager>();
         services.AddScoped<ITerminalService, TerminalManager>();

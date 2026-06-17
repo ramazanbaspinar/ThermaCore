@@ -11,7 +11,6 @@ using ThermaCore.Domain.Enums;
 using ThermaCore.Infrastructure;
 using ThermaCore.Infrastructure.Configuration;
 using ThermaCore.Presentation.WinForms.Forms.GenelForms;
-using WinProjectUI.GenelForms;
 
 namespace ThermaCore.Presentation.WinForms;
 
