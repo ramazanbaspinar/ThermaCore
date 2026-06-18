@@ -150,6 +150,10 @@ namespace ThermaCore.Presentation.WinForms.Forms.SirketForms
                     
                 return true;
             }
+            catch (FluentValidation.ValidationException)
+            {
+                throw;
+            }
             catch (Exception ex)
             {
                 var baseEx = ex.GetBaseException();
@@ -195,6 +199,10 @@ namespace ThermaCore.Presentation.WinForms.Forms.SirketForms
                     return true;
                 }
                 return false;
+            }
+            catch (FluentValidation.ValidationException)
+            {
+                throw;
             }
             catch (Exception ex)
             {

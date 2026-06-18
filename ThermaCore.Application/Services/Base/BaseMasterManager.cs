@@ -59,9 +59,13 @@ public abstract class BaseMasterManager<TListDto, TDto, TEntity>
             _validator.ValidateAndThrow(dto);
         }
 
-        var entity = _mapper.Map<TEntity>(dto);
-        _repository.Update(entity);
-        _unitOfWork.SaveChanges();
+        var existingEntity = _repository.GetById(dto.Id);
+        if (existingEntity != null)
+        {
+            _mapper.Map(dto, existingEntity);
+            _repository.Update(existingEntity);
+            _unitOfWork.SaveChanges();
+        }
     }
 
     public virtual void Delete(long id)

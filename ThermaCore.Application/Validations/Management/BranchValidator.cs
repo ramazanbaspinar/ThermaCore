@@ -19,6 +19,7 @@ public class BranchValidator : AbstractValidator<BranchDto>
 
         RuleFor(x => x.Code)
             .NotEmpty().WithMessage("Lütfen Fabrika Kodu giriniz.")
+            .Matches(@"^\S+$").WithMessage("Kod alanı boşluk içeremez.")
             .Must((dto, code) => IsCodeUnique(dto.Id, code)).WithMessage("Girdiğiniz Fabrika Kodu bu şirket içerisinde zaten kullanılmaktadır. Lütfen benzersiz bir kod giriniz.");
 
         RuleFor(x => x.BranchName).NotEmpty().WithMessage("Lütfen Fabrika Adı giriniz.");

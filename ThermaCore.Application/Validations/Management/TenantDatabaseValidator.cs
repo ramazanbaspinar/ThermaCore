@@ -17,6 +17,7 @@ public class TenantDatabaseValidator : AbstractValidator<TenantDatabaseDto>
 
         RuleFor(x => x.Code)
             .NotEmpty().WithMessage("Lütfen Şirket Kodu giriniz.")
+            .Matches(@"^\S+$").WithMessage("Kod alanı boşluk içeremez.")
             .Must((dto, code) => IsCodeUnique(dto.Id, code)).WithMessage("Girdiğiniz Şirket Kodu sistemde zaten kullanılmaktadır. Lütfen benzersiz bir kod giriniz.");
 
         RuleFor(x => x.CompanyName).NotEmpty().WithMessage("Lütfen Şirket Adı giriniz.");

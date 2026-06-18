@@ -13,7 +13,7 @@ public class TenantDatabase : FullAuditableEntity
     public bool IsActive { get; set; } = true;
 
     [Required]
-    [MaxLength(10)]
+    [MaxLength(100)]
     public string CompanyCode { get; set; } = string.Empty;
     
     [Required]

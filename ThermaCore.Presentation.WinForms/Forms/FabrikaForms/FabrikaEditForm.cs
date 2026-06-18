@@ -32,6 +32,16 @@ namespace ThermaCore.Presentation.WinForms.Forms.FabrikaForms
             _currentTenantService = currentTenantService;
         }
 
+        protected override void EventsLoad()
+        {
+            base.EventsLoad();
+
+            txtKod.EditValueChanged += Control_EditValueChanged;
+            txtFabrikaAdi.EditValueChanged += Control_EditValueChanged;
+            txtAciklama.EditValueChanged += Control_EditValueChanged;
+            tglDurum.EditValueChanged += Control_EditValueChanged;
+        }
+
         public void SetSirketBilgisi(long sirketId, string sirketAdi)
         {
             _sirketId = sirketId;
@@ -42,7 +52,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.FabrikaForms
         {
             OldEntity = BaseIslemTuru == ActionType.EntityInsert ? new BranchDto() : _branchService.GetById(Id);
             
-            Text = $"Fabrika İşlemleri ({_sirketAdi})";
+            Text = $"Fabrika Tanımı ({_sirketAdi})";
 
             if (BaseIslemTuru == ActionType.EntityUpdate)
             {
@@ -104,6 +114,10 @@ namespace ThermaCore.Presentation.WinForms.Forms.FabrikaForms
                 Messages.BilgiBasligi("Fabrika bilgileri başarıyla eklendi.", "Kayıt Başarılı");
                 return true;
             }
+            catch (FluentValidation.ValidationException)
+            {
+                throw;
+            }
             catch (Exception ex)
             {
                 Messages.HataBasligi($"Ekleme sırasında hata oluştu:\n{ex.Message}", "Hata");
@@ -142,6 +156,10 @@ namespace ThermaCore.Presentation.WinForms.Forms.FabrikaForms
                     return true;
                 }
                 return false;
+            }
+            catch (FluentValidation.ValidationException)
+            {
+                throw;
             }
             catch (Exception ex)
             {

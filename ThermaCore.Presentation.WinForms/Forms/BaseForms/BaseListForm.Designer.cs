@@ -345,6 +345,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
             btnBagliKayitlar.Id = 34;
             btnBagliKayitlar.ImageOptions.SvgImage = Properties.Resources.bo_statemachine;
             btnBagliKayitlar.Name = "btnBagliKayitlar";
+            btnBagliKayitlar.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
             // 
             // ribbonPage1
             // 
