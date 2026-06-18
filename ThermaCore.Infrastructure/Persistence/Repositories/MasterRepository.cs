@@ -20,17 +20,24 @@ public class MasterRepository<TEntity> : IMasterRepository<TEntity> where TEntit
 
     public TEntity GetById(long id)
     {
-        return _dbSet.Find(id)!;
+        var entity = _dbSet.Find(id);
+        if (entity != null)
+        {
+            // WinForms'ta DbContext uzun süre yaşayabildiği için,
+            // bellekteki eski state/rowversion yerine DB'den en güncel halini zorla çeker.
+            _context.Entry(entity).Reload();
+        }
+        return entity!;
     }
 
     public IQueryable<TEntity> GetAll()
     {
-        return _dbSet;
+        return _dbSet.AsNoTracking();
     }
 
     public IQueryable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
     {
-        return _dbSet.Where(predicate);
+        return _dbSet.AsNoTracking().Where(predicate);
     }
 
     public void Add(TEntity entity)

@@ -60,9 +60,20 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
         {
             if (!IsDesignMode)
             {
+                this.KeyPreview = true;
                 EventsLoad();
             }
             base.OnLoad(e);
+        }
+
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                e.Handled = true;
+                Close();
+            }
+            base.OnKeyDown(e);
         }
 
         protected bool IsDesignMode => LicenseManager.UsageMode == LicenseUsageMode.Designtime || this.DesignMode;
@@ -134,7 +145,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
             Cursor.Current = Cursors.Default;
         }
 
-        protected bool Kaydet(bool kapanis)
+        protected bool Kaydet(bool kapanis, bool prompt = true)
         {
             bool KayitIslemi()
             {
@@ -161,6 +172,8 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
             {
                 OldEntity = CurrentEntity;
                 RefreshYapilacak = true;
+                
+                BaseIslemTuru = BaseIslemTuru == ActionType.EntityInsert ? ActionType.EntityUpdate : BaseIslemTuru;
                 ButonEnabledDurumu();
 
                 KodKullanildiKaydet();
@@ -169,7 +182,6 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
                     Close();
                 else
                 {
-                    BaseIslemTuru = BaseIslemTuru == ActionType.EntityInsert ? ActionType.EntityUpdate : BaseIslemTuru;
                     Yukle();
                 }
 
@@ -178,7 +190,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
 
             GuncelNesneOlustur();
 
-            var result = kapanis ? Messages.KapanisMesaj() : Messages.KayitMesaj();
+            var result = prompt ? (kapanis ? Messages.KapanisMesaj() : Messages.KayitMesaj()) : DialogResult.Yes;
 
             switch (result)
             {
@@ -285,7 +297,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
                 Yukle();
             }
             else if (name == "btnKaydet")
-                Kaydet(true);
+                Kaydet(true, false);
             else if (name == "btnFarkliKaydet")
                 FarkliKaydet();
             else if (name == "btnGerial")

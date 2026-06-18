@@ -38,6 +38,18 @@
             btnKapat = new DevExpress.XtraBars.BarButtonItem();
             btnSifreDegistir = new DevExpress.XtraBars.BarButtonItem();
             btnSil = new DevExpress.XtraBars.BarButtonItem();
+            bsiYeni = new DevExpress.XtraBars.BarStaticItem();
+            bsiYeniAciklama = new DevExpress.XtraBars.BarStaticItem();
+            bsiKaydet = new DevExpress.XtraBars.BarStaticItem();
+            bsiKaydetAciklama = new DevExpress.XtraBars.BarStaticItem();
+            bsiYenile = new DevExpress.XtraBars.BarStaticItem();
+            bsiYenileAciklama = new DevExpress.XtraBars.BarStaticItem();
+            bsiGerial = new DevExpress.XtraBars.BarStaticItem();
+            bsiGerialAciklama = new DevExpress.XtraBars.BarStaticItem();
+            bsiSil = new DevExpress.XtraBars.BarStaticItem();
+            bsiSilAciklama = new DevExpress.XtraBars.BarStaticItem();
+            bsiKapat = new DevExpress.XtraBars.BarStaticItem();
+            bsiKapatAciklama = new DevExpress.XtraBars.BarStaticItem();
             ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             ribbonStatusBar = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
@@ -49,9 +61,9 @@
             ribbon.DrawGroupCaptions = DevExpress.Utils.DefaultBoolean.False;
             ribbon.DrawGroupsBorderMode = DevExpress.Utils.DefaultBoolean.False;
             ribbon.ExpandCollapseItem.Id = 0;
-            ribbon.Items.AddRange(new DevExpress.XtraBars.BarItem[] { ribbon.ExpandCollapseItem, btnYeni, btnKaydet, btnGerial, btnYenile, btnYazdir, btnBaskiOnizle, btnKapat, btnSifreDegistir, btnSil });
+            ribbon.Items.AddRange(new DevExpress.XtraBars.BarItem[] { ribbon.ExpandCollapseItem, btnYeni, btnKaydet, btnGerial, btnYenile, btnYazdir, btnBaskiOnizle, btnKapat, btnSifreDegistir, btnSil, bsiYeni, bsiYeniAciklama, bsiKaydet, bsiKaydetAciklama, bsiYenile, bsiYenileAciklama, bsiGerial, bsiGerialAciklama, bsiSil, bsiSilAciklama, bsiKapat, bsiKapatAciklama });
             ribbon.Location = new Point(0, 0);
-            ribbon.MaxItemId = 10;
+            ribbon.MaxItemId = 22;
             ribbon.Name = "ribbon";
             ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] { ribbonPage1 });
             ribbon.ShowApplicationButton = DevExpress.Utils.DefaultBoolean.False;
@@ -140,6 +152,102 @@
             btnSil.ItemShortcut = new DevExpress.XtraBars.BarShortcut(Keys.Delete);
             btnSil.Name = "btnSil";
             // 
+            // bsiYeni
+            // 
+            bsiYeni.Caption = "Insert :";
+            bsiYeni.Id = 10;
+            bsiYeni.ItemAppearance.Normal.ForeColor = Color.DarkBlue;
+            bsiYeni.ItemAppearance.Normal.Options.UseForeColor = true;
+            bsiYeni.Name = "bsiYeni";
+            bsiYeni.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
+            // 
+            // bsiYeniAciklama
+            // 
+            bsiYeniAciklama.Caption = "Yeni";
+            bsiYeniAciklama.Id = 11;
+            bsiYeniAciklama.Name = "bsiYeniAciklama";
+            bsiYeniAciklama.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
+            // 
+            // bsiKaydet
+            // 
+            bsiKaydet.Caption = "Ctrl+S :";
+            bsiKaydet.Id = 12;
+            bsiKaydet.ItemAppearance.Normal.ForeColor = Color.DarkBlue;
+            bsiKaydet.ItemAppearance.Normal.Options.UseForeColor = true;
+            bsiKaydet.Name = "bsiKaydet";
+            bsiKaydet.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
+            // 
+            // bsiKaydetAciklama
+            // 
+            bsiKaydetAciklama.Caption = "Kaydet";
+            bsiKaydetAciklama.Id = 13;
+            bsiKaydetAciklama.Name = "bsiKaydetAciklama";
+            bsiKaydetAciklama.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
+            // 
+            // bsiYenile
+            // 
+            bsiYenile.Caption = "F5 :";
+            bsiYenile.Id = 14;
+            bsiYenile.ItemAppearance.Normal.ForeColor = Color.DarkBlue;
+            bsiYenile.ItemAppearance.Normal.Options.UseForeColor = true;
+            bsiYenile.Name = "bsiYenile";
+            bsiYenile.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
+            // 
+            // bsiYenileAciklama
+            // 
+            bsiYenileAciklama.Caption = "Yenile";
+            bsiYenileAciklama.Id = 15;
+            bsiYenileAciklama.Name = "bsiYenileAciklama";
+            bsiYenileAciklama.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
+            // 
+            // bsiGerial
+            // 
+            bsiGerial.Caption = "Ctrl+Z :";
+            bsiGerial.Id = 16;
+            bsiGerial.ItemAppearance.Normal.ForeColor = Color.DarkBlue;
+            bsiGerial.ItemAppearance.Normal.Options.UseForeColor = true;
+            bsiGerial.Name = "bsiGerial";
+            bsiGerial.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
+            // 
+            // bsiGerialAciklama
+            // 
+            bsiGerialAciklama.Caption = "Gerial";
+            bsiGerialAciklama.Id = 17;
+            bsiGerialAciklama.Name = "bsiGerialAciklama";
+            bsiGerialAciklama.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
+            // 
+            // bsiSil
+            // 
+            bsiSil.Caption = "Delete :";
+            bsiSil.Id = 18;
+            bsiSil.ItemAppearance.Normal.ForeColor = Color.DarkBlue;
+            bsiSil.ItemAppearance.Normal.Options.UseForeColor = true;
+            bsiSil.Name = "bsiSil";
+            bsiSil.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
+            // 
+            // bsiSilAciklama
+            // 
+            bsiSilAciklama.Caption = "Sil";
+            bsiSilAciklama.Id = 19;
+            bsiSilAciklama.Name = "bsiSilAciklama";
+            bsiSilAciklama.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
+            // 
+            // bsiKapat
+            // 
+            bsiKapat.Caption = "Esc :";
+            bsiKapat.Id = 20;
+            bsiKapat.ItemAppearance.Normal.ForeColor = Color.DarkBlue;
+            bsiKapat.ItemAppearance.Normal.Options.UseForeColor = true;
+            bsiKapat.Name = "bsiKapat";
+            bsiKapat.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
+            // 
+            // bsiKapatAciklama
+            // 
+            bsiKapatAciklama.Caption = "Kapat";
+            bsiKapatAciklama.Id = 21;
+            bsiKapatAciklama.Name = "bsiKapatAciklama";
+            bsiKapatAciklama.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
+            // 
             // ribbonPage1
             // 
             ribbonPage1.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] { ribbonPageGroup1 });
@@ -162,6 +270,18 @@
             // 
             // ribbonStatusBar
             // 
+            ribbonStatusBar.ItemLinks.Add(bsiYeni);
+            ribbonStatusBar.ItemLinks.Add(bsiYeniAciklama);
+            ribbonStatusBar.ItemLinks.Add(bsiKaydet, true);
+            ribbonStatusBar.ItemLinks.Add(bsiKaydetAciklama);
+            ribbonStatusBar.ItemLinks.Add(bsiYenile, true);
+            ribbonStatusBar.ItemLinks.Add(bsiYenileAciklama);
+            ribbonStatusBar.ItemLinks.Add(bsiGerial, true);
+            ribbonStatusBar.ItemLinks.Add(bsiGerialAciklama);
+            ribbonStatusBar.ItemLinks.Add(bsiSil, true);
+            ribbonStatusBar.ItemLinks.Add(bsiSilAciklama);
+            ribbonStatusBar.ItemLinks.Add(bsiKapat, true);
+            ribbonStatusBar.ItemLinks.Add(bsiKapatAciklama);
             ribbonStatusBar.Location = new Point(0, 378);
             ribbonStatusBar.Name = "ribbonStatusBar";
             ribbonStatusBar.Ribbon = ribbon;
@@ -199,5 +319,17 @@
         protected DevExpress.XtraBars.BarButtonItem btnKapat;
         protected DevExpress.XtraBars.BarButtonItem btnSifreDegistir;
         protected DevExpress.XtraBars.BarButtonItem btnSil;
+        private DevExpress.XtraBars.BarStaticItem bsiYeni;
+        private DevExpress.XtraBars.BarStaticItem bsiYeniAciklama;
+        private DevExpress.XtraBars.BarStaticItem bsiKaydet;
+        private DevExpress.XtraBars.BarStaticItem bsiKaydetAciklama;
+        private DevExpress.XtraBars.BarStaticItem bsiYenile;
+        private DevExpress.XtraBars.BarStaticItem bsiYenileAciklama;
+        private DevExpress.XtraBars.BarStaticItem bsiGerial;
+        private DevExpress.XtraBars.BarStaticItem bsiGerialAciklama;
+        private DevExpress.XtraBars.BarStaticItem bsiSil;
+        private DevExpress.XtraBars.BarStaticItem bsiSilAciklama;
+        private DevExpress.XtraBars.BarStaticItem bsiKapat;
+        private DevExpress.XtraBars.BarStaticItem bsiKapatAciklama;
     }
 }

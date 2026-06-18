@@ -30,6 +30,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.SirketForms
             // BaseForm'daki korumalı (protected) Tablo referansına, 
             // bu formdaki gridView'ı bağlıyoruz ki base metodlar çalışabilsin.
             Tablo = myGridView1;
+            Navigator = longNavigator1.Navigator;
         }
 
         protected override void Listele()

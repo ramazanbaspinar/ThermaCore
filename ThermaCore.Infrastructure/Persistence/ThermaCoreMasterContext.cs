@@ -61,7 +61,11 @@ public class ThermaCoreMasterContext : DbContext
             var codeProp = entityType.ClrType.GetProperty("Code");
             if (codeProp != null)
             {
-                modelBuilder.Entity(entityType.ClrType).HasIndex("Code");
+                var indexBuilder = modelBuilder.Entity(entityType.ClrType).HasIndex("Code").IsUnique();
+                if (typeof(FullAuditableEntity).IsAssignableFrom(entityType.ClrType))
+                {
+                    indexBuilder.HasFilter("[IsDeleted] = 0");
+                }
             }
         }
     }

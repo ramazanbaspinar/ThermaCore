@@ -119,6 +119,25 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
             
             if (HideItems != null)
                 foreach (var x in HideItems) x.Visibility = BarItemVisibility.Never;
+
+            // Alt kısımdaki kısayol açıklamalarını üstteki butonların görünürlüğüne bağlayalım
+            if (bsiYeni != null && btnYeni != null)
+            {
+                bsiYeni.Visibility = btnYeni.Visibility;
+                bsiYeniAciklama.Visibility = btnYeni.Visibility;
+                bsiSil.Visibility = btnSil.Visibility;
+                bsiSilAciklama.Visibility = btnSil.Visibility;
+                bsiDuzelt.Visibility = btnDuzelt.Visibility;
+                bsiDuzeltAciklama.Visibility = btnDuzelt.Visibility;
+                barSec.Visibility = btnSec.Visibility;
+                barSecAciklama.Visibility = btnSec.Visibility;
+                bsiYenile.Visibility = btnYenile.Visibility;
+                bsiYenileAciklama.Visibility = btnYenile.Visibility;
+                bsiYazdir.Visibility = btnYazdir.Visibility;
+                bsiYazdirAciklama.Visibility = btnYazdir.Visibility;
+                bsiKapat.Visibility = btnKapat.Visibility;
+                bsiKapatAciklama.Visibility = btnKapat.Visibility;
+            }
         }
 
         private void SablonKaydet()
@@ -152,13 +171,13 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
             }
             else if (AktifKartlariGoster)
             {
-                btnAktifPasifKayitlar.Caption = "Pasif Kartlar";
+                btnAktifPasifKayitlar.Caption = "Pasif Kayıtlar";
                 if (Tablo != null) Tablo.ViewCaption = Text;
             }
             else
             {
-                btnAktifPasifKayitlar.Caption = "Aktif Kartlar";
-                if (Tablo != null) Tablo.ViewCaption = Text + " - Pasif Kartlar";
+                btnAktifPasifKayitlar.Caption = "Aktif Kayıtlar";
+                if (Tablo != null) Tablo.ViewCaption = Text + " - Pasif Kayıtlar";
             }
             Listele();
         }
