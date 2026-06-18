@@ -395,7 +395,7 @@ namespace ThermaCore.Presentation.WinForms.Helpers
 
         public static string Md5Sifrele(this string value)
         {
-            var md5 = new MD5CryptoServiceProvider();
+            using var md5 = MD5.Create();
             var byteDiziBuffer = Encoding.UTF8.GetBytes(value);
             byteDiziBuffer = md5.ComputeHash(byteDiziBuffer);
 

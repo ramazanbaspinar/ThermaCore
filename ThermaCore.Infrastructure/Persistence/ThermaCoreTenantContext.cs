@@ -17,6 +17,8 @@ public class ThermaCoreTenantContext : DbContext
 
     public DbSet<CodeTemplate> CodeTemplates { get; set; }
     public DbSet<UserInterfaceTemplate> UserInterfaceTemplates { get; set; }
+    public DbSet<ThermaCore.Domain.Entities.Management.KodSablon> KodSablonlar { get; set; }
+    public DbSet<ThermaCore.Domain.Entities.Management.KodLog> KodLoglar { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

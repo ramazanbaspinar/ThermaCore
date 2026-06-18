@@ -14,7 +14,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
 {
     public partial class AnaForm : XtraForm
     {
-        private bool _programiOtomatikKapat;
+        private bool _programiOtomatikKapat = false;
         
         // DI Konteynerinden Gelecek Servisler
         private readonly IServiceProvider _serviceProvider;
@@ -43,6 +43,9 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             
             if (miSirketTanimlari != null)
                 miSirketTanimlari.Click += miSirketTanimlari_Click;
+
+            if (miKodSablonlari != null)
+                miKodSablonlari.Click += miKodSablonlari_Click;
 
             if (xtraTabbedMdiManager != null)
             {
@@ -162,6 +165,11 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
         private void miSirketTanimlari_Click(object? sender, EventArgs e)
         {
             FormYukle<ThermaCore.Presentation.WinForms.Forms.SirketForms.SirketListForm>();
+        }
+
+        private void miKodSablonlari_Click(object? sender, EventArgs e)
+        {
+            FormYukle<ThermaCore.Presentation.WinForms.Forms.KodSablonForms.KodSablonListForm>();
         }
 
         private void BtnMusteriCariKartlar_Click(object? sender, EventArgs e)

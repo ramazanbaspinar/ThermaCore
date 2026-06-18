@@ -46,6 +46,8 @@ namespace ThermaCore.Presentation.WinForms.Forms.FabrikaForms
         {
             _sirketId = sirketId;
             _sirketAdi = sirketAdi;
+            this.FirmaId = sirketId;
+            this.BaseKartTuru = ModuleType.Factory;
         }
 
         public override void Yukle()

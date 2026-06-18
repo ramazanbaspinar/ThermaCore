@@ -13,6 +13,7 @@ using ThermaCore.Application.DTOs.Base;
 using ThermaCore.Domain.Enums;
 using ThermaCore.Presentation.WinForms.Helpers;
 using ThermaCore.Application.Interfaces.System;
+using System.Linq;
 
 namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
 {
@@ -156,6 +157,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
                     switch (BaseIslemTuru)
                     {
                         case ActionType.EntityInsert:
+                            UretilecekKoduHazirla();
                             if (EntityInsert())
                                 return KayitSonrasiIslemler();
                             break;
@@ -279,6 +281,26 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
         {
         }
 
+        protected virtual void UretilecekKoduHazirla()
+        {
+            var codeService = Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetService<ICodeGenerationService>(Program.ServiceProvider);
+            if (codeService != null)
+            {
+                var code = System.Threading.Tasks.Task.Run(async () => await codeService.GetNewCodeAsync(BaseKartTuru, FirmaId)).GetAwaiter().GetResult();
+                if (!string.IsNullOrEmpty(code))
+                {
+                    var kodControl = this.Controls.Find("txtKod", true).FirstOrDefault() as DevExpress.XtraEditors.TextEdit;
+                    if (kodControl != null)
+                    {
+                        kodControl.Properties.ReadOnly = false;
+                        kodControl.Text = code;
+                    }
+                    if (CurrentEntity != null)
+                        CurrentEntity.Code = code;
+                }
+            }
+        }
+
         protected virtual void NesneyiKontrollereBagla() { }
 
         protected virtual void GuncelNesneOlustur() { }
@@ -374,6 +396,35 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
             IsLoaded = true;
             ButonEnabledDurumu();
             ButonGizleGoster();
+
+            if (BaseIslemTuru == ActionType.EntityInsert)
+            {
+                var kodControl = this.Controls.Find("txtKod", true).FirstOrDefault() as DevExpress.XtraEditors.TextEdit;
+                if (kodControl != null)
+                {
+                    bool isReadOnly = true;
+                    string nullPrompt = "< Otomatik Üretilecek >";
+
+                    var sablonRepo = Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetService<ThermaCore.Application.Interfaces.Repositories.IRepository<ThermaCore.Domain.Entities.Management.KodSablon>>(Program.ServiceProvider);
+                    if (sablonRepo != null)
+                    {
+                        var sablon = System.Linq.Enumerable.FirstOrDefault(sablonRepo.Find(x => x.Modul == BaseKartTuru && !x.IsDeleted));
+                        if (sablon == null || !sablon.OtomatikKodUretmeDurumu)
+                        {
+                            isReadOnly = false;
+                            nullPrompt = "";
+                        }
+                        else if (sablon.KullaniciMudahalesiDurumu)
+                        {
+                            isReadOnly = false;
+                        }
+                    }
+
+                    kodControl.Text = "";
+                    kodControl.Properties.ReadOnly = isReadOnly;
+                    kodControl.Properties.NullValuePrompt = nullPrompt;
+                }
+            }
         }
 
         protected virtual void BaseEditForm_FormClosing(object? sender, FormClosingEventArgs e)
