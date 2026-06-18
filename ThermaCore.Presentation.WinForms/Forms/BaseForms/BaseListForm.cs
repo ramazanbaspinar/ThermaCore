@@ -275,7 +275,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
 
         protected virtual void UretimAdetGiris() { }
 
-        protected virtual void BagliKartAc() { }
+        protected virtual void BagliKayitAc() { }
 
         protected virtual void TumunuSec() { }
 
@@ -366,8 +366,8 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
                         Tablo.HideCustomization();
                 }
             }
-            else if (name == "btnBagliKartlar")
-                BagliKartAc();
+            else if (name == "btnBagliKayitlar")
+                BagliKayitAc();
             else if (name == "btnYazdir")
                 Yazdir();
             else if (name == "btnYazdir2")

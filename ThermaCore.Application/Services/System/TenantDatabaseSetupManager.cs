@@ -6,6 +6,7 @@ using ThermaCore.Application.Interfaces.Security;
 using ThermaCore.Application.Interfaces.System;
 using ThermaCore.Domain.Entities.Management;
 using ThermaCore.Domain.Enums;
+using FluentValidation;
 
 namespace ThermaCore.Application.Services.System;
 
@@ -16,23 +17,31 @@ public class TenantDatabaseSetupManager : ITenantDatabaseSetupService
     private readonly ITenantDatabaseService _tenantDatabaseService;
     private readonly ICryptoService _cryptoService;
     private readonly IMasterUnitOfWork _uow;
+    private readonly IValidator<TenantDatabaseDto> _validator;
 
     public TenantDatabaseSetupManager(
         IMasterRepository<TenantDatabase> repository,
         IMapper mapper,
         ITenantDatabaseService tenantDatabaseService,
         ICryptoService cryptoService,
-        IMasterUnitOfWork uow)
+        IMasterUnitOfWork uow,
+        IValidator<TenantDatabaseDto> validator)
     {
         _repository = repository;
         _mapper = mapper;
         _tenantDatabaseService = tenantDatabaseService;
         _cryptoService = cryptoService;
         _uow = uow;
+        _validator = validator;
     }
 
     public async Task CreateTenantDatabaseAsync(TenantDatabaseDto tenant)
     {
+        if (_validator != null)
+        {
+            _validator.ValidateAndThrow(tenant);
+        }
+
         string connectionString = $"Server={tenant.Server};Database={tenant.DatabaseName};TrustServerCertificate=True;Encrypt=False;";
 
         if (tenant.AuthType == AuthenticationType.Windows)

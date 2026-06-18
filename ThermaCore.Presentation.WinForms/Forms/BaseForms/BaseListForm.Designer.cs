@@ -1,4 +1,4 @@
-ï»¿namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
+namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
 {
     partial class BaseListForm
     {
@@ -56,15 +56,16 @@
             bsiDuzeltAciklama = new DevExpress.XtraBars.BarStaticItem();
             barSec = new DevExpress.XtraBars.BarStaticItem();
             barSecAciklama = new DevExpress.XtraBars.BarStaticItem();
-            ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
-            ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            ribbonStatusBar = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             bsiYenile = new DevExpress.XtraBars.BarStaticItem();
             bsiYenileAciklama = new DevExpress.XtraBars.BarStaticItem();
             bsiYazdir = new DevExpress.XtraBars.BarStaticItem();
             bsiYazdirAciklama = new DevExpress.XtraBars.BarStaticItem();
             bsiKapat = new DevExpress.XtraBars.BarStaticItem();
             bsiKapatAciklama = new DevExpress.XtraBars.BarStaticItem();
+            btnBagliKayitlar = new DevExpress.XtraBars.BarButtonItem();
+            ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
+            ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            ribbonStatusBar = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             ((System.ComponentModel.ISupportInitialize)ribbon).BeginInit();
             SuspendLayout();
             // 
@@ -73,9 +74,9 @@
             ribbon.DrawGroupCaptions = DevExpress.Utils.DefaultBoolean.False;
             ribbon.DrawGroupsBorderMode = DevExpress.Utils.DefaultBoolean.False;
             ribbon.ExpandCollapseItem.Id = 0;
-            ribbon.Items.AddRange(new DevExpress.XtraBars.BarItem[] { ribbon.ExpandCollapseItem, btnYeni, btnSil, btnSec, btnDuzelt, btnYenile, btnKolonlar, btnYazdir, btnBaskiOnizle, btnKapat, barButtonItem1, btnDisariAktar, btnAktifPasifKayitlar, btnExcelDosyalari, btnWordDosyasi, btnPdfDosyasi, btnTxtDosyasi, btnStandartExcelDosyasi, btnFormatliExcelDosyasi, btnFormatsizExcelDosyasi, bsiYeni, bsiYeniAciklama, bsiSil, bsiSilAciklama, bsiDuzelt, bsiDuzeltAciklama, barSec, barSecAciklama, bsiYenile, bsiYenileAciklama, bsiYazdir, bsiYazdirAciklama, bsiKapat, bsiKapatAciklama });
+            ribbon.Items.AddRange(new DevExpress.XtraBars.BarItem[] { ribbon.ExpandCollapseItem, btnYeni, btnSil, btnSec, btnDuzelt, btnYenile, btnKolonlar, btnYazdir, btnBaskiOnizle, btnKapat, barButtonItem1, btnDisariAktar, btnAktifPasifKayitlar, btnExcelDosyalari, btnWordDosyasi, btnPdfDosyasi, btnTxtDosyasi, btnStandartExcelDosyasi, btnFormatliExcelDosyasi, btnFormatsizExcelDosyasi, bsiYeni, bsiYeniAciklama, bsiSil, bsiSilAciklama, bsiDuzelt, bsiDuzeltAciklama, barSec, barSecAciklama, bsiYenile, bsiYenileAciklama, bsiYazdir, bsiYazdirAciklama, bsiKapat, bsiKapatAciklama, btnBagliKayitlar });
             ribbon.Location = new Point(0, 0);
-            ribbon.MaxItemId = 34;
+            ribbon.MaxItemId = 35;
             ribbon.Name = "ribbon";
             ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] { ribbonPage1 });
             ribbon.ShowApplicationButton = DevExpress.Utils.DefaultBoolean.False;
@@ -108,7 +109,7 @@
             // 
             // btnSec
             // 
-            btnSec.Caption = "SeÃ§";
+            btnSec.Caption = "Seç";
             btnSec.Id = 3;
             btnSec.ImageOptions.SvgImage = Properties.Resources.bo_validation;
             btnSec.Name = "btnSec";
@@ -116,7 +117,7 @@
             // 
             // btnDuzelt
             // 
-            btnDuzelt.Caption = "DÃ¼zelt";
+            btnDuzelt.Caption = "Düzelt";
             btnDuzelt.Id = 4;
             btnDuzelt.ImageOptions.SvgImage = Properties.Resources.bo_document;
             btnDuzelt.Name = "btnDuzelt";
@@ -139,7 +140,7 @@
             // 
             // btnYazdir
             // 
-            btnYazdir.Caption = "YazdÄ±r";
+            btnYazdir.Caption = "Yazdýr";
             btnYazdir.Id = 7;
             btnYazdir.ImageOptions.SvgImage = Properties.Resources.print;
             btnYazdir.ItemShortcut = new DevExpress.XtraBars.BarShortcut(Keys.Control | Keys.P);
@@ -147,7 +148,7 @@
             // 
             // btnBaskiOnizle
             // 
-            btnBaskiOnizle.Caption = "BaskÄ± Ã–nizle";
+            btnBaskiOnizle.Caption = "Baský Önizle";
             btnBaskiOnizle.Id = 8;
             btnBaskiOnizle.ImageOptions.SvgImage = Properties.Resources.showprintpreview;
             btnBaskiOnizle.ItemShortcut = new DevExpress.XtraBars.BarShortcut(Keys.Control | Keys.Shift | Keys.P);
@@ -170,7 +171,7 @@
             // 
             // btnDisariAktar
             // 
-            btnDisariAktar.Caption = "DÄ±ÅŸarÄ± Aktar";
+            btnDisariAktar.Caption = "Dýþarý Aktar";
             btnDisariAktar.Id = 11;
             btnDisariAktar.ImageOptions.SvgImage = Properties.Resources.exportas;
             btnDisariAktar.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] { new DevExpress.XtraBars.LinkPersistInfo(btnExcelDosyalari), new DevExpress.XtraBars.LinkPersistInfo(btnWordDosyasi), new DevExpress.XtraBars.LinkPersistInfo(btnPdfDosyasi), new DevExpress.XtraBars.LinkPersistInfo(btnTxtDosyasi) });
@@ -178,51 +179,51 @@
             // 
             // btnExcelDosyalari
             // 
-            btnExcelDosyalari.Caption = "Excel DosyalarÄ±";
+            btnExcelDosyalari.Caption = "Excel Dosyalarý";
             btnExcelDosyalari.Id = 13;
             btnExcelDosyalari.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] { new DevExpress.XtraBars.LinkPersistInfo(btnStandartExcelDosyasi), new DevExpress.XtraBars.LinkPersistInfo(btnFormatliExcelDosyasi), new DevExpress.XtraBars.LinkPersistInfo(btnFormatsizExcelDosyasi) });
             btnExcelDosyalari.Name = "btnExcelDosyalari";
             // 
             // btnStandartExcelDosyasi
             // 
-            btnStandartExcelDosyasi.Caption = "Excel DosyasÄ± ( Standart )";
+            btnStandartExcelDosyasi.Caption = "Excel Dosyasý ( Standart )";
             btnStandartExcelDosyasi.Id = 17;
             btnStandartExcelDosyasi.Name = "btnStandartExcelDosyasi";
             // 
             // btnFormatliExcelDosyasi
             // 
-            btnFormatliExcelDosyasi.Caption = "Excel DosyasÄ± ( FormatlÄ± ) ";
+            btnFormatliExcelDosyasi.Caption = "Excel Dosyasý ( Formatlý ) ";
             btnFormatliExcelDosyasi.Id = 18;
             btnFormatliExcelDosyasi.Name = "btnFormatliExcelDosyasi";
             // 
             // btnFormatsizExcelDosyasi
             // 
-            btnFormatsizExcelDosyasi.Caption = "Excel DosyasÄ± ( FormatsÄ±z )";
+            btnFormatsizExcelDosyasi.Caption = "Excel Dosyasý ( Formatsýz )";
             btnFormatsizExcelDosyasi.Id = 19;
             btnFormatsizExcelDosyasi.Name = "btnFormatsizExcelDosyasi";
             // 
             // btnWordDosyasi
             // 
-            btnWordDosyasi.Caption = "Word DosyasÄ±";
+            btnWordDosyasi.Caption = "Word Dosyasý";
             btnWordDosyasi.Id = 14;
             btnWordDosyasi.Name = "btnWordDosyasi";
             // 
             // btnPdfDosyasi
             // 
-            btnPdfDosyasi.Caption = "Pdf DosyasÄ±";
+            btnPdfDosyasi.Caption = "Pdf Dosyasý";
             btnPdfDosyasi.Id = 15;
             btnPdfDosyasi.Name = "btnPdfDosyasi";
             // 
             // btnTxtDosyasi
             // 
-            btnTxtDosyasi.Caption = "Txt DosyasÄ±";
+            btnTxtDosyasi.Caption = "Txt Dosyasý";
             btnTxtDosyasi.Id = 16;
             btnTxtDosyasi.Name = "btnTxtDosyasi";
             // 
             // btnAktifPasifKayitlar
             // 
             btnAktifPasifKayitlar.Alignment = DevExpress.XtraBars.BarItemLinkAlignment.Right;
-            btnAktifPasifKayitlar.Caption = "Pasif KayÄ±tlar";
+            btnAktifPasifKayitlar.Caption = "Pasif Kayýtlar";
             btnAktifPasifKayitlar.Id = 12;
             btnAktifPasifKayitlar.ImageOptions.Image = Properties.Resources.breakingchange_16x16;
             btnAktifPasifKayitlar.ImageOptions.LargeImage = Properties.Resources.breakingchange_32x32;
@@ -278,7 +279,7 @@
             // 
             // bsiDuzeltAciklama
             // 
-            bsiDuzeltAciklama.Caption = "DÃ¼zelt";
+            bsiDuzeltAciklama.Caption = "Düzelt";
             bsiDuzeltAciklama.Id = 25;
             bsiDuzeltAciklama.Name = "bsiDuzeltAciklama";
             // 
@@ -292,9 +293,58 @@
             // 
             // barSecAciklama
             // 
-            barSecAciklama.Caption = "SeÃ§";
+            barSecAciklama.Caption = "Seç";
             barSecAciklama.Id = 27;
             barSecAciklama.Name = "barSecAciklama";
+            // 
+            // bsiYenile
+            // 
+            bsiYenile.Caption = "F5 :";
+            bsiYenile.Id = 28;
+            bsiYenile.ItemAppearance.Normal.ForeColor = Color.DarkBlue;
+            bsiYenile.ItemAppearance.Normal.Options.UseForeColor = true;
+            bsiYenile.Name = "bsiYenile";
+            // 
+            // bsiYenileAciklama
+            // 
+            bsiYenileAciklama.Caption = "Yenile";
+            bsiYenileAciklama.Id = 29;
+            bsiYenileAciklama.Name = "bsiYenileAciklama";
+            // 
+            // bsiYazdir
+            // 
+            bsiYazdir.Caption = "Ctrl+P :";
+            bsiYazdir.Id = 30;
+            bsiYazdir.ItemAppearance.Normal.ForeColor = Color.DarkBlue;
+            bsiYazdir.ItemAppearance.Normal.Options.UseForeColor = true;
+            bsiYazdir.Name = "bsiYazdir";
+            // 
+            // bsiYazdirAciklama
+            // 
+            bsiYazdirAciklama.Caption = "Yazdýr";
+            bsiYazdirAciklama.Id = 31;
+            bsiYazdirAciklama.Name = "bsiYazdirAciklama";
+            // 
+            // bsiKapat
+            // 
+            bsiKapat.Caption = "Esc :";
+            bsiKapat.Id = 32;
+            bsiKapat.ItemAppearance.Normal.ForeColor = Color.DarkBlue;
+            bsiKapat.ItemAppearance.Normal.Options.UseForeColor = true;
+            bsiKapat.Name = "bsiKapat";
+            // 
+            // bsiKapatAciklama
+            // 
+            bsiKapatAciklama.Caption = "Kapat";
+            bsiKapatAciklama.Id = 33;
+            bsiKapatAciklama.Name = "bsiKapatAciklama";
+            // 
+            // btnBagliKayitlar
+            // 
+            btnBagliKayitlar.Caption = "Baðlý Kayýtlar";
+            btnBagliKayitlar.Id = 34;
+            btnBagliKayitlar.ImageOptions.SvgImage = Properties.Resources.bo_statemachine;
+            btnBagliKayitlar.Name = "btnBagliKayitlar";
             // 
             // ribbonPage1
             // 
@@ -310,6 +360,7 @@
             ribbonPageGroup1.ItemLinks.Add(btnDuzelt);
             ribbonPageGroup1.ItemLinks.Add(btnYenile);
             ribbonPageGroup1.ItemLinks.Add(btnKolonlar);
+            ribbonPageGroup1.ItemLinks.Add(btnBagliKayitlar);
             ribbonPageGroup1.ItemLinks.Add(btnYazdir);
             ribbonPageGroup1.ItemLinks.Add(btnBaskiOnizle);
             ribbonPageGroup1.ItemLinks.Add(btnDisariAktar);
@@ -338,48 +389,6 @@
             ribbonStatusBar.Name = "ribbonStatusBar";
             ribbonStatusBar.Ribbon = ribbon;
             ribbonStatusBar.Size = new Size(814, 24);
-            // 
-            // bsiYenile
-            // 
-            bsiYenile.Caption = "F5 :";
-            bsiYenile.Id = 28;
-            bsiYenile.ItemAppearance.Normal.ForeColor = Color.DarkBlue;
-            bsiYenile.ItemAppearance.Normal.Options.UseForeColor = true;
-            bsiYenile.Name = "bsiYenile";
-            // 
-            // bsiYenileAciklama
-            // 
-            bsiYenileAciklama.Caption = "Yenile";
-            bsiYenileAciklama.Id = 29;
-            bsiYenileAciklama.Name = "bsiYenileAciklama";
-            // 
-            // bsiYazdir
-            // 
-            bsiYazdir.Caption = "Ctrl+P :";
-            bsiYazdir.Id = 30;
-            bsiYazdir.ItemAppearance.Normal.ForeColor = Color.DarkBlue;
-            bsiYazdir.ItemAppearance.Normal.Options.UseForeColor = true;
-            bsiYazdir.Name = "bsiYazdir";
-            // 
-            // bsiYazdirAciklama
-            // 
-            bsiYazdirAciklama.Caption = "YazdÄ±r";
-            bsiYazdirAciklama.Id = 31;
-            bsiYazdirAciklama.Name = "bsiYazdirAciklama";
-            // 
-            // bsiKapat
-            // 
-            bsiKapat.Caption = "Esc :";
-            bsiKapat.Id = 32;
-            bsiKapat.ItemAppearance.Normal.ForeColor = Color.DarkBlue;
-            bsiKapat.ItemAppearance.Normal.Options.UseForeColor = true;
-            bsiKapat.Name = "bsiKapat";
-            // 
-            // bsiKapatAciklama
-            // 
-            bsiKapatAciklama.Caption = "Kapat";
-            bsiKapatAciklama.Id = 33;
-            bsiKapatAciklama.Name = "bsiKapatAciklama";
             // 
             // BaseListForm
             // 
@@ -437,5 +446,6 @@
         private DevExpress.XtraBars.BarStaticItem bsiYazdirAciklama;
         private DevExpress.XtraBars.BarStaticItem bsiKapat;
         private DevExpress.XtraBars.BarStaticItem bsiKapatAciklama;
+        protected internal DevExpress.XtraBars.BarButtonItem btnBagliKayitlar;
     }
 }

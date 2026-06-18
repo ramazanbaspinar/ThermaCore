@@ -5,6 +5,7 @@ using ThermaCore.Application.DTOs.Management;
 using ThermaCore.Application.Interfaces.Repositories;
 using ThermaCore.Application.Interfaces.Security;
 using ThermaCore.Application.Interfaces.System;
+using FluentValidation;
 using ThermaCore.Domain.Entities.Management;
 using ThermaCore.Domain.Enums;
 using ThermaCore.Presentation.WinForms.Forms.BaseForms;
@@ -16,7 +17,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.SirketForms
     public partial class SirketEditForm : BaseEditForm
     {
         private readonly ITenantDatabaseSetupService _tenantDatabaseSetupService = default!;
-        private readonly IMasterRepository<TenantDatabase> _tenantRepository = default!;
+        private readonly ITenantDatabaseCrudService _tenantDatabaseCrudService = default!;
         private readonly IMasterUnitOfWork _uow = default!;
         private readonly ICryptoService _cryptoService = default!;
 
@@ -25,11 +26,11 @@ namespace ThermaCore.Presentation.WinForms.Forms.SirketForms
             InitializeComponent();
         }
 
-        public SirketEditForm(ITenantDatabaseSetupService tenantDatabaseSetupService, IMasterRepository<TenantDatabase> tenantRepository, IMasterUnitOfWork uow, ICryptoService cryptoService)
+        public SirketEditForm(ITenantDatabaseSetupService tenantDatabaseSetupService, ITenantDatabaseCrudService tenantDatabaseCrudService, IMasterUnitOfWork uow, ICryptoService cryptoService)
         {
             InitializeComponent();
             _tenantDatabaseSetupService = tenantDatabaseSetupService;
-            _tenantRepository = tenantRepository;
+            _tenantDatabaseCrudService = tenantDatabaseCrudService;
             _uow = uow;
             _cryptoService = cryptoService;
         }
@@ -82,18 +83,18 @@ namespace ThermaCore.Presentation.WinForms.Forms.SirketForms
 
             if (BaseIslemTuru == ActionType.EntityUpdate)
             {
-                var entity = _tenantRepository.GetById(Id);
-                if (entity != null)
+                var dto = _tenantDatabaseCrudService.GetById(Id);
+                if (dto != null)
                 {
-                    txtSirketKodu.Text = entity.Code;
-                    txtSirketAdi.Text = entity.CompanyName;
-                    txtVeritabaniAdi.Text = entity.DatabaseName;
-                    txtServer.Text = entity.Server;
-                    txtSqlKullaniciAdi.Text = entity.Username;
-                    try { txtSqlSifre.Text = string.IsNullOrEmpty(entity.Password) ? "" : _cryptoService.Decrypt(entity.Password); } catch { txtSqlSifre.Text = entity.Password; }
-                    txtAuthType.SelectedItem = entity.AuthType.ToName(); // Bunu sona aldık ki Windows seçiliyse üsttekileri tekrar silsin
+                    txtSirketKodu.Text = dto.Code;
+                    txtSirketAdi.Text = dto.CompanyName;
+                    txtVeritabaniAdi.Text = dto.DatabaseName;
+                    txtServer.Text = dto.Server;
+                    txtSqlKullaniciAdi.Text = dto.Username;
+                    try { txtSqlSifre.Text = string.IsNullOrEmpty(dto.Password) ? "" : _cryptoService.Decrypt(dto.Password); } catch { txtSqlSifre.Text = dto.Password; }
+                    txtAuthType.SelectedItem = dto.AuthType.ToName(); // Bunu sona aldık ki Windows seçiliyse üsttekileri tekrar silsin
                     txtSirketKodu.Enabled = false;
-                    myToggleSwitch1.IsOn = entity.IsActive;
+                    myToggleSwitch1.IsOn = dto.IsActive;
                 }
             }
             else
@@ -184,19 +185,12 @@ namespace ThermaCore.Presentation.WinForms.Forms.SirketForms
                 Cursor.Current = Cursors.WaitCursor;
                 var dto = (TenantDatabaseDto)CurrentEntity;
                 
-                var entity = _tenantRepository.GetById(dto.Id);
-                if (entity != null)
+                var existingDto = _tenantDatabaseCrudService.GetById(dto.Id);
+                if (existingDto != null)
                 {
-                    entity.CompanyName = dto.CompanyName;
-                    entity.DatabaseName = dto.DatabaseName;
-                    entity.Server = dto.Server;
-                    entity.AuthType = dto.AuthType;
-                    entity.Username = dto.Username;
-                    entity.Password = string.IsNullOrEmpty(dto.Password) ? "" : _cryptoService.Encrypt(dto.Password);
-                    entity.IsActive = dto.IsActive;
-                    
-                    _tenantRepository.Update(entity);
-                    _uow.SaveChanges();
+                    dto.Password = string.IsNullOrEmpty(dto.Password) ? "" : _cryptoService.Encrypt(dto.Password);
+                    _tenantDatabaseCrudService.Update(dto);
+
                     Messages.BilgiBasligi("Mevcut Şirket bilgileri başarıyla güncellendi.", "Bilgi");
                     return true;
                 }
@@ -222,11 +216,10 @@ namespace ThermaCore.Presentation.WinForms.Forms.SirketForms
                 try
                 {
                     Cursor.Current = Cursors.WaitCursor;
-                    var entity = _tenantRepository.GetById(Id);
-                    if (entity != null)
+                    var existingDto = _tenantDatabaseCrudService.GetById(Id);
+                    if (existingDto != null)
                     {
-                        _tenantRepository.Remove(entity);
-                        _uow.SaveChanges();
+                        _tenantDatabaseCrudService.Delete(existingDto.Id);
                         RefreshYapilacak = true;
                         Messages.SilindiMesaj();
                         Close();
@@ -240,6 +233,19 @@ namespace ThermaCore.Presentation.WinForms.Forms.SirketForms
                 {
                     Cursor.Current = Cursors.Default;
                 }
+            }
+        }
+
+        protected override void FocusControlByPropertyName(string propertyName)
+        {
+            switch (propertyName)
+            {
+                case "Code": txtSirketKodu.Focus(); break;
+                case "CompanyName": txtSirketAdi.Focus(); break;
+                case "DatabaseName": txtVeritabaniAdi.Focus(); break;
+                case "Server": txtServer.Focus(); break;
+                case "Username": txtSqlKullaniciAdi.Focus(); break;
+                case "Password": txtSqlSifre.Focus(); break;
             }
         }
     }

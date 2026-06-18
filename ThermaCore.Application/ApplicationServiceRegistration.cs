@@ -18,10 +18,12 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IUserService, UserManager>();
         services.AddScoped<IUserRoleService, UserRoleManager>();
         services.AddScoped<ITerminalService, TerminalManager>();
+        services.AddScoped<IBranchService, BranchManager>();
 
         services.AddScoped<ThermaCore.Application.Interfaces.System.ISessionService, ThermaCore.Application.Services.System.SessionManager>();
         services.AddScoped<ThermaCore.Application.Interfaces.System.ICodeGenerationService, ThermaCore.Application.Services.System.CodeGenerationManager>();
         services.AddScoped<ThermaCore.Application.Interfaces.System.ILayoutService, ThermaCore.Application.Services.System.LayoutManager>();
+        services.AddScoped<ThermaCore.Application.Interfaces.System.ITenantDatabaseCrudService, ThermaCore.Application.Services.System.TenantDatabaseCrudManager>();
         services.AddScoped<ThermaCore.Application.Interfaces.System.ITenantDatabaseSetupService, ThermaCore.Application.Services.System.TenantDatabaseSetupManager>();
         services.AddSingleton<ThermaCore.Application.Interfaces.System.ICurrentTenantService, ThermaCore.Application.Services.System.CurrentTenantService>();
 

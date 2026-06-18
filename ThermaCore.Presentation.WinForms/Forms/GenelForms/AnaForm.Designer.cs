@@ -44,7 +44,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             sistemYönetimiToolStripMenuItem = new ToolStripMenuItem();
             kurumsalTanımlarToolStripMenuItem = new ToolStripMenuItem();
             miSirketTanimlari = new ToolStripMenuItem();
-            fabrikaŞubeTanımlarıToolStripMenuItem = new ToolStripMenuItem();
+            miFabrikaSubeTanimlari = new ToolStripMenuItem();
             depoTanımlarıToolStripMenuItem = new ToolStripMenuItem();
             güvenlikVeYetkilendirmeToolStripMenuItem = new ToolStripMenuItem();
             kullanıcıTanımlarıToolStripMenuItem = new ToolStripMenuItem();
@@ -157,7 +157,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 
             // kurumsalTanımlarToolStripMenuItem
             // 
-            kurumsalTanımlarToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { miSirketTanimlari, fabrikaŞubeTanımlarıToolStripMenuItem, depoTanımlarıToolStripMenuItem });
+            kurumsalTanımlarToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { miSirketTanimlari, miFabrikaSubeTanimlari, depoTanımlarıToolStripMenuItem });
             kurumsalTanımlarToolStripMenuItem.Name = "kurumsalTanımlarToolStripMenuItem";
             kurumsalTanımlarToolStripMenuItem.Size = new Size(222, 22);
             kurumsalTanımlarToolStripMenuItem.Text = "Kurumsal Tanımlar";
@@ -168,11 +168,11 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             miSirketTanimlari.Size = new Size(216, 22);
             miSirketTanimlari.Text = "Şirket Tanımları";
             // 
-            // fabrikaŞubeTanımlarıToolStripMenuItem
+            // miFabrikaSubeTanimlari
             // 
-            fabrikaŞubeTanımlarıToolStripMenuItem.Name = "fabrikaŞubeTanımlarıToolStripMenuItem";
-            fabrikaŞubeTanımlarıToolStripMenuItem.Size = new Size(216, 22);
-            fabrikaŞubeTanımlarıToolStripMenuItem.Text = "Fabrika / Şube Tanımları";
+            miFabrikaSubeTanimlari.Name = "miFabrikaSubeTanimlari";
+            miFabrikaSubeTanimlari.Size = new Size(216, 22);
+            miFabrikaSubeTanimlari.Text = "Fabrika / Şube Tanımları";
             // 
             // depoTanımlarıToolStripMenuItem
             // 
@@ -338,7 +338,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
         private ToolStripMenuItem sistemYönetimiToolStripMenuItem;
         private ToolStripMenuItem kurumsalTanımlarToolStripMenuItem;
         private ToolStripMenuItem miSirketTanimlari;
-        private ToolStripMenuItem fabrikaŞubeTanımlarıToolStripMenuItem;
+        private ToolStripMenuItem miFabrikaSubeTanimlari;
         private ToolStripMenuItem depoTanımlarıToolStripMenuItem;
         private ToolStripMenuItem güvenlikVeYetkilendirmeToolStripMenuItem;
         private ToolStripMenuItem kullanıcıTanımlarıToolStripMenuItem;

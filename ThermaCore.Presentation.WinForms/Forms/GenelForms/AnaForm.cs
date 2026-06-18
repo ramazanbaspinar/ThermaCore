@@ -44,6 +44,9 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             if (miSirketTanimlari != null)
                 miSirketTanimlari.Click += miSirketTanimlari_Click;
 
+            if (miFabrikaSubeTanimlari != null)
+                miFabrikaSubeTanimlari.Click += miFabrikaSubeTanimlari_Click;
+
             if (xtraTabbedMdiManager != null)
             {
                 xtraTabbedMdiManager.PageAdded += XtraTabbedMdiManager_PageAdded;
@@ -162,6 +165,11 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
         private void miSirketTanimlari_Click(object? sender, EventArgs e)
         {
             FormYukle<ThermaCore.Presentation.WinForms.Forms.SirketForms.SirketListForm>();
+        }
+
+        private void miFabrikaSubeTanimlari_Click(object? sender, EventArgs e)
+        {
+            Messages.UyariMesaji("Fabrika ve Şube tanımlarına erişmek için lütfen önce 'Şirket Tanımları' ekranını açınız ve ilgili şirketi seçerek 'Bağlı Kartlar -> Fabrika Kartları' yolunu izleyiniz.");
         }
 
         private void BtnMusteriCariKartlar_Click(object? sender, EventArgs e)

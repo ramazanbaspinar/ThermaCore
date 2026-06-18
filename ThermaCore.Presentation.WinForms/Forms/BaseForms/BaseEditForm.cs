@@ -151,20 +151,36 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
             {
                 Cursor.Current = Cursors.WaitCursor;
 
-                switch (BaseIslemTuru)
+                try
                 {
-                    case ActionType.EntityInsert:
-                        if (EntityInsert())
-                            return KayitSonrasiIslemler();
-                        break;
+                    switch (BaseIslemTuru)
+                    {
+                        case ActionType.EntityInsert:
+                            if (EntityInsert())
+                                return KayitSonrasiIslemler();
+                            break;
 
-                    case ActionType.EntityUpdate:
-                        if (EntityUpdate())
-                            return KayitSonrasiIslemler();
-                        break;
+                        case ActionType.EntityUpdate:
+                            if (EntityUpdate())
+                                return KayitSonrasiIslemler();
+                            break;
+                    }
+                }
+                catch (FluentValidation.ValidationException ex)
+                {
+                    System.Linq.Enumerable.FirstOrDefault(ex.Errors);
+                    Messages.UyariMesaji(string.Join("\n", System.Linq.Enumerable.Select(ex.Errors, e => e.ErrorMessage)));
+                    var firstError = System.Linq.Enumerable.FirstOrDefault(ex.Errors);
+                    if (firstError != null)
+                    {
+                        FocusControlByPropertyName(firstError.PropertyName);
+                    }
+                }
+                finally
+                {
+                    Cursor.Current = Cursors.Default;
                 }
 
-                Cursor.Current = Cursors.Default;
                 return false;
             }
 
@@ -279,6 +295,11 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
         {
             if (!IsLoaded) return;
             UIExtensions.ButtonEnabledDurumu(btnYeni, btnKaydet, btnGerial, btnSil, btnYenile, btnYazdir, btnYazdir2, OldEntity, CurrentEntity, BaseIslemTuru);
+        }
+
+        protected virtual void FocusControlByPropertyName(string propertyName)
+        {
+            // Bu metot miras alan formlar tarafından ezilerek hatalı olan UI elementine (TextBox vb.) focuslanmayı sağlar.
         }
 
         //Events

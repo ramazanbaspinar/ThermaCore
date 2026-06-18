@@ -26,5 +26,7 @@ public class ManagementProfile : Profile
 
         CreateMap<TenantDatabase, TenantDatabaseDto>().ReverseMap();
         CreateMap<TenantDatabase, TenantDatabaseListDto>();
+
+        CreateMap<Branch, BranchDto>().ReverseMap();
     }
 }

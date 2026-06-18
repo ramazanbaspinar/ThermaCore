@@ -47,7 +47,7 @@ internal static class Program
         {
             // Kurulum sihirbazı ve veritabanı servisleri için bağımlılıkları manuel çözüyoruz
             ThermaCore.Application.Interfaces.System.ITenantDatabaseService tenantDbService = new ThermaCore.Infrastructure.System.TenantDatabaseManager();
-            ITenantDatabaseSetupService sistemVeritabaniService = new ThermaCore.Application.Services.System.TenantDatabaseSetupManager(null!, null!, tenantDbService, null!, null!);
+            ITenantDatabaseSetupService sistemVeritabaniService = new ThermaCore.Application.Services.System.TenantDatabaseSetupManager(null!, null!, tenantDbService, null!, null!, null!);
 
             System.Windows.Forms.Application.Run(new BaglantiHataForm(configService, sistemVeritabaniService));
             return;
@@ -63,6 +63,8 @@ internal static class Program
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.GenelForms.AnaForm>();
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.SirketForms.SirketListForm>();
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.SirketForms.SirketEditForm>();
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.FabrikaForms.FabrikaListForm>();
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.FabrikaForms.FabrikaEditForm>();
             })
             .Build();
 

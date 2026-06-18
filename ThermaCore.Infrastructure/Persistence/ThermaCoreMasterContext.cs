@@ -23,6 +23,7 @@ public class ThermaCoreMasterContext : DbContext
     public DbSet<Terminal> Terminals { get; set; }
     public DbSet<UserSession> UserSessions { get; set; }
     public DbSet<TenantDatabase> TenantDatabases { get; set; }
+    public DbSet<Branch> Branches { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

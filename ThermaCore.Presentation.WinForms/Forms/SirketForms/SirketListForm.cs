@@ -31,6 +31,14 @@ namespace ThermaCore.Presentation.WinForms.Forms.SirketForms
             // bu formdaki gridView'ı bağlıyoruz ki base metodlar çalışabilsin.
             Tablo = myGridView1;
             Navigator = longNavigator1.Navigator;
+            
+            btnBagliKayitlar.Caption = "Fabrikalar";
+        }
+
+        protected override void DegiskenleriDoldur()
+        {
+            if (IsMdiChild)
+                ShowItems = new DevExpress.XtraBars.BarItem[] { btnBagliKayitlar };
         }
 
         protected override void Listele()
@@ -114,6 +122,24 @@ namespace ThermaCore.Presentation.WinForms.Forms.SirketForms
                 {
                     Cursor.Current = Cursors.Default;
                 }
+            }
+        }
+
+        protected override void BagliKayitAc()
+        {
+            var selectedId = GetSelectedRowId();
+            if (selectedId <= 0) return;
+
+            var entity = _tenantRepository.GetById(selectedId);
+            if (entity == null) return;
+
+            var frm = Program.ServiceProvider?.GetRequiredService<ThermaCore.Presentation.WinForms.Forms.FabrikaForms.FabrikaListForm>();
+            if (frm != null)
+            {
+                frm.SetSirketBilgisi(entity.Id, entity.CompanyName);
+                frm.MdiParent = this.MdiParent;
+                frm.Yukle();
+                frm.Show();
             }
         }
 
