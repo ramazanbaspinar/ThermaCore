@@ -29,7 +29,9 @@ namespace ThermaCore.Presentation.WinForms.Forms.CodeTemplateForms
             Tablo = myGridView1;
             Navigator = longNavigator1.Navigator;
 
+            btnBagliKayitlar.Caption = "Loglar";
             HideItems = new DevExpress.XtraBars.BarItem[] { btnAktifPasifKayitlar };
+            ShowItems = new DevExpress.XtraBars.BarItem[] { btnBagliKayitlar };
         }
 
         protected override void Listele()
@@ -76,6 +78,23 @@ namespace ThermaCore.Presentation.WinForms.Forms.CodeTemplateForms
                 if (editForm.Id > 0)
                 {
                     Tablo.RowFocus("Id", editForm.Id);
+                }
+            }
+        }
+
+        protected override void BagliKayitAc()
+        {
+            var selectedId = GetSelectedRowId();
+            if (selectedId < 0) return;
+
+            var entity = _repository.GetById(selectedId);
+            if (entity != null)
+            {
+                var form = Program.ServiceProvider?.GetRequiredService<ThermaCore.Presentation.WinForms.Forms.KodYonetimForms.KodLogListForm>();
+                if (form != null)
+                {
+                    form.SetModule(entity.Module);
+                    form.ShowDialog();
                 }
             }
         }

@@ -29,6 +29,7 @@ public class CodeLogRepository : Repository<CodeLog>, ICodeLogRepository
             siradakiSayi = baslangicSayisi;
             var yeniLog = new CodeLog
             {
+                Id = ThermaCore.Domain.Helpers.IdGenerator.GenerateId(),
                 Module = modul,
                 CompanyCode = firmaKodu,
                 DateKey = tarihKey,

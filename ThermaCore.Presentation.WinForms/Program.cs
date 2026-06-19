@@ -67,6 +67,8 @@ internal static class Program
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.FabrikaForms.FabrikaEditForm>();
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.CodeTemplateForms.CodeTemplateListForm>();
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.CodeTemplateForms.CodeTemplateEditForm>();
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.KodYonetimForms.KodLogListForm>();
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.KodYonetimForms.KodLogEditForm>();
             })
             .Build();
 

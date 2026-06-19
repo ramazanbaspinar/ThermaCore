@@ -230,40 +230,7 @@ namespace ThermaCore.Presentation.WinForms.Helpers
 
         public static long IdOlustur(this ActionType islemTuru, BaseDto selectedEntity)
         {
-            string SifirEkle(string deger)
-            {
-                if (deger.Length == 1)
-                    return "0" + deger;
-                return deger;
-            }
-
-            string UcBasamakliYap(string deger)
-            {
-                switch (deger.Length)
-                {
-                    case 1:
-                        return "00" + deger;
-                    case 2:
-                        return "0" + deger;
-                }
-
-                return deger;
-            }
-
-            string Id()
-            {
-                var yil = DateTime.Now.Date.Year.ToString();
-                var ay = SifirEkle(DateTime.Now.Date.Month.ToString());
-                var gun = SifirEkle(DateTime.Now.Date.Day.ToString());
-                var saat = SifirEkle(DateTime.Now.Hour.ToString());
-                var dakika = SifirEkle(DateTime.Now.Minute.ToString());
-                var saniye = SifirEkle(DateTime.Now.Second.ToString());
-                var milisaniye = UcBasamakliYap(DateTime.Now.Millisecond.ToString());
-                var random = SifirEkle(new Random().Next(0, 99).ToString());
-
-                return yil + ay + gun + saat + dakika + saniye + milisaniye + random;
-            }
-            return islemTuru == ActionType.EntityUpdate ? selectedEntity.Id : long.Parse(Id());
+            return islemTuru == ActionType.EntityUpdate ? selectedEntity.Id : ThermaCore.Domain.Helpers.IdGenerator.GenerateId();
         }
 
         public static void ControlEnabledChange(object baseEdit, Control prmEdit)

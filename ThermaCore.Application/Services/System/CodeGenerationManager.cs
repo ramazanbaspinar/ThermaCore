@@ -15,12 +15,14 @@ public class CodeGenerationManager : ICodeGenerationService
     private readonly IRepository<CodeTemplate> _CodeTemplateRepository;
     private readonly ICodeLogRepository _CodeLogRepository;
     private readonly ITenantDatabaseCrudService _tenantService;
+    private readonly IUnitOfWork _uow;
 
-    public CodeGenerationManager(IRepository<CodeTemplate> CodeTemplateRepository, ICodeLogRepository CodeLogRepository, ITenantDatabaseCrudService tenantService)
+    public CodeGenerationManager(IRepository<CodeTemplate> CodeTemplateRepository, ICodeLogRepository CodeLogRepository, ITenantDatabaseCrudService tenantService, IUnitOfWork uow)
     {
         _CodeTemplateRepository = CodeTemplateRepository;
         _CodeLogRepository = CodeLogRepository;
         _tenantService = tenantService;
+        _uow = uow;
     }
 
     public async Task<string> GetNewCodeAsync(ModuleType modul, long firmaId = 0)
@@ -91,6 +93,18 @@ public class CodeGenerationManager : ICodeGenerationService
 
     public async Task SaveCodeAsync(ModuleType modul, long firmaId, string generatedCode, long? branchId = null)
     {
+        await Task.CompletedTask;
+    }
+
+    public async Task UpdateLastCodeValueAsync(long logId, int newValue)
+    {
+        var log = _CodeLogRepository.GetById(logId);
+        if (log != null)
+        {
+            log.LastCodeValue = newValue;
+            _CodeLogRepository.Update(log);
+            _uow.SaveChanges();
+        }
         await Task.CompletedTask;
     }
 
