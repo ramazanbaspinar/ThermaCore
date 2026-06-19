@@ -7,9 +7,9 @@ using ThermaCore.Domain.Enums;
 
 namespace ThermaCore.Infrastructure.Persistence.Repositories;
 
-public class KodLogRepository : Repository<KodLog>, IKodLogRepository
+public class CodeLogRepository : Repository<CodeLog>, ICodeLogRepository
 {
-    public KodLogRepository(ThermaCoreTenantContext context) : base(context)
+    public CodeLogRepository(ThermaCoreTenantContext context) : base(context)
     {
     }
 
@@ -17,35 +17,32 @@ public class KodLogRepository : Repository<KodLog>, IKodLogRepository
     {
         using var transaction = await _context.Database.BeginTransactionAsync(global::System.Data.IsolationLevel.Serializable);
 
-        var takip = await _context.KodLoglar
-            .FirstOrDefaultAsync(x => x.Modul == modul &&
-                                      x.FirmaKodu == firmaKodu &&
-                                      x.TarihKey == tarihKey &&
+        var takip = await _context.CodeLogs
+            .FirstOrDefaultAsync(x => x.Module == modul &&
+                                      x.CompanyCode == firmaKodu &&
+                                      x.DateKey == tarihKey &&
                                       (branchId == null ? x.BranchId == null : x.BranchId == branchId));
 
         int siradakiSayi;
         if (takip == null)
         {
             siradakiSayi = baslangicSayisi;
-            var yeniLog = new KodLog
+            var yeniLog = new CodeLog
             {
-                Modul = modul,
-                FirmaKodu = firmaKodu,
-                TarihKey = tarihKey,
+                Module = modul,
+                CompanyCode = firmaKodu,
+                DateKey = tarihKey,
                 BranchId = branchId,
-                SonKodDegeri = siradakiSayi
+                LastCodeValue = siradakiSayi
             };
-            _context.KodLoglar.Add(yeniLog);
+            _context.CodeLogs.Add(yeniLog);
             await _context.SaveChangesAsync();
         }
         else
         {
-            siradakiSayi = takip.SonKodDegeri + 1;
-            
-            // ExecuteUpdate ile atomik artırım
-            await _context.KodLoglar
-                .Where(x => x.Id == takip.Id)
-                .ExecuteUpdateAsync(s => s.SetProperty(p => p.SonKodDegeri, p => p.SonKodDegeri + 1));
+            siradakiSayi = takip.LastCodeValue + 1;
+            takip.LastCodeValue = siradakiSayi;
+            await _context.SaveChangesAsync();
         }
 
         await transaction.CommitAsync();

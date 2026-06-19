@@ -12,14 +12,14 @@ namespace ThermaCore.Application.Services.System;
 
 public class CodeGenerationManager : ICodeGenerationService
 {
-    private readonly IRepository<KodSablon> _kodSablonRepository;
-    private readonly IKodLogRepository _kodLogRepository;
+    private readonly IRepository<CodeTemplate> _CodeTemplateRepository;
+    private readonly ICodeLogRepository _CodeLogRepository;
     private readonly ITenantDatabaseCrudService _tenantService;
 
-    public CodeGenerationManager(IRepository<KodSablon> kodSablonRepository, IKodLogRepository kodLogRepository, ITenantDatabaseCrudService tenantService)
+    public CodeGenerationManager(IRepository<CodeTemplate> CodeTemplateRepository, ICodeLogRepository CodeLogRepository, ITenantDatabaseCrudService tenantService)
     {
-        _kodSablonRepository = kodSablonRepository;
-        _kodLogRepository = kodLogRepository;
+        _CodeTemplateRepository = CodeTemplateRepository;
+        _CodeLogRepository = CodeLogRepository;
         _tenantService = tenantService;
     }
 
@@ -37,53 +37,55 @@ public class CodeGenerationManager : ICodeGenerationService
 
     public async Task<CodeGenerationResultDto> GetNewCodeAsync(CodeGenerationRequestDto request)
     {
-        var kodKural = _kodSablonRepository.Find(x => x.Modul == request.Modul).FirstOrDefault();
+        var kodKural = _CodeTemplateRepository.Find(x => x.Module == request.Modul).FirstOrDefault();
 
-        if (kodKural == null || !kodKural.OtomatikKodUretmeDurumu)
+        if (kodKural == null || !kodKural.IsAutoCodeGenerationEnabled)
             return null!;
 
         string firmaKodu = "";
         string tarihStr = "";
         string tarihKey = "GENEL";
 
-        if (kodKural.FirmaKisaKodKullanimDurumu && request.FirmaKisaKodKullanilsin && request.FirmaId > 0)
+        if (kodKural.IsCompanyShortCodeUsed && request.FirmaKisaKodKullanilsin && request.FirmaId > 0)
         {
-            var tenant = _tenantService.GetById(request.FirmaId);
-            if (tenant != null)
-                firmaKodu = tenant.CompanyCode;
+            // TODO: İleride Cari Kartlar eklendiğinde, `FirmaId` aslında CariKart Id'si olarak kullanılacak
+            // ve Cari'nin Kısa Kodu (CompanyCode vb.) veritabanından çekilerek buraya eklenecektir.
+            // Şimdilik boş bırakıyoruz.
+            // var cariKart = _cariKartService.GetById(request.FirmaId);
+            // if (cariKart != null) firmaKodu = cariKart.KisaKod;
         }
 
-        if (kodKural.TarihliKodUretmeDurumu)
+        if (kodKural.IsDateBasedCodeGenerationEnabled)
         {
-            tarihStr = GetFormattedDate(kodKural.TarihFormati);
-            if (kodKural.TarihBazliKodSifrlamaDurumu)
-                tarihKey = GetDateKey(kodKural.TarihFormati);
+            tarihStr = GetFormattedDate(kodKural.DateFormat);
+            if (kodKural.IsDateBasedCodeResetEnabled)
+                tarihKey = GetDateKey(kodKural.DateFormat);
         }
 
         int sayi = 1;
         if (request.TestModu)
         {
-            sayi = kodKural.BaslangicSayisi;
+            sayi = kodKural.StartNumber;
         }
         else
         {
-            sayi = await _kodLogRepository.GetAndIncrementNextNumberAtomicAsync(request.Modul, firmaKodu, tarihKey, kodKural.BaslangicSayisi, request.BranchId);
+            sayi = await _CodeLogRepository.GetAndIncrementNextNumberAtomicAsync(request.Modul, firmaKodu, tarihKey, kodKural.StartNumber, request.BranchId);
         }
 
-        string sayisalStr = sayi.ToString().PadLeft(kodKural.SayisalUzunluk, '0');
+        string sayisalStr = sayi.ToString().PadLeft(kodKural.NumericLength, '0');
 
         var parcalar = new List<string>();
-        if (!string.IsNullOrEmpty(kodKural.KodOnEk)) parcalar.Add(kodKural.KodOnEk);
+        if (!string.IsNullOrEmpty(kodKural.CodePrefix)) parcalar.Add(kodKural.CodePrefix);
         if (!string.IsNullOrEmpty(tarihStr)) parcalar.Add(tarihStr);
         if (!string.IsNullOrEmpty(firmaKodu)) parcalar.Add(firmaKodu);
         parcalar.Add(sayisalStr);
-        if (!string.IsNullOrEmpty(kodKural.KodSonEk)) parcalar.Add(kodKural.KodSonEk);
+        if (!string.IsNullOrEmpty(kodKural.CodeSuffix)) parcalar.Add(kodKural.CodeSuffix);
 
         return new CodeGenerationResultDto
         {
             Code = string.Join("-", parcalar),
-            KullaniciMudahaleEdilebilir = kodKural.KullaniciMudahalesiDurumu,
-            FirmaKisaKodKullanildiMi = kodKural.FirmaKisaKodKullanimDurumu
+            KullaniciMudahaleEdilebilir = kodKural.IsUserInterventionAllowed,
+            FirmaKisaKodKullanildiMi = kodKural.IsCompanyShortCodeUsed
         };
     }
 

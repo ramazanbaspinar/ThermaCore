@@ -44,8 +44,8 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             if (miSirketTanimlari != null)
                 miSirketTanimlari.Click += miSirketTanimlari_Click;
 
-            if (miKodSablonlari != null)
-                miKodSablonlari.Click += miKodSablonlari_Click;
+            if (miCodeTemplatelari != null)
+                miCodeTemplatelari.Click += miCodeTemplatelari_Click;
 
             if (xtraTabbedMdiManager != null)
             {
@@ -167,9 +167,9 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             FormYukle<ThermaCore.Presentation.WinForms.Forms.SirketForms.SirketListForm>();
         }
 
-        private void miKodSablonlari_Click(object? sender, EventArgs e)
+        private void miCodeTemplatelari_Click(object? sender, EventArgs e)
         {
-            FormYukle<ThermaCore.Presentation.WinForms.Forms.KodSablonForms.KodSablonListForm>();
+            FormYukle<ThermaCore.Presentation.WinForms.Forms.CodeTemplateForms.CodeTemplateListForm>();
         }
 
         private void BtnMusteriCariKartlar_Click(object? sender, EventArgs e)

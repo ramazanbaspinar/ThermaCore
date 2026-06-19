@@ -104,7 +104,7 @@
             txtKod.Size = new Size(169, 22);
             txtKod.StatusBarAciklama = "Kod Giriniz.";
             txtKod.StyleController = myDataLayoutControl1;
-            txtKod.TabIndex = 0;
+            txtKod.TabIndex = 2;
             // 
             // tglDurum
             // 
@@ -150,7 +150,7 @@
             txtAciklama.Size = new Size(278, 79);
             txtAciklama.StatusBarAciklama = "Açıklama Giriniz.";
             txtAciklama.StyleController = myDataLayoutControl1;
-            txtAciklama.TabIndex = 2;
+            txtAciklama.TabIndex = 1;
             // 
             // txtFabrikaAdi
             // 
@@ -172,7 +172,7 @@
             txtFabrikaAdi.Size = new Size(169, 22);
             txtFabrikaAdi.StatusBarAciklama = null;
             txtFabrikaAdi.StyleController = myDataLayoutControl1;
-            txtFabrikaAdi.TabIndex = 1;
+            txtFabrikaAdi.TabIndex = 0;
             // 
             // Root
             // 

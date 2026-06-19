@@ -39,7 +39,7 @@ public static class InfrastructureServiceRegistration
         services.AddScoped<IHardwareInfoService, HardwareInfoService>();
         services.AddScoped<ILicenseService, LicenseService>();
         services.AddSingleton<ThermaCore.Application.Interfaces.System.ILayoutService, ThermaCore.Infrastructure.Services.System.LayoutService>();
-        services.AddScoped<ThermaCore.Application.Interfaces.Repositories.IKodLogRepository, ThermaCore.Infrastructure.Persistence.Repositories.KodLogRepository>();
+        services.AddScoped<ThermaCore.Application.Interfaces.Repositories.ICodeLogRepository, ThermaCore.Infrastructure.Persistence.Repositories.CodeLogRepository>();
 
         return services;
     }

@@ -1,6 +1,6 @@
-ï»¿namespace ThermaCore.Presentation.WinForms.Forms.KodSablonForms
+namespace ThermaCore.Presentation.WinForms.Forms.CodeTemplateForms
 {
-    partial class KodSablonEditForm
+    partial class CodeTemplateEditForm
     {
         /// <summary>
         /// Required designer variable.
@@ -37,6 +37,7 @@
             DevExpress.XtraLayout.RowDefinition rowDefinition5 = new DevExpress.XtraLayout.RowDefinition();
             DevExpress.XtraLayout.RowDefinition rowDefinition6 = new DevExpress.XtraLayout.RowDefinition();
             myDataLayoutControl1 = new ThermaCore.Presentation.WinForms.UserControls.MyDataLayoutControl();
+            btnKoduTestEt = new ThermaCore.Presentation.WinForms.UserControls.MySimpleButton();
             txtKullaniciMudahaleEdebilsin = new ThermaCore.Presentation.WinForms.UserControls.MyCheckEdit();
             txtFirmaKisaKoduKullan = new ThermaCore.Presentation.WinForms.UserControls.MyCheckEdit();
             txtTarihBazliKodSifirlama = new ThermaCore.Presentation.WinForms.UserControls.MyCheckEdit();
@@ -60,7 +61,6 @@
             layoutControlItem10 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
-            btnKoduTestEt = new ThermaCore.Presentation.WinForms.UserControls.MySimpleButton();
             layoutControlItem12 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)ribbon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)myDataLayoutControl1).BeginInit();
@@ -94,7 +94,7 @@
             // ribbon
             // 
             ribbon.ExpandCollapseItem.Id = 0;
-            ribbon.Size = new Size(534, 135);
+            ribbon.Size = new Size(573, 135);
             ribbon.Toolbar.ShowCustomizeItem = false;
             // 
             // myDataLayoutControl1
@@ -117,14 +117,32 @@
             myDataLayoutControl1.Name = "myDataLayoutControl1";
             myDataLayoutControl1.OptionsFocus.EnableAutoTabOrder = false;
             myDataLayoutControl1.Root = Root;
-            myDataLayoutControl1.Size = new Size(534, 211);
+            myDataLayoutControl1.Size = new Size(573, 190);
             myDataLayoutControl1.TabIndex = 2;
             myDataLayoutControl1.Text = "myDataLayoutControl1";
+            // 
+            // btnKoduTestEt
+            // 
+            btnKoduTestEt.Appearance.Font = new Font("Segoe UI", 9F);
+            btnKoduTestEt.Appearance.Options.UseFont = true;
+            btnKoduTestEt.AppearanceDisabled.Font = new Font("Segoe UI", 9F);
+            btnKoduTestEt.AppearanceDisabled.Options.UseFont = true;
+            btnKoduTestEt.AppearanceHovered.Font = new Font("Segoe UI", 9F);
+            btnKoduTestEt.AppearanceHovered.Options.UseFont = true;
+            btnKoduTestEt.AppearancePressed.Font = new Font("Segoe UI", 9F);
+            btnKoduTestEt.AppearancePressed.Options.UseFont = true;
+            btnKoduTestEt.Location = new Point(280, 12);
+            btnKoduTestEt.Name = "btnKoduTestEt";
+            btnKoduTestEt.Size = new Size(264, 22);
+            btnKoduTestEt.StatusBarAciklama = null;
+            btnKoduTestEt.StyleController = myDataLayoutControl1;
+            btnKoduTestEt.TabIndex = 15;
+            btnKoduTestEt.Text = "Kodu Test Et";
             // 
             // txtKullaniciMudahaleEdebilsin
             // 
             txtKullaniciMudahaleEdebilsin.EnterMoveNextControl = true;
-            txtKullaniciMudahaleEdebilsin.Location = new Point(269, 136);
+            txtKullaniciMudahaleEdebilsin.Location = new Point(280, 136);
             txtKullaniciMudahaleEdebilsin.MenuManager = ribbon;
             txtKullaniciMudahaleEdebilsin.Name = "txtKullaniciMudahaleEdebilsin";
             txtKullaniciMudahaleEdebilsin.Properties.Appearance.Font = new Font("Segoe UI", 9F);
@@ -137,8 +155,8 @@
             txtKullaniciMudahaleEdebilsin.Properties.AppearanceFocused.Options.UseFont = true;
             txtKullaniciMudahaleEdebilsin.Properties.AppearanceReadOnly.Font = new Font("Segoe UI", 9F);
             txtKullaniciMudahaleEdebilsin.Properties.AppearanceReadOnly.Options.UseFont = true;
-            txtKullaniciMudahaleEdebilsin.Properties.Caption = "KullanÄ±cÄ± MÃ¼dahale Edebilsin";
-            txtKullaniciMudahaleEdebilsin.Size = new Size(253, 20);
+            txtKullaniciMudahaleEdebilsin.Properties.Caption = "Kullanýcý Müdahale Edebilsin";
+            txtKullaniciMudahaleEdebilsin.Size = new Size(264, 20);
             txtKullaniciMudahaleEdebilsin.StatusBarAciklama = null;
             txtKullaniciMudahaleEdebilsin.StyleController = myDataLayoutControl1;
             txtKullaniciMudahaleEdebilsin.TabIndex = 14;
@@ -160,7 +178,7 @@
             txtFirmaKisaKoduKullan.Properties.AppearanceReadOnly.Font = new Font("Segoe UI", 9F);
             txtFirmaKisaKoduKullan.Properties.AppearanceReadOnly.Options.UseFont = true;
             txtFirmaKisaKoduKullan.Properties.Caption = "Firma Kisa Kod Kullan";
-            txtFirmaKisaKoduKullan.Size = new Size(253, 20);
+            txtFirmaKisaKoduKullan.Size = new Size(264, 20);
             txtFirmaKisaKoduKullan.StatusBarAciklama = null;
             txtFirmaKisaKoduKullan.StyleController = myDataLayoutControl1;
             txtFirmaKisaKoduKullan.TabIndex = 13;
@@ -181,8 +199,8 @@
             txtTarihBazliKodSifirlama.Properties.AppearanceFocused.Options.UseFont = true;
             txtTarihBazliKodSifirlama.Properties.AppearanceReadOnly.Font = new Font("Segoe UI", 9F);
             txtTarihBazliKodSifirlama.Properties.AppearanceReadOnly.Options.UseFont = true;
-            txtTarihBazliKodSifirlama.Properties.Caption = "Tarih BazlÄ± Kod SÄ±fÄ±rla";
-            txtTarihBazliKodSifirlama.Size = new Size(253, 20);
+            txtTarihBazliKodSifirlama.Properties.Caption = "Tarih Bazlý Kod Sýfýrla";
+            txtTarihBazliKodSifirlama.Size = new Size(264, 20);
             txtTarihBazliKodSifirlama.StatusBarAciklama = null;
             txtTarihBazliKodSifirlama.StyleController = myDataLayoutControl1;
             txtTarihBazliKodSifirlama.TabIndex = 12;
@@ -190,7 +208,7 @@
             // txtOtomatikKodUretimi
             // 
             txtOtomatikKodUretimi.EnterMoveNextControl = true;
-            txtOtomatikKodUretimi.Location = new Point(269, 167);
+            txtOtomatikKodUretimi.Location = new Point(280, 167);
             txtOtomatikKodUretimi.MenuManager = ribbon;
             txtOtomatikKodUretimi.Name = "txtOtomatikKodUretimi";
             txtOtomatikKodUretimi.Properties.Appearance.Font = new Font("Segoe UI", 9F);
@@ -203,8 +221,8 @@
             txtOtomatikKodUretimi.Properties.AppearanceFocused.Options.UseFont = true;
             txtOtomatikKodUretimi.Properties.AppearanceReadOnly.Font = new Font("Segoe UI", 9F);
             txtOtomatikKodUretimi.Properties.AppearanceReadOnly.Options.UseFont = true;
-            txtOtomatikKodUretimi.Properties.Caption = "Otomatik Kod Ãœretimi";
-            txtOtomatikKodUretimi.Size = new Size(253, 20);
+            txtOtomatikKodUretimi.Properties.Caption = "Otomatik Kod Üretimi";
+            txtOtomatikKodUretimi.Size = new Size(264, 20);
             txtOtomatikKodUretimi.StatusBarAciklama = null;
             txtOtomatikKodUretimi.StyleController = myDataLayoutControl1;
             txtOtomatikKodUretimi.TabIndex = 11;
@@ -212,7 +230,7 @@
             // txtKodSonEk
             // 
             txtKodSonEk.EnterMoveNextControl = true;
-            txtKodSonEk.Location = new Point(363, 43);
+            txtKodSonEk.Location = new Point(374, 43);
             txtKodSonEk.MenuManager = ribbon;
             txtKodSonEk.Name = "txtKodSonEk";
             txtKodSonEk.Properties.Appearance.Font = new Font("Segoe UI", 9F);
@@ -226,7 +244,7 @@
             txtKodSonEk.Properties.AppearanceReadOnly.Font = new Font("Segoe UI", 9F);
             txtKodSonEk.Properties.AppearanceReadOnly.Options.UseFont = true;
             txtKodSonEk.Properties.MaxLength = 100;
-            txtKodSonEk.Size = new Size(159, 22);
+            txtKodSonEk.Size = new Size(170, 22);
             txtKodSonEk.StatusBarAciklama = null;
             txtKodSonEk.StyleController = myDataLayoutControl1;
             txtKodSonEk.TabIndex = 10;
@@ -234,7 +252,7 @@
             // txtTarihFormati
             // 
             txtTarihFormati.EnterMoveNextControl = true;
-            txtTarihFormati.Location = new Point(363, 105);
+            txtTarihFormati.Location = new Point(374, 105);
             txtTarihFormati.MenuManager = ribbon;
             txtTarihFormati.Name = "txtTarihFormati";
             txtTarihFormati.Properties.Appearance.Font = new Font("Segoe UI", 9F);
@@ -257,7 +275,7 @@
             txtTarihFormati.Properties.AppearanceReadOnly.Options.UseFont = true;
             txtTarihFormati.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
             txtTarihFormati.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            txtTarihFormati.Size = new Size(159, 22);
+            txtTarihFormati.Size = new Size(170, 22);
             txtTarihFormati.StatusBarAciklama = null;
             txtTarihFormati.StatusBarKisaYol = "F4 :";
             txtTarihFormati.StatusBarKisaYolAciklama = null;
@@ -268,7 +286,7 @@
             // 
             txtBaslangicSayisi.EditValue = new decimal(new int[] { 0, 0, 0, 0 });
             txtBaslangicSayisi.EnterMoveNextControl = true;
-            txtBaslangicSayisi.Location = new Point(363, 74);
+            txtBaslangicSayisi.Location = new Point(374, 74);
             txtBaslangicSayisi.MenuManager = ribbon;
             txtBaslangicSayisi.Name = "txtBaslangicSayisi";
             txtBaslangicSayisi.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
@@ -284,7 +302,7 @@
             txtBaslangicSayisi.Properties.AppearanceReadOnly.Options.UseFont = true;
             txtBaslangicSayisi.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
             txtBaslangicSayisi.Properties.MaskSettings.Set("mask", "n0");
-            txtBaslangicSayisi.Size = new Size(159, 22);
+            txtBaslangicSayisi.Size = new Size(170, 22);
             txtBaslangicSayisi.StatusBarAciklama = null;
             txtBaslangicSayisi.StyleController = myDataLayoutControl1;
             txtBaslangicSayisi.TabIndex = 8;
@@ -309,7 +327,7 @@
             txtSayisalUzunluk.Properties.AppearanceReadOnly.Options.UseFont = true;
             txtSayisalUzunluk.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
             txtSayisalUzunluk.Properties.MaskSettings.Set("mask", "n0");
-            txtSayisalUzunluk.Size = new Size(159, 22);
+            txtSayisalUzunluk.Size = new Size(170, 22);
             txtSayisalUzunluk.StatusBarAciklama = null;
             txtSayisalUzunluk.StyleController = myDataLayoutControl1;
             txtSayisalUzunluk.TabIndex = 7;
@@ -331,7 +349,7 @@
             txtTarihKullan.Properties.AppearanceReadOnly.Font = new Font("Segoe UI", 9F);
             txtTarihKullan.Properties.AppearanceReadOnly.Options.UseFont = true;
             txtTarihKullan.Properties.Caption = "Tarih Kullan";
-            txtTarihKullan.Size = new Size(253, 20);
+            txtTarihKullan.Size = new Size(264, 20);
             txtTarihKullan.StatusBarAciklama = null;
             txtTarihKullan.StyleController = myDataLayoutControl1;
             txtTarihKullan.TabIndex = 6;
@@ -353,7 +371,7 @@
             txtKodOnEk.Properties.AppearanceReadOnly.Font = new Font("Segoe UI", 9F);
             txtKodOnEk.Properties.AppearanceReadOnly.Options.UseFont = true;
             txtKodOnEk.Properties.MaxLength = 100;
-            txtKodOnEk.Size = new Size(159, 22);
+            txtKodOnEk.Size = new Size(170, 22);
             txtKodOnEk.StatusBarAciklama = null;
             txtKodOnEk.StyleController = myDataLayoutControl1;
             txtKodOnEk.TabIndex = 5;
@@ -384,7 +402,7 @@
             txtModul.Properties.AppearanceReadOnly.Options.UseFont = true;
             txtModul.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
             txtModul.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            txtModul.Size = new Size(159, 22);
+            txtModul.Size = new Size(170, 22);
             txtModul.StatusBarAciklama = null;
             txtModul.StatusBarKisaYol = "F4 :";
             txtModul.StatusBarKisaYolAciklama = null;
@@ -416,7 +434,7 @@
             rowDefinition6.Height = 31D;
             rowDefinition6.SizeType = SizeType.Absolute;
             Root.OptionsTableLayoutGroup.RowDefinitions.AddRange(new DevExpress.XtraLayout.RowDefinition[] { rowDefinition1, rowDefinition2, rowDefinition3, rowDefinition4, rowDefinition5, rowDefinition6 });
-            Root.Size = new Size(534, 211);
+            Root.Size = new Size(556, 206);
             Root.TextVisible = false;
             // 
             // layoutControlItem2
@@ -427,8 +445,8 @@
             layoutControlItem2.Location = new Point(0, 31);
             layoutControlItem2.Name = "layoutControlItem2";
             layoutControlItem2.OptionsTableLayoutItem.RowIndex = 1;
-            layoutControlItem2.Size = new Size(257, 31);
-            layoutControlItem2.Text = "Kod Ã–n Ek";
+            layoutControlItem2.Size = new Size(268, 31);
+            layoutControlItem2.Text = "Kod Ön Ek";
             layoutControlItem2.TextSize = new Size(82, 15);
             // 
             // layoutControlItem4
@@ -439,8 +457,8 @@
             layoutControlItem4.Location = new Point(0, 62);
             layoutControlItem4.Name = "layoutControlItem4";
             layoutControlItem4.OptionsTableLayoutItem.RowIndex = 2;
-            layoutControlItem4.Size = new Size(257, 31);
-            layoutControlItem4.Text = "SayÄ±sal Uzunluk";
+            layoutControlItem4.Size = new Size(268, 31);
+            layoutControlItem4.Text = "Sayýsal Uzunluk";
             layoutControlItem4.TextSize = new Size(82, 15);
             // 
             // layoutControlItem1
@@ -450,8 +468,8 @@
             layoutControlItem1.Control = txtModul;
             layoutControlItem1.Location = new Point(0, 0);
             layoutControlItem1.Name = "layoutControlItem1";
-            layoutControlItem1.Size = new Size(257, 31);
-            layoutControlItem1.Text = "ModÃ¼l";
+            layoutControlItem1.Size = new Size(268, 31);
+            layoutControlItem1.Text = "Modül";
             layoutControlItem1.TextSize = new Size(82, 15);
             // 
             // layoutControlItem7
@@ -459,11 +477,11 @@
             layoutControlItem7.AppearanceItemCaption.Font = new Font("Segoe UI", 9F);
             layoutControlItem7.AppearanceItemCaption.Options.UseFont = true;
             layoutControlItem7.Control = txtKodSonEk;
-            layoutControlItem7.Location = new Point(257, 31);
+            layoutControlItem7.Location = new Point(268, 31);
             layoutControlItem7.Name = "layoutControlItem7";
             layoutControlItem7.OptionsTableLayoutItem.ColumnIndex = 1;
             layoutControlItem7.OptionsTableLayoutItem.RowIndex = 1;
-            layoutControlItem7.Size = new Size(257, 31);
+            layoutControlItem7.Size = new Size(268, 31);
             layoutControlItem7.Text = "Kod Son Ek";
             layoutControlItem7.TextSize = new Size(82, 15);
             // 
@@ -472,12 +490,12 @@
             layoutControlItem5.AppearanceItemCaption.Font = new Font("Segoe UI", 9F);
             layoutControlItem5.AppearanceItemCaption.Options.UseFont = true;
             layoutControlItem5.Control = txtBaslangicSayisi;
-            layoutControlItem5.Location = new Point(257, 62);
+            layoutControlItem5.Location = new Point(268, 62);
             layoutControlItem5.Name = "layoutControlItem5";
             layoutControlItem5.OptionsTableLayoutItem.ColumnIndex = 1;
             layoutControlItem5.OptionsTableLayoutItem.RowIndex = 2;
-            layoutControlItem5.Size = new Size(257, 31);
-            layoutControlItem5.Text = "BaÅŸlangÄ±Ã§ SayÄ±sÄ±";
+            layoutControlItem5.Size = new Size(268, 31);
+            layoutControlItem5.Text = "Baþlangýç Sayýsý";
             layoutControlItem5.TextSize = new Size(82, 15);
             // 
             // layoutControlItem3
@@ -488,7 +506,7 @@
             layoutControlItem3.Location = new Point(0, 93);
             layoutControlItem3.Name = "layoutControlItem3";
             layoutControlItem3.OptionsTableLayoutItem.RowIndex = 3;
-            layoutControlItem3.Size = new Size(257, 31);
+            layoutControlItem3.Size = new Size(268, 31);
             layoutControlItem3.TextVisible = false;
             // 
             // layoutControlItem6
@@ -496,12 +514,12 @@
             layoutControlItem6.AppearanceItemCaption.Font = new Font("Segoe UI", 9F);
             layoutControlItem6.AppearanceItemCaption.Options.UseFont = true;
             layoutControlItem6.Control = txtTarihFormati;
-            layoutControlItem6.Location = new Point(257, 93);
+            layoutControlItem6.Location = new Point(268, 93);
             layoutControlItem6.Name = "layoutControlItem6";
             layoutControlItem6.OptionsTableLayoutItem.ColumnIndex = 1;
             layoutControlItem6.OptionsTableLayoutItem.RowIndex = 3;
-            layoutControlItem6.Size = new Size(257, 31);
-            layoutControlItem6.Text = "Tarih FormatÄ±";
+            layoutControlItem6.Size = new Size(268, 31);
+            layoutControlItem6.Text = "Tarih Formatý";
             layoutControlItem6.TextSize = new Size(82, 15);
             // 
             // layoutControlItem11
@@ -509,11 +527,11 @@
             layoutControlItem11.AppearanceItemCaption.Font = new Font("Segoe UI", 9F);
             layoutControlItem11.AppearanceItemCaption.Options.UseFont = true;
             layoutControlItem11.Control = txtKullaniciMudahaleEdebilsin;
-            layoutControlItem11.Location = new Point(257, 124);
+            layoutControlItem11.Location = new Point(268, 124);
             layoutControlItem11.Name = "layoutControlItem11";
             layoutControlItem11.OptionsTableLayoutItem.ColumnIndex = 1;
             layoutControlItem11.OptionsTableLayoutItem.RowIndex = 4;
-            layoutControlItem11.Size = new Size(257, 31);
+            layoutControlItem11.Size = new Size(268, 31);
             layoutControlItem11.TextVisible = false;
             // 
             // layoutControlItem10
@@ -524,7 +542,7 @@
             layoutControlItem10.Location = new Point(0, 155);
             layoutControlItem10.Name = "layoutControlItem10";
             layoutControlItem10.OptionsTableLayoutItem.RowIndex = 5;
-            layoutControlItem10.Size = new Size(257, 36);
+            layoutControlItem10.Size = new Size(268, 31);
             layoutControlItem10.TextVisible = false;
             // 
             // layoutControlItem9
@@ -535,7 +553,7 @@
             layoutControlItem9.Location = new Point(0, 124);
             layoutControlItem9.Name = "layoutControlItem9";
             layoutControlItem9.OptionsTableLayoutItem.RowIndex = 4;
-            layoutControlItem9.Size = new Size(257, 31);
+            layoutControlItem9.Size = new Size(268, 31);
             layoutControlItem9.TextVisible = false;
             // 
             // layoutControlItem8
@@ -543,51 +561,34 @@
             layoutControlItem8.AppearanceItemCaption.Font = new Font("Segoe UI", 9F);
             layoutControlItem8.AppearanceItemCaption.Options.UseFont = true;
             layoutControlItem8.Control = txtOtomatikKodUretimi;
-            layoutControlItem8.Location = new Point(257, 155);
+            layoutControlItem8.Location = new Point(268, 155);
             layoutControlItem8.Name = "layoutControlItem8";
             layoutControlItem8.OptionsTableLayoutItem.ColumnIndex = 1;
             layoutControlItem8.OptionsTableLayoutItem.RowIndex = 5;
-            layoutControlItem8.Size = new Size(257, 36);
+            layoutControlItem8.Size = new Size(268, 31);
             layoutControlItem8.TextVisible = false;
-            // 
-            // btnKoduTestEt
-            // 
-            btnKoduTestEt.Appearance.Font = new Font("Segoe UI", 9F);
-            btnKoduTestEt.Appearance.Options.UseFont = true;
-            btnKoduTestEt.AppearanceDisabled.Font = new Font("Segoe UI", 9F);
-            btnKoduTestEt.AppearanceDisabled.Options.UseFont = true;
-            btnKoduTestEt.AppearanceHovered.Font = new Font("Segoe UI", 9F);
-            btnKoduTestEt.AppearanceHovered.Options.UseFont = true;
-            btnKoduTestEt.AppearancePressed.Font = new Font("Segoe UI", 9F);
-            btnKoduTestEt.AppearancePressed.Options.UseFont = true;
-            btnKoduTestEt.Location = new Point(269, 12);
-            btnKoduTestEt.Name = "btnKoduTestEt";
-            btnKoduTestEt.Size = new Size(253, 22);
-            btnKoduTestEt.StatusBarAciklama = null;
-            btnKoduTestEt.StyleController = myDataLayoutControl1;
-            btnKoduTestEt.TabIndex = 15;
-            btnKoduTestEt.Text = "Kodu Test Et";
             // 
             // layoutControlItem12
             // 
             layoutControlItem12.AppearanceItemCaption.Font = new Font("Segoe UI", 9F);
             layoutControlItem12.AppearanceItemCaption.Options.UseFont = true;
             layoutControlItem12.Control = btnKoduTestEt;
-            layoutControlItem12.Location = new Point(257, 0);
+            layoutControlItem12.Location = new Point(268, 0);
             layoutControlItem12.Name = "layoutControlItem12";
             layoutControlItem12.OptionsTableLayoutItem.ColumnIndex = 1;
-            layoutControlItem12.Size = new Size(257, 31);
+            layoutControlItem12.Size = new Size(268, 31);
             layoutControlItem12.TextVisible = false;
             // 
-            // KodSablonEditForm
+            // CodeTemplateEditForm
             // 
             AutoScaleDimensions = new SizeF(6F, 13F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(534, 370);
+            ClientSize = new Size(573, 349);
             Controls.Add(myDataLayoutControl1);
             IconOptions.ShowIcon = false;
-            Name = "KodSablonEditForm";
-            Text = "Kod Åžablon TanÄ±mÄ±";
+            MinimumSize = new Size(575, 350);
+            Name = "CodeTemplateEditForm";
+            Text = "Kod Þablon Tanýmý";
             Controls.SetChildIndex(ribbon, 0);
             Controls.SetChildIndex(myDataLayoutControl1, 0);
             ((System.ComponentModel.ISupportInitialize)ribbon).EndInit();

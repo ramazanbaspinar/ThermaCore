@@ -107,7 +107,7 @@
             // txtAuthType
             // 
             txtAuthType.EnterMoveNextControl = true;
-            txtAuthType.Location = new Point(114, 114);
+            txtAuthType.Location = new Point(114, 136);
             txtAuthType.MenuManager = ribbon;
             txtAuthType.Name = "txtAuthType";
             txtAuthType.Properties.Appearance.Font = new Font("Segoe UI", 9F);
@@ -140,7 +140,7 @@
             // txtServer
             // 
             txtServer.EnterMoveNextControl = true;
-            txtServer.Location = new Point(114, 83);
+            txtServer.Location = new Point(114, 105);
             txtServer.MenuManager = ribbon;
             txtServer.Name = "txtServer";
             txtServer.Properties.Appearance.Font = new Font("Segoe UI", 9F);
@@ -162,7 +162,7 @@
             // myToggleSwitch1
             // 
             myToggleSwitch1.EnterMoveNextControl = true;
-            myToggleSwitch1.Location = new Point(269, -10);
+            myToggleSwitch1.Location = new Point(269, 12);
             myToggleSwitch1.MenuManager = ribbon;
             myToggleSwitch1.Name = "myToggleSwitch1";
             myToggleSwitch1.Properties.Appearance.Font = new Font("Segoe UI", 9F);
@@ -186,7 +186,7 @@
             // txtSqlSifre
             // 
             txtSqlSifre.EnterMoveNextControl = true;
-            txtSqlSifre.Location = new Point(114, 176);
+            txtSqlSifre.Location = new Point(114, 198);
             txtSqlSifre.MenuManager = ribbon;
             txtSqlSifre.Name = "txtSqlSifre";
             txtSqlSifre.Properties.Appearance.Font = new Font("Segoe UI", 9F);
@@ -209,7 +209,7 @@
             // txtSqlKullaniciAdi
             // 
             txtSqlKullaniciAdi.EnterMoveNextControl = true;
-            txtSqlKullaniciAdi.Location = new Point(114, 145);
+            txtSqlKullaniciAdi.Location = new Point(114, 167);
             txtSqlKullaniciAdi.MenuManager = ribbon;
             txtSqlKullaniciAdi.Name = "txtSqlKullaniciAdi";
             txtSqlKullaniciAdi.Properties.Appearance.Font = new Font("Segoe UI", 9F);
@@ -231,7 +231,7 @@
             // txtVeritabaniAdi
             // 
             txtVeritabaniAdi.EnterMoveNextControl = true;
-            txtVeritabaniAdi.Location = new Point(114, 52);
+            txtVeritabaniAdi.Location = new Point(114, 74);
             txtVeritabaniAdi.MenuManager = ribbon;
             txtVeritabaniAdi.Name = "txtVeritabaniAdi";
             txtVeritabaniAdi.Properties.Appearance.Font = new Font("Segoe UI", 9F);
@@ -253,7 +253,7 @@
             // txtSirketAdi
             // 
             txtSirketAdi.EnterMoveNextControl = true;
-            txtSirketAdi.Location = new Point(114, 21);
+            txtSirketAdi.Location = new Point(114, 43);
             txtSirketAdi.MenuManager = ribbon;
             txtSirketAdi.Name = "txtSirketAdi";
             txtSirketAdi.Properties.Appearance.Font = new Font("Segoe UI", 9F);
@@ -275,7 +275,7 @@
             // txtSirketKodu
             // 
             txtSirketKodu.EnterMoveNextControl = true;
-            txtSirketKodu.Location = new Point(114, -10);
+            txtSirketKodu.Location = new Point(114, 12);
             txtSirketKodu.MenuManager = ribbon;
             txtSirketKodu.Name = "txtSirketKodu";
             txtSirketKodu.Properties.Appearance.BackColor = Color.FromArgb(220, 235, 250);

@@ -55,6 +55,8 @@ public class TenantDatabaseSetupManager : ITenantDatabaseSetupService
 
         // Create Master Database, don't seed
         await _tenantDatabaseService.CreateMasterDatabaseAsync(connectionString);
+        // Create Tenant Database tables
+        await _tenantDatabaseService.CreateDatabaseAsync(connectionString);
 
         if (_repository != null && _uow != null && _cryptoService != null && _mapper != null)
         {

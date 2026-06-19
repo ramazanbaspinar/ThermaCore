@@ -58,7 +58,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             txtDovizBilgisi = new ToolStripMenuItem();
             txtAylikMetreVerileri = new ToolStripMenuItem();
             btnAnaFormResim = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyPictureEdit();
-            miKodSablonlari = new ToolStripMenuItem();
+            miCodeTemplatelari = new ToolStripMenuItem();
             menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)xtraTabbedMdiManager).BeginInit();
             menuStrip1.SuspendLayout();
@@ -201,7 +201,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 
             // parametrelerToolStripMenuItem
             // 
-            parametrelerToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { genelSistemParametreleriToolStripMenuItem, kullanıcıParametreleriToolStripMenuItem, miKodSablonlari });
+            parametrelerToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { genelSistemParametreleriToolStripMenuItem, kullanıcıParametreleriToolStripMenuItem, miCodeTemplatelari });
             parametrelerToolStripMenuItem.Name = "parametrelerToolStripMenuItem";
             parametrelerToolStripMenuItem.Size = new Size(222, 22);
             parametrelerToolStripMenuItem.Text = "Parametreler";
@@ -279,11 +279,11 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             btnAnaFormResim.StatusBarKisaYolAciklama = null;
             btnAnaFormResim.TabIndex = 3;
             // 
-            // miKodSablonlari
+            // miCodeTemplatelari
             // 
-            miKodSablonlari.Name = "miKodSablonlari";
-            miKodSablonlari.Size = new Size(233, 22);
-            miKodSablonlari.Text = "Kod Şablonları";
+            miCodeTemplatelari.Name = "miCodeTemplatelari";
+            miCodeTemplatelari.Size = new Size(233, 22);
+            miCodeTemplatelari.Text = "Kod Şablonları";
             // 
             // AnaForm
             // 
@@ -346,6 +346,6 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
         private ToolStripMenuItem parametrelerToolStripMenuItem;
         private ToolStripMenuItem genelSistemParametreleriToolStripMenuItem;
         private ToolStripMenuItem kullanıcıParametreleriToolStripMenuItem;
-        private ToolStripMenuItem miKodSablonlari;
+        private ToolStripMenuItem miCodeTemplatelari;
     }
 }

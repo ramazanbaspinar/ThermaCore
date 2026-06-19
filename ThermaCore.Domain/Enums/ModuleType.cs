@@ -11,7 +11,7 @@ public enum ModuleType
     [Description("Sistem Yönetimi")]
     Management = 3,
     [Description("Kod Şablonları")]
-    KodSablonYonetimi = 4,
+    CodeTemplateYonetimi = 4,
     [Description("Kod Üretim Logları")]
     KodLog = 5,
     [Description("Fabrikalar")]

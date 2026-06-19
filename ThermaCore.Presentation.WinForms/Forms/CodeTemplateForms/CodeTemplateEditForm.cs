@@ -8,24 +8,24 @@ using ThermaCore.Domain.Enums;
 using ThermaCore.Presentation.WinForms.Forms.BaseForms;
 using ThermaCore.Presentation.WinForms.Helpers;
 
-namespace ThermaCore.Presentation.WinForms.Forms.KodSablonForms
+namespace ThermaCore.Presentation.WinForms.Forms.CodeTemplateForms
 {
-    public partial class KodSablonEditForm : BaseEditForm
+    public partial class CodeTemplateEditForm : BaseEditForm
     {
-        private readonly IRepository<KodSablon> _repository = default!;
+        private readonly IRepository<CodeTemplate> _repository = default!;
         private readonly IUnitOfWork _uow = default!;
 
-        public KodSablonEditForm()
+        public CodeTemplateEditForm()
         {
             InitializeComponent();
         }
 
-        public KodSablonEditForm(IRepository<KodSablon> repository, IUnitOfWork uow)
+        public CodeTemplateEditForm(IRepository<CodeTemplate> repository, IUnitOfWork uow)
         {
             InitializeComponent();
             _repository = repository;
             _uow = uow;
-            BaseKartTuru = ModuleType.KodSablonYonetimi;
+            BaseKartTuru = ModuleType.CodeTemplateYonetimi;
         }
 
         protected override void EventsLoad()
@@ -77,13 +77,13 @@ namespace ThermaCore.Presentation.WinForms.Forms.KodSablonForms
 
             var sablonUretilebilenModuller = new[] { ModuleType.Factory };
             
-            var tanimliModuller = _repository.Find(x => !x.IsDeleted).Select(x => x.Modul).ToList();
+            var tanimliModuller = _repository.Find(x => !x.IsDeleted).Select(x => x.Module).ToList();
             if (BaseIslemTuru == ActionType.EntityUpdate)
             {
                 var entity = _repository.GetById(Id);
                 if (entity != null)
                 {
-                    tanimliModuller.Remove(entity.Modul); // Kendi modülünü listeden çıkar ki dropdown'da görünsün
+                    tanimliModuller.Remove(entity.Module); // Kendi modülünü listeden çıkar ki dropdown'da görünsün
                 }
             }
             
@@ -103,17 +103,17 @@ namespace ThermaCore.Presentation.WinForms.Forms.KodSablonForms
                 var entity = _repository.GetById(Id);
                 if (entity != null)
                 {
-                    txtModul.SelectedItem = entity.Modul.ToName();
-                    txtKodOnEk.Text = entity.KodOnEk;
-                    txtSayisalUzunluk.Value = entity.SayisalUzunluk;
-                    txtBaslangicSayisi.Value = entity.BaslangicSayisi;
-                    txtTarihFormati.SelectedItem = entity.TarihFormati.ToName();
-                    txtKodSonEk.Text = entity.KodSonEk;
-                    txtOtomatikKodUretimi.Checked = entity.OtomatikKodUretmeDurumu;
-                    txtKullaniciMudahaleEdebilsin.Checked = entity.KullaniciMudahalesiDurumu;
-                    txtFirmaKisaKoduKullan.Checked = entity.FirmaKisaKodKullanimDurumu;
-                    txtTarihKullan.Checked = entity.TarihliKodUretmeDurumu;
-                    txtTarihBazliKodSifirlama.Checked = entity.TarihBazliKodSifrlamaDurumu;
+                    txtModul.SelectedItem = entity.Module.ToName();
+                    txtKodOnEk.Text = entity.CodePrefix;
+                    txtSayisalUzunluk.Value = entity.NumericLength;
+                    txtBaslangicSayisi.Value = entity.StartNumber;
+                    txtTarihFormati.SelectedItem = entity.DateFormat.ToName();
+                    txtKodSonEk.Text = entity.CodeSuffix;
+                    txtOtomatikKodUretimi.Checked = entity.IsAutoCodeGenerationEnabled;
+                    txtKullaniciMudahaleEdebilsin.Checked = entity.IsUserInterventionAllowed;
+                    txtFirmaKisaKoduKullan.Checked = entity.IsCompanyShortCodeUsed;
+                    txtTarihKullan.Checked = entity.IsDateBasedCodeGenerationEnabled;
+                    txtTarihBazliKodSifirlama.Checked = entity.IsDateBasedCodeResetEnabled;
                 }
             }
             else
@@ -145,20 +145,20 @@ namespace ThermaCore.Presentation.WinForms.Forms.KodSablonForms
             if (!string.IsNullOrEmpty(txtTarihFormati.Text))
                 selectedTarih = txtTarihFormati.Text.GetEnum<DateFormat>();
 
-            CurrentEntity = new KodSablonDto
+            CurrentEntity = new CodeTemplateDto
             {
                 Id = this.Id,
-                Modul = selectedModul,
-                KodOnEk = txtKodOnEk.Text,
-                SayisalUzunluk = (byte)txtSayisalUzunluk.Value,
-                BaslangicSayisi = (int)txtBaslangicSayisi.Value,
-                TarihFormati = selectedTarih,
-                KodSonEk = txtKodSonEk.Text,
-                OtomatikKodUretmeDurumu = txtOtomatikKodUretimi.Checked,
-                KullaniciMudahalesiDurumu = txtKullaniciMudahaleEdebilsin.Checked,
-                FirmaKisaKodKullanimDurumu = txtFirmaKisaKoduKullan.Checked,
-                TarihliKodUretmeDurumu = txtTarihKullan.Checked,
-                TarihBazliKodSifrlamaDurumu = txtTarihBazliKodSifirlama.Checked
+                Module = selectedModul,
+                CodePrefix = txtKodOnEk.Text,
+                NumericLength = (byte)txtSayisalUzunluk.Value,
+                StartNumber = (int)txtBaslangicSayisi.Value,
+                DateFormat = selectedTarih,
+                CodeSuffix = txtKodSonEk.Text,
+                IsAutoCodeGenerationEnabled = txtOtomatikKodUretimi.Checked,
+                IsUserInterventionAllowed = txtKullaniciMudahaleEdebilsin.Checked,
+                IsCompanyShortCodeUsed = txtFirmaKisaKoduKullan.Checked,
+                IsDateBasedCodeGenerationEnabled = txtTarihKullan.Checked,
+                IsDateBasedCodeResetEnabled = txtTarihBazliKodSifirlama.Checked
             };
         }
 
@@ -173,24 +173,24 @@ namespace ThermaCore.Presentation.WinForms.Forms.KodSablonForms
             try
             {
                 Cursor.Current = Cursors.WaitCursor;
-                var dto = (KodSablonDto)CurrentEntity;
+                var dto = (CodeTemplateDto)CurrentEntity;
                 dto.Id = BaseIslemTuru.IdOlustur(dto);
                 this.Id = dto.Id;
 
-                var entity = new KodSablon
+                var entity = new CodeTemplate
                 {
                     Id = dto.Id,
-                    Modul = dto.Modul,
-                    KodOnEk = dto.KodOnEk,
-                    SayisalUzunluk = dto.SayisalUzunluk,
-                    BaslangicSayisi = dto.BaslangicSayisi,
-                    TarihFormati = dto.TarihFormati,
-                    KodSonEk = dto.KodSonEk,
-                    OtomatikKodUretmeDurumu = dto.OtomatikKodUretmeDurumu,
-                    KullaniciMudahalesiDurumu = dto.KullaniciMudahalesiDurumu,
-                    FirmaKisaKodKullanimDurumu = dto.FirmaKisaKodKullanimDurumu,
-                    TarihliKodUretmeDurumu = dto.TarihliKodUretmeDurumu,
-                    TarihBazliKodSifrlamaDurumu = dto.TarihBazliKodSifrlamaDurumu
+                    Module = dto.Module,
+                    CodePrefix = dto.CodePrefix,
+                    NumericLength = dto.NumericLength,
+                    StartNumber = dto.StartNumber,
+                    DateFormat = dto.DateFormat,
+                    CodeSuffix = dto.CodeSuffix,
+                    IsAutoCodeGenerationEnabled = dto.IsAutoCodeGenerationEnabled,
+                    IsUserInterventionAllowed = dto.IsUserInterventionAllowed,
+                    IsCompanyShortCodeUsed = dto.IsCompanyShortCodeUsed,
+                    IsDateBasedCodeGenerationEnabled = dto.IsDateBasedCodeGenerationEnabled,
+                    IsDateBasedCodeResetEnabled = dto.IsDateBasedCodeResetEnabled
                 };
 
                 _repository.Add(entity);
@@ -220,22 +220,22 @@ namespace ThermaCore.Presentation.WinForms.Forms.KodSablonForms
             try
             {
                 Cursor.Current = Cursors.WaitCursor;
-                var dto = (KodSablonDto)CurrentEntity;
+                var dto = (CodeTemplateDto)CurrentEntity;
                 var entity = _repository.GetById(dto.Id);
 
                 if (entity != null)
                 {
-                    entity.Modul = dto.Modul;
-                    entity.KodOnEk = dto.KodOnEk;
-                    entity.SayisalUzunluk = dto.SayisalUzunluk;
-                    entity.BaslangicSayisi = dto.BaslangicSayisi;
-                    entity.TarihFormati = dto.TarihFormati;
-                    entity.KodSonEk = dto.KodSonEk;
-                    entity.OtomatikKodUretmeDurumu = dto.OtomatikKodUretmeDurumu;
-                    entity.KullaniciMudahalesiDurumu = dto.KullaniciMudahalesiDurumu;
-                    entity.FirmaKisaKodKullanimDurumu = dto.FirmaKisaKodKullanimDurumu;
-                    entity.TarihliKodUretmeDurumu = dto.TarihliKodUretmeDurumu;
-                    entity.TarihBazliKodSifrlamaDurumu = dto.TarihBazliKodSifrlamaDurumu;
+                    entity.Module = dto.Module;
+                    entity.CodePrefix = dto.CodePrefix;
+                    entity.NumericLength = dto.NumericLength;
+                    entity.StartNumber = dto.StartNumber;
+                    entity.DateFormat = dto.DateFormat;
+                    entity.CodeSuffix = dto.CodeSuffix;
+                    entity.IsAutoCodeGenerationEnabled = dto.IsAutoCodeGenerationEnabled;
+                    entity.IsUserInterventionAllowed = dto.IsUserInterventionAllowed;
+                    entity.IsCompanyShortCodeUsed = dto.IsCompanyShortCodeUsed;
+                    entity.IsDateBasedCodeGenerationEnabled = dto.IsDateBasedCodeGenerationEnabled;
+                    entity.IsDateBasedCodeResetEnabled = dto.IsDateBasedCodeResetEnabled;
 
                     _repository.Update(entity);
                     _uow.SaveChanges();
@@ -287,21 +287,23 @@ namespace ThermaCore.Presentation.WinForms.Forms.KodSablonForms
         private void TestKoduUret()
         {
             GuncelNesneOlustur();
-            var dto = CurrentEntity as KodSablonDto;
+            var dto = CurrentEntity as CodeTemplateDto;
             if (dto == null) return;
 
-            if (!dto.OtomatikKodUretmeDurumu)
+            if (!dto.IsAutoCodeGenerationEnabled)
             {
                 Messages.UyariMesaji("Otomatik Kod Üretimi kapalı olduğu için test edilemez.");
                 return;
             }
 
-            string firmaKodu = dto.FirmaKisaKodKullanimDurumu ? "FRM" : "";
+            // TODO: İleride Cari Kartlar yapıldığında, Cari Kısa Kod alanı buradan çekilecek.
+            // Şimdilik "FirmaKisaKodKullanimDurumu" seçiliyse cari kısa kod yerine boş bırakıyoruz veya opsiyonel bir şey eklemiyoruz.
+            string firmaKodu = "";
             string tarihStr = "";
             
-            if (dto.TarihliKodUretmeDurumu)
+            if (dto.IsDateBasedCodeGenerationEnabled)
             {
-                tarihStr = dto.TarihFormati switch
+                tarihStr = dto.DateFormat switch
                 {
                     DateFormat.yyyy => DateTime.Today.ToString("yyyy"),
                     DateFormat.yy => DateTime.Today.ToString("yy"),
@@ -315,14 +317,14 @@ namespace ThermaCore.Presentation.WinForms.Forms.KodSablonForms
                 };
             }
 
-            string sayisalStr = dto.BaslangicSayisi.ToString().PadLeft(dto.SayisalUzunluk, '0');
+            string sayisalStr = dto.StartNumber.ToString().PadLeft(dto.NumericLength, '0');
 
             var parcalar = new System.Collections.Generic.List<string>();
-            if (!string.IsNullOrEmpty(dto.KodOnEk)) parcalar.Add(dto.KodOnEk);
+            if (!string.IsNullOrEmpty(dto.CodePrefix)) parcalar.Add(dto.CodePrefix);
             if (!string.IsNullOrEmpty(tarihStr)) parcalar.Add(tarihStr);
             if (!string.IsNullOrEmpty(firmaKodu)) parcalar.Add(firmaKodu);
             parcalar.Add(sayisalStr);
-            if (!string.IsNullOrEmpty(dto.KodSonEk)) parcalar.Add(dto.KodSonEk);
+            if (!string.IsNullOrEmpty(dto.CodeSuffix)) parcalar.Add(dto.CodeSuffix);
 
             string ornekKod = string.Join("-", parcalar);
             Messages.BilgiBasligi($"Oluşturulan Örnek Kod:\n\n{ornekKod}", "Kod Testi");

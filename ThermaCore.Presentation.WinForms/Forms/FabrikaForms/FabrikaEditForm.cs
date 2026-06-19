@@ -218,5 +218,10 @@ namespace ThermaCore.Presentation.WinForms.Forms.FabrikaForms
                 case "Description": txtAciklama.Focus(); break;
             }
         }
+
+        protected override bool IsCodeUnique(string code)
+        {
+            return !_branchService.GetAll().Any(x => x.Code == code && x.TenantDatabaseId == _sirketId);
+        }
     }
 }

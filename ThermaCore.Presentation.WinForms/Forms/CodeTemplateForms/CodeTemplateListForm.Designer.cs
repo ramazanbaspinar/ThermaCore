@@ -1,6 +1,6 @@
-ï»¿namespace ThermaCore.Presentation.WinForms.Forms.KodSablonForms
+namespace ThermaCore.Presentation.WinForms.Forms.CodeTemplateForms
 {
-    partial class KodSablonListForm
+    partial class CodeTemplateListForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,19 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(KodSablonListForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CodeTemplateListForm));
             longNavigator1 = new RbaYazilim.WinRezistans.UI.Win.UserControls.Controls.Navigators.LongNavigator();
             myGridControl1 = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridControl();
             myGridView1 = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridView();
             colId = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
-            colKod = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colModul = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colKodOnEk = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
+            colKodSonEk = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colSayisalUzunluk = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colBaslangicSayisi = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
-            colTarihKullan = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
-            colTarihFormati = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
-            colKodSonEk = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
+            colOtomatikKodUretimi = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             ((System.ComponentModel.ISupportInitialize)ribbon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)myGridControl1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)myGridView1).BeginInit();
@@ -120,7 +118,7 @@
             myGridView1.Appearance.ViewCaption.ForeColor = Color.FromArgb(64, 64, 64);
             myGridView1.Appearance.ViewCaption.Options.UseFont = true;
             myGridView1.Appearance.ViewCaption.Options.UseForeColor = true;
-            myGridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colId, colKod, colModul, colKodOnEk, colSayisalUzunluk, colBaslangicSayisi, colTarihKullan, colTarihFormati, colKodSonEk });
+            myGridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colId, colModul, colKodOnEk, colKodSonEk, colSayisalUzunluk, colBaslangicSayisi, colOtomatikKodUretimi });
             myGridView1.GridControl = myGridControl1;
             myGridView1.Name = "myGridView1";
             myGridView1.OptionsMenu.EnableColumnMenu = false;
@@ -141,7 +139,7 @@
             myGridView1.StatusBarAciklama = null;
             myGridView1.StatusBarKisaYol = null;
             myGridView1.StatusBarKisaYolAciklama = null;
-            myGridView1.ViewCaption = "Kod ÅžablonlarÄ±";
+            myGridView1.ViewCaption = "Kod Þablonlarý";
             // 
             // colId
             // 
@@ -154,28 +152,6 @@
             colId.StatusBarKisaYol = null;
             colId.StatusBarKisaYolAciklama = null;
             // 
-            // colKod
-            // 
-            colKod.AppearanceCell.Font = new Font("Segoe UI", 9.75F);
-            colKod.AppearanceCell.Options.UseTextOptions = true;
-            colKod.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            colKod.AppearanceHeader.BackColor = Color.FromArgb(46, 134, 193);
-            colKod.AppearanceHeader.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
-            colKod.AppearanceHeader.ForeColor = Color.White;
-            colKod.AppearanceHeader.Options.UseBackColor = true;
-            colKod.AppearanceHeader.Options.UseFont = true;
-            colKod.AppearanceHeader.Options.UseForeColor = true;
-            colKod.Caption = "Kod";
-            colKod.FieldName = "Kod";
-            colKod.Name = "colKod";
-            colKod.OptionsColumn.AllowEdit = false;
-            colKod.StatusBarAciklama = null;
-            colKod.StatusBarKisaYol = null;
-            colKod.StatusBarKisaYolAciklama = null;
-            colKod.Visible = true;
-            colKod.VisibleIndex = 0;
-            colKod.Width = 175;
-            // 
             // colModul
             // 
             colModul.AppearanceCell.Font = new Font("Segoe UI", 9.75F);
@@ -186,15 +162,15 @@
             colModul.AppearanceHeader.Options.UseBackColor = true;
             colModul.AppearanceHeader.Options.UseFont = true;
             colModul.AppearanceHeader.Options.UseForeColor = true;
-            colModul.Caption = "ModÃ¼l";
-            colModul.FieldName = "Modul";
+            colModul.Caption = "Modül";
+            colModul.FieldName = "Module";
             colModul.Name = "colModul";
             colModul.OptionsColumn.AllowEdit = false;
             colModul.StatusBarAciklama = null;
             colModul.StatusBarKisaYol = null;
             colModul.StatusBarKisaYolAciklama = null;
             colModul.Visible = true;
-            colModul.VisibleIndex = 1;
+            colModul.VisibleIndex = 0;
             colModul.Width = 175;
             // 
             // colKodOnEk
@@ -207,16 +183,37 @@
             colKodOnEk.AppearanceHeader.Options.UseBackColor = true;
             colKodOnEk.AppearanceHeader.Options.UseFont = true;
             colKodOnEk.AppearanceHeader.Options.UseForeColor = true;
-            colKodOnEk.Caption = "Ã–n Ek";
-            colKodOnEk.FieldName = "KodOnEk";
+            colKodOnEk.Caption = "Kod Ön Ek";
+            colKodOnEk.FieldName = "CodePrefix";
             colKodOnEk.Name = "colKodOnEk";
             colKodOnEk.OptionsColumn.AllowEdit = false;
             colKodOnEk.StatusBarAciklama = null;
             colKodOnEk.StatusBarKisaYol = null;
             colKodOnEk.StatusBarKisaYolAciklama = null;
             colKodOnEk.Visible = true;
-            colKodOnEk.VisibleIndex = 2;
+            colKodOnEk.VisibleIndex = 1;
             colKodOnEk.Width = 175;
+            // 
+            // colKodSonEk
+            // 
+            colKodSonEk.AppearanceCell.Font = new Font("Segoe UI", 9.75F);
+            colKodSonEk.AppearanceCell.Options.UseFont = true;
+            colKodSonEk.AppearanceHeader.BackColor = Color.FromArgb(46, 134, 193);
+            colKodSonEk.AppearanceHeader.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
+            colKodSonEk.AppearanceHeader.ForeColor = Color.White;
+            colKodSonEk.AppearanceHeader.Options.UseBackColor = true;
+            colKodSonEk.AppearanceHeader.Options.UseFont = true;
+            colKodSonEk.AppearanceHeader.Options.UseForeColor = true;
+            colKodSonEk.Caption = "Kod Son Ek";
+            colKodSonEk.FieldName = "CodeSuffix";
+            colKodSonEk.Name = "colKodSonEk";
+            colKodSonEk.OptionsColumn.AllowEdit = false;
+            colKodSonEk.StatusBarAciklama = null;
+            colKodSonEk.StatusBarKisaYol = null;
+            colKodSonEk.StatusBarKisaYolAciklama = null;
+            colKodSonEk.Visible = true;
+            colKodSonEk.VisibleIndex = 2;
+            colKodSonEk.Width = 175;
             // 
             // colSayisalUzunluk
             // 
@@ -228,8 +225,8 @@
             colSayisalUzunluk.AppearanceHeader.Options.UseBackColor = true;
             colSayisalUzunluk.AppearanceHeader.Options.UseFont = true;
             colSayisalUzunluk.AppearanceHeader.Options.UseForeColor = true;
-            colSayisalUzunluk.Caption = "SayÄ±sal Uzunluk";
-            colSayisalUzunluk.FieldName = "SayisalUzunluk";
+            colSayisalUzunluk.Caption = "Sayýsal Uzunluk";
+            colSayisalUzunluk.FieldName = "NumericLength";
             colSayisalUzunluk.Name = "colSayisalUzunluk";
             colSayisalUzunluk.OptionsColumn.AllowEdit = false;
             colSayisalUzunluk.StatusBarAciklama = null;
@@ -249,8 +246,8 @@
             colBaslangicSayisi.AppearanceHeader.Options.UseBackColor = true;
             colBaslangicSayisi.AppearanceHeader.Options.UseFont = true;
             colBaslangicSayisi.AppearanceHeader.Options.UseForeColor = true;
-            colBaslangicSayisi.Caption = "BaÅŸlangÄ±Ã§ SayÄ±sÄ±";
-            colBaslangicSayisi.FieldName = "BaslangicSayisi";
+            colBaslangicSayisi.Caption = "Baþlangýç Sayýsý";
+            colBaslangicSayisi.FieldName = "StartNumber";
             colBaslangicSayisi.Name = "colBaslangicSayisi";
             colBaslangicSayisi.OptionsColumn.AllowEdit = false;
             colBaslangicSayisi.StatusBarAciklama = null;
@@ -260,70 +257,28 @@
             colBaslangicSayisi.VisibleIndex = 4;
             colBaslangicSayisi.Width = 175;
             // 
-            // colTarihKullan
+            // colOtomatikKodUretimi
             // 
-            colTarihKullan.AppearanceCell.Font = new Font("Segoe UI", 9.75F);
-            colTarihKullan.AppearanceCell.Options.UseFont = true;
-            colTarihKullan.AppearanceHeader.BackColor = Color.FromArgb(46, 134, 193);
-            colTarihKullan.AppearanceHeader.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
-            colTarihKullan.AppearanceHeader.ForeColor = Color.White;
-            colTarihKullan.AppearanceHeader.Options.UseBackColor = true;
-            colTarihKullan.AppearanceHeader.Options.UseFont = true;
-            colTarihKullan.AppearanceHeader.Options.UseForeColor = true;
-            colTarihKullan.Caption = "Tarih Kullan";
-            colTarihKullan.FieldName = "TarihKullan";
-            colTarihKullan.Name = "colTarihKullan";
-            colTarihKullan.OptionsColumn.AllowEdit = false;
-            colTarihKullan.StatusBarAciklama = null;
-            colTarihKullan.StatusBarKisaYol = null;
-            colTarihKullan.StatusBarKisaYolAciklama = null;
-            colTarihKullan.Visible = true;
-            colTarihKullan.VisibleIndex = 5;
-            colTarihKullan.Width = 175;
+            colOtomatikKodUretimi.AppearanceCell.Font = new Font("Segoe UI", 9.75F);
+            colOtomatikKodUretimi.AppearanceCell.Options.UseFont = true;
+            colOtomatikKodUretimi.AppearanceHeader.BackColor = Color.FromArgb(46, 134, 193);
+            colOtomatikKodUretimi.AppearanceHeader.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
+            colOtomatikKodUretimi.AppearanceHeader.ForeColor = Color.White;
+            colOtomatikKodUretimi.AppearanceHeader.Options.UseBackColor = true;
+            colOtomatikKodUretimi.AppearanceHeader.Options.UseFont = true;
+            colOtomatikKodUretimi.AppearanceHeader.Options.UseForeColor = true;
+            colOtomatikKodUretimi.Caption = "Otomatik Kod Üretimi";
+            colOtomatikKodUretimi.FieldName = "IsAutoCodeGenerationEnabled";
+            colOtomatikKodUretimi.Name = "colOtomatikKodUretimi";
+            colOtomatikKodUretimi.OptionsColumn.AllowEdit = false;
+            colOtomatikKodUretimi.StatusBarAciklama = null;
+            colOtomatikKodUretimi.StatusBarKisaYol = null;
+            colOtomatikKodUretimi.StatusBarKisaYolAciklama = null;
+            colOtomatikKodUretimi.Visible = true;
+            colOtomatikKodUretimi.VisibleIndex = 5;
+            colOtomatikKodUretimi.Width = 175;
             // 
-            // colTarihFormati
-            // 
-            colTarihFormati.AppearanceCell.Font = new Font("Segoe UI", 9.75F);
-            colTarihFormati.AppearanceCell.Options.UseFont = true;
-            colTarihFormati.AppearanceHeader.BackColor = Color.FromArgb(46, 134, 193);
-            colTarihFormati.AppearanceHeader.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
-            colTarihFormati.AppearanceHeader.ForeColor = Color.White;
-            colTarihFormati.AppearanceHeader.Options.UseBackColor = true;
-            colTarihFormati.AppearanceHeader.Options.UseFont = true;
-            colTarihFormati.AppearanceHeader.Options.UseForeColor = true;
-            colTarihFormati.Caption = "Tarih FormatÄ±";
-            colTarihFormati.FieldName = "TarihFormati";
-            colTarihFormati.Name = "colTarihFormati";
-            colTarihFormati.OptionsColumn.AllowEdit = false;
-            colTarihFormati.StatusBarAciklama = null;
-            colTarihFormati.StatusBarKisaYol = null;
-            colTarihFormati.StatusBarKisaYolAciklama = null;
-            colTarihFormati.Visible = true;
-            colTarihFormati.VisibleIndex = 6;
-            colTarihFormati.Width = 175;
-            // 
-            // colKodSonEk
-            // 
-            colKodSonEk.AppearanceCell.Font = new Font("Segoe UI", 9.75F);
-            colKodSonEk.AppearanceCell.Options.UseFont = true;
-            colKodSonEk.AppearanceHeader.BackColor = Color.FromArgb(46, 134, 193);
-            colKodSonEk.AppearanceHeader.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
-            colKodSonEk.AppearanceHeader.ForeColor = Color.White;
-            colKodSonEk.AppearanceHeader.Options.UseBackColor = true;
-            colKodSonEk.AppearanceHeader.Options.UseFont = true;
-            colKodSonEk.AppearanceHeader.Options.UseForeColor = true;
-            colKodSonEk.Caption = "Kod Son Ek";
-            colKodSonEk.FieldName = "KodSonEk";
-            colKodSonEk.Name = "colKodSonEk";
-            colKodSonEk.OptionsColumn.AllowEdit = false;
-            colKodSonEk.StatusBarAciklama = null;
-            colKodSonEk.StatusBarKisaYol = null;
-            colKodSonEk.StatusBarKisaYolAciklama = null;
-            colKodSonEk.Visible = true;
-            colKodSonEk.VisibleIndex = 7;
-            colKodSonEk.Width = 175;
-            // 
-            // KodSablonListForm
+            // CodeTemplateListForm
             // 
             AutoScaleDimensions = new SizeF(6F, 13F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -331,8 +286,8 @@
             Controls.Add(myGridControl1);
             Controls.Add(longNavigator1);
             IconOptions.ShowIcon = false;
-            Name = "KodSablonListForm";
-            Text = "Kod ÅžablonlarÄ±";
+            Name = "CodeTemplateListForm";
+            Text = "Kod Þablonlarý";
             Controls.SetChildIndex(ribbon, 0);
             Controls.SetChildIndex(longNavigator1, 0);
             Controls.SetChildIndex(myGridControl1, 0);
@@ -349,13 +304,11 @@
         private UserControls.Grid.MyGridControl myGridControl1;
         private UserControls.Grid.MyGridView myGridView1;
         private UserControls.Grid.MyGridColumn colId;
-        private UserControls.Grid.MyGridColumn colKod;
         private UserControls.Grid.MyGridColumn colModul;
         private UserControls.Grid.MyGridColumn colKodOnEk;
+        private UserControls.Grid.MyGridColumn colKodSonEk;
         private UserControls.Grid.MyGridColumn colSayisalUzunluk;
         private UserControls.Grid.MyGridColumn colBaslangicSayisi;
-        private UserControls.Grid.MyGridColumn colTarihKullan;
-        private UserControls.Grid.MyGridColumn colTarihFormati;
-        private UserControls.Grid.MyGridColumn colKodSonEk;
+        private UserControls.Grid.MyGridColumn colOtomatikKodUretimi;
     }
 }

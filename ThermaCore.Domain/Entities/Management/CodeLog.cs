@@ -4,18 +4,18 @@ using ThermaCore.Domain.Enums;
 
 namespace ThermaCore.Domain.Entities.Management;
 
-public class KodLog : Entity
+public class CodeLog : Entity
 {
     [Required]
-    public ModuleType Modul { get; set; }
+    public ModuleType Module { get; set; }
 
     [StringLength(100)]
-    public string FirmaKodu { get; set; } = string.Empty;
+    public string CompanyCode { get; set; } = string.Empty;
 
     [StringLength(100)]
-    public string TarihKey { get; set; } = string.Empty;
+    public string DateKey { get; set; } = string.Empty;
 
-    public int SonKodDegeri { get; set; }
+    public int LastCodeValue { get; set; }
     
     public long? BranchId { get; set; }
 }

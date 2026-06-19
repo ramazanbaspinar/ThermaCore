@@ -281,12 +281,29 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
         {
         }
 
+        protected virtual bool IsCodeUnique(string code)
+        {
+            return true; // Varsayılan olarak her zaman benzersiz kabul edilir. Ezilmesi gerekir.
+        }
+
         protected virtual void UretilecekKoduHazirla()
         {
             var codeService = Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetService<ICodeGenerationService>(Program.ServiceProvider);
             if (codeService != null)
             {
-                var code = System.Threading.Tasks.Task.Run(async () => await codeService.GetNewCodeAsync(BaseKartTuru, FirmaId)).GetAwaiter().GetResult();
+                string code = "";
+                // Çakışmaları önlemek için kod benzersiz olana kadar dener (Max 20 deneme).
+                for (int i = 0; i < 20; i++)
+                {
+                    code = System.Threading.Tasks.Task.Run(async () => await codeService.GetNewCodeAsync(BaseKartTuru, FirmaId)).GetAwaiter().GetResult();
+                    
+                    if (string.IsNullOrEmpty(code)) 
+                        break;
+                    
+                    if (IsCodeUnique(code)) 
+                        break;
+                }
+
                 if (!string.IsNullOrEmpty(code))
                 {
                     var kodControl = this.Controls.Find("txtKod", true).FirstOrDefault() as DevExpress.XtraEditors.TextEdit;
@@ -405,16 +422,16 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
                     bool isReadOnly = true;
                     string nullPrompt = "< Otomatik Üretilecek >";
 
-                    var sablonRepo = Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetService<ThermaCore.Application.Interfaces.Repositories.IRepository<ThermaCore.Domain.Entities.Management.KodSablon>>(Program.ServiceProvider);
+                    var sablonRepo = Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetService<ThermaCore.Application.Interfaces.Repositories.IRepository<ThermaCore.Domain.Entities.Management.CodeTemplate>>(Program.ServiceProvider);
                     if (sablonRepo != null)
                     {
-                        var sablon = System.Linq.Enumerable.FirstOrDefault(sablonRepo.Find(x => x.Modul == BaseKartTuru && !x.IsDeleted));
-                        if (sablon == null || !sablon.OtomatikKodUretmeDurumu)
+                        var sablon = System.Linq.Enumerable.FirstOrDefault(sablonRepo.Find(x => x.Module == BaseKartTuru && !x.IsDeleted));
+                        if (sablon == null || !sablon.IsAutoCodeGenerationEnabled)
                         {
                             isReadOnly = false;
                             nullPrompt = "";
                         }
-                        else if (sablon.KullaniciMudahalesiDurumu)
+                        else if (sablon.IsUserInterventionAllowed)
                         {
                             isReadOnly = false;
                         }

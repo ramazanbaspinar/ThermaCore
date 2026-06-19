@@ -14,7 +14,7 @@ public class TenantDatabaseManager : ITenantDatabaseService
 
         using (var context = new ThermaCoreTenantContext(optionsBuilder.Options))
         {
-            await context.Database.EnsureCreatedAsync();
+            await context.Database.MigrateAsync();
         }
     }
 
@@ -25,7 +25,7 @@ public class TenantDatabaseManager : ITenantDatabaseService
 
         using (var context = new ThermaCoreMasterContext(optionsBuilder.Options))
         {
-            await context.Database.EnsureCreatedAsync();
+            await context.Database.MigrateAsync();
         }
     }
 }

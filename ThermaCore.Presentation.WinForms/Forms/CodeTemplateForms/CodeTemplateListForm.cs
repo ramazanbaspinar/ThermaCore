@@ -8,19 +8,19 @@ using ThermaCore.Domain.Entities.Management;
 using ThermaCore.Presentation.WinForms.Forms.BaseForms;
 using ThermaCore.Presentation.WinForms.Helpers;
 
-namespace ThermaCore.Presentation.WinForms.Forms.KodSablonForms
+namespace ThermaCore.Presentation.WinForms.Forms.CodeTemplateForms
 {
-    public partial class KodSablonListForm : BaseListForm
+    public partial class CodeTemplateListForm : BaseListForm
     {
-        private readonly IRepository<KodSablon> _repository = default!;
+        private readonly IRepository<CodeTemplate> _repository = default!;
         private readonly IUnitOfWork _uow = default!;
 
-        public KodSablonListForm()
+        public CodeTemplateListForm()
         {
             InitializeComponent();
         }
 
-        public KodSablonListForm(IRepository<KodSablon> repository, IUnitOfWork uow)
+        public CodeTemplateListForm(IRepository<CodeTemplate> repository, IUnitOfWork uow)
         {
             InitializeComponent();
             _repository = repository;
@@ -40,20 +40,20 @@ namespace ThermaCore.Presentation.WinForms.Forms.KodSablonForms
             {
                 var entities = _repository.GetAll().ToList();
 
-                var dtoList = entities.Select(x => new KodSablonDto
+                var dtoList = entities.Select(x => new CodeTemplateDto
                 {
                     Id = x.Id,
-                    Modul = x.Modul,
-                    KodOnEk = x.KodOnEk,
-                    SayisalUzunluk = x.SayisalUzunluk,
-                    BaslangicSayisi = x.BaslangicSayisi,
-                    TarihFormati = x.TarihFormati,
-                    KodSonEk = x.KodSonEk,
-                    OtomatikKodUretmeDurumu = x.OtomatikKodUretmeDurumu,
-                    KullaniciMudahalesiDurumu = x.KullaniciMudahalesiDurumu,
-                    FirmaKisaKodKullanimDurumu = x.FirmaKisaKodKullanimDurumu,
-                    TarihliKodUretmeDurumu = x.TarihliKodUretmeDurumu,
-                    TarihBazliKodSifrlamaDurumu = x.TarihBazliKodSifrlamaDurumu
+                    Module = x.Module,
+                    CodePrefix = x.CodePrefix,
+                    NumericLength = x.NumericLength,
+                    StartNumber = x.StartNumber,
+                    DateFormat = x.DateFormat,
+                    CodeSuffix = x.CodeSuffix,
+                    IsAutoCodeGenerationEnabled = x.IsAutoCodeGenerationEnabled,
+                    IsUserInterventionAllowed = x.IsUserInterventionAllowed,
+                    IsCompanyShortCodeUsed = x.IsCompanyShortCodeUsed,
+                    IsDateBasedCodeGenerationEnabled = x.IsDateBasedCodeGenerationEnabled,
+                    IsDateBasedCodeResetEnabled = x.IsDateBasedCodeResetEnabled
                 }).ToList();
 
                 myGridControl1.DataSource = dtoList;
@@ -66,7 +66,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.KodSablonForms
 
         protected override void ShowEditForm(long id)
         {
-            var editForm = Program.ServiceProvider?.GetRequiredService<KodSablonEditForm>();
+            var editForm = Program.ServiceProvider?.GetRequiredService<CodeTemplateEditForm>();
             
             if (editForm != null)
             {

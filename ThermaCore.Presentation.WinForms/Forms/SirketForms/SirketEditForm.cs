@@ -256,5 +256,10 @@ namespace ThermaCore.Presentation.WinForms.Forms.SirketForms
                 case "Password": txtSqlSifre.Focus(); break;
             }
         }
+
+        protected override bool IsCodeUnique(string code)
+        {
+            return !_tenantDatabaseCrudService.GetAll().Any(x => x.Code == code);
+        }
     }
 }
