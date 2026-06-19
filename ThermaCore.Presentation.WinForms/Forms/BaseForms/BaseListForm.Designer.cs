@@ -145,6 +145,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
             btnYazdir.ImageOptions.SvgImage = Properties.Resources.print;
             btnYazdir.ItemShortcut = new DevExpress.XtraBars.BarShortcut(Keys.Control | Keys.P);
             btnYazdir.Name = "btnYazdir";
+            btnYazdir.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
             // 
             // btnBaskiOnizle
             // 

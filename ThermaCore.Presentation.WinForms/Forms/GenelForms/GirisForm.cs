@@ -189,6 +189,10 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
                     _appConfigService.SetLastLoginUser(username);
                     _appConfigService.SetLastTenantId(tenantId);
 
+                    // Aktif tenant ID'yi servise kaydet ki AnaForm ve diğer servisler (UnitOfWork vb.) bilebilsin.
+                    var currentTenantService = Program.ServiceProvider.GetRequiredService<ICurrentTenantService>();
+                    currentTenantService.TenantId = tenantId;
+
                     // Mevcut formu gizle, Ana Formu göster
                     this.Hide();
                     
