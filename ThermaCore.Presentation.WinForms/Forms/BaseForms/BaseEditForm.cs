@@ -25,6 +25,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
         #region Variables
 
         private bool _formSablonKayitEdilecek;
+        private bool _isSaving = false;
         protected object DataLayoutControl = default!;
         protected object[] DataLayoutControls = default!;
         protected object Bll = default!;
@@ -40,6 +41,8 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
         protected internal ActionType BaseIslemTuru;
         protected internal long Id;
         protected internal bool RefreshYapilacak;
+        protected bool RequiresCodeTemplate = true;
+        protected virtual string CodeControlName => "txtKod";
 
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public BarStaticItem statusBarAciklama { get; set; } = new BarStaticItem();
@@ -137,17 +140,30 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
             if (Messages.HayirSeciliEvetHayir("Yapılan Değişiklikler Geri Alınacaktır. Onaylıyor Musunuz?", "Geri Al Onayı") != DialogResult.Yes) return;
             Cursor.Current = Cursors.WaitCursor;
             if (BaseIslemTuru == ActionType.EntityUpdate)
+            {
                 Yukle();
+                GuncelNesneOlustur();
+                ButonEnabledDurumu();
+            }
             else
             {
                 btnKaydet.Enabled = false;
-                Close();
+                btnGerial.Enabled = false;
+                btnYeni.Enabled = true;
+                btnSil.Enabled = true;
+                btnYenile.Enabled = true;
+                
+                Yukle();
+                GuncelNesneOlustur();
             }
             Cursor.Current = Cursors.Default;
         }
 
         protected bool Kaydet(bool kapanis, bool prompt = true)
         {
+            if (_isSaving) return true;
+            _isSaving = true;
+
             bool KayitIslemi()
             {
                 Cursor.Current = Cursors.WaitCursor;
@@ -213,16 +229,20 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
             switch (result)
             {
                 case DialogResult.Yes:
-                    return KayitIslemi();
+                    var resYes = KayitIslemi();
+                    _isSaving = false;
+                    return resYes;
 
                 case DialogResult.No:
-                    // If kapanis, maybe we close without saving
+                    _isSaving = false;
                     return true;
 
                 case DialogResult.Cancel:
+                    _isSaving = false;
                     return false;
             }
 
+            _isSaving = false;
             return false;
         }
 
@@ -237,6 +257,10 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
 
             BaseIslemTuru = ActionType.EntityInsert;
             Yukle();
+            ApplyCodeTemplateLogic();
+            GuncelNesneOlustur();
+            OldEntity = CurrentEntity;
+            ButonEnabledDurumu();
 
             if (Kaydet(true))
                 Close();
@@ -306,10 +330,10 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
 
                 if (!string.IsNullOrEmpty(code))
                 {
-                    var kodControl = this.Controls.Find("txtKod", true).FirstOrDefault() as DevExpress.XtraEditors.TextEdit;
+                    var kodControl = this.Controls.Find(CodeControlName, true).FirstOrDefault() as DevExpress.XtraEditors.TextEdit;
                     if (kodControl != null)
                     {
-                        kodControl.Properties.ReadOnly = false;
+                        kodControl.Properties.ReadOnly = true; // Otomatik üretildiği için kullanıcı değiştirememeli
                         kodControl.Text = code;
                     }
                     if (CurrentEntity != null)
@@ -355,6 +379,9 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
             {
                 BaseIslemTuru = ActionType.EntityInsert;
                 Yukle();
+                ApplyCodeTemplateLogic();
+                GuncelNesneOlustur();
+                ButonEnabledDurumu();
             }
             else if (name == "btnKaydet")
                 Kaydet(true, false);
@@ -414,27 +441,38 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
             ButonEnabledDurumu();
             ButonGizleGoster();
 
+            ApplyCodeTemplateLogic();
+        }
+
+        protected virtual void ApplyCodeTemplateLogic()
+        {
             if (BaseIslemTuru == ActionType.EntityInsert)
             {
-                var kodControl = this.Controls.Find("txtKod", true).FirstOrDefault() as DevExpress.XtraEditors.TextEdit;
+                var sablonRepo = Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetService<ThermaCore.Application.Interfaces.Repositories.IRepository<ThermaCore.Domain.Entities.Management.CodeTemplate>>(Program.ServiceProvider);
+                ThermaCore.Domain.Entities.Management.CodeTemplate sablon = null;
+
+                if (sablonRepo != null)
+                {
+                    sablon = System.Linq.Enumerable.FirstOrDefault(sablonRepo.Find(x => x.Module == BaseKartTuru && !x.IsDeleted));
+                }
+
+                // Şablon yoksa veya IsActive değilse, sadece alttaki if bloğu (sablon == null) devreye girip TextBox'ı manuel girişe açacaktır.
+                // AnaForm üzerindeki asenkron yapı zaten kullanıcıyı uyaracaktır.
+
+                var kodControl = this.Controls.Find(CodeControlName, true).FirstOrDefault() as DevExpress.XtraEditors.TextEdit;
                 if (kodControl != null)
                 {
                     bool isReadOnly = true;
                     string nullPrompt = "< Otomatik Üretilecek >";
 
-                    var sablonRepo = Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetService<ThermaCore.Application.Interfaces.Repositories.IRepository<ThermaCore.Domain.Entities.Management.CodeTemplate>>(Program.ServiceProvider);
-                    if (sablonRepo != null)
+                    if (sablon == null || !sablon.IsAutoCodeGenerationEnabled)
                     {
-                        var sablon = System.Linq.Enumerable.FirstOrDefault(sablonRepo.Find(x => x.Module == BaseKartTuru && !x.IsDeleted));
-                        if (sablon == null || !sablon.IsAutoCodeGenerationEnabled)
-                        {
-                            isReadOnly = false;
-                            nullPrompt = "";
-                        }
-                        else if (sablon.IsUserInterventionAllowed)
-                        {
-                            isReadOnly = false;
-                        }
+                        isReadOnly = false;
+                        nullPrompt = "";
+                    }
+                    else if (sablon.IsUserInterventionAllowed)
+                    {
+                        isReadOnly = false;
                     }
 
                     kodControl.Text = "";
@@ -451,7 +489,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
             if (FormSablonKaydet)
                 SablonKaydet();
 
-            if (btnKaydet.Visibility == DevExpress.XtraBars.BarItemVisibility.Never || !btnKaydet.Enabled) return;
+            if (_isSaving || btnKaydet.Visibility == DevExpress.XtraBars.BarItemVisibility.Never || !btnKaydet.Enabled) return;
 
             if (!Kaydet(true)) e.Cancel = true;
         }

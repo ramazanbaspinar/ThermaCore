@@ -15,6 +15,6 @@ public class UserValidator : AbstractValidator<UserDto>
             .EmailAddress().WithMessage("Enter a valid email address.");
 
         RuleFor(x => x.UserRoleId)
-            .GreaterThan(0).WithMessage("You must select a valid User Role.");
+            .GreaterThan(0).WithMessage("Kullanıcı için geçerli bir rol seçilmelidir.");
     }
 }

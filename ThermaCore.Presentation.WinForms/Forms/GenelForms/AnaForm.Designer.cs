@@ -47,7 +47,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             depoTanımlarıToolStripMenuItem = new ToolStripMenuItem();
             güvenlikVeYetkilendirmeToolStripMenuItem = new ToolStripMenuItem();
             kullanıcıTanımlarıToolStripMenuItem = new ToolStripMenuItem();
-            yetkiGruplarıRollerToolStripMenuItem = new ToolStripMenuItem();
+            miYetkiGruplariRoller = new ToolStripMenuItem();
             terminalCihazYönetimiToolStripMenuItem = new ToolStripMenuItem();
             parametrelerToolStripMenuItem = new ToolStripMenuItem();
             genelSistemParametreleriToolStripMenuItem = new ToolStripMenuItem();
@@ -176,7 +176,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 
             // güvenlikVeYetkilendirmeToolStripMenuItem
             // 
-            güvenlikVeYetkilendirmeToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { kullanıcıTanımlarıToolStripMenuItem, yetkiGruplarıRollerToolStripMenuItem, terminalCihazYönetimiToolStripMenuItem });
+            güvenlikVeYetkilendirmeToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { kullanıcıTanımlarıToolStripMenuItem, miYetkiGruplariRoller, terminalCihazYönetimiToolStripMenuItem });
             güvenlikVeYetkilendirmeToolStripMenuItem.Name = "güvenlikVeYetkilendirmeToolStripMenuItem";
             güvenlikVeYetkilendirmeToolStripMenuItem.Size = new Size(222, 22);
             güvenlikVeYetkilendirmeToolStripMenuItem.Text = "Güvenlik ve Yetkilendirme";
@@ -187,11 +187,11 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             kullanıcıTanımlarıToolStripMenuItem.Size = new Size(221, 22);
             kullanıcıTanımlarıToolStripMenuItem.Text = "Kullanıcı Tanımları";
             // 
-            // yetkiGruplarıRollerToolStripMenuItem
+            // miYetkiGruplariRoller
             // 
-            yetkiGruplarıRollerToolStripMenuItem.Name = "yetkiGruplarıRollerToolStripMenuItem";
-            yetkiGruplarıRollerToolStripMenuItem.Size = new Size(221, 22);
-            yetkiGruplarıRollerToolStripMenuItem.Text = "Yetki Grupları (Roller)";
+            miYetkiGruplariRoller.Name = "miYetkiGruplariRoller";
+            miYetkiGruplariRoller.Size = new Size(221, 22);
+            miYetkiGruplariRoller.Text = "Yetki Grupları (Roller)";
             // 
             // terminalCihazYönetimiToolStripMenuItem
             // 
@@ -341,7 +341,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
         private ToolStripMenuItem depoTanımlarıToolStripMenuItem;
         private ToolStripMenuItem güvenlikVeYetkilendirmeToolStripMenuItem;
         private ToolStripMenuItem kullanıcıTanımlarıToolStripMenuItem;
-        private ToolStripMenuItem yetkiGruplarıRollerToolStripMenuItem;
+        private ToolStripMenuItem miYetkiGruplariRoller;
         private ToolStripMenuItem terminalCihazYönetimiToolStripMenuItem;
         private ToolStripMenuItem parametrelerToolStripMenuItem;
         private ToolStripMenuItem genelSistemParametreleriToolStripMenuItem;

@@ -2,6 +2,7 @@ using System.Reflection;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using ThermaCore.Application.Services.Management;
+using ThermaCore.Application.Interfaces.Management;
 
 namespace ThermaCore.Application;
 
@@ -19,6 +20,7 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IUserRoleService, UserRoleManager>();
         services.AddScoped<ITerminalService, TerminalManager>();
         services.AddScoped<IBranchService, BranchManager>();
+        services.AddScoped<ThermaCore.Application.Interfaces.Security.IRoleService, ThermaCore.Application.Services.Security.RoleManager>();
 
         services.AddScoped<ThermaCore.Application.Interfaces.System.ISessionService, ThermaCore.Application.Services.System.SessionManager>();
         services.AddScoped<ThermaCore.Application.Interfaces.System.ICodeGenerationService, ThermaCore.Application.Services.System.CodeGenerationManager>();

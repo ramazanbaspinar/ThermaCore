@@ -1,6 +1,6 @@
-﻿namespace ThermaCore.Presentation.WinForms.Forms.FabrikaForms
+﻿namespace ThermaCore.Presentation.WinForms.Forms.YetkilendirmeForms
 {
-    partial class FabrikaListForm
+    partial class RolListForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,13 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FabrikaListForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RolListForm));
             longNavigator1 = new RbaYazilim.WinRezistans.UI.Win.UserControls.Controls.Navigators.LongNavigator();
             myGridControl1 = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridControl();
             myGridView1 = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridView();
             colId = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colKod = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
-            colFabrikaAdi = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
+            colRolAdi = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colAciklama = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             ((System.ComponentModel.ISupportInitialize)ribbon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)myGridControl1).BeginInit();
@@ -115,7 +115,7 @@
             myGridView1.Appearance.ViewCaption.ForeColor = Color.FromArgb(64, 64, 64);
             myGridView1.Appearance.ViewCaption.Options.UseFont = true;
             myGridView1.Appearance.ViewCaption.Options.UseForeColor = true;
-            myGridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colId, colKod, colFabrikaAdi, colAciklama });
+            myGridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colId, colKod, colRolAdi, colAciklama });
             myGridView1.GridControl = myGridControl1;
             myGridView1.Name = "myGridView1";
             myGridView1.OptionsMenu.EnableColumnMenu = false;
@@ -136,7 +136,7 @@
             myGridView1.StatusBarAciklama = null;
             myGridView1.StatusBarKisaYol = null;
             myGridView1.StatusBarKisaYolAciklama = null;
-            myGridView1.ViewCaption = "Fabrikalar";
+            myGridView1.ViewCaption = "Yetki Grupları (Roller)";
             // 
             // colId
             // 
@@ -171,26 +171,26 @@
             colKod.VisibleIndex = 0;
             colKod.Width = 175;
             // 
-            // colFabrikaAdi
+            // colRolAdi
             // 
-            colFabrikaAdi.AppearanceCell.Font = new Font("Segoe UI", 9.75F);
-            colFabrikaAdi.AppearanceCell.Options.UseFont = true;
-            colFabrikaAdi.AppearanceHeader.BackColor = Color.FromArgb(46, 134, 193);
-            colFabrikaAdi.AppearanceHeader.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
-            colFabrikaAdi.AppearanceHeader.ForeColor = Color.White;
-            colFabrikaAdi.AppearanceHeader.Options.UseBackColor = true;
-            colFabrikaAdi.AppearanceHeader.Options.UseFont = true;
-            colFabrikaAdi.AppearanceHeader.Options.UseForeColor = true;
-            colFabrikaAdi.Caption = "Fabrika Adı";
-            colFabrikaAdi.FieldName = "BranchName";
-            colFabrikaAdi.Name = "colFabrikaAdi";
-            colFabrikaAdi.OptionsColumn.AllowEdit = false;
-            colFabrikaAdi.StatusBarAciklama = null;
-            colFabrikaAdi.StatusBarKisaYol = null;
-            colFabrikaAdi.StatusBarKisaYolAciklama = null;
-            colFabrikaAdi.Visible = true;
-            colFabrikaAdi.VisibleIndex = 1;
-            colFabrikaAdi.Width = 175;
+            colRolAdi.AppearanceCell.Font = new Font("Segoe UI", 9.75F);
+            colRolAdi.AppearanceCell.Options.UseFont = true;
+            colRolAdi.AppearanceHeader.BackColor = Color.FromArgb(46, 134, 193);
+            colRolAdi.AppearanceHeader.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
+            colRolAdi.AppearanceHeader.ForeColor = Color.White;
+            colRolAdi.AppearanceHeader.Options.UseBackColor = true;
+            colRolAdi.AppearanceHeader.Options.UseFont = true;
+            colRolAdi.AppearanceHeader.Options.UseForeColor = true;
+            colRolAdi.Caption = "Rol Adı";
+            colRolAdi.FieldName = "RoleName";
+            colRolAdi.Name = "colRolAdi";
+            colRolAdi.OptionsColumn.AllowEdit = false;
+            colRolAdi.StatusBarAciklama = null;
+            colRolAdi.StatusBarKisaYol = null;
+            colRolAdi.StatusBarKisaYolAciklama = null;
+            colRolAdi.Visible = true;
+            colRolAdi.VisibleIndex = 1;
+            colRolAdi.Width = 175;
             // 
             // colAciklama
             // 
@@ -213,7 +213,7 @@
             colAciklama.VisibleIndex = 2;
             colAciklama.Width = 175;
             // 
-            // FabrikaListForm
+            // RolListForm
             // 
             AutoScaleDimensions = new SizeF(6F, 13F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -221,8 +221,8 @@
             Controls.Add(myGridControl1);
             Controls.Add(longNavigator1);
             IconOptions.ShowIcon = false;
-            Name = "FabrikaListForm";
-            Text = "Fabrikalar";
+            Name = "RolListForm";
+            Text = "Yetki Grupları (Roller)";
             Controls.SetChildIndex(ribbon, 0);
             Controls.SetChildIndex(longNavigator1, 0);
             Controls.SetChildIndex(myGridControl1, 0);
@@ -240,7 +240,7 @@
         private UserControls.Grid.MyGridView myGridView1;
         private UserControls.Grid.MyGridColumn colId;
         private UserControls.Grid.MyGridColumn colKod;
-        private UserControls.Grid.MyGridColumn colFabrikaAdi;
+        private UserControls.Grid.MyGridColumn colRolAdi;
         private UserControls.Grid.MyGridColumn colAciklama;
     }
 }

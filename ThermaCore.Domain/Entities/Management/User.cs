@@ -20,10 +20,11 @@ public class User : FullAuditableEntity
     [MaxLength(100)]
     public string Email { get; set; } = string.Empty;
 
-    [MaxLength(100)]
-    public string Password { get; set; } = string.Empty;
+    public byte[] PasswordHash { get; set; } = null!;
+
+    public byte[] PasswordSalt { get; set; } = null!;
 
     public long UserRoleId { get; set; }
 
-    public virtual UserRole UserRole { get; set; } = null!;
+    public virtual ThermaCore.Domain.Entities.Management.UserRole UserRole { get; set; } = null!;
 }

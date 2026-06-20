@@ -52,6 +52,16 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
 
     public void Remove(TEntity entity)
     {
-        _dbSet.Remove(entity);
+        var local = _dbSet.Local.FirstOrDefault(e => e.Id == entity.Id);
+        if (local != null)
+        {
+            // Zaten takip ediliyorsa (Önceki save vs. sebebiyle), localdekini sil olarak işaretle
+            _dbSet.Remove(local);
+        }
+        else
+        {
+            // Takip edilmiyorsa (AsNoTracking ile gelmişse) normal Remove yap
+            _dbSet.Remove(entity);
+        }
     }
 }

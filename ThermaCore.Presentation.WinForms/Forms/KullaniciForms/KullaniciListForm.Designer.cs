@@ -1,6 +1,6 @@
-﻿namespace ThermaCore.Presentation.WinForms.Forms.FabrikaForms
+﻿namespace ThermaCore.Presentation.WinForms.Forms.KullaniciForms
 {
-    partial class FabrikaListForm
+    partial class KullaniciListForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,14 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FabrikaListForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(KullaniciListForm));
             longNavigator1 = new RbaYazilim.WinRezistans.UI.Win.UserControls.Controls.Navigators.LongNavigator();
             myGridControl1 = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridControl();
             myGridView1 = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridView();
             colId = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colKod = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
-            colFabrikaAdi = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
-            colAciklama = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
+            colKullaniciAdi = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
+            colAdSoyad = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
+            colYetkiGruplariRoller = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             ((System.ComponentModel.ISupportInitialize)ribbon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)myGridControl1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)myGridView1).BeginInit();
@@ -115,7 +116,7 @@
             myGridView1.Appearance.ViewCaption.ForeColor = Color.FromArgb(64, 64, 64);
             myGridView1.Appearance.ViewCaption.Options.UseFont = true;
             myGridView1.Appearance.ViewCaption.Options.UseForeColor = true;
-            myGridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colId, colKod, colFabrikaAdi, colAciklama });
+            myGridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colId, colKod, colKullaniciAdi, colAdSoyad, colYetkiGruplariRoller });
             myGridView1.GridControl = myGridControl1;
             myGridView1.Name = "myGridView1";
             myGridView1.OptionsMenu.EnableColumnMenu = false;
@@ -136,7 +137,6 @@
             myGridView1.StatusBarAciklama = null;
             myGridView1.StatusBarKisaYol = null;
             myGridView1.StatusBarKisaYolAciklama = null;
-            myGridView1.ViewCaption = "Fabrikalar";
             // 
             // colId
             // 
@@ -171,49 +171,70 @@
             colKod.VisibleIndex = 0;
             colKod.Width = 175;
             // 
-            // colFabrikaAdi
+            // colKullaniciAdi
             // 
-            colFabrikaAdi.AppearanceCell.Font = new Font("Segoe UI", 9.75F);
-            colFabrikaAdi.AppearanceCell.Options.UseFont = true;
-            colFabrikaAdi.AppearanceHeader.BackColor = Color.FromArgb(46, 134, 193);
-            colFabrikaAdi.AppearanceHeader.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
-            colFabrikaAdi.AppearanceHeader.ForeColor = Color.White;
-            colFabrikaAdi.AppearanceHeader.Options.UseBackColor = true;
-            colFabrikaAdi.AppearanceHeader.Options.UseFont = true;
-            colFabrikaAdi.AppearanceHeader.Options.UseForeColor = true;
-            colFabrikaAdi.Caption = "Fabrika Adı";
-            colFabrikaAdi.FieldName = "BranchName";
-            colFabrikaAdi.Name = "colFabrikaAdi";
-            colFabrikaAdi.OptionsColumn.AllowEdit = false;
-            colFabrikaAdi.StatusBarAciklama = null;
-            colFabrikaAdi.StatusBarKisaYol = null;
-            colFabrikaAdi.StatusBarKisaYolAciklama = null;
-            colFabrikaAdi.Visible = true;
-            colFabrikaAdi.VisibleIndex = 1;
-            colFabrikaAdi.Width = 175;
+            colKullaniciAdi.AppearanceCell.Font = new Font("Segoe UI", 9.75F);
+            colKullaniciAdi.AppearanceCell.Options.UseFont = true;
+            colKullaniciAdi.AppearanceHeader.BackColor = Color.FromArgb(46, 134, 193);
+            colKullaniciAdi.AppearanceHeader.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
+            colKullaniciAdi.AppearanceHeader.ForeColor = Color.White;
+            colKullaniciAdi.AppearanceHeader.Options.UseBackColor = true;
+            colKullaniciAdi.AppearanceHeader.Options.UseFont = true;
+            colKullaniciAdi.AppearanceHeader.Options.UseForeColor = true;
+            colKullaniciAdi.Caption = "Kullanıcı Adı";
+            colKullaniciAdi.FieldName = "Username";
+            colKullaniciAdi.Name = "colKullaniciAdi";
+            colKullaniciAdi.OptionsColumn.AllowEdit = false;
+            colKullaniciAdi.StatusBarAciklama = null;
+            colKullaniciAdi.StatusBarKisaYol = null;
+            colKullaniciAdi.StatusBarKisaYolAciklama = null;
+            colKullaniciAdi.Visible = true;
+            colKullaniciAdi.VisibleIndex = 1;
+            colKullaniciAdi.Width = 175;
             // 
-            // colAciklama
+            // colAdSoyad
             // 
-            colAciklama.AppearanceCell.Font = new Font("Segoe UI", 9.75F);
-            colAciklama.AppearanceCell.Options.UseFont = true;
-            colAciklama.AppearanceHeader.BackColor = Color.FromArgb(46, 134, 193);
-            colAciklama.AppearanceHeader.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
-            colAciklama.AppearanceHeader.ForeColor = Color.White;
-            colAciklama.AppearanceHeader.Options.UseBackColor = true;
-            colAciklama.AppearanceHeader.Options.UseFont = true;
-            colAciklama.AppearanceHeader.Options.UseForeColor = true;
-            colAciklama.Caption = "Açıklama";
-            colAciklama.FieldName = "Description";
-            colAciklama.Name = "colAciklama";
-            colAciklama.OptionsColumn.AllowEdit = false;
-            colAciklama.StatusBarAciklama = null;
-            colAciklama.StatusBarKisaYol = null;
-            colAciklama.StatusBarKisaYolAciklama = null;
-            colAciklama.Visible = true;
-            colAciklama.VisibleIndex = 2;
-            colAciklama.Width = 175;
+            colAdSoyad.AppearanceCell.Font = new Font("Segoe UI", 9.75F);
+            colAdSoyad.AppearanceCell.Options.UseFont = true;
+            colAdSoyad.AppearanceHeader.BackColor = Color.FromArgb(46, 134, 193);
+            colAdSoyad.AppearanceHeader.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
+            colAdSoyad.AppearanceHeader.ForeColor = Color.White;
+            colAdSoyad.AppearanceHeader.Options.UseBackColor = true;
+            colAdSoyad.AppearanceHeader.Options.UseFont = true;
+            colAdSoyad.AppearanceHeader.Options.UseForeColor = true;
+            colAdSoyad.Caption = "Ad Soyad";
+            colAdSoyad.FieldName = "FullName";
+            colAdSoyad.Name = "colAdSoyad";
+            colAdSoyad.OptionsColumn.AllowEdit = false;
+            colAdSoyad.StatusBarAciklama = null;
+            colAdSoyad.StatusBarKisaYol = null;
+            colAdSoyad.StatusBarKisaYolAciklama = null;
+            colAdSoyad.Visible = true;
+            colAdSoyad.VisibleIndex = 2;
+            colAdSoyad.Width = 175;
             // 
-            // FabrikaListForm
+            // colYetkiGruplariRoller
+            // 
+            colYetkiGruplariRoller.AppearanceCell.Font = new Font("Segoe UI", 9.75F);
+            colYetkiGruplariRoller.AppearanceCell.Options.UseFont = true;
+            colYetkiGruplariRoller.AppearanceHeader.BackColor = Color.FromArgb(46, 134, 193);
+            colYetkiGruplariRoller.AppearanceHeader.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
+            colYetkiGruplariRoller.AppearanceHeader.ForeColor = Color.White;
+            colYetkiGruplariRoller.AppearanceHeader.Options.UseBackColor = true;
+            colYetkiGruplariRoller.AppearanceHeader.Options.UseFont = true;
+            colYetkiGruplariRoller.AppearanceHeader.Options.UseForeColor = true;
+            colYetkiGruplariRoller.Caption = "Yetki Grubu (Rol)";
+            colYetkiGruplariRoller.FieldName = "RoleName";
+            colYetkiGruplariRoller.Name = "colYetkiGruplariRoller";
+            colYetkiGruplariRoller.OptionsColumn.AllowEdit = false;
+            colYetkiGruplariRoller.StatusBarAciklama = null;
+            colYetkiGruplariRoller.StatusBarKisaYol = null;
+            colYetkiGruplariRoller.StatusBarKisaYolAciklama = null;
+            colYetkiGruplariRoller.Visible = true;
+            colYetkiGruplariRoller.VisibleIndex = 3;
+            colYetkiGruplariRoller.Width = 175;
+            // 
+            // KullaniciListForm
             // 
             AutoScaleDimensions = new SizeF(6F, 13F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -221,8 +242,8 @@
             Controls.Add(myGridControl1);
             Controls.Add(longNavigator1);
             IconOptions.ShowIcon = false;
-            Name = "FabrikaListForm";
-            Text = "Fabrikalar";
+            Name = "KullaniciListForm";
+            Text = "Kullanıcılar";
             Controls.SetChildIndex(ribbon, 0);
             Controls.SetChildIndex(longNavigator1, 0);
             Controls.SetChildIndex(myGridControl1, 0);
@@ -240,7 +261,8 @@
         private UserControls.Grid.MyGridView myGridView1;
         private UserControls.Grid.MyGridColumn colId;
         private UserControls.Grid.MyGridColumn colKod;
-        private UserControls.Grid.MyGridColumn colFabrikaAdi;
-        private UserControls.Grid.MyGridColumn colAciklama;
+        private UserControls.Grid.MyGridColumn colKullaniciAdi;
+        private UserControls.Grid.MyGridColumn colAdSoyad;
+        private UserControls.Grid.MyGridColumn colYetkiGruplariRoller;
     }
 }

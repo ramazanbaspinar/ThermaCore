@@ -43,7 +43,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.FabrikaForms
         protected override void DegiskenleriDoldur()
         {
             Tablo = myGridView1;
-            BaseKartTuru = ModuleType.Management;
+            BaseKartTuru = ModuleType.Factory;
             Navigator = longNavigator1.Navigator;
             
             Text = $"Fabrikalar ({_sirketAdi})";

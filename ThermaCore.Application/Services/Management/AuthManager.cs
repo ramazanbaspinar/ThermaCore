@@ -63,8 +63,7 @@ public class AuthManager : IAuthService
             return Task.FromResult(result);
         }
 
-        var hashedPassword = _cryptoService.EncryptMd5(password);
-        if (user.Password != hashedPassword)
+        if (!ThermaCore.Domain.Helpers.PasswordHasher.VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
         {
             result.IsSuccess = false;
             result.ErrorMessage = "Hatalı şifre.";

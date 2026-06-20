@@ -84,18 +84,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
                 }
             }
 
-            //Tablo Events
-            if (Tablo != null)
-            {
-                Tablo.DoubleClick += Tablo_DoubleClick;
-                Tablo.KeyDown += Tablo_KeyDown;
-                Tablo.MouseUp += Tablo_MouseUp;
-                Tablo.ColumnWidthChanged += Tablo_ColumnWidthChanged;
-                Tablo.ColumnPositionChanged += Tablo_ColumnPositionChanged;
-                Tablo.EndSorting += Tablo_EndSorting;
-                Tablo.FilterEditorCreated += Tablo_FilterEditorCreated;
-                Tablo.ColumnFilterChanged += Tablo_ColumnFilterChanged;
-            }
+
 
             //Form Events
             Shown += BaseListForm_Shown;
@@ -291,6 +280,25 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
             {
                 Tablo.OptionsSelection.MultiSelect = MultiSelect;
                 if (Navigator != null) Navigator.NavigatableControl = Tablo.GridControl;
+                
+                // Tablo eventlerini ancak tablo değişkene atandıktan sonra bağlayabiliriz
+                Tablo.DoubleClick -= Tablo_DoubleClick;
+                Tablo.KeyDown -= Tablo_KeyDown;
+                Tablo.MouseUp -= Tablo_MouseUp;
+                Tablo.ColumnWidthChanged -= Tablo_ColumnWidthChanged;
+                Tablo.ColumnPositionChanged -= Tablo_ColumnPositionChanged;
+                Tablo.EndSorting -= Tablo_EndSorting;
+                Tablo.FilterEditorCreated -= Tablo_FilterEditorCreated;
+                Tablo.ColumnFilterChanged -= Tablo_ColumnFilterChanged;
+
+                Tablo.DoubleClick += Tablo_DoubleClick;
+                Tablo.KeyDown += Tablo_KeyDown;
+                Tablo.MouseUp += Tablo_MouseUp;
+                Tablo.ColumnWidthChanged += Tablo_ColumnWidthChanged;
+                Tablo.ColumnPositionChanged += Tablo_ColumnPositionChanged;
+                Tablo.EndSorting += Tablo_EndSorting;
+                Tablo.FilterEditorCreated += Tablo_FilterEditorCreated;
+                Tablo.ColumnFilterChanged += Tablo_ColumnFilterChanged;
             }
 
             Cursor.Current = Cursors.WaitCursor;

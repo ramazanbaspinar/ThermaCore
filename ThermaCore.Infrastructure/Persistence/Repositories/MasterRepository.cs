@@ -52,6 +52,14 @@ public class MasterRepository<TEntity> : IMasterRepository<TEntity> where TEntit
 
     public void Remove(TEntity entity)
     {
-        _dbSet.Remove(entity);
+        var local = _dbSet.Local.FirstOrDefault(e => e.Id == entity.Id);
+        if (local != null)
+        {
+            _dbSet.Remove(local);
+        }
+        else
+        {
+            _dbSet.Remove(entity);
+        }
     }
 }

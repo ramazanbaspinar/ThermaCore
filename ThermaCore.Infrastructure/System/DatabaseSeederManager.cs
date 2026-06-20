@@ -51,9 +51,18 @@ public class DatabaseSeederManager : IDatabaseSeederService
             
             _context.UserRoles.Add(adminRol);
             await _context.SaveChangesAsync();
+        }
 
-            if (!_context.Users.Any(k => k.Code.ToLower() == "thermacore"))
+        if (!_context.Users.Any(k => k.Code.ToLower() == "thermacore"))
+        {
+            var adminRolId = await _context.UserRoles
+                .Where(r => r.RoleName == "System Administrator")
+                .Select(r => r.Id)
+                .FirstOrDefaultAsync();
+
+            if (adminRolId > 0)
             {
+                ThermaCore.Domain.Helpers.PasswordHasher.CreatePasswordHash("thermacore!", out byte[] hash, out byte[] salt);
                 var adminKullanici = new User
                 {
                     Id = 1,
@@ -61,34 +70,35 @@ public class DatabaseSeederManager : IDatabaseSeederService
                     FirstName = "System",
                     LastName = "Administrator",
                     Email = "admin@thermacore.com",
-                    Password = _cryptoService.EncryptMd5("thermacore!"),
-                    UserRoleId = adminRol.Id,
+                    PasswordHash = hash,
+                    PasswordSalt = salt,
+                    UserRoleId = adminRolId,
                     IsActive = true
                 };
                 
                 _context.Users.Add(adminKullanici);
                 await _context.SaveChangesAsync();
             }
+        }
 
-            if (!_context.TenantDatabases.Any(t => t.CompanyCode == "000"))
+        if (!_context.TenantDatabases.Any(t => t.CompanyCode == "000"))
+        {
+            var defaultTenant = new TenantDatabase
             {
-                var defaultTenant = new TenantDatabase
-                {
-                    Id = 1,
-                    Code = "000",
-                    CompanyCode = "000",
-                    CompanyName = "ThermaCore",
-                    DatabaseName = "ThermaCore_Tenant_000",
-                    Server = "(localdb)\\MSSQLLocalDB",
-                    AuthType = ThermaCore.Domain.Enums.AuthenticationType.SqlServer,
-                    Username = "sa",
-                    Password = _cryptoService.Encrypt("sa"),
-                    IsActive = true
-                };
+                Id = 1,
+                Code = "000",
+                CompanyCode = "000",
+                CompanyName = "ThermaCore",
+                DatabaseName = "ThermaCore_Tenant_000",
+                Server = "(localdb)\\MSSQLLocalDB",
+                AuthType = ThermaCore.Domain.Enums.AuthenticationType.SqlServer,
+                Username = "sa",
+                Password = _cryptoService.Encrypt("sa"),
+                IsActive = true
+            };
 
-                _context.TenantDatabases.Add(defaultTenant);
-                await _context.SaveChangesAsync();
-            }
+            _context.TenantDatabases.Add(defaultTenant);
+            await _context.SaveChangesAsync();
         }
 
         if (ilIlceYuklensin)

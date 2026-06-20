@@ -38,14 +38,22 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
         private void EventsLoad()
         {
             Load += AnaForm_Load;
+            Shown += AnaForm_Shown;
             FormClosing += AnaForm_FormClosing;
             KeyDown += Control_KeyDown;
             
+            // Dinamik Yükleme Click Eventleri
             if (miSirketTanimlari != null)
                 miSirketTanimlari.Click += miSirketTanimlari_Click;
 
             if (miCodeTemplatelari != null)
                 miCodeTemplatelari.Click += miCodeTemplatelari_Click;
+
+            if (miYetkiGruplariRoller != null)
+                miYetkiGruplariRoller.Click += miYetkiGruplariRoller_Click;
+            
+            if (kullanıcıTanımlarıToolStripMenuItem != null)
+                kullanıcıTanımlarıToolStripMenuItem.Click += KullaniciTanimlari_Click;
 
             if (xtraTabbedMdiManager != null)
             {
@@ -112,6 +120,63 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             }
         }
 
+        private void AnaForm_Shown(object? sender, EventArgs e)
+        {
+            // Sistemin açılışını kitlemeden arkadan kontrol işlemi başlatalım
+            _ = Task.Run(async () => await EksikSablonlariKontrolEtAsync());
+        }
+
+        private async Task EksikSablonlariKontrolEtAsync()
+        {
+            try
+            {
+                var requiredModules = new[] 
+                { 
+                    ThermaCore.Domain.Enums.ModuleType.Factory, 
+                    ThermaCore.Domain.Enums.ModuleType.YetkiGruplari
+                };
+
+                using var scope = _serviceProvider.CreateScope();
+                var sablonRepo = scope.ServiceProvider.GetService<ThermaCore.Application.Interfaces.Repositories.IRepository<ThermaCore.Domain.Entities.Management.CodeTemplate>>();
+                
+                if (sablonRepo == null) return;
+
+                var missingModules = new System.Collections.Generic.List<string>();
+
+                foreach (var module in requiredModules)
+                {
+                    var hasTemplate = System.Linq.Enumerable.Any(sablonRepo.Find(x => x.Module == module && !x.IsDeleted));
+                    if (!hasTemplate)
+                    {
+                        var field = typeof(ThermaCore.Domain.Enums.ModuleType).GetField(module.ToString());
+                        var attr = (System.ComponentModel.DescriptionAttribute?)Attribute.GetCustomAttribute(field!, typeof(System.ComponentModel.DescriptionAttribute));
+                        string desc = attr != null ? attr.Description : module.ToString();
+                        
+                        missingModules.Add(desc);
+                    }
+                }
+
+                if (missingModules.Count > 0)
+                {
+                    int totalMissing = missingModules.Count;
+                    var displayList = missingModules.Take(2).ToList();
+                    
+                    string moduleList = string.Join("\n- ", displayList);
+                    string countMsg = totalMissing > 2 ? $"\n... ve {totalMissing - 2} modül daha eksik." : "";
+                    
+                    string msg = $"Sistemin standartlara uygun çalışması için aşağıdaki modüllerin Kod Şablonları eksiktir:\n\n- {moduleList}{countMsg}\n\nLütfen Sistem Yönetimi'nden tanımlayınız.";
+                    
+                    this.BeginInvoke(new Action(() => 
+                    {
+                        XtraMessageBox.Show(this, msg, "Eksik Kod Şablonları", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }));
+                }
+            }
+            catch (Exception)
+            {
+            }
+        }
+
         #region MDI Yöneticisi ve Form Açıcı
         
         /// <summary>
@@ -170,6 +235,16 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
         private void miCodeTemplatelari_Click(object? sender, EventArgs e)
         {
             FormYukle<ThermaCore.Presentation.WinForms.Forms.CodeTemplateForms.CodeTemplateListForm>();
+        }
+
+        private void miYetkiGruplariRoller_Click(object? sender, EventArgs e)
+        {
+            FormYukle<ThermaCore.Presentation.WinForms.Forms.YetkilendirmeForms.RolListForm>();
+        }
+
+        private void KullaniciTanimlari_Click(object? sender, EventArgs e)
+        {
+            FormYukle<ThermaCore.Presentation.WinForms.Forms.KullaniciForms.KullaniciListForm>();
         }
 
         private void BtnMusteriCariKartlar_Click(object? sender, EventArgs e)

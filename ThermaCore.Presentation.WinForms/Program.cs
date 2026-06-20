@@ -69,6 +69,10 @@ internal static class Program
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.CodeTemplateForms.CodeTemplateEditForm>();
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.KodYonetimForms.KodLogListForm>();
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.KodYonetimForms.KodLogEditForm>();
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.YetkilendirmeForms.RolListForm>();
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.YetkilendirmeForms.RolEditForm>();
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.KullaniciForms.KullaniciListForm>();
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.KullaniciForms.KullaniciEditForm>();
             })
             .Build();
 
@@ -93,7 +97,12 @@ internal static class Program
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Başlangıç hatası: {ex.Message}", "ThermaCore", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                string errMsg = ex.Message;
+                if (ex.InnerException != null)
+                {
+                    errMsg += "\nInner Exception: " + ex.InnerException.Message;
+                }
+                MessageBox.Show($"Başlangıç hatası: {errMsg}", "ThermaCore", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
         }

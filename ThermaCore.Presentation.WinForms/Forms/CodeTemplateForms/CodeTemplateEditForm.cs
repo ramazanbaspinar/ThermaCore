@@ -75,8 +75,11 @@ namespace ThermaCore.Presentation.WinForms.Forms.CodeTemplateForms
             txtSayisalUzunluk.Properties.MinValue = 1;
             txtSayisalUzunluk.Properties.MaxValue = 15;
 
-            var sablonUretilebilenModuller = new[] { ModuleType.Factory };
-            
+            var sablonUretilebilenModuller = new[] 
+            { 
+                ModuleType.Factory, 
+                ModuleType.YetkiGruplari
+            };
             var tanimliModuller = _repository.Find(x => !x.IsDeleted).Select(x => x.Module).ToList();
             if (BaseIslemTuru == ActionType.EntityUpdate)
             {
