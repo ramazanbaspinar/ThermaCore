@@ -12,6 +12,9 @@ public class Terminal : FullAuditableEntity
 
     public bool IsActive { get; set; } = true;
 
+    [MaxLength(100)]
+    public string DeviceName { get; set; } = string.Empty;
+
     [MaxLength(50)]
     public string MacAddress { get; set; } = string.Empty;
 

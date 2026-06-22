@@ -16,16 +16,19 @@ namespace ThermaCore.Application.Services.Management;
 public class UserManager : BaseMasterManager<UserDto, UserDto, User>, IUserService
 {
     private readonly IRoleService _roleService;
+    private readonly ITerminalService _terminalService;
 
     public UserManager(
         IMapper mapper, 
         IMasterRepository<User> repository, 
         IMasterUnitOfWork unitOfWork, 
         IRoleService roleService,
+        ITerminalService terminalService,
         IValidator<UserDto>? validator = null) 
         : base(mapper, repository, unitOfWork, validator)
     {
         _roleService = roleService;
+        _terminalService = terminalService;
     }
 
     public override long Insert(UserDto dto)
@@ -42,6 +45,11 @@ public class UserManager : BaseMasterManager<UserDto, UserDto, User>, IUserServi
             PasswordHasher.CreatePasswordHash(dto.Password, out byte[] passwordHash, out byte[] passwordSalt);
             entity.PasswordHash = passwordHash;
             entity.PasswordSalt = passwordSalt;
+        }
+        else
+        {
+            var failure = new FluentValidation.Results.ValidationFailure("Password", "Yeni kullanıcı oluşturulurken şifre boş bırakılamaz.");
+            throw new FluentValidation.ValidationException(new[] { failure });
         }
 
         _repository.Add(entity);
@@ -141,6 +149,14 @@ public class UserManager : BaseMasterManager<UserDto, UserDto, User>, IUserServi
 
         if (!PasswordHasher.VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
             throw new Exception("Kullanıcı adı veya şifre hatalı.");
+
+        // MAC ADDRESS SECURITY SHIELD
+        var macAddress = NetworkHelper.GetMacAddress();
+        var terminal = _terminalService.GetTerminalByMacAddress(macAddress);
+        if (terminal == null || !terminal.IsActive)
+        {
+            throw new Exception($"Güvenlik İhlali: Bu cihaz (MAC: {macAddress}) sisteme kayıtlı değil veya aktif edilmemiş. Giriş reddedildi.");
+        }
 
         return _mapper.Map<UserDto>(user);
     }

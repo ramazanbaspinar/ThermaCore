@@ -79,6 +79,8 @@ internal static class Program
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.YetkilendirmeForms.RolEditForm>();
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.KullaniciForms.KullaniciListForm>();
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.KullaniciForms.KullaniciEditForm>();
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TerminalForms.TerminalListForm>();
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TerminalForms.TerminalEditForm>();
             })
             .Build();
 

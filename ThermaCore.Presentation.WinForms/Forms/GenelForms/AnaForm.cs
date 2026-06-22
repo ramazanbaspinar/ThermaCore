@@ -55,6 +55,9 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             if (kullanıcıTanımlarıToolStripMenuItem != null)
                 kullanıcıTanımlarıToolStripMenuItem.Click += KullaniciTanimlari_Click;
 
+            if (miTerminalYonetim != null)
+                miTerminalYonetim.Click += miTerminalYonetim_Click;
+
             if (xtraTabbedMdiManager != null)
             {
                 xtraTabbedMdiManager.PageAdded += XtraTabbedMdiManager_PageAdded;
@@ -245,6 +248,11 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
         private void KullaniciTanimlari_Click(object? sender, EventArgs e)
         {
             FormYukle<ThermaCore.Presentation.WinForms.Forms.KullaniciForms.KullaniciListForm>();
+        }
+
+        private void miTerminalYonetim_Click(object? sender, EventArgs e)
+        {
+            FormYukle<ThermaCore.Presentation.WinForms.Forms.TerminalForms.TerminalListForm>();
         }
 
         private void BtnMusteriCariKartlar_Click(object? sender, EventArgs e)

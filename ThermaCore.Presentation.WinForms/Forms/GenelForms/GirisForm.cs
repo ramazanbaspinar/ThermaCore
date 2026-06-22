@@ -206,7 +206,10 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             }
             catch (Exception ex)
             {
-                Messages.HataBasligi("Giriş yapılırken beklenmeyen bir hata oluştu: " + ex.Message, "Hata");
+                if (ex.Message.StartsWith("Güvenlik İhlali"))
+                    Messages.HataBasligi(ex.Message, "Erişim Engellendi");
+                else
+                    Messages.HataBasligi("Giriş yapılırken beklenmeyen bir hata oluştu: " + ex.Message, "Hata");
             }
         }
 

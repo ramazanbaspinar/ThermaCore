@@ -48,17 +48,17 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             güvenlikVeYetkilendirmeToolStripMenuItem = new ToolStripMenuItem();
             kullanıcıTanımlarıToolStripMenuItem = new ToolStripMenuItem();
             miYetkiGruplariRoller = new ToolStripMenuItem();
-            terminalCihazYönetimiToolStripMenuItem = new ToolStripMenuItem();
+            miTerminalYonetim = new ToolStripMenuItem();
             parametrelerToolStripMenuItem = new ToolStripMenuItem();
             genelSistemParametreleriToolStripMenuItem = new ToolStripMenuItem();
             kullanıcıParametreleriToolStripMenuItem = new ToolStripMenuItem();
+            miCodeTemplatelari = new ToolStripMenuItem();
             xtraTabbedMdiManager = new DevExpress.XtraTabbedMdi.XtraTabbedMdiManager(components);
             timerDoviz = new System.Windows.Forms.Timer(components);
             menuStrip1 = new MenuStrip();
             txtDovizBilgisi = new ToolStripMenuItem();
             txtAylikMetreVerileri = new ToolStripMenuItem();
             btnAnaFormResim = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyPictureEdit();
-            miCodeTemplatelari = new ToolStripMenuItem();
             menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)xtraTabbedMdiManager).BeginInit();
             menuStrip1.SuspendLayout();
@@ -176,7 +176,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 
             // güvenlikVeYetkilendirmeToolStripMenuItem
             // 
-            güvenlikVeYetkilendirmeToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { kullanıcıTanımlarıToolStripMenuItem, miYetkiGruplariRoller, terminalCihazYönetimiToolStripMenuItem });
+            güvenlikVeYetkilendirmeToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { kullanıcıTanımlarıToolStripMenuItem, miYetkiGruplariRoller, miTerminalYonetim });
             güvenlikVeYetkilendirmeToolStripMenuItem.Name = "güvenlikVeYetkilendirmeToolStripMenuItem";
             güvenlikVeYetkilendirmeToolStripMenuItem.Size = new Size(222, 22);
             güvenlikVeYetkilendirmeToolStripMenuItem.Text = "Güvenlik ve Yetkilendirme";
@@ -193,11 +193,11 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             miYetkiGruplariRoller.Size = new Size(221, 22);
             miYetkiGruplariRoller.Text = "Yetki Grupları (Roller)";
             // 
-            // terminalCihazYönetimiToolStripMenuItem
+            // miTerminalYonetim
             // 
-            terminalCihazYönetimiToolStripMenuItem.Name = "terminalCihazYönetimiToolStripMenuItem";
-            terminalCihazYönetimiToolStripMenuItem.Size = new Size(221, 22);
-            terminalCihazYönetimiToolStripMenuItem.Text = "Terminal (Cihaz) Yönetimi";
+            miTerminalYonetim.Name = "miTerminalYonetim";
+            miTerminalYonetim.Size = new Size(221, 22);
+            miTerminalYonetim.Text = "Terminal (Cihaz) Yönetimi";
             // 
             // parametrelerToolStripMenuItem
             // 
@@ -217,6 +217,12 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             kullanıcıParametreleriToolStripMenuItem.Name = "kullanıcıParametreleriToolStripMenuItem";
             kullanıcıParametreleriToolStripMenuItem.Size = new Size(233, 22);
             kullanıcıParametreleriToolStripMenuItem.Text = "Kullanıcı Parametreleri";
+            // 
+            // miCodeTemplatelari
+            // 
+            miCodeTemplatelari.Name = "miCodeTemplatelari";
+            miCodeTemplatelari.Size = new Size(233, 22);
+            miCodeTemplatelari.Text = "Kod Şablonları";
             // 
             // xtraTabbedMdiManager
             // 
@@ -279,12 +285,6 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             btnAnaFormResim.StatusBarKisaYolAciklama = null;
             btnAnaFormResim.TabIndex = 3;
             // 
-            // miCodeTemplatelari
-            // 
-            miCodeTemplatelari.Name = "miCodeTemplatelari";
-            miCodeTemplatelari.Size = new Size(233, 22);
-            miCodeTemplatelari.Text = "Kod Şablonları";
-            // 
             // AnaForm
             // 
             Appearance.BackColor = SystemColors.Control;
@@ -342,7 +342,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
         private ToolStripMenuItem güvenlikVeYetkilendirmeToolStripMenuItem;
         private ToolStripMenuItem kullanıcıTanımlarıToolStripMenuItem;
         private ToolStripMenuItem miYetkiGruplariRoller;
-        private ToolStripMenuItem terminalCihazYönetimiToolStripMenuItem;
+        private ToolStripMenuItem miTerminalYonetim;
         private ToolStripMenuItem parametrelerToolStripMenuItem;
         private ToolStripMenuItem genelSistemParametreleriToolStripMenuItem;
         private ToolStripMenuItem kullanıcıParametreleriToolStripMenuItem;

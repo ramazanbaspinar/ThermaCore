@@ -24,6 +24,8 @@ public class ThermaCoreMasterContext : DbContext
     public DbSet<UserSession> UserSessions { get; set; }
     public DbSet<TenantDatabase> TenantDatabases { get; set; }
     public DbSet<Branch> Branches { get; set; }
+    public DbSet<UserTenant> UserTenants { get; set; }
+    public DbSet<UserBranch> UserBranches { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -18,8 +18,12 @@ public class User : FullAuditableEntity
     [MaxLength(50)]
     public string LastName { get; set; } = string.Empty;
 
-    [MaxLength(100)]
-    public string Email { get; set; } = string.Empty;
+    [MaxLength(200)]
+    public string? Email { get; set; }
+
+    public virtual ICollection<UserTenant> UserTenants { get; set; } = new List<UserTenant>();
+
+    public virtual ICollection<UserBranch> UserBranches { get; set; } = new List<UserBranch>();
 
     public byte[] PasswordHash { get; set; } = null!;
 

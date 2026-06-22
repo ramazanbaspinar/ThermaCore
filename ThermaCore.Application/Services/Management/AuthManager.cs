@@ -14,6 +14,7 @@ public class AuthManager : IAuthService
     private readonly IMasterRepository<User> _userRepository;
     private readonly IMasterRepository<TenantDatabase> _tenantRepository;
     private readonly IMasterRepository<Terminal> _terminalRepository;
+    private readonly IMasterRepository<UserTenant> _userTenantRepository;
     private readonly ICryptoService _cryptoService;
     private readonly IMapper _mapper;
 
@@ -21,33 +22,35 @@ public class AuthManager : IAuthService
         IMasterRepository<User> userRepository,
         IMasterRepository<TenantDatabase> tenantRepository,
         IMasterRepository<Terminal> terminalRepository,
+        IMasterRepository<UserTenant> userTenantRepository,
         ICryptoService cryptoService,
         IMapper mapper)
     {
         _userRepository = userRepository;
         _tenantRepository = tenantRepository;
         _terminalRepository = terminalRepository;
+        _userTenantRepository = userTenantRepository;
         _cryptoService = cryptoService;
         _mapper = mapper;
     }
 
     public Task<List<TenantDatabaseDto>> GetAllowedTenantsByUsernameAsync(string username)
     {
-        // Şimdilik sistemdeki tüm aktif şirketler dönülüyor.
-        // TODO: İleride yetki (M2M) tablosu eklendiğinde Admin değilse sadece yetkili olduğu şirketler dönülecek.
         var user = _userRepository.Find(u => u.Code.ToLower() == username.ToLower() && u.IsActive).FirstOrDefault();
         if (user == null)
             return Task.FromResult(new List<TenantDatabaseDto>());
 
         // Admin ise tüm aktif şirketleri listele
-        if (username.ToLower() == "admin")
+        if (username.ToLower() == "admin" || username.ToLower() == "thermacore")
         {
             var allTenants = _tenantRepository.Find(t => t.IsActive).ToList();
             return Task.FromResult(_mapper.Map<List<TenantDatabaseDto>>(allTenants));
         }
 
-        // İleride normal kullanıcılar için M2M UserTenant sorgusu gelecek, şimdilik hepsi
-        var tenants = _tenantRepository.Find(t => t.IsActive).ToList();
+        // Kullanıcının yetkili olduğu şirketleri getir
+        var userTenantIds = _userTenantRepository.Find(ut => ut.UserId == user.Id && ut.IsActive).Select(ut => ut.TenantDatabaseId).ToList();
+        
+        var tenants = _tenantRepository.Find(t => t.IsActive && userTenantIds.Contains(t.Id)).ToList();
         return Task.FromResult(_mapper.Map<List<TenantDatabaseDto>>(tenants));
     }
 
@@ -95,10 +98,17 @@ public class AuthManager : IAuthService
         if (username.ToLower() == "thermacore")
             return Task.FromResult(true);
 
+        var macAddress = ThermaCore.Domain.Helpers.NetworkHelper.GetMacAddress();
+
         var terminal = _terminalRepository
-            .Find(t => t.HardwareFingerprint == hardwareFingerprint && t.IsActive)
+            .Find(t => t.MacAddress == macAddress && t.IsActive)
             .FirstOrDefault();
 
-        return Task.FromResult(terminal != null);
+        if (terminal == null)
+        {
+            throw new global::System.Exception($"Güvenlik İhlali: Bu cihaz (MAC: {macAddress}) sisteme kayıtlı değil veya aktif edilmemiş. Giriş reddedildi.");
+        }
+
+        return Task.FromResult(true);
     }
 }
