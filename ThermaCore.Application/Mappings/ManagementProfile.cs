@@ -12,11 +12,12 @@ public class ManagementProfile : Profile
         CreateMap<UserRole, UserRoleListDto>();
 
         CreateMap<User, UserDto>()
-            .ForMember(x => x.RoleName, opt => opt.MapFrom(src => src.UserRole.RoleName))
-            .ReverseMap();
+            .ForMember(x => x.RoleName, opt => opt.Ignore())
+            .ReverseMap()
+            .ForMember(x => x.UserRole, opt => opt.Ignore());
 
         CreateMap<User, UserListDto>()
-            .ForMember(x => x.RoleName, opt => opt.MapFrom(src => src.UserRole.RoleName));
+            .ForMember(x => x.RoleName, opt => opt.Ignore());
 
         CreateMap<ModulePermission, ModulePermissionListDto>().ReverseMap();
         CreateMap<UserPermission, UserPermissionListDto>().ReverseMap();

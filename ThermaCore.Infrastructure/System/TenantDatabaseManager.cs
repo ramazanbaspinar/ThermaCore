@@ -10,7 +10,7 @@ public class TenantDatabaseManager : ITenantDatabaseService
     public async Task CreateDatabaseAsync(string connectionString)
     {
         var optionsBuilder = new DbContextOptionsBuilder<ThermaCoreTenantContext>();
-        optionsBuilder.UseSqlServer(connectionString);
+        optionsBuilder.UseSqlServer(connectionString, b => b.MigrationsAssembly("ThermaCore.Infrastructure"));
 
         using (var context = new ThermaCoreTenantContext(optionsBuilder.Options))
         {
@@ -21,7 +21,7 @@ public class TenantDatabaseManager : ITenantDatabaseService
     public async Task CreateMasterDatabaseAsync(string connectionString)
     {
         var optionsBuilder = new DbContextOptionsBuilder<ThermaCoreMasterContext>();
-        optionsBuilder.UseSqlServer(connectionString);
+        optionsBuilder.UseSqlServer(connectionString, b => b.MigrationsAssembly("ThermaCore.Infrastructure"));
 
         using (var context = new ThermaCoreMasterContext(optionsBuilder.Options))
         {

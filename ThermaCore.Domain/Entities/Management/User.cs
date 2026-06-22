@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using ThermaCore.Domain.Entities.Base;
 
 namespace ThermaCore.Domain.Entities.Management;
@@ -26,5 +27,6 @@ public class User : FullAuditableEntity
 
     public long UserRoleId { get; set; }
 
+    [NotMapped]
     public virtual ThermaCore.Domain.Entities.Management.UserRole UserRole { get; set; } = null!;
 }

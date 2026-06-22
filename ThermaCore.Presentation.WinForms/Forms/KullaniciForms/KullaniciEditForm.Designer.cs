@@ -37,7 +37,11 @@
             DevExpress.XtraLayout.RowDefinition rowDefinition5 = new DevExpress.XtraLayout.RowDefinition();
             DevExpress.XtraLayout.RowDefinition rowDefinition6 = new DevExpress.XtraLayout.RowDefinition();
             myDataLayoutControl1 = new ThermaCore.Presentation.WinForms.UserControls.MyDataLayoutControl();
-            myToggleSwitch1 = new ThermaCore.Presentation.WinForms.UserControls.MyToggleSwitch();
+            glufRol = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyGridLookUpFind();
+            myGridLookUpFind1View = new DevExpress.XtraGrid.Views.Grid.GridView();
+            colId = new DevExpress.XtraGrid.Columns.GridColumn();
+            colRoleName = new DevExpress.XtraGrid.Columns.GridColumn();
+            tglDurum = new ThermaCore.Presentation.WinForms.UserControls.MyToggleSwitch();
             txtSifre = new ThermaCore.Presentation.WinForms.UserControls.MyTextEdit();
             txtEmail = new ThermaCore.Presentation.WinForms.UserControls.MyEmailTextEdit();
             txtSoyad = new ThermaCore.Presentation.WinForms.UserControls.MyTextEdit();
@@ -49,14 +53,14 @@
             layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
-            glufRol = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyGridLookUpFind();
-            myGridLookUpFind1View = new DevExpress.XtraGrid.Views.Grid.GridView();
             layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)ribbon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)myDataLayoutControl1).BeginInit();
             myDataLayoutControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)myToggleSwitch1.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)glufRol.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)myGridLookUpFind1View).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)tglDurum.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtSifre.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtEmail.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtSoyad.Properties).BeginInit();
@@ -68,8 +72,6 @@
             ((System.ComponentModel.ISupportInitialize)layoutControlItem4).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem5).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem7).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)glufRol.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)myGridLookUpFind1View).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem6).BeginInit();
             SuspendLayout();
@@ -77,14 +79,14 @@
             // ribbon
             // 
             ribbon.ExpandCollapseItem.Id = 0;
-            ribbon.Size = new Size(493, 135);
+            ribbon.Size = new Size(448, 135);
             ribbon.Toolbar.ShowCustomizeItem = false;
             // 
             // myDataLayoutControl1
             // 
             myDataLayoutControl1.AllowCustomization = false;
             myDataLayoutControl1.Controls.Add(glufRol);
-            myDataLayoutControl1.Controls.Add(myToggleSwitch1);
+            myDataLayoutControl1.Controls.Add(tglDurum);
             myDataLayoutControl1.Controls.Add(txtSifre);
             myDataLayoutControl1.Controls.Add(txtEmail);
             myDataLayoutControl1.Controls.Add(txtSoyad);
@@ -95,33 +97,87 @@
             myDataLayoutControl1.Name = "myDataLayoutControl1";
             myDataLayoutControl1.OptionsFocus.EnableAutoTabOrder = false;
             myDataLayoutControl1.Root = Root;
-            myDataLayoutControl1.Size = new Size(493, 243);
-            myDataLayoutControl1.TabIndex = 2;
+            myDataLayoutControl1.Size = new Size(448, 215);
+            myDataLayoutControl1.TabIndex = 0;
             myDataLayoutControl1.Text = "myDataLayoutControl1";
             // 
-            // myToggleSwitch1
+            // glufRol
             // 
-            myToggleSwitch1.EnterMoveNextControl = true;
-            myToggleSwitch1.Location = new Point(386, 12);
-            myToggleSwitch1.MenuManager = ribbon;
-            myToggleSwitch1.Name = "myToggleSwitch1";
-            myToggleSwitch1.Properties.Appearance.Font = new Font("Segoe UI", 9F);
-            myToggleSwitch1.Properties.Appearance.Options.UseFont = true;
-            myToggleSwitch1.Properties.AppearanceDisabled.Font = new Font("Segoe UI", 9F);
-            myToggleSwitch1.Properties.AppearanceDisabled.Options.UseFont = true;
-            myToggleSwitch1.Properties.AppearanceFocused.Font = new Font("Segoe UI", 9F);
-            myToggleSwitch1.Properties.AppearanceFocused.Options.UseFont = true;
-            myToggleSwitch1.Properties.AppearanceReadOnly.Font = new Font("Segoe UI", 9F);
-            myToggleSwitch1.Properties.AppearanceReadOnly.Options.UseFont = true;
-            myToggleSwitch1.Properties.AutoHeight = false;
-            myToggleSwitch1.Properties.AutoWidth = true;
-            myToggleSwitch1.Properties.GlyphAlignment = DevExpress.Utils.HorzAlignment.Far;
-            myToggleSwitch1.Properties.OffText = "Pasif";
-            myToggleSwitch1.Properties.OnText = "Aktif";
-            myToggleSwitch1.Size = new Size(85, 27);
-            myToggleSwitch1.StatusBarAciklama = "Kayıtın Kullanım Durumunu Seçiniz.";
-            myToggleSwitch1.StyleController = myDataLayoutControl1;
-            myToggleSwitch1.TabIndex = 10;
+            glufRol.EnterMoveNextControl = true;
+            glufRol.Location = new Point(90, 167);
+            glufRol.MenuManager = ribbon;
+            glufRol.Name = "glufRol";
+            glufRol.Properties.Appearance.BackColor = Color.White;
+            glufRol.Properties.Appearance.Font = new Font("Segoe UI", 9F);
+            glufRol.Properties.Appearance.Options.UseBackColor = true;
+            glufRol.Properties.Appearance.Options.UseFont = true;
+            glufRol.Properties.AppearanceDisabled.Font = new Font("Segoe UI", 9F);
+            glufRol.Properties.AppearanceDisabled.Options.UseFont = true;
+            glufRol.Properties.AppearanceDropDown.Font = new Font("Segoe UI", 9F);
+            glufRol.Properties.AppearanceDropDown.Options.UseFont = true;
+            glufRol.Properties.AppearanceFocused.BackColor = Color.FromArgb(255, 255, 192);
+            glufRol.Properties.AppearanceFocused.Font = new Font("Segoe UI", 9F);
+            glufRol.Properties.AppearanceFocused.Options.UseBackColor = true;
+            glufRol.Properties.AppearanceFocused.Options.UseFont = true;
+            glufRol.Properties.AppearanceReadOnly.Font = new Font("Segoe UI", 9F);
+            glufRol.Properties.AppearanceReadOnly.Options.UseFont = true;
+            glufRol.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo), new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Search), new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Delete) });
+            glufRol.Properties.NullText = "";
+            glufRol.Properties.PopupView = myGridLookUpFind1View;
+            glufRol.Size = new Size(247, 22);
+            glufRol.StatusBarAciklama = "Kayıt Seçiniz";
+            glufRol.StatusBarKisaYol = "F4 :";
+            glufRol.StatusBarKisaYolAciklama = "Seçim Yap";
+            glufRol.StyleController = myDataLayoutControl1;
+            glufRol.TabIndex = 5;
+            glufRol.Tag = "UserRoleId";
+            // 
+            // myGridLookUpFind1View
+            // 
+            myGridLookUpFind1View.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colId, colRoleName });
+            myGridLookUpFind1View.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
+            myGridLookUpFind1View.Name = "myGridLookUpFind1View";
+            myGridLookUpFind1View.OptionsSelection.EnableAppearanceFocusedCell = false;
+            myGridLookUpFind1View.OptionsView.ShowGroupPanel = false;
+            // 
+            // colId
+            // 
+            colId.Caption = "Id";
+            colId.FieldName = "Id";
+            colId.Name = "colId";
+            // 
+            // colRoleName
+            // 
+            colRoleName.Caption = "Rol Adı";
+            colRoleName.FieldName = "RoleName";
+            colRoleName.Name = "colRoleName";
+            colRoleName.Visible = true;
+            colRoleName.VisibleIndex = 0;
+            // 
+            // tglDurum
+            // 
+            tglDurum.EnterMoveNextControl = true;
+            tglDurum.Location = new Point(341, 12);
+            tglDurum.MenuManager = ribbon;
+            tglDurum.Name = "tglDurum";
+            tglDurum.Properties.Appearance.Font = new Font("Segoe UI", 9F);
+            tglDurum.Properties.Appearance.Options.UseFont = true;
+            tglDurum.Properties.AppearanceDisabled.Font = new Font("Segoe UI", 9F);
+            tglDurum.Properties.AppearanceDisabled.Options.UseFont = true;
+            tglDurum.Properties.AppearanceFocused.Font = new Font("Segoe UI", 9F);
+            tglDurum.Properties.AppearanceFocused.Options.UseFont = true;
+            tglDurum.Properties.AppearanceReadOnly.Font = new Font("Segoe UI", 9F);
+            tglDurum.Properties.AppearanceReadOnly.Options.UseFont = true;
+            tglDurum.Properties.AutoHeight = false;
+            tglDurum.Properties.AutoWidth = true;
+            tglDurum.Properties.GlyphAlignment = DevExpress.Utils.HorzAlignment.Far;
+            tglDurum.Properties.OffText = "Pasif";
+            tglDurum.Properties.OnText = "Aktif";
+            tglDurum.Size = new Size(85, 27);
+            tglDurum.StatusBarAciklama = "Kayıtın Kullanım Durumunu Seçiniz.";
+            tglDurum.StyleController = myDataLayoutControl1;
+            tglDurum.TabIndex = 6;
+            tglDurum.Tag = "IsActive";
             // 
             // txtSifre
             // 
@@ -141,10 +197,11 @@
             txtSifre.Properties.AppearanceReadOnly.Options.UseFont = true;
             txtSifre.Properties.MaxLength = 100;
             txtSifre.Properties.UseSystemPasswordChar = true;
-            txtSifre.Size = new Size(292, 22);
+            txtSifre.Size = new Size(247, 22);
             txtSifre.StatusBarAciklama = null;
             txtSifre.StyleController = myDataLayoutControl1;
-            txtSifre.TabIndex = 8;
+            txtSifre.TabIndex = 4;
+            txtSifre.Tag = "Password";
             // 
             // txtEmail
             // 
@@ -162,19 +219,17 @@
             txtEmail.Properties.AppearanceFocused.Options.UseFont = true;
             txtEmail.Properties.AppearanceReadOnly.Font = new Font("Segoe UI", 9F);
             txtEmail.Properties.AppearanceReadOnly.Options.UseFont = true;
-            txtEmail.Properties.Mask.AutoComplete = DevExpress.XtraEditors.Mask.AutoCompleteType.Strong;
-            txtEmail.Properties.Mask.EditMask = "((([0-9a-zA-Z_%-])+[.])+|([0-9a-zA-Z_%-])+)+@((([0-9a-zA-Z_-])+[.])+|([0-9a-zA-Z_-])+)+";
-            txtEmail.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.RegEx;
             txtEmail.Properties.MaskSettings.Set("MaskManagerType", typeof(DevExpress.Data.Mask.RegExpMaskManager));
             txtEmail.Properties.MaskSettings.Set("allowBlankInput", true);
             txtEmail.Properties.MaskSettings.Set("mask", "((([0-9a-zA-Z_%-])+[.])+|([0-9a-zA-Z_%-])+)+@((([0-9a-zA-Z_-])+[.])+|([0-9a-zA-Z_-])+)+");
             txtEmail.Properties.MaskSettings.Set("isAutoComplete", true);
             txtEmail.Properties.MaskSettings.Set("isOptimistic", false);
             txtEmail.Properties.MaxLength = 100;
-            txtEmail.Size = new Size(292, 22);
+            txtEmail.Size = new Size(247, 22);
             txtEmail.StatusBarAciklama = "E-Posta Adresi Giriniz.";
             txtEmail.StyleController = myDataLayoutControl1;
-            txtEmail.TabIndex = 7;
+            txtEmail.TabIndex = 3;
+            txtEmail.Tag = " Email";
             // 
             // txtSoyad
             // 
@@ -193,10 +248,11 @@
             txtSoyad.Properties.AppearanceReadOnly.Font = new Font("Segoe UI", 9F);
             txtSoyad.Properties.AppearanceReadOnly.Options.UseFont = true;
             txtSoyad.Properties.MaxLength = 100;
-            txtSoyad.Size = new Size(292, 22);
+            txtSoyad.Size = new Size(247, 22);
             txtSoyad.StatusBarAciklama = null;
             txtSoyad.StyleController = myDataLayoutControl1;
-            txtSoyad.TabIndex = 6;
+            txtSoyad.TabIndex = 2;
+            txtSoyad.Tag = "LastName";
             // 
             // txtAd
             // 
@@ -215,10 +271,11 @@
             txtAd.Properties.AppearanceReadOnly.Font = new Font("Segoe UI", 9F);
             txtAd.Properties.AppearanceReadOnly.Options.UseFont = true;
             txtAd.Properties.MaxLength = 100;
-            txtAd.Size = new Size(292, 22);
+            txtAd.Size = new Size(247, 22);
             txtAd.StatusBarAciklama = null;
             txtAd.StyleController = myDataLayoutControl1;
-            txtAd.TabIndex = 5;
+            txtAd.TabIndex = 1;
+            txtAd.Tag = "FirstName";
             // 
             // txtKullaniciAdi
             // 
@@ -241,10 +298,11 @@
             txtKullaniciAdi.Properties.AppearanceReadOnly.Font = new Font("Segoe UI", 9F);
             txtKullaniciAdi.Properties.AppearanceReadOnly.Options.UseFont = true;
             txtKullaniciAdi.Properties.MaxLength = 100;
-            txtKullaniciAdi.Size = new Size(292, 22);
+            txtKullaniciAdi.Size = new Size(247, 22);
             txtKullaniciAdi.StatusBarAciklama = "Kod Giriniz.";
             txtKullaniciAdi.StyleController = myDataLayoutControl1;
-            txtKullaniciAdi.TabIndex = 4;
+            txtKullaniciAdi.TabIndex = 0;
+            txtKullaniciAdi.Tag = "Code";
             // 
             // Root
             // 
@@ -271,7 +329,7 @@
             rowDefinition6.Height = 31D;
             rowDefinition6.SizeType = SizeType.Absolute;
             Root.OptionsTableLayoutGroup.RowDefinitions.AddRange(new DevExpress.XtraLayout.RowDefinition[] { rowDefinition1, rowDefinition2, rowDefinition3, rowDefinition4, rowDefinition5, rowDefinition6 });
-            Root.Size = new Size(493, 243);
+            Root.Size = new Size(448, 215);
             Root.TextVisible = false;
             // 
             // layoutControlItem2
@@ -282,7 +340,7 @@
             layoutControlItem2.Location = new Point(0, 31);
             layoutControlItem2.Name = "layoutControlItem2";
             layoutControlItem2.OptionsTableLayoutItem.RowIndex = 1;
-            layoutControlItem2.Size = new Size(374, 31);
+            layoutControlItem2.Size = new Size(329, 31);
             layoutControlItem2.Text = "Ad";
             layoutControlItem2.TextSize = new Size(66, 15);
             // 
@@ -294,7 +352,7 @@
             layoutControlItem3.Location = new Point(0, 62);
             layoutControlItem3.Name = "layoutControlItem3";
             layoutControlItem3.OptionsTableLayoutItem.RowIndex = 2;
-            layoutControlItem3.Size = new Size(374, 31);
+            layoutControlItem3.Size = new Size(329, 31);
             layoutControlItem3.Text = "Soyad";
             layoutControlItem3.TextSize = new Size(66, 15);
             // 
@@ -306,7 +364,7 @@
             layoutControlItem4.Location = new Point(0, 93);
             layoutControlItem4.Name = "layoutControlItem4";
             layoutControlItem4.OptionsTableLayoutItem.RowIndex = 3;
-            layoutControlItem4.Size = new Size(374, 31);
+            layoutControlItem4.Size = new Size(329, 31);
             layoutControlItem4.Text = "E-Posta";
             layoutControlItem4.TextSize = new Size(66, 15);
             // 
@@ -318,7 +376,7 @@
             layoutControlItem5.Location = new Point(0, 124);
             layoutControlItem5.Name = "layoutControlItem5";
             layoutControlItem5.OptionsTableLayoutItem.RowIndex = 4;
-            layoutControlItem5.Size = new Size(374, 31);
+            layoutControlItem5.Size = new Size(329, 31);
             layoutControlItem5.Text = "Şifre";
             layoutControlItem5.TextSize = new Size(66, 15);
             // 
@@ -326,49 +384,12 @@
             // 
             layoutControlItem7.AppearanceItemCaption.Font = new Font("Segoe UI", 9F);
             layoutControlItem7.AppearanceItemCaption.Options.UseFont = true;
-            layoutControlItem7.Control = myToggleSwitch1;
-            layoutControlItem7.Location = new Point(374, 0);
+            layoutControlItem7.Control = tglDurum;
+            layoutControlItem7.Location = new Point(329, 0);
             layoutControlItem7.Name = "layoutControlItem7";
             layoutControlItem7.OptionsTableLayoutItem.ColumnIndex = 1;
             layoutControlItem7.Size = new Size(99, 31);
             layoutControlItem7.TextVisible = false;
-            // 
-            // glufRol
-            // 
-            glufRol.EnterMoveNextControl = true;
-            glufRol.Location = new Point(90, 167);
-            glufRol.MenuManager = ribbon;
-            glufRol.Name = "glufRol";
-            glufRol.Properties.Appearance.BackColor = Color.White;
-            glufRol.Properties.Appearance.Font = new Font("Segoe UI", 9F);
-            glufRol.Properties.Appearance.Options.UseBackColor = true;
-            glufRol.Properties.Appearance.Options.UseFont = true;
-            glufRol.Properties.AppearanceDisabled.Font = new Font("Segoe UI", 9F);
-            glufRol.Properties.AppearanceDisabled.Options.UseFont = true;
-            glufRol.Properties.AppearanceDropDown.Font = new Font("Segoe UI", 9F);
-            glufRol.Properties.AppearanceDropDown.Options.UseFont = true;
-            glufRol.Properties.AppearanceFocused.BackColor = Color.FromArgb(255, 255, 192);
-            glufRol.Properties.AppearanceFocused.Font = new Font("Segoe UI", 9F);
-            glufRol.Properties.AppearanceFocused.Options.UseBackColor = true;
-            glufRol.Properties.AppearanceFocused.Options.UseFont = true;
-            glufRol.Properties.AppearanceReadOnly.Font = new Font("Segoe UI", 9F);
-            glufRol.Properties.AppearanceReadOnly.Options.UseFont = true;
-            glufRol.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo), new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Search), new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Delete) });
-            glufRol.Properties.NullText = "";
-            glufRol.Properties.PopupView = myGridLookUpFind1View;
-            glufRol.Size = new Size(292, 22);
-            glufRol.StatusBarAciklama = "Kayıt Seçiniz";
-            glufRol.StatusBarKisaYol = "F4 :";
-            glufRol.StatusBarKisaYolAciklama = "Seçim Yap";
-            glufRol.StyleController = myDataLayoutControl1;
-            glufRol.TabIndex = 11;
-            // 
-            // myGridLookUpFind1View
-            // 
-            myGridLookUpFind1View.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
-            myGridLookUpFind1View.Name = "myGridLookUpFind1View";
-            myGridLookUpFind1View.OptionsSelection.EnableAppearanceFocusedCell = false;
-            myGridLookUpFind1View.OptionsView.ShowGroupPanel = false;
             // 
             // layoutControlItem1
             // 
@@ -377,7 +398,7 @@
             layoutControlItem1.Control = txtKullaniciAdi;
             layoutControlItem1.Location = new Point(0, 0);
             layoutControlItem1.Name = "layoutControlItem1";
-            layoutControlItem1.Size = new Size(374, 31);
+            layoutControlItem1.Size = new Size(329, 31);
             layoutControlItem1.Text = "Kullanıcı Adı";
             layoutControlItem1.TextSize = new Size(66, 15);
             // 
@@ -389,7 +410,7 @@
             layoutControlItem6.Location = new Point(0, 155);
             layoutControlItem6.Name = "layoutControlItem6";
             layoutControlItem6.OptionsTableLayoutItem.RowIndex = 5;
-            layoutControlItem6.Size = new Size(374, 68);
+            layoutControlItem6.Size = new Size(329, 40);
             layoutControlItem6.Text = "Rol";
             layoutControlItem6.TextSize = new Size(66, 15);
             // 
@@ -397,9 +418,10 @@
             // 
             AutoScaleDimensions = new SizeF(6F, 13F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(493, 402);
+            ClientSize = new Size(448, 374);
             Controls.Add(myDataLayoutControl1);
             IconOptions.ShowIcon = false;
+            MinimumSize = new Size(450, 375);
             Name = "KullaniciEditForm";
             Text = "Kullanıcı Tanımı";
             Controls.SetChildIndex(ribbon, 0);
@@ -407,7 +429,9 @@
             ((System.ComponentModel.ISupportInitialize)ribbon).EndInit();
             ((System.ComponentModel.ISupportInitialize)myDataLayoutControl1).EndInit();
             myDataLayoutControl1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)myToggleSwitch1.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)glufRol.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)myGridLookUpFind1View).EndInit();
+            ((System.ComponentModel.ISupportInitialize)tglDurum.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtSifre.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtEmail.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtSoyad.Properties).EndInit();
@@ -419,8 +443,6 @@
             ((System.ComponentModel.ISupportInitialize)layoutControlItem4).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem5).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem7).EndInit();
-            ((System.ComponentModel.ISupportInitialize)glufRol.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)myGridLookUpFind1View).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem1).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem6).EndInit();
             ResumeLayout(false);
@@ -430,7 +452,7 @@
         #endregion
 
         private UserControls.MyDataLayoutControl myDataLayoutControl1;
-        private UserControls.MyToggleSwitch myToggleSwitch1;
+        private UserControls.MyToggleSwitch tglDurum;
         private UserControls.MyTextEdit txtSifre;
         private UserControls.MyEmailTextEdit txtEmail;
         private UserControls.MyTextEdit txtSoyad;
@@ -446,5 +468,7 @@
         private DevExpress.XtraGrid.Views.Grid.GridView myGridLookUpFind1View;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem6;
+        private DevExpress.XtraGrid.Columns.GridColumn colId;
+        private DevExpress.XtraGrid.Columns.GridColumn colRoleName;
     }
 }

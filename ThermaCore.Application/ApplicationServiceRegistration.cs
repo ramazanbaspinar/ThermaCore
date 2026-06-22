@@ -13,6 +13,7 @@ public static class ApplicationServiceRegistration
         // AutoMapper ve FluentValidation kayıtları
         services.AddAutoMapper(cfg => cfg.AddMaps(Assembly.GetExecutingAssembly()));
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+        ValidatorOptions.Global.LanguageManager.Culture = new System.Globalization.CultureInfo("tr-TR");
 
         // Manager (Service) Sınıflarının Kayıtları
         services.AddScoped<IAuthService, AuthManager>();

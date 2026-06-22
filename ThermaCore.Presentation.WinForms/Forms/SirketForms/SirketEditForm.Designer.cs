@@ -136,6 +136,7 @@
             txtAuthType.StatusBarKisaYolAciklama = null;
             txtAuthType.StyleController = myDataLayoutControl1;
             txtAuthType.TabIndex = 4;
+            txtAuthType.Tag = "AuthType";
             // 
             // txtServer
             // 
@@ -158,6 +159,7 @@
             txtServer.StatusBarAciklama = null;
             txtServer.StyleController = myDataLayoutControl1;
             txtServer.TabIndex = 3;
+            txtServer.Tag = " Server";
             // 
             // myToggleSwitch1
             // 
@@ -205,6 +207,7 @@
             txtSqlSifre.StatusBarAciklama = null;
             txtSqlSifre.StyleController = myDataLayoutControl1;
             txtSqlSifre.TabIndex = 6;
+            txtSqlSifre.Tag = "Password";
             // 
             // txtSqlKullaniciAdi
             // 
@@ -227,6 +230,7 @@
             txtSqlKullaniciAdi.StatusBarAciklama = null;
             txtSqlKullaniciAdi.StyleController = myDataLayoutControl1;
             txtSqlKullaniciAdi.TabIndex = 5;
+            txtSqlKullaniciAdi.Tag = "Username";
             // 
             // txtVeritabaniAdi
             // 
@@ -249,6 +253,7 @@
             txtVeritabaniAdi.StatusBarAciklama = null;
             txtVeritabaniAdi.StyleController = myDataLayoutControl1;
             txtVeritabaniAdi.TabIndex = 2;
+            txtVeritabaniAdi.Tag = "DatabaseName";
             // 
             // txtSirketAdi
             // 
@@ -271,6 +276,7 @@
             txtSirketAdi.StatusBarAciklama = null;
             txtSirketAdi.StyleController = myDataLayoutControl1;
             txtSirketAdi.TabIndex = 1;
+            txtSirketAdi.Tag = "CompanyName";
             // 
             // txtSirketKodu
             // 
@@ -297,6 +303,7 @@
             txtSirketKodu.StatusBarAciklama = "Kod Giriniz.";
             txtSirketKodu.StyleController = myDataLayoutControl1;
             txtSirketKodu.TabIndex = 0;
+            txtSirketKodu.Tag = "CompanyCode";
             // 
             // Root
             // 

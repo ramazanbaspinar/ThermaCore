@@ -28,6 +28,10 @@ public class ThermaCoreTenantContext : DbContext
         // Configuration sınıflarını (IEntityTypeConfiguration<T>) otomatik uygula
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
+        // Ghost tablolari engellemek icin (Tenant db'de User ve UserRole olmaz)
+        modelBuilder.Ignore<ThermaCore.Domain.Entities.Management.User>();
+        modelBuilder.Ignore<ThermaCore.Domain.Entities.Management.UserRole>();
+
         // Global Query Filter: FullAuditableEntity'den türeyenlere otomatik IsDeleted = false filtresi ekler
         foreach (var entityType in modelBuilder.Model.GetEntityTypes())
         {

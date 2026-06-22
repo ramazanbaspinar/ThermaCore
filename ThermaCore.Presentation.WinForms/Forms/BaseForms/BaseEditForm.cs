@@ -26,6 +26,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
 
         private bool _formSablonKayitEdilecek;
         private bool _isSaving = false;
+        protected bool _isBinding = false;
         protected object DataLayoutControl = default!;
         protected object[] DataLayoutControls = default!;
         protected object Bll = default!;
@@ -107,8 +108,40 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
             FormClosing += BaseEditForm_FormClosing;
             Shown += BaseEditForm_Shown;
 
-            // Control event wiring can be customized by derived classes 
-            // since we don't have direct access to UI Control specific types like FilterControl here.
+            BindControlEvents(this.Controls);
+        }
+
+        protected virtual void BindControlEvents(Control.ControlCollection controls)
+        {
+            foreach (Control control in controls)
+            {
+                if (control is DevExpress.XtraEditors.BaseEdit baseEdit)
+                {
+                    baseEdit.EditValueChanged -= Control_EditValueChanged; // Önlem olarak
+                    baseEdit.EditValueChanged += Control_EditValueChanged;
+                }
+                
+                if (control.Controls.Count > 0)
+                {
+                    BindControlEvents(control.Controls);
+                }
+            }
+        }
+
+        protected virtual void ResetControlIsModified(Control.ControlCollection controls)
+        {
+            foreach (Control control in controls)
+            {
+                if (control is DevExpress.XtraEditors.BaseEdit baseEdit)
+                {
+                    baseEdit.IsModified = false;
+                }
+                
+                if (control.Controls.Count > 0)
+                {
+                    ResetControlIsModified(control.Controls);
+                }
+            }
         }
 
         //Functions
@@ -141,8 +174,13 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
             Cursor.Current = Cursors.WaitCursor;
             if (BaseIslemTuru == ActionType.EntityUpdate)
             {
+                _isBinding = true;
                 Yukle();
                 GuncelNesneOlustur();
+                _isBinding = false;
+                
+                OldEntity = CurrentEntity;
+                ResetControlIsModified(this.Controls);
                 ButonEnabledDurumu();
             }
             else
@@ -153,8 +191,13 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
                 btnSil.Enabled = true;
                 btnYenile.Enabled = true;
                 
+                _isBinding = true;
                 Yukle();
                 GuncelNesneOlustur();
+                _isBinding = false;
+                
+                OldEntity = CurrentEntity;
+                ResetControlIsModified(this.Controls);
             }
             Cursor.Current = Cursors.Default;
         }
@@ -216,7 +259,10 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
                     Close();
                 else
                 {
+                    _isBinding = true;
                     Yukle();
+                    _isBinding = false;
+                    ResetControlIsModified(this.Controls);
                 }
 
                 return true;
@@ -256,9 +302,13 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
             if (Messages.EvetSeciliEvetHayir("Mevcut Kayıt Referans Alınarak Yeni Bir Kayıt Oluşturulacaktır. Onaylıyor Musunuz?", "Kayıt Onayı") != DialogResult.Yes) return;
 
             BaseIslemTuru = ActionType.EntityInsert;
+            _isBinding = true;
             Yukle();
             ApplyCodeTemplateLogic();
             GuncelNesneOlustur();
+            _isBinding = false;
+            ResetControlIsModified(this.Controls);
+            
             OldEntity = CurrentEntity;
             ButonEnabledDurumu();
 
@@ -362,7 +412,52 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
 
         protected virtual void FocusControlByPropertyName(string propertyName)
         {
-            // Bu metot miras alan formlar tarafından ezilerek hatalı olan UI elementine (TextBox vb.) focuslanmayı sağlar.
+            var ctrl = FindControlByPropertyName(this.Controls, propertyName);
+            
+            if (ctrl == null)
+            {
+                // Yaygın DTO property -> UI Control Name mapping (İngilizce DTO -> Türkçe UI)
+                // Base sınıfta otomatik Focus işleminin tüm formlarda çalışması için akıllı tahmin.
+                var propertyMap = new System.Collections.Generic.Dictionary<string, string[]>()
+                {
+                    { "Code", new[] { "KullaniciAdi", "Kod" } },
+                    { "FirstName", new[] { "Ad", "Isim" } },
+                    { "LastName", new[] { "Soyad", "Soyisim" } },
+                    { "Password", new[] { "Sifre", "Parola" } },
+                    { "UserRoleId", new[] { "Rol", "UserRole" } },
+                    { "RoleId", new[] { "Rol", "Role" } },
+                    { "IsActive", new[] { "Durum", "Aktif" } },
+                    { "Description", new[] { "Aciklama", "Detay" } },
+                };
+
+                if (propertyMap.ContainsKey(propertyName))
+                {
+                    foreach (var mappedName in propertyMap[propertyName])
+                    {
+                        ctrl = FindControlByPropertyName(this.Controls, mappedName);
+                        if (ctrl != null) break;
+                    }
+                }
+            }
+
+            if (ctrl != null) 
+            {
+                ctrl.Select(); // DevExpress bileşenlerinde Focus öncesi Select garanti eder
+                ctrl.Focus();
+            }
+        }
+
+        private Control? FindControlByPropertyName(Control.ControlCollection controls, string propertyName)
+        {
+            foreach (Control c in controls)
+            {
+                if (c.Name.EndsWith(propertyName, StringComparison.InvariantCultureIgnoreCase)) return c;
+                if (c.Tag != null && c.Tag.ToString() == propertyName) return c;
+                
+                var child = FindControlByPropertyName(c.Controls, propertyName);
+                if (child != null) return child;
+            }
+            return null;
         }
 
         //Events
@@ -378,9 +473,12 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
             if (name == "btnYeni")
             {
                 BaseIslemTuru = ActionType.EntityInsert;
+                _isBinding = true;
                 Yukle();
                 ApplyCodeTemplateLogic();
                 GuncelNesneOlustur();
+                _isBinding = false;
+                ResetControlIsModified(this.Controls);
                 ButonEnabledDurumu();
             }
             else if (name == "btnKaydet")
@@ -390,7 +488,12 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
             else if (name == "btnGerial")
                 GeriAl();
             else if (name == "btnYenile")
+            {
+                _isBinding = true;
                 Yukle();
+                _isBinding = false;
+                ResetControlIsModified(this.Controls);
+            }
             else if (name == "btnAracTemizle")
                 AracTemizle();
             else if (name == "btnSil")
@@ -434,8 +537,12 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
             if (IsDesignMode) return;
 
             SablonYukle();
+            _isBinding = true;
             Yukle();
             GuncelNesneOlustur();
+            _isBinding = false;
+            ResetControlIsModified(this.Controls);
+            
             OldEntity = CurrentEntity;
             IsLoaded = true;
             ButonEnabledDurumu();
@@ -518,9 +625,26 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
 
         protected virtual void Control_EditValueChanged(object? sender, EventArgs e)
         {
-            if (!IsLoaded) return;
+            if (_isBinding || !IsLoaded) return;
+            
+            // Eğer hiçbir UI kontrolü (TextBox vb.) kullanıcı tarafından değiştirilmediyse (IsModified = false), 
+            // asenkron yüklemeler yüzünden gereksiz yere Butonları aktif etmesini (Bug) engelle:
+            if (!FarklilikVarMi(this.Controls)) return;
+
             GuncelNesneOlustur();
             ButonEnabledDurumu();
+        }
+
+        private bool FarklilikVarMi(Control.ControlCollection controls)
+        {
+            foreach (Control control in controls)
+            {
+                if (control is DevExpress.XtraEditors.BaseEdit baseEdit && baseEdit.IsModified)
+                    return true;
+                if (control.Controls.Count > 0 && FarklilikVarMi(control.Controls))
+                    return true;
+            }
+            return false;
         }
 
         protected virtual void Control_SelectedValueChanged(object? sender, EventArgs e) { }

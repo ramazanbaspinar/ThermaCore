@@ -1,12 +1,16 @@
 using DevExpress.XtraEditors;
 using System;
+using System.Linq;
 using ThermaCore.Application.DTOs.Management;
 using ThermaCore.Application.DTOs.Security;
 using ThermaCore.Application.Interfaces.Management;
 using ThermaCore.Application.Interfaces.Security;
+using ThermaCore.Application.Services.Management;
 using ThermaCore.Domain.Enums;
 using ThermaCore.Presentation.WinForms.Forms.BaseForms;
 using ThermaCore.Presentation.WinForms.Forms.YetkilendirmeForms;
+using ThermaCore.Presentation.WinForms.Helpers;
+
 
 namespace ThermaCore.Presentation.WinForms.Forms.KullaniciForms
 {
@@ -21,27 +25,22 @@ namespace ThermaCore.Presentation.WinForms.Forms.KullaniciForms
             _userService = userService;
             _roleService = roleService;
 
+            BaseKartTuru = Domain.Enums.ModuleType.User;
             DataLayoutControl = myDataLayoutControl1;
             Bll = _userService;
         }
 
+
         protected override void EventsLoad()
         {
             base.EventsLoad();
-            txtKullaniciAdi.EditValueChanged += Control_EditValueChanged;
-            txtAd.EditValueChanged += Control_EditValueChanged;
-            txtSoyad.EditValueChanged += Control_EditValueChanged;
-            txtEmail.EditValueChanged += Control_EditValueChanged;
-            txtSifre.EditValueChanged += Control_EditValueChanged;
-            glufRol.EditValueChanged += Control_EditValueChanged;
-
             glufRol.SearchButtonClicked += GlufRol_SearchButtonClicked;
         }
 
         public override void Yukle()
         {
             // GridLookUpFind için datasource doldur
-            var roller = _roleService.GetActiveRoles();
+            var roller = _roleService.GetActiveRoles().ToList();
             glufRol.Properties.DataSource = roller;
             glufRol.Properties.ValueMember = "Id";
             glufRol.Properties.DisplayMember = "RoleName";
@@ -57,15 +56,6 @@ namespace ThermaCore.Presentation.WinForms.Forms.KullaniciForms
             }
 
             NesneyiKontrollereBagla();
-            
-            // Yukle sonrası tüm form elemanları temiz kabul edilir (GeriAl düzgün çalışması için)
-            txtKullaniciAdi.IsModified = false;
-            txtAd.IsModified = false;
-            txtSoyad.IsModified = false;
-            txtEmail.IsModified = false;
-            txtSifre.IsModified = false;
-            glufRol.IsModified = false;
-            
             ButonEnabledDurumu();
         }
 
@@ -77,8 +67,24 @@ namespace ThermaCore.Presentation.WinForms.Forms.KullaniciForms
             txtAd.Text = entity.FirstName;
             txtSoyad.Text = entity.LastName;
             txtEmail.Text = entity.Email;
-            txtSifre.Text = ""; // Şifre kutusu her zaman boş gelir (hash gizliliği)
+            txtSifre.Text = Id > 0 ? "********" : ""; // Şifre kutusu güncelleme modunda ******** dolar
             glufRol.EditValue = entity.UserRoleId == 0 ? (long?)null : entity.UserRoleId;
+            tglDurum.IsOn = entity.IsActive;
+        }
+
+        protected override void FocusControlByPropertyName(string propertyName)
+        {
+            base.FocusControlByPropertyName(propertyName);
+
+            // Base'deki genel bulucu eşleşmezse özel durumlar:
+            if (propertyName == nameof(UserDto.UserRoleId))
+            {
+                glufRol.Focus();
+            }
+            else if (propertyName == nameof(UserDto.IsActive))
+            {
+                tglDurum.Focus();
+            }
         }
 
         protected override void GuncelNesneOlustur()
@@ -90,9 +96,9 @@ namespace ThermaCore.Presentation.WinForms.Forms.KullaniciForms
                 FirstName = txtAd.Text,
                 LastName = txtSoyad.Text,
                 Email = txtEmail.Text,
-                Password = txtSifre.Text, // Eğer boşsa arkada eski şifre korunacak (UserService)
-                UserRoleId = (long)(glufRol.EditValue ?? 0L),
-                IsActive = true
+                Password = txtSifre.Text == "********" ? "" : txtSifre.Text, // Eğer ******** ise veya boşsa arkada eski şifre korunacak (UserService)
+                UserRoleId = glufRol.EditValue != null && glufRol.EditValue != DBNull.Value ? Convert.ToInt64(glufRol.EditValue) : 0,
+                IsActive = tglDurum.IsOn
             };
             
             ButonEnabledDurumu();
@@ -110,9 +116,44 @@ namespace ThermaCore.Presentation.WinForms.Forms.KullaniciForms
                         var seciliRol = frm.SelectedEntities[0] as RoleDto;
                         if (seciliRol != null)
                         {
+                            // Listeye yeni eklenmiş olabilecek kayıtlar için veri kaynağını tazele
+                            glufRol.Properties.DataSource = _roleService.GetActiveRoles().ToList();
                             glufRol.EditValue = seciliRol.Id;
                         }
                     }
+                }
+            }
+        }
+
+        protected override bool EntityInsert()
+        {
+            var dto = (UserDto)CurrentEntity;
+            dto.Id = BaseIslemTuru.IdOlustur(OldEntity);
+            Id = _userService.Insert(dto);
+            return true;
+        }
+
+        protected override bool EntityUpdate()
+        {
+            var dto = (UserDto)CurrentEntity;
+            _userService.Update(dto);
+            return true;
+        }
+
+        protected override void EntityDelete()
+        {
+            if (Id <= 0) return;
+            if (Messages.SilMesaj("Kullanıcı") == DialogResult.Yes)
+            {
+                try
+                {
+                    _userService.Delete(Id);
+                    RefreshYapilacak = true;
+                    Close();
+                }
+                catch (Exception ex)
+                {
+                    Messages.HataMesaji(ex.Message);
                 }
             }
         }

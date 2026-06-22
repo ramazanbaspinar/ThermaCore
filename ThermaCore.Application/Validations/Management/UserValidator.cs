@@ -7,12 +7,13 @@ public class UserValidator : AbstractValidator<UserDto>
 {
     public UserValidator()
     {
-        RuleFor(x => x.FirstName).NotEmpty().WithMessage("First Name cannot be empty.");
-        RuleFor(x => x.LastName).NotEmpty().WithMessage("Last Name cannot be empty.");
+        RuleFor(x => x.Code).NotEmpty().WithMessage("Kullanıcı adı (Kod) boş bırakılamaz!");
+        RuleFor(x => x.FirstName).NotEmpty().WithMessage("Ad alanı boş geçilemez.");
+        RuleFor(x => x.LastName).NotEmpty().WithMessage("Soyad alanı boş geçilemez.");
         
         RuleFor(x => x.Email)
-            .NotEmpty().WithMessage("Email address cannot be empty.")
-            .EmailAddress().WithMessage("Enter a valid email address.");
+            .NotEmpty().WithMessage("Email adresi boş geçilemez.")
+            .EmailAddress().WithMessage("Geçerli bir email adresi giriniz.");
 
         RuleFor(x => x.UserRoleId)
             .GreaterThan(0).WithMessage("Kullanıcı için geçerli bir rol seçilmelidir.");

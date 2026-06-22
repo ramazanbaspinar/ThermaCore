@@ -1,5 +1,7 @@
 using System;
+using System.IO;
 using System.Windows.Forms;
+using DevExpress.XtraEditors;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -21,6 +23,10 @@ internal static class Program
     [STAThread]
     static void Main()
     {
+        System.Windows.Forms.Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
+        System.Windows.Forms.Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(Application_ThreadException);
+        AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+
         ApplicationConfiguration.Initialize();
 
         IAppConfigService configService = new AppConfigService();
@@ -109,5 +115,39 @@ internal static class Program
 
         var mainForm = host.Services.GetRequiredService<GirisForm>();
         System.Windows.Forms.Application.Run(mainForm);
+    }
+
+    private static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
+    {
+        HandleException(e.Exception);
+    }
+
+    private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+    {
+        if (e.ExceptionObject is Exception ex)
+        {
+            HandleException(ex);
+        }
+    }
+
+    private static void HandleException(Exception ex)
+    {
+        try
+        {
+            string logDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs");
+            if (!Directory.Exists(logDir))
+            {
+                Directory.CreateDirectory(logDir);
+            }
+
+            string logFile = Path.Combine(logDir, $"ErrorLog_{DateTime.Now:yyyyMMdd}.txt");
+            string logContent = $"[{DateTime.Now:dd.MM.yyyy HH:mm:ss}] ERROR: {ex.Message}{Environment.NewLine}STACK TRACE:{Environment.NewLine}{ex.StackTrace}{Environment.NewLine}--------------------------------------------------{Environment.NewLine}";
+            
+            File.AppendAllText(logFile, logContent);
+        }
+        catch { }
+
+        string userMessage = "Sistemde beklenmeyen bir hata oluştu. Lütfen sistem yöneticinize bilgi veriniz.\n\nHata Nedeni: " + ex.Message;
+        XtraMessageBox.Show(userMessage, "Sistem Hatası", MessageBoxButtons.OK, MessageBoxIcon.Error);
     }
 }

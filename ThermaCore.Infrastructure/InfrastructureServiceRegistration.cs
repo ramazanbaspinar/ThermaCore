@@ -18,10 +18,10 @@ public static class InfrastructureServiceRegistration
     {
         // DbContext
         services.AddDbContext<ThermaCoreMasterContext>(options =>
-            options.UseSqlServer(connectionString));
+            options.UseSqlServer(connectionString, b => b.MigrationsAssembly("ThermaCore.Infrastructure")));
 
         services.AddDbContext<ThermaCoreTenantContext>(options =>
-            options.UseSqlServer(connectionString));
+            options.UseSqlServer(connectionString, b => b.MigrationsAssembly("ThermaCore.Infrastructure")));
 
         // Repositories & UoW
         services.AddScoped(typeof(IMasterRepository<>), typeof(MasterRepository<>));

@@ -160,6 +160,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.CodeTemplateForms
             txtKullaniciMudahaleEdebilsin.StatusBarAciklama = null;
             txtKullaniciMudahaleEdebilsin.StyleController = myDataLayoutControl1;
             txtKullaniciMudahaleEdebilsin.TabIndex = 14;
+            txtKullaniciMudahaleEdebilsin.Tag = "IsUserInterventionAllowed";
             // 
             // txtFirmaKisaKoduKullan
             // 
@@ -177,11 +178,12 @@ namespace ThermaCore.Presentation.WinForms.Forms.CodeTemplateForms
             txtFirmaKisaKoduKullan.Properties.AppearanceFocused.Options.UseFont = true;
             txtFirmaKisaKoduKullan.Properties.AppearanceReadOnly.Font = new Font("Segoe UI", 9F);
             txtFirmaKisaKoduKullan.Properties.AppearanceReadOnly.Options.UseFont = true;
-            txtFirmaKisaKoduKullan.Properties.Caption = "Firma Kisa Kod Kullan";
+            txtFirmaKisaKoduKullan.Properties.Caption = "Firma Kýsa Kod Kullan";
             txtFirmaKisaKoduKullan.Size = new Size(264, 20);
             txtFirmaKisaKoduKullan.StatusBarAciklama = null;
             txtFirmaKisaKoduKullan.StyleController = myDataLayoutControl1;
             txtFirmaKisaKoduKullan.TabIndex = 13;
+            txtFirmaKisaKoduKullan.Tag = "IsCompanyShortCodeUsed";
             // 
             // txtTarihBazliKodSifirlama
             // 
@@ -204,6 +206,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.CodeTemplateForms
             txtTarihBazliKodSifirlama.StatusBarAciklama = null;
             txtTarihBazliKodSifirlama.StyleController = myDataLayoutControl1;
             txtTarihBazliKodSifirlama.TabIndex = 12;
+            txtTarihBazliKodSifirlama.Tag = "IsDateBasedCodeResetEnabled";
             // 
             // txtOtomatikKodUretimi
             // 
@@ -226,6 +229,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.CodeTemplateForms
             txtOtomatikKodUretimi.StatusBarAciklama = null;
             txtOtomatikKodUretimi.StyleController = myDataLayoutControl1;
             txtOtomatikKodUretimi.TabIndex = 11;
+            txtOtomatikKodUretimi.Tag = "IsAutoCodeGenerationEnabled";
             // 
             // txtKodSonEk
             // 
@@ -248,6 +252,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.CodeTemplateForms
             txtKodSonEk.StatusBarAciklama = null;
             txtKodSonEk.StyleController = myDataLayoutControl1;
             txtKodSonEk.TabIndex = 10;
+            txtKodSonEk.Tag = "CodeSuffix";
             // 
             // txtTarihFormati
             // 
@@ -281,6 +286,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.CodeTemplateForms
             txtTarihFormati.StatusBarKisaYolAciklama = null;
             txtTarihFormati.StyleController = myDataLayoutControl1;
             txtTarihFormati.TabIndex = 9;
+            txtTarihFormati.Tag = "DateFormat";
             // 
             // txtBaslangicSayisi
             // 
@@ -306,6 +312,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.CodeTemplateForms
             txtBaslangicSayisi.StatusBarAciklama = null;
             txtBaslangicSayisi.StyleController = myDataLayoutControl1;
             txtBaslangicSayisi.TabIndex = 8;
+            txtBaslangicSayisi.Tag = "StartNumber";
             // 
             // txtSayisalUzunluk
             // 
@@ -331,6 +338,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.CodeTemplateForms
             txtSayisalUzunluk.StatusBarAciklama = null;
             txtSayisalUzunluk.StyleController = myDataLayoutControl1;
             txtSayisalUzunluk.TabIndex = 7;
+            txtSayisalUzunluk.Tag = " NumericLength";
             // 
             // txtTarihKullan
             // 
@@ -353,6 +361,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.CodeTemplateForms
             txtTarihKullan.StatusBarAciklama = null;
             txtTarihKullan.StyleController = myDataLayoutControl1;
             txtTarihKullan.TabIndex = 6;
+            txtTarihKullan.Tag = "IsDateBasedCodeGenerationEnabled";
             // 
             // txtKodOnEk
             // 
@@ -375,6 +384,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.CodeTemplateForms
             txtKodOnEk.StatusBarAciklama = null;
             txtKodOnEk.StyleController = myDataLayoutControl1;
             txtKodOnEk.TabIndex = 5;
+            txtKodOnEk.Tag = "CodePrefix";
             // 
             // txtModul
             // 
@@ -408,6 +418,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.CodeTemplateForms
             txtModul.StatusBarKisaYolAciklama = null;
             txtModul.StyleController = myDataLayoutControl1;
             txtModul.TabIndex = 4;
+            txtModul.Tag = "Module";
             // 
             // Root
             // 

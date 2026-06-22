@@ -3,27 +3,47 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace ThermaCore.Infrastructure.Migrations
+namespace ThermaCore.Infrastructure.Migrations.TenantMigrations
 {
     /// <inheritdoc />
-    public partial class KodSablonVeLog : Migration
+    public partial class InitialTenant : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "TCORE_CodeLogs",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false),
+                    Module = table.Column<int>(type: "int", nullable: false),
+                    CompanyCode = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    DateKey = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    LastCodeValue = table.Column<int>(type: "int", nullable: false),
+                    BranchId = table.Column<long>(type: "bigint", nullable: true),
+                    RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TCORE_CodeLogs", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TCORE_CodeTemplates",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false),
-                    Code = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
                     Module = table.Column<int>(type: "int", nullable: false),
-                    CodePrefix = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
-                    CodeSuffix = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    CodePrefix = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    NumericLength = table.Column<byte>(type: "tinyint", nullable: false),
                     StartNumber = table.Column<int>(type: "int", nullable: false),
-                    NumericLength = table.Column<int>(type: "int", nullable: false),
                     DateFormat = table.Column<int>(type: "int", nullable: false),
+                    CodeSuffix = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    IsAutoCodeGenerationEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    IsUserInterventionAllowed = table.Column<bool>(type: "bit", nullable: false),
+                    IsCompanyShortCodeUsed = table.Column<bool>(type: "bit", nullable: false),
+                    IsDateBasedCodeGenerationEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    IsDateBasedCodeResetEnabled = table.Column<bool>(type: "bit", nullable: false),
                     RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedUserId = table.Column<long>(type: "bigint", nullable: false),
@@ -39,38 +59,36 @@ namespace ThermaCore.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TCORE_KodLoglar",
+                name: "TCORE_ModulePermissions",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false),
-                    Modul = table.Column<int>(type: "int", nullable: false),
-                    FirmaKodu = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    TarihKey = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    SonKodDegeri = table.Column<int>(type: "int", nullable: false),
-                    BranchId = table.Column<long>(type: "bigint", nullable: true),
-                    RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false)
+                    UserRoleId = table.Column<long>(type: "bigint", nullable: false),
+                    Module = table.Column<int>(type: "int", nullable: false),
+                    CanView = table.Column<byte>(type: "tinyint", nullable: false),
+                    CanAdd = table.Column<byte>(type: "tinyint", nullable: false),
+                    CanEdit = table.Column<byte>(type: "tinyint", nullable: false),
+                    CanDelete = table.Column<byte>(type: "tinyint", nullable: false),
+                    RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedUserId = table.Column<long>(type: "bigint", nullable: false),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedUserId = table.Column<long>(type: "bigint", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TCORE_KodLoglar", x => x.Id);
+                    table.PrimaryKey("PK_TCORE_ModulePermissions", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "TCORE_KodSablonlar",
+                name: "TCORE_Roles",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false),
-                    Modul = table.Column<int>(type: "int", nullable: false),
-                    KodOnEk = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    SayisalUzunluk = table.Column<byte>(type: "tinyint", nullable: false),
-                    BaslangicSayisi = table.Column<int>(type: "int", nullable: false),
-                    TarihFormati = table.Column<int>(type: "int", nullable: false),
-                    KodSonEk = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    OtomatikKodUretmeDurumu = table.Column<bool>(type: "bit", nullable: false),
-                    KullaniciMudahalesiDurumu = table.Column<bool>(type: "bit", nullable: false),
-                    FirmaKisaKodKullanimDurumu = table.Column<bool>(type: "bit", nullable: false),
-                    TarihliKodUretmeDurumu = table.Column<bool>(type: "bit", nullable: false),
-                    TarihBazliKodSifrlamaDurumu = table.Column<bool>(type: "bit", nullable: false),
+                    Code = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    RoleName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
                     RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedUserId = table.Column<long>(type: "bigint", nullable: false),
@@ -82,7 +100,7 @@ namespace ThermaCore.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TCORE_KodSablonlar", x => x.Id);
+                    table.PrimaryKey("PK_TCORE_Roles", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -163,14 +181,16 @@ namespace ThermaCore.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TCORE_UserRoles",
+                name: "TCORE_UserPermissions",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false),
-                    Code = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
-                    RoleName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    UserId = table.Column<long>(type: "bigint", nullable: false),
+                    Module = table.Column<int>(type: "int", nullable: false),
+                    CanView = table.Column<byte>(type: "tinyint", nullable: false),
+                    CanAdd = table.Column<byte>(type: "tinyint", nullable: false),
+                    CanEdit = table.Column<byte>(type: "tinyint", nullable: false),
+                    CanDelete = table.Column<byte>(type: "tinyint", nullable: false),
                     RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedUserId = table.Column<long>(type: "bigint", nullable: false),
@@ -179,7 +199,7 @@ namespace ThermaCore.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TCORE_UserRoles", x => x.Id);
+                    table.PrimaryKey("PK_TCORE_UserPermissions", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -205,97 +225,31 @@ namespace ThermaCore.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TCORE_ModulePermissions",
+                name: "TCORE_RolePermissions",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false),
-                    UserRoleId = table.Column<long>(type: "bigint", nullable: false),
-                    Module = table.Column<int>(type: "int", nullable: false),
-                    CanView = table.Column<byte>(type: "tinyint", nullable: false),
-                    CanAdd = table.Column<byte>(type: "tinyint", nullable: false),
-                    CanEdit = table.Column<byte>(type: "tinyint", nullable: false),
-                    CanDelete = table.Column<byte>(type: "tinyint", nullable: false),
-                    RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedUserId = table.Column<long>(type: "bigint", nullable: false),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ModifiedUserId = table.Column<long>(type: "bigint", nullable: true)
+                    RoleId = table.Column<long>(type: "bigint", nullable: false),
+                    ModuleId = table.Column<int>(type: "int", nullable: false),
+                    ParentId = table.Column<int>(type: "int", nullable: false),
+                    ModuleName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CanRead = table.Column<bool>(type: "bit", nullable: false),
+                    CanCreate = table.Column<bool>(type: "bit", nullable: false),
+                    CanUpdate = table.Column<bool>(type: "bit", nullable: false),
+                    CanDelete = table.Column<bool>(type: "bit", nullable: false),
+                    SpecialPermissions = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TCORE_ModulePermissions", x => x.Id);
+                    table.PrimaryKey("PK_TCORE_RolePermissions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TCORE_ModulePermissions_TCORE_UserRoles_UserRoleId",
-                        column: x => x.UserRoleId,
-                        principalTable: "TCORE_UserRoles",
+                        name: "FK_TCORE_RolePermissions_TCORE_Roles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "TCORE_Roles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateTable(
-                name: "TCORE_Users",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false),
-                    Code = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    UserRoleId = table.Column<long>(type: "bigint", nullable: false),
-                    RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedUserId = table.Column<long>(type: "bigint", nullable: false),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ModifiedUserId = table.Column<long>(type: "bigint", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedUserId = table.Column<long>(type: "bigint", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TCORE_Users", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_TCORE_Users_TCORE_UserRoles_UserRoleId",
-                        column: x => x.UserRoleId,
-                        principalTable: "TCORE_UserRoles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TCORE_UserPermissions",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false),
-                    UserId = table.Column<long>(type: "bigint", nullable: false),
-                    Module = table.Column<int>(type: "int", nullable: false),
-                    CanView = table.Column<byte>(type: "tinyint", nullable: false),
-                    CanAdd = table.Column<byte>(type: "tinyint", nullable: false),
-                    CanEdit = table.Column<byte>(type: "tinyint", nullable: false),
-                    CanDelete = table.Column<byte>(type: "tinyint", nullable: false),
-                    RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedUserId = table.Column<long>(type: "bigint", nullable: false),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ModifiedUserId = table.Column<long>(type: "bigint", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TCORE_UserPermissions", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_TCORE_UserPermissions_TCORE_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "TCORE_Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TCORE_CodeTemplates_Code",
-                table: "TCORE_CodeTemplates",
-                column: "Code");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TCORE_CodeTemplates_CreatedDate",
@@ -303,23 +257,8 @@ namespace ThermaCore.Infrastructure.Migrations
                 column: "CreatedDate");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TCORE_CodeTemplates_IsActive",
-                table: "TCORE_CodeTemplates",
-                column: "IsActive");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_TCORE_CodeTemplates_IsDeleted",
                 table: "TCORE_CodeTemplates",
-                column: "IsDeleted");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TCORE_KodSablonlar_CreatedDate",
-                table: "TCORE_KodSablonlar",
-                column: "CreatedDate");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TCORE_KodSablonlar_IsDeleted",
-                table: "TCORE_KodSablonlar",
                 column: "IsDeleted");
 
             migrationBuilder.CreateIndex(
@@ -328,9 +267,29 @@ namespace ThermaCore.Infrastructure.Migrations
                 column: "CreatedDate");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TCORE_ModulePermissions_UserRoleId",
-                table: "TCORE_ModulePermissions",
-                column: "UserRoleId");
+                name: "IX_TCORE_RolePermissions_RoleId",
+                table: "TCORE_RolePermissions",
+                column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TCORE_Roles_Code",
+                table: "TCORE_Roles",
+                column: "Code");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TCORE_Roles_CreatedDate",
+                table: "TCORE_Roles",
+                column: "CreatedDate");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TCORE_Roles_IsActive",
+                table: "TCORE_Roles",
+                column: "IsActive");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TCORE_Roles_IsDeleted",
+                table: "TCORE_Roles",
+                column: "IsDeleted");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TCORE_TenantDatabases_Code",
@@ -393,51 +352,6 @@ namespace ThermaCore.Infrastructure.Migrations
                 column: "CreatedDate");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TCORE_UserPermissions_UserId",
-                table: "TCORE_UserPermissions",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TCORE_UserRoles_Code",
-                table: "TCORE_UserRoles",
-                column: "Code");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TCORE_UserRoles_CreatedDate",
-                table: "TCORE_UserRoles",
-                column: "CreatedDate");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TCORE_UserRoles_IsActive",
-                table: "TCORE_UserRoles",
-                column: "IsActive");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TCORE_Users_Code",
-                table: "TCORE_Users",
-                column: "Code");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TCORE_Users_CreatedDate",
-                table: "TCORE_Users",
-                column: "CreatedDate");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TCORE_Users_IsActive",
-                table: "TCORE_Users",
-                column: "IsActive");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TCORE_Users_IsDeleted",
-                table: "TCORE_Users",
-                column: "IsDeleted");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TCORE_Users_UserRoleId",
-                table: "TCORE_Users",
-                column: "UserRoleId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_TCORE_UserSessions_CreatedDate",
                 table: "TCORE_UserSessions",
                 column: "CreatedDate");
@@ -447,16 +361,16 @@ namespace ThermaCore.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "TCORE_CodeLogs");
+
+            migrationBuilder.DropTable(
                 name: "TCORE_CodeTemplates");
 
             migrationBuilder.DropTable(
-                name: "TCORE_KodLoglar");
-
-            migrationBuilder.DropTable(
-                name: "TCORE_KodSablonlar");
-
-            migrationBuilder.DropTable(
                 name: "TCORE_ModulePermissions");
+
+            migrationBuilder.DropTable(
+                name: "TCORE_RolePermissions");
 
             migrationBuilder.DropTable(
                 name: "TCORE_TenantDatabases");
@@ -474,10 +388,7 @@ namespace ThermaCore.Infrastructure.Migrations
                 name: "TCORE_UserSessions");
 
             migrationBuilder.DropTable(
-                name: "TCORE_Users");
-
-            migrationBuilder.DropTable(
-                name: "TCORE_UserRoles");
+                name: "TCORE_Roles");
         }
     }
 }

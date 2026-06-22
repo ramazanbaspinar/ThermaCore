@@ -2,6 +2,7 @@ using DevExpress.XtraEditors;
 using System;
 using System.Windows.Forms;
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using ThermaCore.Application.Interfaces.Configuration;
 using ThermaCore.Application.Interfaces.System;
 using ThermaCore.Application.DTOs.Management;
@@ -214,6 +215,21 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
                 // 2. Girilen tüm bu yapılandırmaları IAppConfigService aracılığıyla settings.json dosyasına şifreli olarak kaydet.
                 string connectionString = BuildConnectionString(forTesting: false);
                 _configService.SetConnectionString(connectionString);
+
+                // 2.5 Migrate işlemi bittikten hemen sonra DatabaseSeederManager'ın tetiklendiğinden emin ol (Auto-Migration and Seed)
+                var optionsMaster = new Microsoft.EntityFrameworkCore.DbContextOptionsBuilder<ThermaCore.Infrastructure.Persistence.ThermaCoreMasterContext>();
+                optionsMaster.UseSqlServer(connectionString, b => b.MigrationsAssembly("ThermaCore.Infrastructure"));
+                
+                var optionsTenant = new Microsoft.EntityFrameworkCore.DbContextOptionsBuilder<ThermaCore.Infrastructure.Persistence.ThermaCoreTenantContext>();
+                optionsTenant.UseSqlServer(connectionString, b => b.MigrationsAssembly("ThermaCore.Infrastructure"));
+
+                using (var masterContext = new ThermaCore.Infrastructure.Persistence.ThermaCoreMasterContext(optionsMaster.Options))
+                using (var tenantContext = new ThermaCore.Infrastructure.Persistence.ThermaCoreTenantContext(optionsTenant.Options))
+                {
+                    var cryptoService = new ThermaCore.Infrastructure.Security.CryptoService();
+                    var seeder = new ThermaCore.Infrastructure.System.DatabaseSeederManager(masterContext, tenantContext, cryptoService);
+                    await seeder.SeedAsync(false);
+                }
 
                 XtraMessageBox.Show("Veritabanı oluşturuldu ve bağlantı ayarları başarıyla kaydedildi. Uygulama yeniden başlatılıyor.", "Kurulum Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
 

@@ -98,10 +98,10 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
 
         private void ButonGizleGoster()
         {
-            if (btnSec != null) btnSec.Visibility = AktifPasifButonGoster ? BarItemVisibility.Never : IsMdiChild ? BarItemVisibility.Never : BarItemVisibility.Always;
-            if (barEnter != null) barEnter.Visibility = IsMdiChild ? BarItemVisibility.Never : BarItemVisibility.Always;
-            if (barEnterAciklama != null) barEnterAciklama.Visibility = IsMdiChild ? BarItemVisibility.Never : BarItemVisibility.Always;
-            if (btnAktifPasifKayitlar != null) btnAktifPasifKayitlar.Visibility = AktifPasifButonGoster ? BarItemVisibility.Always : !IsMdiChild ? BarItemVisibility.Never : BarItemVisibility.Always;
+            if (btnSec != null) btnSec.Visibility = !IsMdiChild ? BarItemVisibility.Always : BarItemVisibility.Never;
+            if (barEnter != null) barEnter.Visibility = !IsMdiChild ? BarItemVisibility.Always : BarItemVisibility.Never;
+            if (barEnterAciklama != null) barEnterAciklama.Visibility = !IsMdiChild ? BarItemVisibility.Always : BarItemVisibility.Never;
+            if (btnAktifPasifKayitlar != null) btnAktifPasifKayitlar.Visibility = AktifPasifButonGoster ? BarItemVisibility.Always : BarItemVisibility.Never;
 
             if (ShowItems != null)
                 foreach (var x in ShowItems) x.Visibility = BarItemVisibility.Always;
@@ -190,11 +190,13 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
             }
             else
             {
-                long id = 0;
                 if (Tablo != null && Tablo.FocusedRowHandle >= 0)
                 {
-                    var rowObj = Tablo.GetRowCellValue(Tablo.FocusedRowHandle, "Id");
-                    if (rowObj != null) long.TryParse(rowObj.ToString(), out id);
+                    var rowObj = Tablo.GetRow(Tablo.FocusedRowHandle) as BaseDto;
+                    if (rowObj != null)
+                    {
+                        SelectedEntities = new List<BaseDto> { rowObj };
+                    }
                 }
             }
 

@@ -148,6 +148,7 @@
             txtAciklama.StatusBarAciklama = "Açıklama Giriniz.";
             txtAciklama.StyleController = myDataLayoutControl1;
             txtAciklama.TabIndex = 1;
+            txtAciklama.Tag = "Description";
             // 
             // treeList1
             // 
@@ -271,6 +272,7 @@
             txtRolAdi.StatusBarAciklama = null;
             txtRolAdi.StyleController = myDataLayoutControl1;
             txtRolAdi.TabIndex = 0;
+            txtRolAdi.Tag = "RoleName";
             // 
             // txtRolKodu
             // 
@@ -297,6 +299,7 @@
             txtRolKodu.StatusBarAciklama = "Kod Giriniz.";
             txtRolKodu.StyleController = myDataLayoutControl1;
             txtRolKodu.TabIndex = 3;
+            txtRolKodu.Tag = "Code";
             // 
             // Root
             // 

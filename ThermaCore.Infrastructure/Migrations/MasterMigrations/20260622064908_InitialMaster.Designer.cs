@@ -12,8 +12,8 @@ using ThermaCore.Infrastructure.Persistence;
 namespace ThermaCore.Infrastructure.Migrations.MasterMigrations
 {
     [DbContext(typeof(ThermaCoreMasterContext))]
-    [Migration("20260620203528_RevertUserRoleForeignKey")]
-    partial class RevertUserRoleForeignKey
+    [Migration("20260622064908_InitialMaster")]
+    partial class InitialMaster
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -389,8 +389,6 @@ namespace ThermaCore.Infrastructure.Migrations.MasterMigrations
 
                     b.HasIndex("IsDeleted");
 
-                    b.HasIndex("UserRoleId");
-
                     b.ToTable("Users");
                 });
 
@@ -550,17 +548,6 @@ namespace ThermaCore.Infrastructure.Migrations.MasterMigrations
                 });
 
             modelBuilder.Entity("ThermaCore.Domain.Entities.Management.ModulePermission", b =>
-                {
-                    b.HasOne("ThermaCore.Domain.Entities.Management.UserRole", "UserRole")
-                        .WithMany()
-                        .HasForeignKey("UserRoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("UserRole");
-                });
-
-            modelBuilder.Entity("ThermaCore.Domain.Entities.Management.User", b =>
                 {
                     b.HasOne("ThermaCore.Domain.Entities.Management.UserRole", "UserRole")
                         .WithMany()

@@ -7,20 +7,25 @@ using ThermaCore.Application.DTOs.Management;
 using ThermaCore.Application.Interfaces.Management;
 using ThermaCore.Application.Interfaces.Repositories;
 using ThermaCore.Application.Services.Base;
+using ThermaCore.Application.Interfaces.Security;
 using ThermaCore.Domain.Entities.Management;
 using ThermaCore.Domain.Helpers;
 
 namespace ThermaCore.Application.Services.Management;
 
-public class UserManager : BaseManager<UserDto, UserDto, User>, IUserService
+public class UserManager : BaseMasterManager<UserDto, UserDto, User>, IUserService
 {
+    private readonly IRoleService _roleService;
+
     public UserManager(
         IMapper mapper, 
-        IRepository<User> repository, 
-        IUnitOfWork unitOfWork, 
+        IMasterRepository<User> repository, 
+        IMasterUnitOfWork unitOfWork, 
+        IRoleService roleService,
         IValidator<UserDto>? validator = null) 
         : base(mapper, repository, unitOfWork, validator)
     {
+        _roleService = roleService;
     }
 
     public override long Insert(UserDto dto)
@@ -79,10 +84,54 @@ public class UserManager : BaseManager<UserDto, UserDto, User>, IUserService
 
     }
 
+    public override IEnumerable<UserDto> GetAll()
+    {
+        var dtos = base.GetAll().ToList();
+        MapRolesInMemory(dtos);
+        return dtos;
+    }
+
+    public override UserDto GetById(long id)
+    {
+        var dto = base.GetById(id);
+        if (dto != null && dto.UserRoleId > 0)
+        {
+            var role = _roleService.GetById(dto.UserRoleId);
+            if (role != null) dto.RoleName = role.RoleName;
+        }
+        return dto!;
+    }
+
     public IEnumerable<UserListDto> GetActiveUsers()
     {
         var entities = _repository.Find(x => !x.IsDeleted && x.IsActive).ToList();
-        return _mapper.Map<IEnumerable<UserListDto>>(entities);
+        var dtos = _mapper.Map<IEnumerable<UserListDto>>(entities).ToList();
+        
+        var rolesDict = _roleService.GetActiveRoles().ToDictionary(x => x.Id, x => x.RoleName);
+        foreach (var dto in dtos)
+        {
+            if (rolesDict.TryGetValue(dto.UserRoleId, out var roleName))
+            {
+                dto.RoleName = roleName;
+            }
+        }
+        
+        return dtos;
+    }
+
+    private void MapRolesInMemory(List<UserDto> dtos)
+    {
+        if (!dtos.Any()) return;
+        
+        // Fetch all roles instead of active only, in case old users have inactive roles
+        var rolesDict = _roleService.GetAll().ToDictionary(x => x.Id, x => x.RoleName);
+        foreach (var dto in dtos)
+        {
+            if (rolesDict.TryGetValue(dto.UserRoleId, out var roleName))
+            {
+                dto.RoleName = roleName;
+            }
+        }
     }
 
     public UserDto UserLogin(string username, string password)
