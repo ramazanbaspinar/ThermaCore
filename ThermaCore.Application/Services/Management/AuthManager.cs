@@ -6,6 +6,7 @@ using ThermaCore.Application.DTOs.Management;
 using ThermaCore.Application.Interfaces.Repositories;
 using ThermaCore.Application.Interfaces.Security;
 using ThermaCore.Domain.Entities.Management;
+using ThermaCore.Domain.Entities.Security;
 
 namespace ThermaCore.Application.Services.Management;
 
@@ -15,6 +16,12 @@ public class AuthManager : IAuthService
     private readonly IMasterRepository<TenantDatabase> _tenantRepository;
     private readonly IMasterRepository<Terminal> _terminalRepository;
     private readonly IMasterRepository<UserTenant> _userTenantRepository;
+    private readonly IMasterRepository<UserBranch> _userBranchRepository;
+    private readonly IMasterRepository<Branch> _branchRepository;
+    private readonly IMasterRepository<UserPermission> _userPermissionRepository;
+    private readonly IMasterRepository<RolePermission> _rolePermissionRepository;
+    private readonly IMasterRepository<UserRole> _userRoleRepository;
+    private readonly ThermaCore.Application.Interfaces.System.ICurrentTenantService _currentTenantService;
     private readonly ICryptoService _cryptoService;
     private readonly IMapper _mapper;
 
@@ -23,6 +30,12 @@ public class AuthManager : IAuthService
         IMasterRepository<TenantDatabase> tenantRepository,
         IMasterRepository<Terminal> terminalRepository,
         IMasterRepository<UserTenant> userTenantRepository,
+        IMasterRepository<UserBranch> userBranchRepository,
+        IMasterRepository<Branch> branchRepository,
+        IMasterRepository<UserPermission> userPermissionRepository,
+        IMasterRepository<RolePermission> rolePermissionRepository,
+        IMasterRepository<UserRole> userRoleRepository,
+        ThermaCore.Application.Interfaces.System.ICurrentTenantService currentTenantService,
         ICryptoService cryptoService,
         IMapper mapper)
     {
@@ -30,6 +43,12 @@ public class AuthManager : IAuthService
         _tenantRepository = tenantRepository;
         _terminalRepository = terminalRepository;
         _userTenantRepository = userTenantRepository;
+        _userBranchRepository = userBranchRepository;
+        _branchRepository = branchRepository;
+        _userPermissionRepository = userPermissionRepository;
+        _rolePermissionRepository = rolePermissionRepository;
+        _userRoleRepository = userRoleRepository;
+        _currentTenantService = currentTenantService;
         _cryptoService = cryptoService;
         _mapper = mapper;
     }
@@ -127,10 +146,80 @@ public class AuthManager : IAuthService
         return Task.FromResult(true);
     }
 
+    public Task<List<BranchDto>> GetAllowedBranchesAsync(long userId, long tenantId)
+    {
+        var user = _userRepository.Find(u => u.Id == userId && u.IsActive).FirstOrDefault();
+        if (user == null)
+            return Task.FromResult(new List<BranchDto>());
+
+        // Admin ise veya thermacore ise o tenant'ın tüm şubelerini dön
+        if (user.Code.ToLower() == "admin" || user.Code.ToLower() == "thermacore")
+        {
+            var allBranches = _branchRepository.Find(b => b.TenantDatabaseId == tenantId && b.IsActive).ToList();
+            return Task.FromResult(_mapper.Map<List<BranchDto>>(allBranches));
+        }
+
+        var allowedBranchIds = _userBranchRepository
+            .Find(ub => ub.UserId == userId && ub.IsActive)
+            .Select(ub => ub.BranchId)
+            .ToList();
+
+        var branches = _branchRepository
+            .Find(b => allowedBranchIds.Contains(b.Id) && b.TenantDatabaseId == tenantId && b.IsActive)
+            .ToList();
+
+        return Task.FromResult(_mapper.Map<List<BranchDto>>(branches));
+    }
+
     public bool HasPermission(ThermaCore.Domain.Enums.ModuleType moduleType, ThermaCore.Domain.Enums.PermissionType permissionType)
     {
-        // TODO: Gelecekte aktif kullanıcının session bilgilerinden veya yetki cache'inden okunacak.
-        // Şimdilik test amaçlı (veya altyapı oluşturmak için) hep true dönüyoruz.
-        return true;
+        long userId = _currentTenantService.UserId;
+        if (userId <= 0) return false;
+
+        var user = _userRepository.Find(u => u.Id == userId).FirstOrDefault();
+        if (user == null) return false;
+
+        // Admin veya thermacore tam yetkili
+        if (user.Code.ToLower() == "admin" || user.Code.ToLower() == "thermacore")
+            return true;
+
+        long tenantId = _currentTenantService.TenantId;
+
+        // Kullanıcı bazlı özel yetki kontrolü
+        var userPermission = _userPermissionRepository.Find(up => 
+            up.UserId == userId && 
+            up.Module == moduleType).FirstOrDefault();
+
+        if (userPermission != null)
+        {
+            return permissionType switch
+            {
+                ThermaCore.Domain.Enums.PermissionType.CanView => userPermission.CanView == 1,
+                ThermaCore.Domain.Enums.PermissionType.CanAdd => userPermission.CanAdd == 1,
+                ThermaCore.Domain.Enums.PermissionType.CanEdit => userPermission.CanEdit == 1,
+                ThermaCore.Domain.Enums.PermissionType.CanDelete => userPermission.CanDelete == 1,
+                _ => false
+            };
+        }
+
+        // Rol bazlı yetki kontrolü
+        long roleId = user.UserRoleId;
+        int moduleId = (int)moduleType;
+
+        var rolePermission = _rolePermissionRepository.Find(rp => 
+            rp.RoleId == roleId && 
+            rp.ModuleId == moduleId).FirstOrDefault();
+
+        if (rolePermission == null)
+            return false;
+
+        return permissionType switch
+        {
+            ThermaCore.Domain.Enums.PermissionType.CanView => rolePermission.CanRead,
+            ThermaCore.Domain.Enums.PermissionType.CanAdd => rolePermission.CanCreate,
+            ThermaCore.Domain.Enums.PermissionType.CanEdit => rolePermission.CanUpdate,
+            ThermaCore.Domain.Enums.PermissionType.CanDelete => rolePermission.CanDelete,
+            _ => false
+        };
     }
 }

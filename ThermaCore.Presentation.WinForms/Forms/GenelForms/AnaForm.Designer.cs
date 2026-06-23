@@ -30,34 +30,22 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
         {
             components = new System.ComponentModel.Container();
             menuStrip = new MenuStrip();
-            btnTanimlar = new ToolStripMenuItem();
-            btnCariTanim = new ToolStripMenuItem();
-            btnMusteriCariKartlar = new ToolStripMenuItem();
-            btnParametre = new ToolStripMenuItem();
-            btnProgramHakkinda = new ToolStripMenuItem();
-            btnKodYonetimi = new ToolStripMenuItem();
-            btnKodSayaclari = new ToolStripMenuItem();
-            btnLayoutSifirla = new ToolStripMenuItem();
-            btnAktifKullanicilar = new ToolStripMenuItem();
-            btnTemalar = new ToolStripMenuItem();
-            btnProgramGuncelle = new ToolStripMenuItem();
-            sistemYönetimiToolStripMenuItem = new ToolStripMenuItem();
-            kurumsalTanımlarToolStripMenuItem = new ToolStripMenuItem();
+            miTanimlar = new ToolStripMenuItem();
+            miSistemYonetimi = new ToolStripMenuItem();
+            miKurumsalTanimlar = new ToolStripMenuItem();
             miSirketTanimlari = new ToolStripMenuItem();
-            depoTanımlarıToolStripMenuItem = new ToolStripMenuItem();
-            güvenlikVeYetkilendirmeToolStripMenuItem = new ToolStripMenuItem();
-            kullanıcıTanımlarıToolStripMenuItem = new ToolStripMenuItem();
+            miGuvenlikVeYetkilendirme = new ToolStripMenuItem();
+            miKullaniciTanimlari = new ToolStripMenuItem();
             miYetkiGruplariRoller = new ToolStripMenuItem();
             miTerminalYonetim = new ToolStripMenuItem();
-            parametrelerToolStripMenuItem = new ToolStripMenuItem();
-            genelSistemParametreleriToolStripMenuItem = new ToolStripMenuItem();
-            kullanıcıParametreleriToolStripMenuItem = new ToolStripMenuItem();
+            miParametreler = new ToolStripMenuItem();
+            miGenelSistemParametreleri = new ToolStripMenuItem();
+            miKullaniciParametreleri = new ToolStripMenuItem();
             miCodeTemplatelari = new ToolStripMenuItem();
             xtraTabbedMdiManager = new DevExpress.XtraTabbedMdi.XtraTabbedMdiManager(components);
             timerDoviz = new System.Windows.Forms.Timer(components);
             menuStrip1 = new MenuStrip();
             txtDovizBilgisi = new ToolStripMenuItem();
-            txtAylikMetreVerileri = new ToolStripMenuItem();
             btnAnaFormResim = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyPictureEdit();
             menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)xtraTabbedMdiManager).BeginInit();
@@ -69,7 +57,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 
             menuStrip.BackColor = Color.Gainsboro;
             menuStrip.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 162);
-            menuStrip.Items.AddRange(new ToolStripItem[] { btnTanimlar, btnParametre, sistemYönetimiToolStripMenuItem });
+            menuStrip.Items.AddRange(new ToolStripItem[] { miTanimlar, miSistemYonetimi });
             menuStrip.Location = new Point(0, 28);
             menuStrip.Name = "menuStrip";
             menuStrip.Padding = new Padding(7, 1, 0, 1);
@@ -77,151 +65,89 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             menuStrip.TabIndex = 0;
             menuStrip.Text = "menuStrip1";
             // 
-            // btnTanimlar
+            // miTanimlar
             // 
-            btnTanimlar.DropDownItems.AddRange(new ToolStripItem[] { btnCariTanim });
-            btnTanimlar.Name = "btnTanimlar";
-            btnTanimlar.Size = new Size(69, 22);
-            btnTanimlar.Text = "Tanımlar";
+            miTanimlar.Name = "miTanimlar";
+            miTanimlar.Size = new Size(69, 22);
+            miTanimlar.Text = "Tanımlar";
             // 
-            // btnCariTanim
+            // miSistemYonetimi
             // 
-            btnCariTanim.DropDownItems.AddRange(new ToolStripItem[] { btnMusteriCariKartlar });
-            btnCariTanim.Name = "btnCariTanim";
-            btnCariTanim.Size = new Size(137, 22);
-            btnCariTanim.Text = "Cari Tanım";
+            miSistemYonetimi.DropDownItems.AddRange(new ToolStripItem[] { miKurumsalTanimlar, miGuvenlikVeYetkilendirme, miParametreler });
+            miSistemYonetimi.Name = "miSistemYonetimi";
+            miSistemYonetimi.Size = new Size(111, 22);
+            miSistemYonetimi.Tag = "SistemYonetimi";
+            miSistemYonetimi.Text = "Sistem Yönetimi";
             // 
-            // btnMusteriCariKartlar
+            // miKurumsalTanimlar
             // 
-            btnMusteriCariKartlar.Name = "btnMusteriCariKartlar";
-            btnMusteriCariKartlar.Size = new Size(203, 22);
-            btnMusteriCariKartlar.Text = "Müşteri Cari Tanımları";
-            btnMusteriCariKartlar.Click += BtnMusteriCariKartlar_Click;
-            // 
-            // btnParametre
-            // 
-            btnParametre.DropDownItems.AddRange(new ToolStripItem[] { btnProgramHakkinda, btnKodYonetimi, btnKodSayaclari, btnLayoutSifirla, btnAktifKullanicilar, btnTemalar, btnProgramGuncelle });
-            btnParametre.Name = "btnParametre";
-            btnParametre.Size = new Size(80, 22);
-            btnParametre.Text = "Parametre";
-            // 
-            // btnProgramHakkinda
-            // 
-            btnProgramHakkinda.Name = "btnProgramHakkinda";
-            btnProgramHakkinda.Size = new Size(184, 22);
-            btnProgramHakkinda.Text = "Program Hakkında";
-            // 
-            // btnKodYonetimi
-            // 
-            btnKodYonetimi.Name = "btnKodYonetimi";
-            btnKodYonetimi.Size = new Size(184, 22);
-            btnKodYonetimi.Text = "Kod Şablonları";
-            // 
-            // btnKodSayaclari
-            // 
-            btnKodSayaclari.Name = "btnKodSayaclari";
-            btnKodSayaclari.Size = new Size(184, 22);
-            btnKodSayaclari.Text = "Kod Sayaçları";
-            // 
-            // btnLayoutSifirla
-            // 
-            btnLayoutSifirla.Name = "btnLayoutSifirla";
-            btnLayoutSifirla.Size = new Size(184, 22);
-            btnLayoutSifirla.Text = "Layout Sıfırla";
-            // 
-            // btnAktifKullanicilar
-            // 
-            btnAktifKullanicilar.Name = "btnAktifKullanicilar";
-            btnAktifKullanicilar.Size = new Size(184, 22);
-            btnAktifKullanicilar.Text = "Aktif Kullanıcılar";
-            // 
-            // btnTemalar
-            // 
-            btnTemalar.Name = "btnTemalar";
-            btnTemalar.Size = new Size(184, 22);
-            btnTemalar.Text = "Temalar";
-            // 
-            // btnProgramGuncelle
-            // 
-            btnProgramGuncelle.Name = "btnProgramGuncelle";
-            btnProgramGuncelle.Size = new Size(184, 22);
-            btnProgramGuncelle.Text = "Programı Güncelle";
-            btnProgramGuncelle.Click += BtnProgramGuncelle_Click;
-            // 
-            // sistemYönetimiToolStripMenuItem
-            // 
-            sistemYönetimiToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { kurumsalTanımlarToolStripMenuItem, güvenlikVeYetkilendirmeToolStripMenuItem, parametrelerToolStripMenuItem });
-            sistemYönetimiToolStripMenuItem.Name = "sistemYönetimiToolStripMenuItem";
-            sistemYönetimiToolStripMenuItem.Size = new Size(111, 22);
-            sistemYönetimiToolStripMenuItem.Text = "Sistem Yönetimi";
-            // 
-            // kurumsalTanımlarToolStripMenuItem
-            // 
-            kurumsalTanımlarToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { miSirketTanimlari, depoTanımlarıToolStripMenuItem });
-            kurumsalTanımlarToolStripMenuItem.Name = "kurumsalTanımlarToolStripMenuItem";
-            kurumsalTanımlarToolStripMenuItem.Size = new Size(222, 22);
-            kurumsalTanımlarToolStripMenuItem.Text = "Kurumsal Tanımlar";
+            miKurumsalTanimlar.DropDownItems.AddRange(new ToolStripItem[] { miSirketTanimlari });
+            miKurumsalTanimlar.Name = "miKurumsalTanimlar";
+            miKurumsalTanimlar.Size = new Size(222, 22);
+            miKurumsalTanimlar.Tag = "KurumsalTanimlar";
+            miKurumsalTanimlar.Text = "Kurumsal Tanımlar";
             // 
             // miSirketTanimlari
             // 
             miSirketTanimlari.Name = "miSirketTanimlari";
             miSirketTanimlari.Size = new Size(180, 22);
+            miSirketTanimlari.Tag = "SirketTanimlari";
             miSirketTanimlari.Text = "Şirket Tanımları";
             // 
-            // depoTanımlarıToolStripMenuItem
+            // miGuvenlikVeYetkilendirme
             // 
-            depoTanımlarıToolStripMenuItem.Name = "depoTanımlarıToolStripMenuItem";
-            depoTanımlarıToolStripMenuItem.Size = new Size(180, 22);
-            depoTanımlarıToolStripMenuItem.Text = "Depo Tanımları";
+            miGuvenlikVeYetkilendirme.DropDownItems.AddRange(new ToolStripItem[] { miKullaniciTanimlari, miYetkiGruplariRoller, miTerminalYonetim });
+            miGuvenlikVeYetkilendirme.Name = "miGuvenlikVeYetkilendirme";
+            miGuvenlikVeYetkilendirme.Size = new Size(222, 22);
+            miGuvenlikVeYetkilendirme.Tag = "GuvenlikVeYetkilendirme";
+            miGuvenlikVeYetkilendirme.Text = "Güvenlik ve Yetkilendirme";
             // 
-            // güvenlikVeYetkilendirmeToolStripMenuItem
+            // miKullaniciTanimlari
             // 
-            güvenlikVeYetkilendirmeToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { kullanıcıTanımlarıToolStripMenuItem, miYetkiGruplariRoller, miTerminalYonetim });
-            güvenlikVeYetkilendirmeToolStripMenuItem.Name = "güvenlikVeYetkilendirmeToolStripMenuItem";
-            güvenlikVeYetkilendirmeToolStripMenuItem.Size = new Size(222, 22);
-            güvenlikVeYetkilendirmeToolStripMenuItem.Text = "Güvenlik ve Yetkilendirme";
-            // 
-            // kullanıcıTanımlarıToolStripMenuItem
-            // 
-            kullanıcıTanımlarıToolStripMenuItem.Name = "kullanıcıTanımlarıToolStripMenuItem";
-            kullanıcıTanımlarıToolStripMenuItem.Size = new Size(221, 22);
-            kullanıcıTanımlarıToolStripMenuItem.Text = "Kullanıcı Tanımları";
+            miKullaniciTanimlari.Name = "miKullaniciTanimlari";
+            miKullaniciTanimlari.Size = new Size(221, 22);
+            miKullaniciTanimlari.Tag = " User";
+            miKullaniciTanimlari.Text = "Kullanıcı Tanımları";
             // 
             // miYetkiGruplariRoller
             // 
             miYetkiGruplariRoller.Name = "miYetkiGruplariRoller";
             miYetkiGruplariRoller.Size = new Size(221, 22);
+            miYetkiGruplariRoller.Tag = "YetkiGruplari";
             miYetkiGruplariRoller.Text = "Yetki Grupları (Roller)";
             // 
             // miTerminalYonetim
             // 
             miTerminalYonetim.Name = "miTerminalYonetim";
             miTerminalYonetim.Size = new Size(221, 22);
+            miTerminalYonetim.Tag = "TerminalYonetimi";
             miTerminalYonetim.Text = "Terminal (Cihaz) Yönetimi";
             // 
-            // parametrelerToolStripMenuItem
+            // miParametreler
             // 
-            parametrelerToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { genelSistemParametreleriToolStripMenuItem, kullanıcıParametreleriToolStripMenuItem, miCodeTemplatelari });
-            parametrelerToolStripMenuItem.Name = "parametrelerToolStripMenuItem";
-            parametrelerToolStripMenuItem.Size = new Size(222, 22);
-            parametrelerToolStripMenuItem.Text = "Parametreler";
+            miParametreler.DropDownItems.AddRange(new ToolStripItem[] { miGenelSistemParametreleri, miKullaniciParametreleri, miCodeTemplatelari });
+            miParametreler.Name = "miParametreler";
+            miParametreler.Size = new Size(222, 22);
+            miParametreler.Tag = "Parametreler";
+            miParametreler.Text = "Parametreler";
             // 
-            // genelSistemParametreleriToolStripMenuItem
+            // miGenelSistemParametreleri
             // 
-            genelSistemParametreleriToolStripMenuItem.Name = "genelSistemParametreleriToolStripMenuItem";
-            genelSistemParametreleriToolStripMenuItem.Size = new Size(233, 22);
-            genelSistemParametreleriToolStripMenuItem.Text = "Genel Sistem Parametreleri";
+            miGenelSistemParametreleri.Name = "miGenelSistemParametreleri";
+            miGenelSistemParametreleri.Size = new Size(233, 22);
+            miGenelSistemParametreleri.Text = "Genel Sistem Parametreleri";
             // 
-            // kullanıcıParametreleriToolStripMenuItem
+            // miKullaniciParametreleri
             // 
-            kullanıcıParametreleriToolStripMenuItem.Name = "kullanıcıParametreleriToolStripMenuItem";
-            kullanıcıParametreleriToolStripMenuItem.Size = new Size(233, 22);
-            kullanıcıParametreleriToolStripMenuItem.Text = "Kullanıcı Parametreleri";
+            miKullaniciParametreleri.Name = "miKullaniciParametreleri";
+            miKullaniciParametreleri.Size = new Size(233, 22);
+            miKullaniciParametreleri.Text = "Kullanıcı Parametreleri";
             // 
             // miCodeTemplatelari
             // 
             miCodeTemplatelari.Name = "miCodeTemplatelari";
             miCodeTemplatelari.Size = new Size(233, 22);
+            miCodeTemplatelari.Tag = "CodeTemplateYonetimi";
             miCodeTemplatelari.Text = "Kod Şablonları";
             // 
             // xtraTabbedMdiManager
@@ -235,7 +161,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // menuStrip1
             // 
             menuStrip1.BackColor = Color.FromArgb(0, 125, 125);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { txtDovizBilgisi, txtAylikMetreVerileri });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { txtDovizBilgisi });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(1248, 28);
@@ -249,14 +175,6 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             txtDovizBilgisi.Name = "txtDovizBilgisi";
             txtDovizBilgisi.Size = new Size(304, 24);
             txtDovizBilgisi.Text = "Merkez Bankası Döviz Bilgisi Getiriliyor...";
-            // 
-            // txtAylikMetreVerileri
-            // 
-            txtAylikMetreVerileri.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            txtAylikMetreVerileri.ForeColor = Color.Yellow;
-            txtAylikMetreVerileri.Name = "txtAylikMetreVerileri";
-            txtAylikMetreVerileri.Size = new Size(190, 24);
-            txtAylikMetreVerileri.Text = "Aylık Veriler Getiriliyor...";
             // 
             // btnAnaFormResim
             // 
@@ -320,32 +238,26 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
         private System.Windows.Forms.MenuStrip menuStrip;
         private DevExpress.XtraTabbedMdi.XtraTabbedMdiManager xtraTabbedMdiManager;
         private System.Windows.Forms.Timer timerDoviz;
-        private System.Windows.Forms.ToolStripMenuItem btnParametre;
         private System.Windows.Forms.ToolStripMenuItem btnProgramHakkinda;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem txtDovizBilgisi;
-        private System.Windows.Forms.ToolStripMenuItem txtAylikMetreVerileri;
         private System.Windows.Forms.ToolStripMenuItem btnKodYonetimi;
-        private System.Windows.Forms.ToolStripMenuItem btnLayoutSifirla;
-        private System.Windows.Forms.ToolStripMenuItem btnAktifKullanicilar;
         private System.Windows.Forms.ToolStripMenuItem btnKodSayaclari;
-        private System.Windows.Forms.ToolStripMenuItem btnTemalar;
-        private System.Windows.Forms.ToolStripMenuItem btnProgramGuncelle;
-        private ToolStripMenuItem btnTanimlar;
+        private ToolStripMenuItem miTanimlar;
         private ToolStripMenuItem btnCariTanim;
         private ToolStripMenuItem btnMusteriCariKartlar;
         private UserControls.Controls.MyPictureEdit btnAnaFormResim;
-        private ToolStripMenuItem sistemYönetimiToolStripMenuItem;
-        private ToolStripMenuItem kurumsalTanımlarToolStripMenuItem;
+        private ToolStripMenuItem miSistemYonetimi;
+        private ToolStripMenuItem miKurumsalTanimlar;
         private ToolStripMenuItem miSirketTanimlari;
         private ToolStripMenuItem depoTanımlarıToolStripMenuItem;
-        private ToolStripMenuItem güvenlikVeYetkilendirmeToolStripMenuItem;
-        private ToolStripMenuItem kullanıcıTanımlarıToolStripMenuItem;
+        private ToolStripMenuItem miGuvenlikVeYetkilendirme;
+        private ToolStripMenuItem miKullaniciTanimlari;
         private ToolStripMenuItem miYetkiGruplariRoller;
         private ToolStripMenuItem miTerminalYonetim;
-        private ToolStripMenuItem parametrelerToolStripMenuItem;
-        private ToolStripMenuItem genelSistemParametreleriToolStripMenuItem;
-        private ToolStripMenuItem kullanıcıParametreleriToolStripMenuItem;
+        private ToolStripMenuItem miParametreler;
+        private ToolStripMenuItem miGenelSistemParametreleri;
+        private ToolStripMenuItem miKullaniciParametreleri;
         private ToolStripMenuItem miCodeTemplatelari;
     }
 }

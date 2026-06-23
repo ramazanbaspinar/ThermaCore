@@ -191,43 +191,12 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
 
                     var currentTenantService = Program.ServiceProvider.GetRequiredService<ICurrentTenantService>();
                     currentTenantService.TenantId = tenantId;
+                    currentTenantService.UserId = loginResult.UserId;
                     currentTenantService.TenantName = gluSirket.Text;
-
-                    // Mock Factory Authorization for Tier-1 UX Demo
-                    // İleride bu liste Master DB'den "UserBranches" tablosundan gelecek
-                    var yetkiliSubeler = new System.Collections.Generic.Dictionary<long, string>
-                    {
-                        { 1, "Merkez Fabrika" },
-                        { 2, "Bölge Depo" }
-                    };
-
-                    if (yetkiliSubeler.Count == 1)
-                    {
-                        currentTenantService.BranchId = System.Linq.Enumerable.First(yetkiliSubeler).Key;
-                        currentTenantService.BranchName = System.Linq.Enumerable.First(yetkiliSubeler).Value;
-                    }
-                    else if (yetkiliSubeler.Count > 1)
-                    {
-                        using (var frm = new SubeSecimForm(yetkiliSubeler))
-                        {
-                            if (frm.ShowDialog() == DialogResult.OK)
-                            {
-                                currentTenantService.BranchId = frm.SeciliSubeId;
-                                currentTenantService.BranchName = frm.SeciliSubeAdi;
-                            }
-                            else
-                            {
-                                // İptal ederse giriş iptal olur
-                                await _sessionService.EndSessionAsync(loginResult.UserId);
-                                return;
-                            }
-                        }
-                    }
 
                     this.Hide();
 
                     var anaForm = Program.ServiceProvider.GetRequiredService<ThermaCore.Presentation.WinForms.Forms.GenelForms.AnaForm>();
-                    anaForm.Text = $"Seçili Şirket: {currentTenantService.TenantName} | Seçili Fabrika: {currentTenantService.BranchName}";
                     anaForm.Show();
                 }
                 else

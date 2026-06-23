@@ -8,4 +8,6 @@ public interface IAppConfigService
     void SetConnectionString(string connectionString);
     long GetLastTenantId();
     void SetLastTenantId(long tenantId);
+    long GetLastBranchId();
+    void SetLastBranchId(long branchId);
 }

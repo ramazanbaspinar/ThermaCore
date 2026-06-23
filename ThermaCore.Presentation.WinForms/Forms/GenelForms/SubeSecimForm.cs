@@ -1,108 +1,71 @@
-using System;
-using System.Drawing;
-using System.Windows.Forms;
-using DevExpress.XtraEditors;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Forms;
+using ThermaCore.Application.DTOs.Management;
+using DevExpress.XtraGrid.Views.Grid;
+using DevExpress.XtraBars.Ribbon;
+using DevExpress.XtraEditors;
 
 namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
 {
-    public class SubeSecimForm : XtraForm
+    public partial class SubeSecimForm : XtraForm
     {
-        private LookUpEdit gluSube;
-        private SimpleButton btnTamam;
-        private SimpleButton btnIptal;
-        private LabelControl lblBilgi;
-
         public long SeciliSubeId { get; private set; }
-        public string SeciliSubeAdi { get; private set; }
+        public string SeciliSubeAdi { get; private set; } = string.Empty;
+        public bool SecimiHatirla => myCheckEdit1.Checked;
 
-        public SubeSecimForm(Dictionary<long, string> subeler)
+        private readonly List<BranchDto> _branches;
+
+        public SubeSecimForm(List<BranchDto> branches)
         {
             InitializeComponent();
+            _branches = branches;
+            myGridControl1.DataSource = _branches;
 
-            gluSube.Properties.DataSource = subeler.Select(x => new { Id = x.Key, Ad = x.Value }).ToList();
-            gluSube.Properties.DisplayMember = "Ad";
-            gluSube.Properties.ValueMember = "Id";
-
-            // Populate columns if needed
-            gluSube.Properties.Columns.Clear();
-            gluSube.Properties.Columns.Add(new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Ad", "Şube/Fabrika Adı"));
+            btnSecVeBasla.Click += BtnSecVeBasla_Click;
+            btnIptalCikis.Click += BtnIptalCikis_Click;
+            myGridView1.DoubleClick += MyGridView1_DoubleClick;
+            this.FormClosing += SubeSecimForm_FormClosing;
         }
 
-        private void InitializeComponent()
+        private void MyGridView1_DoubleClick(object? sender, System.EventArgs e)
         {
-            this.gluSube = new DevExpress.XtraEditors.LookUpEdit();
-            this.btnTamam = new DevExpress.XtraEditors.SimpleButton();
-            this.btnIptal = new DevExpress.XtraEditors.SimpleButton();
-            this.lblBilgi = new DevExpress.XtraEditors.LabelControl();
-            
-            ((System.ComponentModel.ISupportInitialize)(this.gluSube.Properties)).BeginInit();
-            this.SuspendLayout();
-            
-            // gluSube
-            this.gluSube.Location = new System.Drawing.Point(20, 45);
-            this.gluSube.Name = "gluSube";
-            this.gluSube.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.gluSube.Properties.NullText = "Lütfen giriş yapmak istediğiniz Fabrika / Şubeyi seçiniz...";
-            this.gluSube.Size = new System.Drawing.Size(350, 22);
-            this.gluSube.TabIndex = 0;
-            
-            // lblBilgi
-            this.lblBilgi.Location = new System.Drawing.Point(20, 20);
-            this.lblBilgi.Name = "lblBilgi";
-            this.lblBilgi.Size = new System.Drawing.Size(300, 16);
-            this.lblBilgi.Text = "Birden fazla fabrika yetkiniz bulunmaktadır.";
-            
-            // btnTamam
-            this.btnTamam.Location = new System.Drawing.Point(214, 85);
-            this.btnTamam.Name = "btnTamam";
-            this.btnTamam.Size = new System.Drawing.Size(75, 25);
-            this.btnTamam.Text = "Tamam";
-            this.btnTamam.Click += new System.EventHandler(this.btnTamam_Click);
-            
-            // btnIptal
-            this.btnIptal.Location = new System.Drawing.Point(295, 85);
-            this.btnIptal.Name = "btnIptal";
-            this.btnIptal.Size = new System.Drawing.Size(75, 25);
-            this.btnIptal.Text = "İptal";
-            this.btnIptal.Click += new System.EventHandler(this.btnIptal_Click);
-            
-            // SubeSecimForm
-            this.ClientSize = new System.Drawing.Size(390, 130);
-            this.Controls.Add(this.lblBilgi);
-            this.Controls.Add(this.gluSube);
-            this.Controls.Add(this.btnTamam);
-            this.Controls.Add(this.btnIptal);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Şube / Fabrika Seçimi";
-            
-            ((System.ComponentModel.ISupportInitialize)(this.gluSube.Properties)).EndInit();
-            this.ResumeLayout(false);
+            SecimiYap();
         }
 
-        private void btnTamam_Click(object sender, EventArgs e)
+        private void BtnSecVeBasla_Click(object? sender, System.EventArgs e)
         {
-            if (gluSube.EditValue == null)
+            SecimiYap();
+        }
+
+        private void SecimiYap()
+        {
+            var rowHandle = myGridView1.FocusedRowHandle;
+            if (rowHandle >= 0)
             {
-                XtraMessageBox.Show("Lütfen bir şube seçiniz.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                var row = myGridView1.GetRow(rowHandle) as BranchDto;
+                if (row != null)
+                {
+                    SeciliSubeId = row.Id;
+                    SeciliSubeAdi = row.BranchName;
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
+                }
             }
-            
-            SeciliSubeId = Convert.ToInt64(gluSube.EditValue);
-            SeciliSubeAdi = gluSube.Text;
-            this.DialogResult = DialogResult.OK;
-            this.Close();
         }
 
-        private void btnIptal_Click(object sender, EventArgs e)
+        private void BtnIptalCikis_Click(object? sender, System.EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
             this.Close();
+        }
+
+        private void SubeSecimForm_FormClosing(object? sender, FormClosingEventArgs e)
+        {
+            if (this.DialogResult != DialogResult.OK && this.DialogResult != DialogResult.Cancel)
+            {
+                this.DialogResult = DialogResult.Cancel;
+            }
         }
     }
 }

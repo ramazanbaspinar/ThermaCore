@@ -7,6 +7,7 @@ using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Linq;
 using ThermaCore.Application.Interfaces.System; // ICurrentTenantService ve ISessionService için
 using ThermaCore.Presentation.WinForms.Helpers;
 
@@ -52,8 +53,8 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             if (miYetkiGruplariRoller != null)
                 miYetkiGruplariRoller.Click += miYetkiGruplariRoller_Click;
             
-            if (kullanıcıTanımlarıToolStripMenuItem != null)
-                kullanıcıTanımlarıToolStripMenuItem.Click += KullaniciTanimlari_Click;
+            if (miKullaniciTanimlari != null)
+                miKullaniciTanimlari.Click += KullaniciTanimlari_Click;
 
             if (miTerminalYonetim != null)
                 miTerminalYonetim.Click += miTerminalYonetim_Click;
@@ -107,7 +108,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
                 Cursor.Current = Cursors.WaitCursor;
 
                 // Seçili firma ve kullanıcı bilgilerini bar başlıklarına (veya pencere başlığına) yazdır
-                Text = $"THERMACORE --- Bilgisayar: {Environment.MachineName} | Seçili Firma ID: {_currentTenantService?.TenantId}";
+                Text = $"ThermaCore ERP --- Bilgisayar: {Environment.MachineName}";
 
                 // TODO: GuncelDovizBilgisiniYazdir(); (Döviz kurları için dış API / IDovizService eklenecek)
                 // TODO: OnaylanmamisKayitlariKontrolEtAsync(); (İş kuralları Application katmanına taşınacak)
@@ -131,35 +132,113 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
 
         private void SetMenuTags()
         {
-            if (miSirketTanimlari != null) miSirketTanimlari.Tag = ThermaCore.Domain.Enums.ModuleType.SirketTanimlari;
-            if (miCodeTemplatelari != null) miCodeTemplatelari.Tag = ThermaCore.Domain.Enums.ModuleType.CodeTemplateYonetimi;
-            if (miYetkiGruplariRoller != null) miYetkiGruplariRoller.Tag = ThermaCore.Domain.Enums.ModuleType.YetkiGruplari;
-            if (kullanıcıTanımlarıToolStripMenuItem != null) kullanıcıTanımlarıToolStripMenuItem.Tag = ThermaCore.Domain.Enums.ModuleType.User;
-            if (miTerminalYonetim != null) miTerminalYonetim.Tag = ThermaCore.Domain.Enums.ModuleType.TerminalYonetimi;
+            // Tasarımcıdan (Designer) verilecek.
         }
 
         private void ApplyMenuPermissions(ToolStripItemCollection items)
         {
             var authService = _serviceProvider.GetService<ThermaCore.Application.Services.Management.IAuthService>();
             if (authService == null) return;
+            
+            ApplyMenuPermissionsRecursive(items, authService);
+        }
 
+        private void ApplyMenuPermissionsRecursive(ToolStripItemCollection items, ThermaCore.Application.Services.Management.IAuthService authService)
+        {
             foreach (ToolStripItem item in items)
             {
+                bool hasVisibleChildren = false;
+                
+                if (item is ToolStripMenuItem menuItem && menuItem.DropDownItems.Count > 0)
+                {
+                    ApplyMenuPermissionsRecursive(menuItem.DropDownItems, authService);
+
+                    foreach (ToolStripItem child in menuItem.DropDownItems)
+                    {
+                        if (child.Visible)
+                        {
+                            hasVisibleChildren = true;
+                            break;
+                        }
+                    }
+                }
+
                 if (item.Tag is ThermaCore.Domain.Enums.ModuleType moduleType)
                 {
                     bool hasAccess = authService.HasPermission(moduleType, ThermaCore.Domain.Enums.PermissionType.CanView);
                     item.Visible = hasAccess;
                 }
-
-                if (item is ToolStripMenuItem menuItem && menuItem.DropDownItems.Count > 0)
+                else if (item.Tag is string tagStr && Enum.TryParse(tagStr, true, out ThermaCore.Domain.Enums.ModuleType parsedModuleType))
                 {
-                    ApplyMenuPermissions(menuItem.DropDownItems);
+                    bool hasAccess = authService.HasPermission(parsedModuleType, ThermaCore.Domain.Enums.PermissionType.CanView);
+                    item.Visible = hasAccess;
+                }
+                else if (item is ToolStripMenuItem parentItem && parentItem.DropDownItems.Count > 0)
+                {
+                    item.Visible = hasVisibleChildren;
                 }
             }
         }
 
-        private void AnaForm_Shown(object? sender, EventArgs e)
+        private async void AnaForm_Shown(object? sender, EventArgs e)
         {
+            var authService = _serviceProvider.GetRequiredService<ThermaCore.Application.Services.Management.IAuthService>();
+            var appConfigService = _serviceProvider.GetRequiredService<ThermaCore.Application.Interfaces.Configuration.IAppConfigService>();
+
+            long userId = _currentTenantService.UserId;
+            long tenantId = _currentTenantService.TenantId;
+
+            var allowedBranches = await authService.GetAllowedBranchesAsync(userId, tenantId);
+
+            if (allowedBranches == null || allowedBranches.Count == 0)
+            {
+                Messages.HataBasligi("Giriş yaptığınız şirkette hiçbir fabrika/şube yetkiniz bulunmuyor. Oturum kapatılacaktır.", "Yetkisiz Erişim");
+                _programiOtomatikKapat = true;
+                System.Windows.Forms.Application.Exit();
+                return;
+            }
+
+            if (allowedBranches.Count == 1)
+            {
+                _currentTenantService.BranchId = allowedBranches[0].Id;
+                _currentTenantService.BranchName = allowedBranches[0].BranchName;
+            }
+            else
+            {
+                long rememberedBranchId = appConfigService.GetLastBranchId();
+                var rememberedBranch = allowedBranches.FirstOrDefault(b => b.Id == rememberedBranchId);
+
+                if (rememberedBranch != null)
+                {
+                    _currentTenantService.BranchId = rememberedBranch.Id;
+                    _currentTenantService.BranchName = rememberedBranch.BranchName;
+                }
+                else
+                {
+                    using (var frm = new SubeSecimForm(allowedBranches))
+                    {
+                        if (frm.ShowDialog(this) == DialogResult.OK)
+                        {
+                            _currentTenantService.BranchId = frm.SeciliSubeId;
+                            _currentTenantService.BranchName = frm.SeciliSubeAdi;
+
+                            if (frm.SecimiHatirla)
+                            {
+                                appConfigService.SetLastBranchId(frm.SeciliSubeId);
+                            }
+                        }
+                        else
+                        {
+                            _programiOtomatikKapat = true;
+                            System.Windows.Forms.Application.Exit();
+                            return;
+                        }
+                    }
+                }
+            }
+
+            this.Text = $"ThermaCore ERP --- Bilgisayar: {Environment.MachineName} | Şirket: {_currentTenantService.TenantName} | Fabrika: {_currentTenantService.BranchName}";
+
             // Sistemin açılışını kitlemeden arkadan kontrol işlemi başlatalım
             _ = Task.Run(async () => await EksikSablonlariKontrolEtAsync());
         }
@@ -300,6 +379,45 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
         private void BtnProgramGuncelle_Click(object? sender, EventArgs e)
         {
             Messages.BilgiBasligi("Güncelleme sistemi (Update.exe) ThermaCore altyapısına göre yeniden yazılacaktır.", "Bilgi");
+        }
+
+        public async void FabrikaDegistir()
+        {
+            var appConfigService = _serviceProvider.GetRequiredService<ThermaCore.Application.Interfaces.Configuration.IAppConfigService>();
+            appConfigService.SetLastBranchId(0); // RememberedBranchId'yi sıfırla
+            
+            // Tüm sekmeleri kapat
+            foreach (Form form in MdiChildren)
+            {
+                form.Close();
+            }
+
+            // Yeniden şube seçimi yapılması için Shown olayındaki mantığı tetikleyelim
+            var authService = _serviceProvider.GetRequiredService<ThermaCore.Application.Services.Management.IAuthService>();
+            var allowedBranches = await authService.GetAllowedBranchesAsync(_currentTenantService.UserId, _currentTenantService.TenantId);
+
+            if (allowedBranches != null && allowedBranches.Count > 1)
+            {
+                using (var frm = new SubeSecimForm(allowedBranches))
+                {
+                    if (frm.ShowDialog(this) == DialogResult.OK)
+                    {
+                        _currentTenantService.BranchId = frm.SeciliSubeId;
+                        _currentTenantService.BranchName = frm.SeciliSubeAdi;
+
+                        if (frm.SecimiHatirla)
+                        {
+                            appConfigService.SetLastBranchId(frm.SeciliSubeId);
+                        }
+
+                        this.Text = $"ThermaCore ERP | Şirket: {_currentTenantService.TenantName} | Fabrika: {_currentTenantService.BranchName}";
+                    }
+                }
+            }
+            else
+            {
+                Messages.BilgiBasligi("Geçiş yapabileceğiniz başka bir fabrika/şube yetkiniz bulunmamaktadır.", "Bilgi");
+            }
         }
 
         #endregion

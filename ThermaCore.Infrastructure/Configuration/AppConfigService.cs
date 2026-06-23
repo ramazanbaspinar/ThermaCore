@@ -91,10 +91,23 @@ public class AppConfigService : IAppConfigService
         SaveSettings(settings);
     }
 
+    public long GetLastBranchId()
+    {
+        return LoadSettings().LastBranchId;
+    }
+
+    public void SetLastBranchId(long branchId)
+    {
+        var settings = LoadSettings();
+        settings.LastBranchId = branchId;
+        SaveSettings(settings);
+    }
+
     private class SettingsModel
     {
         public string LastLoginUser { get; set; } = string.Empty;
         public long LastTenantId { get; set; } = 0;
+        public long LastBranchId { get; set; } = 0;
         public string ConnectionString { get; set; } = string.Empty;
     }
 }
