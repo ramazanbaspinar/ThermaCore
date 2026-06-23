@@ -51,12 +51,20 @@ internal static class Program
 
         if (!isConnected)
         {
-            // Kurulum sihirbazı ve veritabanı servisleri için bağımlılıkları manuel çözüyoruz
-            ThermaCore.Application.Interfaces.System.ITenantDatabaseService tenantDbService = new ThermaCore.Infrastructure.System.TenantDatabaseManager();
-            ITenantDatabaseSetupService sistemVeritabaniService = new ThermaCore.Application.Services.System.TenantDatabaseSetupManager(null!, null!, tenantDbService, null!, null!, null!);
+            var entryAssembly = System.Reflection.Assembly.GetEntryAssembly()?.GetName().Name;
+            if (entryAssembly != null && (entryAssembly.StartsWith("ef") || entryAssembly.StartsWith("dotnet-ef")))
+            {
+                // EF Core aracı çalışıyorsa, WinForms'u bloke etmeden ilerlemesi için host'u oluşturmalıyız
+            }
+            else
+            {
+                // Kurulum sihirbazı ve veritabanı servisleri için bağımlılıkları manuel çözüyoruz
+                ThermaCore.Application.Interfaces.System.ITenantDatabaseService tenantDbService = new ThermaCore.Infrastructure.System.TenantDatabaseManager();
+                ITenantDatabaseSetupService sistemVeritabaniService = new ThermaCore.Application.Services.System.TenantDatabaseSetupManager(null!, null!, tenantDbService, null!, null!, null!);
 
-            System.Windows.Forms.Application.Run(new BaglantiHataForm(configService, sistemVeritabaniService));
-            return;
+                System.Windows.Forms.Application.Run(new BaglantiHataForm(configService, sistemVeritabaniService));
+                return;
+            }
         }
 
         var host = Host.CreateDefaultBuilder()
@@ -113,6 +121,12 @@ internal static class Program
                 MessageBox.Show($"Başlangıç hatası: {errMsg}", "ThermaCore", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+        }
+
+        var entryAssembly2 = System.Reflection.Assembly.GetEntryAssembly()?.GetName().Name;
+        if (entryAssembly2 != null && (entryAssembly2.StartsWith("ef") || entryAssembly2.StartsWith("dotnet-ef")))
+        {
+            return;
         }
 
         var mainForm = host.Services.GetRequiredService<GirisForm>();

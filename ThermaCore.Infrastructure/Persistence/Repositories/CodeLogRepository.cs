@@ -7,9 +7,9 @@ using ThermaCore.Domain.Enums;
 
 namespace ThermaCore.Infrastructure.Persistence.Repositories;
 
-public class CodeLogRepository : Repository<CodeLog>, ICodeLogRepository
+public class CodeLogRepository : MasterRepository<CodeLog>, ICodeLogRepository
 {
-    public CodeLogRepository(ThermaCoreTenantContext context) : base(context)
+    public CodeLogRepository(ThermaCoreMasterContext context) : base(context)
     {
     }
 

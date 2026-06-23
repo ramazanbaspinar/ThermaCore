@@ -198,19 +198,71 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
                 Cursor.Current = Cursors.WaitCursor;
                 btnKurulumuTamamla.Enabled = false;
 
-                // 1. ITenantDatabaseSetupService üzerinden master veritabanını ve master tablolarını o an fiziksel sunucuda oluştur.
-                var tenantDto = new TenantDatabaseDto
-                {
-                    CompanyCode = "MASTER",
-                    CompanyName = "Master Database",
-                    Server = txtSunucuAdresi.Text,
-                    DatabaseName = txtMasterVeritabani.Text,
-                    AuthType = authType,
-                    Username = txtDbKullanici.Text,
-                    Password = txtDbSifre.Text
-                };
+                // 1. Veritabanı varlığını kontrol et
+                string checkConnStr = string.Empty;
+                if (authType == AuthenticationType.Windows)
+                    checkConnStr = $"Server={txtSunucuAdresi.Text};Database=master;Trusted_Connection=True;Encrypt=False;";
+                else
+                    checkConnStr = $"Server={txtSunucuAdresi.Text};Database=master;User Id={txtDbKullanici.Text};Password={txtDbSifre.Text};Encrypt=False;";
 
-                await _sistemVeritabaniService.CreateTenantDatabaseAsync(tenantDto);
+                bool dbExists = false;
+                using (var conn = new SqlConnection(checkConnStr))
+                {
+                    conn.Open();
+                    using (var cmd = new SqlCommand($"SELECT db_id('{txtMasterVeritabani.Text}')", conn))
+                    {
+                        var id = cmd.ExecuteScalar();
+                        dbExists = (id != DBNull.Value && id != null);
+                    }
+                }
+
+                if (dbExists)
+                {
+                    var overWriteResult = XtraMessageBox.Show(
+                        "Hedef sunucuda Master veritabanı zaten mevcut. Sadece bağlantı ayarlarını kaydedip çıkmak ister misiniz? (Hayır derseniz veritabanı yeniden kurulur ve veriler ezilebilir!)",
+                        "Veritabanı Mevcut", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+
+                    if (overWriteResult == DialogResult.Cancel)
+                    {
+                        btnKurulumuTamamla.Enabled = true;
+                        return;
+                    }
+                    
+                    if (overWriteResult == DialogResult.No)
+                    {
+                        // Hayır derse, ezerek kurmaya devam et.
+                        var tenantDto = new TenantDatabaseDto
+                        {
+                            CompanyCode = "MASTER",
+                            CompanyName = "Master Database",
+                            Server = txtSunucuAdresi.Text,
+                            DatabaseName = txtMasterVeritabani.Text,
+                            AuthType = authType,
+                            Username = txtDbKullanici.Text,
+                            Password = txtDbSifre.Text
+                        };
+                        await _sistemVeritabaniService.CreateTenantDatabaseAsync(tenantDto);
+                    }
+                    else
+                    {
+                        // Evet derse sadece bağlantı bilgilerini kaydet
+                    }
+                }
+                else
+                {
+                    // Yoksa sıfırdan kur
+                    var tenantDto = new TenantDatabaseDto
+                    {
+                        CompanyCode = "MASTER",
+                        CompanyName = "Master Database",
+                        Server = txtSunucuAdresi.Text,
+                        DatabaseName = txtMasterVeritabani.Text,
+                        AuthType = authType,
+                        Username = txtDbKullanici.Text,
+                        Password = txtDbSifre.Text
+                    };
+                    await _sistemVeritabaniService.CreateTenantDatabaseAsync(tenantDto);
+                }
 
                 // 2. Girilen tüm bu yapılandırmaları IAppConfigService aracılığıyla settings.json dosyasına şifreli olarak kaydet.
                 string connectionString = BuildConnectionString(forTesting: false);
@@ -227,7 +279,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
                 using (var tenantContext = new ThermaCore.Infrastructure.Persistence.ThermaCoreTenantContext(optionsTenant.Options))
                 {
                     var cryptoService = new ThermaCore.Infrastructure.Security.CryptoService();
-                    var seeder = new ThermaCore.Infrastructure.System.DatabaseSeederManager(masterContext, tenantContext, cryptoService);
+                    var seeder = new ThermaCore.Infrastructure.System.DatabaseSeederManager(masterContext, cryptoService);
                     await seeder.SeedAsync(false);
                 }
 

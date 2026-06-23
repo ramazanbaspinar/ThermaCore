@@ -13,12 +13,20 @@ namespace ThermaCore.Presentation.WinForms.Forms.KullaniciForms
     {
         private readonly IUserService _userService;
         private readonly IRoleService _roleService;
+        private readonly ThermaCore.Application.Interfaces.System.ITenantDatabaseCrudService _tenantService;
+        private readonly IBranchService _branchService;
 
-        public KullaniciListForm(IUserService userService, IRoleService roleService)
+        public KullaniciListForm(
+            IUserService userService, 
+            IRoleService roleService,
+            ThermaCore.Application.Interfaces.System.ITenantDatabaseCrudService tenantService,
+            IBranchService branchService)
         {
             InitializeComponent();
             _userService = userService;
             _roleService = roleService;
+            _tenantService = tenantService;
+            _branchService = branchService;
 
             Bll = _userService;
         }
@@ -38,7 +46,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.KullaniciForms
 
         protected override void ShowEditForm(long id)
         {
-            using (var form = new KullaniciEditForm(_userService, _roleService))
+            using (var form = new KullaniciEditForm(_userService, _roleService, _tenantService, _branchService))
             {
                 form.IdAtaVeAc(id);
                 

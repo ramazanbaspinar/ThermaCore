@@ -12,15 +12,15 @@ namespace ThermaCore.Presentation.WinForms.Forms.CodeTemplateForms
 {
     public partial class CodeTemplateEditForm : BaseEditForm
     {
-        private readonly IRepository<CodeTemplate> _repository = default!;
-        private readonly IUnitOfWork _uow = default!;
+        private readonly IMasterRepository<CodeTemplate> _repository = default!;
+        private readonly IMasterUnitOfWork _uow = default!;
 
         public CodeTemplateEditForm()
         {
             InitializeComponent();
         }
 
-        public CodeTemplateEditForm(IRepository<CodeTemplate> repository, IUnitOfWork uow)
+        public CodeTemplateEditForm(IMasterRepository<CodeTemplate> repository, IMasterUnitOfWork uow)
         {
             InitializeComponent();
             _repository = repository;
@@ -78,7 +78,8 @@ namespace ThermaCore.Presentation.WinForms.Forms.CodeTemplateForms
             var sablonUretilebilenModuller = new[] 
             { 
                 ModuleType.Factory, 
-                ModuleType.YetkiGruplari
+                ModuleType.YetkiGruplari,
+                ModuleType.Terminal
             };
             var tanimliModuller = _repository.Find(x => !x.IsDeleted).Select(x => x.Module).ToList();
             if (BaseIslemTuru == ActionType.EntityUpdate)

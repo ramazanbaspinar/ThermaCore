@@ -4,7 +4,7 @@ using ThermaCore.Domain.Entities.Management;
 
 namespace ThermaCore.Infrastructure.Persistence.Configurations.Management;
 
-public class ModulePermissionConfiguration : IEntityTypeConfiguration<ModulePermission>
+public class ModulePermissionConfiguration : IEntityTypeConfiguration<ModulePermission>, IMasterEntityConfiguration
 {
     public void Configure(EntityTypeBuilder<ModulePermission> builder)
     {

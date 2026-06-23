@@ -11,14 +11,14 @@ namespace ThermaCore.Presentation.WinForms.Forms.KodYonetimForms
     public partial class KodLogEditForm : BaseEditForm
     {
         private readonly ICodeLogRepository _codeLogRepository = default!;
-        private readonly IUnitOfWork _uow = default!;
+        private readonly IMasterUnitOfWork _uow = default!;
 
         public KodLogEditForm()
         {
             InitializeComponent();
         }
 
-        public KodLogEditForm(ICodeLogRepository codeLogRepository, IUnitOfWork uow)
+        public KodLogEditForm(ICodeLogRepository codeLogRepository, IMasterUnitOfWork uow)
         {
             InitializeComponent();
             _codeLogRepository = codeLogRepository;

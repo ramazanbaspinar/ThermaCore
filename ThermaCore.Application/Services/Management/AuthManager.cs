@@ -98,17 +98,39 @@ public class AuthManager : IAuthService
         if (username.ToLower() == "thermacore")
             return Task.FromResult(true);
 
-        var macAddress = ThermaCore.Domain.Helpers.NetworkHelper.GetMacAddress();
+        var info = ThermaCore.Domain.Helpers.NetworkHelper.GetHardwareFingerprints();
+        var allActiveMacs = info.AllMacs;
 
-        var terminal = _terminalRepository
-            .Find(t => t.MacAddress == macAddress && t.IsActive)
-            .FirstOrDefault();
-
-        if (terminal == null)
+        if (!allActiveMacs.Any())
         {
-            throw new global::System.Exception($"Güvenlik İhlali: Bu cihaz (MAC: {macAddress}) sisteme kayıtlı değil veya aktif edilmemiş. Giriş reddedildi.");
+            throw new global::System.Exception("Cihazınızda aktif bir ağ bağdaştırıcısı bulunamadı. Lütfen ağ bağlantınızı kontrol edin.");
+        }
+
+        var terminals = _terminalRepository.Find(t => t.IsActive).ToList();
+        
+        bool hasAccess = false;
+        foreach (var mac in allActiveMacs)
+        {
+            if (terminals.Any(t => t.EthernetMacAddress == mac || t.WifiMacAddress == mac || t.VpnMacAddress == mac))
+            {
+                hasAccess = true;
+                break;
+            }
+        }
+
+        if (!hasAccess)
+        {
+            string macListStr = string.Join(", ", allActiveMacs);
+            throw new global::System.Exception($"Güvenlik İhlali: Bu cihaz (Mevcut MAC Adresleri: {macListStr}) sisteme kayıtlı değil veya aktif edilmemiş. Giriş reddedildi.");
         }
 
         return Task.FromResult(true);
+    }
+
+    public bool HasPermission(ThermaCore.Domain.Enums.ModuleType moduleType, ThermaCore.Domain.Enums.PermissionType permissionType)
+    {
+        // TODO: Gelecekte aktif kullanıcının session bilgilerinden veya yetki cache'inden okunacak.
+        // Şimdilik test amaçlı (veya altyapı oluşturmak için) hep true dönüyoruz.
+        return true;
     }
 }

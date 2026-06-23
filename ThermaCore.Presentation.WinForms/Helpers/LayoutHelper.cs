@@ -144,7 +144,7 @@ namespace ThermaCore.Presentation.WinForms.Helpers
                 {
                     grid.SaveLayoutToStream(ms);
                     ms.Position = 0;
-                    var xml = new StreamReader(ms).ReadToEnd();
+                    var xml = new StreamReader(ms, Encoding.UTF8).ReadToEnd();
 
                     layoutService.SaveLayout(1, "Grid", sablonAdi, xml);
                 }

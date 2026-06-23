@@ -11,28 +11,25 @@ namespace ThermaCore.Infrastructure.System;
 public class DatabaseSeederManager : IDatabaseSeederService
 {
     private readonly ThermaCoreMasterContext _context;
-    private readonly ThermaCoreTenantContext _tenantContext;
     private readonly ICryptoService _cryptoService;
 
-    public DatabaseSeederManager(ThermaCoreMasterContext context, ThermaCoreTenantContext tenantContext, ICryptoService cryptoService)
+    public DatabaseSeederManager(ThermaCoreMasterContext context, ICryptoService cryptoService)
     {
         _context = context;
-        _tenantContext = tenantContext;
         _cryptoService = cryptoService;
     }
 
     public async Task SeedAsync(bool ilIlceYuklensin)
     {
         var pendingMigrations = await _context.Database.GetPendingMigrationsAsync();
-        var pendingTenantMigrations = await _tenantContext.Database.GetPendingMigrationsAsync();
         
-        if (pendingMigrations.Any() || pendingTenantMigrations.Any())
+        if (pendingMigrations.Any())
         {
             throw new global::System.Exception("Veritabanı güncel değil. Uygulamanın çalışabilmesi için sistem yöneticisi tarafından veritabanı güncellemesi yapılması gerekmektedir.");
         }
 
         var appliedMigrations = await _context.Database.GetAppliedMigrationsAsync();
-        var localMigrations = _context.Database.GetMigrations().Concat(_tenantContext.Database.GetMigrations());
+        var localMigrations = _context.Database.GetMigrations();
         if (appliedMigrations.Except(localMigrations).Any())
         {
             throw new global::System.Exception("Kullandığınız uygulama sürümü eskidir. Lütfen uygulamanızı güncelleyin.");

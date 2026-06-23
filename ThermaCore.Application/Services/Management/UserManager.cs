@@ -17,6 +17,8 @@ public class UserManager : BaseMasterManager<UserDto, UserDto, User>, IUserServi
 {
     private readonly IRoleService _roleService;
     private readonly ITerminalService _terminalService;
+    private readonly IMasterRepository<UserTenant> _userTenantRepository;
+    private readonly IMasterRepository<UserBranch> _userBranchRepository;
 
     public UserManager(
         IMapper mapper, 
@@ -24,11 +26,15 @@ public class UserManager : BaseMasterManager<UserDto, UserDto, User>, IUserServi
         IMasterUnitOfWork unitOfWork, 
         IRoleService roleService,
         ITerminalService terminalService,
+        IMasterRepository<UserTenant> userTenantRepository,
+        IMasterRepository<UserBranch> userBranchRepository,
         IValidator<UserDto>? validator = null) 
         : base(mapper, repository, unitOfWork, validator)
     {
         _roleService = roleService;
         _terminalService = terminalService;
+        _userTenantRepository = userTenantRepository;
+        _userBranchRepository = userBranchRepository;
     }
 
     public override long Insert(UserDto dto)
@@ -39,6 +45,29 @@ public class UserManager : BaseMasterManager<UserDto, UserDto, User>, IUserServi
         }
 
         var entity = _mapper.Map<User>(dto);
+
+        // Manually map collections because they are ignored in AutoMapper to avoid tracking issues on update
+        if (dto.UserTenants != null && dto.UserTenants.Any())
+        {
+            foreach (var tenantDto in dto.UserTenants)
+            {
+                entity.UserTenants.Add(new UserTenant { 
+                    Id = ThermaCore.Domain.Helpers.IdGenerator.GenerateId(),
+                    TenantDatabaseId = tenantDto.TenantDatabaseId 
+                });
+            }
+        }
+
+        if (dto.UserBranches != null && dto.UserBranches.Any())
+        {
+            foreach (var branchDto in dto.UserBranches)
+            {
+                entity.UserBranches.Add(new UserBranch { 
+                    Id = ThermaCore.Domain.Helpers.IdGenerator.GenerateId(),
+                    BranchId = branchDto.BranchId 
+                });
+            }
+        }
 
         if (!string.IsNullOrWhiteSpace(dto.Password))
         {
@@ -87,6 +116,40 @@ public class UserManager : BaseMasterManager<UserDto, UserDto, User>, IUserServi
             entity.PasswordSalt = oldSalt;
         }
 
+        // Remove old relationships
+        var existingTenants = _userTenantRepository.Find(x => x.UserId == entity.Id).ToList();
+        foreach(var t in existingTenants)
+        {
+            _userTenantRepository.Remove(t);
+        }
+
+        var existingBranches = _userBranchRepository.Find(x => x.UserId == entity.Id).ToList();
+        foreach(var b in existingBranches)
+        {
+            _userBranchRepository.Remove(b);
+        }
+
+        // Add new relationships
+        foreach (var tenantDto in dto.UserTenants)
+        {
+            _userTenantRepository.Add(new UserTenant 
+            { 
+                Id = ThermaCore.Domain.Helpers.IdGenerator.GenerateId(),
+                TenantDatabaseId = tenantDto.TenantDatabaseId, 
+                UserId = entity.Id 
+            });
+        }
+
+        foreach (var branchDto in dto.UserBranches)
+        {
+            _userBranchRepository.Add(new UserBranch 
+            { 
+                Id = ThermaCore.Domain.Helpers.IdGenerator.GenerateId(),
+                BranchId = branchDto.BranchId, 
+                UserId = entity.Id 
+            });
+        }
+
         _repository.Update(entity);
         _unitOfWork.SaveChanges();
 
@@ -102,10 +165,19 @@ public class UserManager : BaseMasterManager<UserDto, UserDto, User>, IUserServi
     public override UserDto GetById(long id)
     {
         var dto = base.GetById(id);
-        if (dto != null && dto.UserRoleId > 0)
+        if (dto != null)
         {
-            var role = _roleService.GetById(dto.UserRoleId);
-            if (role != null) dto.RoleName = role.RoleName;
+            if (dto.UserRoleId > 0)
+            {
+                var role = _roleService.GetById(dto.UserRoleId);
+                if (role != null) dto.RoleName = role.RoleName;
+            }
+
+            var tenants = _userTenantRepository.Find(x => x.UserId == id && !x.IsDeleted).ToList();
+            dto.UserTenants = _mapper.Map<List<UserTenantDto>>(tenants);
+
+            var branches = _userBranchRepository.Find(x => x.UserId == id && !x.IsDeleted).ToList();
+            dto.UserBranches = _mapper.Map<List<UserBranchDto>>(branches);
         }
         return dto!;
     }

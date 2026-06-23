@@ -12,15 +12,15 @@ using ThermaCore.Domain.Enums;
 
 namespace ThermaCore.Application.Services.Security;
 
-public class RoleManager : BaseManager<RoleDto, RoleDto, Role>, IRoleService
+public class RoleManager : BaseMasterManager<RoleDto, RoleDto, Role>, IRoleService
 {
-    private readonly IRepository<RolePermission> _permissionRepository;
+    private readonly IMasterRepository<RolePermission> _permissionRepository;
 
     public RoleManager(
         IMapper mapper, 
-        IRepository<Role> repository, 
-        IRepository<RolePermission> permissionRepository,
-        IUnitOfWork unitOfWork, 
+        IMasterRepository<Role> repository, 
+        IMasterRepository<RolePermission> permissionRepository,
+        IMasterUnitOfWork unitOfWork, 
         IValidator<RoleDto>? validator = null) 
         : base(mapper, repository, unitOfWork, validator)
     {

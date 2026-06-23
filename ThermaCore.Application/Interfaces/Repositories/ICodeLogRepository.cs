@@ -4,7 +4,7 @@ using ThermaCore.Domain.Enums;
 
 namespace ThermaCore.Application.Interfaces.Repositories;
 
-public interface ICodeLogRepository : IRepository<CodeLog>
+public interface ICodeLogRepository : IMasterRepository<CodeLog>
 {
     Task<int> GetAndIncrementNextNumberAtomicAsync(ModuleType modul, string firmaKodu, string tarihKey, int baslangicSayisi, long? branchId);
 }

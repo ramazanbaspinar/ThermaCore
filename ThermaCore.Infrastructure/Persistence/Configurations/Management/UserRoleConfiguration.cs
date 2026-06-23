@@ -4,7 +4,7 @@ using ThermaCore.Domain.Entities.Management;
 
 namespace ThermaCore.Infrastructure.Persistence.Configurations.Management;
 
-public class UserRoleConfiguration : IEntityTypeConfiguration<UserRole>
+public class UserRoleConfiguration : IEntityTypeConfiguration<UserRole>, IMasterEntityConfiguration
 {
     public void Configure(EntityTypeBuilder<UserRole> builder)
     {

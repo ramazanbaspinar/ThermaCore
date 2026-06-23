@@ -11,4 +11,7 @@ public class UserDto : BaseDto
     
     public long UserRoleId { get; set; }
     public string RoleName { get; set; } = string.Empty;
+    
+    public List<UserTenantDto> UserTenants { get; set; } = new();
+    public List<UserBranchDto> UserBranches { get; set; } = new();
 }

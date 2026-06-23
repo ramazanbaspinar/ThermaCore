@@ -22,7 +22,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TerminalForms
         {
             InitializeComponent();
             _terminalService = terminalService;
-            this.BaseKartTuru = ModuleType.TerminalYonetimi;
+            this.BaseKartTuru = ModuleType.Terminal;
         }
 
         public override void Yukle()
@@ -33,7 +33,9 @@ namespace ThermaCore.Presentation.WinForms.Forms.TerminalForms
                 if (dto != null)
                 {
                     txtCihazAdi.Text = dto.DeviceName;
-                    txtMacAdresi.Text = dto.MacAddress;
+                    txtEthernetMacAdresi.Text = dto.EthernetMacAddress;
+                    txtWifiMacAdresi.Text = dto.WifiMacAddress;
+                    txtVpnMacAdresi.Text = dto.VpnMacAddress;
                     txtIpAdresi.Text = dto.IpAddress;
                     txtAciklama.Text = dto.Description;
                     
@@ -47,7 +49,9 @@ namespace ThermaCore.Presentation.WinForms.Forms.TerminalForms
             else
             {
                 txtCihazAdi.Text = "";
-                txtMacAdresi.Text = "";
+                txtEthernetMacAdresi.Text = "";
+                txtWifiMacAdresi.Text = "";
+                txtVpnMacAdresi.Text = "";
                 txtIpAdresi.Text = "";
                 txtAciklama.Text = "";
                 
@@ -71,7 +75,9 @@ namespace ThermaCore.Presentation.WinForms.Forms.TerminalForms
                 Id = this.Id,
                 Code = code,
                 DeviceName = txtCihazAdi.Text,
-                MacAddress = txtMacAdresi.Text,
+                EthernetMacAddress = txtEthernetMacAdresi.Text,
+                WifiMacAddress = txtWifiMacAdresi.Text,
+                VpnMacAddress = txtVpnMacAdresi.Text,
                 IpAddress = txtIpAdresi.Text,
                 Description = txtAciklama.Text,
                 IsActive = isActive
@@ -82,6 +88,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TerminalForms
         protected override bool EntityInsert()
         {
             var dto = (TerminalDto)CurrentEntity;
+            dto.Id = BaseIslemTuru.IdOlustur(OldEntity);
             Id = _terminalService.Insert(dto);
             return true;
         }

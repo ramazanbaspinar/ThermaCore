@@ -4,10 +4,10 @@ using ThermaCore.Domain.Entities.Management;
 
 namespace ThermaCore.Infrastructure.Persistence.Configurations.Management;
 
-public class TenantDatabaseConfiguration : IEntityTypeConfiguration<TenantDatabase>, IMasterEntityConfiguration
+public class CodeTemplateConfiguration : IEntityTypeConfiguration<CodeTemplate>, IMasterEntityConfiguration
 {
-    public void Configure(EntityTypeBuilder<TenantDatabase> builder)
+    public void Configure(EntityTypeBuilder<CodeTemplate> builder)
     {
-        builder.ToTable("TenantDatabases");
+        builder.ToTable("CodeTemplates");
     }
 }

@@ -17,4 +17,10 @@ public class BranchManager : BaseMasterManager<BranchDto, BranchDto, Branch>, IB
         : base(mapper, repository, unitOfWork, validator)
     {
     }
+
+    public IEnumerable<BranchDto> GetActiveBranches()
+    {
+        var entities = _repository.Find(x => !x.IsDeleted && x.IsActive).ToList();
+        return _mapper.Map<IEnumerable<BranchDto>>(entities);
+    }
 }

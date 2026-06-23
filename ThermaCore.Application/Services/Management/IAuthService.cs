@@ -9,4 +9,5 @@ public interface IAuthService
     Task<List<TenantDatabaseDto>> GetAllowedTenantsByUsernameAsync(string username);
     Task<LoginResultDto> LoginAsync(string username, string password, long tenantId);
     Task<bool> CheckTerminalAccessAsync(string username, string hardwareFingerprint, long tenantId);
+    bool HasPermission(ThermaCore.Domain.Enums.ModuleType moduleType, ThermaCore.Domain.Enums.PermissionType permissionType);
 }

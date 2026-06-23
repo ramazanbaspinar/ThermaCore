@@ -41,6 +41,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
 
             // Event bağlamaları (Designer'da yoksa diye kodla da bağlanabilir)
             this.Load += GirisForm_Load;
+            this.Activated += frmLogin_Activated;
             this.btnGiris.Click += btnGiris_Click;
             this.txtKullaniciAdi.Leave += txtKullaniciAdi_Leave;
             this.gluSirket.EditValueChanged += gluSirket_EditValueChanged;
@@ -59,25 +60,25 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             {
                 lblVersiyon.Text = "Versiyon: 1.0.0";
             }
-            
+
             // 2. Lisans Formatlaması (Karmaşık hash'i UI'da gösterme)
             ThermaCore.Domain.Enums.LicenseStatus status = _licenseService.CheckLicense(out string message);
-            
+
             if (status == ThermaCore.Domain.Enums.LicenseStatus.Valid)
             {
                 // İsteğe bağlı olarak kalan gün verisi parse edilip yazdırılabilir. Şimdilik sade tutuyoruz.
-                lblLisansKalanGun.Text = "Lisans Durumu: Geçerli"; 
+                lblLisansKalanGun.Text = "Lisans Durumu: Geçerli";
             }
             else
             {
                 lblLisansKalanGun.Text = "Lisans Durumu: Geçersiz / Süresi Dolmuş";
             }
 
-            // 3. Yerel Ayarlardan (AppConfig) Son Kullanıcı ve Şirket Bilgilerini Getir
             string lastUser = _appConfigService.GetLastLoginUser();
             if (!string.IsNullOrEmpty(lastUser))
             {
                 txtKullaniciAdi.Text = lastUser;
+                chcBeniHatirla.Checked = true;
                 // Leave eventindeki işlemleri asenkron olarak manuel tetikleyip son tenant'ı seç
                 _ = LoadUserTenantsAsync(lastUser);
             }
@@ -114,7 +115,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             {
                 // Kullanıcının Master DB'de tanımlı ve yetkili olduğu Tenant'ları getirir
                 var tenants = await _authService.GetAllowedTenantsByUsernameAsync(username);
-                
+
                 if (tenants != null && tenants.Count > 0)
                 {
                     gluSirket.Properties.DataSource = tenants;
@@ -134,16 +135,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
 
         private void gluSirket_EditValueChanged(object? sender, EventArgs e)
         {
-            // 3. Cascading Dropdown (Şirket -> Fabrika)
-            // Sistemde henüz Fabrika yapısı (Şube/Plant) detaylandırılmadığı için gluFabrika devre dışı bırakılmıştır.
-            gluFabrika.Enabled = false;
-            gluFabrika.ToolTip = "Sistemde fabrika ayrımı aktif değildir.";
-
-            /* 
-             * İleride fabrika mimarisi eklendiğinde aşağıdaki gibi doldurulabilir:
-             * long seciliSirketId = Convert.ToInt64(gluSirket.EditValue);
-             * gluFabrika.Properties.DataSource = await _authService.GetFactoriesByTenantIdAsync(seciliSirketId);
-             */
+            // Fabrika UI'dan kaldırılmıştır. Seçim Login sonrası yapılacaktır.
         }
 
         private async void btnGiris_Click(object? sender, EventArgs e)
@@ -151,7 +143,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 4. Giriş İşlemi
             string username = txtKullaniciAdi.Text.Trim();
             string password = txtSifre.Text;
-            
+
             if (gluSirket.EditValue == null)
             {
                 Messages.UyariBasligi("Lütfen giriş yapılacak şirketi seçiniz.", "Uyarı");
@@ -164,7 +156,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             {
                 // Şifre doğrulama ve giriş denemesi (Master DB üzerinden)
                 var loginResult = await _authService.LoginAsync(username, password, tenantId);
-                
+
                 if (loginResult != null && loginResult.IsSuccess)
                 {
                     // Tenant Routing: Seçili şirketin veritabanı bağlantı cümlesini aktif (Scoped) Context'e ayarla
@@ -186,17 +178,56 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
                     await _sessionService.StartSessionAsync(loginResult.UserId, ipAddress, pcName);
 
                     // Başarılı Girişte Hafızaya Yazma (Settings Cache)
-                    _appConfigService.SetLastLoginUser(username);
-                    _appConfigService.SetLastTenantId(tenantId);
+                    if (chcBeniHatirla.Checked)
+                    {
+                        _appConfigService.SetLastLoginUser(username);
+                        _appConfigService.SetLastTenantId(tenantId);
+                    }
+                    else
+                    {
+                        _appConfigService.SetLastLoginUser(string.Empty);
+                        _appConfigService.SetLastTenantId(0);
+                    }
 
-                    // Aktif tenant ID'yi servise kaydet ki AnaForm ve diğer servisler (UnitOfWork vb.) bilebilsin.
                     var currentTenantService = Program.ServiceProvider.GetRequiredService<ICurrentTenantService>();
                     currentTenantService.TenantId = tenantId;
+                    currentTenantService.TenantName = gluSirket.Text;
 
-                    // Mevcut formu gizle, Ana Formu göster
+                    // Mock Factory Authorization for Tier-1 UX Demo
+                    // İleride bu liste Master DB'den "UserBranches" tablosundan gelecek
+                    var yetkiliSubeler = new System.Collections.Generic.Dictionary<long, string>
+                    {
+                        { 1, "Merkez Fabrika" },
+                        { 2, "Bölge Depo" }
+                    };
+
+                    if (yetkiliSubeler.Count == 1)
+                    {
+                        currentTenantService.BranchId = System.Linq.Enumerable.First(yetkiliSubeler).Key;
+                        currentTenantService.BranchName = System.Linq.Enumerable.First(yetkiliSubeler).Value;
+                    }
+                    else if (yetkiliSubeler.Count > 1)
+                    {
+                        using (var frm = new SubeSecimForm(yetkiliSubeler))
+                        {
+                            if (frm.ShowDialog() == DialogResult.OK)
+                            {
+                                currentTenantService.BranchId = frm.SeciliSubeId;
+                                currentTenantService.BranchName = frm.SeciliSubeAdi;
+                            }
+                            else
+                            {
+                                // İptal ederse giriş iptal olur
+                                await _sessionService.EndSessionAsync(loginResult.UserId);
+                                return;
+                            }
+                        }
+                    }
+
                     this.Hide();
-                    
+
                     var anaForm = Program.ServiceProvider.GetRequiredService<ThermaCore.Presentation.WinForms.Forms.GenelForms.AnaForm>();
+                    anaForm.Text = $"Seçili Şirket: {currentTenantService.TenantName} | Seçili Fabrika: {currentTenantService.BranchName}";
                     anaForm.Show();
                 }
                 else
@@ -225,7 +256,9 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
 
         private void frmLogin_Activated(object? sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(txtKullaniciAdi.Text))
+            if (chcBeniHatirla.Checked && !string.IsNullOrEmpty(txtKullaniciAdi.Text))
+                txtSifre.Focus();
+            else if (!string.IsNullOrEmpty(txtKullaniciAdi.Text))
                 txtSifre.Focus();
             else
                 txtKullaniciAdi.Focus();
@@ -240,5 +273,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
         {
             return ConfigurationManager.ConnectionStrings[""].ConnectionString;
         }
+
+      
     }
 }

@@ -12,12 +12,12 @@ namespace ThermaCore.Application.Services.System;
 
 public class CodeGenerationManager : ICodeGenerationService
 {
-    private readonly IRepository<CodeTemplate> _CodeTemplateRepository;
+    private readonly IMasterRepository<CodeTemplate> _CodeTemplateRepository;
     private readonly ICodeLogRepository _CodeLogRepository;
     private readonly ITenantDatabaseCrudService _tenantService;
-    private readonly IUnitOfWork _uow;
+    private readonly IMasterUnitOfWork _uow;
 
-    public CodeGenerationManager(IRepository<CodeTemplate> CodeTemplateRepository, ICodeLogRepository CodeLogRepository, ITenantDatabaseCrudService tenantService, IUnitOfWork uow)
+    public CodeGenerationManager(IMasterRepository<CodeTemplate> CodeTemplateRepository, ICodeLogRepository CodeLogRepository, ITenantDatabaseCrudService tenantService, IMasterUnitOfWork uow)
     {
         _CodeTemplateRepository = CodeTemplateRepository;
         _CodeLogRepository = CodeLogRepository;

@@ -15,27 +15,38 @@ public class ThermaCoreTenantContext : DbContext
     {
     }
 
-    public DbSet<ThermaCore.Domain.Entities.Management.CodeTemplate> CodeTemplates { get; set; }
-    public DbSet<UserInterfaceTemplate> UserInterfaceTemplates { get; set; }
-    public DbSet<ThermaCore.Domain.Entities.Management.CodeLog> CodeLogs { get; set; }
-    public DbSet<ThermaCore.Domain.Entities.Security.Role> Roles { get; set; }
-    public DbSet<ThermaCore.Domain.Entities.Security.RolePermission> RolePermissions { get; set; }
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
 
-        // Configuration sınıflarını (IEntityTypeConfiguration<T>) otomatik uygula
-        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        // Sadece Tenant'a ait konfigürasyonları yükle
+        modelBuilder.ApplyConfigurationsFromAssembly(
+            Assembly.GetExecutingAssembly(),
+            t => t.GetInterfaces().Any(i => i == typeof(ThermaCore.Infrastructure.Persistence.Configurations.ITenantEntityConfiguration))
+        );
 
-        // Ghost tablolari engellemek icin (Tenant db'de User ve UserRole olmaz)
+        // Ghost tablolari engellemek icin (Tenant db'de Master tabloları olmaz)
         modelBuilder.Ignore<ThermaCore.Domain.Entities.Management.User>();
         modelBuilder.Ignore<ThermaCore.Domain.Entities.Management.UserRole>();
+        modelBuilder.Ignore<ThermaCore.Domain.Entities.Security.Role>();
+        modelBuilder.Ignore<ThermaCore.Domain.Entities.Management.Terminal>();
+        modelBuilder.Ignore<ThermaCore.Domain.Entities.Management.TenantDatabase>();
+        modelBuilder.Ignore<ThermaCore.Domain.Entities.Management.ModulePermission>();
+        modelBuilder.Ignore<ThermaCore.Domain.Entities.Management.UserPermission>();
+        modelBuilder.Ignore<ThermaCore.Domain.Entities.Security.RolePermission>();
+        modelBuilder.Ignore<ThermaCore.Domain.Entities.System.UserSession>();
+        modelBuilder.Ignore<ThermaCore.Domain.Entities.Management.Branch>();
+        modelBuilder.Ignore<ThermaCore.Domain.Entities.Management.UserBranch>();
+        modelBuilder.Ignore<ThermaCore.Domain.Entities.Management.UserTenant>();
+        modelBuilder.Ignore<ThermaCore.Domain.Entities.Management.CodeTemplate>();
+        modelBuilder.Ignore<UserInterfaceTemplate>();
+        modelBuilder.Ignore<ThermaCore.Domain.Entities.Management.CodeLog>();
 
         // Global Query Filter: FullAuditableEntity'den türeyenlere otomatik IsDeleted = false filtresi ekler
         foreach (var entityType in modelBuilder.Model.GetEntityTypes())
         {
-            entityType.SetTableName("TCORE_" + entityType.GetTableName());
 
             if (typeof(FullAuditableEntity).IsAssignableFrom(entityType.ClrType))
             {

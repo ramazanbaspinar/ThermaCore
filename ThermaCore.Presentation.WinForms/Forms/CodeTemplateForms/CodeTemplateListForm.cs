@@ -12,15 +12,15 @@ namespace ThermaCore.Presentation.WinForms.Forms.CodeTemplateForms
 {
     public partial class CodeTemplateListForm : BaseListForm
     {
-        private readonly IRepository<CodeTemplate> _repository = default!;
-        private readonly IUnitOfWork _uow = default!;
+        private readonly IMasterRepository<CodeTemplate> _repository = default!;
+        private readonly IMasterUnitOfWork _uow = default!;
 
         public CodeTemplateListForm()
         {
             InitializeComponent();
         }
 
-        public CodeTemplateListForm(IRepository<CodeTemplate> repository, IUnitOfWork uow)
+        public CodeTemplateListForm(IMasterRepository<CodeTemplate> repository, IMasterUnitOfWork uow)
         {
             InitializeComponent();
             _repository = repository;

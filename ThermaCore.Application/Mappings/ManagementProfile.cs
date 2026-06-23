@@ -14,13 +14,17 @@ public class ManagementProfile : Profile
         CreateMap<User, UserDto>()
             .ForMember(x => x.RoleName, opt => opt.Ignore())
             .ReverseMap()
-            .ForMember(x => x.UserRole, opt => opt.Ignore());
+            .ForMember(x => x.UserRole, opt => opt.Ignore())
+            .ForMember(x => x.UserTenants, opt => opt.Ignore())
+            .ForMember(x => x.UserBranches, opt => opt.Ignore());
 
         CreateMap<User, UserListDto>()
             .ForMember(x => x.RoleName, opt => opt.Ignore());
 
         CreateMap<ModulePermission, ModulePermissionListDto>().ReverseMap();
         CreateMap<UserPermission, UserPermissionListDto>().ReverseMap();
+        CreateMap<UserTenant, UserTenantDto>().ReverseMap();
+        CreateMap<UserBranch, UserBranchDto>().ReverseMap();
         
         CreateMap<Terminal, TerminalDto>().ReverseMap();
         CreateMap<Terminal, TerminalListDto>();

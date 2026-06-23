@@ -53,10 +53,16 @@ public class TenantDatabaseSetupManager : ITenantDatabaseSetupService
             connectionString += $"User Id={tenant.Username};Password={tenant.Password};Integrated Security=False;";
         }
 
-        // Create Master Database, don't seed
-        await _tenantDatabaseService.CreateMasterDatabaseAsync(connectionString);
-        // Create Tenant Database tables
-        await _tenantDatabaseService.CreateDatabaseAsync(connectionString);
+        if (tenant.CompanyCode == "MASTER")
+        {
+            // İlk kurulumda Master veritabanı oluşturuluyor. SADECE Master tabloları olmalı.
+            await _tenantDatabaseService.CreateMasterDatabaseAsync(connectionString);
+        }
+        else
+        {
+            // Yeni bir şirket (Tenant) ekleniyor. SADECE Tenant tabloları oluşturulmalı.
+            await _tenantDatabaseService.CreateDatabaseAsync(connectionString);
+        }
 
         if (_repository != null && _uow != null && _cryptoService != null && _mapper != null)
         {

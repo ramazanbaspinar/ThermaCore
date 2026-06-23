@@ -274,9 +274,27 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
 
         protected virtual void UretimPlanlama() { }
 
+        protected virtual void YetkiKontroluYap()
+        {
+            if ((int)BaseKartTuru == 0) return;
+
+            if (Program.ServiceProvider == null) return;
+            var authService = (ThermaCore.Application.Services.Management.IAuthService?)Program.ServiceProvider.GetService(typeof(ThermaCore.Application.Services.Management.IAuthService));
+            if (authService == null) return;
+
+            bool hasInsert = authService.HasPermission(BaseKartTuru, PermissionType.CanAdd);
+            bool hasUpdate = authService.HasPermission(BaseKartTuru, PermissionType.CanEdit);
+            bool hasDelete = authService.HasPermission(BaseKartTuru, PermissionType.CanDelete);
+
+            if (btnYeni != null && !hasInsert) btnYeni.Enabled = false;
+            if (btnDuzelt != null && !hasUpdate) btnDuzelt.Enabled = false;
+            if (btnSil != null && !hasDelete) btnSil.Enabled = false;
+        }
+
         protected internal void Yukle()
         {
             DegiskenleriDoldur();
+            YetkiKontroluYap();
 
             if (Tablo != null)
             {

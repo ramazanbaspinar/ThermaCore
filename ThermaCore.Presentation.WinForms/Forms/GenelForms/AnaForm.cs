@@ -112,6 +112,12 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
                 // TODO: GuncelDovizBilgisiniYazdir(); (Döviz kurları için dış API / IDovizService eklenecek)
                 // TODO: OnaylanmamisKayitlariKontrolEtAsync(); (İş kuralları Application katmanına taşınacak)
                 // TODO: AylikMetreBilgisiGetirAsync(); (EF Core sorguları Application katmanına taşınacak)
+
+                SetMenuTags();
+                if (menuStrip != null)
+                {
+                    ApplyMenuPermissions(menuStrip.Items);
+                }
             }
             catch (Exception ex)
             {
@@ -120,6 +126,35 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             finally
             {
                 Cursor.Current = Cursors.Default;
+            }
+        }
+
+        private void SetMenuTags()
+        {
+            if (miSirketTanimlari != null) miSirketTanimlari.Tag = ThermaCore.Domain.Enums.ModuleType.SirketTanimlari;
+            if (miCodeTemplatelari != null) miCodeTemplatelari.Tag = ThermaCore.Domain.Enums.ModuleType.CodeTemplateYonetimi;
+            if (miYetkiGruplariRoller != null) miYetkiGruplariRoller.Tag = ThermaCore.Domain.Enums.ModuleType.YetkiGruplari;
+            if (kullanıcıTanımlarıToolStripMenuItem != null) kullanıcıTanımlarıToolStripMenuItem.Tag = ThermaCore.Domain.Enums.ModuleType.User;
+            if (miTerminalYonetim != null) miTerminalYonetim.Tag = ThermaCore.Domain.Enums.ModuleType.TerminalYonetimi;
+        }
+
+        private void ApplyMenuPermissions(ToolStripItemCollection items)
+        {
+            var authService = _serviceProvider.GetService<ThermaCore.Application.Services.Management.IAuthService>();
+            if (authService == null) return;
+
+            foreach (ToolStripItem item in items)
+            {
+                if (item.Tag is ThermaCore.Domain.Enums.ModuleType moduleType)
+                {
+                    bool hasAccess = authService.HasPermission(moduleType, ThermaCore.Domain.Enums.PermissionType.CanView);
+                    item.Visible = hasAccess;
+                }
+
+                if (item is ToolStripMenuItem menuItem && menuItem.DropDownItems.Count > 0)
+                {
+                    ApplyMenuPermissions(menuItem.DropDownItems);
+                }
             }
         }
 

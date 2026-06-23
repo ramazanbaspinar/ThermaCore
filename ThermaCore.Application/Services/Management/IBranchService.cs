@@ -10,4 +10,5 @@ public interface IBranchService
     long Insert(BranchDto dto);
     void Update(BranchDto dto);
     void Delete(long id);
+    IEnumerable<BranchDto> GetActiveBranches();
 }

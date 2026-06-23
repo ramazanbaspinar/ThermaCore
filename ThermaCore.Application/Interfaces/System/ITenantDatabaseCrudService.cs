@@ -10,4 +10,5 @@ public interface ITenantDatabaseCrudService
     long Insert(TenantDatabaseDto dto);
     void Update(TenantDatabaseDto dto);
     void Delete(long id);
+    IEnumerable<TenantDatabaseDto> GetActiveTenants();
 }

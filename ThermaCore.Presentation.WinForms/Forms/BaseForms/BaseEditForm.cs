@@ -27,6 +27,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
         private bool _formSablonKayitEdilecek;
         private bool _isSaving = false;
         protected bool _isBinding = false;
+        protected bool _isCheckedListBoxModified = false;
         protected object DataLayoutControl = default!;
         protected object[] DataLayoutControls = default!;
         protected object Bll = default!;
@@ -55,6 +56,27 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
         protected DevExpress.XtraBars.BarButtonItem btnYazdir2 = null!;
 
         #endregion
+
+        protected virtual void YetkiKontroluYap()
+        {
+            if ((int)BaseKartTuru == 0) return;
+
+            if (Program.ServiceProvider == null) return;
+            var authService = (ThermaCore.Application.Services.Management.IAuthService?)Program.ServiceProvider.GetService(typeof(ThermaCore.Application.Services.Management.IAuthService));
+            if (authService == null) return;
+
+            bool hasInsert = authService.HasPermission(BaseKartTuru, PermissionType.CanAdd);
+            bool hasUpdate = authService.HasPermission(BaseKartTuru, PermissionType.CanEdit);
+
+            if (BaseIslemTuru == ActionType.EntityInsert && !hasInsert)
+            {
+                btnKaydet.Enabled = false;
+            }
+            else if (BaseIslemTuru == ActionType.EntityUpdate && !hasUpdate)
+            {
+                btnKaydet.Enabled = false;
+            }
+        }
 
         public BaseEditForm()
         {
@@ -120,6 +142,11 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
                     baseEdit.EditValueChanged -= Control_EditValueChanged; // Önlem olarak
                     baseEdit.EditValueChanged += Control_EditValueChanged;
                 }
+                else if (control is DevExpress.XtraEditors.CheckedListBoxControl checkedListBox)
+                {
+                    checkedListBox.ItemCheck -= CheckedListBox_ItemCheck;
+                    checkedListBox.ItemCheck += CheckedListBox_ItemCheck;
+                }
                 
                 if (control.Controls.Count > 0)
                 {
@@ -130,6 +157,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
 
         protected virtual void ResetControlIsModified(Control.ControlCollection controls)
         {
+            _isCheckedListBoxModified = false;
             foreach (Control control in controls)
             {
                 if (control is DevExpress.XtraEditors.BaseEdit baseEdit)
@@ -193,6 +221,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
                 
                 _isBinding = true;
                 Yukle();
+                YetkiKontroluYap();
                 GuncelNesneOlustur();
                 _isBinding = false;
                 
@@ -555,7 +584,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
         {
             if (BaseIslemTuru == ActionType.EntityInsert)
             {
-                var sablonRepo = Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetService<ThermaCore.Application.Interfaces.Repositories.IRepository<ThermaCore.Domain.Entities.Management.CodeTemplate>>(Program.ServiceProvider);
+                var sablonRepo = Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetService<ThermaCore.Application.Interfaces.Repositories.IMasterRepository<ThermaCore.Domain.Entities.Management.CodeTemplate>>(Program.ServiceProvider);
                 ThermaCore.Domain.Entities.Management.CodeTemplate sablon = null;
 
                 if (sablonRepo != null)
@@ -635,8 +664,17 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
             ButonEnabledDurumu();
         }
 
+        private void CheckedListBox_ItemCheck(object? sender, DevExpress.XtraEditors.Controls.ItemCheckEventArgs e)
+        {
+            if (_isBinding || !IsLoaded) return;
+            _isCheckedListBoxModified = true;
+            Control_EditValueChanged(sender, e);
+        }
+
         private bool FarklilikVarMi(Control.ControlCollection controls)
         {
+            if (_isCheckedListBoxModified) return true;
+
             foreach (Control control in controls)
             {
                 if (control is DevExpress.XtraEditors.BaseEdit baseEdit && baseEdit.IsModified)

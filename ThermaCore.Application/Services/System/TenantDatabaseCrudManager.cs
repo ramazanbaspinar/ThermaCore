@@ -18,4 +18,10 @@ public class TenantDatabaseCrudManager : BaseMasterManager<TenantDatabaseDto, Te
         : base(mapper, repository, unitOfWork, validator)
     {
     }
+
+    public IEnumerable<TenantDatabaseDto> GetActiveTenants()
+    {
+        var entities = _repository.Find(x => !x.IsDeleted && x.IsActive).ToList();
+        return _mapper.Map<IEnumerable<TenantDatabaseDto>>(entities);
+    }
 }

@@ -3,17 +3,20 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ThermaCore.Infrastructure.Persistence;
 
 #nullable disable
 
-namespace ThermaCore.Infrastructure.Migrations.TenantMigrations
+namespace ThermaCore.Infrastructure.Persistence.Migrations.MasterDb
 {
-    [DbContext(typeof(ThermaCoreTenantContext))]
-    partial class ThermaCoreTenantContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(ThermaCoreMasterContext))]
+    [Migration("20260623074719_MultiMacTerminal")]
+    partial class MultiMacTerminal
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,6 +24,73 @@ namespace ThermaCore.Infrastructure.Migrations.TenantMigrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("ThermaCore.Domain.Entities.Management.Branch", b =>
+                {
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("BranchName")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("CreatedUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("DeletedUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("ModifiedUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
+                    b.Property<long>("TenantDatabaseId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique()
+                        .HasFilter("[IsDeleted] = 0");
+
+                    b.HasIndex("CreatedDate");
+
+                    b.HasIndex("IsActive");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.ToTable("Branches");
+                });
 
             modelBuilder.Entity("ThermaCore.Domain.Entities.Management.CodeLog", b =>
                 {
@@ -54,7 +124,7 @@ namespace ThermaCore.Infrastructure.Migrations.TenantMigrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TCORE_CodeLogs");
+                    b.ToTable("CodeLogs", (string)null);
                 });
 
             modelBuilder.Entity("ThermaCore.Domain.Entities.Management.CodeTemplate", b =>
@@ -132,7 +202,7 @@ namespace ThermaCore.Infrastructure.Migrations.TenantMigrations
 
                     b.HasIndex("IsDeleted");
 
-                    b.ToTable("TCORE_CodeTemplates");
+                    b.ToTable("CodeTemplates", (string)null);
                 });
 
             modelBuilder.Entity("ThermaCore.Domain.Entities.Management.ModulePermission", b =>
@@ -180,7 +250,9 @@ namespace ThermaCore.Infrastructure.Migrations.TenantMigrations
 
                     b.HasIndex("CreatedDate");
 
-                    b.ToTable("TCORE_ModulePermissions", (string)null);
+                    b.HasIndex("UserRoleId");
+
+                    b.ToTable("ModulePermissions", (string)null);
                 });
 
             modelBuilder.Entity("ThermaCore.Domain.Entities.Management.TenantDatabase", b =>
@@ -256,7 +328,9 @@ namespace ThermaCore.Infrastructure.Migrations.TenantMigrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Code");
+                    b.HasIndex("Code")
+                        .IsUnique()
+                        .HasFilter("[IsDeleted] = 0");
 
                     b.HasIndex("CreatedDate");
 
@@ -264,7 +338,7 @@ namespace ThermaCore.Infrastructure.Migrations.TenantMigrations
 
                     b.HasIndex("IsDeleted");
 
-                    b.ToTable("TCORE_TenantDatabases", (string)null);
+                    b.ToTable("TenantDatabases", (string)null);
                 });
 
             modelBuilder.Entity("ThermaCore.Domain.Entities.Management.Terminal", b =>
@@ -294,10 +368,15 @@ namespace ThermaCore.Infrastructure.Migrations.TenantMigrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<string>("HardwareFingerprint")
+                    b.Property<string>("DeviceName")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("EthernetMacAddress")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("IpAddress")
                         .IsRequired()
@@ -309,19 +388,6 @@ namespace ThermaCore.Infrastructure.Migrations.TenantMigrations
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
-
-                    b.Property<DateTime?>("LastLoginDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("LicenseKey")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
-
-                    b.Property<string>("MacAddress")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime2");
@@ -335,9 +401,21 @@ namespace ThermaCore.Infrastructure.Migrations.TenantMigrations
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("rowversion");
 
+                    b.Property<string>("VpnMacAddress")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("WifiMacAddress")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("Code");
+                    b.HasIndex("Code")
+                        .IsUnique()
+                        .HasFilter("[IsDeleted] = 0");
 
                     b.HasIndex("CreatedDate");
 
@@ -345,7 +423,146 @@ namespace ThermaCore.Infrastructure.Migrations.TenantMigrations
 
                     b.HasIndex("IsDeleted");
 
-                    b.ToTable("TCORE_Terminals", (string)null);
+                    b.ToTable("Terminals", (string)null);
+                });
+
+            modelBuilder.Entity("ThermaCore.Domain.Entities.Management.User", b =>
+                {
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("CreatedUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("DeletedUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("ModifiedUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<byte[]>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<byte[]>("PasswordSalt")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
+                    b.Property<long>("UserRoleId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique()
+                        .HasFilter("[IsDeleted] = 0");
+
+                    b.HasIndex("CreatedDate");
+
+                    b.HasIndex("IsActive");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.ToTable("Users", (string)null);
+                });
+
+            modelBuilder.Entity("ThermaCore.Domain.Entities.Management.UserBranch", b =>
+                {
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("BranchId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("CreatedUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("DeletedUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDefault")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("ModifiedUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BranchId");
+
+                    b.HasIndex("CreatedDate");
+
+                    b.HasIndex("IsActive");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserBranches");
                 });
 
             modelBuilder.Entity("ThermaCore.Domain.Entities.Management.UserPermission", b =>
@@ -393,7 +610,121 @@ namespace ThermaCore.Infrastructure.Migrations.TenantMigrations
 
                     b.HasIndex("CreatedDate");
 
-                    b.ToTable("TCORE_UserPermissions", (string)null);
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserPermissions", (string)null);
+                });
+
+            modelBuilder.Entity("ThermaCore.Domain.Entities.Management.UserRole", b =>
+                {
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("CreatedUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("ModifiedUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("RoleName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
+
+                    b.HasIndex("CreatedDate");
+
+                    b.HasIndex("IsActive");
+
+                    b.ToTable("UserRoles", (string)null);
+                });
+
+            modelBuilder.Entity("ThermaCore.Domain.Entities.Management.UserTenant", b =>
+                {
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("CreatedUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("DeletedUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDefault")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("ModifiedUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
+                    b.Property<long>("TenantDatabaseId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedDate");
+
+                    b.HasIndex("IsActive");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("TenantDatabaseId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserTenants");
                 });
 
             modelBuilder.Entity("ThermaCore.Domain.Entities.Security.Role", b =>
@@ -444,7 +775,9 @@ namespace ThermaCore.Infrastructure.Migrations.TenantMigrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Code");
+                    b.HasIndex("Code")
+                        .IsUnique()
+                        .HasFilter("[IsDeleted] = 0");
 
                     b.HasIndex("CreatedDate");
 
@@ -452,7 +785,7 @@ namespace ThermaCore.Infrastructure.Migrations.TenantMigrations
 
                     b.HasIndex("IsDeleted");
 
-                    b.ToTable("TCORE_Roles");
+                    b.ToTable("Roles");
                 });
 
             modelBuilder.Entity("ThermaCore.Domain.Entities.Security.RolePermission", b =>
@@ -498,7 +831,7 @@ namespace ThermaCore.Infrastructure.Migrations.TenantMigrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("TCORE_RolePermissions");
+                    b.ToTable("RolePermissions");
                 });
 
             modelBuilder.Entity("ThermaCore.Domain.Entities.System.UserInterfaceTemplate", b =>
@@ -551,13 +884,14 @@ namespace ThermaCore.Infrastructure.Migrations.TenantMigrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Code");
+                    b.HasIndex("Code")
+                        .IsUnique();
 
                     b.HasIndex("CreatedDate");
 
                     b.HasIndex("IsActive");
 
-                    b.ToTable("TCORE_UserInterfaceTemplates", (string)null);
+                    b.ToTable("UserInterfaceTemplates", (string)null);
                 });
 
             modelBuilder.Entity("ThermaCore.Domain.Entities.System.UserSession", b =>
@@ -609,7 +943,67 @@ namespace ThermaCore.Infrastructure.Migrations.TenantMigrations
 
                     b.HasIndex("CreatedDate");
 
-                    b.ToTable("TCORE_UserSessions", (string)null);
+                    b.ToTable("UserSessions", (string)null);
+                });
+
+            modelBuilder.Entity("ThermaCore.Domain.Entities.Management.ModulePermission", b =>
+                {
+                    b.HasOne("ThermaCore.Domain.Entities.Management.UserRole", "UserRole")
+                        .WithMany()
+                        .HasForeignKey("UserRoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("UserRole");
+                });
+
+            modelBuilder.Entity("ThermaCore.Domain.Entities.Management.UserBranch", b =>
+                {
+                    b.HasOne("ThermaCore.Domain.Entities.Management.Branch", "Branch")
+                        .WithMany()
+                        .HasForeignKey("BranchId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ThermaCore.Domain.Entities.Management.User", "User")
+                        .WithMany("UserBranches")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Branch");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("ThermaCore.Domain.Entities.Management.UserPermission", b =>
+                {
+                    b.HasOne("ThermaCore.Domain.Entities.Management.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("ThermaCore.Domain.Entities.Management.UserTenant", b =>
+                {
+                    b.HasOne("ThermaCore.Domain.Entities.Management.TenantDatabase", "TenantDatabase")
+                        .WithMany()
+                        .HasForeignKey("TenantDatabaseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ThermaCore.Domain.Entities.Management.User", "User")
+                        .WithMany("UserTenants")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("TenantDatabase");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("ThermaCore.Domain.Entities.Security.RolePermission", b =>
@@ -621,6 +1015,13 @@ namespace ThermaCore.Infrastructure.Migrations.TenantMigrations
                         .IsRequired();
 
                     b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("ThermaCore.Domain.Entities.Management.User", b =>
+                {
+                    b.Navigation("UserBranches");
+
+                    b.Navigation("UserTenants");
                 });
 
             modelBuilder.Entity("ThermaCore.Domain.Entities.Security.Role", b =>

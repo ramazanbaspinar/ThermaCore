@@ -26,10 +26,21 @@ public class ThermaCoreMasterContext : DbContext
     public DbSet<Branch> Branches { get; set; }
     public DbSet<UserTenant> UserTenants { get; set; }
     public DbSet<UserBranch> UserBranches { get; set; }
+    public DbSet<ThermaCore.Domain.Entities.Security.Role> Roles { get; set; }
+    public DbSet<ThermaCore.Domain.Entities.Security.RolePermission> RolePermissions { get; set; }
+    public DbSet<CodeTemplate> CodeTemplates { get; set; }
+    public DbSet<UserInterfaceTemplate> UserInterfaceTemplates { get; set; }
+    public DbSet<CodeLog> CodeLogs { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+
+        // Sadece Master'a ait konfigürasyonları yükle
+        modelBuilder.ApplyConfigurationsFromAssembly(
+            Assembly.GetExecutingAssembly(),
+            t => t.GetInterfaces().Any(i => i == typeof(ThermaCore.Infrastructure.Persistence.Configurations.IMasterEntityConfiguration))
+        );
 
         // Global Query Filter: FullAuditableEntity'den türeyenlere otomatik IsDeleted = false filtresi ekler
         foreach (var entityType in modelBuilder.Model.GetEntityTypes())

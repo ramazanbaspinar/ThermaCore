@@ -4,7 +4,7 @@ using ThermaCore.Domain.Entities.System;
 
 namespace ThermaCore.Infrastructure.Persistence.Configurations.System;
 
-public class UserInterfaceTemplateConfiguration : IEntityTypeConfiguration<UserInterfaceTemplate>
+public class UserInterfaceTemplateConfiguration : IEntityTypeConfiguration<UserInterfaceTemplate>, IMasterEntityConfiguration
 {
     public void Configure(EntityTypeBuilder<UserInterfaceTemplate> builder)
     {

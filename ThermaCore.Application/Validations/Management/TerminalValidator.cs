@@ -7,6 +7,7 @@ public class TerminalValidator : AbstractValidator<TerminalDto>
 {
     public TerminalValidator()
     {
-        RuleFor(x => x.MacAddress).NotEmpty().WithMessage("MAC Address cannot be empty.");
+        RuleFor(x => x).Must(x => !string.IsNullOrEmpty(x.EthernetMacAddress) || !string.IsNullOrEmpty(x.WifiMacAddress) || !string.IsNullOrEmpty(x.VpnMacAddress))
+            .WithMessage("Lütfen en az bir adet MAC Adresi (Ethernet, Wi-Fi veya VPN) giriniz.");
     }
 }
