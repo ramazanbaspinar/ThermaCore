@@ -29,10 +29,12 @@ public enum ModuleType
 
     [Description("Fabrikalar")]
     [ParentModule(KurumsalTanimlar)]
+    [RequiresCodeTemplate]
     Factory = 2,
 
     [Description("Yetki Grupları (Roller)")]
     [ParentModule(GuvenlikVeYetkilendirme)]
+    [RequiresCodeTemplate]
     YetkiGruplari = 3,
 
     [Description("Kullanıcı Tanımları")]
@@ -41,6 +43,7 @@ public enum ModuleType
 
     [Description("Terminal Cihaz Yönetimi")]
     [ParentModule(GuvenlikVeYetkilendirme)]
+    [RequiresCodeTemplate]
     TerminalYonetimi = 5,
 
     [Description("Kod Şablonları")]

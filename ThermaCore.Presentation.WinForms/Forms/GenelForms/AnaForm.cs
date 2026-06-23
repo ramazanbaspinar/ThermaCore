@@ -169,7 +169,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
 
                     foreach (ToolStripItem child in menuItem.DropDownItems)
                     {
-                        if (child.Visible)
+                        if (child.Available)
                         {
                             hasVisibleChildren = true;
                             break;
@@ -281,14 +281,17 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
         {
             try
             {
-                var requiredModules = new[] 
-                { 
-                    ThermaCore.Domain.Enums.ModuleType.Factory, 
-                    ThermaCore.Domain.Enums.ModuleType.YetkiGruplari
-                };
+                var requiredModules = Enum.GetValues(typeof(ThermaCore.Domain.Enums.ModuleType))
+                    .Cast<ThermaCore.Domain.Enums.ModuleType>()
+                    .Where(m => 
+                    {
+                        var field = typeof(ThermaCore.Domain.Enums.ModuleType).GetField(m.ToString());
+                        return field != null && Attribute.IsDefined(field, typeof(ThermaCore.Domain.Attributes.RequiresCodeTemplateAttribute));
+                    })
+                    .ToArray();
 
                 using var scope = _serviceProvider.CreateScope();
-                var sablonRepo = scope.ServiceProvider.GetService<ThermaCore.Application.Interfaces.Repositories.IRepository<ThermaCore.Domain.Entities.Management.CodeTemplate>>();
+                var sablonRepo = scope.ServiceProvider.GetService<ThermaCore.Application.Interfaces.Repositories.IMasterRepository<ThermaCore.Domain.Entities.Management.CodeTemplate>>();
                 
                 if (sablonRepo == null) return;
 
