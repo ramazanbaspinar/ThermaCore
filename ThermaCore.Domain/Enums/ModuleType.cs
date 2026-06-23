@@ -49,9 +49,5 @@ public enum ModuleType
 
     [Description("Kod Üretim Logları")]
     [ParentModule(Parametreler)]
-    KodLog = 7,
-
-    [Description("Terminal Modülü")]
-    [ParentModule(SistemYonetimi)]
-    Terminal = 8
+    KodLog = 7
 }

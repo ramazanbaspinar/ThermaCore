@@ -100,8 +100,11 @@ namespace ThermaCore.Presentation.WinForms.Forms.YetkilendirmeForms
             txtAciklama.EditValueChanged += Control_EditValueChanged;
             tglDurum.EditValueChanged += Control_EditValueChanged;
             
-            // TreeList hücre veya check değişikliklerinde Control_EditValueChanged tetikle
-            treeList1.CellValueChanged += (s, e) => { Control_EditValueChanged(s, e); };
+            // TreeList hücre veya check değişikliklerinde Kaydet butonunu tetikle
+            treeList1.CellValueChanged += (s, e) => {
+                GuncelNesneOlustur();
+                ButonEnabledDurumu();
+            };
             treeList1.AfterCheckNode += TreeList1_AfterCheckNode;
         }
 
@@ -163,7 +166,8 @@ namespace ThermaCore.Presentation.WinForms.Forms.YetkilendirmeForms
                 treeList1.EndUpdate();
             }
 
-            Control_EditValueChanged(sender, e);
+            GuncelNesneOlustur();
+            ButonEnabledDurumu();
         }
 
         private void TreeList1_PopupMenuShowing(object sender, DevExpress.XtraTreeList.PopupMenuShowingEventArgs e)
@@ -291,8 +295,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.YetkilendirmeForms
                         if (pTypeObj != null && (pTypeObj.ToString() == "Special" || pTypeObj.ToString() == "5")) continue;
 
                         validChildrenCount++;
-                        var childValObj = child.GetValue("IsChecked");
-                        if (childValObj != null && bool.TryParse(childValObj.ToString(), out bool cChecked) && cChecked)
+                        if (child.Checked)
                         {
                             checkedCount++;
                         }
@@ -322,19 +325,15 @@ namespace ThermaCore.Presentation.WinForms.Forms.YetkilendirmeForms
                     var pTypeObj = e.Node.GetValue("PermissionType");
                     if (pTypeObj != null && (pTypeObj.ToString() == "Special" || pTypeObj.ToString() == "5")) return; // Özel yetkiler node'unu renklendirme
 
-                    var isCheckedObj = e.Node.GetValue("IsChecked");
-                    if (isCheckedObj != null && bool.TryParse(isCheckedObj.ToString(), out bool isChecked))
+                    if (e.Node.Checked)
                     {
-                        if (isChecked)
-                        {
-                            e.Appearance.BackColor = Color.FromArgb(230, 255, 230);
-                            e.Appearance.ForeColor = Color.DarkGreen;
-                        }
-                        else
-                        {
-                            e.Appearance.BackColor = Color.FromArgb(255, 230, 230);
-                            e.Appearance.ForeColor = Color.DarkRed;
-                        }
+                        e.Appearance.BackColor = Color.FromArgb(230, 255, 230);
+                        e.Appearance.ForeColor = Color.DarkGreen;
+                    }
+                    else
+                    {
+                        e.Appearance.BackColor = Color.FromArgb(255, 230, 230);
+                        e.Appearance.ForeColor = Color.DarkRed;
                     }
                 }
             }

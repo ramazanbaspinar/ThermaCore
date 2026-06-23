@@ -163,7 +163,11 @@ internal static class Program
         }
         catch { }
 
-        string userMessage = "Sistemde beklenmeyen bir hata oluştu. Lütfen sistem yöneticinize bilgi veriniz.\n\nHata Nedeni: " + ex.Message;
+        string userMessage = ex.Message;
+        if (!userMessage.StartsWith("Güvenlik Kısıtlaması") && !userMessage.StartsWith("İşlem Başarısız"))
+        {
+            userMessage = "Sistemde beklenmeyen bir hata oluştu. Lütfen sistem yöneticinize bilgi veriniz.\n\nHata Nedeni: " + ex.Message;
+        }
         XtraMessageBox.Show(userMessage, "Sistem Hatası", MessageBoxButtons.OK, MessageBoxIcon.Error);
     }
 }

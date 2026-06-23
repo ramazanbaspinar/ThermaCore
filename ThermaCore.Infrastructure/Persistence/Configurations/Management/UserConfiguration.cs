@@ -10,9 +10,9 @@ public class UserConfiguration : IEntityTypeConfiguration<User>, IMasterEntityCo
     {
         builder.ToTable("Users");
 
-        // builder.HasOne(x => x.UserRole)
-        //     .WithMany()
-        //     .HasForeignKey(x => x.UserRoleId)
-        //     .OnDelete(DeleteBehavior.Restrict);
+        builder.HasOne(x => x.Role)
+            .WithMany()
+            .HasForeignKey(x => x.UserRoleId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

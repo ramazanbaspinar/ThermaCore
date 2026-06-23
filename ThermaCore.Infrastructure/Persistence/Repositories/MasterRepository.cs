@@ -62,4 +62,60 @@ public class MasterRepository<TEntity> : IMasterRepository<TEntity> where TEntit
             _dbSet.Remove(entity);
         }
     }
+
+    public bool IsInUse(TEntity entity)
+    {
+        var entityType = _context.Model.FindEntityType(typeof(TEntity));
+        if (entityType == null) return false;
+
+        foreach (var fk in entityType.GetReferencingForeignKeys())
+        {
+            if (fk.DeleteBehavior == DeleteBehavior.Cascade) continue;
+
+            var dependentType = fk.DeclaringEntityType.ClrType;
+            var fkProperty = fk.Properties[0].PropertyInfo; 
+
+            if (fkProperty == null) continue;
+
+            var setMethod = _context.GetType().GetMethods()
+                .FirstOrDefault(m => m.Name == "Set" && m.GetParameters().Length == 0 && m.IsGenericMethod)
+                ?.MakeGenericMethod(dependentType);
+
+            if (setMethod == null) continue;
+
+            var dbSet = setMethod.Invoke(_context, null) as IQueryable;
+            if (dbSet == null) continue;
+
+            var param = Expression.Parameter(dependentType, "x");
+            var propAccess = Expression.Property(param, fkProperty);
+            
+            Expression idValue = Expression.Constant(entity.Id, typeof(long));
+            Expression left = propAccess;
+            Expression right = idValue;
+
+            if (left.Type != right.Type)
+            {
+                if (left.Type.IsGenericType && left.Type.GetGenericTypeDefinition() == typeof(Nullable<>))
+                {
+                    right = Expression.Convert(right, left.Type);
+                }
+                else if (right.Type.IsGenericType && right.Type.GetGenericTypeDefinition() == typeof(Nullable<>))
+                {
+                    left = Expression.Convert(left, right.Type);
+                }
+            }
+            
+            var equalExp = Expression.Equal(left, right);
+            var lambda = Expression.Lambda(equalExp, param);
+
+            var anyMethod = typeof(Queryable).GetMethods()
+                .First(m => m.Name == "Any" && m.GetParameters().Length == 2)
+                .MakeGenericMethod(dependentType);
+            
+            bool isUsed = (bool)anyMethod.Invoke(null, new object[] { dbSet, lambda });
+            if (isUsed) return true;
+        }
+
+        return false;
+    }
 }

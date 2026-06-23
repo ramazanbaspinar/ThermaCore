@@ -12,9 +12,9 @@ public class ManagementProfile : Profile
         CreateMap<UserRole, UserRoleListDto>();
 
         CreateMap<User, UserDto>()
-            .ForMember(x => x.RoleName, opt => opt.Ignore())
+            .ForMember(dest => dest.RoleName, opt => opt.MapFrom(src => src.Role != null ? src.Role.RoleName : string.Empty))
             .ReverseMap()
-            .ForMember(x => x.UserRole, opt => opt.Ignore())
+            .ForMember(x => x.Role, opt => opt.Ignore())
             .ForMember(x => x.UserTenants, opt => opt.Ignore())
             .ForMember(x => x.UserBranches, opt => opt.Ignore());
 

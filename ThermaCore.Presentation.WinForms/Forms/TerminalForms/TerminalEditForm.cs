@@ -22,7 +22,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TerminalForms
         {
             InitializeComponent();
             _terminalService = terminalService;
-            this.BaseKartTuru = ModuleType.Terminal;
+            this.BaseKartTuru = ModuleType.TerminalYonetimi;
         }
 
         public override void Yukle()

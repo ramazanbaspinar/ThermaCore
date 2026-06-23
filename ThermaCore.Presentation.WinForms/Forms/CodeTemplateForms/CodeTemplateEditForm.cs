@@ -79,7 +79,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.CodeTemplateForms
             { 
                 ModuleType.Factory, 
                 ModuleType.YetkiGruplari,
-                ModuleType.Terminal
+                ModuleType.TerminalYonetimi
             };
             var tanimliModuller = _repository.Find(x => !x.IsDeleted).Select(x => x.Module).ToList();
             if (BaseIslemTuru == ActionType.EntityUpdate)

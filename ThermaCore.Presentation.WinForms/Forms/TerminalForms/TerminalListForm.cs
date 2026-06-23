@@ -26,7 +26,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TerminalForms
         protected override void DegiskenleriDoldur()
         {
             Tablo = myGridView1;
-            BaseKartTuru = ThermaCore.Domain.Enums.ModuleType.Terminal;
+            BaseKartTuru = ThermaCore.Domain.Enums.ModuleType.TerminalYonetimi;
             Navigator = longNavigator1.Navigator;
             AktifPasifButonGoster = true;
         }

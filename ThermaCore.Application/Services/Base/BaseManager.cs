@@ -73,6 +73,11 @@ public abstract class BaseManager<TListDto, TDto, TEntity>
         var entity = _repository.GetById(id);
         if (entity != null)
         {
+            if (_repository.IsInUse(entity))
+            {
+                throw new InvalidOperationException("Güvenlik Kısıtlaması: Bu kayıt sistemde başka işlemler tarafından kullanılmaktadır ve silinemez! Listelerde görünmesini istemiyorsanız lütfen kaydı 'Pasif' duruma getirin.");
+            }
+
             _repository.Remove(entity);
             _unitOfWork.SaveChanges();
         }

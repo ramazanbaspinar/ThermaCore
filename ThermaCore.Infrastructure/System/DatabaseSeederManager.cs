@@ -35,34 +35,40 @@ public class DatabaseSeederManager : IDatabaseSeederService
             throw new global::System.Exception("Kullandığınız uygulama sürümü eskidir. Lütfen uygulamanızı güncelleyin.");
         }
 
-        if (!_context.UserRoles.Any(r => r.RoleName == "System Administrator"))
+        long adminRolId = 0;
+        var existingRole = await _context.Roles.FirstOrDefaultAsync(r => r.RoleName == "System Administrator");
+        
+        ThermaCore.Domain.Entities.Security.Role? selectedRole = existingRole;
+
+        if (existingRole == null)
         {
-            var adminRol = new UserRole
+            var adminRol = new ThermaCore.Domain.Entities.Security.Role
             {
-                Id = 1,
+                Id = ThermaCore.Domain.Helpers.IdGenerator.GenerateId(),
                 Code = "ADMIN_ROLE",
                 RoleName = "System Administrator",
                 Description = "The most authorized role in the system. Full access to all modules.",
                 IsActive = true
             };
             
-            _context.UserRoles.Add(adminRol);
+            _context.Roles.Add(adminRol);
             await _context.SaveChangesAsync();
+            adminRolId = adminRol.Id;
+            selectedRole = adminRol;
+        }
+        else
+        {
+            adminRolId = existingRole.Id;
         }
 
         if (!_context.Users.Any(k => k.Code.ToLower() == "thermacore"))
         {
-            var adminRolId = await _context.UserRoles
-                .Where(r => r.RoleName == "System Administrator")
-                .Select(r => r.Id)
-                .FirstOrDefaultAsync();
-
-            if (adminRolId > 0)
+            if (adminRolId > 0 && selectedRole != null)
             {
                 ThermaCore.Domain.Helpers.PasswordHasher.CreatePasswordHash("thermacore!", out byte[] hash, out byte[] salt);
                 var adminKullanici = new User
                 {
-                    Id = 1,
+                    Id = ThermaCore.Domain.Helpers.IdGenerator.GenerateId(),
                     Code = "thermacore",
                     FirstName = "System",
                     LastName = "Administrator",
@@ -70,6 +76,7 @@ public class DatabaseSeederManager : IDatabaseSeederService
                     PasswordHash = hash,
                     PasswordSalt = salt,
                     UserRoleId = adminRolId,
+                    Role = selectedRole,
                     IsActive = true
                 };
                 

@@ -31,6 +31,5 @@ public class User : FullAuditableEntity
 
     public long UserRoleId { get; set; }
 
-    [NotMapped]
-    public virtual ThermaCore.Domain.Entities.Management.UserRole UserRole { get; set; } = null!;
+    public virtual ThermaCore.Domain.Entities.Security.Role Role { get; set; } = null!;
 }

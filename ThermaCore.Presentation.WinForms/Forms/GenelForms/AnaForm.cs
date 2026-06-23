@@ -140,18 +140,32 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             var authService = _serviceProvider.GetService<ThermaCore.Application.Services.Management.IAuthService>();
             if (authService == null) return;
             
-            ApplyMenuPermissionsRecursive(items, authService);
+            var userRepo = _serviceProvider.GetService<ThermaCore.Application.Interfaces.Repositories.IMasterRepository<ThermaCore.Domain.Entities.Management.User>>();
+            var user = userRepo?.GetById(_currentTenantService.UserId);
+            bool isSuperAdmin = user != null && (user.Code.ToLower() == "admin" || user.Code.ToLower() == "thermacore");
+
+            ApplyMenuPermissionsRecursive(items, authService, isSuperAdmin);
         }
 
-        private void ApplyMenuPermissionsRecursive(ToolStripItemCollection items, ThermaCore.Application.Services.Management.IAuthService authService)
+        private void ApplyMenuPermissionsRecursive(ToolStripItemCollection items, ThermaCore.Application.Services.Management.IAuthService authService, bool isSuperAdmin)
         {
             foreach (ToolStripItem item in items)
             {
+                if (isSuperAdmin)
+                {
+                    item.Visible = true;
+                    if (item is ToolStripMenuItem mi && mi.DropDownItems.Count > 0)
+                    {
+                        ApplyMenuPermissionsRecursive(mi.DropDownItems, authService, isSuperAdmin);
+                    }
+                    continue;
+                }
+
                 bool hasVisibleChildren = false;
                 
                 if (item is ToolStripMenuItem menuItem && menuItem.DropDownItems.Count > 0)
                 {
-                    ApplyMenuPermissionsRecursive(menuItem.DropDownItems, authService);
+                    ApplyMenuPermissionsRecursive(menuItem.DropDownItems, authService, isSuperAdmin);
 
                     foreach (ToolStripItem child in menuItem.DropDownItems)
                     {
@@ -163,19 +177,29 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
                     }
                 }
 
-                if (item.Tag is ThermaCore.Domain.Enums.ModuleType moduleType)
+                if (item is ToolStripMenuItem parentMenu && parentMenu.DropDownItems.Count > 0)
+                {
+                    // Eğer menünün altında başka menüler varsa (yani bir kategori/klasör ise)
+                    // Tag'i olsa bile veritabanındaki (CanRead=false) değerine bakma! Sadece altındakilerin durumuna bak.
+                    item.Visible = hasVisibleChildren;
+                }
+                else if (item.Tag is ThermaCore.Domain.Enums.ModuleType moduleType)
                 {
                     bool hasAccess = authService.HasPermission(moduleType, ThermaCore.Domain.Enums.PermissionType.CanView);
                     item.Visible = hasAccess;
                 }
-                else if (item.Tag is string tagStr && Enum.TryParse(tagStr, true, out ThermaCore.Domain.Enums.ModuleType parsedModuleType))
+                else if (item.Tag is string tagStr)
                 {
-                    bool hasAccess = authService.HasPermission(parsedModuleType, ThermaCore.Domain.Enums.PermissionType.CanView);
-                    item.Visible = hasAccess;
-                }
-                else if (item is ToolStripMenuItem parentItem && parentItem.DropDownItems.Count > 0)
-                {
-                    item.Visible = hasVisibleChildren;
+                    if (Enum.TryParse(tagStr.Trim(), true, out ThermaCore.Domain.Enums.ModuleType parsedModuleType))
+                    {
+                        bool hasAccess = authService.HasPermission(parsedModuleType, ThermaCore.Domain.Enums.PermissionType.CanView);
+                        item.Visible = hasAccess;
+                    }
+                    else
+                    {
+                        // Geçersiz bir tag verilmişse güvenlik gereği gizli tut.
+                        item.Visible = false;
+                    }
                 }
             }
         }
@@ -192,13 +216,23 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
 
             if (allowedBranches == null || allowedBranches.Count == 0)
             {
-                Messages.HataBasligi("Giriş yaptığınız şirkette hiçbir fabrika/şube yetkiniz bulunmuyor. Oturum kapatılacaktır.", "Yetkisiz Erişim");
-                _programiOtomatikKapat = true;
-                System.Windows.Forms.Application.Exit();
-                return;
-            }
+                var userRepo = _serviceProvider.GetRequiredService<ThermaCore.Application.Interfaces.Repositories.IMasterRepository<ThermaCore.Domain.Entities.Management.User>>();
+                var user = userRepo.Find(u => u.Id == userId).FirstOrDefault();
 
-            if (allowedBranches.Count == 1)
+                if (user != null && (user.Code.ToLower() == "admin" || user.Code.ToLower() == "thermacore"))
+                {
+                    _currentTenantService.BranchId = 0;
+                    _currentTenantService.BranchName = "Şube Yok / Kurulum Modu";
+                }
+                else
+                {
+                    Messages.HataBasligi("Giriş yaptığınız şirkette hiçbir fabrika/şube yetkiniz bulunmuyor. Oturum kapatılacaktır.", "Yetkisiz Erişim");
+                    _programiOtomatikKapat = true;
+                    System.Windows.Forms.Application.Exit();
+                    return;
+                }
+            }
+            else if (allowedBranches.Count == 1)
             {
                 _currentTenantService.BranchId = allowedBranches[0].Id;
                 _currentTenantService.BranchName = allowedBranches[0].BranchName;
