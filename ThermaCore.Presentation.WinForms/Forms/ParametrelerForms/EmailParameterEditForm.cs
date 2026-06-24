@@ -13,18 +13,63 @@ namespace ThermaCore.Presentation.WinForms.Forms.ParametrelerForms
     {
         private readonly IMasterRepository<EmailParameter> _emailParameterRepository;
         private readonly IMasterUnitOfWork _uow;
+        private readonly ThermaCore.Application.Interfaces.Security.ICryptoService _cryptoService;
 
-        public EmailParameterEditForm(IMasterRepository<EmailParameter> emailParameterRepository, IMasterUnitOfWork uow)
+        public EmailParameterEditForm(IMasterRepository<EmailParameter> emailParameterRepository, IMasterUnitOfWork uow, ThermaCore.Application.Interfaces.Security.ICryptoService cryptoService)
         {
             InitializeComponent();
             _emailParameterRepository = emailParameterRepository;
             _uow = uow;
+            _cryptoService = cryptoService;
             
             BaseKartTuru = ModuleType.EmailParameter;
             DataLayoutControl = myDataLayoutControl1;
             RequiresCodeTemplate = false; 
 
             HideItems = new DevExpress.XtraBars.BarItem[] { btnYeni, btnSil };
+
+            btnTestMailGonder.Click += BtnTestMailGonder_Click;
+            txtAliciEmail.EditValueChanged -= Control_EditValueChanged;
+            txtAliciEmail.EditValueChanged += (s, e) => { txtAliciEmail.IsModified = false; };
+        }
+
+        private void BtnTestMailGonder_Click(object? sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtAliciEmail.Text))
+            {
+                Messages.UyariMesaji("Lütfen test maili göndermek için bir alıcı e-posta adresi giriniz.");
+                return;
+            }
+
+            Cursor.Current = System.Windows.Forms.Cursors.WaitCursor;
+            try
+            {
+                using (var client = new System.Net.Mail.SmtpClient(txtSmtpServer.Text, Convert.ToInt32(txtPort.EditValue)))
+                {
+                    client.EnableSsl = chkEnableSsl.Checked;
+                    client.Credentials = new System.Net.NetworkCredential(txtSenderEmail.Text, txtPassword.Text);
+
+                    var mailMessage = new System.Net.Mail.MailMessage
+                    {
+                        From = new System.Net.Mail.MailAddress(txtSenderEmail.Text, txtSenderName.Text),
+                        Subject = "ThermaCore Test E-Mail",
+                        Body = "Bu e-posta ThermaCore sisteminden e-posta parametrelerinin test edilmesi amacıyla gönderilmiştir.",
+                        IsBodyHtml = false
+                    };
+                    mailMessage.To.Add(txtAliciEmail.Text);
+
+                    client.Send(mailMessage);
+                }
+                Messages.BilgiMesaji("Test e-postası başarıyla gönderildi.");
+            }
+            catch (Exception ex)
+            {
+                Messages.HataMesaji("Test e-postası gönderilirken bir hata oluştu:\n" + ex.Message);
+            }
+            finally
+            {
+                Cursor.Current = System.Windows.Forms.Cursors.Default;
+            }
         }
 
         public override void Yukle()
@@ -47,7 +92,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.ParametrelerForms
                 txtPort.EditValue = entity.Port;
                 txtSenderName.Text = entity.SenderName;
                 txtSenderEmail.Text = entity.SenderEmail;
-                txtPassword.Text = entity.Password;
+                txtPassword.Text = string.IsNullOrEmpty(entity.Password) ? "" : _cryptoService.Decrypt(entity.Password);
                 chkEnableSsl.Checked = entity.EnableSsl;
                 
                 this.Id = entity.Id;
@@ -86,7 +131,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.ParametrelerForms
                     Port = dto.Port,
                     SenderName = dto.SenderName,
                     SenderEmail = dto.SenderEmail,
-                    Password = dto.Password,
+                    Password = string.IsNullOrEmpty(dto.Password) ? "" : _cryptoService.Encrypt(dto.Password),
                     EnableSsl = dto.EnableSsl
                 };
 
@@ -117,7 +162,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.ParametrelerForms
                     entity.Port = dto.Port;
                     entity.SenderName = dto.SenderName;
                     entity.SenderEmail = dto.SenderEmail;
-                    entity.Password = dto.Password;
+                    entity.Password = string.IsNullOrEmpty(dto.Password) ? "" : _cryptoService.Encrypt(dto.Password);
                     entity.EnableSsl = dto.EnableSsl;
 
                     _emailParameterRepository.Update(entity);

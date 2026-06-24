@@ -9,4 +9,5 @@ public class SystemLicenseDto : BaseDto
     public string ServerCpuId { get; set; } = string.Empty;
     public string LicenseKey { get; set; } = string.Empty;
     public DateTime ExpirationDate { get; set; }
+    public int MaxTerminalCount { get; set; }
 }

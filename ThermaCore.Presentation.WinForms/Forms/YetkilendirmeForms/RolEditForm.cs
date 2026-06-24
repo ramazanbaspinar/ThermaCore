@@ -130,10 +130,18 @@ namespace ThermaCore.Presentation.WinForms.Forms.YetkilendirmeForms
                 if (pTypeObj != null && modObj != null)
                 {
                     var modType = (ModuleType)Convert.ToInt32(modObj);
-                    if (modType == ModuleType.EmailParameter || modType == ModuleType.SystemLicense)
+                    if (modType == ModuleType.EmailParameter || modType == ModuleType.SystemLicense || modType == ModuleType.KodLog)
                     {
                         if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" || 
                             pTypeObj.ToString() == "Delete" || pTypeObj.ToString() == "3")
+                        {
+                            continue; // Bu yetkiler yok sayılır
+                        }
+                    }
+                    else if (modType == ModuleType.UserInterfaceTemplate)
+                    {
+                        if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" || pTypeObj.ToString() == "2" ||
+                            pTypeObj.ToString() == "Update" || pTypeObj.ToString() == "3")
                         {
                             continue; // Bu yetkiler yok sayılır
                         }
@@ -164,10 +172,18 @@ namespace ThermaCore.Presentation.WinForms.Forms.YetkilendirmeForms
                     if (pTypeObj != null && modObj != null)
                     {
                         var modType = (ModuleType)Convert.ToInt32(modObj);
-                        if (modType == ModuleType.EmailParameter || modType == ModuleType.SystemLicense)
+                        if (modType == ModuleType.EmailParameter || modType == ModuleType.SystemLicense || modType == ModuleType.KodLog)
                         {
                             if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" || 
                                 pTypeObj.ToString() == "Delete" || pTypeObj.ToString() == "3")
+                            {
+                                continue; // Sayıma katma!
+                            }
+                        }
+                        else if (modType == ModuleType.UserInterfaceTemplate)
+                        {
+                            if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" || pTypeObj.ToString() == "2" ||
+                                pTypeObj.ToString() == "Update" || pTypeObj.ToString() == "3")
                             {
                                 continue; // Sayıma katma!
                             }
@@ -278,10 +294,18 @@ namespace ThermaCore.Presentation.WinForms.Forms.YetkilendirmeForms
             if (pTypeObj != null && modObj != null)
             {
                 var modType = (ModuleType)Convert.ToInt32(modObj);
-                if (modType == ModuleType.EmailParameter || modType == ModuleType.SystemLicense)
+                if (modType == ModuleType.EmailParameter || modType == ModuleType.SystemLicense || modType == ModuleType.KodLog)
                 {
                     if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" || 
                         pTypeObj.ToString() == "Delete" || pTypeObj.ToString() == "3")
+                    {
+                        e.CanCheck = false; // Prevent checking
+                    }
+                }
+                else if (modType == ModuleType.UserInterfaceTemplate)
+                {
+                    if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" || pTypeObj.ToString() == "2" ||
+                        pTypeObj.ToString() == "Update" || pTypeObj.ToString() == "3")
                     {
                         e.CanCheck = false; // Prevent checking
                     }
@@ -301,10 +325,18 @@ namespace ThermaCore.Presentation.WinForms.Forms.YetkilendirmeForms
             else if (pTypeObj != null && modObj != null)
             {
                 var modType = (ModuleType)Convert.ToInt32(modObj);
-                if (modType == ModuleType.EmailParameter || modType == ModuleType.SystemLicense)
+                if (modType == ModuleType.EmailParameter || modType == ModuleType.SystemLicense || modType == ModuleType.KodLog)
                 {
                     if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" || 
                         pTypeObj.ToString() == "Delete" || pTypeObj.ToString() == "3")
+                    {
+                        e.Handled = true; // Boş/Kare çizme (Checkbox gizlenir, anlamsız olur)
+                    }
+                }
+                else if (modType == ModuleType.UserInterfaceTemplate)
+                {
+                    if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" || pTypeObj.ToString() == "2" ||
+                        pTypeObj.ToString() == "Update" || pTypeObj.ToString() == "3")
                     {
                         e.Handled = true; // Boş/Kare çizme (Checkbox gizlenir, anlamsız olur)
                     }

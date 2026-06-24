@@ -61,6 +61,13 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             if (miSirketTanimlari != null)
                 miSirketTanimlari.Click += miSirketTanimlari_Click;
 
+
+            if (miKullaniciArayuzSablonlari != null)
+                miKullaniciArayuzSablonlari.Click += (s, e) =>
+                {
+                    FormYukle<ThermaCore.Presentation.WinForms.Forms.ParametrelerForms.UserInterfaceTemplateListForm>();
+                };
+
             if (miCodeTemplatelari != null)
                 miCodeTemplatelari.Click += miCodeTemplatelari_Click;
 

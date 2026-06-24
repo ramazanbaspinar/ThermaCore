@@ -28,6 +28,12 @@ namespace ThermaCore.Presentation.WinForms.Forms.ParametrelerForms
 
             btnCihazMacGetir.Click += btnCihazMacGetir_Click;
             btnCihazIdGetir.Click += btnCihazIdGetir_Click;
+
+            // Kilitlenecek (Sadece Bilgi Gösterimi) alanlar
+            txtServerMacAddress.Properties.ReadOnly = true;
+            txtServerCpuId.Properties.ReadOnly = true;
+            dtExpirationDate.Properties.ReadOnly = true;
+            txtMaxTerminal.Properties.ReadOnly = true;
         }
 
         public override void Yukle()
@@ -41,13 +47,15 @@ namespace ThermaCore.Presentation.WinForms.Forms.ParametrelerForms
                     ServerMacAddress = entity.ServerMacAddress,
                     ServerCpuId = entity.ServerCpuId,
                     LicenseKey = entity.LicenseKey,
-                    ExpirationDate = entity.ExpirationDate
+                    ExpirationDate = entity.ExpirationDate,
+                    MaxTerminalCount = entity.MaxTerminalCount
                 };
 
                 txtServerMacAddress.Text = entity.ServerMacAddress;
                 txtServerCpuId.Text = entity.ServerCpuId;
                 txtLicenseKey.Text = entity.LicenseKey;
                 dtExpirationDate.DateTime = entity.ExpirationDate;
+                txtMaxTerminal.EditValue = entity.MaxTerminalCount;
                 
                 this.Id = entity.Id;
                 BaseIslemTuru = ActionType.EntityUpdate;
@@ -61,6 +69,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.ParametrelerForms
                 txtServerCpuId.Text = "";
                 txtLicenseKey.Text = "";
                 dtExpirationDate.DateTime = DateTime.Now.AddDays(30); // Default trial
+                txtMaxTerminal.EditValue = 5; // Varsayılan deneme sürümü terminal sayısı
                 
                 BaseIslemTuru = ActionType.EntityInsert;
             }
@@ -74,7 +83,8 @@ namespace ThermaCore.Presentation.WinForms.Forms.ParametrelerForms
                 ServerMacAddress = txtServerMacAddress.Text,
                 ServerCpuId = txtServerCpuId.Text,
                 LicenseKey = txtLicenseKey.Text,
-                ExpirationDate = dtExpirationDate.DateTime
+                ExpirationDate = dtExpirationDate.DateTime,
+                MaxTerminalCount = Convert.ToInt32(txtMaxTerminal.EditValue)
             };
         }
 
@@ -89,7 +99,8 @@ namespace ThermaCore.Presentation.WinForms.Forms.ParametrelerForms
                     ServerMacAddress = dto.ServerMacAddress,
                     ServerCpuId = dto.ServerCpuId,
                     LicenseKey = dto.LicenseKey,
-                    ExpirationDate = dto.ExpirationDate
+                    ExpirationDate = dto.ExpirationDate,
+                    MaxTerminalCount = dto.MaxTerminalCount
                 };
 
                 _systemLicenseRepository.Add(entity);
@@ -119,6 +130,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.ParametrelerForms
                     entity.ServerCpuId = dto.ServerCpuId;
                     entity.LicenseKey = dto.LicenseKey;
                     entity.ExpirationDate = dto.ExpirationDate;
+                    entity.MaxTerminalCount = dto.MaxTerminalCount;
 
                     _systemLicenseRepository.Update(entity);
                     _uow.SaveChanges();

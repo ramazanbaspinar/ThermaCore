@@ -47,7 +47,7 @@ public class DatabaseSeederManager : IDatabaseSeederService
                 Id = ThermaCore.Domain.Helpers.IdGenerator.GenerateId(),
                 Code = "ADMIN_ROLE",
                 RoleName = "System Administrator",
-                Description = "The most authorized role in the system. Full access to all modules.",
+                Description = "",
                 IsActive = true
             };
             

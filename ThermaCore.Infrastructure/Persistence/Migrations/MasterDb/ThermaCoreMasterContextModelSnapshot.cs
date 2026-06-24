@@ -277,6 +277,9 @@ namespace ThermaCore.Infrastructure.Persistence.Migrations.MasterDb
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
+                    b.Property<int>("MaxTerminalCount")
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime2");
 

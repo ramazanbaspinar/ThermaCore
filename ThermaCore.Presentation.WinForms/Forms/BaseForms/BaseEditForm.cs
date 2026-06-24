@@ -472,32 +472,6 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
         protected virtual void FocusControlByPropertyName(string propertyName)
         {
             var ctrl = FindControlByPropertyName(this.Controls, propertyName);
-            
-            if (ctrl == null)
-            {
-                // Yaygın DTO property -> UI Control Name mapping (İngilizce DTO -> Türkçe UI)
-                // Base sınıfta otomatik Focus işleminin tüm formlarda çalışması için akıllı tahmin.
-                var propertyMap = new System.Collections.Generic.Dictionary<string, string[]>()
-                {
-                    { "Code", new[] { "KullaniciAdi", "Kod" } },
-                    { "FirstName", new[] { "Ad", "Isim" } },
-                    { "LastName", new[] { "Soyad", "Soyisim" } },
-                    { "Password", new[] { "Sifre", "Parola" } },
-                    { "UserRoleId", new[] { "Rol", "Role" } },
-                    { "RoleId", new[] { "Rol", "Role" } },
-                    { "IsActive", new[] { "Durum", "Aktif" } },
-                    { "Description", new[] { "Aciklama", "Detay" } },
-                };
-
-                if (propertyMap.ContainsKey(propertyName))
-                {
-                    foreach (var mappedName in propertyMap[propertyName])
-                    {
-                        ctrl = FindControlByPropertyName(this.Controls, mappedName);
-                        if (ctrl != null) break;
-                    }
-                }
-            }
 
             if (ctrl != null) 
             {

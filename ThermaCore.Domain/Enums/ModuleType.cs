@@ -60,5 +60,9 @@ public enum ModuleType
 
     [Description("Sistem Lisansı")]
     [ParentModule(Parametreler)]
-    SystemLicense = 9
+    SystemLicense = 9,
+
+    [Description("Kullanıcı Arayüz Şablonları")]
+    [ParentModule(Parametreler)]
+    UserInterfaceTemplate = 10
 }

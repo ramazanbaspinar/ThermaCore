@@ -93,25 +93,6 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
             FormClosing += BaseListForm_FormClosing;
             LocationChanged += BaseListForm_LocationChanged;
             SizeChanged += BaseListForm_SizeChanged;
-
-            if (Tablo != null)
-            {
-                Tablo.PopupMenuShowing += Tablo_PopupMenuShowing;
-            }
-        }
-
-        private void Tablo_PopupMenuShowing(object? sender, DevExpress.XtraGrid.Views.Grid.PopupMenuShowingEventArgs e)
-        {
-            var menuItem = new DevExpress.Utils.Menu.DXMenuItem("Görünümü Varsayılana Sıfırla", (s, args) =>
-            {
-                Helpers.LayoutHelper.SifirlaGrid(Tablo);
-                if (_defaultLayoutStream != null)
-                {
-                    _defaultLayoutStream.Position = 0;
-                    Tablo.RestoreLayoutFromStream(_defaultLayoutStream);
-                }
-            });
-            e.Menu?.Items.Add(menuItem);
         }
 
         //Functions

@@ -1,5 +1,7 @@
 using System;
+using System.Globalization;
 using System.IO;
+using System.Threading;
 using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using Microsoft.Data.SqlClient;
@@ -24,6 +26,22 @@ internal static class Program
     [STAThread]
     static void Main()
     {
+        try
+        {
+            var cultureInfo = new CultureInfo("tr-TR");
+            Thread.CurrentThread.CurrentCulture = cultureInfo;
+            Thread.CurrentThread.CurrentUICulture = cultureInfo;
+            
+            CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+            CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+
+            DevExpress.Utils.FormatInfo.AlwaysUseThreadFormat = true;
+        }
+        catch
+        {
+            // Kültür bulunamazsa program çökmek yerine varsayılan olarak çalışmaya devam etsin.
+        }
+
         System.Windows.Forms.Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
         System.Windows.Forms.Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(Application_ThreadException);
         AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
@@ -92,6 +110,7 @@ internal static class Program
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TerminalForms.TerminalEditForm>();
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.ParametrelerForms.EmailParameterEditForm>();
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.ParametrelerForms.SystemLicenseEditForm>();
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.ParametrelerForms.UserInterfaceTemplateListForm>();
             })
             .Build();
 

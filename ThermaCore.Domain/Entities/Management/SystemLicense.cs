@@ -16,4 +16,6 @@ public class SystemLicense : AuditableEntity
     public string LicenseKey { get; set; } = string.Empty;
     
     public DateTime ExpirationDate { get; set; }
+    
+    public int MaxTerminalCount { get; set; }
 }
