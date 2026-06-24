@@ -34,9 +34,11 @@
             myGridView1 = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridView();
             colId = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colCihazAdi = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
-            colMacAdresi = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
+            colEthernetMacAddress = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colIpAdresi = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colAciklama = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
+            colWifiMacAddress = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
+            colVpnMacAddress = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             ((System.ComponentModel.ISupportInitialize)ribbon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)myGridControl1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)myGridView1).BeginInit();
@@ -74,7 +76,7 @@
             // 
             // myGridView1
             // 
-            myGridView1.Appearance.Empty.BackColor = Color.FromArgb(245, 245, 245);
+            myGridView1.Appearance.Empty.BackColor = Color.WhiteSmoke;
             myGridView1.Appearance.Empty.Font = new Font("Segoe UI", 9.75F);
             myGridView1.Appearance.Empty.Options.UseBackColor = true;
             myGridView1.Appearance.Empty.Options.UseFont = true;
@@ -116,7 +118,7 @@
             myGridView1.Appearance.ViewCaption.ForeColor = Color.FromArgb(64, 64, 64);
             myGridView1.Appearance.ViewCaption.Options.UseFont = true;
             myGridView1.Appearance.ViewCaption.Options.UseForeColor = true;
-            myGridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colId, colCihazAdi, colMacAdresi, colIpAdresi, colAciklama });
+            myGridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colId, colCihazAdi, colEthernetMacAddress, colWifiMacAddress, colVpnMacAddress, colIpAdresi, colAciklama });
             myGridView1.GridControl = myGridControl1;
             myGridView1.Name = "myGridView1";
             myGridView1.OptionsMenu.EnableColumnMenu = false;
@@ -137,6 +139,7 @@
             myGridView1.StatusBarAciklama = null;
             myGridView1.StatusBarKisaYol = null;
             myGridView1.StatusBarKisaYolAciklama = null;
+            myGridView1.ViewCaption = "Terminaller";
             // 
             // colId
             // 
@@ -170,26 +173,26 @@
             colCihazAdi.VisibleIndex = 0;
             colCihazAdi.Width = 175;
             // 
-            // colMacAdresi
+            // colEthernetMacAddress
             // 
-            colMacAdresi.AppearanceCell.Font = new Font("Segoe UI", 9.75F);
-            colMacAdresi.AppearanceCell.Options.UseFont = true;
-            colMacAdresi.AppearanceHeader.BackColor = Color.FromArgb(46, 134, 193);
-            colMacAdresi.AppearanceHeader.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
-            colMacAdresi.AppearanceHeader.ForeColor = Color.White;
-            colMacAdresi.AppearanceHeader.Options.UseBackColor = true;
-            colMacAdresi.AppearanceHeader.Options.UseFont = true;
-            colMacAdresi.AppearanceHeader.Options.UseForeColor = true;
-            colMacAdresi.Caption = "Mac Adresi";
-            colMacAdresi.FieldName = "MacAddress";
-            colMacAdresi.Name = "colMacAdresi";
-            colMacAdresi.OptionsColumn.AllowEdit = false;
-            colMacAdresi.StatusBarAciklama = null;
-            colMacAdresi.StatusBarKisaYol = null;
-            colMacAdresi.StatusBarKisaYolAciklama = null;
-            colMacAdresi.Visible = true;
-            colMacAdresi.VisibleIndex = 1;
-            colMacAdresi.Width = 175;
+            colEthernetMacAddress.AppearanceCell.Font = new Font("Segoe UI", 9.75F);
+            colEthernetMacAddress.AppearanceCell.Options.UseFont = true;
+            colEthernetMacAddress.AppearanceHeader.BackColor = Color.FromArgb(46, 134, 193);
+            colEthernetMacAddress.AppearanceHeader.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
+            colEthernetMacAddress.AppearanceHeader.ForeColor = Color.White;
+            colEthernetMacAddress.AppearanceHeader.Options.UseBackColor = true;
+            colEthernetMacAddress.AppearanceHeader.Options.UseFont = true;
+            colEthernetMacAddress.AppearanceHeader.Options.UseForeColor = true;
+            colEthernetMacAddress.Caption = "Ethernet Mac Adresi";
+            colEthernetMacAddress.FieldName = "EthernetMacAddress";
+            colEthernetMacAddress.Name = "colEthernetMacAddress";
+            colEthernetMacAddress.OptionsColumn.AllowEdit = false;
+            colEthernetMacAddress.StatusBarAciklama = null;
+            colEthernetMacAddress.StatusBarKisaYol = null;
+            colEthernetMacAddress.StatusBarKisaYolAciklama = null;
+            colEthernetMacAddress.Visible = true;
+            colEthernetMacAddress.VisibleIndex = 1;
+            colEthernetMacAddress.Width = 175;
             // 
             // colIpAdresi
             // 
@@ -209,7 +212,7 @@
             colIpAdresi.StatusBarKisaYol = null;
             colIpAdresi.StatusBarKisaYolAciklama = null;
             colIpAdresi.Visible = true;
-            colIpAdresi.VisibleIndex = 2;
+            colIpAdresi.VisibleIndex = 4;
             colIpAdresi.Width = 175;
             // 
             // colAciklama
@@ -230,8 +233,50 @@
             colAciklama.StatusBarKisaYol = null;
             colAciklama.StatusBarKisaYolAciklama = null;
             colAciklama.Visible = true;
-            colAciklama.VisibleIndex = 3;
+            colAciklama.VisibleIndex = 5;
             colAciklama.Width = 175;
+            // 
+            // colWifiMacAddress
+            // 
+            colWifiMacAddress.AppearanceCell.Font = new Font("Segoe UI", 9.75F);
+            colWifiMacAddress.AppearanceCell.Options.UseFont = true;
+            colWifiMacAddress.AppearanceHeader.BackColor = Color.FromArgb(46, 134, 193);
+            colWifiMacAddress.AppearanceHeader.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
+            colWifiMacAddress.AppearanceHeader.ForeColor = Color.White;
+            colWifiMacAddress.AppearanceHeader.Options.UseBackColor = true;
+            colWifiMacAddress.AppearanceHeader.Options.UseFont = true;
+            colWifiMacAddress.AppearanceHeader.Options.UseForeColor = true;
+            colWifiMacAddress.Caption = "Wifi Mac Adresi";
+            colWifiMacAddress.FieldName = "WifiMacAddress";
+            colWifiMacAddress.Name = "colWifiMacAddress";
+            colWifiMacAddress.OptionsColumn.AllowEdit = false;
+            colWifiMacAddress.StatusBarAciklama = null;
+            colWifiMacAddress.StatusBarKisaYol = null;
+            colWifiMacAddress.StatusBarKisaYolAciklama = null;
+            colWifiMacAddress.Visible = true;
+            colWifiMacAddress.VisibleIndex = 2;
+            colWifiMacAddress.Width = 175;
+            // 
+            // colVpnMacAddress
+            // 
+            colVpnMacAddress.AppearanceCell.Font = new Font("Segoe UI", 9.75F);
+            colVpnMacAddress.AppearanceCell.Options.UseFont = true;
+            colVpnMacAddress.AppearanceHeader.BackColor = Color.FromArgb(46, 134, 193);
+            colVpnMacAddress.AppearanceHeader.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
+            colVpnMacAddress.AppearanceHeader.ForeColor = Color.White;
+            colVpnMacAddress.AppearanceHeader.Options.UseBackColor = true;
+            colVpnMacAddress.AppearanceHeader.Options.UseFont = true;
+            colVpnMacAddress.AppearanceHeader.Options.UseForeColor = true;
+            colVpnMacAddress.Caption = "Vpn Mac Adresi";
+            colVpnMacAddress.FieldName = "VpnMacAddress";
+            colVpnMacAddress.Name = "colVpnMacAddress";
+            colVpnMacAddress.OptionsColumn.AllowEdit = false;
+            colVpnMacAddress.StatusBarAciklama = null;
+            colVpnMacAddress.StatusBarKisaYol = null;
+            colVpnMacAddress.StatusBarKisaYolAciklama = null;
+            colVpnMacAddress.Visible = true;
+            colVpnMacAddress.VisibleIndex = 3;
+            colVpnMacAddress.Width = 175;
             // 
             // TerminalListForm
             // 
@@ -260,8 +305,10 @@
         private UserControls.Grid.MyGridView myGridView1;
         private UserControls.Grid.MyGridColumn colId;
         private UserControls.Grid.MyGridColumn colCihazAdi;
-        private UserControls.Grid.MyGridColumn colMacAdresi;
+        private UserControls.Grid.MyGridColumn colEthernetMacAddress;
         private UserControls.Grid.MyGridColumn colIpAdresi;
         private UserControls.Grid.MyGridColumn colAciklama;
+        private UserControls.Grid.MyGridColumn colWifiMacAddress;
+        private UserControls.Grid.MyGridColumn colVpnMacAddress;
     }
 }

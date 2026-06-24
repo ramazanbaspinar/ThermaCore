@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             DevExpress.XtraLayout.ColumnDefinition columnDefinition1 = new DevExpress.XtraLayout.ColumnDefinition();
+            DevExpress.XtraLayout.ColumnDefinition columnDefinition2 = new DevExpress.XtraLayout.ColumnDefinition();
+            DevExpress.XtraLayout.ColumnDefinition columnDefinition3 = new DevExpress.XtraLayout.ColumnDefinition();
             DevExpress.XtraLayout.RowDefinition rowDefinition1 = new DevExpress.XtraLayout.RowDefinition();
             DevExpress.XtraLayout.RowDefinition rowDefinition2 = new DevExpress.XtraLayout.RowDefinition();
             DevExpress.XtraLayout.RowDefinition rowDefinition3 = new DevExpress.XtraLayout.RowDefinition();
@@ -37,6 +39,9 @@
             DevExpress.XtraLayout.RowDefinition rowDefinition6 = new DevExpress.XtraLayout.RowDefinition();
             DevExpress.XtraLayout.RowDefinition rowDefinition7 = new DevExpress.XtraLayout.RowDefinition();
             myDataLayoutControl1 = new ThermaCore.Presentation.WinForms.UserControls.MyDataLayoutControl();
+            tglDurum = new ThermaCore.Presentation.WinForms.UserControls.MyToggleSwitch();
+            txtVpnMacAdresi = new ThermaCore.Presentation.WinForms.UserControls.MyTextEdit();
+            txtWifiMacAdresi = new ThermaCore.Presentation.WinForms.UserControls.MyTextEdit();
             txtKod = new ThermaCore.Presentation.WinForms.UserControls.MyKodTextEdit();
             txtAciklama = new ThermaCore.Presentation.WinForms.UserControls.MyMemoEdit();
             txtIpAdresi = new ThermaCore.Presentation.WinForms.UserControls.MyTextEdit();
@@ -48,13 +53,15 @@
             layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
-            txtWifiMacAdresi = new ThermaCore.Presentation.WinForms.UserControls.MyTextEdit();
             layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
-            txtVpnMacAdresi = new ThermaCore.Presentation.WinForms.UserControls.MyTextEdit();
             layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
+            layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)ribbon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)myDataLayoutControl1).BeginInit();
             myDataLayoutControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)tglDurum.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtVpnMacAdresi.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtWifiMacAdresi.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtKod.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtAciklama.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtIpAdresi.Properties).BeginInit();
@@ -66,10 +73,9 @@
             ((System.ComponentModel.ISupportInitialize)layoutControlItem3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem4).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem5).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)txtWifiMacAdresi.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem6).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)txtVpnMacAdresi.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem7).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem8).BeginInit();
             SuspendLayout();
             // 
             // ribbon
@@ -81,6 +87,7 @@
             // myDataLayoutControl1
             // 
             myDataLayoutControl1.AllowCustomization = false;
+            myDataLayoutControl1.Controls.Add(tglDurum);
             myDataLayoutControl1.Controls.Add(txtVpnMacAdresi);
             myDataLayoutControl1.Controls.Add(txtWifiMacAdresi);
             myDataLayoutControl1.Controls.Add(txtKod);
@@ -93,9 +100,77 @@
             myDataLayoutControl1.Name = "myDataLayoutControl1";
             myDataLayoutControl1.OptionsFocus.EnableAutoTabOrder = false;
             myDataLayoutControl1.Root = Root;
-            myDataLayoutControl1.Size = new Size(398, 226);
+            myDataLayoutControl1.Size = new Size(398, 215);
             myDataLayoutControl1.TabIndex = 0;
             myDataLayoutControl1.Text = "myDataLayoutControl1";
+            // 
+            // tglDurum
+            // 
+            tglDurum.EnterMoveNextControl = true;
+            tglDurum.Location = new Point(274, 12);
+            tglDurum.MenuManager = ribbon;
+            tglDurum.Name = "tglDurum";
+            tglDurum.Properties.Appearance.Font = new Font("Segoe UI", 9F);
+            tglDurum.Properties.Appearance.Options.UseFont = true;
+            tglDurum.Properties.AppearanceDisabled.Font = new Font("Segoe UI", 9F);
+            tglDurum.Properties.AppearanceDisabled.Options.UseFont = true;
+            tglDurum.Properties.AppearanceFocused.Font = new Font("Segoe UI", 9F);
+            tglDurum.Properties.AppearanceFocused.Options.UseFont = true;
+            tglDurum.Properties.AppearanceReadOnly.Font = new Font("Segoe UI", 9F);
+            tglDurum.Properties.AppearanceReadOnly.Options.UseFont = true;
+            tglDurum.Properties.AutoHeight = false;
+            tglDurum.Properties.AutoWidth = true;
+            tglDurum.Properties.GlyphAlignment = DevExpress.Utils.HorzAlignment.Far;
+            tglDurum.Properties.OffText = "Pasif";
+            tglDurum.Properties.OnText = "Aktif";
+            tglDurum.Size = new Size(85, 27);
+            tglDurum.StatusBarAciklama = "Kayıtın Kullanım Durumunu Seçiniz.";
+            tglDurum.StyleController = myDataLayoutControl1;
+            tglDurum.TabIndex = 6;
+            // 
+            // txtVpnMacAdresi
+            // 
+            txtVpnMacAdresi.EnterMoveNextControl = true;
+            txtVpnMacAdresi.Location = new Point(130, 136);
+            txtVpnMacAdresi.MenuManager = ribbon;
+            txtVpnMacAdresi.Name = "txtVpnMacAdresi";
+            txtVpnMacAdresi.Properties.Appearance.Font = new Font("Segoe UI", 9F);
+            txtVpnMacAdresi.Properties.Appearance.Options.UseFont = true;
+            txtVpnMacAdresi.Properties.AppearanceDisabled.Font = new Font("Segoe UI", 9F);
+            txtVpnMacAdresi.Properties.AppearanceDisabled.Options.UseFont = true;
+            txtVpnMacAdresi.Properties.AppearanceFocused.BackColor = Color.FromArgb(255, 255, 192);
+            txtVpnMacAdresi.Properties.AppearanceFocused.Font = new Font("Segoe UI", 9F);
+            txtVpnMacAdresi.Properties.AppearanceFocused.Options.UseBackColor = true;
+            txtVpnMacAdresi.Properties.AppearanceFocused.Options.UseFont = true;
+            txtVpnMacAdresi.Properties.AppearanceReadOnly.Font = new Font("Segoe UI", 9F);
+            txtVpnMacAdresi.Properties.AppearanceReadOnly.Options.UseFont = true;
+            txtVpnMacAdresi.Properties.MaxLength = 100;
+            txtVpnMacAdresi.Size = new Size(239, 22);
+            txtVpnMacAdresi.StatusBarAciklama = null;
+            txtVpnMacAdresi.StyleController = myDataLayoutControl1;
+            txtVpnMacAdresi.TabIndex = 3;
+            // 
+            // txtWifiMacAdresi
+            // 
+            txtWifiMacAdresi.EnterMoveNextControl = true;
+            txtWifiMacAdresi.Location = new Point(130, 105);
+            txtWifiMacAdresi.MenuManager = ribbon;
+            txtWifiMacAdresi.Name = "txtWifiMacAdresi";
+            txtWifiMacAdresi.Properties.Appearance.Font = new Font("Segoe UI", 9F);
+            txtWifiMacAdresi.Properties.Appearance.Options.UseFont = true;
+            txtWifiMacAdresi.Properties.AppearanceDisabled.Font = new Font("Segoe UI", 9F);
+            txtWifiMacAdresi.Properties.AppearanceDisabled.Options.UseFont = true;
+            txtWifiMacAdresi.Properties.AppearanceFocused.BackColor = Color.FromArgb(255, 255, 192);
+            txtWifiMacAdresi.Properties.AppearanceFocused.Font = new Font("Segoe UI", 9F);
+            txtWifiMacAdresi.Properties.AppearanceFocused.Options.UseBackColor = true;
+            txtWifiMacAdresi.Properties.AppearanceFocused.Options.UseFont = true;
+            txtWifiMacAdresi.Properties.AppearanceReadOnly.Font = new Font("Segoe UI", 9F);
+            txtWifiMacAdresi.Properties.AppearanceReadOnly.Options.UseFont = true;
+            txtWifiMacAdresi.Properties.MaxLength = 100;
+            txtWifiMacAdresi.Size = new Size(239, 22);
+            txtWifiMacAdresi.StatusBarAciklama = null;
+            txtWifiMacAdresi.StyleController = myDataLayoutControl1;
+            txtWifiMacAdresi.TabIndex = 2;
             // 
             // txtKod
             // 
@@ -118,10 +193,11 @@
             txtKod.Properties.AppearanceReadOnly.Font = new Font("Segoe UI", 9F);
             txtKod.Properties.AppearanceReadOnly.Options.UseFont = true;
             txtKod.Properties.MaxLength = 100;
-            txtKod.Size = new Size(239, 22);
+            txtKod.Properties.ReadOnly = true;
+            txtKod.Size = new Size(130, 22);
             txtKod.StatusBarAciklama = "Kod Giriniz.";
             txtKod.StyleController = myDataLayoutControl1;
-            txtKod.TabIndex = 6;
+            txtKod.TabIndex = 7;
             txtKod.Tag = "Code";
             // 
             // txtAciklama
@@ -222,12 +298,16 @@
             // 
             Root.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
             Root.GroupBordersVisible = false;
-            Root.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] { layoutControlItem1, layoutControlItem2, layoutControlItem3, layoutControlItem4, layoutControlItem5, layoutControlItem6, layoutControlItem7 });
+            Root.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] { layoutControlItem1, layoutControlItem2, layoutControlItem3, layoutControlItem4, layoutControlItem5, layoutControlItem6, layoutControlItem7, layoutControlItem8 });
             Root.LayoutMode = DevExpress.XtraLayout.Utils.LayoutMode.Table;
             Root.Name = "Root";
             columnDefinition1.SizeType = SizeType.Percent;
             columnDefinition1.Width = 100D;
-            Root.OptionsTableLayoutGroup.ColumnDefinitions.AddRange(new DevExpress.XtraLayout.ColumnDefinition[] { columnDefinition1 });
+            columnDefinition2.SizeType = SizeType.Absolute;
+            columnDefinition2.Width = 10D;
+            columnDefinition3.SizeType = SizeType.Absolute;
+            columnDefinition3.Width = 99D;
+            Root.OptionsTableLayoutGroup.ColumnDefinitions.AddRange(new DevExpress.XtraLayout.ColumnDefinition[] { columnDefinition1, columnDefinition2, columnDefinition3 });
             rowDefinition1.Height = 31D;
             rowDefinition1.SizeType = SizeType.Absolute;
             rowDefinition2.Height = 31D;
@@ -253,6 +333,7 @@
             layoutControlItem1.Control = txtCihazAdi;
             layoutControlItem1.Location = new Point(0, 31);
             layoutControlItem1.Name = "layoutControlItem1";
+            layoutControlItem1.OptionsTableLayoutItem.ColumnSpan = 3;
             layoutControlItem1.OptionsTableLayoutItem.RowIndex = 1;
             layoutControlItem1.Size = new Size(361, 31);
             layoutControlItem1.Text = "Cihaz Adı";
@@ -265,6 +346,7 @@
             layoutControlItem2.Control = txtEthernetMacAdresi;
             layoutControlItem2.Location = new Point(0, 62);
             layoutControlItem2.Name = "layoutControlItem2";
+            layoutControlItem2.OptionsTableLayoutItem.ColumnSpan = 3;
             layoutControlItem2.OptionsTableLayoutItem.RowIndex = 2;
             layoutControlItem2.Size = new Size(361, 31);
             layoutControlItem2.Text = "Ethernet Mac Adresi";
@@ -277,6 +359,7 @@
             layoutControlItem3.Control = txtIpAdresi;
             layoutControlItem3.Location = new Point(0, 155);
             layoutControlItem3.Name = "layoutControlItem3";
+            layoutControlItem3.OptionsTableLayoutItem.ColumnSpan = 3;
             layoutControlItem3.OptionsTableLayoutItem.RowIndex = 5;
             layoutControlItem3.Size = new Size(361, 31);
             layoutControlItem3.Text = "IP Adresi";
@@ -289,6 +372,7 @@
             layoutControlItem4.Control = txtAciklama;
             layoutControlItem4.Location = new Point(0, 186);
             layoutControlItem4.Name = "layoutControlItem4";
+            layoutControlItem4.OptionsTableLayoutItem.ColumnSpan = 3;
             layoutControlItem4.OptionsTableLayoutItem.RowIndex = 6;
             layoutControlItem4.Size = new Size(361, 22);
             layoutControlItem4.Text = "Açıklama";
@@ -301,31 +385,9 @@
             layoutControlItem5.Control = txtKod;
             layoutControlItem5.Location = new Point(0, 0);
             layoutControlItem5.Name = "layoutControlItem5";
-            layoutControlItem5.Size = new Size(361, 31);
+            layoutControlItem5.Size = new Size(252, 31);
             layoutControlItem5.Text = "Kod";
             layoutControlItem5.TextSize = new Size(106, 15);
-            // 
-            // txtWifiMacAdresi
-            // 
-            txtWifiMacAdresi.EnterMoveNextControl = true;
-            txtWifiMacAdresi.Location = new Point(130, 105);
-            txtWifiMacAdresi.MenuManager = ribbon;
-            txtWifiMacAdresi.Name = "txtWifiMacAdresi";
-            txtWifiMacAdresi.Properties.Appearance.Font = new Font("Segoe UI", 9F);
-            txtWifiMacAdresi.Properties.Appearance.Options.UseFont = true;
-            txtWifiMacAdresi.Properties.AppearanceDisabled.Font = new Font("Segoe UI", 9F);
-            txtWifiMacAdresi.Properties.AppearanceDisabled.Options.UseFont = true;
-            txtWifiMacAdresi.Properties.AppearanceFocused.BackColor = Color.FromArgb(255, 255, 192);
-            txtWifiMacAdresi.Properties.AppearanceFocused.Font = new Font("Segoe UI", 9F);
-            txtWifiMacAdresi.Properties.AppearanceFocused.Options.UseBackColor = true;
-            txtWifiMacAdresi.Properties.AppearanceFocused.Options.UseFont = true;
-            txtWifiMacAdresi.Properties.AppearanceReadOnly.Font = new Font("Segoe UI", 9F);
-            txtWifiMacAdresi.Properties.AppearanceReadOnly.Options.UseFont = true;
-            txtWifiMacAdresi.Properties.MaxLength = 100;
-            txtWifiMacAdresi.Size = new Size(239, 22);
-            txtWifiMacAdresi.StatusBarAciklama = null;
-            txtWifiMacAdresi.StyleController = myDataLayoutControl1;
-            txtWifiMacAdresi.TabIndex = 2;
             // 
             // layoutControlItem6
             // 
@@ -334,32 +396,11 @@
             layoutControlItem6.Control = txtWifiMacAdresi;
             layoutControlItem6.Location = new Point(0, 93);
             layoutControlItem6.Name = "layoutControlItem6";
+            layoutControlItem6.OptionsTableLayoutItem.ColumnSpan = 3;
             layoutControlItem6.OptionsTableLayoutItem.RowIndex = 3;
             layoutControlItem6.Size = new Size(361, 31);
             layoutControlItem6.Text = "Wifi Mac Adresi";
             layoutControlItem6.TextSize = new Size(106, 15);
-            // 
-            // txtVpnMacAdresi
-            // 
-            txtVpnMacAdresi.EnterMoveNextControl = true;
-            txtVpnMacAdresi.Location = new Point(130, 136);
-            txtVpnMacAdresi.MenuManager = ribbon;
-            txtVpnMacAdresi.Name = "txtVpnMacAdresi";
-            txtVpnMacAdresi.Properties.Appearance.Font = new Font("Segoe UI", 9F);
-            txtVpnMacAdresi.Properties.Appearance.Options.UseFont = true;
-            txtVpnMacAdresi.Properties.AppearanceDisabled.Font = new Font("Segoe UI", 9F);
-            txtVpnMacAdresi.Properties.AppearanceDisabled.Options.UseFont = true;
-            txtVpnMacAdresi.Properties.AppearanceFocused.BackColor = Color.FromArgb(255, 255, 192);
-            txtVpnMacAdresi.Properties.AppearanceFocused.Font = new Font("Segoe UI", 9F);
-            txtVpnMacAdresi.Properties.AppearanceFocused.Options.UseBackColor = true;
-            txtVpnMacAdresi.Properties.AppearanceFocused.Options.UseFont = true;
-            txtVpnMacAdresi.Properties.AppearanceReadOnly.Font = new Font("Segoe UI", 9F);
-            txtVpnMacAdresi.Properties.AppearanceReadOnly.Options.UseFont = true;
-            txtVpnMacAdresi.Properties.MaxLength = 100;
-            txtVpnMacAdresi.Size = new Size(239, 22);
-            txtVpnMacAdresi.StatusBarAciklama = null;
-            txtVpnMacAdresi.StyleController = myDataLayoutControl1;
-            txtVpnMacAdresi.TabIndex = 3;
             // 
             // layoutControlItem7
             // 
@@ -368,19 +409,31 @@
             layoutControlItem7.Control = txtVpnMacAdresi;
             layoutControlItem7.Location = new Point(0, 124);
             layoutControlItem7.Name = "layoutControlItem7";
+            layoutControlItem7.OptionsTableLayoutItem.ColumnSpan = 3;
             layoutControlItem7.OptionsTableLayoutItem.RowIndex = 4;
             layoutControlItem7.Size = new Size(361, 31);
             layoutControlItem7.Text = "VPN Mac Adresi";
             layoutControlItem7.TextSize = new Size(106, 15);
             // 
+            // layoutControlItem8
+            // 
+            layoutControlItem8.AppearanceItemCaption.Font = new Font("Segoe UI", 9F);
+            layoutControlItem8.AppearanceItemCaption.Options.UseFont = true;
+            layoutControlItem8.Control = tglDurum;
+            layoutControlItem8.Location = new Point(262, 0);
+            layoutControlItem8.Name = "layoutControlItem8";
+            layoutControlItem8.OptionsTableLayoutItem.ColumnIndex = 2;
+            layoutControlItem8.Size = new Size(99, 31);
+            layoutControlItem8.TextVisible = false;
+            // 
             // TerminalEditForm
             // 
             AutoScaleDimensions = new SizeF(6F, 13F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(398, 385);
+            ClientSize = new Size(398, 374);
             Controls.Add(myDataLayoutControl1);
             IconOptions.ShowIcon = false;
-            MinimumSize = new Size(400, 300);
+            MinimumSize = new Size(400, 375);
             Name = "TerminalEditForm";
             Text = "Terminal Tanım";
             Controls.SetChildIndex(ribbon, 0);
@@ -388,6 +441,9 @@
             ((System.ComponentModel.ISupportInitialize)ribbon).EndInit();
             ((System.ComponentModel.ISupportInitialize)myDataLayoutControl1).EndInit();
             myDataLayoutControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)tglDurum.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtVpnMacAdresi.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtWifiMacAdresi.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtKod.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtAciklama.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtIpAdresi.Properties).EndInit();
@@ -399,10 +455,9 @@
             ((System.ComponentModel.ISupportInitialize)layoutControlItem3).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem4).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem5).EndInit();
-            ((System.ComponentModel.ISupportInitialize)txtWifiMacAdresi.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem6).EndInit();
-            ((System.ComponentModel.ISupportInitialize)txtVpnMacAdresi.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem7).EndInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem8).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -425,5 +480,7 @@
         private UserControls.MyTextEdit txtWifiMacAdresi;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem6;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem7;
+        private UserControls.MyToggleSwitch tglDurum;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem8;
     }
 }

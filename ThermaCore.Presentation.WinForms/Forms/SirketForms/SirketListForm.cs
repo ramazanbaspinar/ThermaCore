@@ -37,6 +37,8 @@ namespace ThermaCore.Presentation.WinForms.Forms.SirketForms
 
         protected override void DegiskenleriDoldur()
         {
+            BaseKartTuru = ThermaCore.Domain.Enums.ModuleType.SirketTanimlari;
+            
             if (IsMdiChild)
                 ShowItems = new DevExpress.XtraBars.BarItem[] { btnBagliKayitlar };
         }

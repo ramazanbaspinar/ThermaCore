@@ -42,6 +42,22 @@ public class TenantDatabaseSetupManager : ITenantDatabaseSetupService
             _validator.ValidateAndThrow(tenant);
         }
 
+        string masterConnectionString = $"Server={tenant.Server};Database=master;TrustServerCertificate=True;Encrypt=False;";
+        if (tenant.AuthType == AuthenticationType.Windows)
+        {
+            masterConnectionString += "Integrated Security=True;";
+        }
+        else
+        {
+            masterConnectionString += $"User Id={tenant.Username};Password={tenant.Password};Integrated Security=False;";
+        }
+
+        bool dbExists = await _tenantDatabaseService.CheckDatabaseExistsAsync(masterConnectionString, tenant.DatabaseName);
+        if (dbExists)
+        {
+            throw new global::System.Exception($"Belirttiğiniz '{tenant.DatabaseName}' veritabanı, '{tenant.Server}' sunucusunda zaten mevcut. Lütfen yeni bir veritabanı adı belirleyiniz.");
+        }
+
         string connectionString = $"Server={tenant.Server};Database={tenant.DatabaseName};TrustServerCertificate=True;Encrypt=False;";
 
         if (tenant.AuthType == AuthenticationType.Windows)

@@ -285,9 +285,10 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
             bool hasInsert = authService.HasPermission(BaseKartTuru, PermissionType.CanAdd);
             bool hasUpdate = authService.HasPermission(BaseKartTuru, PermissionType.CanEdit);
             bool hasDelete = authService.HasPermission(BaseKartTuru, PermissionType.CanDelete);
+            bool hasRead = authService.HasPermission(BaseKartTuru, PermissionType.CanView);
 
             if (btnYeni != null && !hasInsert) btnYeni.Enabled = false;
-            if (btnDuzelt != null && !hasUpdate) btnDuzelt.Enabled = false;
+            if (btnDuzelt != null && !hasRead) btnDuzelt.Enabled = false;
             if (btnSil != null && !hasDelete) btnSil.Enabled = false;
         }
 
@@ -332,9 +333,27 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
 
         protected virtual void Button_ItemClick(object? sender, ItemClickEventArgs e)
         {
-            Cursor.Current = Cursors.WaitCursor;
+            if (IsDesignMode) return;
 
             var name = e.Item.Name;
+
+            if (Program.ServiceProvider != null && (int)BaseKartTuru != 0)
+            {
+                var authService = (ThermaCore.Application.Services.Management.IAuthService?)Program.ServiceProvider.GetService(typeof(ThermaCore.Application.Services.Management.IAuthService));
+                if (authService != null)
+                {
+                    bool hasInsert = authService.HasPermission(BaseKartTuru, PermissionType.CanAdd);
+                    bool hasUpdate = authService.HasPermission(BaseKartTuru, PermissionType.CanEdit);
+                    bool hasDelete = authService.HasPermission(BaseKartTuru, PermissionType.CanDelete);
+                    bool hasRead = authService.HasPermission(BaseKartTuru, PermissionType.CanView);
+
+                    if (name == "btnYeni" && !hasInsert) { Messages.UyariMesaji("Bu işlem için yetkiniz bulunmamaktadır."); return; }
+                    if (name == "btnSil" && !hasDelete) { Messages.UyariMesaji("Bu işlem için yetkiniz bulunmamaktadır."); return; }
+                    if (name == "btnDuzelt" && !hasRead) { Messages.UyariMesaji("Bu işlem (Görüntüleme) için yetkiniz bulunmamaktadır."); return; }
+                }
+            }
+
+            Cursor.Current = Cursors.WaitCursor;
 
             if (name == "btnStandartExcelDosyasi")
                 TabloDisariAktar("ExcelStandart");

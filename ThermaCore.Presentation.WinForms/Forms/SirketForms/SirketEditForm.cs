@@ -33,6 +33,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.SirketForms
             _tenantDatabaseCrudService = tenantDatabaseCrudService;
             _uow = uow;
             _cryptoService = cryptoService;
+            this.BaseKartTuru = ThermaCore.Domain.Enums.ModuleType.SirketTanimlari;
         }
 
         // BaseForm'daki protected Id alanına dışarıdan müdahale edip ShowDialog yapabilmek için 

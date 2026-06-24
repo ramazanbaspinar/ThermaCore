@@ -101,6 +101,7 @@
             txtKod.Properties.AppearanceReadOnly.Font = new Font("Segoe UI", 9F);
             txtKod.Properties.AppearanceReadOnly.Options.UseFont = true;
             txtKod.Properties.MaxLength = 100;
+            txtKod.Properties.ReadOnly = true;
             txtKod.Size = new Size(169, 22);
             txtKod.StatusBarAciklama = "Kod Giriniz.";
             txtKod.StyleController = myDataLayoutControl1;

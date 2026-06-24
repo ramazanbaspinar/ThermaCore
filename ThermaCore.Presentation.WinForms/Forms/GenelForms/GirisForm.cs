@@ -121,9 +121,16 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
                     gluSirket.Properties.DataSource = tenants;
                     gluSirket.Properties.DisplayMember = "CompanyName"; // DB'den gelen Şirket Adı kolonu
                     gluSirket.Properties.ValueMember = "Id";     // DB'den gelen Şirket Id kolonu
+                    
+                    if (gluSirket.EditValue != null && !tenants.Any(t => t.Id == Convert.ToInt64(gluSirket.EditValue)))
+                    {
+                        gluSirket.EditValue = null;
+                    }
                 }
                 else
                 {
+                    gluSirket.Properties.DataSource = null;
+                    gluSirket.EditValue = null;
                     Messages.UyariBasligi("Bu kullanıcıya tanımlı herhangi bir şirket (Tenant) bulunamadı.", "Uyarı");
                 }
             }

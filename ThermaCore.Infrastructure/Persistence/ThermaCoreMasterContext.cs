@@ -16,10 +16,7 @@ public class ThermaCoreMasterContext : DbContext
     {
     }
 
-    public DbSet<UserRole> UserRoles { get; set; }
     public DbSet<User> Users { get; set; }
-    public DbSet<ModulePermission> ModulePermissions { get; set; }
-    public DbSet<UserPermission> UserPermissions { get; set; }
     public DbSet<Terminal> Terminals { get; set; }
     public DbSet<UserSession> UserSessions { get; set; }
     public DbSet<TenantDatabase> TenantDatabases { get; set; }

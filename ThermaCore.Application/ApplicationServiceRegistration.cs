@@ -18,7 +18,6 @@ public static class ApplicationServiceRegistration
         // Manager (Service) Sınıflarının Kayıtları
         services.AddScoped<IAuthService, AuthManager>();
         services.AddScoped<IUserService, UserManager>();
-        services.AddScoped<IUserRoleService, UserRoleManager>();
         services.AddScoped<ITerminalService, TerminalManager>();
         services.AddScoped<IBranchService, BranchManager>();
         services.AddScoped<ThermaCore.Application.Interfaces.Security.IRoleService, ThermaCore.Application.Services.Security.RoleManager>();

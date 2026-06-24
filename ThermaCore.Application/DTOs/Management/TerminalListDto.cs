@@ -5,6 +5,7 @@ namespace ThermaCore.Application.DTOs.Management;
 
 public class TerminalListDto : BaseDto
 {
+    public string DeviceName { get; set; } = string.Empty;
     public string EthernetMacAddress { get; set; } = string.Empty;
     public string WifiMacAddress { get; set; } = string.Empty;
     public string VpnMacAddress { get; set; } = string.Empty;

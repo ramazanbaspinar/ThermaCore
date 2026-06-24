@@ -555,6 +555,11 @@ namespace ThermaCore.Presentation.WinForms.Forms.YetkilendirmeForms
                 
                 return true;
             }
+            catch (FluentValidation.ValidationException ex)
+            {
+                Messages.UyariMesaji(string.Join("\n", System.Linq.Enumerable.Select(ex.Errors, e => e.ErrorMessage)));
+                return false;
+            }
             catch (Exception ex)
             {
                 Messages.HataMesaji(ex.Message);

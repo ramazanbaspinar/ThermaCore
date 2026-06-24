@@ -295,6 +295,7 @@
             txtRolKodu.Properties.AppearanceReadOnly.Font = new Font("Segoe UI", 9F);
             txtRolKodu.Properties.AppearanceReadOnly.Options.UseFont = true;
             txtRolKodu.Properties.MaxLength = 100;
+            txtRolKodu.Properties.ReadOnly = true;
             txtRolKodu.Size = new Size(408, 22);
             txtRolKodu.StatusBarAciklama = "Kod Giriniz.";
             txtRolKodu.StyleController = myDataLayoutControl1;

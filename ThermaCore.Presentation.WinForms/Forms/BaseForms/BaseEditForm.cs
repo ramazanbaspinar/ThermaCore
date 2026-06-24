@@ -28,6 +28,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
         private bool _isSaving = false;
         protected bool _isBinding = false;
         protected bool _isCheckedListBoxModified = false;
+        protected bool _geriAlKapat = false;
         protected object DataLayoutControl = default!;
         protected object[] DataLayoutControls = default!;
         protected object Bll = default!;
@@ -67,14 +68,52 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
 
             bool hasInsert = authService.HasPermission(BaseKartTuru, PermissionType.CanAdd);
             bool hasUpdate = authService.HasPermission(BaseKartTuru, PermissionType.CanEdit);
+            bool hasDelete = authService.HasPermission(BaseKartTuru, PermissionType.CanDelete);
 
             if (BaseIslemTuru == ActionType.EntityInsert && !hasInsert)
             {
-                btnKaydet.Enabled = false;
+                if (btnKaydet != null) btnKaydet.Enabled = false;
+                if (btnYeni != null) btnYeni.Enabled = false;
+                if (btnSil != null) btnSil.Enabled = false;
             }
             else if (BaseIslemTuru == ActionType.EntityUpdate && !hasUpdate)
             {
-                btnKaydet.Enabled = false;
+                if (btnKaydet != null) btnKaydet.Enabled = false;
+                if (btnGerial != null) btnGerial.Enabled = false;
+                if (btnYeni != null) btnYeni.Enabled = false;
+                if (btnSil != null) btnSil.Enabled = false;
+
+                LockFormControls(this.Controls);
+                
+                if (!this.Text.Contains("[SADECE GÖRÜNTÜLEME]"))
+                {
+                    this.Text += " [SADECE GÖRÜNTÜLEME]";
+                }
+            }
+            else
+            {
+                if (btnYeni != null && !hasInsert) btnYeni.Enabled = false;
+                if (btnSil != null && !hasDelete) btnSil.Enabled = false;
+            }
+        }
+
+        protected virtual void LockFormControls(Control.ControlCollection controls)
+        {
+            foreach (Control control in controls)
+            {
+                if (control is DevExpress.XtraEditors.BaseEdit baseEdit)
+                {
+                    baseEdit.Properties.ReadOnly = true;
+                }
+                else if (control is DevExpress.XtraGrid.GridControl gridControl)
+                {
+                    gridControl.Enabled = false;
+                }
+
+                if (control.Controls.Count > 0)
+                {
+                    LockFormControls(control.Controls);
+                }
             }
         }
 
@@ -213,20 +252,8 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
             }
             else
             {
-                btnKaydet.Enabled = false;
-                btnGerial.Enabled = false;
-                btnYeni.Enabled = true;
-                btnSil.Enabled = true;
-                btnYenile.Enabled = true;
-                
-                _isBinding = true;
-                Yukle();
-                YetkiKontroluYap();
-                GuncelNesneOlustur();
-                _isBinding = false;
-                
-                OldEntity = CurrentEntity;
-                ResetControlIsModified(this.Controls);
+                _geriAlKapat = true;
+                Close();
             }
             Cursor.Current = Cursors.Default;
         }
@@ -236,89 +263,91 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
             if (_isSaving) return true;
             _isSaving = true;
 
-            bool KayitIslemi()
+            try
             {
-                Cursor.Current = Cursors.WaitCursor;
+                bool KayitIslemi()
+                {
+                    Cursor.Current = Cursors.WaitCursor;
 
-                try
-                {
-                    switch (BaseIslemTuru)
+                    try
                     {
-                        case ActionType.EntityInsert:
-                            UretilecekKoduHazirla();
-                            if (EntityInsert())
-                                return KayitSonrasiIslemler();
-                            break;
+                        switch (BaseIslemTuru)
+                        {
+                            case ActionType.EntityInsert:
+                                UretilecekKoduHazirla();
+                                if (EntityInsert())
+                                    return KayitSonrasiIslemler();
+                                break;
 
-                        case ActionType.EntityUpdate:
-                            if (EntityUpdate())
-                                return KayitSonrasiIslemler();
-                            break;
+                            case ActionType.EntityUpdate:
+                                if (EntityUpdate())
+                                    return KayitSonrasiIslemler();
+                                break;
+                        }
                     }
-                }
-                catch (FluentValidation.ValidationException ex)
-                {
-                    System.Linq.Enumerable.FirstOrDefault(ex.Errors);
-                    Messages.UyariMesaji(string.Join("\n", System.Linq.Enumerable.Select(ex.Errors, e => e.ErrorMessage)));
-                    var firstError = System.Linq.Enumerable.FirstOrDefault(ex.Errors);
-                    if (firstError != null)
+                    catch (FluentValidation.ValidationException ex)
                     {
-                        FocusControlByPropertyName(firstError.PropertyName);
+                        System.Linq.Enumerable.FirstOrDefault(ex.Errors);
+                        Messages.UyariMesaji(string.Join("\n", System.Linq.Enumerable.Select(ex.Errors, e => e.ErrorMessage)));
+                        var firstError = System.Linq.Enumerable.FirstOrDefault(ex.Errors);
+                        if (firstError != null)
+                        {
+                            FocusControlByPropertyName(firstError.PropertyName);
+                        }
                     }
+                    finally
+                    {
+                        Cursor.Current = Cursors.Default;
+                    }
+
+                    return false;
                 }
-                finally
+
+                bool KayitSonrasiIslemler()
                 {
-                    Cursor.Current = Cursors.Default;
+                    OldEntity = CurrentEntity;
+                    RefreshYapilacak = true;
+                    
+                    BaseIslemTuru = BaseIslemTuru == ActionType.EntityInsert ? ActionType.EntityUpdate : BaseIslemTuru;
+                    ButonEnabledDurumu();
+
+                    KodKullanildiKaydet();
+
+                    if (KayitSonrasiFormuKapat && kapanis)
+                        Close();
+                    else
+                    {
+                        _isBinding = true;
+                        Yukle();
+                        _isBinding = false;
+                        ResetControlIsModified(this.Controls);
+                    }
+
+                    return true;
+                }
+
+                GuncelNesneOlustur();
+
+                var result = prompt ? (kapanis ? Messages.KapanisMesaj() : Messages.KayitMesaj()) : DialogResult.Yes;
+
+                switch (result)
+                {
+                    case DialogResult.Yes:
+                        return KayitIslemi();
+
+                    case DialogResult.No:
+                        return true;
+
+                    case DialogResult.Cancel:
+                        return false;
                 }
 
                 return false;
             }
-
-            bool KayitSonrasiIslemler()
+            finally
             {
-                OldEntity = CurrentEntity;
-                RefreshYapilacak = true;
-                
-                BaseIslemTuru = BaseIslemTuru == ActionType.EntityInsert ? ActionType.EntityUpdate : BaseIslemTuru;
-                ButonEnabledDurumu();
-
-                KodKullanildiKaydet();
-
-                if (KayitSonrasiFormuKapat && kapanis)
-                    Close();
-                else
-                {
-                    _isBinding = true;
-                    Yukle();
-                    _isBinding = false;
-                    ResetControlIsModified(this.Controls);
-                }
-
-                return true;
+                _isSaving = false;
             }
-
-            GuncelNesneOlustur();
-
-            var result = prompt ? (kapanis ? Messages.KapanisMesaj() : Messages.KayitMesaj()) : DialogResult.Yes;
-
-            switch (result)
-            {
-                case DialogResult.Yes:
-                    var resYes = KayitIslemi();
-                    _isSaving = false;
-                    return resYes;
-
-                case DialogResult.No:
-                    _isSaving = false;
-                    return true;
-
-                case DialogResult.Cancel:
-                    _isSaving = false;
-                    return false;
-            }
-
-            _isSaving = false;
-            return false;
         }
 
         private void SablonYukle()
@@ -437,6 +466,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
         {
             if (!IsLoaded) return;
             UIExtensions.ButtonEnabledDurumu(btnYeni, btnKaydet, btnGerial, btnSil, btnYenile, btnYazdir, btnYazdir2, OldEntity, CurrentEntity, BaseIslemTuru);
+            YetkiKontroluYap();
         }
 
         protected virtual void FocusControlByPropertyName(string propertyName)
@@ -453,7 +483,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
                     { "FirstName", new[] { "Ad", "Isim" } },
                     { "LastName", new[] { "Soyad", "Soyisim" } },
                     { "Password", new[] { "Sifre", "Parola" } },
-                    { "UserRoleId", new[] { "Rol", "UserRole" } },
+                    { "UserRoleId", new[] { "Rol", "Role" } },
                     { "RoleId", new[] { "Rol", "Role" } },
                     { "IsActive", new[] { "Durum", "Aktif" } },
                     { "Description", new[] { "Aciklama", "Detay" } },
@@ -495,9 +525,28 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
         {
             if (IsDesignMode) return;
 
-            Cursor.Current = Cursors.WaitCursor;
-
             var name = e.Item.Name;
+
+            if (Program.ServiceProvider != null && (int)BaseKartTuru != 0)
+            {
+                var authService = (ThermaCore.Application.Services.Management.IAuthService?)Program.ServiceProvider.GetService(typeof(ThermaCore.Application.Services.Management.IAuthService));
+                if (authService != null)
+                {
+                    bool hasInsert = authService.HasPermission(BaseKartTuru, PermissionType.CanAdd);
+                    bool hasUpdate = authService.HasPermission(BaseKartTuru, PermissionType.CanEdit);
+                    bool hasDelete = authService.HasPermission(BaseKartTuru, PermissionType.CanDelete);
+
+                    if (name == "btnYeni" && !hasInsert) { Messages.UyariMesaji("Bu işlem için yetkiniz bulunmamaktadır."); return; }
+                    if (name == "btnSil" && !hasDelete) { Messages.UyariMesaji("Bu işlem için yetkiniz bulunmamaktadır."); return; }
+                    if (name == "btnKaydet" || name == "btnFarkliKaydet")
+                    {
+                        if (BaseIslemTuru == ActionType.EntityInsert && !hasInsert) { Messages.UyariMesaji("Bu işlem için yetkiniz bulunmamaktadır."); return; }
+                        if (BaseIslemTuru == ActionType.EntityUpdate && !hasUpdate) { Messages.UyariMesaji("Bu işlem için yetkiniz bulunmamaktadır."); return; }
+                    }
+                }
+            }
+
+            Cursor.Current = Cursors.WaitCursor;
 
             if (name == "btnYeni")
             {
@@ -578,6 +627,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
             ButonGizleGoster();
 
             ApplyCodeTemplateLogic();
+            YetkiKontroluYap();
         }
 
         protected virtual void ApplyCodeTemplateLogic()
@@ -625,7 +675,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
             if (FormSablonKaydet)
                 SablonKaydet();
 
-            if (_isSaving || btnKaydet.Visibility == DevExpress.XtraBars.BarItemVisibility.Never || !btnKaydet.Enabled) return;
+            if (_geriAlKapat || _isSaving || btnKaydet.Visibility == DevExpress.XtraBars.BarItemVisibility.Never || !btnKaydet.Enabled) return;
 
             if (!Kaydet(true)) e.Cancel = true;
         }

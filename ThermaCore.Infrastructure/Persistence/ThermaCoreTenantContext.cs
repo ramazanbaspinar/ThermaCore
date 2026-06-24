@@ -29,12 +29,9 @@ public class ThermaCoreTenantContext : DbContext
 
         // Ghost tablolari engellemek icin (Tenant db'de Master tabloları olmaz)
         modelBuilder.Ignore<ThermaCore.Domain.Entities.Management.User>();
-        modelBuilder.Ignore<ThermaCore.Domain.Entities.Management.UserRole>();
         modelBuilder.Ignore<ThermaCore.Domain.Entities.Security.Role>();
         modelBuilder.Ignore<ThermaCore.Domain.Entities.Management.Terminal>();
         modelBuilder.Ignore<ThermaCore.Domain.Entities.Management.TenantDatabase>();
-        modelBuilder.Ignore<ThermaCore.Domain.Entities.Management.ModulePermission>();
-        modelBuilder.Ignore<ThermaCore.Domain.Entities.Management.UserPermission>();
         modelBuilder.Ignore<ThermaCore.Domain.Entities.Security.RolePermission>();
         modelBuilder.Ignore<ThermaCore.Domain.Entities.System.UserSession>();
         modelBuilder.Ignore<ThermaCore.Domain.Entities.Management.Branch>();

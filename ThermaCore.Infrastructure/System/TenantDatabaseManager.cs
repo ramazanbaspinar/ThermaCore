@@ -28,4 +28,18 @@ public class TenantDatabaseManager : ITenantDatabaseService
             await context.Database.MigrateAsync();
         }
     }
+
+    public async Task<bool> CheckDatabaseExistsAsync(string masterConnectionString, string databaseName)
+    {
+        using (var connection = new Microsoft.Data.SqlClient.SqlConnection(masterConnectionString))
+        {
+            await connection.OpenAsync();
+            using (var cmd = connection.CreateCommand())
+            {
+                cmd.CommandText = $"SELECT db_id('{databaseName.Replace("'", "''")}')";
+                var result = await cmd.ExecuteScalarAsync();
+                return result != global::System.DBNull.Value && result != null;
+            }
+        }
+    }
 }

@@ -34,9 +34,8 @@
             myGridView1 = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridView();
             colId = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colKod = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
-            colKullaniciAdi = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
-            colAdSoyad = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colYetkiGruplariRoller = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
+            colFullName = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             ((System.ComponentModel.ISupportInitialize)ribbon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)myGridControl1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)myGridView1).BeginInit();
@@ -74,7 +73,7 @@
             // 
             // myGridView1
             // 
-            myGridView1.Appearance.Empty.BackColor = Color.FromArgb(245, 245, 245);
+            myGridView1.Appearance.Empty.BackColor = Color.WhiteSmoke;
             myGridView1.Appearance.Empty.Font = new Font("Segoe UI", 9.75F);
             myGridView1.Appearance.Empty.Options.UseBackColor = true;
             myGridView1.Appearance.Empty.Options.UseFont = true;
@@ -116,7 +115,7 @@
             myGridView1.Appearance.ViewCaption.ForeColor = Color.FromArgb(64, 64, 64);
             myGridView1.Appearance.ViewCaption.Options.UseFont = true;
             myGridView1.Appearance.ViewCaption.Options.UseForeColor = true;
-            myGridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colId, colKod, colKullaniciAdi, colAdSoyad, colYetkiGruplariRoller });
+            myGridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colId, colKod, colFullName, colYetkiGruplariRoller });
             myGridView1.GridControl = myGridControl1;
             myGridView1.Name = "myGridView1";
             myGridView1.OptionsMenu.EnableColumnMenu = false;
@@ -171,48 +170,6 @@
             colKod.VisibleIndex = 0;
             colKod.Width = 175;
             // 
-            // colKullaniciAdi
-            // 
-            colKullaniciAdi.AppearanceCell.Font = new Font("Segoe UI", 9.75F);
-            colKullaniciAdi.AppearanceCell.Options.UseFont = true;
-            colKullaniciAdi.AppearanceHeader.BackColor = Color.FromArgb(46, 134, 193);
-            colKullaniciAdi.AppearanceHeader.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
-            colKullaniciAdi.AppearanceHeader.ForeColor = Color.White;
-            colKullaniciAdi.AppearanceHeader.Options.UseBackColor = true;
-            colKullaniciAdi.AppearanceHeader.Options.UseFont = true;
-            colKullaniciAdi.AppearanceHeader.Options.UseForeColor = true;
-            colKullaniciAdi.Caption = "Kullanıcı Adı";
-            colKullaniciAdi.FieldName = "Username";
-            colKullaniciAdi.Name = "colKullaniciAdi";
-            colKullaniciAdi.OptionsColumn.AllowEdit = false;
-            colKullaniciAdi.StatusBarAciklama = null;
-            colKullaniciAdi.StatusBarKisaYol = null;
-            colKullaniciAdi.StatusBarKisaYolAciklama = null;
-            colKullaniciAdi.Visible = true;
-            colKullaniciAdi.VisibleIndex = 1;
-            colKullaniciAdi.Width = 175;
-            // 
-            // colAdSoyad
-            // 
-            colAdSoyad.AppearanceCell.Font = new Font("Segoe UI", 9.75F);
-            colAdSoyad.AppearanceCell.Options.UseFont = true;
-            colAdSoyad.AppearanceHeader.BackColor = Color.FromArgb(46, 134, 193);
-            colAdSoyad.AppearanceHeader.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
-            colAdSoyad.AppearanceHeader.ForeColor = Color.White;
-            colAdSoyad.AppearanceHeader.Options.UseBackColor = true;
-            colAdSoyad.AppearanceHeader.Options.UseFont = true;
-            colAdSoyad.AppearanceHeader.Options.UseForeColor = true;
-            colAdSoyad.Caption = "Ad Soyad";
-            colAdSoyad.FieldName = "FullName";
-            colAdSoyad.Name = "colAdSoyad";
-            colAdSoyad.OptionsColumn.AllowEdit = false;
-            colAdSoyad.StatusBarAciklama = null;
-            colAdSoyad.StatusBarKisaYol = null;
-            colAdSoyad.StatusBarKisaYolAciklama = null;
-            colAdSoyad.Visible = true;
-            colAdSoyad.VisibleIndex = 2;
-            colAdSoyad.Width = 175;
-            // 
             // colYetkiGruplariRoller
             // 
             colYetkiGruplariRoller.AppearanceCell.Font = new Font("Segoe UI", 9.75F);
@@ -231,8 +188,31 @@
             colYetkiGruplariRoller.StatusBarKisaYol = null;
             colYetkiGruplariRoller.StatusBarKisaYolAciklama = null;
             colYetkiGruplariRoller.Visible = true;
-            colYetkiGruplariRoller.VisibleIndex = 3;
+            colYetkiGruplariRoller.VisibleIndex = 2;
             colYetkiGruplariRoller.Width = 175;
+            // 
+            // colFullName
+            // 
+            colFullName.AppearanceCell.Font = new Font("Segoe UI", 9.75F);
+            colFullName.AppearanceCell.Options.UseFont = true;
+            colFullName.AppearanceHeader.BackColor = Color.FromArgb(46, 134, 193);
+            colFullName.AppearanceHeader.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
+            colFullName.AppearanceHeader.ForeColor = Color.White;
+            colFullName.AppearanceHeader.Options.UseBackColor = true;
+            colFullName.AppearanceHeader.Options.UseFont = true;
+            colFullName.AppearanceHeader.Options.UseForeColor = true;
+            colFullName.Caption = "Ad Soyad";
+            colFullName.FieldName = "colFullName";
+            colFullName.Name = "colFullName";
+            colFullName.OptionsColumn.AllowEdit = false;
+            colFullName.StatusBarAciklama = null;
+            colFullName.StatusBarKisaYol = null;
+            colFullName.StatusBarKisaYolAciklama = null;
+            colFullName.UnboundDataType = typeof(string);
+            colFullName.UnboundExpression = "[FirstName] + ' ' + [LastName]";
+            colFullName.Visible = true;
+            colFullName.VisibleIndex = 1;
+            colFullName.Width = 175;
             // 
             // KullaniciListForm
             // 
@@ -261,8 +241,7 @@
         private UserControls.Grid.MyGridView myGridView1;
         private UserControls.Grid.MyGridColumn colId;
         private UserControls.Grid.MyGridColumn colKod;
-        private UserControls.Grid.MyGridColumn colKullaniciAdi;
-        private UserControls.Grid.MyGridColumn colAdSoyad;
         private UserControls.Grid.MyGridColumn colYetkiGruplariRoller;
+        private UserControls.Grid.MyGridColumn colFullName;
     }
 }

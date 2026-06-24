@@ -49,6 +49,8 @@ public class MasterUnitOfWork : IMasterUnitOfWork
 
     private void HandleDbUpdateException(DbUpdateException ex)
     {
+        _context.ChangeTracker.Clear();
+
         var sqlEx = ex.InnerException as Microsoft.Data.SqlClient.SqlException ?? 
                     ex.InnerException?.InnerException as Microsoft.Data.SqlClient.SqlException;
 
@@ -57,20 +59,20 @@ public class MasterUnitOfWork : IMasterUnitOfWork
             switch (sqlEx.Number)
             {
                 case 208:
-                    throw new global::System.Exception("İşlem yapmak istediğiniz tablo veritabanında bulunamadı.");
+                    throw new global::System.Exception("İşlem Başarısız: İşlem yapmak istediğiniz tablo veritabanında bulunamadı.");
                 case 547:
-                    throw new global::System.Exception("Seçilen kaydın işlem görmüş hareketleri (bağlı kayıtları) var. Bu kayıt silinemez.");
+                    throw new global::System.Exception("İşlem Başarısız: Seçilen kaydın işlem görmüş hareketleri (bağlı kayıtları) var. Bu kayıt silinemez.");
                 case 2601:
                 case 2627:
-                    throw new global::System.Exception("Girmiş olduğunuz Kod veya benzersiz (Unique) alan daha önceden kullanılmıştır. Lütfen farklı bir değer giriniz.");
+                    throw new global::System.Exception("İşlem Başarısız: Girmiş olduğunuz Kod veya benzersiz (Unique) alan daha önceden kullanılmıştır. Lütfen farklı bir değer giriniz.");
                 case 4060:
-                    throw new global::System.Exception("İşlem yapmak istediğiniz veritabanı sunucuda bulunamadı.");
+                    throw new global::System.Exception("İşlem Başarısız: İşlem yapmak istediğiniz veritabanı sunucuda bulunamadı.");
                 case 18456:
-                    throw new global::System.Exception("Veritabanına bağlanmak istediğiniz kullanıcı adı veya şifre hatalıdır.");
+                    throw new global::System.Exception("İşlem Başarısız: Veritabanına bağlanmak istediğiniz kullanıcı adı veya şifre hatalıdır.");
                 default:
-                    throw new global::System.Exception(sqlEx.Message);
+                    throw new global::System.Exception("İşlem Başarısız: " + sqlEx.Message);
             }
         }
-        throw new global::System.Exception(ex.InnerException?.Message ?? ex.Message);
+        throw new global::System.Exception("İşlem Başarısız: " + (ex.InnerException?.Message ?? ex.Message));
     }
 }

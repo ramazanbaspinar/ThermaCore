@@ -18,9 +18,7 @@ public class AuthManager : IAuthService
     private readonly IMasterRepository<UserTenant> _userTenantRepository;
     private readonly IMasterRepository<UserBranch> _userBranchRepository;
     private readonly IMasterRepository<Branch> _branchRepository;
-    private readonly IMasterRepository<UserPermission> _userPermissionRepository;
     private readonly IMasterRepository<RolePermission> _rolePermissionRepository;
-    private readonly IMasterRepository<UserRole> _userRoleRepository;
     private readonly ThermaCore.Application.Interfaces.System.ICurrentTenantService _currentTenantService;
     private readonly ICryptoService _cryptoService;
     private readonly IMapper _mapper;
@@ -32,9 +30,7 @@ public class AuthManager : IAuthService
         IMasterRepository<UserTenant> userTenantRepository,
         IMasterRepository<UserBranch> userBranchRepository,
         IMasterRepository<Branch> branchRepository,
-        IMasterRepository<UserPermission> userPermissionRepository,
         IMasterRepository<RolePermission> rolePermissionRepository,
-        IMasterRepository<UserRole> userRoleRepository,
         ThermaCore.Application.Interfaces.System.ICurrentTenantService currentTenantService,
         ICryptoService cryptoService,
         IMapper mapper)
@@ -45,9 +41,7 @@ public class AuthManager : IAuthService
         _userTenantRepository = userTenantRepository;
         _userBranchRepository = userBranchRepository;
         _branchRepository = branchRepository;
-        _userPermissionRepository = userPermissionRepository;
         _rolePermissionRepository = rolePermissionRepository;
-        _userRoleRepository = userRoleRepository;
         _currentTenantService = currentTenantService;
         _cryptoService = cryptoService;
         _mapper = mapper;
@@ -185,22 +179,6 @@ public class AuthManager : IAuthService
 
         long tenantId = _currentTenantService.TenantId;
 
-        // Kullanıcı bazlı özel yetki kontrolü
-        var userPermission = _userPermissionRepository.Find(up => 
-            up.UserId == userId && 
-            up.Module == moduleType).FirstOrDefault();
-
-        if (userPermission != null)
-        {
-            return permissionType switch
-            {
-                ThermaCore.Domain.Enums.PermissionType.CanView => userPermission.CanView == 1,
-                ThermaCore.Domain.Enums.PermissionType.CanAdd => userPermission.CanAdd == 1,
-                ThermaCore.Domain.Enums.PermissionType.CanEdit => userPermission.CanEdit == 1,
-                ThermaCore.Domain.Enums.PermissionType.CanDelete => userPermission.CanDelete == 1,
-                _ => false
-            };
-        }
 
         // Rol bazlı yetki kontrolü
         long roleId = user.UserRoleId;

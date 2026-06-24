@@ -8,9 +8,6 @@ public class ManagementProfile : Profile
 {
     public ManagementProfile()
     {
-        CreateMap<UserRole, UserRoleDto>().ReverseMap();
-        CreateMap<UserRole, UserRoleListDto>();
-
         CreateMap<User, UserDto>()
             .ForMember(dest => dest.RoleName, opt => opt.MapFrom(src => src.Role != null ? src.Role.RoleName : string.Empty))
             .ReverseMap()
@@ -21,8 +18,6 @@ public class ManagementProfile : Profile
         CreateMap<User, UserListDto>()
             .ForMember(x => x.RoleName, opt => opt.Ignore());
 
-        CreateMap<ModulePermission, ModulePermissionListDto>().ReverseMap();
-        CreateMap<UserPermission, UserPermissionListDto>().ReverseMap();
         CreateMap<UserTenant, UserTenantDto>().ReverseMap();
         CreateMap<UserBranch, UserBranchDto>().ReverseMap();
         
