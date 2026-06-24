@@ -7,6 +7,7 @@ using ThermaCore.Application.Interfaces.Repositories;
 using ThermaCore.Application.Interfaces.Security;
 using ThermaCore.Domain.Entities.Management;
 using ThermaCore.Domain.Entities.Security;
+using ThermaCore.Domain.Entities.System;
 
 namespace ThermaCore.Application.Services.Management;
 
@@ -19,6 +20,8 @@ public class AuthManager : IAuthService
     private readonly IMasterRepository<UserBranch> _userBranchRepository;
     private readonly IMasterRepository<Branch> _branchRepository;
     private readonly IMasterRepository<RolePermission> _rolePermissionRepository;
+    private readonly IMasterRepository<UserSession> _userSessionRepository;
+    private readonly IMasterUnitOfWork _uow;
     private readonly ThermaCore.Application.Interfaces.System.ICurrentTenantService _currentTenantService;
     private readonly ICryptoService _cryptoService;
     private readonly IMapper _mapper;
@@ -33,7 +36,9 @@ public class AuthManager : IAuthService
         IMasterRepository<RolePermission> rolePermissionRepository,
         ThermaCore.Application.Interfaces.System.ICurrentTenantService currentTenantService,
         ICryptoService cryptoService,
-        IMapper mapper)
+        IMapper mapper,
+        IMasterRepository<UserSession> userSessionRepository,
+        IMasterUnitOfWork uow)
     {
         _userRepository = userRepository;
         _tenantRepository = tenantRepository;
@@ -45,6 +50,8 @@ public class AuthManager : IAuthService
         _currentTenantService = currentTenantService;
         _cryptoService = cryptoService;
         _mapper = mapper;
+        _userSessionRepository = userSessionRepository;
+        _uow = uow;
     }
 
     public Task<List<TenantDatabaseDto>> GetAllowedTenantsByUsernameAsync(string username)
@@ -101,6 +108,35 @@ public class AuthManager : IAuthService
         // Güvenlik gereği AuthType'a göre Windows Authentication veya SQL Authentication stringi oluşturulabilir.
         string decryptedPassword = string.IsNullOrEmpty(tenant.Password) ? "" : _cryptoService.Decrypt(tenant.Password);
         result.TenantConnectionString = $"Server={tenant.Server};Database={tenant.DatabaseName};User Id={tenant.Username};Password={decryptedPassword};TrustServerCertificate=True;";
+
+        // Update Terminal IP
+        var info = ThermaCore.Domain.Helpers.NetworkHelper.GetHardwareFingerprints();
+        var allActiveMacs = info.AllMacs;
+        var terminals = _terminalRepository.Find(t => t.IsActive).ToList();
+        var currentTerminal = terminals.FirstOrDefault(t => allActiveMacs.Contains(t.EthernetMacAddress) || allActiveMacs.Contains(t.WifiMacAddress) || allActiveMacs.Contains(t.VpnMacAddress));
+        if (currentTerminal != null)
+        {
+            currentTerminal.IpAddress = ThermaCore.Domain.Helpers.NetworkHelper.GetLocalIpAddress();
+            _terminalRepository.Update(currentTerminal);
+        }
+
+        // Add User Session
+        var session = new UserSession
+        {
+            Id = ThermaCore.Domain.Helpers.IdGenerator.GenerateId(),
+            UserId = user.Id,
+            LoginTime = global::System.DateTime.Now,
+            IpAddress = ThermaCore.Domain.Helpers.NetworkHelper.GetLocalIpAddress(),
+            ComputerName = global::System.Environment.MachineName,
+            Status = ThermaCore.Domain.Enums.SessionStatus.Active,
+            CreatedUserId = user.Id,
+            CreatedDate = global::System.DateTime.Now
+        };
+        _userSessionRepository.Add(session);
+        _uow.SaveChanges();
+
+        // Store Session Id in result to be handled by Presentation layer
+        result.SessionId = session.Id;
 
         return Task.FromResult(result);
     }

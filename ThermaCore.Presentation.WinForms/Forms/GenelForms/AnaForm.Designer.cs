@@ -47,6 +47,8 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             menuStrip1 = new MenuStrip();
             txtDovizBilgisi = new ToolStripMenuItem();
             btnAnaFormResim = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyPictureEdit();
+            miEmailParameter = new ToolStripMenuItem();
+            miSystemLicense = new ToolStripMenuItem();
             menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)xtraTabbedMdiManager).BeginInit();
             menuStrip1.SuspendLayout();
@@ -125,7 +127,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 
             // miParametreler
             // 
-            miParametreler.DropDownItems.AddRange(new ToolStripItem[] { miGenelSistemParametreleri, miKullaniciParametreleri, miCodeTemplatelari });
+            miParametreler.DropDownItems.AddRange(new ToolStripItem[] { miGenelSistemParametreleri, miKullaniciParametreleri, miCodeTemplatelari, miEmailParameter, miSystemLicense });
             miParametreler.Name = "miParametreler";
             miParametreler.Size = new Size(222, 22);
             miParametreler.Tag = "Parametreler";
@@ -203,6 +205,20 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             btnAnaFormResim.StatusBarKisaYolAciklama = null;
             btnAnaFormResim.TabIndex = 3;
             // 
+            // miEmailParameter
+            // 
+            miEmailParameter.Name = "miEmailParameter";
+            miEmailParameter.Size = new Size(233, 22);
+            miEmailParameter.Tag = "EmailParameter";
+            miEmailParameter.Text = "E-Mail Parametreleri";
+            // 
+            // miSystemLicense
+            // 
+            miSystemLicense.Name = "miSystemLicense";
+            miSystemLicense.Size = new Size(233, 22);
+            miSystemLicense.Tag = "SystemLicense";
+            miSystemLicense.Text = "Sistem Lisansı";
+            // 
             // AnaForm
             // 
             Appearance.BackColor = SystemColors.Control;
@@ -259,5 +275,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
         private ToolStripMenuItem miGenelSistemParametreleri;
         private ToolStripMenuItem miKullaniciParametreleri;
         private ToolStripMenuItem miCodeTemplatelari;
+        private ToolStripMenuItem miEmailParameter;
+        private ToolStripMenuItem miSystemLicense;
     }
 }

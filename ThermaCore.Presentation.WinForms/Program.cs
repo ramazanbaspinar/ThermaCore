@@ -19,6 +19,7 @@ namespace ThermaCore.Presentation.WinForms;
 internal static class Program
 {
     public static IServiceProvider ServiceProvider { get; private set; } = default!;
+    public static long? CurrentSessionId { get; set; }
 
     [STAThread]
     static void Main()
@@ -89,6 +90,8 @@ internal static class Program
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.KullaniciForms.KullaniciEditForm>();
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TerminalForms.TerminalListForm>();
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TerminalForms.TerminalEditForm>();
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.ParametrelerForms.EmailParameterEditForm>();
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.ParametrelerForms.SystemLicenseEditForm>();
             })
             .Build();
 

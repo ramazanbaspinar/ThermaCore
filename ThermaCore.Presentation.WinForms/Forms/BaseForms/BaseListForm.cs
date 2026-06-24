@@ -24,6 +24,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
         protected long _filtreId;
         private bool _formSablonKayitEdilecek;
         private bool _tabloSablonKayitEdilecek;
+        private System.IO.MemoryStream? _defaultLayoutStream;
         protected bool AktifKartlariGoster = true;
         protected object FormShow = default!;
         protected ModuleType BaseKartTuru;
@@ -92,6 +93,25 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
             FormClosing += BaseListForm_FormClosing;
             LocationChanged += BaseListForm_LocationChanged;
             SizeChanged += BaseListForm_SizeChanged;
+
+            if (Tablo != null)
+            {
+                Tablo.PopupMenuShowing += Tablo_PopupMenuShowing;
+            }
+        }
+
+        private void Tablo_PopupMenuShowing(object? sender, DevExpress.XtraGrid.Views.Grid.PopupMenuShowingEventArgs e)
+        {
+            var menuItem = new DevExpress.Utils.Menu.DXMenuItem("Görünümü Varsayılana Sıfırla", (s, args) =>
+            {
+                Helpers.LayoutHelper.SifirlaGrid(Tablo);
+                if (_defaultLayoutStream != null)
+                {
+                    _defaultLayoutStream.Position = 0;
+                    Tablo.RestoreLayoutFromStream(_defaultLayoutStream);
+                }
+            });
+            e.Menu?.Items.Add(menuItem);
         }
 
         //Functions
@@ -132,7 +152,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
         private void SablonKaydet()
         {
             if (_formSablonKayitEdilecek) Helpers.LayoutHelper.KaydetForm(this);
-            if (_tabloSablonKayitEdilecek) Helpers.LayoutHelper.KaydetGrid(Tablo);
+            if (_tabloSablonKayitEdilecek && Tablo != null) Helpers.LayoutHelper.KaydetGrid(Tablo);
         }
 
         private void SablonYukle()
@@ -515,7 +535,16 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
         {
             if (IsDesignMode) return;
             Yukle();
+            
+            if (Tablo != null)
+            {
+                _defaultLayoutStream = new System.IO.MemoryStream();
+                Tablo.SaveLayoutToStream(_defaultLayoutStream);
+                _defaultLayoutStream.Position = 0;
+            }
+            
             SablonYukle();
+            FormCaptionAyarla();
         }
 
         private void BaseListForm_FormClosing(object? sender, FormClosingEventArgs e)

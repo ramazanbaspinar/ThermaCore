@@ -14,4 +14,9 @@ public class LayoutManager : ILayoutService
         // Veritabanından XML layout geri yükleme işlemi
         return string.Empty;
     }
+
+    public void DeleteLayout(long kullaniciId, string formAdi, string kontrolAdi)
+    {
+        // Silme işlemi
+    }
 }

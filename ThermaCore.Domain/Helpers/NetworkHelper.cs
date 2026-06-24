@@ -61,4 +61,17 @@ public static class NetworkHelper
         var info = GetHardwareFingerprints();
         return info.EthernetMacs.FirstOrDefault() ?? info.WifiMacs.FirstOrDefault() ?? info.VpnMacs.FirstOrDefault() ?? string.Empty;
     }
+
+    public static string GetLocalIpAddress()
+    {
+        var host = System.Net.Dns.GetHostEntry(System.Net.Dns.GetHostName());
+        foreach (var ip in host.AddressList)
+        {
+            if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+            {
+                return ip.ToString();
+            }
+        }
+        return "127.0.0.1";
+    }
 }

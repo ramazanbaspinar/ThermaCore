@@ -1,0 +1,18 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using ThermaCore.Domain.Entities.Management;
+
+namespace ThermaCore.Infrastructure.Persistence.Configurations.Management;
+
+public class SystemLicenseConfiguration : IEntityTypeConfiguration<SystemLicense>, IMasterEntityConfiguration
+{
+    public void Configure(EntityTypeBuilder<SystemLicense> builder)
+    {
+        builder.ToTable("SystemLicenses");
+        builder.HasKey(x => x.Id);
+        
+        builder.Property(x => x.ServerMacAddress).HasMaxLength(100).IsRequired();
+        builder.Property(x => x.ServerCpuId).HasMaxLength(100).IsRequired();
+        builder.Property(x => x.LicenseKey).HasMaxLength(500).IsRequired();
+    }
+}

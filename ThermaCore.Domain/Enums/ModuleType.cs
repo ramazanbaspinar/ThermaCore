@@ -52,5 +52,13 @@ public enum ModuleType
 
     [Description("Kod Üretim Logları")]
     [ParentModule(Parametreler)]
-    KodLog = 7
+    KodLog = 7,
+
+    [Description("E-Mail Parametreleri")]
+    [ParentModule(Parametreler)]
+    EmailParameter = 8,
+
+    [Description("Sistem Lisansı")]
+    [ParentModule(Parametreler)]
+    SystemLicense = 9
 }

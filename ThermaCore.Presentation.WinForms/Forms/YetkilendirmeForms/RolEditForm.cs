@@ -65,6 +65,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.YetkilendirmeForms
             treeList1.NodeCellStyle += TreeList1_NodeCellStyle;
             treeList1.CustomNodeCellEdit += TreeList1_CustomNodeCellEdit;
             treeList1.CustomDrawNodeCheckBox += TreeList1_CustomDrawNodeCheckBox;
+            treeList1.BeforeCheckNode += TreeList1_BeforeCheckNode;
             treeList1.ShowingEditor += TreeList1_ShowingEditor;
             repositoryItemButtonEdit1.ButtonClick += RepositoryItemButtonEdit1_ButtonClick;
             
@@ -106,6 +107,15 @@ namespace ThermaCore.Presentation.WinForms.Forms.YetkilendirmeForms
                 ButonEnabledDurumu();
             };
             treeList1.AfterCheckNode += TreeList1_AfterCheckNode;
+
+            // İlk yüklemede, parent (Modül ve Klasör) check durumlarını çocukların durumuna göre gerçek zamanlı düzelt (E-mail vs için)
+            foreach (DevExpress.XtraTreeList.Nodes.TreeListNode node in treeList1.GetNodeList())
+            {
+                if (!node.HasChildren)
+                {
+                    UpdateParentChecked(node);
+                }
+            }
         }
 
         private void SetChildrenChecked(DevExpress.XtraTreeList.Nodes.TreeListNode node, bool isChecked)
@@ -113,7 +123,22 @@ namespace ThermaCore.Presentation.WinForms.Forms.YetkilendirmeForms
             foreach (DevExpress.XtraTreeList.Nodes.TreeListNode child in node.Nodes)
             {
                 var pTypeObj = child.GetValue("PermissionType");
+                var modObj = child.GetValue("ModuleId");
+
                 if (pTypeObj != null && (pTypeObj.ToString() == "Special" || pTypeObj.ToString() == "5")) continue;
+
+                if (pTypeObj != null && modObj != null)
+                {
+                    var modType = (ModuleType)Convert.ToInt32(modObj);
+                    if (modType == ModuleType.EmailParameter || modType == ModuleType.SystemLicense)
+                    {
+                        if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" || 
+                            pTypeObj.ToString() == "Delete" || pTypeObj.ToString() == "3")
+                        {
+                            continue; // Bu yetkiler yok sayılır
+                        }
+                    }
+                }
                 
                 child.Checked = isChecked;
                 child.SetValue("IsChecked", isChecked);
@@ -132,7 +157,22 @@ namespace ThermaCore.Presentation.WinForms.Forms.YetkilendirmeForms
                 foreach (DevExpress.XtraTreeList.Nodes.TreeListNode child in node.ParentNode.Nodes)
                 {
                     var pTypeObj = child.GetValue("PermissionType");
+                    var modObj = child.GetValue("ModuleId");
+
                     if (pTypeObj != null && (pTypeObj.ToString() == "Special" || pTypeObj.ToString() == "5")) continue;
+
+                    if (pTypeObj != null && modObj != null)
+                    {
+                        var modType = (ModuleType)Convert.ToInt32(modObj);
+                        if (modType == ModuleType.EmailParameter || modType == ModuleType.SystemLicense)
+                        {
+                            if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" || 
+                                pTypeObj.ToString() == "Delete" || pTypeObj.ToString() == "3")
+                            {
+                                continue; // Sayıma katma!
+                            }
+                        }
+                    }
                     
                     validCount++;
                     if (child.Checked) checkedCount++;
@@ -231,12 +271,44 @@ namespace ThermaCore.Presentation.WinForms.Forms.YetkilendirmeForms
             }
         }
 
+        private void TreeList1_BeforeCheckNode(object sender, DevExpress.XtraTreeList.CheckNodeEventArgs e)
+        {
+            var pTypeObj = e.Node.GetValue("PermissionType");
+            var modObj = e.Node.GetValue("ModuleId");
+            if (pTypeObj != null && modObj != null)
+            {
+                var modType = (ModuleType)Convert.ToInt32(modObj);
+                if (modType == ModuleType.EmailParameter || modType == ModuleType.SystemLicense)
+                {
+                    if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" || 
+                        pTypeObj.ToString() == "Delete" || pTypeObj.ToString() == "3")
+                    {
+                        e.CanCheck = false; // Prevent checking
+                    }
+                }
+            }
+        }
+
         private void TreeList1_CustomDrawNodeCheckBox(object sender, DevExpress.XtraTreeList.CustomDrawNodeCheckBoxEventArgs e)
         {
             var pTypeObj = e.Node.GetValue("PermissionType");
+            var modObj = e.Node.GetValue("ModuleId");
+
             if (pTypeObj != null && (pTypeObj.ToString() == "Special" || pTypeObj.ToString() == "5"))
             {
                 e.Handled = true; // Özel yetkiler satırında CheckBox çizme
+            }
+            else if (pTypeObj != null && modObj != null)
+            {
+                var modType = (ModuleType)Convert.ToInt32(modObj);
+                if (modType == ModuleType.EmailParameter || modType == ModuleType.SystemLicense)
+                {
+                    if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" || 
+                        pTypeObj.ToString() == "Delete" || pTypeObj.ToString() == "3")
+                    {
+                        e.Handled = true; // Boş/Kare çizme (Checkbox gizlenir, anlamsız olur)
+                    }
+                }
             }
         }
 

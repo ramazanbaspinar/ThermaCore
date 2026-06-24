@@ -43,6 +43,20 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             FormClosing += AnaForm_FormClosing;
             KeyDown += Control_KeyDown;
             
+            if (miEmailParameter != null)
+                miEmailParameter.Click += (s, e) => 
+                {
+                    var form = _serviceProvider.GetRequiredService<ThermaCore.Presentation.WinForms.Forms.ParametrelerForms.EmailParameterEditForm>();
+                    form.ShowDialog();
+                };
+            
+            if (miSystemLicense != null)
+                miSystemLicense.Click += (s, e) => 
+                {
+                    var form = _serviceProvider.GetRequiredService<ThermaCore.Presentation.WinForms.Forms.ParametrelerForms.SystemLicenseEditForm>();
+                    form.ShowDialog();
+                };
+            
             // Dinamik Yükleme Click Eventleri
             if (miSirketTanimlari != null)
                 miSirketTanimlari.Click += miSirketTanimlari_Click;
@@ -81,8 +95,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
 
             if (_programiOtomatikKapat)
             {
-                // TODO: await _sessionService.EndSessionAsync(currentUserId);
-                System.Windows.Forms.Application.ExitThread();
+                CloseSessionAndExit();
             }
             else
             {
@@ -91,14 +104,40 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
 
                 if (cevap == DialogResult.Yes)
                 {
-                    // TODO: await _sessionService.EndSessionAsync(currentUserId);
-                    System.Windows.Forms.Application.ExitThread();
+                    CloseSessionAndExit();
                 }
                 else
                 {
                     e.Cancel = true;
                 }
             }
+        }
+
+        private void CloseSessionAndExit()
+        {
+            if (Program.CurrentSessionId.HasValue)
+            {
+                try
+                {
+                    using var scope = _serviceProvider.CreateScope();
+                    var repo = scope.ServiceProvider.GetRequiredService<ThermaCore.Application.Interfaces.Repositories.IMasterRepository<ThermaCore.Domain.Entities.System.UserSession>>();
+                    var uow = scope.ServiceProvider.GetRequiredService<ThermaCore.Application.Interfaces.Repositories.IMasterUnitOfWork>();
+
+                    var session = repo.Find(s => s.Id == Program.CurrentSessionId.Value).FirstOrDefault();
+                    if (session != null)
+                    {
+                        session.LogoutTime = DateTime.Now;
+                        session.Status = ThermaCore.Domain.Enums.SessionStatus.Closed;
+                        repo.Update(session);
+                        uow.SaveChanges();
+                    }
+                }
+                catch
+                {
+                    // Hata yutulsun, kapanmaya engel olmasın.
+                }
+            }
+            System.Windows.Forms.Application.ExitThread();
         }
 
         private void AnaForm_Load(object? sender, EventArgs e)

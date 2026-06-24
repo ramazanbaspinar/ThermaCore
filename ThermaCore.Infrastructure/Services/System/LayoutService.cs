@@ -35,6 +35,7 @@ public class LayoutService : ILayoutService
             {
                 template = new UserInterfaceTemplate
                 {
+                    Id = ThermaCore.Domain.Helpers.IdGenerator.GenerateId(),
                     UserId = kullaniciId,
                     FormName = formAdi,
                     ControlName = kontrolAdi,
@@ -80,5 +81,26 @@ public class LayoutService : ILayoutService
         }
 
         return string.Empty;
+    }
+
+    public void DeleteLayout(long kullaniciId, string formAdi, string kontrolAdi)
+    {
+        try
+        {
+            using var scope = _serviceProvider.CreateScope();
+            var repo = scope.ServiceProvider.GetRequiredService<IMasterRepository<UserInterfaceTemplate>>();
+            var uow = scope.ServiceProvider.GetRequiredService<IMasterUnitOfWork>();
+
+            var template = repo.Find(x => x.UserId == kullaniciId && x.FormName == formAdi && x.ControlName == kontrolAdi).FirstOrDefault();
+            if (template != null)
+            {
+                repo.Remove(template);
+                uow.SaveChanges();
+            }
+        }
+        catch
+        {
+            // Logging can be added here
+        }
     }
 }

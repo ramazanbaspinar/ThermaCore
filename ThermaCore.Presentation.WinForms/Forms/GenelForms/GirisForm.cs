@@ -180,9 +180,14 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
                     }
 
                     // Oturum (Session) bilgilerini Master DB'ye kaydet
-                    string ipAddress = "127.0.0.1"; // UI Helper ile alınabilir
+                    string ipAddress = ThermaCore.Domain.Helpers.NetworkHelper.GetLocalIpAddress();
                     string pcName = Environment.MachineName;
                     await _sessionService.StartSessionAsync(loginResult.UserId, ipAddress, pcName);
+                    
+                    if (loginResult.SessionId.HasValue)
+                    {
+                        Program.CurrentSessionId = loginResult.SessionId.Value;
+                    }
 
                     // Başarılı Girişte Hafızaya Yazma (Settings Cache)
                     if (chcBeniHatirla.Checked)
