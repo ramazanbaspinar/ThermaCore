@@ -30,7 +30,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.ParametrelerForms
             btnCihazIdGetir.Click += btnCihazIdGetir_Click;
 
             // Kilitlenecek (Sadece Bilgi Gösterimi) alanlar
-            txtServerMacAddress.Properties.ReadOnly = true;
+            txtHardwareId.Properties.ReadOnly = true;
             txtServerCpuId.Properties.ReadOnly = true;
             dtExpirationDate.Properties.ReadOnly = true;
             txtMaxTerminal.Properties.ReadOnly = true;
@@ -44,15 +44,14 @@ namespace ThermaCore.Presentation.WinForms.Forms.ParametrelerForms
                 CurrentEntity = new SystemLicenseDto
                 {
                     Id = entity.Id,
-                    ServerMacAddress = entity.ServerMacAddress,
-                    ServerCpuId = entity.ServerCpuId,
+                    ServerHardwareId = entity.ServerHardwareId,
                     LicenseKey = entity.LicenseKey,
                     ExpirationDate = entity.ExpirationDate,
                     MaxTerminalCount = entity.MaxTerminalCount
                 };
 
-                txtServerMacAddress.Text = entity.ServerMacAddress;
-                txtServerCpuId.Text = entity.ServerCpuId;
+                txtHardwareId.Text = entity.ServerHardwareId;
+                txtServerCpuId.Text = ""; // Not used anymore
                 txtLicenseKey.Text = entity.LicenseKey;
                 dtExpirationDate.DateTime = entity.ExpirationDate;
                 txtMaxTerminal.EditValue = entity.MaxTerminalCount;
@@ -64,8 +63,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.ParametrelerForms
             {
                 CurrentEntity = new SystemLicenseDto();
                 
-                var hardware = ThermaCore.Domain.Helpers.NetworkHelper.GetHardwareFingerprints();
-                txtServerMacAddress.Text = "";
+                txtHardwareId.Text = "";
                 txtServerCpuId.Text = "";
                 txtLicenseKey.Text = "";
                 dtExpirationDate.DateTime = DateTime.Now.AddDays(30); // Default trial
@@ -80,8 +78,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.ParametrelerForms
             CurrentEntity = new SystemLicenseDto
             {
                 Id = this.Id,
-                ServerMacAddress = txtServerMacAddress.Text,
-                ServerCpuId = txtServerCpuId.Text,
+                ServerHardwareId = txtHardwareId.Text,
                 LicenseKey = txtLicenseKey.Text,
                 ExpirationDate = dtExpirationDate.DateTime,
                 MaxTerminalCount = Convert.ToInt32(txtMaxTerminal.EditValue)
@@ -96,8 +93,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.ParametrelerForms
                 var entity = new SystemLicense
                 {
                     Id = ThermaCore.Domain.Helpers.IdGenerator.GenerateId(),
-                    ServerMacAddress = dto.ServerMacAddress,
-                    ServerCpuId = dto.ServerCpuId,
+                    ServerHardwareId = dto.ServerHardwareId,
                     LicenseKey = dto.LicenseKey,
                     ExpirationDate = dto.ExpirationDate,
                     MaxTerminalCount = dto.MaxTerminalCount
@@ -126,8 +122,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.ParametrelerForms
                 var entity = _systemLicenseRepository.GetById(this.Id);
                 if (entity != null)
                 {
-                    entity.ServerMacAddress = dto.ServerMacAddress;
-                    entity.ServerCpuId = dto.ServerCpuId;
+                    entity.ServerHardwareId = dto.ServerHardwareId;
                     entity.LicenseKey = dto.LicenseKey;
                     entity.ExpirationDate = dto.ExpirationDate;
                     entity.MaxTerminalCount = dto.MaxTerminalCount;
@@ -149,13 +144,12 @@ namespace ThermaCore.Presentation.WinForms.Forms.ParametrelerForms
 
         public void btnCihazMacGetir_Click(object sender, EventArgs e)
         {
-            var hardware = ThermaCore.Domain.Helpers.NetworkHelper.GetHardwareFingerprints();
-            txtServerMacAddress.Text = hardware.EthernetMacs.FirstOrDefault() ?? hardware.WifiMacs.FirstOrDefault() ?? "";
+            txtHardwareId.Text = ThermaCore.Domain.Helpers.HardwareInfoHelper.GetHWID();
         }
 
         public void btnCihazIdGetir_Click(object sender, EventArgs e)
         {
-            txtServerCpuId.Text = Environment.MachineName;
+            txtServerCpuId.Text = ThermaCore.Domain.Helpers.HardwareInfoHelper.GetHWID();
         }
     }
 }

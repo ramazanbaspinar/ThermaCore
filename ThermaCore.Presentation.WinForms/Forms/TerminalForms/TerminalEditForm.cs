@@ -33,10 +33,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TerminalForms
                 if (dto != null)
                 {
                     txtCihazAdi.Text = dto.DeviceName;
-                    txtEthernetMacAdresi.Text = dto.EthernetMacAddress;
-                    txtWifiMacAdresi.Text = dto.WifiMacAddress;
-                    txtVpnMacAdresi.Text = dto.VpnMacAddress;
-                    txtIpAdresi.Text = dto.IpAddress;
+                    txtHardwareId.Text = dto.HardwareId;
                     txtAciklama.Text = dto.Description;
                     
                     var kodCtrl = this.Controls.Find("txtKod", true).FirstOrDefault();
@@ -49,10 +46,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TerminalForms
             else
             {
                 txtCihazAdi.Text = "";
-                txtEthernetMacAdresi.Text = "";
-                txtWifiMacAdresi.Text = "";
-                txtVpnMacAdresi.Text = "";
-                txtIpAdresi.Text = "";
+                txtHardwareId.Text = "";
                 txtAciklama.Text = "";
                 
                 var durumCtrl = this.Controls.Find("tglDurum", true).FirstOrDefault();
@@ -75,10 +69,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TerminalForms
                 Id = this.Id,
                 Code = code,
                 DeviceName = txtCihazAdi.Text,
-                EthernetMacAddress = txtEthernetMacAdresi.Text,
-                WifiMacAddress = txtWifiMacAdresi.Text,
-                VpnMacAddress = txtVpnMacAdresi.Text,
-                IpAddress = txtIpAdresi.Text,
+                HardwareId = txtHardwareId.Text,
                 Description = txtAciklama.Text,
                 IsActive = isActive
             };

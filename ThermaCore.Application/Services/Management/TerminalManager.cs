@@ -19,9 +19,9 @@ public class TerminalManager : BaseMasterManager<TerminalListDto, TerminalDto, T
     {
     }
 
-    public TerminalDto? GetTerminalByMacAddress(string macAddress)
+    public TerminalDto? GetTerminalByHardwareId(string hwid)
     {
-        var terminal = _repository.Find(x => (x.EthernetMacAddress == macAddress || x.WifiMacAddress == macAddress || x.VpnMacAddress == macAddress) && x.IsActive).FirstOrDefault();
+        var terminal = _repository.Find(x => x.HardwareId == hwid && x.IsActive).FirstOrDefault();
         return _mapper.Map<TerminalDto>(terminal);
     }
 }

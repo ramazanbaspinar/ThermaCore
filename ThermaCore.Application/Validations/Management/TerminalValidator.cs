@@ -9,7 +9,6 @@ public class TerminalValidator : AbstractValidator<TerminalDto>
     {
         RuleFor(x => x.Code).NotEmpty().WithMessage("Terminal Kodu boş bırakılamaz.");
         RuleFor(x => x.DeviceName).NotEmpty().WithMessage("Cihaz Adı boş bırakılamaz.");
-        RuleFor(x => x).Must(x => !string.IsNullOrEmpty(x.EthernetMacAddress) || !string.IsNullOrEmpty(x.WifiMacAddress) || !string.IsNullOrEmpty(x.VpnMacAddress))
-            .WithMessage("Lütfen en az bir adet MAC Adresi (Ethernet, Wi-Fi veya VPN) giriniz.");
+        RuleFor(x => x.HardwareId).NotEmpty().WithMessage("Lütfen Donanım Kimliği (HWID) giriniz.");
     }
 }

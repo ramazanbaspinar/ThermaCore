@@ -4,6 +4,9 @@ using ThermaCore.Application.DTOs.Security;
 using ThermaCore.Application.Interfaces.Repositories;
 using ThermaCore.Application.Interfaces.Security;
 using ThermaCore.Domain.Entities.System;
+using System.Text.Json;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace ThermaCore.Infrastructure.Security
 {
@@ -16,10 +19,10 @@ namespace ThermaCore.Infrastructure.Security
             _userSessionRepository = userSessionRepository;
         }
 
+        private const string DummyPublicKey = @"<RSAKeyValue><Modulus>s74R/aD018zC29x9GzH/R3XF6QnS1e7xP9B+G8A3N9D+K3A4N8P9B+G8A3N9D+K3A4N8P9B+G8A3N9D+K3A4N8P9B+G8A3N9D+K3A4N8P9B+G8A3N9D+K3A4N8P9B+G8A3N9D+K3A4N8P9B+G8A3N9D+K3A4N8P9B+G8A3N9D+K3A4N8P9B+G8A3N9D+K3A4N8P9B+G8A3N9D+K3A4N8P9B+G8A3N9D+K3A4N8P9B+G8A3N9D+K3A4N8P9B+G8A3N9D+K3A4N8P9B+G8A3N9D+K3A4Nw==</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>";
+
         public LicenseDataDto ValidateLicense(string licenseKey)
         {
-            // TODO: İleride gerçek bir RSA asimetrik şifre çözme eklenecek.
-            // Şimdilik Mock (Taslak) olarak çalışmaktadır.
             var dto = new LicenseDataDto();
 
             if (string.IsNullOrWhiteSpace(licenseKey))
@@ -31,12 +34,45 @@ namespace ThermaCore.Infrastructure.Security
 
             try
             {
-                // Mock: RSA Private/Public Key ile şifre çözüldüğünü varsayıyoruz.
-                // İlerleyen süreçte burada gerçek Keygen ve RSACryptoServiceProvider kullanılacak.
-                
-                dto.MacAddress = "Mock-Mac-Address";
-                dto.ExpirationDate = DateTime.Now.AddDays(365);
-                dto.MaxTerminalCount = 5;
+                var licenseWrapper = JsonSerializer.Deserialize<LicenseWrapperDto>(licenseKey);
+                if (licenseWrapper == null || licenseWrapper.alg != "RSA-SHA256" || string.IsNullOrEmpty(licenseWrapper.payload) || string.IsNullOrEmpty(licenseWrapper.signature))
+                {
+                    throw new Exception("Geçersiz lisans formatı.");
+                }
+
+                byte[] payloadBytes = Convert.FromBase64String(licenseWrapper.payload);
+                byte[] signatureBytes = Convert.FromBase64String(licenseWrapper.signature);
+
+                using (var rsa = new RSACryptoServiceProvider())
+                {
+                    // Sınıfın içine geçici bir Public Key (XML String) sabiti kondu.
+                    rsa.FromXmlString(DummyPublicKey);
+                    
+                    bool isVerified = false;
+                    try
+                    {
+                        isVerified = rsa.VerifyData(payloadBytes, CryptoConfig.MapNameToOID("SHA256")!, signatureBytes);
+                    }
+                    catch
+                    {
+                        isVerified = false;
+                    }
+
+                    if (!isVerified)
+                    {
+                        throw new Exception("Lisans imzası geçersiz. Veriler değiştirilmiş olabilir!");
+                    }
+                }
+
+                string payloadJson = Encoding.UTF8.GetString(payloadBytes);
+                var licenseData = JsonSerializer.Deserialize<LicensePayloadData>(payloadJson);
+
+                if (licenseData == null)
+                    throw new Exception("Payload deserialize edilemedi.");
+
+                dto.MacAddress = licenseData.MachineFingerprint;
+                dto.ExpirationDate = licenseData.ExpiryUtc;
+                dto.MaxTerminalCount = licenseData.Seats;
                 dto.IsValid = true;
                 dto.ErrorMessage = string.Empty;
             }
@@ -47,6 +83,20 @@ namespace ThermaCore.Infrastructure.Security
             }
 
             return dto;
+        }
+
+        private class LicenseWrapperDto
+        {
+            public string alg { get; set; } = string.Empty;
+            public string payload { get; set; } = string.Empty;
+            public string signature { get; set; } = string.Empty;
+        }
+
+        private class LicensePayloadData
+        {
+            public int Seats { get; set; }
+            public DateTime ExpiryUtc { get; set; }
+            public string MachineFingerprint { get; set; } = string.Empty;
         }
 
         public bool IsTimeTampered()

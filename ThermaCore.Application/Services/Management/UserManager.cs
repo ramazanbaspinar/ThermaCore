@@ -222,12 +222,12 @@ public class UserManager : BaseMasterManager<UserDto, UserDto, User>, IUserServi
         if (!PasswordHasher.VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
             throw new Exception("Kullanıcı adı veya şifre hatalı.");
 
-        // MAC ADDRESS SECURITY SHIELD
-        var macAddress = NetworkHelper.GetMacAddress();
-        var terminal = _terminalService.GetTerminalByMacAddress(macAddress);
+        // HWID SECURITY SHIELD
+        var hwid = HardwareInfoHelper.GetHWID();
+        var terminal = _terminalService.GetTerminalByHardwareId(hwid);
         if (terminal == null || !terminal.IsActive)
         {
-            throw new Exception($"Güvenlik İhlali: Bu cihaz (MAC: {macAddress}) sisteme kayıtlı değil veya aktif edilmemiş. Giriş reddedildi.");
+            throw new Exception($"Güvenlik İhlali: Bu cihaz (HWID: {hwid}) sisteme kayıtlı değil veya aktif edilmemiş. Giriş reddedildi.");
         }
 
         return _mapper.Map<UserDto>(user);

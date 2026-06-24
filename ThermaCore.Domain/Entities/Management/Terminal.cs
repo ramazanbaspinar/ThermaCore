@@ -13,19 +13,7 @@ public class Terminal : FullAuditableEntity
     public bool IsActive { get; set; } = true;
 
     [MaxLength(100)]
-    public string DeviceName { get; set; } = string.Empty;
-
-    [MaxLength(50)]
-    public string EthernetMacAddress { get; set; } = string.Empty;
-
-    [MaxLength(50)]
-    public string WifiMacAddress { get; set; } = string.Empty;
-
-    [MaxLength(50)]
-    public string VpnMacAddress { get; set; } = string.Empty;
-
-    [MaxLength(50)]
-    public string IpAddress { get; set; } = string.Empty;
+    public string HardwareId { get; set; } = string.Empty;
 
     [MaxLength(500)]
     public string Description { get; set; } = string.Empty;

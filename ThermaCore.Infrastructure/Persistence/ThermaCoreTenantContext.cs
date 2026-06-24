@@ -11,8 +11,13 @@ namespace ThermaCore.Infrastructure.Persistence;
 
 public class ThermaCoreTenantContext : DbContext
 {
-    public ThermaCoreTenantContext(DbContextOptions<ThermaCoreTenantContext> options) : base(options)
+    private readonly ThermaCore.Application.Interfaces.System.ICurrentTenantService _currentTenantService;
+
+    public ThermaCoreTenantContext(
+        DbContextOptions<ThermaCoreTenantContext> options,
+        ThermaCore.Application.Interfaces.System.ICurrentTenantService currentTenantService = null) : base(options)
     {
+        _currentTenantService = currentTenantService;
     }
 
 
@@ -101,7 +106,7 @@ public class ThermaCoreTenantContext : DbContext
             // AuditableEntity kuralları
             if (entry.Entity is AuditableEntity auditableEntity)
             {
-                long currentUserId = 1; 
+                long currentUserId = _currentTenantService != null && _currentTenantService.UserId > 0 ? _currentTenantService.UserId : 1; 
 
                 if (entry.State == EntityState.Added)
                 {
@@ -121,10 +126,12 @@ public class ThermaCoreTenantContext : DbContext
             // FullAuditableEntity kuralları (Fiziksel silmeyi engelleme)
             if (entry.Entity is FullAuditableEntity softDeleteEntity && entry.State == EntityState.Deleted)
             {
+                long currentUserId = _currentTenantService != null && _currentTenantService.UserId > 0 ? _currentTenantService.UserId : 1; 
+
                 entry.State = EntityState.Modified;
                 softDeleteEntity.IsDeleted = true;
                 softDeleteEntity.DeletedDate = DateTime.Now;
-                softDeleteEntity.DeletedUserId = 1; 
+                softDeleteEntity.DeletedUserId = currentUserId; 
             }
         }
     }

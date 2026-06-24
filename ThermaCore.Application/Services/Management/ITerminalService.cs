@@ -11,5 +11,5 @@ public interface ITerminalService
     void Update(TerminalDto dto);
     void Delete(long id);
 
-    TerminalDto? GetTerminalByMacAddress(string macAddress);
+    TerminalDto? GetTerminalByHardwareId(string hwid);
 }

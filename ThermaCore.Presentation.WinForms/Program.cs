@@ -111,6 +111,7 @@ internal static class Program
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.ParametrelerForms.EmailParameterEditForm>();
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.ParametrelerForms.SystemLicenseEditForm>();
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.ParametrelerForms.UserInterfaceTemplateListForm>();
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.LisansForms.LicenseActivationForm>();
             })
             .Build();
 
@@ -121,13 +122,37 @@ internal static class Program
             var services = scope.ServiceProvider;
             try
             {
-                var licenseService = services.GetRequiredService<ILicenseService>();
-                var status = licenseService.CheckLicense(out string message);
+                var licenseRepo = services.GetRequiredService<ThermaCore.Application.Interfaces.Repositories.IMasterRepository<ThermaCore.Domain.Entities.Management.SystemLicense>>();
+                var activeLicense = licenseRepo.Find(x => true).FirstOrDefault();
                 
-                if (status != LicenseStatus.Valid && status != LicenseStatus.Demo)
+                var licenseValidator = services.GetRequiredService<ThermaCore.Application.Interfaces.Security.ILicenseValidator>();
+
+                if (licenseValidator.IsTimeTampered())
                 {
-                    MessageBox.Show($"Lisans hatası: {message}\nLütfen sistem yöneticinizle iletişime geçin.", "ThermaCore Lisans", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Sistem saati geriye alınmış veya manipüle edilmiş. Güvenlik ihlali tespit edildi.", "ThermaCore Lisans Kalkanı", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
+                }
+
+                string key = activeLicense != null ? activeLicense.LicenseKey : "";
+                var licenseData = licenseValidator.ValidateLicense(key);
+
+                if (!licenseData.IsValid)
+                {
+                    var activationForm = services.GetRequiredService<ThermaCore.Presentation.WinForms.Forms.LisansForms.LicenseActivationForm>();
+                    if (activationForm.ShowDialog() != DialogResult.OK)
+                    {
+                        return;
+                    }
+                    
+                    // Aktivasyon başarılı olduysa lisansı tekrar doğrula
+                    activeLicense = licenseRepo.Find(x => true).FirstOrDefault();
+                    string updatedKey = activeLicense != null ? activeLicense.LicenseKey : "";
+                    licenseData = licenseValidator.ValidateLicense(updatedKey);
+
+                    if (!licenseData.IsValid)
+                    {
+                        return; // Olası bir hata durumunda güvenli çıkış
+                    }
                 }
 
                 var seederService = services.GetRequiredService<IDatabaseSeederService>();
@@ -190,6 +215,6 @@ internal static class Program
         {
             userMessage = "Sistemde beklenmeyen bir hata oluştu. Lütfen sistem yöneticinize bilgi veriniz.\n\nHata Nedeni: " + ex.Message;
         }
-        XtraMessageBox.Show(userMessage, "Sistem Hatası", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        ThermaCore.Presentation.WinForms.Helpers.Messages.HataMesaji(userMessage);
     }
 }

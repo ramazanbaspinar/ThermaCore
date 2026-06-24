@@ -25,6 +25,7 @@ public class AuthManager : IAuthService
     private readonly ThermaCore.Application.Interfaces.System.ICurrentTenantService _currentTenantService;
     private readonly ICryptoService _cryptoService;
     private readonly IMapper _mapper;
+    private readonly IMasterRepository<SystemLicense> _licenseRepository;
 
     public AuthManager(
         IMasterRepository<User> userRepository,
@@ -38,7 +39,8 @@ public class AuthManager : IAuthService
         ICryptoService cryptoService,
         IMapper mapper,
         IMasterRepository<UserSession> userSessionRepository,
-        IMasterUnitOfWork uow)
+        IMasterUnitOfWork uow,
+        IMasterRepository<SystemLicense> licenseRepository)
     {
         _userRepository = userRepository;
         _tenantRepository = tenantRepository;
@@ -52,6 +54,7 @@ public class AuthManager : IAuthService
         _mapper = mapper;
         _userSessionRepository = userSessionRepository;
         _uow = uow;
+        _licenseRepository = licenseRepository;
     }
 
     public Task<List<TenantDatabaseDto>> GetAllowedTenantsByUsernameAsync(string username)
@@ -109,16 +112,7 @@ public class AuthManager : IAuthService
         string decryptedPassword = string.IsNullOrEmpty(tenant.Password) ? "" : _cryptoService.Decrypt(tenant.Password);
         result.TenantConnectionString = $"Server={tenant.Server};Database={tenant.DatabaseName};User Id={tenant.Username};Password={decryptedPassword};TrustServerCertificate=True;";
 
-        // Update Terminal IP
-        var info = ThermaCore.Domain.Helpers.NetworkHelper.GetHardwareFingerprints();
-        var allActiveMacs = info.AllMacs;
-        var terminals = _terminalRepository.Find(t => t.IsActive).ToList();
-        var currentTerminal = terminals.FirstOrDefault(t => allActiveMacs.Contains(t.EthernetMacAddress) || allActiveMacs.Contains(t.WifiMacAddress) || allActiveMacs.Contains(t.VpnMacAddress));
-        if (currentTerminal != null)
-        {
-            currentTerminal.IpAddress = ThermaCore.Domain.Helpers.NetworkHelper.GetLocalIpAddress();
-            _terminalRepository.Update(currentTerminal);
-        }
+        // Update Terminal IP/Mac is replaced with HWID validation. Terminal IP/Mac tracking is removed.
 
         // Add User Session
         var session = new UserSession
@@ -147,30 +141,32 @@ public class AuthManager : IAuthService
         if (username.ToLower() == "thermacore")
             return Task.FromResult(true);
 
-        var info = ThermaCore.Domain.Helpers.NetworkHelper.GetHardwareFingerprints();
-        var allActiveMacs = info.AllMacs;
+        string hwid = ThermaCore.Domain.Helpers.HardwareInfoHelper.GetHWID();
 
-        if (!allActiveMacs.Any())
+        if (string.IsNullOrEmpty(hwid))
         {
-            throw new global::System.Exception("Cihazınızda aktif bir ağ bağdaştırıcısı bulunamadı. Lütfen ağ bağlantınızı kontrol edin.");
+            throw new global::System.Exception("Cihazınızda donanım kimliği (HWID) üretilemedi. Lütfen yetkiliyle iletişime geçin.");
         }
 
         var terminals = _terminalRepository.Find(t => t.IsActive).ToList();
         
-        bool hasAccess = false;
-        foreach (var mac in allActiveMacs)
-        {
-            if (terminals.Any(t => t.EthernetMacAddress == mac || t.WifiMacAddress == mac || t.VpnMacAddress == mac))
-            {
-                hasAccess = true;
-                break;
-            }
-        }
+        bool hasAccess = terminals.Any(t => t.HardwareId == hwid);
 
         if (!hasAccess)
         {
-            string macListStr = string.Join(", ", allActiveMacs);
-            throw new global::System.Exception($"Güvenlik İhlali: Bu cihaz (Mevcut MAC Adresleri: {macListStr}) sisteme kayıtlı değil veya aktif edilmemiş. Giriş reddedildi.");
+            int maxTerminalCount = 0;
+            var license = _licenseRepository.Find(x => true).FirstOrDefault();
+            if (license != null)
+            {
+                maxTerminalCount = license.MaxTerminalCount;
+            }
+
+            if (terminals.Count >= maxTerminalCount)
+            {
+                throw new global::System.Exception("Maksimum terminal sınırına ulaşıldı. Yeni bir cihaz ile giriş yapılamaz veya mevcut cihazınız pasife alınmış.");
+            }
+
+            throw new global::System.Exception($"Güvenlik İhlali: Bu cihaz (HWID: {hwid}) sisteme kayıtlı değil veya aktif edilmemiş. Giriş reddedildi.");
         }
 
         return Task.FromResult(true);
