@@ -33,7 +33,6 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.BirimForms
             
             BaseKartTuru = ThermaCore.Domain.Enums.ModuleType.BirimTanimlari;
             DataLayoutControl = myDataLayoutControl1;
-            HideItems = new DevExpress.XtraBars.BarItem[] { btnYeni, btnSil };
             RequiresCodeTemplate = false;
         }
 
@@ -137,6 +136,36 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.BirimForms
             }
 
             return true;
+        }
+
+        protected override void EntityDelete()
+        {
+            if (Id <= 0) return;
+
+            if (Messages.SilMesaj("Birim") == DialogResult.Yes)
+            {
+                try
+                {
+                    Cursor.Current = Cursors.WaitCursor;
+                    var entity = _unitRepository.GetById(Id);
+                    if (entity != null)
+                    {
+                        _unitRepository.Remove(entity);
+                        _uow.SaveChanges();
+                        RefreshYapilacak = true;
+                        Messages.SilindiMesaj();
+                        Close();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Messages.HataBasligi($"Hata oluştu:\n{ex.Message}", "Hata");
+                }
+                finally
+                {
+                    Cursor.Current = Cursors.Default;
+                }
+            }
         }
     }
 }

@@ -9,6 +9,9 @@ public enum ModuleType
     [Description("Sistem Yönetimi")]
     SistemYonetimi = 1000,
 
+    [Description("Tanımlar")]
+    Tanimlar = 2000,
+
     // ALT MENÜLER (Klasörler)
     [Description("Kurumsal Tanımlar")]
     [ParentModule(SistemYonetimi)]
@@ -43,7 +46,6 @@ public enum ModuleType
 
     [Description("Terminal Cihaz Yönetimi")]
     [ParentModule(GuvenlikVeYetkilendirme)]
-    [RequiresCodeTemplate]
     TerminalYonetimi = 5,
 
     [Description("Kod Şablonları")]
@@ -66,13 +68,11 @@ public enum ModuleType
     [ParentModule(Parametreler)]
     UserInterfaceTemplate = 10,
 
-    // Merkezi Tanımlar
-    [Description("Merkezi Tanımlar")]
-    [ParentModule(SistemYonetimi)]
-    MerkeziTanimlar = 1004,
+    [Description("Temel Tanımlar")]
+    [ParentModule(Tanimlar)]
+    TemelTanimlar = 2001,
 
     [Description("Birim Tanımları")]
-    [ParentModule(MerkeziTanimlar)]
-    [RequiresCodeTemplate]
+    [ParentModule(TemelTanimlar)]
     BirimTanimlari = 11
 }

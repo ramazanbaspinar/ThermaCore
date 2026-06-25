@@ -214,7 +214,14 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
                 }
                 else
                 {
-                    Messages.HataBasligi("Kullanıcı adı veya şifre hatalı.", "Hata");
+                    if (loginResult != null && !string.IsNullOrEmpty(loginResult.ErrorMessage))
+                    {
+                        Messages.UyariBasligi(loginResult.ErrorMessage, "Uyarı");
+                    }
+                    else
+                    {
+                        Messages.HataBasligi("Kullanıcı adı veya şifre hatalı.", "Hata");
+                    }
                 }
             }
             catch (Exception ex)

@@ -107,6 +107,18 @@ public class AuthManager : IAuthService
             return Task.FromResult(result);
         }
 
+        bool isSuperAdmin = user.Code.ToLower() == "admin" || user.Code.ToLower() == "thermacore";
+        if (!isSuperAdmin)
+        {
+            var hasAccess = _userTenantRepository.Find(ut => ut.UserId == user.Id && ut.TenantDatabaseId == tenantId && ut.IsActive).Any();
+            if (!hasAccess)
+            {
+                result.IsSuccess = false;
+                result.ErrorMessage = "Seçilen firmaya (Tenant) giriş yetkiniz bulunmamaktadır!";
+                return Task.FromResult(result);
+            }
+        }
+
         result.IsSuccess = true;
         result.UserId = user.Id;
         

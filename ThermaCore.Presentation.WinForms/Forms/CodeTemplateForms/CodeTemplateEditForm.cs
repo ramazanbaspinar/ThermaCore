@@ -187,11 +187,11 @@ namespace ThermaCore.Presentation.WinForms.Forms.CodeTemplateForms
                 {
                     Id = dto.Id,
                     Module = dto.Module,
-                    CodePrefix = dto.CodePrefix,
+                    CodePrefix = dto.CodePrefix ?? "",
                     NumericLength = dto.NumericLength,
                     StartNumber = dto.StartNumber,
                     DateFormat = dto.DateFormat,
-                    CodeSuffix = dto.CodeSuffix,
+                    CodeSuffix = dto.CodeSuffix ?? "",
                     IsAutoCodeGenerationEnabled = dto.IsAutoCodeGenerationEnabled,
                     IsUserInterventionAllowed = dto.IsUserInterventionAllowed,
                     IsCompanyShortCodeUsed = dto.IsCompanyShortCodeUsed,
@@ -232,11 +232,11 @@ namespace ThermaCore.Presentation.WinForms.Forms.CodeTemplateForms
                 if (entity != null)
                 {
                     entity.Module = dto.Module;
-                    entity.CodePrefix = dto.CodePrefix;
+                    entity.CodePrefix = dto.CodePrefix ?? "";
                     entity.NumericLength = dto.NumericLength;
                     entity.StartNumber = dto.StartNumber;
                     entity.DateFormat = dto.DateFormat;
-                    entity.CodeSuffix = dto.CodeSuffix;
+                    entity.CodeSuffix = dto.CodeSuffix ?? "";
                     entity.IsAutoCodeGenerationEnabled = dto.IsAutoCodeGenerationEnabled;
                     entity.IsUserInterventionAllowed = dto.IsUserInterventionAllowed;
                     entity.IsCompanyShortCodeUsed = dto.IsCompanyShortCodeUsed;

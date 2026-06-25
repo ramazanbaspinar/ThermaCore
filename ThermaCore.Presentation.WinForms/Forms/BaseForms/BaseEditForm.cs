@@ -243,7 +243,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
             {
                 _isBinding = true;
                 Yukle();
-                GuncelNesneOlustur();
+                CurrentEntityGuncelle();
                 _isBinding = false;
                 
                 OldEntity = CurrentEntity;
@@ -326,7 +326,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
                     return true;
                 }
 
-                GuncelNesneOlustur();
+                CurrentEntityGuncelle();
 
                 var result = prompt ? (kapanis ? Messages.KapanisMesaj() : Messages.KayitMesaj()) : DialogResult.Yes;
 
@@ -363,7 +363,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
             _isBinding = true;
             Yukle();
             ApplyCodeTemplateLogic();
-            GuncelNesneOlustur();
+            CurrentEntityGuncelle();
             _isBinding = false;
             ResetControlIsModified(this.Controls);
             
@@ -454,6 +454,26 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
 
         protected virtual void GuncelNesneOlustur() { }
 
+        protected void CurrentEntityGuncelle()
+        {
+            GuncelNesneOlustur();
+            if (CurrentEntity != null)
+            {
+                var properties = CurrentEntity.GetType().GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
+                foreach (var prop in properties)
+                {
+                    if (prop.PropertyType == typeof(string) && prop.CanWrite && prop.CanRead)
+                    {
+                        var val = prop.GetValue(CurrentEntity) as string;
+                        if (val != null && string.IsNullOrWhiteSpace(val))
+                        {
+                            prop.SetValue(CurrentEntity, null);
+                        }
+                    }
+                }
+            }
+        }
+
         public virtual void Yukle() { }
 
         protected internal virtual object ReturnEntity() { return null!; }
@@ -528,7 +548,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
                 _isBinding = true;
                 Yukle();
                 ApplyCodeTemplateLogic();
-                GuncelNesneOlustur();
+                CurrentEntityGuncelle();
                 _isBinding = false;
                 ResetControlIsModified(this.Controls);
                 ButonEnabledDurumu();
@@ -591,7 +611,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
             SablonYukle();
             _isBinding = true;
             Yukle();
-            GuncelNesneOlustur();
+            CurrentEntityGuncelle();
             _isBinding = false;
             ResetControlIsModified(this.Controls);
             
@@ -686,7 +706,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
             // asenkron yüklemeler yüzünden gereksiz yere Butonları aktif etmesini (Bug) engelle:
             if (!FarklilikVarMi(this.Controls)) return;
 
-            GuncelNesneOlustur();
+            CurrentEntityGuncelle();
             ButonEnabledDurumu();
         }
 
@@ -716,7 +736,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
         protected virtual void Control_IdChanged(object? sender, EventArgs e)
         {
             if (!IsLoaded) return;
-            GuncelNesneOlustur();
+            CurrentEntityGuncelle();
             ButonEnabledDurumu();
         }
 
