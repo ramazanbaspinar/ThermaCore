@@ -22,25 +22,26 @@ namespace ThermaCore.Presentation.WinForms.Forms.TerminalForms
         {
             InitializeComponent();
             _terminalService = terminalService;
-            this.BaseKartTuru = ModuleType.TerminalYonetimi;
+            BaseKartTuru = ThermaCore.Domain.Enums.ModuleType.TerminalYonetimi;
+            DataLayoutControl = myDataLayoutControl1;
+            Bll = _terminalService;
+            HideItems = new DevExpress.XtraBars.BarItem[] { btnYeni, btnSil };
+            RequiresCodeTemplate = false; // Code template mantığını devre dışı bırakıyoruz, çünkü Cihaz Adı'nı manuel alıyoruz
         }
 
         public override void Yukle()
         {
+            txtHardwareId.Properties.PasswordChar = '*';
+
             if (BaseIslemTuru == ActionType.EntityUpdate)
             {
                 var dto = _terminalService.GetById(Id);
                 if (dto != null)
                 {
-                    txtCihazAdi.Text = dto.DeviceName;
+                    txtCihazAdi.Text = dto.Code;
                     txtHardwareId.Text = dto.HardwareId;
                     txtAciklama.Text = dto.Description;
-                    
-                    var kodCtrl = this.Controls.Find("txtKod", true).FirstOrDefault();
-                    if (kodCtrl != null) kodCtrl.Text = dto.Code;
-
-                    var durumCtrl = this.Controls.Find("tglDurum", true).FirstOrDefault();
-                    if (durumCtrl is DevExpress.XtraEditors.ToggleSwitch tgl) tgl.IsOn = dto.IsActive;
+                    tglDurum.IsOn = dto.IsActive;
                 }
             }
             else
@@ -48,30 +49,19 @@ namespace ThermaCore.Presentation.WinForms.Forms.TerminalForms
                 txtCihazAdi.Text = "";
                 txtHardwareId.Text = "";
                 txtAciklama.Text = "";
-                
-                var durumCtrl = this.Controls.Find("tglDurum", true).FirstOrDefault();
-                if (durumCtrl is DevExpress.XtraEditors.ToggleSwitch tgl) tgl.IsOn = true;
+                tglDurum.IsOn = true;
             }
         }
 
         protected override void GuncelNesneOlustur()
         {
-            var code = "";
-            var kodCtrl = this.Controls.Find("txtKod", true).FirstOrDefault();
-            if (kodCtrl != null) code = kodCtrl.Text;
-
-            var isActive = true;
-            var durumCtrl = this.Controls.Find("tglDurum", true).FirstOrDefault();
-            if (durumCtrl is DevExpress.XtraEditors.ToggleSwitch tgl) isActive = tgl.IsOn;
-
             CurrentEntity = new TerminalDto
             {
                 Id = this.Id,
-                Code = code,
-                DeviceName = txtCihazAdi.Text,
+                Code = txtCihazAdi.Text,
                 HardwareId = txtHardwareId.Text,
                 Description = txtAciklama.Text,
-                IsActive = isActive
+                IsActive = tglDurum.IsOn
             };
             ButonEnabledDurumu();
         }

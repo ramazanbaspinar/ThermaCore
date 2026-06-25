@@ -95,6 +95,43 @@ namespace ThermaCore.Presentation.WinForms.Forms.YetkilendirmeForms
             NesneyiKontrollereBagla();
             treeList1.CollapseAll();
 
+            if (txtRolKodu.Text == "ADMIN_ROLE" && BaseIslemTuru == ActionType.EntityUpdate)
+            {
+                treeList1.OptionsBehavior.Editable = false;
+                treeList1.Enabled = false; // Ağaç listesi tıklanamaz hale gelir
+                txtRolKodu.Properties.ReadOnly = true;
+                txtRolAdi.Properties.ReadOnly = true;
+                txtAciklama.Properties.ReadOnly = true;
+                tglDurum.Properties.ReadOnly = true;
+                tglDurum.Enabled = false;
+            }
+            else
+            {
+                treeList1.OptionsBehavior.Editable = true;
+                treeList1.Enabled = true;
+                txtRolKodu.Properties.ReadOnly = false;
+                txtRolAdi.Properties.ReadOnly = false;
+                txtAciklama.Properties.ReadOnly = false;
+                tglDurum.Properties.ReadOnly = false;
+                tglDurum.Enabled = true;
+            }
+
+            // İlk yüklemede, parent (Modül ve Klasör) check durumlarını çocukların durumuna göre gerçek zamanlı düzelt (E-mail vs için)
+            foreach (DevExpress.XtraTreeList.Nodes.TreeListNode node in treeList1.GetNodeList())
+            {
+                if (!node.HasChildren)
+                {
+                    UpdateParentChecked(node);
+                }
+            }
+
+            // Düzenleme sonucu değişen TreeList Datasource'u baz alarak orjinal JSON'ı yeniden oluştur (Değişiklik olmadan Kaydet butonunun aktifleşmesi bug fix)
+            if (treeList1.DataSource != null)
+            {
+                var currentNodes = (List<ThermaCore.Presentation.WinForms.Models.PermissionNodeDto>)treeList1.DataSource;
+                _originalPermissionsJson = System.Text.Json.JsonSerializer.Serialize(currentNodes);
+            }
+
             // Kontrol değişikliklerinde Kaydet butonunu aktif etmek için event'leri bağlıyoruz
             txtRolKodu.EditValueChanged += Control_EditValueChanged;
             txtRolAdi.EditValueChanged += Control_EditValueChanged;
@@ -107,15 +144,6 @@ namespace ThermaCore.Presentation.WinForms.Forms.YetkilendirmeForms
                 ButonEnabledDurumu();
             };
             treeList1.AfterCheckNode += TreeList1_AfterCheckNode;
-
-            // İlk yüklemede, parent (Modül ve Klasör) check durumlarını çocukların durumuna göre gerçek zamanlı düzelt (E-mail vs için)
-            foreach (DevExpress.XtraTreeList.Nodes.TreeListNode node in treeList1.GetNodeList())
-            {
-                if (!node.HasChildren)
-                {
-                    UpdateParentChecked(node);
-                }
-            }
         }
 
         private void SetChildrenChecked(DevExpress.XtraTreeList.Nodes.TreeListNode node, bool isChecked)
@@ -130,7 +158,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.YetkilendirmeForms
                 if (pTypeObj != null && modObj != null)
                 {
                     var modType = (ModuleType)Convert.ToInt32(modObj);
-                    if (modType == ModuleType.EmailParameter || modType == ModuleType.SystemLicense || modType == ModuleType.KodLog)
+                    if (modType == ModuleType.EmailParameter || modType == ModuleType.SystemLicense || modType == ModuleType.KodLog || modType == ModuleType.TerminalYonetimi)
                     {
                         if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" || 
                             pTypeObj.ToString() == "Delete" || pTypeObj.ToString() == "3")
@@ -172,7 +200,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.YetkilendirmeForms
                     if (pTypeObj != null && modObj != null)
                     {
                         var modType = (ModuleType)Convert.ToInt32(modObj);
-                        if (modType == ModuleType.EmailParameter || modType == ModuleType.SystemLicense || modType == ModuleType.KodLog)
+                        if (modType == ModuleType.EmailParameter || modType == ModuleType.SystemLicense || modType == ModuleType.KodLog || modType == ModuleType.TerminalYonetimi)
                         {
                             if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" || 
                                 pTypeObj.ToString() == "Delete" || pTypeObj.ToString() == "3")
@@ -294,7 +322,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.YetkilendirmeForms
             if (pTypeObj != null && modObj != null)
             {
                 var modType = (ModuleType)Convert.ToInt32(modObj);
-                if (modType == ModuleType.EmailParameter || modType == ModuleType.SystemLicense || modType == ModuleType.KodLog)
+                if (modType == ModuleType.EmailParameter || modType == ModuleType.SystemLicense || modType == ModuleType.KodLog || modType == ModuleType.TerminalYonetimi)
                 {
                     if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" || 
                         pTypeObj.ToString() == "Delete" || pTypeObj.ToString() == "3")
@@ -325,7 +353,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.YetkilendirmeForms
             else if (pTypeObj != null && modObj != null)
             {
                 var modType = (ModuleType)Convert.ToInt32(modObj);
-                if (modType == ModuleType.EmailParameter || modType == ModuleType.SystemLicense || modType == ModuleType.KodLog)
+                if (modType == ModuleType.EmailParameter || modType == ModuleType.SystemLicense || modType == ModuleType.KodLog || modType == ModuleType.TerminalYonetimi)
                 {
                     if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" || 
                         pTypeObj.ToString() == "Delete" || pTypeObj.ToString() == "3")
@@ -581,32 +609,42 @@ namespace ThermaCore.Presentation.WinForms.Forms.YetkilendirmeForms
 
         protected internal override void ButonEnabledDurumu()
         {
-            base.ButonEnabledDurumu();
-
             if (!IsLoaded) return;
 
-            // Base fonksiyon zaten aktif etmişse veya Butonlar gizliyse bir şey yapmaya gerek yok
-            if (btnKaydet.Enabled || btnKaydet.Visibility != DevExpress.XtraBars.BarItemVisibility.Always) 
+            if (txtRolKodu.Text == "ADMIN_ROLE" && BaseIslemTuru == ActionType.EntityUpdate)
+            {
+                if (btnKaydet != null) btnKaydet.Enabled = false;
+                if (btnGerial != null) btnGerial.Enabled = false;
+                if (btnSil != null) btnSil.Enabled = false;
                 return;
+            }
 
-            // Form elementleri değişmemişse bile TreeList içindeki yetkiler değişmiş mi diye kontrol et
+            bool isChanged = false;
+
+            if (CurrentEntity != null && OldEntity != null)
+            {
+                isChanged = CurrentEntity.Code != OldEntity.Code ||
+                            ((RoleDto)CurrentEntity).RoleName != ((RoleDto)OldEntity).RoleName ||
+                            ((RoleDto)CurrentEntity).Description != ((RoleDto)OldEntity).Description ||
+                            CurrentEntity.IsActive != OldEntity.IsActive;
+            }
+
             if (treeList1.DataSource != null)
             {
-                treeList1.PostEditor(); // Her ihtimale karşı editörü kapatıp veriyi datasource'a yansıtalım
+                treeList1.PostEditor();
                 var currentNodes = (List<ThermaCore.Presentation.WinForms.Models.PermissionNodeDto>)treeList1.DataSource;
                 var currentJson = System.Text.Json.JsonSerializer.Serialize(currentNodes);
                 
                 if (currentJson != _originalPermissionsJson)
                 {
-                    if (btnKaydet != null) btnKaydet.Enabled = true;
-                    if (btnGerial != null) btnGerial.Enabled = true;
-                    if (btnYeni != null) btnYeni.Enabled = false;
-                    if (btnSil != null) btnSil.Enabled = false;
-                    if (btnYenile != null) btnYenile.Enabled = false;
-                    if (btnYazdir != null) btnYazdir.Enabled = false;
-                    if (btnYazdir2 != null) btnYazdir2.Enabled = false;
+                    isChanged = true;
                 }
             }
+
+            if (btnKaydet != null) btnKaydet.Enabled = isChanged;
+            if (btnGerial != null) btnGerial.Enabled = isChanged;
+            if (btnYeni != null) btnYeni.Enabled = !isChanged;
+            if (btnSil != null) btnSil.Enabled = !isChanged && BaseIslemTuru == ActionType.EntityUpdate;
         }
 
         protected override bool EntityInsert()
@@ -619,11 +657,22 @@ namespace ThermaCore.Presentation.WinForms.Forms.YetkilendirmeForms
 
         protected override bool EntityUpdate()
         {
+            if (txtRolKodu.Text == "ADMIN_ROLE")
+            {
+                Messages.UyariMesaji("Sistem Yöneticisi (ADMIN_ROLE) üzerinde değişiklik yapılamaz!");
+                return false;
+            }
             return SaveRole();
         }
 
         protected override void EntityDelete()
         {
+            if (txtRolKodu.Text == "ADMIN_ROLE")
+            {
+                Messages.UyariMesaji("Sistem Yöneticisi (ADMIN_ROLE) silinemez!");
+                return;
+            }
+            
             if (Id <= 0) return;
             if (Messages.SilMesaj("Rol") == DialogResult.Yes)
             {

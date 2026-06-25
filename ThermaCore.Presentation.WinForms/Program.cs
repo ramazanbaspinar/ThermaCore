@@ -26,7 +26,18 @@ internal static class Program
     [STAThread]
     static void Main()
     {
+        bool createdNew;
+        var mutex = new Mutex(true, "Global\\ThermaCoreERP_SingleInstance_Mutex", out createdNew);
+
+        if (!createdNew)
+        {
+            MessageBox.Show("ThermaCore ERP zaten çalışıyor! Lütfen açık olan uygulamayı kullanınız veya görev çubuğunu kontrol ediniz.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            return;
+        }
+
         try
+        {
+            try
         {
             var cultureInfo = new CultureInfo("tr-TR");
             Thread.CurrentThread.CurrentCulture = cultureInfo;
@@ -175,6 +186,12 @@ internal static class Program
 
         var mainForm = host.Services.GetRequiredService<GirisForm>();
         System.Windows.Forms.Application.Run(mainForm);
+        }
+        finally
+        {
+            mutex.ReleaseMutex();
+            mutex.Dispose();
+        }
     }
 
     private static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)

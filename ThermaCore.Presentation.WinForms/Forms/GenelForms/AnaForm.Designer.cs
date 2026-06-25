@@ -39,7 +39,6 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             miYetkiGruplariRoller = new ToolStripMenuItem();
             miTerminalYonetim = new ToolStripMenuItem();
             miParametreler = new ToolStripMenuItem();
-            miGenelSistemParametreleri = new ToolStripMenuItem();
             miKullaniciArayuzSablonlari = new ToolStripMenuItem();
             miCodeTemplatelari = new ToolStripMenuItem();
             miEmailParameter = new ToolStripMenuItem();
@@ -127,45 +126,39 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 
             // miParametreler
             // 
-            miParametreler.DropDownItems.AddRange(new ToolStripItem[] { miGenelSistemParametreleri, miKullaniciArayuzSablonlari, miCodeTemplatelari, miEmailParameter, miSystemLicense });
+            miParametreler.DropDownItems.AddRange(new ToolStripItem[] { miKullaniciArayuzSablonlari, miCodeTemplatelari, miEmailParameter, miSystemLicense });
             miParametreler.Name = "miParametreler";
             miParametreler.Size = new Size(222, 22);
             miParametreler.Tag = "Parametreler";
             miParametreler.Text = "Parametreler";
             // 
-            // miGenelSistemParametreleri
-            // 
-            miGenelSistemParametreleri.Name = "miGenelSistemParametreleri";
-            miGenelSistemParametreleri.Size = new Size(233, 22);
-            miGenelSistemParametreleri.Text = "Genel Sistem Parametreleri";
-            // 
             // miKullaniciArayuzSablonlari
             // 
             miKullaniciArayuzSablonlari.Name = "miKullaniciArayuzSablonlari";
-            miKullaniciArayuzSablonlari.Size = new Size(233, 22);
+            miKullaniciArayuzSablonlari.Size = new Size(228, 22);
             miKullaniciArayuzSablonlari.Tag = "UserInterfaceTemplate";
             miKullaniciArayuzSablonlari.Text = "Kullanıcı Arayüz Şablonları";
             // 
             // miCodeTemplatelari
             // 
             miCodeTemplatelari.Name = "miCodeTemplatelari";
-            miCodeTemplatelari.Size = new Size(233, 22);
+            miCodeTemplatelari.Size = new Size(228, 22);
             miCodeTemplatelari.Tag = "CodeTemplateYonetimi";
             miCodeTemplatelari.Text = "Kod Şablonları";
             // 
             // miEmailParameter
             // 
             miEmailParameter.Name = "miEmailParameter";
-            miEmailParameter.Size = new Size(233, 22);
+            miEmailParameter.Size = new Size(228, 22);
             miEmailParameter.Tag = "EmailParameter";
             miEmailParameter.Text = "E-Mail Parametreleri";
             // 
             // miSystemLicense
             // 
             miSystemLicense.Name = "miSystemLicense";
-            miSystemLicense.Size = new Size(233, 22);
+            miSystemLicense.Size = new Size(228, 22);
             miSystemLicense.Tag = "SystemLicense";
-            miSystemLicense.Text = "Sistem Lisansı";
+            miSystemLicense.Text = "Lisans Bilgileri";
             // 
             // xtraTabbedMdiManager
             // 
@@ -273,7 +266,6 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
         private ToolStripMenuItem miYetkiGruplariRoller;
         private ToolStripMenuItem miTerminalYonetim;
         private ToolStripMenuItem miParametreler;
-        private ToolStripMenuItem miGenelSistemParametreleri;
         private ToolStripMenuItem miKullaniciArayuzSablonlari;
         private ToolStripMenuItem miCodeTemplatelari;
         private ToolStripMenuItem miEmailParameter;

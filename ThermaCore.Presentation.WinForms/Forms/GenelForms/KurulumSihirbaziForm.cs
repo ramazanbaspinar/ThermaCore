@@ -26,7 +26,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             this.Load += KurulumSihirbaziForm_Load;
             this.cmbYetkilendirme.SelectedIndexChanged += cmbYetkilendirme_SelectedIndexChanged;
             this.btnBaglantiyiTestEt.Click += btnBaglantiyiTestEt_Click;
-            this.btnLisansiDogrula.Click += btnLisansiDogrula_Click;
+            this.btnKaydetVeCik.Click += btnKaydetVeCik_Click;
             this.btnKurulumuTamamla.Click += btnKurulumuTamamla_Click;
         }
 
@@ -132,37 +132,41 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             }
         }
 
-        private void btnLisansiDogrula_Click(object? sender, EventArgs e)
+        private void btnKaydetVeCik_Click(object? sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtLisansSunucuUrl.Text))
+            if (string.IsNullOrWhiteSpace(txtSunucuAdresi.Text) || string.IsNullOrWhiteSpace(txtMasterVeritabani.Text))
             {
-                XtraMessageBox.Show("Lütfen Lisans Sunucu Adresini giriniz.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                XtraMessageBox.Show("Lütfen Sunucu Adresi ve Veritabanı Adı alanlarını doldurunuz.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            if (string.IsNullOrWhiteSpace(txtLisansAnahtari.Text))
+
+            var selectedText = cmbYetkilendirme.EditValue?.ToString();
+            var authType = selectedText.ToEnum<AuthenticationType>() ?? AuthenticationType.Windows;
+            if (authType == AuthenticationType.SqlServer)
             {
-                XtraMessageBox.Show("Lütfen Müşteri Lisans Anahtarını giriniz.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                if (string.IsNullOrWhiteSpace(txtDbKullanici.Text) || string.IsNullOrWhiteSpace(txtDbSifre.Text))
+                {
+                    XtraMessageBox.Show("SQL Server yetkilendirmesi için Kullanıcı Adı ve Şifre zorunludur.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
             }
 
             try
             {
                 Cursor.Current = Cursors.WaitCursor;
-                // Şimdilik lisans doğrulama servisi taslağını tetikle, geçerliyse onay ver
-                // 1 saniye yapay gecikme ile doğrulama hissi verilmesi
-                System.Threading.Thread.Sleep(1000);
 
-                XtraMessageBoxArgs args = new XtraMessageBoxArgs();
-                args.Caption = "Lisans Doğrulama";
-                args.Text = "<color=green><b>Lisans başarıyla doğrulandı. Bulut sunucu bağlantısı sağlandı.</b></color>";
-                args.AllowHtmlText = DevExpress.Utils.DefaultBoolean.True;
-                args.Buttons = new DialogResult[] { DialogResult.OK };
-                args.Icon = System.Drawing.SystemIcons.Information;
-                XtraMessageBox.Show(args);
+                // Sadece bağlantı ayarlarını kaydet ve çık. DB oluşturma YOK.
+                string connectionString = BuildConnectionString(forTesting: false);
+                _configService.SetConnectionString(connectionString);
+
+                XtraMessageBox.Show("İstemci bağlantı ayarları başarıyla kaydedildi. Uygulama ana sunucuya bağlanmak üzere yeniden başlatılıyor.", "Bağlantı Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                System.Windows.Forms.Application.Restart();
+                Environment.Exit(0);
             }
             catch (Exception ex)
             {
-                XtraMessageBox.Show($"Lisans doğrulama hatası: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                XtraMessageBox.Show($"Bağlantı kaydedilirken bir hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {

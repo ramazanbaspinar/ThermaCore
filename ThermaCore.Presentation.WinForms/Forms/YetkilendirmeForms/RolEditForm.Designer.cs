@@ -83,7 +83,7 @@
             // ribbon
             // 
             ribbon.ExpandCollapseItem.Id = 0;
-            ribbon.Size = new Size(592, 135);
+            ribbon.Size = new Size(498, 135);
             ribbon.Toolbar.ShowCustomizeItem = false;
             // 
             // myDataLayoutControl1
@@ -99,14 +99,14 @@
             myDataLayoutControl1.Name = "myDataLayoutControl1";
             myDataLayoutControl1.OptionsFocus.EnableAutoTabOrder = false;
             myDataLayoutControl1.Root = Root;
-            myDataLayoutControl1.Size = new Size(592, 243);
+            myDataLayoutControl1.Size = new Size(498, 240);
             myDataLayoutControl1.TabIndex = 0;
             myDataLayoutControl1.Text = "myDataLayoutControl1";
             // 
             // tglDurum
             // 
             tglDurum.EnterMoveNextControl = true;
-            tglDurum.Location = new Point(485, 12);
+            tglDurum.Location = new Point(391, 12);
             tglDurum.MenuManager = ribbon;
             tglDurum.Name = "tglDurum";
             tglDurum.Properties.Appearance.Font = new Font("Segoe UI", 9F);
@@ -144,7 +144,7 @@
             txtAciklama.Properties.AppearanceReadOnly.Font = new Font("Segoe UI", 9F);
             txtAciklama.Properties.AppearanceReadOnly.Options.UseFont = true;
             txtAciklama.Properties.MaxLength = 500;
-            txtAciklama.Size = new Size(507, 27);
+            txtAciklama.Size = new Size(413, 27);
             txtAciklama.StatusBarAciklama = "Açıklama Giriniz.";
             txtAciklama.StyleController = myDataLayoutControl1;
             txtAciklama.TabIndex = 1;
@@ -157,7 +157,7 @@
             treeList1.MenuManager = ribbon;
             treeList1.Name = "treeList1";
             treeList1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] { repositoryItemCheckEdit1, repositoryItemCheckEdit2, repositoryItemCheckEdit3, repositoryItemCheckEdit4, repositoryItemButtonEdit1 });
-            treeList1.Size = new Size(568, 126);
+            treeList1.Size = new Size(474, 123);
             treeList1.TabIndex = 2;
             // 
             // colModulAdi
@@ -268,7 +268,7 @@
             txtRolAdi.Properties.AppearanceReadOnly.Font = new Font("Segoe UI", 9F);
             txtRolAdi.Properties.AppearanceReadOnly.Options.UseFont = true;
             txtRolAdi.Properties.MaxLength = 100;
-            txtRolAdi.Size = new Size(408, 22);
+            txtRolAdi.Size = new Size(314, 22);
             txtRolAdi.StatusBarAciklama = null;
             txtRolAdi.StyleController = myDataLayoutControl1;
             txtRolAdi.TabIndex = 0;
@@ -296,7 +296,7 @@
             txtRolKodu.Properties.AppearanceReadOnly.Options.UseFont = true;
             txtRolKodu.Properties.MaxLength = 100;
             txtRolKodu.Properties.ReadOnly = true;
-            txtRolKodu.Size = new Size(408, 22);
+            txtRolKodu.Size = new Size(314, 22);
             txtRolKodu.StatusBarAciklama = "Kod Giriniz.";
             txtRolKodu.StyleController = myDataLayoutControl1;
             txtRolKodu.TabIndex = 3;
@@ -323,7 +323,7 @@
             rowDefinition4.Height = 100D;
             rowDefinition4.SizeType = SizeType.Percent;
             Root.OptionsTableLayoutGroup.RowDefinitions.AddRange(new DevExpress.XtraLayout.RowDefinition[] { rowDefinition1, rowDefinition2, rowDefinition3, rowDefinition4 });
-            Root.Size = new Size(592, 243);
+            Root.Size = new Size(498, 240);
             Root.TextVisible = false;
             // 
             // layoutControlItem1
@@ -333,7 +333,7 @@
             layoutControlItem1.Control = txtRolKodu;
             layoutControlItem1.Location = new Point(0, 0);
             layoutControlItem1.Name = "layoutControlItem1";
-            layoutControlItem1.Size = new Size(473, 31);
+            layoutControlItem1.Size = new Size(379, 31);
             layoutControlItem1.Text = "Kod";
             layoutControlItem1.TextSize = new Size(49, 15);
             // 
@@ -345,7 +345,7 @@
             layoutControlItem2.Location = new Point(0, 31);
             layoutControlItem2.Name = "layoutControlItem2";
             layoutControlItem2.OptionsTableLayoutItem.RowIndex = 1;
-            layoutControlItem2.Size = new Size(473, 31);
+            layoutControlItem2.Size = new Size(379, 31);
             layoutControlItem2.Text = "Rol Adı";
             layoutControlItem2.TextSize = new Size(49, 15);
             // 
@@ -358,7 +358,7 @@
             layoutControlItem3.Name = "layoutControlItem3";
             layoutControlItem3.OptionsTableLayoutItem.ColumnSpan = 2;
             layoutControlItem3.OptionsTableLayoutItem.RowIndex = 3;
-            layoutControlItem3.Size = new Size(572, 130);
+            layoutControlItem3.Size = new Size(478, 127);
             layoutControlItem3.TextVisible = false;
             // 
             // layoutControlItem4
@@ -370,7 +370,7 @@
             layoutControlItem4.Name = "layoutControlItem4";
             layoutControlItem4.OptionsTableLayoutItem.ColumnSpan = 2;
             layoutControlItem4.OptionsTableLayoutItem.RowIndex = 2;
-            layoutControlItem4.Size = new Size(572, 31);
+            layoutControlItem4.Size = new Size(478, 31);
             layoutControlItem4.Text = "Açıklama";
             layoutControlItem4.TextSize = new Size(49, 15);
             // 
@@ -379,7 +379,7 @@
             layoutControlItem5.AppearanceItemCaption.Font = new Font("Segoe UI", 9F);
             layoutControlItem5.AppearanceItemCaption.Options.UseFont = true;
             layoutControlItem5.Control = tglDurum;
-            layoutControlItem5.Location = new Point(473, 0);
+            layoutControlItem5.Location = new Point(379, 0);
             layoutControlItem5.Name = "layoutControlItem5";
             layoutControlItem5.OptionsTableLayoutItem.ColumnIndex = 1;
             layoutControlItem5.Size = new Size(99, 31);
@@ -389,9 +389,10 @@
             // 
             AutoScaleDimensions = new SizeF(6F, 13F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(592, 402);
+            ClientSize = new Size(498, 399);
             Controls.Add(myDataLayoutControl1);
             IconOptions.ShowIcon = false;
+            MinimumSize = new Size(500, 400);
             Name = "RolEditForm";
             Text = "Rol Tanımı";
             Controls.SetChildIndex(ribbon, 0);

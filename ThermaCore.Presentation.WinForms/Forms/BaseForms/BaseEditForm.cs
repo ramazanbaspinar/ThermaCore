@@ -606,6 +606,8 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
 
         protected virtual void ApplyCodeTemplateLogic()
         {
+            if (!RequiresCodeTemplate) return;
+
             if (BaseIslemTuru == ActionType.EntityInsert)
             {
                 var sablonRepo = Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetService<ThermaCore.Application.Interfaces.Repositories.IMasterRepository<ThermaCore.Domain.Entities.Management.CodeTemplate>>(Program.ServiceProvider);

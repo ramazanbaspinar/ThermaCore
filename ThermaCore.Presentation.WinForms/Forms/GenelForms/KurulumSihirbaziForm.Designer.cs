@@ -36,14 +36,9 @@
             DevExpress.XtraLayout.RowDefinition rowDefinition4 = new DevExpress.XtraLayout.RowDefinition();
             DevExpress.XtraLayout.RowDefinition rowDefinition5 = new DevExpress.XtraLayout.RowDefinition();
             DevExpress.XtraLayout.RowDefinition rowDefinition6 = new DevExpress.XtraLayout.RowDefinition();
-            DevExpress.XtraLayout.ColumnDefinition columnDefinition3 = new DevExpress.XtraLayout.ColumnDefinition();
             DevExpress.XtraLayout.RowDefinition rowDefinition7 = new DevExpress.XtraLayout.RowDefinition();
+            DevExpress.XtraLayout.ColumnDefinition columnDefinition3 = new DevExpress.XtraLayout.ColumnDefinition();
             DevExpress.XtraLayout.RowDefinition rowDefinition8 = new DevExpress.XtraLayout.RowDefinition();
-            DevExpress.XtraLayout.RowDefinition rowDefinition9 = new DevExpress.XtraLayout.RowDefinition();
-            DevExpress.XtraLayout.RowDefinition rowDefinition10 = new DevExpress.XtraLayout.RowDefinition();
-            DevExpress.XtraLayout.ColumnDefinition columnDefinition4 = new DevExpress.XtraLayout.ColumnDefinition();
-            DevExpress.XtraLayout.RowDefinition rowDefinition11 = new DevExpress.XtraLayout.RowDefinition();
-            DevExpress.XtraLayout.RowDefinition rowDefinition12 = new DevExpress.XtraLayout.RowDefinition();
             myDataLayoutControl1 = new ThermaCore.Presentation.WinForms.UserControls.MyDataLayoutControl();
             btnKurulumuTamamla = new ThermaCore.Presentation.WinForms.UserControls.MySimpleButton();
             xtraTabControl1 = new DevExpress.XtraTab.XtraTabControl();
@@ -57,26 +52,15 @@
             txtMasterVeritabani = new ThermaCore.Presentation.WinForms.UserControls.MyTextEdit();
             txtSunucuAdresi = new ThermaCore.Presentation.WinForms.UserControls.MyTextEdit();
             layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
-            layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem13 = new DevExpress.XtraLayout.LayoutControlItem();
-            xtraTabPage2 = new DevExpress.XtraTab.XtraTabPage();
-            myDataLayoutControl3 = new ThermaCore.Presentation.WinForms.UserControls.MyDataLayoutControl();
-            btnLisansiDogrula = new ThermaCore.Presentation.WinForms.UserControls.MySimpleButton();
-            txtTerminalAdi = new ThermaCore.Presentation.WinForms.UserControls.MyTextEdit();
-            txtLisansAnahtari = new ThermaCore.Presentation.WinForms.UserControls.MyTextEdit();
-            txtLisansSunucuUrl = new ThermaCore.Presentation.WinForms.UserControls.MyTextEdit();
-            layoutControlGroup2 = new DevExpress.XtraLayout.LayoutControlGroup();
-            layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
-            layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
-            layoutControlItem10 = new DevExpress.XtraLayout.LayoutControlItem();
-            layoutControlItem11 = new DevExpress.XtraLayout.LayoutControlItem();
             Root = new DevExpress.XtraLayout.LayoutControlGroup();
             layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
+            layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem12 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)myDataLayoutControl1).BeginInit();
             myDataLayoutControl1.SuspendLayout();
@@ -91,33 +75,21 @@
             ((System.ComponentModel.ISupportInitialize)txtMasterVeritabani.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtSunucuAdresi.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlGroup1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)layoutControlItem3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem4).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem5).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem6).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem7).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem13).BeginInit();
-            xtraTabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)myDataLayoutControl3).BeginInit();
-            myDataLayoutControl3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)txtTerminalAdi.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)txtLisansAnahtari.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)txtLisansSunucuUrl.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)layoutControlGroup2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)layoutControlItem8).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)layoutControlItem9).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)layoutControlItem10).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)layoutControlItem11).BeginInit();
             ((System.ComponentModel.ISupportInitialize)Root).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem12).BeginInit();
             SuspendLayout();
             // 
             // myDataLayoutControl1
             // 
             myDataLayoutControl1.AllowCustomization = false;
-            myDataLayoutControl1.Controls.Add(btnKurulumuTamamla);
             myDataLayoutControl1.Controls.Add(xtraTabControl1);
             myDataLayoutControl1.Dock = DockStyle.Fill;
             myDataLayoutControl1.Location = new Point(0, 0);
@@ -138,28 +110,28 @@
             btnKurulumuTamamla.AppearanceHovered.Options.UseFont = true;
             btnKurulumuTamamla.AppearancePressed.Font = new Font("Segoe UI", 9F);
             btnKurulumuTamamla.AppearancePressed.Options.UseFont = true;
-            btnKurulumuTamamla.Location = new Point(12, 259);
+            btnKurulumuTamamla.Location = new Point(12, 198);
             btnKurulumuTamamla.Name = "btnKurulumuTamamla";
-            btnKurulumuTamamla.Size = new Size(474, 22);
+            btnKurulumuTamamla.Size = new Size(448, 22);
             btnKurulumuTamamla.StatusBarAciklama = null;
-            btnKurulumuTamamla.StyleController = myDataLayoutControl1;
+            btnKurulumuTamamla.StyleController = myDataLayoutControl2;
             btnKurulumuTamamla.TabIndex = 0;
-            btnKurulumuTamamla.Text = "Kurulumu Tamamla";
+            btnKurulumuTamamla.Text = "Yeni Veritabanı Kur (Ana Sunucu)";
             // 
             // xtraTabControl1
             // 
             xtraTabControl1.Location = new Point(12, 12);
             xtraTabControl1.Name = "xtraTabControl1";
             xtraTabControl1.SelectedTabPage = xtraTabPage1;
-            xtraTabControl1.Size = new Size(474, 243);
+            xtraTabControl1.Size = new Size(474, 274);
             xtraTabControl1.TabIndex = 0;
-            xtraTabControl1.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] { xtraTabPage1, xtraTabPage2 });
+            xtraTabControl1.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] { xtraTabPage1 });
             // 
             // xtraTabPage1
             // 
             xtraTabPage1.Controls.Add(myDataLayoutControl2);
             xtraTabPage1.Name = "xtraTabPage1";
-            xtraTabPage1.Size = new Size(472, 218);
+            xtraTabPage1.Size = new Size(472, 249);
             xtraTabPage1.Text = "Veritabanı Bağlantısı";
             // 
             // myDataLayoutControl2
@@ -172,12 +144,13 @@
             myDataLayoutControl2.Controls.Add(cmbYetkilendirme);
             myDataLayoutControl2.Controls.Add(txtMasterVeritabani);
             myDataLayoutControl2.Controls.Add(txtSunucuAdresi);
+            myDataLayoutControl2.Controls.Add(btnKurulumuTamamla);
             myDataLayoutControl2.Dock = DockStyle.Fill;
             myDataLayoutControl2.Location = new Point(0, 0);
             myDataLayoutControl2.Name = "myDataLayoutControl2";
             myDataLayoutControl2.OptionsFocus.EnableAutoTabOrder = false;
             myDataLayoutControl2.Root = layoutControlGroup1;
-            myDataLayoutControl2.Size = new Size(472, 218);
+            myDataLayoutControl2.Size = new Size(472, 249);
             myDataLayoutControl2.TabIndex = 0;
             myDataLayoutControl2.Text = "myDataLayoutControl2";
             // 
@@ -197,7 +170,7 @@
             btnKaydetVeCik.StatusBarAciklama = null;
             btnKaydetVeCik.StyleController = myDataLayoutControl2;
             btnKaydetVeCik.TabIndex = 6;
-            btnKaydetVeCik.Text = "Kaydet ve Çık";
+            btnKaydetVeCik.Text = "Mevcut Sunucuya Bağlan (İstemci)";
             // 
             // btnBaglantiyiTestEt
             // 
@@ -338,7 +311,7 @@
             // 
             layoutControlGroup1.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
             layoutControlGroup1.GroupBordersVisible = false;
-            layoutControlGroup1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] { layoutControlItem3, layoutControlItem4, layoutControlItem5, layoutControlItem6, layoutControlItem7, layoutControlItem2, layoutControlItem13 });
+            layoutControlGroup1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] { layoutControlItem4, layoutControlItem5, layoutControlItem6, layoutControlItem7, layoutControlItem2, layoutControlItem13, layoutControlItem3, layoutControlItem12 });
             layoutControlGroup1.LayoutMode = DevExpress.XtraLayout.Utils.LayoutMode.Table;
             layoutControlGroup1.Name = "layoutControlGroup1";
             columnDefinition1.SizeType = SizeType.Percent;
@@ -358,22 +331,11 @@
             rowDefinition5.SizeType = SizeType.Absolute;
             rowDefinition6.Height = 31D;
             rowDefinition6.SizeType = SizeType.Absolute;
-            layoutControlGroup1.OptionsTableLayoutGroup.RowDefinitions.AddRange(new DevExpress.XtraLayout.RowDefinition[] { rowDefinition1, rowDefinition2, rowDefinition3, rowDefinition4, rowDefinition5, rowDefinition6 });
-            layoutControlGroup1.Size = new Size(472, 218);
+            rowDefinition7.Height = 31D;
+            rowDefinition7.SizeType = SizeType.Absolute;
+            layoutControlGroup1.OptionsTableLayoutGroup.RowDefinitions.AddRange(new DevExpress.XtraLayout.RowDefinition[] { rowDefinition1, rowDefinition2, rowDefinition3, rowDefinition4, rowDefinition5, rowDefinition6, rowDefinition7 });
+            layoutControlGroup1.Size = new Size(472, 249);
             layoutControlGroup1.TextVisible = false;
-            // 
-            // layoutControlItem3
-            // 
-            layoutControlItem3.AppearanceItemCaption.Font = new Font("Segoe UI", 9F);
-            layoutControlItem3.AppearanceItemCaption.Options.UseFont = true;
-            layoutControlItem3.Control = txtMasterVeritabani;
-            layoutControlItem3.Location = new Point(0, 31);
-            layoutControlItem3.Name = "layoutControlItem3";
-            layoutControlItem3.OptionsTableLayoutItem.ColumnSpan = 2;
-            layoutControlItem3.OptionsTableLayoutItem.RowIndex = 1;
-            layoutControlItem3.Size = new Size(452, 31);
-            layoutControlItem3.Text = "Veritabanı Adı";
-            layoutControlItem3.TextSize = new Size(109, 15);
             // 
             // layoutControlItem4
             // 
@@ -422,7 +384,7 @@
             layoutControlItem7.Location = new Point(0, 155);
             layoutControlItem7.Name = "layoutControlItem7";
             layoutControlItem7.OptionsTableLayoutItem.RowIndex = 5;
-            layoutControlItem7.Size = new Size(226, 43);
+            layoutControlItem7.Size = new Size(226, 31);
             layoutControlItem7.TextVisible = false;
             // 
             // layoutControlItem2
@@ -446,196 +408,22 @@
             layoutControlItem13.Name = "layoutControlItem13";
             layoutControlItem13.OptionsTableLayoutItem.ColumnIndex = 1;
             layoutControlItem13.OptionsTableLayoutItem.RowIndex = 5;
-            layoutControlItem13.Size = new Size(226, 43);
+            layoutControlItem13.Size = new Size(226, 31);
             layoutControlItem13.TextVisible = false;
-            // 
-            // xtraTabPage2
-            // 
-            xtraTabPage2.Controls.Add(myDataLayoutControl3);
-            xtraTabPage2.Name = "xtraTabPage2";
-            xtraTabPage2.Size = new Size(472, 218);
-            xtraTabPage2.Text = "Lisans ve Bulut Sunucu";
-            // 
-            // myDataLayoutControl3
-            // 
-            myDataLayoutControl3.AllowCustomization = false;
-            myDataLayoutControl3.Controls.Add(btnLisansiDogrula);
-            myDataLayoutControl3.Controls.Add(txtTerminalAdi);
-            myDataLayoutControl3.Controls.Add(txtLisansAnahtari);
-            myDataLayoutControl3.Controls.Add(txtLisansSunucuUrl);
-            myDataLayoutControl3.Dock = DockStyle.Fill;
-            myDataLayoutControl3.Location = new Point(0, 0);
-            myDataLayoutControl3.Name = "myDataLayoutControl3";
-            myDataLayoutControl3.OptionsFocus.EnableAutoTabOrder = false;
-            myDataLayoutControl3.Root = layoutControlGroup2;
-            myDataLayoutControl3.Size = new Size(472, 218);
-            myDataLayoutControl3.TabIndex = 0;
-            myDataLayoutControl3.Text = "myDataLayoutControl3";
-            // 
-            // btnLisansiDogrula
-            // 
-            btnLisansiDogrula.Appearance.Font = new Font("Segoe UI", 9F);
-            btnLisansiDogrula.Appearance.Options.UseFont = true;
-            btnLisansiDogrula.AppearanceDisabled.Font = new Font("Segoe UI", 9F);
-            btnLisansiDogrula.AppearanceDisabled.Options.UseFont = true;
-            btnLisansiDogrula.AppearanceHovered.Font = new Font("Segoe UI", 9F);
-            btnLisansiDogrula.AppearanceHovered.Options.UseFont = true;
-            btnLisansiDogrula.AppearancePressed.Font = new Font("Segoe UI", 9F);
-            btnLisansiDogrula.AppearancePressed.Options.UseFont = true;
-            btnLisansiDogrula.Location = new Point(12, 105);
-            btnLisansiDogrula.Name = "btnLisansiDogrula";
-            btnLisansiDogrula.Size = new Size(448, 22);
-            btnLisansiDogrula.StatusBarAciklama = null;
-            btnLisansiDogrula.StyleController = myDataLayoutControl3;
-            btnLisansiDogrula.TabIndex = 3;
-            btnLisansiDogrula.Text = "Lisansı Doğrula";
-            // 
-            // txtTerminalAdi
-            // 
-            txtTerminalAdi.EnterMoveNextControl = true;
-            txtTerminalAdi.Location = new Point(147, 74);
-            txtTerminalAdi.Name = "txtTerminalAdi";
-            txtTerminalAdi.Properties.Appearance.Font = new Font("Segoe UI", 9F);
-            txtTerminalAdi.Properties.Appearance.Options.UseFont = true;
-            txtTerminalAdi.Properties.AppearanceDisabled.Font = new Font("Segoe UI", 9F);
-            txtTerminalAdi.Properties.AppearanceDisabled.Options.UseFont = true;
-            txtTerminalAdi.Properties.AppearanceFocused.BackColor = Color.FromArgb(255, 255, 192);
-            txtTerminalAdi.Properties.AppearanceFocused.Font = new Font("Segoe UI", 9F);
-            txtTerminalAdi.Properties.AppearanceFocused.Options.UseBackColor = true;
-            txtTerminalAdi.Properties.AppearanceFocused.Options.UseFont = true;
-            txtTerminalAdi.Properties.AppearanceReadOnly.Font = new Font("Segoe UI", 9F);
-            txtTerminalAdi.Properties.AppearanceReadOnly.Options.UseFont = true;
-            txtTerminalAdi.Properties.MaxLength = 100;
-            txtTerminalAdi.Size = new Size(313, 22);
-            txtTerminalAdi.StatusBarAciklama = null;
-            txtTerminalAdi.StyleController = myDataLayoutControl3;
-            txtTerminalAdi.TabIndex = 2;
-            // 
-            // txtLisansAnahtari
-            // 
-            txtLisansAnahtari.EnterMoveNextControl = true;
-            txtLisansAnahtari.Location = new Point(147, 43);
-            txtLisansAnahtari.Name = "txtLisansAnahtari";
-            txtLisansAnahtari.Properties.Appearance.Font = new Font("Segoe UI", 9F);
-            txtLisansAnahtari.Properties.Appearance.Options.UseFont = true;
-            txtLisansAnahtari.Properties.AppearanceDisabled.Font = new Font("Segoe UI", 9F);
-            txtLisansAnahtari.Properties.AppearanceDisabled.Options.UseFont = true;
-            txtLisansAnahtari.Properties.AppearanceFocused.BackColor = Color.FromArgb(255, 255, 192);
-            txtLisansAnahtari.Properties.AppearanceFocused.Font = new Font("Segoe UI", 9F);
-            txtLisansAnahtari.Properties.AppearanceFocused.Options.UseBackColor = true;
-            txtLisansAnahtari.Properties.AppearanceFocused.Options.UseFont = true;
-            txtLisansAnahtari.Properties.AppearanceReadOnly.Font = new Font("Segoe UI", 9F);
-            txtLisansAnahtari.Properties.AppearanceReadOnly.Options.UseFont = true;
-            txtLisansAnahtari.Properties.MaxLength = 100;
-            txtLisansAnahtari.Size = new Size(313, 22);
-            txtLisansAnahtari.StatusBarAciklama = null;
-            txtLisansAnahtari.StyleController = myDataLayoutControl3;
-            txtLisansAnahtari.TabIndex = 1;
-            // 
-            // txtLisansSunucuUrl
-            // 
-            txtLisansSunucuUrl.EnterMoveNextControl = true;
-            txtLisansSunucuUrl.Location = new Point(147, 12);
-            txtLisansSunucuUrl.Name = "txtLisansSunucuUrl";
-            txtLisansSunucuUrl.Properties.Appearance.Font = new Font("Segoe UI", 9F);
-            txtLisansSunucuUrl.Properties.Appearance.Options.UseFont = true;
-            txtLisansSunucuUrl.Properties.AppearanceDisabled.Font = new Font("Segoe UI", 9F);
-            txtLisansSunucuUrl.Properties.AppearanceDisabled.Options.UseFont = true;
-            txtLisansSunucuUrl.Properties.AppearanceFocused.BackColor = Color.FromArgb(255, 255, 192);
-            txtLisansSunucuUrl.Properties.AppearanceFocused.Font = new Font("Segoe UI", 9F);
-            txtLisansSunucuUrl.Properties.AppearanceFocused.Options.UseBackColor = true;
-            txtLisansSunucuUrl.Properties.AppearanceFocused.Options.UseFont = true;
-            txtLisansSunucuUrl.Properties.AppearanceReadOnly.Font = new Font("Segoe UI", 9F);
-            txtLisansSunucuUrl.Properties.AppearanceReadOnly.Options.UseFont = true;
-            txtLisansSunucuUrl.Properties.MaxLength = 100;
-            txtLisansSunucuUrl.Size = new Size(313, 22);
-            txtLisansSunucuUrl.StatusBarAciklama = null;
-            txtLisansSunucuUrl.StyleController = myDataLayoutControl3;
-            txtLisansSunucuUrl.TabIndex = 0;
-            // 
-            // layoutControlGroup2
-            // 
-            layoutControlGroup2.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
-            layoutControlGroup2.GroupBordersVisible = false;
-            layoutControlGroup2.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] { layoutControlItem8, layoutControlItem9, layoutControlItem10, layoutControlItem11 });
-            layoutControlGroup2.LayoutMode = DevExpress.XtraLayout.Utils.LayoutMode.Table;
-            layoutControlGroup2.Name = "layoutControlGroup2";
-            columnDefinition3.SizeType = SizeType.Percent;
-            columnDefinition3.Width = 100D;
-            layoutControlGroup2.OptionsTableLayoutGroup.ColumnDefinitions.AddRange(new DevExpress.XtraLayout.ColumnDefinition[] { columnDefinition3 });
-            rowDefinition7.Height = 31D;
-            rowDefinition7.SizeType = SizeType.Absolute;
-            rowDefinition8.Height = 31D;
-            rowDefinition8.SizeType = SizeType.Absolute;
-            rowDefinition9.Height = 31D;
-            rowDefinition9.SizeType = SizeType.Absolute;
-            rowDefinition10.Height = 31D;
-            rowDefinition10.SizeType = SizeType.Absolute;
-            layoutControlGroup2.OptionsTableLayoutGroup.RowDefinitions.AddRange(new DevExpress.XtraLayout.RowDefinition[] { rowDefinition7, rowDefinition8, rowDefinition9, rowDefinition10 });
-            layoutControlGroup2.Size = new Size(472, 218);
-            layoutControlGroup2.TextVisible = false;
-            // 
-            // layoutControlItem8
-            // 
-            layoutControlItem8.AppearanceItemCaption.Font = new Font("Segoe UI", 9F);
-            layoutControlItem8.AppearanceItemCaption.Options.UseFont = true;
-            layoutControlItem8.Control = txtLisansSunucuUrl;
-            layoutControlItem8.Location = new Point(0, 0);
-            layoutControlItem8.Name = "layoutControlItem8";
-            layoutControlItem8.Size = new Size(452, 31);
-            layoutControlItem8.Text = "Lisans Sunucu Adresi";
-            layoutControlItem8.TextSize = new Size(123, 15);
-            // 
-            // layoutControlItem9
-            // 
-            layoutControlItem9.AppearanceItemCaption.Font = new Font("Segoe UI", 9F);
-            layoutControlItem9.AppearanceItemCaption.Options.UseFont = true;
-            layoutControlItem9.Control = txtLisansAnahtari;
-            layoutControlItem9.Location = new Point(0, 31);
-            layoutControlItem9.Name = "layoutControlItem9";
-            layoutControlItem9.OptionsTableLayoutItem.RowIndex = 1;
-            layoutControlItem9.Size = new Size(452, 31);
-            layoutControlItem9.Text = "Müşteri Lisans Anahtarı";
-            layoutControlItem9.TextSize = new Size(123, 15);
-            // 
-            // layoutControlItem10
-            // 
-            layoutControlItem10.AppearanceItemCaption.Font = new Font("Segoe UI", 9F);
-            layoutControlItem10.AppearanceItemCaption.Options.UseFont = true;
-            layoutControlItem10.Control = txtTerminalAdi;
-            layoutControlItem10.Location = new Point(0, 62);
-            layoutControlItem10.Name = "layoutControlItem10";
-            layoutControlItem10.OptionsTableLayoutItem.RowIndex = 2;
-            layoutControlItem10.Size = new Size(452, 31);
-            layoutControlItem10.Text = "Terminal Adı";
-            layoutControlItem10.TextSize = new Size(123, 15);
-            // 
-            // layoutControlItem11
-            // 
-            layoutControlItem11.AppearanceItemCaption.Font = new Font("Segoe UI", 9F);
-            layoutControlItem11.AppearanceItemCaption.Options.UseFont = true;
-            layoutControlItem11.Control = btnLisansiDogrula;
-            layoutControlItem11.Location = new Point(0, 93);
-            layoutControlItem11.Name = "layoutControlItem11";
-            layoutControlItem11.OptionsTableLayoutItem.RowIndex = 3;
-            layoutControlItem11.Size = new Size(452, 105);
-            layoutControlItem11.TextVisible = false;
             // 
             // Root
             // 
             Root.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
             Root.GroupBordersVisible = false;
-            Root.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] { layoutControlItem1, layoutControlItem12 });
+            Root.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] { layoutControlItem1 });
             Root.LayoutMode = DevExpress.XtraLayout.Utils.LayoutMode.Table;
             Root.Name = "Root";
-            columnDefinition4.SizeType = SizeType.Percent;
-            columnDefinition4.Width = 100D;
-            Root.OptionsTableLayoutGroup.ColumnDefinitions.AddRange(new DevExpress.XtraLayout.ColumnDefinition[] { columnDefinition4 });
-            rowDefinition11.Height = 100D;
-            rowDefinition11.SizeType = SizeType.Percent;
-            rowDefinition12.Height = 31D;
-            rowDefinition12.SizeType = SizeType.Absolute;
-            Root.OptionsTableLayoutGroup.RowDefinitions.AddRange(new DevExpress.XtraLayout.RowDefinition[] { rowDefinition11, rowDefinition12 });
+            columnDefinition3.SizeType = SizeType.Percent;
+            columnDefinition3.Width = 100D;
+            Root.OptionsTableLayoutGroup.ColumnDefinitions.AddRange(new DevExpress.XtraLayout.ColumnDefinition[] { columnDefinition3 });
+            rowDefinition8.Height = 100D;
+            rowDefinition8.SizeType = SizeType.Percent;
+            Root.OptionsTableLayoutGroup.RowDefinitions.AddRange(new DevExpress.XtraLayout.RowDefinition[] { rowDefinition8 });
             Root.Size = new Size(498, 298);
             Root.TextVisible = false;
             // 
@@ -646,18 +434,32 @@
             layoutControlItem1.Control = xtraTabControl1;
             layoutControlItem1.Location = new Point(0, 0);
             layoutControlItem1.Name = "layoutControlItem1";
-            layoutControlItem1.Size = new Size(478, 247);
+            layoutControlItem1.Size = new Size(478, 278);
             layoutControlItem1.TextVisible = false;
+            // 
+            // layoutControlItem3
+            // 
+            layoutControlItem3.AppearanceItemCaption.Font = new Font("Segoe UI", 9F);
+            layoutControlItem3.AppearanceItemCaption.Options.UseFont = true;
+            layoutControlItem3.Control = txtMasterVeritabani;
+            layoutControlItem3.Location = new Point(0, 31);
+            layoutControlItem3.Name = "layoutControlItem3";
+            layoutControlItem3.OptionsTableLayoutItem.ColumnSpan = 2;
+            layoutControlItem3.OptionsTableLayoutItem.RowIndex = 1;
+            layoutControlItem3.Size = new Size(452, 31);
+            layoutControlItem3.Text = "Veritabanı Adı";
+            layoutControlItem3.TextSize = new Size(109, 15);
             // 
             // layoutControlItem12
             // 
             layoutControlItem12.AppearanceItemCaption.Font = new Font("Segoe UI", 9F);
             layoutControlItem12.AppearanceItemCaption.Options.UseFont = true;
             layoutControlItem12.Control = btnKurulumuTamamla;
-            layoutControlItem12.Location = new Point(0, 247);
+            layoutControlItem12.Location = new Point(0, 186);
             layoutControlItem12.Name = "layoutControlItem12";
-            layoutControlItem12.OptionsTableLayoutItem.RowIndex = 1;
-            layoutControlItem12.Size = new Size(478, 31);
+            layoutControlItem12.OptionsTableLayoutItem.ColumnSpan = 2;
+            layoutControlItem12.OptionsTableLayoutItem.RowIndex = 6;
+            layoutControlItem12.Size = new Size(452, 43);
             layoutControlItem12.TextVisible = false;
             // 
             // KurulumSihirbaziForm
@@ -687,26 +489,15 @@
             ((System.ComponentModel.ISupportInitialize)txtMasterVeritabani.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtSunucuAdresi.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlGroup1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)layoutControlItem3).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem4).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem5).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem6).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem7).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem2).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem13).EndInit();
-            xtraTabPage2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)myDataLayoutControl3).EndInit();
-            myDataLayoutControl3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)txtTerminalAdi.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)txtLisansAnahtari.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)txtLisansSunucuUrl.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)layoutControlGroup2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)layoutControlItem8).EndInit();
-            ((System.ComponentModel.ISupportInitialize)layoutControlItem9).EndInit();
-            ((System.ComponentModel.ISupportInitialize)layoutControlItem10).EndInit();
-            ((System.ComponentModel.ISupportInitialize)layoutControlItem11).EndInit();
             ((System.ComponentModel.ISupportInitialize)Root).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem3).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem12).EndInit();
             ResumeLayout(false);
         }
@@ -717,7 +508,6 @@
         private DevExpress.XtraLayout.LayoutControlGroup Root;
         private DevExpress.XtraTab.XtraTabControl xtraTabControl1;
         private DevExpress.XtraTab.XtraTabPage xtraTabPage1;
-        private DevExpress.XtraTab.XtraTabPage xtraTabPage2;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
         private UserControls.MyDataLayoutControl myDataLayoutControl2;
         private UserControls.MySimpleButton btnBaglantiyiTestEt;
@@ -727,25 +517,15 @@
         private UserControls.MyTextEdit txtMasterVeritabani;
         private UserControls.MyTextEdit txtSunucuAdresi;
         private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup1;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem6;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem7;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
         private UserControls.MySimpleButton btnKurulumuTamamla;
-        private UserControls.MyDataLayoutControl myDataLayoutControl3;
-        private UserControls.MySimpleButton btnLisansiDogrula;
-        private UserControls.MyTextEdit txtTerminalAdi;
-        private UserControls.MyTextEdit txtLisansAnahtari;
-        private UserControls.MyTextEdit txtLisansSunucuUrl;
-        private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup2;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem8;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem9;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem10;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem11;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem12;
         private UserControls.MySimpleButton btnKaydetVeCik;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem13;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem12;
     }
 }

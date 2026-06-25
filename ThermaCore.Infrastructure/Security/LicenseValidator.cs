@@ -179,6 +179,19 @@ namespace ThermaCore.Infrastructure.Security
         {
             try
             {
+                var activeLicense = _licenseRepository.Find(x => true).FirstOrDefault();
+                if (activeLicense == null)
+                {
+                    return false; // Sıfır kurulum durumu (Lisans yok), manipülasyon olamaz.
+                }
+
+                string currentHwid = ThermaCore.Domain.Helpers.HardwareInfoHelper.GetHWID();
+                if (currentHwid != activeLicense.ServerHardwareId)
+                {
+                    // Bu cihaz bir İstemci (Client). Zaman kalkanı sadece Ana Sunucuda çalışır.
+                    return false;
+                }
+
                 // 1. Veritabanındaki en son oturum/işlem kaydının tarihini alıyoruz.
                 var lastSession = _userSessionRepository.GetAll()
                     .OrderByDescending(x => x.Id)
@@ -194,7 +207,6 @@ namespace ThermaCore.Infrastructure.Security
 
                 // 2. Kriptografik İşletim Sistemi Katmanı (LKGT)
                 string lkgtFile = GetLkgtFilePath();
-                var activeLicense = _licenseRepository.Find(x => true).FirstOrDefault();
 
                 if (!global::System.IO.File.Exists(lkgtFile))
                 {
@@ -246,6 +258,17 @@ namespace ThermaCore.Infrastructure.Security
         {
             try
             {
+                var activeLicenseCheck = _licenseRepository.Find(x => true).FirstOrDefault();
+                if (activeLicenseCheck != null)
+                {
+                    string currentHwid = ThermaCore.Domain.Helpers.HardwareInfoHelper.GetHWID();
+                    if (currentHwid != activeLicenseCheck.ServerHardwareId)
+                    {
+                        // Bu cihaz bir İstemci (Client). Zaman kalkanı güncellenmez.
+                        return;
+                    }
+                }
+
                 string lkgtFile = GetLkgtFilePath();
                 if (global::System.IO.File.Exists(lkgtFile))
                 {

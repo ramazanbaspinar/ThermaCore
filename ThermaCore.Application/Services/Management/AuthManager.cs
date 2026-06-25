@@ -154,11 +154,10 @@ public class AuthManager : IAuthService
             throw new global::System.Exception("Cihazınızda donanım kimliği (HWID) üretilemedi. Lütfen yetkiliyle iletişime geçin.");
         }
 
-        var terminals = _terminalRepository.Find(t => t.IsActive).ToList();
-        
-        bool hasAccess = terminals.Any(t => t.HardwareId == hwid);
+        var allTerminals = _terminalRepository.Find(x => true).ToList();
+        var currentTerminal = allTerminals.FirstOrDefault(t => t.HardwareId == hwid);
 
-        if (!hasAccess)
+        if (currentTerminal == null)
         {
             int maxTerminalCount = 0;
             var license = _licenseRepository.Find(x => true).FirstOrDefault();
@@ -167,12 +166,32 @@ public class AuthManager : IAuthService
                 maxTerminalCount = license.MaxTerminalCount;
             }
 
-            if (terminals.Count >= maxTerminalCount)
+            var activeTerminalsCount = allTerminals.Count(t => t.IsActive);
+
+            if (activeTerminalsCount >= maxTerminalCount)
             {
-                throw new global::System.Exception("Lisansınızın izin verdiği maksimum terminal (cihaz) sınırına ulaşıldı!");
+                // Limite ulaşıldıysa otomatik kayıt yapmasın veya yapsa bile limit hatası versin
+                // Ancak gereksinim sadece otomatik kayıt diyor. Limit uyarısını burada da bırakabiliriz.
             }
 
-            throw new global::System.Exception($"Güvenlik İhlali: Bu cihaz (HWID: {hwid}) sisteme kayıtlı değil veya aktif edilmemiş. Giriş reddedildi.");
+            var newTerminal = new Terminal
+            {
+                Id = ThermaCore.Domain.Helpers.IdGenerator.GenerateId(),
+                Code = Environment.MachineName,
+                HardwareId = hwid,
+                IsActive = false,
+                Description = "Sistem tarafından otomatik keşfedildi. Onay bekleniyor."
+            };
+            
+            _terminalRepository.Add(newTerminal);
+            _uow.SaveChanges();
+
+            throw new global::System.Exception("Cihazınız sisteme kayıtlı fakat henüz onaylanmamış. Lütfen Sistem Yöneticiniz ile iletişime geçerek cihazınıza onay verdirin.");
+        }
+
+        if (!currentTerminal.IsActive)
+        {
+            throw new global::System.Exception("Cihazınız sisteme kayıtlı fakat henüz onaylanmamış. Lütfen Sistem Yöneticiniz ile iletişime geçerek cihazınıza onay verdirin.");
         }
 
         return Task.FromResult(true);

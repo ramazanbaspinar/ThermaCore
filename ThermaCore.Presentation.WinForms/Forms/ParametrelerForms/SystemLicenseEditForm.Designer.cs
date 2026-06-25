@@ -155,6 +155,7 @@
             dtExpirationDate.Properties.AppearanceReadOnly.Options.UseFont = true;
             dtExpirationDate.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
             dtExpirationDate.Properties.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
+            dtExpirationDate.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.DateTimeAdvancingCaret;
             dtExpirationDate.Properties.MaskSettings.Set("MaskManagerType", typeof(DevExpress.Data.Mask.DateTimeMaskManager));
             dtExpirationDate.Properties.MaskSettings.Set("useAdvancingCaret", true);
             dtExpirationDate.Properties.ReadOnly = true;
@@ -182,8 +183,6 @@
             txtHardwareId.Properties.AppearanceFocused.Options.UseFont = true;
             txtHardwareId.Properties.AppearanceReadOnly.Font = new Font("Segoe UI", 9F);
             txtHardwareId.Properties.AppearanceReadOnly.Options.UseFont = true;
-            txtHardwareId.Properties.MaskSettings.Set("MaskManagerType", typeof(DevExpress.Data.Mask.RegExpMaskManager));
-            txtHardwareId.Properties.MaskSettings.Set("mask", "([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}");
             txtHardwareId.Properties.MaxLength = 100;
             txtHardwareId.Properties.ReadOnly = true;
             txtHardwareId.Size = new Size(188, 22);

@@ -1,4 +1,4 @@
-﻿namespace ThermaCore.Presentation.WinForms.Forms.TerminalForms
+namespace ThermaCore.Presentation.WinForms.Forms.TerminalForms
 {
     partial class TerminalEditForm
     {
@@ -34,33 +34,28 @@
             DevExpress.XtraLayout.RowDefinition rowDefinition1 = new DevExpress.XtraLayout.RowDefinition();
             DevExpress.XtraLayout.RowDefinition rowDefinition2 = new DevExpress.XtraLayout.RowDefinition();
             DevExpress.XtraLayout.RowDefinition rowDefinition3 = new DevExpress.XtraLayout.RowDefinition();
-            DevExpress.XtraLayout.RowDefinition rowDefinition4 = new DevExpress.XtraLayout.RowDefinition();
             myDataLayoutControl1 = new ThermaCore.Presentation.WinForms.UserControls.MyDataLayoutControl();
             txtHardwareId = new ThermaCore.Presentation.WinForms.UserControls.MyTextEdit();
             tglDurum = new ThermaCore.Presentation.WinForms.UserControls.MyToggleSwitch();
-            txtKod = new ThermaCore.Presentation.WinForms.UserControls.MyKodTextEdit();
             txtAciklama = new ThermaCore.Presentation.WinForms.UserControls.MyMemoEdit();
             txtCihazAdi = new ThermaCore.Presentation.WinForms.UserControls.MyTextEdit();
             Root = new DevExpress.XtraLayout.LayoutControlGroup();
             layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
-            layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
-            layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
+            layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)ribbon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)myDataLayoutControl1).BeginInit();
             myDataLayoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)txtHardwareId.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)tglDurum.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)txtKod.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtAciklama.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtCihazAdi.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)Root).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem4).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)layoutControlItem5).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem8).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)layoutControlItem1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem1).BeginInit();
             SuspendLayout();
             // 
             // ribbon
@@ -74,7 +69,6 @@
             myDataLayoutControl1.AllowCustomization = false;
             myDataLayoutControl1.Controls.Add(txtHardwareId);
             myDataLayoutControl1.Controls.Add(tglDurum);
-            myDataLayoutControl1.Controls.Add(txtKod);
             myDataLayoutControl1.Controls.Add(txtAciklama);
             myDataLayoutControl1.Controls.Add(txtCihazAdi);
             myDataLayoutControl1.Dock = DockStyle.Fill;
@@ -89,7 +83,7 @@
             // txtHardwareId
             // 
             txtHardwareId.EnterMoveNextControl = true;
-            txtHardwareId.Location = new Point(145, 43);
+            txtHardwareId.Location = new Point(145, 12);
             txtHardwareId.MenuManager = ribbon;
             txtHardwareId.Name = "txtHardwareId";
             txtHardwareId.Properties.Appearance.Font = new Font("Segoe UI", 9F);
@@ -104,7 +98,7 @@
             txtHardwareId.Properties.AppearanceReadOnly.Options.UseFont = true;
             txtHardwareId.Properties.MaxLength = 100;
             txtHardwareId.Properties.ReadOnly = true;
-            txtHardwareId.Size = new Size(241, 22);
+            txtHardwareId.Size = new Size(132, 22);
             txtHardwareId.StatusBarAciklama = null;
             txtHardwareId.StyleController = myDataLayoutControl1;
             txtHardwareId.TabIndex = 8;
@@ -133,39 +127,12 @@
             tglDurum.StatusBarAciklama = "Kayıtın Kullanım Durumunu Seçiniz.";
             tglDurum.StyleController = myDataLayoutControl1;
             tglDurum.TabIndex = 6;
-            // 
-            // txtKod
-            // 
-            txtKod.EnterMoveNextControl = true;
-            txtKod.Location = new Point(145, 12);
-            txtKod.MenuManager = ribbon;
-            txtKod.Name = "txtKod";
-            txtKod.Properties.Appearance.BackColor = Color.FromArgb(220, 235, 250);
-            txtKod.Properties.Appearance.Font = new Font("Segoe UI", 9F);
-            txtKod.Properties.Appearance.Options.UseBackColor = true;
-            txtKod.Properties.Appearance.Options.UseFont = true;
-            txtKod.Properties.Appearance.Options.UseTextOptions = true;
-            txtKod.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            txtKod.Properties.AppearanceDisabled.Font = new Font("Segoe UI", 9F);
-            txtKod.Properties.AppearanceDisabled.Options.UseFont = true;
-            txtKod.Properties.AppearanceFocused.BackColor = Color.FromArgb(255, 255, 192);
-            txtKod.Properties.AppearanceFocused.Font = new Font("Segoe UI", 9F);
-            txtKod.Properties.AppearanceFocused.Options.UseBackColor = true;
-            txtKod.Properties.AppearanceFocused.Options.UseFont = true;
-            txtKod.Properties.AppearanceReadOnly.Font = new Font("Segoe UI", 9F);
-            txtKod.Properties.AppearanceReadOnly.Options.UseFont = true;
-            txtKod.Properties.MaxLength = 100;
-            txtKod.Properties.ReadOnly = true;
-            txtKod.Size = new Size(132, 22);
-            txtKod.StatusBarAciklama = "Kod Giriniz.";
-            txtKod.StyleController = myDataLayoutControl1;
-            txtKod.TabIndex = 7;
-            txtKod.Tag = "Code";
+            tglDurum.Tag = "IsActive";
             // 
             // txtAciklama
             // 
             txtAciklama.EnterMoveNextControl = true;
-            txtAciklama.Location = new Point(145, 105);
+            txtAciklama.Location = new Point(145, 74);
             txtAciklama.MenuManager = ribbon;
             txtAciklama.Name = "txtAciklama";
             txtAciklama.Properties.Appearance.Font = new Font("Segoe UI", 9F);
@@ -179,7 +146,7 @@
             txtAciklama.Properties.AppearanceReadOnly.Font = new Font("Segoe UI", 9F);
             txtAciklama.Properties.AppearanceReadOnly.Options.UseFont = true;
             txtAciklama.Properties.MaxLength = 500;
-            txtAciklama.Size = new Size(241, 98);
+            txtAciklama.Size = new Size(241, 129);
             txtAciklama.StatusBarAciklama = "Açıklama Giriniz.";
             txtAciklama.StyleController = myDataLayoutControl1;
             txtAciklama.TabIndex = 5;
@@ -188,7 +155,7 @@
             // txtCihazAdi
             // 
             txtCihazAdi.EnterMoveNextControl = true;
-            txtCihazAdi.Location = new Point(145, 74);
+            txtCihazAdi.Location = new Point(145, 43);
             txtCihazAdi.MenuManager = ribbon;
             txtCihazAdi.Name = "txtCihazAdi";
             txtCihazAdi.Properties.Appearance.Font = new Font("Segoe UI", 9F);
@@ -202,17 +169,18 @@
             txtCihazAdi.Properties.AppearanceReadOnly.Font = new Font("Segoe UI", 9F);
             txtCihazAdi.Properties.AppearanceReadOnly.Options.UseFont = true;
             txtCihazAdi.Properties.MaxLength = 100;
+            txtCihazAdi.Properties.ReadOnly = true;
             txtCihazAdi.Size = new Size(241, 22);
             txtCihazAdi.StatusBarAciklama = null;
             txtCihazAdi.StyleController = myDataLayoutControl1;
             txtCihazAdi.TabIndex = 0;
-            txtCihazAdi.Tag = "MachineName";
+            txtCihazAdi.Tag = "Code";
             // 
             // Root
             // 
             Root.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
             Root.GroupBordersVisible = false;
-            Root.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] { layoutControlItem4, layoutControlItem5, layoutControlItem8, layoutControlItem1, layoutControlItem2 });
+            Root.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] { layoutControlItem4, layoutControlItem8, layoutControlItem2, layoutControlItem1 });
             Root.LayoutMode = DevExpress.XtraLayout.Utils.LayoutMode.Table;
             Root.Name = "Root";
             columnDefinition1.SizeType = SizeType.Percent;
@@ -226,11 +194,9 @@
             rowDefinition1.SizeType = SizeType.Absolute;
             rowDefinition2.Height = 31D;
             rowDefinition2.SizeType = SizeType.Absolute;
-            rowDefinition3.Height = 31D;
-            rowDefinition3.SizeType = SizeType.Absolute;
-            rowDefinition4.Height = 100D;
-            rowDefinition4.SizeType = SizeType.Percent;
-            Root.OptionsTableLayoutGroup.RowDefinitions.AddRange(new DevExpress.XtraLayout.RowDefinition[] { rowDefinition1, rowDefinition2, rowDefinition3, rowDefinition4 });
+            rowDefinition3.Height = 100D;
+            rowDefinition3.SizeType = SizeType.Percent;
+            Root.OptionsTableLayoutGroup.RowDefinitions.AddRange(new DevExpress.XtraLayout.RowDefinition[] { rowDefinition1, rowDefinition2, rowDefinition3 });
             Root.Size = new Size(398, 215);
             Root.TextVisible = false;
             // 
@@ -239,24 +205,13 @@
             layoutControlItem4.AppearanceItemCaption.Font = new Font("Segoe UI", 9F);
             layoutControlItem4.AppearanceItemCaption.Options.UseFont = true;
             layoutControlItem4.Control = txtAciklama;
-            layoutControlItem4.Location = new Point(0, 93);
+            layoutControlItem4.Location = new Point(0, 62);
             layoutControlItem4.Name = "layoutControlItem4";
             layoutControlItem4.OptionsTableLayoutItem.ColumnSpan = 3;
-            layoutControlItem4.OptionsTableLayoutItem.RowIndex = 3;
-            layoutControlItem4.Size = new Size(378, 102);
+            layoutControlItem4.OptionsTableLayoutItem.RowIndex = 2;
+            layoutControlItem4.Size = new Size(378, 133);
             layoutControlItem4.Text = "Açıklama";
             layoutControlItem4.TextSize = new Size(121, 15);
-            // 
-            // layoutControlItem5
-            // 
-            layoutControlItem5.AppearanceItemCaption.Font = new Font("Segoe UI", 9F);
-            layoutControlItem5.AppearanceItemCaption.Options.UseFont = true;
-            layoutControlItem5.Control = txtKod;
-            layoutControlItem5.Location = new Point(0, 0);
-            layoutControlItem5.Name = "layoutControlItem5";
-            layoutControlItem5.Size = new Size(269, 31);
-            layoutControlItem5.Text = "Kod";
-            layoutControlItem5.TextSize = new Size(121, 15);
             // 
             // layoutControlItem8
             // 
@@ -269,31 +224,29 @@
             layoutControlItem8.Size = new Size(99, 31);
             layoutControlItem8.TextVisible = false;
             // 
-            // layoutControlItem1
-            // 
-            layoutControlItem1.AppearanceItemCaption.Font = new Font("Segoe UI", 9F);
-            layoutControlItem1.AppearanceItemCaption.Options.UseFont = true;
-            layoutControlItem1.Control = txtCihazAdi;
-            layoutControlItem1.Location = new Point(0, 62);
-            layoutControlItem1.Name = "layoutControlItem1";
-            layoutControlItem1.OptionsTableLayoutItem.ColumnSpan = 3;
-            layoutControlItem1.OptionsTableLayoutItem.RowIndex = 2;
-            layoutControlItem1.Size = new Size(378, 31);
-            layoutControlItem1.Text = "Cihaz Adı";
-            layoutControlItem1.TextSize = new Size(121, 15);
-            // 
             // layoutControlItem2
             // 
             layoutControlItem2.AppearanceItemCaption.Font = new Font("Segoe UI", 9F);
             layoutControlItem2.AppearanceItemCaption.Options.UseFont = true;
             layoutControlItem2.Control = txtHardwareId;
-            layoutControlItem2.Location = new Point(0, 31);
+            layoutControlItem2.Location = new Point(0, 0);
             layoutControlItem2.Name = "layoutControlItem2";
-            layoutControlItem2.OptionsTableLayoutItem.ColumnSpan = 3;
-            layoutControlItem2.OptionsTableLayoutItem.RowIndex = 1;
-            layoutControlItem2.Size = new Size(378, 31);
+            layoutControlItem2.Size = new Size(269, 31);
             layoutControlItem2.Text = "Cihaz Donanım Kimliği";
             layoutControlItem2.TextSize = new Size(121, 15);
+            // 
+            // layoutControlItem1
+            // 
+            layoutControlItem1.AppearanceItemCaption.Font = new Font("Segoe UI", 9F);
+            layoutControlItem1.AppearanceItemCaption.Options.UseFont = true;
+            layoutControlItem1.Control = txtCihazAdi;
+            layoutControlItem1.Location = new Point(0, 31);
+            layoutControlItem1.Name = "layoutControlItem1";
+            layoutControlItem1.OptionsTableLayoutItem.ColumnSpan = 3;
+            layoutControlItem1.OptionsTableLayoutItem.RowIndex = 1;
+            layoutControlItem1.Size = new Size(378, 31);
+            layoutControlItem1.Text = "Cihaz Adı";
+            layoutControlItem1.TextSize = new Size(121, 15);
             // 
             // TerminalEditForm
             // 
@@ -304,7 +257,7 @@
             IconOptions.ShowIcon = false;
             MinimumSize = new Size(400, 375);
             Name = "TerminalEditForm";
-            Text = " ";
+            Text = " Terminal Tanımı";
             Controls.SetChildIndex(ribbon, 0);
             Controls.SetChildIndex(myDataLayoutControl1, 0);
             ((System.ComponentModel.ISupportInitialize)ribbon).EndInit();
@@ -312,15 +265,13 @@
             myDataLayoutControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)txtHardwareId.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)tglDurum.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)txtKod.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtAciklama.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtCihazAdi.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)Root).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem4).EndInit();
-            ((System.ComponentModel.ISupportInitialize)layoutControlItem5).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem8).EndInit();
-            ((System.ComponentModel.ISupportInitialize)layoutControlItem1).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -332,12 +283,10 @@
         private UserControls.MyTextEdit txtCihazAdi;
         private DevExpress.XtraLayout.LayoutControlGroup Root;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
-        private UserControls.MyKodTextEdit txtKod;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;
         private UserControls.MyToggleSwitch tglDurum;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem8;
         private UserControls.MyTextEdit txtHardwareId;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
     }
 }

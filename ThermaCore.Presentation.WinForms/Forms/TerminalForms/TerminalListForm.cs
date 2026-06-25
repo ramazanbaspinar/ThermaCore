@@ -29,6 +29,61 @@ namespace ThermaCore.Presentation.WinForms.Forms.TerminalForms
             BaseKartTuru = ThermaCore.Domain.Enums.ModuleType.TerminalYonetimi;
             Navigator = longNavigator1.Navigator;
             AktifPasifButonGoster = true;
+            HideItems = new DevExpress.XtraBars.BarItem[] { btnYeni };
+            if (Tablo != null)
+            {
+                Tablo.PopupMenuShowing += Tablo_PopupMenuShowing;
+            }
+        }
+
+        private void Tablo_PopupMenuShowing(object? sender, DevExpress.XtraGrid.Views.Grid.PopupMenuShowingEventArgs e)
+        {
+            if (e.HitInfo.InRow)
+            {
+                var rowHandle = e.HitInfo.RowHandle;
+                if (rowHandle < 0) return;
+
+                bool isActive = true;
+                if (Tablo.GetRowCellValue(rowHandle, "IsActive") != null)
+                {
+                    isActive = (bool)Tablo.GetRowCellValue(rowHandle, "IsActive");
+                }
+
+                string menuText = isActive ? "Pasife Çek" : "Aktife Çek";
+
+                DevExpress.Utils.Menu.DXMenuItem menuItem = new DevExpress.Utils.Menu.DXMenuItem(menuText, (s, args) =>
+                {
+                    long entityId = 0;
+                    long.TryParse(Tablo.GetRowCellValue(rowHandle, "Id")?.ToString(), out entityId);
+                    if (entityId > 0)
+                    {
+                        var terminal = _terminalService.GetById(entityId);
+                        if (terminal != null)
+                        {
+                            try
+                            {
+                                terminal.IsActive = !isActive;
+                                _terminalService.Update(terminal);
+                                Listele();
+                            }
+                            catch (FluentValidation.ValidationException ex)
+                            {
+                                DevExpress.XtraEditors.XtraMessageBox.Show(
+                                    string.Join("\n", ex.Errors.Select(e => e.ErrorMessage)), 
+                                    "Lisans Uyarısı", 
+                                    System.Windows.Forms.MessageBoxButtons.OK, 
+                                    System.Windows.Forms.MessageBoxIcon.Warning);
+                            }
+                            catch (Exception ex)
+                            {
+                                DevExpress.XtraEditors.XtraMessageBox.Show(ex.Message, "Hata", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+                            }
+                        }
+                    }
+                });
+
+                e.Menu?.Items.Add(menuItem);
+            }
         }
 
         protected override void Listele()
