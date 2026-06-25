@@ -12,6 +12,6 @@ public class SystemLicenseConfiguration : IEntityTypeConfiguration<SystemLicense
         builder.HasKey(x => x.Id);
         
         builder.Property(x => x.ServerHardwareId).HasMaxLength(100).IsRequired();
-        builder.Property(x => x.LicenseKey).HasMaxLength(500).IsRequired();
+        builder.Property(x => x.LicenseKey).HasMaxLength(2000).IsRequired();
     }
 }

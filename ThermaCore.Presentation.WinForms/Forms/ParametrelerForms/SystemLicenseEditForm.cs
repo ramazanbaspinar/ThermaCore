@@ -26,12 +26,8 @@ namespace ThermaCore.Presentation.WinForms.Forms.ParametrelerForms
 
             HideItems = new DevExpress.XtraBars.BarItem[] { btnYeni, btnSil };
 
-            btnCihazMacGetir.Click += btnCihazMacGetir_Click;
-            btnCihazIdGetir.Click += btnCihazIdGetir_Click;
-
             // Kilitlenecek (Sadece Bilgi Gösterimi) alanlar
             txtHardwareId.Properties.ReadOnly = true;
-            txtServerCpuId.Properties.ReadOnly = true;
             dtExpirationDate.Properties.ReadOnly = true;
             txtMaxTerminal.Properties.ReadOnly = true;
         }
@@ -51,7 +47,6 @@ namespace ThermaCore.Presentation.WinForms.Forms.ParametrelerForms
                 };
 
                 txtHardwareId.Text = entity.ServerHardwareId;
-                txtServerCpuId.Text = ""; // Not used anymore
                 txtLicenseKey.Text = entity.LicenseKey;
                 dtExpirationDate.DateTime = entity.ExpirationDate;
                 txtMaxTerminal.EditValue = entity.MaxTerminalCount;
@@ -64,7 +59,6 @@ namespace ThermaCore.Presentation.WinForms.Forms.ParametrelerForms
                 CurrentEntity = new SystemLicenseDto();
                 
                 txtHardwareId.Text = "";
-                txtServerCpuId.Text = "";
                 txtLicenseKey.Text = "";
                 dtExpirationDate.DateTime = DateTime.Now.AddDays(30); // Default trial
                 txtMaxTerminal.EditValue = 5; // Varsayılan deneme sürümü terminal sayısı
@@ -142,14 +136,5 @@ namespace ThermaCore.Presentation.WinForms.Forms.ParametrelerForms
             }
         }
 
-        public void btnCihazMacGetir_Click(object sender, EventArgs e)
-        {
-            txtHardwareId.Text = ThermaCore.Domain.Helpers.HardwareInfoHelper.GetHWID();
-        }
-
-        public void btnCihazIdGetir_Click(object sender, EventArgs e)
-        {
-            txtServerCpuId.Text = ThermaCore.Domain.Helpers.HardwareInfoHelper.GetHWID();
-        }
     }
 }

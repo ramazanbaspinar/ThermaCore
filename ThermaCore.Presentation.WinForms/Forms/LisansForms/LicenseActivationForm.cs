@@ -63,7 +63,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.LisansForms
                 ofd.Filter = "Lisans Dosyası (*.lic)|*.lic|Tüm Dosyalar (*.*)|*.*";
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {
-                    txtAciklama.Text = System.IO.File.ReadAllText(ofd.FileName);
+                    txtAciklama.Text = System.IO.File.ReadAllText(ofd.FileName, Encoding.UTF8).Trim();
                 }
             }
         }
@@ -76,7 +76,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.LisansForms
                 return;
             }
 
-            var licenseData = _licenseValidator.ValidateLicense(txtAciklama.Text);
+            var licenseData = _licenseValidator.ValidateLicense(txtAciklama.Text, true);
             
             if (!licenseData.IsValid)
             {
@@ -96,7 +96,10 @@ namespace ThermaCore.Presentation.WinForms.Forms.LisansForms
             var existingLicense = _licenseRepository.Find(x => true).FirstOrDefault();
             if (existingLicense == null)
             {
-                existingLicense = new ThermaCore.Domain.Entities.Management.SystemLicense();
+                existingLicense = new ThermaCore.Domain.Entities.Management.SystemLicense
+                {
+                    Id = ThermaCore.Domain.Helpers.IdGenerator.GenerateId()
+                };
                 existingLicense.LicenseKey = txtAciklama.Text;
                 existingLicense.ServerHardwareId = licenseData.MacAddress; // LicenseData'daki MacAddress DTO'dan geliyor. Onu ServerHardwareId olarak haritalıyoruz.
                 existingLicense.ExpirationDate = licenseData.ExpirationDate;
@@ -110,6 +113,12 @@ namespace ThermaCore.Presentation.WinForms.Forms.LisansForms
                 existingLicense.ExpirationDate = licenseData.ExpirationDate;
                 existingLicense.MaxTerminalCount = licenseData.MaxTerminalCount;
                 _licenseRepository.Update(existingLicense);
+            }
+
+            if (licenseData.ResetTimeCheat)
+            {
+                _licenseValidator.ResetTimeCheat();
+                ThermaCore.Presentation.WinForms.Helpers.Messages.BilgiMesaji("Zaman manipülasyonu başarıyla sıfırlandı!");
             }
 
             _uow.SaveChanges();

@@ -9,5 +9,6 @@ namespace ThermaCore.Application.DTOs.Security
         public int MaxTerminalCount { get; set; }
         public bool IsValid { get; set; }
         public string ErrorMessage { get; set; } = string.Empty;
+        public bool ResetTimeCheat { get; set; }
     }
 }

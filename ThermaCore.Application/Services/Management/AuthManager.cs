@@ -26,6 +26,7 @@ public class AuthManager : IAuthService
     private readonly ICryptoService _cryptoService;
     private readonly IMapper _mapper;
     private readonly IMasterRepository<SystemLicense> _licenseRepository;
+    private readonly ILicenseValidator _licenseValidator;
 
     public AuthManager(
         IMasterRepository<User> userRepository,
@@ -40,7 +41,8 @@ public class AuthManager : IAuthService
         IMapper mapper,
         IMasterRepository<UserSession> userSessionRepository,
         IMasterUnitOfWork uow,
-        IMasterRepository<SystemLicense> licenseRepository)
+        IMasterRepository<SystemLicense> licenseRepository,
+        ILicenseValidator licenseValidator)
     {
         _userRepository = userRepository;
         _tenantRepository = tenantRepository;
@@ -55,6 +57,7 @@ public class AuthManager : IAuthService
         _userSessionRepository = userSessionRepository;
         _uow = uow;
         _licenseRepository = licenseRepository;
+        _licenseValidator = licenseValidator;
     }
 
     public Task<List<TenantDatabaseDto>> GetAllowedTenantsByUsernameAsync(string username)
@@ -132,6 +135,9 @@ public class AuthManager : IAuthService
         // Store Session Id in result to be handled by Presentation layer
         result.SessionId = session.Id;
 
+        // Başarılı giriş yapıldığında LKGT dosyasını güncelle
+        _licenseValidator.UpdateLastKnownGoodTime();
+
         return Task.FromResult(result);
     }
 
@@ -163,7 +169,7 @@ public class AuthManager : IAuthService
 
             if (terminals.Count >= maxTerminalCount)
             {
-                throw new global::System.Exception("Maksimum terminal sınırına ulaşıldı. Yeni bir cihaz ile giriş yapılamaz veya mevcut cihazınız pasife alınmış.");
+                throw new global::System.Exception("Lisansınızın izin verdiği maksimum terminal (cihaz) sınırına ulaşıldı!");
             }
 
             throw new global::System.Exception($"Güvenlik İhlali: Bu cihaz (HWID: {hwid}) sisteme kayıtlı değil veya aktif edilmemiş. Giriş reddedildi.");

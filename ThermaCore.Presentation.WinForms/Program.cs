@@ -127,17 +127,12 @@ internal static class Program
                 
                 var licenseValidator = services.GetRequiredService<ThermaCore.Application.Interfaces.Security.ILicenseValidator>();
 
-                if (licenseValidator.IsTimeTampered())
-                {
-                    MessageBox.Show("Sistem saati geriye alınmış veya manipüle edilmiş. Güvenlik ihlali tespit edildi.", "ThermaCore Lisans Kalkanı", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
                 string key = activeLicense != null ? activeLicense.LicenseKey : "";
                 var licenseData = licenseValidator.ValidateLicense(key);
 
                 if (!licenseData.IsValid)
                 {
+                    MessageBox.Show(licenseData.ErrorMessage, "ThermaCore Lisans Kalkanı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     var activationForm = services.GetRequiredService<ThermaCore.Presentation.WinForms.Forms.LisansForms.LicenseActivationForm>();
                     if (activationForm.ShowDialog() != DialogResult.OK)
                     {
@@ -154,6 +149,8 @@ internal static class Program
                         return; // Olası bir hata durumunda güvenli çıkış
                     }
                 }
+
+                licenseValidator.UpdateLastKnownGoodTime();
 
                 var seederService = services.GetRequiredService<IDatabaseSeederService>();
                 seederService.SeedAsync(true).GetAwaiter().GetResult();

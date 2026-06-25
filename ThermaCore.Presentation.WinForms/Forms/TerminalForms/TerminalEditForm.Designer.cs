@@ -36,6 +36,7 @@
             DevExpress.XtraLayout.RowDefinition rowDefinition3 = new DevExpress.XtraLayout.RowDefinition();
             DevExpress.XtraLayout.RowDefinition rowDefinition4 = new DevExpress.XtraLayout.RowDefinition();
             myDataLayoutControl1 = new ThermaCore.Presentation.WinForms.UserControls.MyDataLayoutControl();
+            txtHardwareId = new ThermaCore.Presentation.WinForms.UserControls.MyTextEdit();
             tglDurum = new ThermaCore.Presentation.WinForms.UserControls.MyToggleSwitch();
             txtKod = new ThermaCore.Presentation.WinForms.UserControls.MyKodTextEdit();
             txtAciklama = new ThermaCore.Presentation.WinForms.UserControls.MyMemoEdit();
@@ -45,11 +46,11 @@
             layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
-            txtHardwareId = new ThermaCore.Presentation.WinForms.UserControls.MyTextEdit();
             layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)ribbon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)myDataLayoutControl1).BeginInit();
             myDataLayoutControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)txtHardwareId.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)tglDurum.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtKod.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtAciklama.Properties).BeginInit();
@@ -59,7 +60,6 @@
             ((System.ComponentModel.ISupportInitialize)layoutControlItem5).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem8).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)txtHardwareId.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem2).BeginInit();
             SuspendLayout();
             // 
@@ -85,6 +85,30 @@
             myDataLayoutControl1.Size = new Size(398, 215);
             myDataLayoutControl1.TabIndex = 0;
             myDataLayoutControl1.Text = "myDataLayoutControl1";
+            // 
+            // txtHardwareId
+            // 
+            txtHardwareId.EnterMoveNextControl = true;
+            txtHardwareId.Location = new Point(145, 43);
+            txtHardwareId.MenuManager = ribbon;
+            txtHardwareId.Name = "txtHardwareId";
+            txtHardwareId.Properties.Appearance.Font = new Font("Segoe UI", 9F);
+            txtHardwareId.Properties.Appearance.Options.UseFont = true;
+            txtHardwareId.Properties.AppearanceDisabled.Font = new Font("Segoe UI", 9F);
+            txtHardwareId.Properties.AppearanceDisabled.Options.UseFont = true;
+            txtHardwareId.Properties.AppearanceFocused.BackColor = Color.FromArgb(255, 255, 192);
+            txtHardwareId.Properties.AppearanceFocused.Font = new Font("Segoe UI", 9F);
+            txtHardwareId.Properties.AppearanceFocused.Options.UseBackColor = true;
+            txtHardwareId.Properties.AppearanceFocused.Options.UseFont = true;
+            txtHardwareId.Properties.AppearanceReadOnly.Font = new Font("Segoe UI", 9F);
+            txtHardwareId.Properties.AppearanceReadOnly.Options.UseFont = true;
+            txtHardwareId.Properties.MaxLength = 100;
+            txtHardwareId.Properties.ReadOnly = true;
+            txtHardwareId.Size = new Size(241, 22);
+            txtHardwareId.StatusBarAciklama = null;
+            txtHardwareId.StyleController = myDataLayoutControl1;
+            txtHardwareId.TabIndex = 8;
+            txtHardwareId.Tag = "HardwareId";
             // 
             // tglDurum
             // 
@@ -258,30 +282,6 @@
             layoutControlItem1.Text = "Cihaz Adı";
             layoutControlItem1.TextSize = new Size(121, 15);
             // 
-            // txtHardwareId
-            // 
-            txtHardwareId.EnterMoveNextControl = true;
-            txtHardwareId.Location = new Point(145, 43);
-            txtHardwareId.MenuManager = ribbon;
-            txtHardwareId.Name = "txtHardwareId";
-            txtHardwareId.Properties.Appearance.Font = new Font("Segoe UI", 9F);
-            txtHardwareId.Properties.Appearance.Options.UseFont = true;
-            txtHardwareId.Properties.AppearanceDisabled.Font = new Font("Segoe UI", 9F);
-            txtHardwareId.Properties.AppearanceDisabled.Options.UseFont = true;
-            txtHardwareId.Properties.AppearanceFocused.BackColor = Color.FromArgb(255, 255, 192);
-            txtHardwareId.Properties.AppearanceFocused.Font = new Font("Segoe UI", 9F);
-            txtHardwareId.Properties.AppearanceFocused.Options.UseBackColor = true;
-            txtHardwareId.Properties.AppearanceFocused.Options.UseFont = true;
-            txtHardwareId.Properties.AppearanceReadOnly.Font = new Font("Segoe UI", 9F);
-            txtHardwareId.Properties.AppearanceReadOnly.Options.UseFont = true;
-            txtHardwareId.Properties.MaxLength = 100;
-            txtHardwareId.Properties.ReadOnly = true;
-            txtHardwareId.Size = new Size(241, 22);
-            txtHardwareId.StatusBarAciklama = null;
-            txtHardwareId.StyleController = myDataLayoutControl1;
-            txtHardwareId.TabIndex = 8;
-            txtHardwareId.Tag = "HardwareId";
-            // 
             // layoutControlItem2
             // 
             layoutControlItem2.AppearanceItemCaption.Font = new Font("Segoe UI", 9F);
@@ -310,6 +310,7 @@
             ((System.ComponentModel.ISupportInitialize)ribbon).EndInit();
             ((System.ComponentModel.ISupportInitialize)myDataLayoutControl1).EndInit();
             myDataLayoutControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)txtHardwareId.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)tglDurum.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtKod.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtAciklama.Properties).EndInit();
@@ -319,7 +320,6 @@
             ((System.ComponentModel.ISupportInitialize)layoutControlItem5).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem8).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)txtHardwareId.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem2).EndInit();
             ResumeLayout(false);
             PerformLayout();
