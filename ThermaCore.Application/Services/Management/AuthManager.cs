@@ -111,9 +111,19 @@ public class AuthManager : IAuthService
         result.UserId = user.Id;
         
         // TenantDatabase nesnesinden dinamik ConnectionString oluşturulması
-        // Güvenlik gereği AuthType'a göre Windows Authentication veya SQL Authentication stringi oluşturulabilir.
         string decryptedPassword = string.IsNullOrEmpty(tenant.Password) ? "" : _cryptoService.Decrypt(tenant.Password);
-        result.TenantConnectionString = $"Server={tenant.Server};Database={tenant.DatabaseName};User Id={tenant.Username};Password={decryptedPassword};TrustServerCertificate=True;";
+        
+        string connectionString = $"Server={tenant.Server};Database={tenant.DatabaseName};TrustServerCertificate=True;Encrypt=False;";
+        if (tenant.AuthType == ThermaCore.Domain.Enums.AuthenticationType.Windows)
+        {
+            connectionString += "Integrated Security=True;";
+        }
+        else
+        {
+            connectionString += $"User Id={tenant.Username};Password={decryptedPassword};Integrated Security=False;";
+        }
+        
+        result.TenantConnectionString = connectionString;
 
         // Update Terminal IP/Mac is replaced with HWID validation. Terminal IP/Mac tracking is removed.
 

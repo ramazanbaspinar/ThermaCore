@@ -205,6 +205,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
                     currentTenantService.TenantId = tenantId;
                     currentTenantService.UserId = loginResult.UserId;
                     currentTenantService.TenantName = gluSirket.Text;
+                    currentTenantService.ConnectionString = loginResult.TenantConnectionString;
 
                     this.Hide();
 

@@ -9,9 +9,14 @@ public class ThermaCoreMasterContextFactory : IDesignTimeDbContextFactory<Therma
     {
         var optionsBuilder = new DbContextOptionsBuilder<ThermaCoreMasterContext>();
         
-        // Bu bağlantı dizesi yalnızca EF Core Migration'ları (add-migration) komutlarını çalıştırabilmek için tasarım zamanında kullanılır.
-        // Gerçek çalışma zamanındaki bağlantı dizesi ile ilgisi yoktur.
-        optionsBuilder.UseSqlServer("Server=localhost;Database=ThermaCore_Master_Design;Trusted_Connection=True;TrustServerCertificate=True");
+        string connectionString = "Server=localhost;Database=ThermaCore_Master_Design;Trusted_Connection=True;TrustServerCertificate=True";
+
+        if (args != null && args.Length > 0)
+        {
+            connectionString = args[0];
+        }
+
+        optionsBuilder.UseSqlServer(connectionString);
 
         return new ThermaCoreMasterContext(optionsBuilder.Options);
     }

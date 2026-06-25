@@ -61,6 +61,9 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             if (miSirketTanimlari != null)
                 miSirketTanimlari.Click += miSirketTanimlari_Click;
 
+            if (miBirimTanimlari != null)
+                miBirimTanimlari.Click += miBirimTanimlari_Click;
+
 
             if (miKullaniciArayuzSablonlari != null)
                 miKullaniciArayuzSablonlari.Click += (s, e) =>
@@ -430,6 +433,19 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
         private void miSirketTanimlari_Click(object? sender, EventArgs e)
         {
             FormYukle<ThermaCore.Presentation.WinForms.Forms.SirketForms.SirketListForm>();
+        }
+
+        private void miBirimTanimlari_Click(object? sender, EventArgs e)
+        {
+            var authService = _serviceProvider.GetService<ThermaCore.Application.Services.Management.IAuthService>();
+            if (authService != null && authService.HasPermission(ThermaCore.Domain.Enums.ModuleType.BirimTanimlari, ThermaCore.Domain.Enums.PermissionType.CanView))
+            {
+                FormYukle<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.BirimForms.BirimListForm>();
+            }
+            else
+            {
+                XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void miCodeTemplatelari_Click(object? sender, EventArgs e)

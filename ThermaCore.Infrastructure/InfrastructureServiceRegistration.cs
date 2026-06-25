@@ -41,7 +41,9 @@ public static class InfrastructureServiceRegistration
         services.AddScoped<ILicenseValidator, LicenseValidator>();
         services.AddSingleton<ThermaCore.Application.Interfaces.System.ILayoutService, ThermaCore.Infrastructure.Services.System.LayoutService>();
         services.AddScoped<ThermaCore.Application.Interfaces.Repositories.ICodeLogRepository, ThermaCore.Infrastructure.Persistence.Repositories.CodeLogRepository>();
-
+        
+        services.AddScoped<ThermaCore.Application.Interfaces.Repositories.Definitions.IUnitRepository, ThermaCore.Infrastructure.Persistence.Repositories.Definitions.UnitRepository>();
+        services.AddScoped<ThermaCore.Application.Interfaces.Repositories.Definitions.IItemCategoryRepository, ThermaCore.Infrastructure.Persistence.Repositories.Definitions.ItemCategoryRepository>();
         return services;
     }
 }

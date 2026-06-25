@@ -20,7 +20,17 @@ public class ThermaCoreTenantContext : DbContext
         _currentTenantService = currentTenantService;
     }
 
+    public DbSet<ThermaCore.Domain.Entities.Definitions.Unit> Units { get; set; }
+    public DbSet<ThermaCore.Domain.Entities.Definitions.ItemCategory> ItemCategories { get; set; }
 
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        if (_currentTenantService != null && !string.IsNullOrEmpty(_currentTenantService.ConnectionString))
+        {
+            optionsBuilder.UseSqlServer(_currentTenantService.ConnectionString);
+        }
+        base.OnConfiguring(optionsBuilder);
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

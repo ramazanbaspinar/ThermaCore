@@ -64,5 +64,15 @@ public enum ModuleType
 
     [Description("Kullanıcı Arayüz Şablonları")]
     [ParentModule(Parametreler)]
-    UserInterfaceTemplate = 10
+    UserInterfaceTemplate = 10,
+
+    // Merkezi Tanımlar
+    [Description("Merkezi Tanımlar")]
+    [ParentModule(SistemYonetimi)]
+    MerkeziTanimlar = 1004,
+
+    [Description("Birim Tanımları")]
+    [ParentModule(MerkeziTanimlar)]
+    [RequiresCodeTemplate]
+    BirimTanimlari = 11
 }

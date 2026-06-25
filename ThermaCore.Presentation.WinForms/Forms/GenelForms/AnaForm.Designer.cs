@@ -48,6 +48,8 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             menuStrip1 = new MenuStrip();
             txtDovizBilgisi = new ToolStripMenuItem();
             btnAnaFormResim = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyPictureEdit();
+            miTemelTanimlar = new ToolStripMenuItem();
+            miBirimTanimlari = new ToolStripMenuItem();
             menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)xtraTabbedMdiManager).BeginInit();
             menuStrip1.SuspendLayout();
@@ -68,6 +70,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 
             // miTanimlar
             // 
+            miTanimlar.DropDownItems.AddRange(new ToolStripItem[] { miTemelTanimlar });
             miTanimlar.Name = "miTanimlar";
             miTanimlar.Size = new Size(69, 22);
             miTanimlar.Text = "Tanımlar";
@@ -213,6 +216,21 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             btnAnaFormResim.StatusBarKisaYolAciklama = null;
             btnAnaFormResim.TabIndex = 3;
             // 
+            // miTemelTanimlar
+            // 
+            miTemelTanimlar.DropDownItems.AddRange(new ToolStripItem[] { miBirimTanimlari });
+            miTemelTanimlar.Name = "miTemelTanimlar";
+            miTemelTanimlar.Size = new Size(180, 22);
+            miTemelTanimlar.Tag = "TemelTanimlar";
+            miTemelTanimlar.Text = "Temel Tanımlar";
+            // 
+            // miBirimTanimlari
+            // 
+            miBirimTanimlari.Name = "miBirimTanimlari";
+            miBirimTanimlari.Size = new Size(180, 22);
+            miBirimTanimlari.Tag = "BirimTanimlari";
+            miBirimTanimlari.Text = "Birim Tanımları";
+            // 
             // AnaForm
             // 
             Appearance.BackColor = SystemColors.Control;
@@ -270,5 +288,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
         private ToolStripMenuItem miCodeTemplatelari;
         private ToolStripMenuItem miEmailParameter;
         private ToolStripMenuItem miSystemLicense;
+        private ToolStripMenuItem miTemelTanimlar;
+        private ToolStripMenuItem miBirimTanimlari;
     }
 }

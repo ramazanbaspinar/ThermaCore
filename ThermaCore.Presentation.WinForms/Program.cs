@@ -123,6 +123,10 @@ internal static class Program
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.ParametrelerForms.SystemLicenseEditForm>();
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.ParametrelerForms.UserInterfaceTemplateListForm>();
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.LisansForms.LicenseActivationForm>();
+                
+                // Definitions
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.BirimForms.BirimListForm>();
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.BirimForms.BirimEditForm>();
             })
             .Build();
 
