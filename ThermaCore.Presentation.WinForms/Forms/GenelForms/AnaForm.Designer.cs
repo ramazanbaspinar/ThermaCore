@@ -31,6 +31,43 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             components = new System.ComponentModel.Container();
             menuStrip = new MenuStrip();
             miTanimlar = new ToolStripMenuItem();
+            miTemelTanimlar = new ToolStripMenuItem();
+            miBirimTanimlari = new ToolStripMenuItem();
+            miMetalVeSacGrubu = new ToolStripMenuItem();
+            miSacTanimlari = new ToolStripMenuItem();
+            miTelTanimlari = new ToolStripMenuItem();
+            miIzgaraTanimlari = new ToolStripMenuItem();
+            miElektrikVeElektronikGrubu = new ToolStripMenuItem();
+            miRezistansTanimlari = new ToolStripMenuItem();
+            miKabloTanimlari = new ToolStripMenuItem();
+            miFisliKabloTanimlari = new ToolStripMenuItem();
+            miMotorTanimlari = new ToolStripMenuItem();
+            miFanTanimlari = new ToolStripMenuItem();
+            miSalterTanimlari = new ToolStripMenuItem();
+            miTermostatTanimlari = new ToolStripMenuItem();
+            miGazVeAteslemeGrubu = new ToolStripMenuItem();
+            miGazMusluguTanimlari = new ToolStripMenuItem();
+            miValfTanimlari = new ToolStripMenuItem();
+            miBekGrubuTanimlari = new ToolStripMenuItem();
+            miEnjektorTanimlari = new ToolStripMenuItem();
+            miTermokuplTanimlari = new ToolStripMenuItem();
+            miCakmakTanimlari = new ToolStripMenuItem();
+            miPlastikVeGorselAksamGrubu = new ToolStripMenuItem();
+            miPlastikParcaTanimlari = new ToolStripMenuItem();
+            miKulpTanimlari = new ToolStripMenuItem();
+            miDugmeTanimlari = new ToolStripMenuItem();
+            miCamTanimlari = new ToolStripMenuItem();
+            miKimyaVeYalitimGrubu = new ToolStripMenuItem();
+            miBoyaTanimlari = new ToolStripMenuItem();
+            miEmayeTanimlari = new ToolStripMenuItem();
+            miIzolasyonTanimlari = new ToolStripMenuItem();
+            miMekanikVeHirdavatGrubu = new ToolStripMenuItem();
+            miMenteseTanimlari = new ToolStripMenuItem();
+            miKilitTanimlari = new ToolStripMenuItem();
+            miBaglantiElemaniTanimlari = new ToolStripMenuItem();
+            miAmbalajVeMatbaaGrubu = new ToolStripMenuItem();
+            miAmbalajMalzemesiTanimlari = new ToolStripMenuItem();
+            miMatbaaTanimlari = new ToolStripMenuItem();
             miSistemYonetimi = new ToolStripMenuItem();
             miKurumsalTanimlar = new ToolStripMenuItem();
             miSirketTanimlari = new ToolStripMenuItem();
@@ -48,8 +85,15 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             menuStrip1 = new MenuStrip();
             txtDovizBilgisi = new ToolStripMenuItem();
             btnAnaFormResim = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyPictureEdit();
-            miTemelTanimlar = new ToolStripMenuItem();
-            miBirimTanimlari = new ToolStripMenuItem();
+            miTepsiTanimlari = new ToolStripMenuItem();
+            miTimerTanimlari = new ToolStripMenuItem();
+            miLambaTanimlari = new ToolStripMenuItem();
+            miPleytIsiticiTanimlari = new ToolStripMenuItem();
+            miAteslemeTrafosuTanimlari = new ToolStripMenuItem();
+            miGazBorusuTanimlari = new ToolStripMenuItem();
+            miRakorTanimlari = new ToolStripMenuItem();
+            miContaTanimlari = new ToolStripMenuItem();
+            miEtiketTanimlari = new ToolStripMenuItem();
             menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)xtraTabbedMdiManager).BeginInit();
             menuStrip1.SuspendLayout();
@@ -70,10 +114,242 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 
             // miTanimlar
             // 
-            miTanimlar.DropDownItems.AddRange(new ToolStripItem[] { miTemelTanimlar });
+            miTanimlar.DropDownItems.AddRange(new ToolStripItem[] { miTemelTanimlar, miMetalVeSacGrubu, miElektrikVeElektronikGrubu, miGazVeAteslemeGrubu, miPlastikVeGorselAksamGrubu, miKimyaVeYalitimGrubu, miMekanikVeHirdavatGrubu, miAmbalajVeMatbaaGrubu });
             miTanimlar.Name = "miTanimlar";
             miTanimlar.Size = new Size(69, 22);
             miTanimlar.Text = "Tanımlar";
+            // 
+            // miTemelTanimlar
+            // 
+            miTemelTanimlar.DropDownItems.AddRange(new ToolStripItem[] { miBirimTanimlari });
+            miTemelTanimlar.Name = "miTemelTanimlar";
+            miTemelTanimlar.Size = new Size(253, 22);
+            miTemelTanimlar.Tag = "TemelTanimlar";
+            miTemelTanimlar.Text = "Temel Tanımlar";
+            // 
+            // miBirimTanimlari
+            // 
+            miBirimTanimlari.Name = "miBirimTanimlari";
+            miBirimTanimlari.Size = new Size(180, 22);
+            miBirimTanimlari.Tag = "BirimTanimlari";
+            miBirimTanimlari.Text = "Birim Tanımları";
+            // 
+            // miMetalVeSacGrubu
+            // 
+            miMetalVeSacGrubu.DropDownItems.AddRange(new ToolStripItem[] { miSacTanimlari, miTelTanimlari, miIzgaraTanimlari, miTepsiTanimlari });
+            miMetalVeSacGrubu.Name = "miMetalVeSacGrubu";
+            miMetalVeSacGrubu.Size = new Size(253, 22);
+            miMetalVeSacGrubu.Text = "Metal ve Sac Grubu";
+            // 
+            // miSacTanimlari
+            // 
+            miSacTanimlari.Name = "miSacTanimlari";
+            miSacTanimlari.Size = new Size(180, 22);
+            miSacTanimlari.Text = "Sac Tanımları";
+            // 
+            // miTelTanimlari
+            // 
+            miTelTanimlari.Name = "miTelTanimlari";
+            miTelTanimlari.Size = new Size(180, 22);
+            miTelTanimlari.Text = "Tel Tanımları";
+            // 
+            // miIzgaraTanimlari
+            // 
+            miIzgaraTanimlari.Name = "miIzgaraTanimlari";
+            miIzgaraTanimlari.Size = new Size(180, 22);
+            miIzgaraTanimlari.Text = "Izgara Tanımları";
+            // 
+            // miElektrikVeElektronikGrubu
+            // 
+            miElektrikVeElektronikGrubu.DropDownItems.AddRange(new ToolStripItem[] { miRezistansTanimlari, miKabloTanimlari, miFisliKabloTanimlari, miMotorTanimlari, miFanTanimlari, miSalterTanimlari, miTermostatTanimlari, miTimerTanimlari, miLambaTanimlari, miPleytIsiticiTanimlari });
+            miElektrikVeElektronikGrubu.Name = "miElektrikVeElektronikGrubu";
+            miElektrikVeElektronikGrubu.Size = new Size(253, 22);
+            miElektrikVeElektronikGrubu.Text = "Elektrik ve Elektronik Grubu";
+            // 
+            // miRezistansTanimlari
+            // 
+            miRezistansTanimlari.Name = "miRezistansTanimlari";
+            miRezistansTanimlari.Size = new Size(244, 22);
+            miRezistansTanimlari.Text = "Rezistans Tanımları";
+            // 
+            // miKabloTanimlari
+            // 
+            miKabloTanimlari.Name = "miKabloTanimlari";
+            miKabloTanimlari.Size = new Size(244, 22);
+            miKabloTanimlari.Text = "Kablo Tanımları";
+            // 
+            // miFisliKabloTanimlari
+            // 
+            miFisliKabloTanimlari.Name = "miFisliKabloTanimlari";
+            miFisliKabloTanimlari.Size = new Size(244, 22);
+            miFisliKabloTanimlari.Text = "Fişli Kablo Tanımları";
+            // 
+            // miMotorTanimlari
+            // 
+            miMotorTanimlari.Name = "miMotorTanimlari";
+            miMotorTanimlari.Size = new Size(244, 22);
+            miMotorTanimlari.Text = "Motor Tanımları";
+            // 
+            // miFanTanimlari
+            // 
+            miFanTanimlari.Name = "miFanTanimlari";
+            miFanTanimlari.Size = new Size(244, 22);
+            miFanTanimlari.Text = "Fan Tanımları";
+            // 
+            // miSalterTanimlari
+            // 
+            miSalterTanimlari.Name = "miSalterTanimlari";
+            miSalterTanimlari.Size = new Size(244, 22);
+            miSalterTanimlari.Text = "Şalter (Komütatör) Tanımları";
+            // 
+            // miTermostatTanimlari
+            // 
+            miTermostatTanimlari.Name = "miTermostatTanimlari";
+            miTermostatTanimlari.Size = new Size(244, 22);
+            miTermostatTanimlari.Text = "Termostat Tanımları";
+            // 
+            // miGazVeAteslemeGrubu
+            // 
+            miGazVeAteslemeGrubu.DropDownItems.AddRange(new ToolStripItem[] { miGazMusluguTanimlari, miValfTanimlari, miBekGrubuTanimlari, miEnjektorTanimlari, miTermokuplTanimlari, miCakmakTanimlari, miAteslemeTrafosuTanimlari, miGazBorusuTanimlari, miRakorTanimlari });
+            miGazVeAteslemeGrubu.Name = "miGazVeAteslemeGrubu";
+            miGazVeAteslemeGrubu.Size = new Size(253, 22);
+            miGazVeAteslemeGrubu.Text = "Gaz ve Ateşleme Grubu";
+            // 
+            // miGazMusluguTanimlari
+            // 
+            miGazMusluguTanimlari.Name = "miGazMusluguTanimlari";
+            miGazMusluguTanimlari.Size = new Size(250, 22);
+            miGazMusluguTanimlari.Text = "Gaz Musluğu Tanımları";
+            // 
+            // miValfTanimlari
+            // 
+            miValfTanimlari.Name = "miValfTanimlari";
+            miValfTanimlari.Size = new Size(250, 22);
+            miValfTanimlari.Text = "Valf Tanımları";
+            // 
+            // miBekGrubuTanimlari
+            // 
+            miBekGrubuTanimlari.Name = "miBekGrubuTanimlari";
+            miBekGrubuTanimlari.Size = new Size(250, 22);
+            miBekGrubuTanimlari.Text = "Bek Grubu Tanımları";
+            // 
+            // miEnjektorTanimlari
+            // 
+            miEnjektorTanimlari.Name = "miEnjektorTanimlari";
+            miEnjektorTanimlari.Size = new Size(250, 22);
+            miEnjektorTanimlari.Text = "Enjektör Tanımları";
+            // 
+            // miTermokuplTanimlari
+            // 
+            miTermokuplTanimlari.Name = "miTermokuplTanimlari";
+            miTermokuplTanimlari.Size = new Size(250, 22);
+            miTermokuplTanimlari.Text = "Termokupl (Emniyet) Tanımları";
+            // 
+            // miCakmakTanimlari
+            // 
+            miCakmakTanimlari.Name = "miCakmakTanimlari";
+            miCakmakTanimlari.Size = new Size(250, 22);
+            miCakmakTanimlari.Text = "Çakmak (Buji) Tanımları";
+            // 
+            // miPlastikVeGorselAksamGrubu
+            // 
+            miPlastikVeGorselAksamGrubu.DropDownItems.AddRange(new ToolStripItem[] { miPlastikParcaTanimlari, miKulpTanimlari, miDugmeTanimlari, miCamTanimlari });
+            miPlastikVeGorselAksamGrubu.Name = "miPlastikVeGorselAksamGrubu";
+            miPlastikVeGorselAksamGrubu.Size = new Size(253, 22);
+            miPlastikVeGorselAksamGrubu.Text = "Plastik ve Görsel Aksam Grubu";
+            // 
+            // miPlastikParcaTanimlari
+            // 
+            miPlastikParcaTanimlari.Name = "miPlastikParcaTanimlari";
+            miPlastikParcaTanimlari.Size = new Size(204, 22);
+            miPlastikParcaTanimlari.Text = "Plastik Parça Tanımları";
+            // 
+            // miKulpTanimlari
+            // 
+            miKulpTanimlari.Name = "miKulpTanimlari";
+            miKulpTanimlari.Size = new Size(204, 22);
+            miKulpTanimlari.Text = "Kulp Tanımları";
+            // 
+            // miDugmeTanimlari
+            // 
+            miDugmeTanimlari.Name = "miDugmeTanimlari";
+            miDugmeTanimlari.Size = new Size(204, 22);
+            miDugmeTanimlari.Text = "Düğme Tanımları";
+            // 
+            // miCamTanimlari
+            // 
+            miCamTanimlari.Name = "miCamTanimlari";
+            miCamTanimlari.Size = new Size(204, 22);
+            miCamTanimlari.Text = "Cam Tanımları";
+            // 
+            // miKimyaVeYalitimGrubu
+            // 
+            miKimyaVeYalitimGrubu.DropDownItems.AddRange(new ToolStripItem[] { miBoyaTanimlari, miEmayeTanimlari, miIzolasyonTanimlari, miContaTanimlari });
+            miKimyaVeYalitimGrubu.Name = "miKimyaVeYalitimGrubu";
+            miKimyaVeYalitimGrubu.Size = new Size(253, 22);
+            miKimyaVeYalitimGrubu.Text = "Kimya ve Yalıtım Grubu";
+            // 
+            // miBoyaTanimlari
+            // 
+            miBoyaTanimlari.Name = "miBoyaTanimlari";
+            miBoyaTanimlari.Size = new Size(186, 22);
+            miBoyaTanimlari.Text = "Boya Tanımları";
+            // 
+            // miEmayeTanimlari
+            // 
+            miEmayeTanimlari.Name = "miEmayeTanimlari";
+            miEmayeTanimlari.Size = new Size(186, 22);
+            miEmayeTanimlari.Text = "Emaye Tanımları";
+            // 
+            // miIzolasyonTanimlari
+            // 
+            miIzolasyonTanimlari.Name = "miIzolasyonTanimlari";
+            miIzolasyonTanimlari.Size = new Size(186, 22);
+            miIzolasyonTanimlari.Text = "İzolasyon Tanımları";
+            // 
+            // miMekanikVeHirdavatGrubu
+            // 
+            miMekanikVeHirdavatGrubu.DropDownItems.AddRange(new ToolStripItem[] { miMenteseTanimlari, miKilitTanimlari, miBaglantiElemaniTanimlari });
+            miMekanikVeHirdavatGrubu.Name = "miMekanikVeHirdavatGrubu";
+            miMekanikVeHirdavatGrubu.Size = new Size(253, 22);
+            miMekanikVeHirdavatGrubu.Text = "Mekanik ve Hırdavat Grubu";
+            // 
+            // miMenteseTanimlari
+            // 
+            miMenteseTanimlari.Name = "miMenteseTanimlari";
+            miMenteseTanimlari.Size = new Size(227, 22);
+            miMenteseTanimlari.Text = "Menteşe Tanımları";
+            // 
+            // miKilitTanimlari
+            // 
+            miKilitTanimlari.Name = "miKilitTanimlari";
+            miKilitTanimlari.Size = new Size(227, 22);
+            miKilitTanimlari.Text = "Kilit Tanımları";
+            // 
+            // miBaglantiElemaniTanimlari
+            // 
+            miBaglantiElemaniTanimlari.Name = "miBaglantiElemaniTanimlari";
+            miBaglantiElemaniTanimlari.Size = new Size(227, 22);
+            miBaglantiElemaniTanimlari.Text = "Bağlantı Elemanı Tanımları";
+            // 
+            // miAmbalajVeMatbaaGrubu
+            // 
+            miAmbalajVeMatbaaGrubu.DropDownItems.AddRange(new ToolStripItem[] { miAmbalajMalzemesiTanimlari, miMatbaaTanimlari, miEtiketTanimlari });
+            miAmbalajVeMatbaaGrubu.Name = "miAmbalajVeMatbaaGrubu";
+            miAmbalajVeMatbaaGrubu.Size = new Size(253, 22);
+            miAmbalajVeMatbaaGrubu.Text = "Ambalaj ve Matbaa Grubu";
+            // 
+            // miAmbalajMalzemesiTanimlari
+            // 
+            miAmbalajMalzemesiTanimlari.Name = "miAmbalajMalzemesiTanimlari";
+            miAmbalajMalzemesiTanimlari.Size = new Size(245, 22);
+            miAmbalajMalzemesiTanimlari.Text = "Ambalaj Malzemesi Tanımları";
+            // 
+            // miMatbaaTanimlari
+            // 
+            miMatbaaTanimlari.Name = "miMatbaaTanimlari";
+            miMatbaaTanimlari.Size = new Size(245, 22);
+            miMatbaaTanimlari.Text = "Matbaa (Kılavuz) Tanımları";
             // 
             // miSistemYonetimi
             // 
@@ -216,20 +492,59 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             btnAnaFormResim.StatusBarKisaYolAciklama = null;
             btnAnaFormResim.TabIndex = 3;
             // 
-            // miTemelTanimlar
+            // miTepsiTanimlari
             // 
-            miTemelTanimlar.DropDownItems.AddRange(new ToolStripItem[] { miBirimTanimlari });
-            miTemelTanimlar.Name = "miTemelTanimlar";
-            miTemelTanimlar.Size = new Size(180, 22);
-            miTemelTanimlar.Tag = "TemelTanimlar";
-            miTemelTanimlar.Text = "Temel Tanımlar";
+            miTepsiTanimlari.Name = "miTepsiTanimlari";
+            miTepsiTanimlari.Size = new Size(180, 22);
+            miTepsiTanimlari.Text = "Tepsi Tanımları";
             // 
-            // miBirimTanimlari
+            // miTimerTanimlari
             // 
-            miBirimTanimlari.Name = "miBirimTanimlari";
-            miBirimTanimlari.Size = new Size(180, 22);
-            miBirimTanimlari.Tag = "BirimTanimlari";
-            miBirimTanimlari.Text = "Birim Tanımları";
+            miTimerTanimlari.Name = "miTimerTanimlari";
+            miTimerTanimlari.Size = new Size(244, 22);
+            miTimerTanimlari.Text = "Timer (Zamanlayıcı) Tanımları";
+            // 
+            // miLambaTanimlari
+            // 
+            miLambaTanimlari.Name = "miLambaTanimlari";
+            miLambaTanimlari.Size = new Size(244, 22);
+            miLambaTanimlari.Text = "Lamba Tanımları";
+            // 
+            // miPleytIsiticiTanimlari
+            // 
+            miPleytIsiticiTanimlari.Name = "miPleytIsiticiTanimlari";
+            miPleytIsiticiTanimlari.Size = new Size(244, 22);
+            miPleytIsiticiTanimlari.Text = "Pleyt Isıtıcı Tanımları";
+            // 
+            // miAteslemeTrafosuTanimlari
+            // 
+            miAteslemeTrafosuTanimlari.Name = "miAteslemeTrafosuTanimlari";
+            miAteslemeTrafosuTanimlari.Size = new Size(250, 22);
+            miAteslemeTrafosuTanimlari.Text = "Ateşleme Trafosu Tanımları";
+            // 
+            // miGazBorusuTanimlari
+            // 
+            miGazBorusuTanimlari.Name = "miGazBorusuTanimlari";
+            miGazBorusuTanimlari.Size = new Size(250, 22);
+            miGazBorusuTanimlari.Text = "Gaz Borusu Tanımları";
+            // 
+            // miRakorTanimlari
+            // 
+            miRakorTanimlari.Name = "miRakorTanimlari";
+            miRakorTanimlari.Size = new Size(250, 22);
+            miRakorTanimlari.Text = "Rakor Tanımları";
+            // 
+            // miContaTanimlari
+            // 
+            miContaTanimlari.Name = "miContaTanimlari";
+            miContaTanimlari.Size = new Size(186, 22);
+            miContaTanimlari.Text = "Conta Tanımları";
+            // 
+            // miEtiketTanimlari
+            // 
+            miEtiketTanimlari.Name = "miEtiketTanimlari";
+            miEtiketTanimlari.Size = new Size(245, 22);
+            miEtiketTanimlari.Text = "Etiket Tanımları";
             // 
             // AnaForm
             // 
@@ -290,5 +605,49 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
         private ToolStripMenuItem miSystemLicense;
         private ToolStripMenuItem miTemelTanimlar;
         private ToolStripMenuItem miBirimTanimlari;
+        private ToolStripMenuItem miMetalVeSacGrubu;
+        private ToolStripMenuItem miElektrikVeElektronikGrubu;
+        private ToolStripMenuItem miGazVeAteslemeGrubu;
+        private ToolStripMenuItem miPlastikVeGorselAksamGrubu;
+        private ToolStripMenuItem miKimyaVeYalitimGrubu;
+        private ToolStripMenuItem miMekanikVeHirdavatGrubu;
+        private ToolStripMenuItem miAmbalajVeMatbaaGrubu;
+        private ToolStripMenuItem miSacTanimlari;
+        private ToolStripMenuItem miTelTanimlari;
+        private ToolStripMenuItem miIzgaraTanimlari;
+        private ToolStripMenuItem miRezistansTanimlari;
+        private ToolStripMenuItem miKabloTanimlari;
+        private ToolStripMenuItem miFisliKabloTanimlari;
+        private ToolStripMenuItem miMotorTanimlari;
+        private ToolStripMenuItem miFanTanimlari;
+        private ToolStripMenuItem miSalterTanimlari;
+        private ToolStripMenuItem miTermostatTanimlari;
+        private ToolStripMenuItem miGazMusluguTanimlari;
+        private ToolStripMenuItem miValfTanimlari;
+        private ToolStripMenuItem miBekGrubuTanimlari;
+        private ToolStripMenuItem miEnjektorTanimlari;
+        private ToolStripMenuItem miTermokuplTanimlari;
+        private ToolStripMenuItem miCakmakTanimlari;
+        private ToolStripMenuItem miPlastikParcaTanimlari;
+        private ToolStripMenuItem miKulpTanimlari;
+        private ToolStripMenuItem miDugmeTanimlari;
+        private ToolStripMenuItem miCamTanimlari;
+        private ToolStripMenuItem miBoyaTanimlari;
+        private ToolStripMenuItem miEmayeTanimlari;
+        private ToolStripMenuItem miIzolasyonTanimlari;
+        private ToolStripMenuItem miMenteseTanimlari;
+        private ToolStripMenuItem miKilitTanimlari;
+        private ToolStripMenuItem miBaglantiElemaniTanimlari;
+        private ToolStripMenuItem miAmbalajMalzemesiTanimlari;
+        private ToolStripMenuItem miMatbaaTanimlari;
+        private ToolStripMenuItem miTepsiTanimlari;
+        private ToolStripMenuItem miTimerTanimlari;
+        private ToolStripMenuItem miLambaTanimlari;
+        private ToolStripMenuItem miPleytIsiticiTanimlari;
+        private ToolStripMenuItem miAteslemeTrafosuTanimlari;
+        private ToolStripMenuItem miGazBorusuTanimlari;
+        private ToolStripMenuItem miRakorTanimlari;
+        private ToolStripMenuItem miContaTanimlari;
+        private ToolStripMenuItem miEtiketTanimlari;
     }
 }
