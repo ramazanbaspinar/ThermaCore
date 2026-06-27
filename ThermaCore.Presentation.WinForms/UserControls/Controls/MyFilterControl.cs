@@ -5,9 +5,9 @@ using System.ComponentModel;
 namespace ThermaCore.Presentation.WinForms.UserControls.Controls
 {
     [ToolboxItem(true)]
-    public class MyFilterControlPro : FilterControl, IStatusBarAciklama
+    public class MyFilterControl : FilterControl, IStatusBarAciklama
     {
-        public MyFilterControlPro()
+        public MyFilterControl()
         {
             // --- İŞLEVSEL AYARLAR ---
 

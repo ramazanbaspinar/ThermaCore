@@ -30,8 +30,8 @@
         {
             DevExpress.XtraLayout.ColumnDefinition columnDefinition1 = new DevExpress.XtraLayout.ColumnDefinition();
             DevExpress.XtraLayout.RowDefinition rowDefinition1 = new DevExpress.XtraLayout.RowDefinition();
-            myDataLayoutControl1 = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyDataLayoutControlPro();
-            txtSonKodDegeri = new ThermaCore.Presentation.WinForms.UserControls.Controls.MySpinEditPro();
+            myDataLayoutControl1 = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyDataLayoutControl();
+            txtSonKodDegeri = new ThermaCore.Presentation.WinForms.UserControls.Controls.MySpinEdit();
             Root = new DevExpress.XtraLayout.LayoutControlGroup();
             layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)ribbon).BeginInit();
@@ -137,8 +137,8 @@
 
         #endregion
 
-        private UserControls.Controls.MyDataLayoutControlPro myDataLayoutControl1;
-        private UserControls.Controls.MySpinEditPro txtSonKodDegeri;
+        private UserControls.Controls.MyDataLayoutControl myDataLayoutControl1;
+        private UserControls.Controls.MySpinEdit txtSonKodDegeri;
         private DevExpress.XtraLayout.LayoutControlGroup Root;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
     }

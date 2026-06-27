@@ -6,9 +6,9 @@ using System.ComponentModel;
 namespace ThermaCore.Presentation.WinForms.UserControls.Controls
 {
     [ToolboxItem(true)]
-    public class MyDateEditPro : DateEdit, IStatusBarKisaYol
+    public class MyDateEdit : DateEdit, IStatusBarKisaYol
     {
-        public MyDateEditPro()
+        public MyDateEdit()
         {
             // --- İŞLEVSEL AYARLAR ---
 

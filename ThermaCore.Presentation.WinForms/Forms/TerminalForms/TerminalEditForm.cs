@@ -23,7 +23,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TerminalForms
             InitializeComponent();
             _terminalService = terminalService;
             BaseKartTuru = ThermaCore.Domain.Enums.ModuleType.TerminalYonetimi;
-            DataLayoutControl = myDataLayoutControl1;
+            DataLayoutControl = myDataLayoutControlPro1;
             Bll = _terminalService;
             HideItems = new DevExpress.XtraBars.BarItem[] { btnYeni, btnSil };
             RequiresCodeTemplate = false; // Code template mantığını devre dışı bırakıyoruz, çünkü Cihaz Adı'nı manuel alıyoruz

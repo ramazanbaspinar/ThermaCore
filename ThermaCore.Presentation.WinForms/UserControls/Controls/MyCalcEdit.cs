@@ -7,9 +7,9 @@ using System.ComponentModel;
 namespace ThermaCore.Presentation.WinForms.UserControls.Controls
 {
     [ToolboxItem(true)]
-    public class MyCalcEditPro : CalcEdit, IStatusBarKisaYol
+    public class MyCalcEdit : CalcEdit, IStatusBarKisaYol
     {
-        public MyCalcEditPro()
+        public MyCalcEdit()
         {
             // --- İŞLEVSEL AYARLAR ---
 

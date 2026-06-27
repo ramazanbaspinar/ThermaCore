@@ -38,15 +38,15 @@
             DevExpress.XtraLayout.RowDefinition rowDefinition5 = new DevExpress.XtraLayout.RowDefinition();
             DevExpress.XtraLayout.RowDefinition rowDefinition6 = new DevExpress.XtraLayout.RowDefinition();
             DevExpress.XtraLayout.RowDefinition rowDefinition7 = new DevExpress.XtraLayout.RowDefinition();
-            myDataLayoutControl1 = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyDataLayoutControlPro();
-            txtAuthType = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyComboBoxEditPro();
-            txtServer = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyTextEditPro();
-            myToggleSwitch1 = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyToggleSwitchPro();
-            txtSqlSifre = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyTextEditPro();
-            txtSqlKullaniciAdi = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyTextEditPro();
-            txtVeritabaniAdi = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyTextEditPro();
-            txtSirketAdi = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyTextEditPro();
-            txtSirketKodu = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyKodTextEditPro();
+            myDataLayoutControl1 = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyDataLayoutControl();
+            txtAuthType = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyComboBoxEdit();
+            txtServer = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyTextEdit();
+            myToggleSwitch1 = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyToggleSwitch();
+            txtSqlSifre = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyTextEdit();
+            txtSqlKullaniciAdi = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyTextEdit();
+            txtVeritabaniAdi = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyTextEdit();
+            txtSirketAdi = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyTextEdit();
+            txtSirketKodu = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyKodTextEdit();
             Root = new DevExpress.XtraLayout.LayoutControlGroup();
             layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
@@ -469,20 +469,20 @@
 
         #endregion
 
-        private UserControls.Controls.MyDataLayoutControlPro myDataLayoutControl1;
-        private UserControls.Controls.MyTextEditPro txtSqlSifre;
-        private UserControls.Controls.MyTextEditPro txtSqlKullaniciAdi;
-        private UserControls.Controls.MyTextEditPro txtVeritabaniAdi;
-        private UserControls.Controls.MyTextEditPro txtSirketAdi;
-        private UserControls.Controls.MyKodTextEditPro txtSirketKodu;
+        private UserControls.Controls.MyDataLayoutControl myDataLayoutControl1;
+        private UserControls.Controls.MyTextEdit txtSqlSifre;
+        private UserControls.Controls.MyTextEdit txtSqlKullaniciAdi;
+        private UserControls.Controls.MyTextEdit txtVeritabaniAdi;
+        private UserControls.Controls.MyTextEdit txtSirketAdi;
+        private UserControls.Controls.MyKodTextEdit txtSirketKodu;
         private DevExpress.XtraLayout.LayoutControlGroup Root;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
-        private UserControls.Controls.MyToggleSwitchPro myToggleSwitch1;
+        private UserControls.Controls.MyToggleSwitch myToggleSwitch1;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem6;
-        private UserControls.Controls.MyTextEditPro txtServer;
-        private UserControls.Controls.MyComboBoxEditPro txtAuthType;
+        private UserControls.Controls.MyTextEdit txtServer;
+        private UserControls.Controls.MyComboBoxEdit txtAuthType;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem7;

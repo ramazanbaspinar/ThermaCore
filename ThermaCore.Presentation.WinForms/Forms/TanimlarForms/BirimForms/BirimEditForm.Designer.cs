@@ -34,27 +34,27 @@
             DevExpress.XtraLayout.RowDefinition rowDefinition1 = new DevExpress.XtraLayout.RowDefinition();
             DevExpress.XtraLayout.RowDefinition rowDefinition2 = new DevExpress.XtraLayout.RowDefinition();
             DevExpress.XtraLayout.RowDefinition rowDefinition3 = new DevExpress.XtraLayout.RowDefinition();
-            myDataLayoutControlPro1 = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyDataLayoutControlPro();
+            myDataLayoutControlPro1 = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyDataLayoutControl();
+            txtAciklama = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyMemoEdit();
+            txtBirimAdi = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyTextEdit();
+            tglDurum = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyToggleSwitch();
+            txtKod = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyKodTextEdit();
             Root = new DevExpress.XtraLayout.LayoutControlGroup();
-            txtKod = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyKodTextEditPro();
             layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
-            tglDurum = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyToggleSwitchPro();
             layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
-            txtBirimAdi = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyTextEditPro();
             layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
-            txtAciklama = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyMemoEditPro();
             layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)ribbon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)myDataLayoutControlPro1).BeginInit();
             myDataLayoutControlPro1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)Root).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)txtKod.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)layoutControlItem1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)tglDurum.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)layoutControlItem2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)txtBirimAdi.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)layoutControlItem3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtAciklama.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtBirimAdi.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)tglDurum.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtKod.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)Root).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem4).BeginInit();
             SuspendLayout();
             // 
@@ -80,6 +80,64 @@
             myDataLayoutControlPro1.TabIndex = 0;
             myDataLayoutControlPro1.Text = "myDataLayoutControlPro1";
             // 
+            // txtAciklama
+            // 
+            txtAciklama.EnterMoveNextControl = true;
+            txtAciklama.Location = new Point(65, 74);
+            txtAciklama.MenuManager = ribbon;
+            txtAciklama.Name = "txtAciklama";
+            txtAciklama.Properties.MaxLength = 500;
+            txtAciklama.Size = new Size(321, 54);
+            txtAciklama.StatusBarAciklama = "Açıklama Giriniz.";
+            txtAciklama.StyleController = myDataLayoutControlPro1;
+            txtAciklama.TabIndex = 2;
+            txtAciklama.Tag = "Description";
+            // 
+            // txtBirimAdi
+            // 
+            txtBirimAdi.EnterMoveNextControl = true;
+            txtBirimAdi.Location = new Point(65, 43);
+            txtBirimAdi.MenuManager = ribbon;
+            txtBirimAdi.Name = "txtBirimAdi";
+            txtBirimAdi.Properties.MaxLength = 100;
+            txtBirimAdi.Size = new Size(321, 20);
+            txtBirimAdi.StatusBarAciklama = "";
+            txtBirimAdi.StyleController = myDataLayoutControlPro1;
+            txtBirimAdi.TabIndex = 1;
+            txtBirimAdi.Tag = "Name";
+            // 
+            // tglDurum
+            // 
+            tglDurum.EnterMoveNextControl = true;
+            tglDurum.Location = new Point(291, 12);
+            tglDurum.MenuManager = ribbon;
+            tglDurum.Name = "tglDurum";
+            tglDurum.Properties.AutoHeight = false;
+            tglDurum.Properties.AutoWidth = true;
+            tglDurum.Properties.GlyphAlignment = DevExpress.Utils.HorzAlignment.Far;
+            tglDurum.Properties.OffText = "Pasif";
+            tglDurum.Properties.OnText = "Aktif";
+            tglDurum.Size = new Size(77, 27);
+            tglDurum.StatusBarAciklama = "Kayıtın Kullanım Durumunu Seçiniz.";
+            tglDurum.StyleController = myDataLayoutControlPro1;
+            tglDurum.TabIndex = 3;
+            tglDurum.Tag = "IsActive";
+            // 
+            // txtKod
+            // 
+            txtKod.EnterMoveNextControl = true;
+            txtKod.Location = new Point(65, 12);
+            txtKod.MenuManager = ribbon;
+            txtKod.Name = "txtKod";
+            txtKod.Properties.Appearance.Options.UseTextOptions = true;
+            txtKod.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            txtKod.Properties.MaxLength = 100;
+            txtKod.Size = new Size(212, 20);
+            txtKod.StatusBarAciklama = "Kod Giriniz.";
+            txtKod.StyleController = myDataLayoutControlPro1;
+            txtKod.TabIndex = 0;
+            txtKod.Tag = "Code";
+            // 
             // Root
             // 
             Root.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
@@ -104,21 +162,6 @@
             Root.Size = new Size(398, 140);
             Root.TextVisible = false;
             // 
-            // txtKod
-            // 
-            txtKod.EnterMoveNextControl = true;
-            txtKod.Location = new Point(65, 12);
-            txtKod.MenuManager = ribbon;
-            txtKod.Name = "txtKod";
-            txtKod.Properties.Appearance.Options.UseTextOptions = true;
-            txtKod.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            txtKod.Properties.MaxLength = 100;
-            txtKod.Size = new Size(212, 20);
-            txtKod.StatusBarAciklama = "Kod Giriniz.";
-            txtKod.StyleController = myDataLayoutControlPro1;
-            txtKod.TabIndex = 3;
-            txtKod.Tag = "Code";
-            // 
             // layoutControlItem1
             // 
             layoutControlItem1.Control = txtKod;
@@ -128,23 +171,6 @@
             layoutControlItem1.Text = "Kod";
             layoutControlItem1.TextSize = new Size(41, 13);
             // 
-            // tglDurum
-            // 
-            tglDurum.EnterMoveNextControl = true;
-            tglDurum.Location = new Point(291, 12);
-            tglDurum.MenuManager = ribbon;
-            tglDurum.Name = "tglDurum";
-            tglDurum.Properties.AutoHeight = false;
-            tglDurum.Properties.AutoWidth = true;
-            tglDurum.Properties.GlyphAlignment = DevExpress.Utils.HorzAlignment.Far;
-            tglDurum.Properties.OffText = "Pasif";
-            tglDurum.Properties.OnText = "Aktif";
-            tglDurum.Size = new Size(77, 27);
-            tglDurum.StatusBarAciklama = "Kayıtın Kullanım Durumunu Seçiniz.";
-            tglDurum.StyleController = myDataLayoutControlPro1;
-            tglDurum.TabIndex = 2;
-            tglDurum.Tag = "IsActive";
-            // 
             // layoutControlItem2
             // 
             layoutControlItem2.Control = tglDurum;
@@ -153,19 +179,6 @@
             layoutControlItem2.OptionsTableLayoutItem.ColumnIndex = 2;
             layoutControlItem2.Size = new Size(99, 31);
             layoutControlItem2.TextVisible = false;
-            // 
-            // txtBirimAdi
-            // 
-            txtBirimAdi.EnterMoveNextControl = true;
-            txtBirimAdi.Location = new Point(65, 43);
-            txtBirimAdi.MenuManager = ribbon;
-            txtBirimAdi.Name = "txtBirimAdi";
-            txtBirimAdi.Properties.MaxLength = 100;
-            txtBirimAdi.Size = new Size(321, 20);
-            txtBirimAdi.StatusBarAciklama = "";
-            txtBirimAdi.StyleController = myDataLayoutControlPro1;
-            txtBirimAdi.TabIndex = 0;
-            txtBirimAdi.Tag = "Name";
             // 
             // layoutControlItem3
             // 
@@ -177,19 +190,6 @@
             layoutControlItem3.Size = new Size(378, 31);
             layoutControlItem3.Text = "Birim Adı";
             layoutControlItem3.TextSize = new Size(41, 13);
-            // 
-            // txtAciklama
-            // 
-            txtAciklama.EnterMoveNextControl = true;
-            txtAciklama.Location = new Point(65, 74);
-            txtAciklama.MenuManager = ribbon;
-            txtAciklama.Name = "txtAciklama";
-            txtAciklama.Properties.MaxLength = 500;
-            txtAciklama.Size = new Size(321, 54);
-            txtAciklama.StatusBarAciklama = "Açıklama Giriniz.";
-            txtAciklama.StyleController = myDataLayoutControlPro1;
-            txtAciklama.TabIndex = 1;
-            txtAciklama.Tag = "Description";
             // 
             // layoutControlItem4
             // 
@@ -217,14 +217,14 @@
             ((System.ComponentModel.ISupportInitialize)ribbon).EndInit();
             ((System.ComponentModel.ISupportInitialize)myDataLayoutControlPro1).EndInit();
             myDataLayoutControlPro1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)Root).EndInit();
-            ((System.ComponentModel.ISupportInitialize)txtKod.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)layoutControlItem1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)tglDurum.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)layoutControlItem2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)txtBirimAdi.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)layoutControlItem3).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtAciklama.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtBirimAdi.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)tglDurum.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtKod.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)Root).EndInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem3).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem4).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -232,15 +232,15 @@
 
         #endregion
 
-        private UserControls.Controls.MyDataLayoutControlPro myDataLayoutControlPro1;
-        private UserControls.Controls.MyTextEditPro txtBirimAdi;
-        private UserControls.Controls.MyToggleSwitchPro tglDurum;
-        private UserControls.Controls.MyKodTextEditPro txtKod;
+        private UserControls.Controls.MyDataLayoutControl myDataLayoutControlPro1;
+        private UserControls.Controls.MyTextEdit txtBirimAdi;
+        private UserControls.Controls.MyToggleSwitch tglDurum;
+        private UserControls.Controls.MyKodTextEdit txtKod;
         private DevExpress.XtraLayout.LayoutControlGroup Root;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
-        private UserControls.Controls.MyMemoEditPro txtAciklama;
+        private UserControls.Controls.MyMemoEdit txtAciklama;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
     }
 }

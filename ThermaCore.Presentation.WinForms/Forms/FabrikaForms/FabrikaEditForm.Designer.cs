@@ -34,11 +34,11 @@
             DevExpress.XtraLayout.RowDefinition rowDefinition1 = new DevExpress.XtraLayout.RowDefinition();
             DevExpress.XtraLayout.RowDefinition rowDefinition2 = new DevExpress.XtraLayout.RowDefinition();
             DevExpress.XtraLayout.RowDefinition rowDefinition3 = new DevExpress.XtraLayout.RowDefinition();
-            myDataLayoutControl1 = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyDataLayoutControlPro();
-            txtKod = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyKodTextEditPro();
-            tglDurum = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyToggleSwitchPro();
-            txtAciklama = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyMemoEditPro();
-            txtFabrikaAdi = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyTextEditPro();
+            myDataLayoutControl1 = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyDataLayoutControl();
+            txtKod = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyKodTextEdit();
+            tglDurum = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyToggleSwitch();
+            txtAciklama = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyMemoEdit();
+            txtFabrikaAdi = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyTextEdit();
             Root = new DevExpress.XtraLayout.LayoutControlGroup();
             layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
@@ -276,11 +276,11 @@
 
         #endregion
 
-        private UserControls.Controls.MyDataLayoutControlPro myDataLayoutControl1;
-        private UserControls.Controls.MyKodTextEditPro txtKod;
-        private UserControls.Controls.MyToggleSwitchPro tglDurum;
-        private UserControls.Controls.MyMemoEditPro txtAciklama;
-        private UserControls.Controls.MyTextEditPro txtFabrikaAdi;
+        private UserControls.Controls.MyDataLayoutControl myDataLayoutControl1;
+        private UserControls.Controls.MyKodTextEdit txtKod;
+        private UserControls.Controls.MyToggleSwitch tglDurum;
+        private UserControls.Controls.MyMemoEdit txtAciklama;
+        private UserControls.Controls.MyTextEdit txtFabrikaAdi;
         private DevExpress.XtraLayout.LayoutControlGroup Root;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;

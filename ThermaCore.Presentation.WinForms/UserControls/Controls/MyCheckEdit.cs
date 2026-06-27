@@ -5,15 +5,17 @@ using System.ComponentModel;
 namespace ThermaCore.Presentation.WinForms.UserControls.Controls
 {
     [ToolboxItem(true)]
-    public class MySimpleButtonPro : SimpleButton, IStatusBarAciklama
+    public class MyCheckEdit : CheckEdit, IStatusBarAciklama
     {
-        public MySimpleButtonPro()
+        public MyCheckEdit()
         {
             // --- GÖRSEL AYARLAR KALDIRILDI ---
-            // Butonun Normal, Disabled, Hovered (Üzerine gelindiğinde) ve Pressed (Tıklandığında) durumları için
-            // yazılan sabit "Segoe UI" font atamaları silindi. 
-            // DevExpress Skin (Tema) motoru artık tüm butonların yazı tipini uygulamanın genel temasına göre otomatik ayarlayacak.
+            // Sabit "Segoe UI" font tanımlamaları ve AppearanceFocused.BackColor (Transparent) ayarı 
+            // DevExpress Skin (Tema) motoruna bırakıldı. Onay kutuları artık temanın zemin rengiyle kusursuz bütünleşecek.
         }
+
+        // Enter tuşuna basıldığında bir sonraki kontrole geçişi sağlar.
+        public override bool EnterMoveNextControl { get; set; } = true;
 
         // IStatusBarAciklama Implementasyonu
         // CS8618 uyarısını engellemek ve pragma'dan kurtulmak için string.Empty ataması yapıldı.

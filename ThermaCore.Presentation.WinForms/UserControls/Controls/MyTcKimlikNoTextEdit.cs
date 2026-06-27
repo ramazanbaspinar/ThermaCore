@@ -4,9 +4,9 @@ using System.ComponentModel;
 namespace ThermaCore.Presentation.WinForms.UserControls.Controls
 {
     [ToolboxItem(true)]
-    public class MyTcKimlikNoTextEditPro : MyTextEditPro // Standartlaştırdığımız ana sınıftan miras alıyor
+    public class MyTcKimlikNoTextEdit : MyTextEdit // Standartlaştırdığımız ana sınıftan miras alıyor
     {
-        public MyTcKimlikNoTextEditPro()
+        public MyTcKimlikNoTextEdit()
         {
             // --- İŞLEVSEL AYARLAR ---
 

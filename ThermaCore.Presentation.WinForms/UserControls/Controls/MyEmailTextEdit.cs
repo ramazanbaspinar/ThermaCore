@@ -5,9 +5,9 @@ using ThermaCore.Presentation.WinForms.Interfaces;
 namespace ThermaCore.Presentation.WinForms.UserControls.Controls
 {
     [ToolboxItem(true)]
-    public class MyEmailTextEditPro : MyTextEditPro // Projenin genel uyumu için miras alınan sınıfı da 'Pro' olarak güncellemeyi unutma.
+    public class MyEmailTextEdit : MyTextEdit // Projenin genel uyumu için miras alınan sınıfı da 'Pro' olarak güncellemeyi unutma.
     {
-        public MyEmailTextEditPro()
+        public MyEmailTextEdit()
         {
             // --- İŞLEVSEL AYARLAR ---
 

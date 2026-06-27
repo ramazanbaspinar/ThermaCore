@@ -4,41 +4,37 @@ using System;
 using System.ComponentModel;
 using ThermaCore.Presentation.WinForms.Interfaces;
 
-namespace ThermaCore.Presentation.WinForms.UserControls.Controls
+namespace ThermaCore.Presentation.WinForms.UserControls.Controls.Controls
 {
     [ToolboxItem(true)]
-    public class MyGridLookUpFindPro : GridLookUpEdit, IStatusBarKisaYol
+    public class MyGridLookUp : GridLookUpEdit, IStatusBarKisaYol
     {
-        // Kullanıcının arama butonuna bastığını bildiren olay.
-        public event EventHandler? SearchButtonClicked;
-
-        public MyGridLookUpFindPro()
+        public MyGridLookUp()
         {
             // --- İŞLEVSEL AYARLAR ---
 
-            // Serbest metin girişini engeller, sadece listeden seçim zorunluluğu sağlar.
+            // Serbest metin girişini engeller, kullanıcının sadece listeden seçim yapmasını zorunlu kılar.
             Properties.TextEditStyle = TextEditStyles.DisableTextEditor;
 
-            // DevExpress'in varsayılan NullText uyarısını temizler.
+            // Bileşen boşken DevExpress'in varsayılan olarak gösterdiği yazıyı temizler.
             Properties.NullText = "";
 
-            // Butonları (Açılır Liste, Arama, Sil) oluşturur.
+            // Aşağı ok ve Silme butonlarının arayüze eklenmesini tetikler.
             InitializeComponent();
 
             // --- GÖRSEL AYARLAR KALDIRILDI ---
-            // Sabit renk ve font atamaları silindi. Tema (Skin) motoru yönetimi devralacak.
+            // Sabit renkler (Beyaz zemin, odaklanıldığında Sarı zemin) ve Segoe UI font atamaları silindi. 
+            // Seçim aracı artık formun genel DevExpress temasından (Skin) beslenecek.
         }
 
         private void InitializeComponent()
         {
             Properties.Buttons.Clear();
 
-            // 1. Combo: Açılır liste
-            // 2. Search: Gelişmiş arama/yeni kayıt ekranını tetikler
-            // 3. Delete: Mevcut seçimi temizler
+            // 1. Buton: Varsayılan aşağı ok (açılır liste) butonu
+            // 2. Buton: Seçimi temizleme (Çarpı/Sil) butonu
             Properties.Buttons.AddRange(new EditorButton[] {
                 new EditorButton(ButtonPredefines.Combo),
-                new EditorButton(ButtonPredefines.Search),
                 new EditorButton(ButtonPredefines.Delete)
             });
 
@@ -47,20 +43,19 @@ namespace ThermaCore.Presentation.WinForms.UserControls.Controls
 
         private void Properties_ButtonClick(object sender, ButtonPressedEventArgs e)
         {
+            // Silme butonuna tıklandığında seçili değeri (EditValue) null yaparak alanı temizler.
+            // Yabancı anahtar (Foreign Key) ilişkilerinde kaydı boşaltmak için kritiktir.
             if (e.Button.Kind == ButtonPredefines.Delete)
             {
                 this.EditValue = null;
             }
-            else if (e.Button.Kind == ButtonPredefines.Search)
-            {
-                // Arama butonuna tıklandığında olayı tetikler.
-                SearchButtonClicked?.Invoke(this, EventArgs.Empty);
-            }
         }
 
+        // Enter tuşuna basıldığında bir sonraki kontrole geçişi sağlar.
         public override bool EnterMoveNextControl { get; set; } = true;
 
         // IStatusBarKisaYol Implementasyonu
+        // Başlangıç değerleri atandığı için CS8618 uyarısı oluşmaz.
         public string StatusBarKisaYol { get; set; } = "F4 :";
         public string StatusBarKisaYolAciklama { get; set; } = "Seçim Yap";
         public string StatusBarAciklama { get; set; } = "Kayıt Seçiniz";

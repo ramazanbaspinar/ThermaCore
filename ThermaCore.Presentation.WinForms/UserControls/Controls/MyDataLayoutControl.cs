@@ -7,9 +7,9 @@ using System.Windows.Forms;
 namespace ThermaCore.Presentation.WinForms.UserControls.Controls
 {
     [ToolboxItem(true)]
-    public class MyDataLayoutControlPro : DataLayoutControl
+    public class MyDataLayoutControl : DataLayoutControl
     {
-        public MyDataLayoutControlPro()
+        public MyDataLayoutControl()
         {
             // --- İŞLEVSEL AYARLAR ---
             OptionsFocus.EnableAutoTabOrder = false; // Tab sırasını manuel yönetmek için.

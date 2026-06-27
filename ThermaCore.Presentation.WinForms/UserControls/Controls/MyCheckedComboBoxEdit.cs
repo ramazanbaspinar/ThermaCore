@@ -5,9 +5,9 @@ using System.ComponentModel;
 namespace ThermaCore.Presentation.WinForms.UserControls.Controls
 {
     [ToolboxItem(true)]
-    public class MyCheckedComboBoxEditPro : CheckedComboBoxEdit, IStatusBarKisaYol
+    public class MyCheckedComboBoxEdit : CheckedComboBoxEdit, IStatusBarKisaYol
     {
-        public MyCheckedComboBoxEditPro()
+        public MyCheckedComboBoxEdit()
         {
             // --- GÖRSEL AYARLAR KALDIRILDI ---
             // Sabit "Segoe UI" font tanımlamaları ve AppearanceFocused.BackColor (Sarı renk) 

@@ -7,9 +7,9 @@ using System.Windows.Forms;
 namespace ThermaCore.Presentation.WinForms.UserControls.Controls
 {
     [ToolboxItem(true)]
-    public class MyCheckedListBoxControlPro : CheckedListBoxControl, IStatusBarKisaYol
+    public class MyCheckedListBoxControl : CheckedListBoxControl, IStatusBarKisaYol
     {
-        public MyCheckedListBoxControlPro()
+        public MyCheckedListBoxControl()
         {
             // --- İŞLEVSEL AYARLAR ---
             CheckOnClick = true; // Kullanıcının kutucuğu tutturmaya çalışmadan direkt satıra tıklayarak seçebilmesini sağlar.

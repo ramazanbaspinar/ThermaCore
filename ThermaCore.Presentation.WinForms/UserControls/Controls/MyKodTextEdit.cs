@@ -4,9 +4,9 @@ using System.ComponentModel;
 namespace ThermaCore.Presentation.WinForms.UserControls.Controls
 {
     [ToolboxItem(true)]
-    public class MyKodTextEditPro : MyTextEditPro // Ana metin kutusu sınıfımızın "Pro" versiyonundan miras alıyoruz
+    public class MyKodTextEdit : MyTextEdit // Ana metin kutusu sınıfımızın "Pro" versiyonundan miras alıyoruz
     {
-        public MyKodTextEditPro()
+        public MyKodTextEdit()
         {
             // --- İŞLEVSEL AYARLAR ---
 

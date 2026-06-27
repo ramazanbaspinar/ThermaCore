@@ -6,18 +6,25 @@ using System.ComponentModel;
 namespace ThermaCore.Presentation.WinForms.UserControls.Controls
 {
     [ToolboxItem(true)]
-    public class MyComboBoxEditPro : ComboBoxEdit, IStatusBarKisaYol
+    public class MyPictureEdit : PictureEdit, IStatusBarKisaYol
     {
-        public MyComboBoxEditPro()
+        public MyPictureEdit()
         {
             // --- İŞLEVSEL AYARLAR ---
-            // Kullanıcının listeye serbest metin girmesini engeller, sadece listedeki öğelerin seçilmesini zorunlu kılar.
-            // ERP sistemlerinde veri tutarlılığı için bu ayar standarttır.
-            Properties.TextEditStyle = TextEditStyles.DisableTextEditor;
+
+            // Bileşen boşken (resim yokken) ekranda gösterilecek standart metin.
+            Properties.NullText = "Resim Yok";
+
+            // Yüklenen resmin en-boy oranı fark etmeksizin bileşenin sınırlarına sığdırılmasını (esnetilmesini) sağlar.
+            Properties.SizeMode = PictureSizeMode.Stretch;
+
+            // DevExpress'in varsayılan sağ tık resim menüsünü gizler. Kullanıcıların yanlışlıkla resmi silmesini 
+            // veya form yapısını bozacak işlemler yapmasını engeller.
+            Properties.ShowMenu = false;
 
             // --- GÖRSEL AYARLAR KALDIRILDI ---
-            // Odaklanma rengi (sarı) ve 9 farklı yerdeki statik Segoe UI font atamaları silindi.
-            // DevExpress Skin (Tema) motoru artık bu listeyi otomatik yönetecek.
+            // Sabit "Segoe UI" fontları ve odaklanıldığında yanan sarı arka plan rengi silindi.
+            // DevExpress Skin (Tema) motoru artık bu bileşenin görsel durumlarını otomatik yönetecek.
         }
 
         // Enter tuşuna basıldığında bir sonraki kontrole geçişi sağlar.

@@ -6,9 +6,9 @@ using System.ComponentModel;
 namespace ThermaCore.Presentation.WinForms.UserControls.Controls
 {
     [ToolboxItem(true)]
-    public class MyToggleSwitchPro : ToggleSwitch, IStatusBarAciklama
+    public class MyToggleSwitch : ToggleSwitch, IStatusBarAciklama
     {
-        public MyToggleSwitchPro()
+        public MyToggleSwitch()
         {
             // --- İŞLEVSEL AYARLAR ---
 

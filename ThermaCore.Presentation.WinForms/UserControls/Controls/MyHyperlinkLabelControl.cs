@@ -7,9 +7,9 @@ namespace ThermaCore.Presentation.WinForms.UserControls.Controls
 {
     // ToolboxItem niteliği (attribute) yapıcı metodun üzerinden alınıp olması gerektiği gibi sınıfın üzerine taşındı.
     [ToolboxItem(true)]
-    public class MyHyperlinkLabelControlPro : HyperlinkLabelControl, IStatusBarAciklama
+    public class MyHyperlinkLabelControl : HyperlinkLabelControl, IStatusBarAciklama
     {
-        public MyHyperlinkLabelControlPro()
+        public MyHyperlinkLabelControl()
         {
             // --- İŞLEVSEL AYARLAR ---
 

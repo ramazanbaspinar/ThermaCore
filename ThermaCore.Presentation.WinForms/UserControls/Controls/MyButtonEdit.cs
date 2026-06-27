@@ -8,9 +8,9 @@ using ThermaCore.Presentation.WinForms.UserControls.Controls;
 namespace ThermaCore.Presentation.WinForms.UserControls.Controls
 {
     [ToolboxItem(true)]
-    public class MyButtonEditPro : ButtonEdit, IStatusBarKisaYol
+    public class MyButtonEdit : ButtonEdit, IStatusBarKisaYol
     {
-        public MyButtonEditPro()
+        public MyButtonEdit()
         {
             // --- İŞLEVSEL AYARLAR ---
             // Kullanıcının elle metin girmesini engeller, sadece butona tıklanarak/F4 ile seçim yapılmasını sağlar.

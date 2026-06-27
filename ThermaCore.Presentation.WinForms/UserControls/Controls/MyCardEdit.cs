@@ -5,9 +5,9 @@ using System.ComponentModel;
 namespace ThermaCore.Presentation.WinForms.UserControls.Controls
 {
     [ToolboxItem(true)]
-    public class MyCardEditPro : MyTextEditPro // Eğer önceki adımlarda MyTextEditPro oluşturduysan ondan miras almalısın.
+    public class MyCardEdit : MyTextEdit // Eğer önceki adımlarda MyTextEditPro oluşturduysan ondan miras almalısın.
     {
-        public MyCardEditPro()
+        public MyCardEdit()
         {
             // --- İŞLEVSEL AYARLAR ---
 

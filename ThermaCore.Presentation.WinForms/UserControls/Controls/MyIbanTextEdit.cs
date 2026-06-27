@@ -4,9 +4,9 @@ using System.ComponentModel;
 namespace ThermaCore.Presentation.WinForms.UserControls.Controls
 {
     [ToolboxItem(true)]
-    public class MyIbanTextEditPro : MyTextEditPro // Önceki adımda standartlaştırdığımız ana sınıftan miras alıyor
+    public class MyIbanTextEdit : MyTextEdit // Önceki adımda standartlaştırdığımız ana sınıftan miras alıyor
     {
-        public MyIbanTextEditPro()
+        public MyIbanTextEdit()
         {
             // --- İŞLEVSEL AYARLAR ---
 

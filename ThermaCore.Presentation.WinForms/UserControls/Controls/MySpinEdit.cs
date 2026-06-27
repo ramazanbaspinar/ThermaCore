@@ -6,9 +6,9 @@ using System.ComponentModel;
 namespace ThermaCore.Presentation.WinForms.UserControls.Controls
 {
     [ToolboxItem(true)]
-    public class MySpinEditPro : SpinEdit, IStatusBarAciklama
+    public class MySpinEdit : SpinEdit, IStatusBarAciklama
     {
-        public MySpinEditPro()
+        public MySpinEdit()
         {
             // --- İŞLEVSEL AYARLAR ---
 

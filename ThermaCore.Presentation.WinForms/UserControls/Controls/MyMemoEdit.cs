@@ -5,9 +5,9 @@ using System.ComponentModel;
 namespace ThermaCore.Presentation.WinForms.UserControls.Controls
 {
     [ToolboxItem(true)]
-    public class MyMemoEditPro : MemoEdit, IStatusBarAciklama
+    public class MyMemoEdit : MemoEdit, IStatusBarAciklama
     {
-        public MyMemoEditPro()
+        public MyMemoEdit()
         {
             // --- İŞLEVSEL AYARLAR ---
 

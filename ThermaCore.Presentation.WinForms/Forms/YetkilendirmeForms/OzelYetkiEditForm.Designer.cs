@@ -38,9 +38,9 @@
             colYetkiAciklamasi = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colSecim = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             repositoryItemCheckEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
-            myDataLayoutControl1 = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyDataLayoutControlPro();
-            btnIptal = new ThermaCore.Presentation.WinForms.UserControls.Controls.MySimpleButtonPro();
-            btnTamam = new ThermaCore.Presentation.WinForms.UserControls.Controls.MySimpleButtonPro();
+            myDataLayoutControl1 = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyDataLayoutControl();
+            btnIptal = new ThermaCore.Presentation.WinForms.UserControls.Controls.MySimpleButton();
+            btnTamam = new ThermaCore.Presentation.WinForms.UserControls.Controls.MySimpleButton();
             Root = new DevExpress.XtraLayout.LayoutControlGroup();
             layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
@@ -327,9 +327,9 @@
         private UserControls.Grid.MyGridColumn colYetkiAciklamasi;
         private UserControls.Grid.MyGridColumn colSecim;
         private DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit repositoryItemCheckEdit1;
-        private UserControls.Controls.MyDataLayoutControlPro myDataLayoutControl1;
-        private UserControls.Controls.MySimpleButtonPro btnIptal;
-        private UserControls.Controls.MySimpleButtonPro btnTamam;
+        private UserControls.Controls.MyDataLayoutControl myDataLayoutControl1;
+        private UserControls.Controls.MySimpleButton btnIptal;
+        private UserControls.Controls.MySimpleButton btnTamam;
         private DevExpress.XtraLayout.LayoutControlGroup Root;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
