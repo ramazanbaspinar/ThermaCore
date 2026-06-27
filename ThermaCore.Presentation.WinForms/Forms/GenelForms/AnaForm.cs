@@ -185,10 +185,32 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
 
                         var exchangeRateService = scope.ServiceProvider.GetRequiredService<ThermaCore.Application.Interfaces.System.IExchangeRateService>();
                         await exchangeRateService.SyncTcmbRatesAsync();
+                        
+                        // Veritabanından (TenantDB) en güncel USD ve EUR EffectiveSellingRate değerlerini oku.
+                        var exchangeRateRepository = scope.ServiceProvider.GetRequiredService<ThermaCore.Application.Interfaces.Repositories.IRepository<ThermaCore.Domain.Entities.Management.ExchangeRate>>();
+                        
+                        var usdRate = exchangeRateRepository.Find(x => x.CurrencyCode == "USD").OrderByDescending(x => x.RateDate).FirstOrDefault();
+                        var eurRate = exchangeRateRepository.Find(x => x.CurrencyCode == "EUR").OrderByDescending(x => x.RateDate).FirstOrDefault();
+
+                        this.Invoke((System.Windows.Forms.MethodInvoker)delegate
+                        {
+                            if (usdRate != null && eurRate != null)
+                            {
+                                lblDovizBilgisi.Text = $"USD: {usdRate.EffectiveSellingRate:F4} | EUR: {eurRate.EffectiveSellingRate:F4} ({usdRate.RateDate:dd.MM.yyyy})";
+                            }
+                            else
+                            {
+                                lblDovizBilgisi.Text = "Kur Bilgisi Alınamadı";
+                            }
+                        });
                     }
                     catch (Exception ex)
                     {
                         Console.WriteLine($"[AnaForm] TCMB Kurları arka plan senkronizasyon hatası: {ex.Message}");
+                        this.Invoke((System.Windows.Forms.MethodInvoker)delegate
+                        {
+                            lblDovizBilgisi.Text = "Bağlantı Hatası: Kurlar Alınamadı";
+                        });
                     }
                 });
 

@@ -67,7 +67,11 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.KurlarForms
         {
             if (e.Item == btnYenile)
             {
-                if (XtraMessageBox.Show("TCMB kurları yeniden senkronize edilsin mi? (Bu işlem birkaç saniye sürebilir)", "Senkronizasyon", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if (XtraMessageBox.Show("TCMB kurları senkronize edilip daha sonrasında liste yenilenecektir. Onaylıyor musunuz?", "Senkronizasyon", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                {
+                    Listele();
+                }
+                else
                 {
                     try
                     {
@@ -81,9 +85,18 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.KurlarForms
                         scopedTenantService.UserId = currentTenantService.UserId;
 
                         var manager = scope.ServiceProvider.GetRequiredService<ThermaCore.Application.Interfaces.System.IExchangeRateService>();
-                        await manager.SyncTcmbRatesAsync();
+                        bool isNewDataAdded = await manager.SyncTcmbRatesAsync();
+                        
+                        if (isNewDataAdded)
+                        {
+                            XtraMessageBox.Show("Kurlar başarıyla senkronize edildi.", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            XtraMessageBox.Show("TCMB tarafından yayınlanan en güncel kur verileri sistemde zaten kayıtlıdır.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        
                         Listele();
-                        XtraMessageBox.Show("Kurlar TCMB'den başarıyla güncellendi.", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     catch (Exception ex)
                     {

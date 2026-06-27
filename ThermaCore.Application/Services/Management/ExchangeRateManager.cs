@@ -22,7 +22,7 @@ public class ExchangeRateManager : IExchangeRateService
         _uow = uow;
     }
 
-    public async Task SyncTcmbRatesAsync()
+    public async Task<bool> SyncTcmbRatesAsync()
     {
         try
         {
@@ -33,7 +33,7 @@ public class ExchangeRateManager : IExchangeRateService
             doc.LoadXml(xmlData);
 
             var rootNode = doc.SelectSingleNode("Tarih_Date");
-            if (rootNode?.Attributes?["Date"] == null) return;
+            if (rootNode?.Attributes?["Date"] == null) return false;
 
             string dateStr = rootNode.Attributes["Date"]!.Value;
             if (!DateTime.TryParseExact(dateStr, "MM/dd/yyyy", null, global::System.Globalization.DateTimeStyles.None, out DateTime rateDate))
@@ -51,9 +51,11 @@ public class ExchangeRateManager : IExchangeRateService
             var existingRates = _exchangeRateRepository.Find(x => x.RateDate.Date == rateDate).ToList();
             bool usdExists = existingRates.Any(x => x.CurrencyCode == "USD");
             bool eurExists = existingRates.Any(x => x.CurrencyCode == "EUR");
+            bool tryExists = existingRates.Any(x => x.CurrencyCode == "TRY");
 
-            if (usdExists && eurExists) return;
+            if (usdExists && eurExists && tryExists) return false;
 
+            bool addedAny = false;
             var currencyNodes = doc.SelectNodes("Tarih_Date/Currency");
             if (currencyNodes != null)
             {
@@ -87,11 +89,35 @@ public class ExchangeRateManager : IExchangeRateService
                         };
 
                         _exchangeRateRepository.Add(exchangeRate);
+                        addedAny = true;
                     }
                 }
 
-                _uow.SaveChanges();
+                if (!tryExists)
+                {
+                    var exchangeRateTry = new ExchangeRate
+                    {
+                        Id = ThermaCore.Domain.Helpers.IdGenerator.GenerateId(),
+                        RateDate = rateDate,
+                        CurrencyCode = "TRY",
+                        TcmbBuyingRate = 1.0000m,
+                        TcmbSellingRate = 1.0000m,
+                        EffectiveBuyingRate = 1.0000m,
+                        EffectiveSellingRate = 1.0000m,
+                        CreatedDate = DateTime.Now
+                    };
+
+                    _exchangeRateRepository.Add(exchangeRateTry);
+                    addedAny = true;
+                }
+
+                if (addedAny)
+                {
+                    _uow.SaveChanges();
+                    return true;
+                }
             }
+            return false;
         }
         catch (Exception ex)
         {
