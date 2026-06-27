@@ -73,48 +73,6 @@
             // 
             // myGridView1
             // 
-            myGridView1.Appearance.Empty.BackColor = Color.WhiteSmoke;
-            myGridView1.Appearance.Empty.Font = new Font("Segoe UI", 9.75F);
-            myGridView1.Appearance.Empty.Options.UseBackColor = true;
-            myGridView1.Appearance.Empty.Options.UseFont = true;
-            myGridView1.Appearance.EvenRow.BackColor = Color.FromArgb(250, 250, 250);
-            myGridView1.Appearance.EvenRow.Options.UseBackColor = true;
-            myGridView1.Appearance.FocusedCell.BackColor = Color.FromArgb(255, 249, 219);
-            myGridView1.Appearance.FocusedCell.Options.UseBackColor = true;
-            myGridView1.Appearance.FocusedRow.BackColor = Color.FromArgb(255, 249, 219);
-            myGridView1.Appearance.FocusedRow.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
-            myGridView1.Appearance.FocusedRow.Options.UseBackColor = true;
-            myGridView1.Appearance.FocusedRow.Options.UseFont = true;
-            myGridView1.Appearance.FooterPanel.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
-            myGridView1.Appearance.FooterPanel.ForeColor = Color.FromArgb(64, 64, 64);
-            myGridView1.Appearance.FooterPanel.Options.UseFont = true;
-            myGridView1.Appearance.FooterPanel.Options.UseForeColor = true;
-            myGridView1.Appearance.HeaderPanel.BackColor = Color.FromArgb(46, 134, 193);
-            myGridView1.Appearance.HeaderPanel.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
-            myGridView1.Appearance.HeaderPanel.ForeColor = Color.White;
-            myGridView1.Appearance.HeaderPanel.Options.UseBackColor = true;
-            myGridView1.Appearance.HeaderPanel.Options.UseFont = true;
-            myGridView1.Appearance.HeaderPanel.Options.UseForeColor = true;
-            myGridView1.Appearance.HeaderPanel.Options.UseTextOptions = true;
-            myGridView1.Appearance.HeaderPanel.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            myGridView1.Appearance.HideSelectionRow.BackColor = Color.FromArgb(255, 249, 219);
-            myGridView1.Appearance.HideSelectionRow.Options.UseBackColor = true;
-            myGridView1.Appearance.OddRow.BackColor = Color.White;
-            myGridView1.Appearance.OddRow.Options.UseBackColor = true;
-            myGridView1.Appearance.Row.BackColor = Color.White;
-            myGridView1.Appearance.Row.Font = new Font("Segoe UI", 9.75F);
-            myGridView1.Appearance.Row.ForeColor = Color.Black;
-            myGridView1.Appearance.Row.Options.UseBackColor = true;
-            myGridView1.Appearance.Row.Options.UseFont = true;
-            myGridView1.Appearance.Row.Options.UseForeColor = true;
-            myGridView1.Appearance.SelectedRow.BackColor = Color.FromArgb(204, 229, 255);
-            myGridView1.Appearance.SelectedRow.ForeColor = Color.Black;
-            myGridView1.Appearance.SelectedRow.Options.UseBackColor = true;
-            myGridView1.Appearance.SelectedRow.Options.UseForeColor = true;
-            myGridView1.Appearance.ViewCaption.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
-            myGridView1.Appearance.ViewCaption.ForeColor = Color.FromArgb(64, 64, 64);
-            myGridView1.Appearance.ViewCaption.Options.UseFont = true;
-            myGridView1.Appearance.ViewCaption.Options.UseForeColor = true;
             myGridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colId, colKod, colHardwareId, colDescription });
             myGridView1.GridControl = myGridControl1;
             myGridView1.Name = "myGridView1";
@@ -127,9 +85,7 @@
             myGridView1.OptionsPrint.PrintGroupFooter = false;
             myGridView1.OptionsView.ColumnAutoWidth = false;
             myGridView1.OptionsView.EnableAppearanceEvenRow = true;
-            myGridView1.OptionsView.EnableAppearanceOddRow = true;
             myGridView1.OptionsView.HeaderFilterButtonShowMode = DevExpress.XtraEditors.Controls.FilterButtonShowMode.Button;
-            myGridView1.OptionsView.RowAutoHeight = true;
             myGridView1.OptionsView.ShowAutoFilterRow = true;
             myGridView1.OptionsView.ShowGroupPanel = false;
             myGridView1.OptionsView.ShowViewCaption = true;
@@ -151,15 +107,9 @@
             // 
             // colKod
             // 
-            colKod.AppearanceCell.Font = new Font("Segoe UI", 9.75F);
-            colKod.AppearanceCell.Options.UseFont = true;
-            colKod.AppearanceHeader.BackColor = Color.FromArgb(46, 134, 193);
-            colKod.AppearanceHeader.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
-            colKod.AppearanceHeader.ForeColor = Color.White;
-            colKod.AppearanceHeader.Options.UseBackColor = true;
-            colKod.AppearanceHeader.Options.UseFont = true;
-            colKod.AppearanceHeader.Options.UseForeColor = true;
-            colKod.Caption = "Cihaz Adı";
+            colKod.AppearanceCell.Options.UseTextOptions = true;
+            colKod.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            colKod.Caption = "Kod";
             colKod.FieldName = "Code";
             colKod.Name = "colKod";
             colKod.OptionsColumn.AllowEdit = false;
@@ -168,18 +118,10 @@
             colKod.StatusBarKisaYolAciklama = null;
             colKod.Visible = true;
             colKod.VisibleIndex = 0;
-            colKod.Width = 175;
+            colKod.Width = 120;
             // 
             // colHardwareId
             // 
-            colHardwareId.AppearanceCell.Font = new Font("Segoe UI", 9.75F);
-            colHardwareId.AppearanceCell.Options.UseFont = true;
-            colHardwareId.AppearanceHeader.BackColor = Color.FromArgb(46, 134, 193);
-            colHardwareId.AppearanceHeader.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
-            colHardwareId.AppearanceHeader.ForeColor = Color.White;
-            colHardwareId.AppearanceHeader.Options.UseBackColor = true;
-            colHardwareId.AppearanceHeader.Options.UseFont = true;
-            colHardwareId.AppearanceHeader.Options.UseForeColor = true;
             colHardwareId.Caption = "Cihaz Kimliği";
             colHardwareId.FieldName = "HardwareId";
             colHardwareId.Name = "colHardwareId";
@@ -189,18 +131,9 @@
             colHardwareId.StatusBarKisaYolAciklama = null;
             colHardwareId.Visible = true;
             colHardwareId.VisibleIndex = 1;
-            colHardwareId.Width = 175;
             // 
             // colDescription
             // 
-            colDescription.AppearanceCell.Font = new Font("Segoe UI", 9.75F);
-            colDescription.AppearanceCell.Options.UseFont = true;
-            colDescription.AppearanceHeader.BackColor = Color.FromArgb(46, 134, 193);
-            colDescription.AppearanceHeader.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
-            colDescription.AppearanceHeader.ForeColor = Color.White;
-            colDescription.AppearanceHeader.Options.UseBackColor = true;
-            colDescription.AppearanceHeader.Options.UseFont = true;
-            colDescription.AppearanceHeader.Options.UseForeColor = true;
             colDescription.Caption = "Açıklama";
             colDescription.FieldName = "Description";
             colDescription.Name = "colDescription";
@@ -210,7 +143,6 @@
             colDescription.StatusBarKisaYolAciklama = null;
             colDescription.Visible = true;
             colDescription.VisibleIndex = 2;
-            colDescription.Width = 175;
             // 
             // TerminalListForm
             // 

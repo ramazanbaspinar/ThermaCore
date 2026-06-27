@@ -30,12 +30,12 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BirimListForm));
             longNavigator1 = new RbaYazilim.WinRezistans.UI.Win.UserControls.Controls.Navigators.LongNavigator();
-            myGridControlPro1 = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridControlPro();
-            myGridViewPro1 = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridViewPro();
-            colId = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumnPro();
-            colKod = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumnPro();
-            colBirimAdi = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumnPro();
-            colAciklama = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumnPro();
+            myGridControlPro1 = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridControl();
+            myGridViewPro1 = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridView();
+            colId = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
+            colKod = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
+            colBirimAdi = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
+            colAciklama = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             ((System.ComponentModel.ISupportInitialize)ribbon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)myGridControlPro1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)myGridViewPro1).BeginInit();
@@ -167,11 +167,11 @@
         #endregion
 
         private RbaYazilim.WinRezistans.UI.Win.UserControls.Controls.Navigators.LongNavigator longNavigator1;
-        private UserControls.Grid.MyGridControlPro myGridControlPro1;
-        private UserControls.Grid.MyGridViewPro myGridViewPro1;
-        private UserControls.Grid.MyGridColumnPro colId;
-        private UserControls.Grid.MyGridColumnPro colKod;
-        private UserControls.Grid.MyGridColumnPro colBirimAdi;
-        private UserControls.Grid.MyGridColumnPro colAciklama;
+        private UserControls.Grid.MyGridControl myGridControlPro1;
+        private UserControls.Grid.MyGridView myGridViewPro1;
+        private UserControls.Grid.MyGridColumn colId;
+        private UserControls.Grid.MyGridColumn colKod;
+        private UserControls.Grid.MyGridColumn colBirimAdi;
+        private UserControls.Grid.MyGridColumn colAciklama;
     }
 }

@@ -1,5 +1,4 @@
-﻿#pragma warning disable CS8618
-using DevExpress.Utils;
+﻿using DevExpress.Utils;
 using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraEditors.Mask;
 using DevExpress.XtraEditors.Repository;
@@ -8,9 +7,8 @@ using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Registrator;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
-using ThermaCore.Presentation.WinForms.Interfaces;
 using System.ComponentModel;
-using System.Drawing;
+using ThermaCore.Presentation.WinForms.Interfaces;
 
 namespace ThermaCore.Presentation.WinForms.UserControls.Grid
 {
@@ -21,54 +19,11 @@ namespace ThermaCore.Presentation.WinForms.UserControls.Grid
         {
             var view = (GridView)CreateView("MyGridView");
 
-            // View Caption
-            view.Appearance.ViewCaption.ForeColor = Color.FromArgb(64, 64, 64);
-            view.Appearance.ViewCaption.Font = new Font("Segoe UI", 11.25f, FontStyle.Bold);
+            // --- 1. GÖRSEL AYARLAR (DevExpress Standartı ve Skin Uyumlu) ---
+            view.OptionsView.EnableAppearanceEvenRow = true; // Zebra deseni açık, rengi aktif temadan alacak.
+            view.OptionsView.RowAutoHeight = false; // ERP'lerde veri yoğunluğu önemlidir, satırlar standart boyda olmalı.
 
-            // Header Panel
-            var headerColor = Color.FromArgb(46, 134, 193); // #2E86C1
-            view.Appearance.HeaderPanel.BackColor = headerColor;
-            view.Appearance.HeaderPanel.ForeColor = Color.White;
-            view.Appearance.HeaderPanel.Font = new Font("Segoe UI", 9.75f, FontStyle.Bold);
-            view.Appearance.HeaderPanel.TextOptions.HAlignment = HorzAlignment.Center;
-
-            // Empty Area
-            view.Appearance.Empty.BackColor = Color.FromArgb(245, 245, 245); // #F5F5F5
-            view.Appearance.Empty.Font = new Font("Segoe UI", 9.75f, FontStyle.Regular);
-
-            // Zebra Striping
-            view.OptionsView.EnableAppearanceEvenRow = true;
-            view.Appearance.EvenRow.BackColor = Color.FromArgb(250, 250, 250); // #FAFAFA
-            view.Appearance.EvenRow.Options.UseBackColor = true;
-
-            view.OptionsView.EnableAppearanceOddRow = true;
-            view.Appearance.OddRow.BackColor = Color.White;
-            view.Appearance.OddRow.Options.UseBackColor = true;
-
-            // Focused/Selected Rows
-            var focusedBackColor = Color.FromArgb(255, 249, 219); // #FFF9DB
-            view.Appearance.FocusedCell.BackColor = focusedBackColor;
-            view.Appearance.FocusedRow.BackColor = focusedBackColor;
-            view.Appearance.FocusedRow.Font = new Font("Segoe UI", 9.75f, FontStyle.Bold);
-            view.Appearance.FocusedRow.Options.UseFont = true;
-
-            view.Appearance.HideSelectionRow.BackColor = focusedBackColor;
-
-            view.Appearance.SelectedRow.BackColor = Color.FromArgb(204, 229, 255); // #CCE5FF
-            view.Appearance.SelectedRow.ForeColor = Color.Black;
-            view.Appearance.SelectedRow.Options.UseBackColor = true;
-            view.Appearance.SelectedRow.Options.UseForeColor = true;
-
-            // Data Rows
-            view.Appearance.Row.BackColor = Color.White;
-            view.Appearance.Row.ForeColor = Color.Black;
-            view.Appearance.Row.Font = new Font("Segoe UI", 9.75f, FontStyle.Regular);
-
-            // Footer
-            view.Appearance.FooterPanel.ForeColor = Color.FromArgb(64, 64, 64); // Koyu gri
-            view.Appearance.FooterPanel.Font = new Font("Segoe UI", 9.75f, FontStyle.Bold);
-
-            // Options
+            // --- 2. İŞLEVSEL AYARLAR (Senin Kuralların) ---
             view.OptionsMenu.EnableColumnMenu = false;
             view.OptionsMenu.EnableFooterMenu = false;
             view.OptionsMenu.EnableGroupPanelMenu = false;
@@ -83,10 +38,9 @@ namespace ThermaCore.Presentation.WinForms.UserControls.Grid
             view.OptionsView.ShowAutoFilterRow = true;
             view.OptionsView.ShowGroupPanel = false;
             view.OptionsView.ColumnAutoWidth = false;
-            view.OptionsView.RowAutoHeight = true;
             view.OptionsView.HeaderFilterButtonShowMode = FilterButtonShowMode.Button;
 
-            // Id Column
+            // --- 3. STANDART KOLONLAR ---
             var idColumn = new MyGridColumn
             {
                 Caption = "Id",
@@ -96,7 +50,6 @@ namespace ThermaCore.Presentation.WinForms.UserControls.Grid
             idColumn.OptionsColumn.ShowInCustomizationForm = false;
             view.Columns.Add(idColumn);
 
-            // Kod Column
             var kodColumn = new MyGridColumn
             {
                 Caption = "Kod",
@@ -104,17 +57,9 @@ namespace ThermaCore.Presentation.WinForms.UserControls.Grid
             };
             kodColumn.OptionsColumn.AllowEdit = false;
             kodColumn.Visible = true;
-            kodColumn.Width = 175;
+            kodColumn.Width = 120; // Standart ve makul bir genişlik
             kodColumn.AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
             kodColumn.AppearanceCell.Options.UseTextOptions = true;
-            kodColumn.AppearanceCell.Font = new Font("Segoe UI", 9.75f, FontStyle.Regular);
-            kodColumn.AppearanceHeader.Font = new Font("Segoe UI", 9.75f, FontStyle.Bold);
-            kodColumn.AppearanceHeader.ForeColor = Color.White;
-            kodColumn.AppearanceHeader.BackColor = headerColor;
-            kodColumn.AppearanceHeader.Options.UseBackColor = true;
-            kodColumn.AppearanceHeader.Options.UseFont = true;
-            kodColumn.AppearanceHeader.Options.UseForeColor = true;
-
             view.Columns.Add(kodColumn);
 
             return view;
@@ -133,7 +78,7 @@ namespace ThermaCore.Presentation.WinForms.UserControls.Grid
         }
     }
 
-    public class MyGridView : GridView, IStatusBarKisaYol
+    public class MyGridView : GridView, IStatusBarKisaYol // Arayüzü kendi projene göre dahil et
     {
         public string StatusBarKisaYol { get; set; }
         public string StatusBarKisaYolAciklama { get; set; }
@@ -168,17 +113,6 @@ namespace ThermaCore.Presentation.WinForms.UserControls.Grid
             {
                 var column = new MyGridColumn();
                 column.OptionsColumn.AllowEdit = false;
-                column.Width = 175;
-
-                column.AppearanceHeader.Font = new Font("Segoe UI", 9.75f, FontStyle.Bold);
-                column.AppearanceHeader.ForeColor = Color.White;
-                column.AppearanceHeader.BackColor = Color.FromArgb(46, 134, 193);
-                column.AppearanceHeader.Options.UseBackColor = true;
-                column.AppearanceHeader.Options.UseFont = true;
-                column.AppearanceHeader.Options.UseForeColor = true;
-
-                column.AppearanceCell.Font = new Font("Segoe UI", 9.75f, FontStyle.Regular);
-                column.AppearanceCell.Options.UseFont = true;
                 return column;
             }
         }
@@ -191,4 +125,3 @@ namespace ThermaCore.Presentation.WinForms.UserControls.Grid
         public string StatusBarAciklama { get; set; }
     }
 }
-

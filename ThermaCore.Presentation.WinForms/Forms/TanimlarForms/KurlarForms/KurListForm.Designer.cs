@@ -30,15 +30,15 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(KurListForm));
             longNavigator1 = new RbaYazilim.WinRezistans.UI.Win.UserControls.Controls.Navigators.LongNavigator();
-            myGridControlPro1 = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridControlPro();
-            myGridViewPro1 = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridViewPro();
-            colId = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumnPro();
-            colTarih = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumnPro();
-            colDoviz = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumnPro();
-            colGecerliAlis = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumnPro();
-            colGecerliSatis = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumnPro();
-            colTcmbAlis = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumnPro();
-            colTcmbSatis = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumnPro();
+            myGridControlPro1 = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridControl();
+            myGridViewPro1 = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridView();
+            colId = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
+            colTarih = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
+            colDoviz = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
+            colGecerliAlis = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
+            colGecerliSatis = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
+            colTcmbAlis = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
+            colTcmbSatis = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             ((System.ComponentModel.ISupportInitialize)ribbon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)myGridControlPro1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)myGridViewPro1).BeginInit();
@@ -213,14 +213,14 @@
         #endregion
 
         private RbaYazilim.WinRezistans.UI.Win.UserControls.Controls.Navigators.LongNavigator longNavigator1;
-        private UserControls.Grid.MyGridControlPro myGridControlPro1;
-        private UserControls.Grid.MyGridViewPro myGridViewPro1;
-        private UserControls.Grid.MyGridColumnPro colId;
-        private UserControls.Grid.MyGridColumnPro colTarih;
-        private UserControls.Grid.MyGridColumnPro colDoviz;
-        private UserControls.Grid.MyGridColumnPro colGecerliAlis;
-        private UserControls.Grid.MyGridColumnPro colGecerliSatis;
-        private UserControls.Grid.MyGridColumnPro colTcmbAlis;
-        private UserControls.Grid.MyGridColumnPro colTcmbSatis;
+        private UserControls.Grid.MyGridControl myGridControlPro1;
+        private UserControls.Grid.MyGridView myGridViewPro1;
+        private UserControls.Grid.MyGridColumn colId;
+        private UserControls.Grid.MyGridColumn colTarih;
+        private UserControls.Grid.MyGridColumn colDoviz;
+        private UserControls.Grid.MyGridColumn colGecerliAlis;
+        private UserControls.Grid.MyGridColumn colGecerliSatis;
+        private UserControls.Grid.MyGridColumn colTcmbAlis;
+        private UserControls.Grid.MyGridColumn colTcmbSatis;
     }
 }
