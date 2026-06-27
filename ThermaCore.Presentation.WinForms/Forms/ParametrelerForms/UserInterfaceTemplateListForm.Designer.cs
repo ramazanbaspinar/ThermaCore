@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UserInterfaceTemplateListForm));
+            longNavigator1 = new RbaYazilim.WinRezistans.UI.Win.UserControls.Controls.Navigators.LongNavigator();
             myGridControl1 = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridControl();
             myGridView1 = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridView();
             colId = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
@@ -50,6 +51,15 @@
             // 
             btnDisariAktar.ImageOptions.SvgImage = (DevExpress.Utils.Svg.SvgImage)resources.GetObject("btnDisariAktar.ImageOptions.SvgImage");
             // 
+            // longNavigator1
+            // 
+            longNavigator1.Dock = DockStyle.Bottom;
+            longNavigator1.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 162);
+            longNavigator1.Location = new Point(0, 371);
+            longNavigator1.Name = "longNavigator1";
+            longNavigator1.Size = new Size(814, 30);
+            longNavigator1.TabIndex = 2;
+            // 
             // myGridControl1
             // 
             myGridControl1.Dock = DockStyle.Fill;
@@ -57,54 +67,12 @@
             myGridControl1.MainView = myGridView1;
             myGridControl1.MenuManager = ribbon;
             myGridControl1.Name = "myGridControl1";
-            myGridControl1.Size = new Size(814, 266);
-            myGridControl1.TabIndex = 2;
+            myGridControl1.Size = new Size(814, 236);
+            myGridControl1.TabIndex = 3;
             myGridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] { myGridView1 });
             // 
             // myGridView1
             // 
-            myGridView1.Appearance.Empty.BackColor = Color.FromArgb(245, 245, 245);
-            myGridView1.Appearance.Empty.Font = new Font("Segoe UI", 9.75F);
-            myGridView1.Appearance.Empty.Options.UseBackColor = true;
-            myGridView1.Appearance.Empty.Options.UseFont = true;
-            myGridView1.Appearance.EvenRow.BackColor = Color.FromArgb(250, 250, 250);
-            myGridView1.Appearance.EvenRow.Options.UseBackColor = true;
-            myGridView1.Appearance.FocusedCell.BackColor = Color.FromArgb(255, 249, 219);
-            myGridView1.Appearance.FocusedCell.Options.UseBackColor = true;
-            myGridView1.Appearance.FocusedRow.BackColor = Color.FromArgb(255, 249, 219);
-            myGridView1.Appearance.FocusedRow.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
-            myGridView1.Appearance.FocusedRow.Options.UseBackColor = true;
-            myGridView1.Appearance.FocusedRow.Options.UseFont = true;
-            myGridView1.Appearance.FooterPanel.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
-            myGridView1.Appearance.FooterPanel.ForeColor = Color.FromArgb(64, 64, 64);
-            myGridView1.Appearance.FooterPanel.Options.UseFont = true;
-            myGridView1.Appearance.FooterPanel.Options.UseForeColor = true;
-            myGridView1.Appearance.HeaderPanel.BackColor = Color.FromArgb(46, 134, 193);
-            myGridView1.Appearance.HeaderPanel.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
-            myGridView1.Appearance.HeaderPanel.ForeColor = Color.White;
-            myGridView1.Appearance.HeaderPanel.Options.UseBackColor = true;
-            myGridView1.Appearance.HeaderPanel.Options.UseFont = true;
-            myGridView1.Appearance.HeaderPanel.Options.UseForeColor = true;
-            myGridView1.Appearance.HeaderPanel.Options.UseTextOptions = true;
-            myGridView1.Appearance.HeaderPanel.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            myGridView1.Appearance.HideSelectionRow.BackColor = Color.FromArgb(255, 249, 219);
-            myGridView1.Appearance.HideSelectionRow.Options.UseBackColor = true;
-            myGridView1.Appearance.OddRow.BackColor = Color.White;
-            myGridView1.Appearance.OddRow.Options.UseBackColor = true;
-            myGridView1.Appearance.Row.BackColor = Color.White;
-            myGridView1.Appearance.Row.Font = new Font("Segoe UI", 9.75F);
-            myGridView1.Appearance.Row.ForeColor = Color.Black;
-            myGridView1.Appearance.Row.Options.UseBackColor = true;
-            myGridView1.Appearance.Row.Options.UseFont = true;
-            myGridView1.Appearance.Row.Options.UseForeColor = true;
-            myGridView1.Appearance.SelectedRow.BackColor = Color.FromArgb(204, 229, 255);
-            myGridView1.Appearance.SelectedRow.ForeColor = Color.Black;
-            myGridView1.Appearance.SelectedRow.Options.UseBackColor = true;
-            myGridView1.Appearance.SelectedRow.Options.UseForeColor = true;
-            myGridView1.Appearance.ViewCaption.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
-            myGridView1.Appearance.ViewCaption.ForeColor = Color.FromArgb(64, 64, 64);
-            myGridView1.Appearance.ViewCaption.Options.UseFont = true;
-            myGridView1.Appearance.ViewCaption.Options.UseForeColor = true;
             myGridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colId, colKod, colFormAdi, colGridAdi });
             myGridView1.GridControl = myGridControl1;
             myGridView1.Name = "myGridView1";
@@ -117,9 +85,7 @@
             myGridView1.OptionsPrint.PrintGroupFooter = false;
             myGridView1.OptionsView.ColumnAutoWidth = false;
             myGridView1.OptionsView.EnableAppearanceEvenRow = true;
-            myGridView1.OptionsView.EnableAppearanceOddRow = true;
             myGridView1.OptionsView.HeaderFilterButtonShowMode = DevExpress.XtraEditors.Controls.FilterButtonShowMode.Button;
-            myGridView1.OptionsView.RowAutoHeight = true;
             myGridView1.OptionsView.ShowAutoFilterRow = true;
             myGridView1.OptionsView.ShowGroupPanel = false;
             myGridView1.OptionsView.ShowViewCaption = true;
@@ -141,15 +107,8 @@
             // 
             // colKod
             // 
-            colKod.AppearanceCell.Font = new Font("Segoe UI", 9.75F);
             colKod.AppearanceCell.Options.UseTextOptions = true;
             colKod.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            colKod.AppearanceHeader.BackColor = Color.FromArgb(46, 134, 193);
-            colKod.AppearanceHeader.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
-            colKod.AppearanceHeader.ForeColor = Color.White;
-            colKod.AppearanceHeader.Options.UseBackColor = true;
-            colKod.AppearanceHeader.Options.UseFont = true;
-            colKod.AppearanceHeader.Options.UseForeColor = true;
             colKod.Caption = "Kod";
             colKod.FieldName = "Code";
             colKod.Name = "colKod";
@@ -159,18 +118,10 @@
             colKod.StatusBarKisaYolAciklama = null;
             colKod.Visible = true;
             colKod.VisibleIndex = 0;
-            colKod.Width = 175;
+            colKod.Width = 120;
             // 
             // colFormAdi
             // 
-            colFormAdi.AppearanceCell.Font = new Font("Segoe UI", 9.75F);
-            colFormAdi.AppearanceCell.Options.UseFont = true;
-            colFormAdi.AppearanceHeader.BackColor = Color.FromArgb(46, 134, 193);
-            colFormAdi.AppearanceHeader.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
-            colFormAdi.AppearanceHeader.ForeColor = Color.White;
-            colFormAdi.AppearanceHeader.Options.UseBackColor = true;
-            colFormAdi.AppearanceHeader.Options.UseFont = true;
-            colFormAdi.AppearanceHeader.Options.UseForeColor = true;
             colFormAdi.Caption = "Form Adı";
             colFormAdi.FieldName = "FormName";
             colFormAdi.Name = "colFormAdi";
@@ -180,18 +131,10 @@
             colFormAdi.StatusBarKisaYolAciklama = null;
             colFormAdi.Visible = true;
             colFormAdi.VisibleIndex = 1;
-            colFormAdi.Width = 175;
+            colFormAdi.Width = 150;
             // 
             // colGridAdi
             // 
-            colGridAdi.AppearanceCell.Font = new Font("Segoe UI", 9.75F);
-            colGridAdi.AppearanceCell.Options.UseFont = true;
-            colGridAdi.AppearanceHeader.BackColor = Color.FromArgb(46, 134, 193);
-            colGridAdi.AppearanceHeader.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
-            colGridAdi.AppearanceHeader.ForeColor = Color.White;
-            colGridAdi.AppearanceHeader.Options.UseBackColor = true;
-            colGridAdi.AppearanceHeader.Options.UseFont = true;
-            colGridAdi.AppearanceHeader.Options.UseForeColor = true;
             colGridAdi.Caption = "Grid/Kontrol Adı";
             colGridAdi.FieldName = "ControlName";
             colGridAdi.Name = "colGridAdi";
@@ -201,7 +144,7 @@
             colGridAdi.StatusBarKisaYolAciklama = null;
             colGridAdi.Visible = true;
             colGridAdi.VisibleIndex = 2;
-            colGridAdi.Width = 175;
+            colGridAdi.Width = 150;
             // 
             // UserInterfaceTemplateListForm
             // 
@@ -209,10 +152,12 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(814, 425);
             Controls.Add(myGridControl1);
+            Controls.Add(longNavigator1);
             IconOptions.ShowIcon = false;
             Name = "UserInterfaceTemplateListForm";
             Text = "Kullanıcı Arayüz Şablonları";
             Controls.SetChildIndex(ribbon, 0);
+            Controls.SetChildIndex(longNavigator1, 0);
             Controls.SetChildIndex(myGridControl1, 0);
             ((System.ComponentModel.ISupportInitialize)ribbon).EndInit();
             ((System.ComponentModel.ISupportInitialize)myGridControl1).EndInit();
@@ -223,6 +168,7 @@
 
         #endregion
 
+        private RbaYazilim.WinRezistans.UI.Win.UserControls.Controls.Navigators.LongNavigator longNavigator1;
         private UserControls.Grid.MyGridControl myGridControl1;
         private UserControls.Grid.MyGridView myGridView1;
         private UserControls.Grid.MyGridColumn colId;

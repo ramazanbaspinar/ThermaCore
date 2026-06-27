@@ -31,14 +31,14 @@
             DevExpress.XtraLayout.ColumnDefinition columnDefinition1 = new DevExpress.XtraLayout.ColumnDefinition();
             DevExpress.XtraLayout.RowDefinition rowDefinition1 = new DevExpress.XtraLayout.RowDefinition();
             myDataLayoutControl1 = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyDataLayoutControl();
-            txtSonKodDegeri = new ThermaCore.Presentation.WinForms.UserControls.Controls.MySpinEdit();
             Root = new DevExpress.XtraLayout.LayoutControlGroup();
+            txtSonKodDegeri = new ThermaCore.Presentation.WinForms.UserControls.Controls.MySpinEdit();
             layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)ribbon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)myDataLayoutControl1).BeginInit();
             myDataLayoutControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)txtSonKodDegeri.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)Root).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtSonKodDegeri.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem1).BeginInit();
             SuspendLayout();
             // 
@@ -61,31 +61,6 @@
             myDataLayoutControl1.TabIndex = 2;
             myDataLayoutControl1.Text = "myDataLayoutControl1";
             // 
-            // txtSonKodDegeri
-            // 
-            txtSonKodDegeri.EditValue = new decimal(new int[] { 0, 0, 0, 0 });
-            txtSonKodDegeri.EnterMoveNextControl = true;
-            txtSonKodDegeri.Location = new Point(105, 12);
-            txtSonKodDegeri.MenuManager = ribbon;
-            txtSonKodDegeri.Name = "txtSonKodDegeri";
-            txtSonKodDegeri.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
-            txtSonKodDegeri.Properties.Appearance.Font = new Font("Segoe UI", 9F);
-            txtSonKodDegeri.Properties.Appearance.Options.UseFont = true;
-            txtSonKodDegeri.Properties.AppearanceDisabled.Font = new Font("Segoe UI", 9F);
-            txtSonKodDegeri.Properties.AppearanceDisabled.Options.UseFont = true;
-            txtSonKodDegeri.Properties.AppearanceFocused.BackColor = Color.FromArgb(255, 255, 192);
-            txtSonKodDegeri.Properties.AppearanceFocused.Font = new Font("Segoe UI", 9F);
-            txtSonKodDegeri.Properties.AppearanceFocused.Options.UseBackColor = true;
-            txtSonKodDegeri.Properties.AppearanceFocused.Options.UseFont = true;
-            txtSonKodDegeri.Properties.AppearanceReadOnly.Font = new Font("Segoe UI", 9F);
-            txtSonKodDegeri.Properties.AppearanceReadOnly.Options.UseFont = true;
-            txtSonKodDegeri.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
-            txtSonKodDegeri.Properties.MaskSettings.Set("mask", "n0");
-            txtSonKodDegeri.Size = new Size(206, 22);
-            txtSonKodDegeri.StatusBarAciklama = null;
-            txtSonKodDegeri.StyleController = myDataLayoutControl1;
-            txtSonKodDegeri.TabIndex = 4;
-            // 
             // Root
             // 
             Root.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
@@ -102,16 +77,30 @@
             Root.Size = new Size(323, 90);
             Root.TextVisible = false;
             // 
+            // txtSonKodDegeri
+            // 
+            txtSonKodDegeri.EditValue = new decimal(new int[] { 0, 0, 0, 0 });
+            txtSonKodDegeri.EnterMoveNextControl = true;
+            txtSonKodDegeri.Location = new Point(97, 12);
+            txtSonKodDegeri.MenuManager = ribbon;
+            txtSonKodDegeri.Name = "txtSonKodDegeri";
+            txtSonKodDegeri.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
+            txtSonKodDegeri.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
+            txtSonKodDegeri.Properties.MaskSettings.Set("mask", "n0");
+            txtSonKodDegeri.Size = new Size(214, 20);
+            txtSonKodDegeri.StatusBarAciklama = "";
+            txtSonKodDegeri.StyleController = myDataLayoutControl1;
+            txtSonKodDegeri.TabIndex = 4;
+            txtSonKodDegeri.Tag = "SonKodDegeri";
+            // 
             // layoutControlItem1
             // 
-            layoutControlItem1.AppearanceItemCaption.Font = new Font("Segoe UI", 9F);
-            layoutControlItem1.AppearanceItemCaption.Options.UseFont = true;
             layoutControlItem1.Control = txtSonKodDegeri;
             layoutControlItem1.Location = new Point(0, 0);
             layoutControlItem1.Name = "layoutControlItem1";
             layoutControlItem1.Size = new Size(303, 70);
             layoutControlItem1.Text = "Son Kod Değeri";
-            layoutControlItem1.TextSize = new Size(81, 15);
+            layoutControlItem1.TextSize = new Size(73, 13);
             // 
             // KodLogEditForm
             // 
@@ -128,8 +117,8 @@
             ((System.ComponentModel.ISupportInitialize)ribbon).EndInit();
             ((System.ComponentModel.ISupportInitialize)myDataLayoutControl1).EndInit();
             myDataLayoutControl1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)txtSonKodDegeri.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)Root).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtSonKodDegeri.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem1).EndInit();
             ResumeLayout(false);
             PerformLayout();

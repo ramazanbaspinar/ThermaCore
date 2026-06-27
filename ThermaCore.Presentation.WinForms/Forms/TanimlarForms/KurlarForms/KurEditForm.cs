@@ -25,9 +25,9 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.KurlarForms
             InitializeComponent();
             _exchangeRateRepository = exchangeRateRepository;
             _uow = uow;
-            
+
             BaseKartTuru = ModuleType.KurTanimlari;
-            DataLayoutControl = myDataLayoutControl1;
+            DataLayoutControls = new object[] { myDataLayoutControl1, myDataLayoutControl2, myDataLayoutControl3, myDataLayoutControl4 };
             RequiresCodeTemplate = false;
 
             HideItems = new DevExpress.XtraBars.BarItem[] { btnYeni, btnSil };
@@ -103,7 +103,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.KurlarForms
 
             return true;
         }
-        
+
         protected override void EntityDelete()
         {
             XtraMessageBox.Show("Kur tanımlarında silme işlemi yapılamaz.", "Yetki Hatası", MessageBoxButtons.OK, MessageBoxIcon.Warning);

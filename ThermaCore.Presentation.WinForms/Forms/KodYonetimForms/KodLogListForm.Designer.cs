@@ -75,48 +75,6 @@ namespace ThermaCore.Presentation.WinForms.Forms.KodYonetimForms
             // 
             // myGridView1
             // 
-            myGridView1.Appearance.Empty.BackColor = Color.WhiteSmoke;
-            myGridView1.Appearance.Empty.Font = new Font("Segoe UI", 9.75F);
-            myGridView1.Appearance.Empty.Options.UseBackColor = true;
-            myGridView1.Appearance.Empty.Options.UseFont = true;
-            myGridView1.Appearance.EvenRow.BackColor = Color.FromArgb(250, 250, 250);
-            myGridView1.Appearance.EvenRow.Options.UseBackColor = true;
-            myGridView1.Appearance.FocusedCell.BackColor = Color.FromArgb(255, 249, 219);
-            myGridView1.Appearance.FocusedCell.Options.UseBackColor = true;
-            myGridView1.Appearance.FocusedRow.BackColor = Color.FromArgb(255, 249, 219);
-            myGridView1.Appearance.FocusedRow.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
-            myGridView1.Appearance.FocusedRow.Options.UseBackColor = true;
-            myGridView1.Appearance.FocusedRow.Options.UseFont = true;
-            myGridView1.Appearance.FooterPanel.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
-            myGridView1.Appearance.FooterPanel.ForeColor = Color.FromArgb(64, 64, 64);
-            myGridView1.Appearance.FooterPanel.Options.UseFont = true;
-            myGridView1.Appearance.FooterPanel.Options.UseForeColor = true;
-            myGridView1.Appearance.HeaderPanel.BackColor = Color.FromArgb(46, 134, 193);
-            myGridView1.Appearance.HeaderPanel.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
-            myGridView1.Appearance.HeaderPanel.ForeColor = Color.White;
-            myGridView1.Appearance.HeaderPanel.Options.UseBackColor = true;
-            myGridView1.Appearance.HeaderPanel.Options.UseFont = true;
-            myGridView1.Appearance.HeaderPanel.Options.UseForeColor = true;
-            myGridView1.Appearance.HeaderPanel.Options.UseTextOptions = true;
-            myGridView1.Appearance.HeaderPanel.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            myGridView1.Appearance.HideSelectionRow.BackColor = Color.FromArgb(255, 249, 219);
-            myGridView1.Appearance.HideSelectionRow.Options.UseBackColor = true;
-            myGridView1.Appearance.OddRow.BackColor = Color.White;
-            myGridView1.Appearance.OddRow.Options.UseBackColor = true;
-            myGridView1.Appearance.Row.BackColor = Color.White;
-            myGridView1.Appearance.Row.Font = new Font("Segoe UI", 9.75F);
-            myGridView1.Appearance.Row.ForeColor = Color.Black;
-            myGridView1.Appearance.Row.Options.UseBackColor = true;
-            myGridView1.Appearance.Row.Options.UseFont = true;
-            myGridView1.Appearance.Row.Options.UseForeColor = true;
-            myGridView1.Appearance.SelectedRow.BackColor = Color.FromArgb(204, 229, 255);
-            myGridView1.Appearance.SelectedRow.ForeColor = Color.Black;
-            myGridView1.Appearance.SelectedRow.Options.UseBackColor = true;
-            myGridView1.Appearance.SelectedRow.Options.UseForeColor = true;
-            myGridView1.Appearance.ViewCaption.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
-            myGridView1.Appearance.ViewCaption.ForeColor = Color.FromArgb(64, 64, 64);
-            myGridView1.Appearance.ViewCaption.Options.UseFont = true;
-            myGridView1.Appearance.ViewCaption.Options.UseForeColor = true;
             myGridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colId, colModul, colSubeAdi, colFirmaKodu, colTarihKey, colSonKodDegeri });
             myGridView1.GridControl = myGridControl1;
             myGridView1.Name = "myGridView1";
@@ -129,9 +87,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.KodYonetimForms
             myGridView1.OptionsPrint.PrintGroupFooter = false;
             myGridView1.OptionsView.ColumnAutoWidth = false;
             myGridView1.OptionsView.EnableAppearanceEvenRow = true;
-            myGridView1.OptionsView.EnableAppearanceOddRow = true;
             myGridView1.OptionsView.HeaderFilterButtonShowMode = DevExpress.XtraEditors.Controls.FilterButtonShowMode.Button;
-            myGridView1.OptionsView.RowAutoHeight = true;
             myGridView1.OptionsView.ShowAutoFilterRow = true;
             myGridView1.OptionsView.ShowGroupPanel = false;
             myGridView1.OptionsView.ShowViewCaption = true;
@@ -153,14 +109,6 @@ namespace ThermaCore.Presentation.WinForms.Forms.KodYonetimForms
             // 
             // colModul
             // 
-            colModul.AppearanceCell.Font = new Font("Segoe UI", 9.75F);
-            colModul.AppearanceCell.Options.UseFont = true;
-            colModul.AppearanceHeader.BackColor = Color.FromArgb(46, 134, 193);
-            colModul.AppearanceHeader.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
-            colModul.AppearanceHeader.ForeColor = Color.White;
-            colModul.AppearanceHeader.Options.UseBackColor = true;
-            colModul.AppearanceHeader.Options.UseFont = true;
-            colModul.AppearanceHeader.Options.UseForeColor = true;
             colModul.Caption = "Modül";
             colModul.FieldName = "Module";
             colModul.Name = "colModul";
@@ -169,19 +117,11 @@ namespace ThermaCore.Presentation.WinForms.Forms.KodYonetimForms
             colModul.StatusBarKisaYol = null;
             colModul.StatusBarKisaYolAciklama = null;
             colModul.Visible = true;
-            colModul.VisibleIndex = 1;
-            colModul.Width = 175;
+            colModul.VisibleIndex = 0;
+            colModul.Width = 150;
             // 
             // colSubeAdi
             // 
-            colSubeAdi.AppearanceCell.Font = new Font("Segoe UI", 9.75F);
-            colSubeAdi.AppearanceCell.Options.UseFont = true;
-            colSubeAdi.AppearanceHeader.BackColor = Color.FromArgb(46, 134, 193);
-            colSubeAdi.AppearanceHeader.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
-            colSubeAdi.AppearanceHeader.ForeColor = Color.White;
-            colSubeAdi.AppearanceHeader.Options.UseBackColor = true;
-            colSubeAdi.AppearanceHeader.Options.UseFont = true;
-            colSubeAdi.AppearanceHeader.Options.UseForeColor = true;
             colSubeAdi.Caption = "Şube Adı";
             colSubeAdi.FieldName = "BranchName";
             colSubeAdi.Name = "colSubeAdi";
@@ -190,19 +130,11 @@ namespace ThermaCore.Presentation.WinForms.Forms.KodYonetimForms
             colSubeAdi.StatusBarKisaYol = null;
             colSubeAdi.StatusBarKisaYolAciklama = null;
             colSubeAdi.Visible = true;
-            colSubeAdi.VisibleIndex = 0;
-            colSubeAdi.Width = 175;
+            colSubeAdi.VisibleIndex = 1;
+            colSubeAdi.Width = 150;
             // 
             // colFirmaKodu
             // 
-            colFirmaKodu.AppearanceCell.Font = new Font("Segoe UI", 9.75F);
-            colFirmaKodu.AppearanceCell.Options.UseFont = true;
-            colFirmaKodu.AppearanceHeader.BackColor = Color.FromArgb(46, 134, 193);
-            colFirmaKodu.AppearanceHeader.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
-            colFirmaKodu.AppearanceHeader.ForeColor = Color.White;
-            colFirmaKodu.AppearanceHeader.Options.UseBackColor = true;
-            colFirmaKodu.AppearanceHeader.Options.UseFont = true;
-            colFirmaKodu.AppearanceHeader.Options.UseForeColor = true;
             colFirmaKodu.Caption = "Firma Kodu";
             colFirmaKodu.FieldName = "CompanyCode";
             colFirmaKodu.Name = "colFirmaKodu";
@@ -212,18 +144,10 @@ namespace ThermaCore.Presentation.WinForms.Forms.KodYonetimForms
             colFirmaKodu.StatusBarKisaYolAciklama = null;
             colFirmaKodu.Visible = true;
             colFirmaKodu.VisibleIndex = 2;
-            colFirmaKodu.Width = 175;
+            colFirmaKodu.Width = 150;
             // 
             // colTarihKey
             // 
-            colTarihKey.AppearanceCell.Font = new Font("Segoe UI", 9.75F);
-            colTarihKey.AppearanceCell.Options.UseFont = true;
-            colTarihKey.AppearanceHeader.BackColor = Color.FromArgb(46, 134, 193);
-            colTarihKey.AppearanceHeader.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
-            colTarihKey.AppearanceHeader.ForeColor = Color.White;
-            colTarihKey.AppearanceHeader.Options.UseBackColor = true;
-            colTarihKey.AppearanceHeader.Options.UseFont = true;
-            colTarihKey.AppearanceHeader.Options.UseForeColor = true;
             colTarihKey.Caption = "Tarih Key";
             colTarihKey.FieldName = "DateKey";
             colTarihKey.Name = "colTarihKey";
@@ -233,18 +157,10 @@ namespace ThermaCore.Presentation.WinForms.Forms.KodYonetimForms
             colTarihKey.StatusBarKisaYolAciklama = null;
             colTarihKey.Visible = true;
             colTarihKey.VisibleIndex = 3;
-            colTarihKey.Width = 175;
+            colTarihKey.Width = 150;
             // 
             // colSonKodDegeri
             // 
-            colSonKodDegeri.AppearanceCell.Font = new Font("Segoe UI", 9.75F);
-            colSonKodDegeri.AppearanceCell.Options.UseFont = true;
-            colSonKodDegeri.AppearanceHeader.BackColor = Color.FromArgb(46, 134, 193);
-            colSonKodDegeri.AppearanceHeader.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
-            colSonKodDegeri.AppearanceHeader.ForeColor = Color.White;
-            colSonKodDegeri.AppearanceHeader.Options.UseBackColor = true;
-            colSonKodDegeri.AppearanceHeader.Options.UseFont = true;
-            colSonKodDegeri.AppearanceHeader.Options.UseForeColor = true;
             colSonKodDegeri.Caption = "Son Kod Değeri";
             colSonKodDegeri.FieldName = "LastCodeValue";
             colSonKodDegeri.Name = "colSonKodDegeri";
@@ -254,7 +170,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.KodYonetimForms
             colSonKodDegeri.StatusBarKisaYolAciklama = null;
             colSonKodDegeri.Visible = true;
             colSonKodDegeri.VisibleIndex = 4;
-            colSonKodDegeri.Width = 175;
+            colSonKodDegeri.Width = 150;
             // 
             // KodLogListForm
             // 

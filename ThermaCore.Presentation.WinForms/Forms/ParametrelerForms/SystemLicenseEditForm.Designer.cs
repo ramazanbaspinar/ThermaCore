@@ -34,28 +34,28 @@
             DevExpress.XtraLayout.RowDefinition rowDefinition3 = new DevExpress.XtraLayout.RowDefinition();
             DevExpress.XtraLayout.RowDefinition rowDefinition4 = new DevExpress.XtraLayout.RowDefinition();
             myDataLayoutControl1 = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyDataLayoutControl();
+            dtExpirationDate = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyDateEdit();
             txtMaxTerminal = new ThermaCore.Presentation.WinForms.UserControls.Controls.MySpinEdit();
             txtLicenseKey = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyMemoEdit();
-            dtExpirationDate = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyDateEdit();
-            txtHardwareId = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyTextEdit();
+            txtHardwareId = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyKodTextEdit();
             Root = new DevExpress.XtraLayout.LayoutControlGroup();
             layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
-            layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
-            layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
+            layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
+            layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)ribbon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)myDataLayoutControl1).BeginInit();
             myDataLayoutControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)txtMaxTerminal.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)txtLicenseKey.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dtExpirationDate.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dtExpirationDate.Properties.CalendarTimeProperties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtMaxTerminal.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtLicenseKey.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtHardwareId.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)Root).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)layoutControlItem4).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)layoutControlItem7).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem4).BeginInit();
             SuspendLayout();
             // 
             // ribbon
@@ -67,9 +67,9 @@
             // myDataLayoutControl1
             // 
             myDataLayoutControl1.AllowCustomization = false;
+            myDataLayoutControl1.Controls.Add(dtExpirationDate);
             myDataLayoutControl1.Controls.Add(txtMaxTerminal);
             myDataLayoutControl1.Controls.Add(txtLicenseKey);
-            myDataLayoutControl1.Controls.Add(dtExpirationDate);
             myDataLayoutControl1.Controls.Add(txtHardwareId);
             myDataLayoutControl1.Dock = DockStyle.Fill;
             myDataLayoutControl1.Location = new Point(0, 135);
@@ -80,29 +80,42 @@
             myDataLayoutControl1.TabIndex = 0;
             myDataLayoutControl1.Text = "myDataLayoutControl1";
             // 
+            // dtExpirationDate
+            // 
+            dtExpirationDate.EditValue = null;
+            dtExpirationDate.EnterMoveNextControl = true;
+            dtExpirationDate.Location = new Point(173, 151);
+            dtExpirationDate.MenuManager = ribbon;
+            dtExpirationDate.Name = "dtExpirationDate";
+            dtExpirationDate.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
+            dtExpirationDate.Properties.Appearance.Options.UseTextOptions = true;
+            dtExpirationDate.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            dtExpirationDate.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
+            dtExpirationDate.Properties.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
+            dtExpirationDate.Properties.MaskSettings.Set("MaskManagerType", typeof(DevExpress.Data.Mask.DateTimeMaskManager));
+            dtExpirationDate.Properties.MaskSettings.Set("useAdvancingCaret", true);
+            dtExpirationDate.Properties.ReadOnly = true;
+            dtExpirationDate.Size = new Size(213, 20);
+            dtExpirationDate.StatusBarAciklama = "";
+            dtExpirationDate.StatusBarKisaYol = "F4 :";
+            dtExpirationDate.StatusBarKisaYolAciklama = "Tarih Seç";
+            dtExpirationDate.StyleController = myDataLayoutControl1;
+            dtExpirationDate.TabIndex = 3;
+            dtExpirationDate.Tag = "ExpirationDate";
+            // 
             // txtMaxTerminal
             // 
             txtMaxTerminal.EditValue = new decimal(new int[] { 0, 0, 0, 0 });
             txtMaxTerminal.EnterMoveNextControl = true;
-            txtMaxTerminal.Location = new Point(198, 120);
+            txtMaxTerminal.Location = new Point(173, 120);
             txtMaxTerminal.MenuManager = ribbon;
             txtMaxTerminal.Name = "txtMaxTerminal";
             txtMaxTerminal.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
-            txtMaxTerminal.Properties.Appearance.Font = new Font("Segoe UI", 9F);
-            txtMaxTerminal.Properties.Appearance.Options.UseFont = true;
-            txtMaxTerminal.Properties.AppearanceDisabled.Font = new Font("Segoe UI", 9F);
-            txtMaxTerminal.Properties.AppearanceDisabled.Options.UseFont = true;
-            txtMaxTerminal.Properties.AppearanceFocused.BackColor = Color.FromArgb(255, 255, 192);
-            txtMaxTerminal.Properties.AppearanceFocused.Font = new Font("Segoe UI", 9F);
-            txtMaxTerminal.Properties.AppearanceFocused.Options.UseBackColor = true;
-            txtMaxTerminal.Properties.AppearanceFocused.Options.UseFont = true;
-            txtMaxTerminal.Properties.AppearanceReadOnly.Font = new Font("Segoe UI", 9F);
-            txtMaxTerminal.Properties.AppearanceReadOnly.Options.UseFont = true;
             txtMaxTerminal.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
             txtMaxTerminal.Properties.MaskSettings.Set("mask", "n0");
             txtMaxTerminal.Properties.ReadOnly = true;
-            txtMaxTerminal.Size = new Size(188, 22);
-            txtMaxTerminal.StatusBarAciklama = null;
+            txtMaxTerminal.Size = new Size(213, 20);
+            txtMaxTerminal.StatusBarAciklama = "";
             txtMaxTerminal.StyleController = myDataLayoutControl1;
             txtMaxTerminal.TabIndex = 2;
             txtMaxTerminal.Tag = "MaxTerminal";
@@ -110,83 +123,29 @@
             // txtLicenseKey
             // 
             txtLicenseKey.EnterMoveNextControl = true;
-            txtLicenseKey.Location = new Point(198, 43);
+            txtLicenseKey.Location = new Point(173, 43);
             txtLicenseKey.MenuManager = ribbon;
             txtLicenseKey.Name = "txtLicenseKey";
-            txtLicenseKey.Properties.Appearance.Font = new Font("Segoe UI", 9F);
-            txtLicenseKey.Properties.Appearance.Options.UseFont = true;
-            txtLicenseKey.Properties.AppearanceDisabled.Font = new Font("Segoe UI", 9F);
-            txtLicenseKey.Properties.AppearanceDisabled.Options.UseFont = true;
-            txtLicenseKey.Properties.AppearanceFocused.BackColor = Color.FromArgb(255, 255, 192);
-            txtLicenseKey.Properties.AppearanceFocused.Font = new Font("Segoe UI", 9F);
-            txtLicenseKey.Properties.AppearanceFocused.Options.UseBackColor = true;
-            txtLicenseKey.Properties.AppearanceFocused.Options.UseFont = true;
-            txtLicenseKey.Properties.AppearanceReadOnly.Font = new Font("Segoe UI", 9F);
-            txtLicenseKey.Properties.AppearanceReadOnly.Options.UseFont = true;
             txtLicenseKey.Properties.MaxLength = 500;
             txtLicenseKey.Properties.ReadOnly = true;
-            txtLicenseKey.Size = new Size(188, 73);
+            txtLicenseKey.Size = new Size(213, 73);
             txtLicenseKey.StatusBarAciklama = "Açıklama Giriniz.";
             txtLicenseKey.StyleController = myDataLayoutControl1;
             txtLicenseKey.TabIndex = 1;
             txtLicenseKey.Tag = "LicenseKey";
             // 
-            // dtExpirationDate
-            // 
-            dtExpirationDate.EditValue = null;
-            dtExpirationDate.EnterMoveNextControl = true;
-            dtExpirationDate.Location = new Point(198, 151);
-            dtExpirationDate.MenuManager = ribbon;
-            dtExpirationDate.Name = "dtExpirationDate";
-            dtExpirationDate.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
-            dtExpirationDate.Properties.Appearance.Font = new Font("Segoe UI", 9F);
-            dtExpirationDate.Properties.Appearance.Options.UseFont = true;
-            dtExpirationDate.Properties.Appearance.Options.UseTextOptions = true;
-            dtExpirationDate.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            dtExpirationDate.Properties.AppearanceDisabled.Font = new Font("Segoe UI", 9F);
-            dtExpirationDate.Properties.AppearanceDisabled.Options.UseFont = true;
-            dtExpirationDate.Properties.AppearanceDropDown.Font = new Font("Segoe UI", 9F);
-            dtExpirationDate.Properties.AppearanceDropDown.Options.UseFont = true;
-            dtExpirationDate.Properties.AppearanceFocused.BackColor = Color.FromArgb(255, 255, 192);
-            dtExpirationDate.Properties.AppearanceFocused.Font = new Font("Segoe UI", 9F);
-            dtExpirationDate.Properties.AppearanceFocused.Options.UseBackColor = true;
-            dtExpirationDate.Properties.AppearanceFocused.Options.UseFont = true;
-            dtExpirationDate.Properties.AppearanceReadOnly.Font = new Font("Segoe UI", 9F);
-            dtExpirationDate.Properties.AppearanceReadOnly.Options.UseFont = true;
-            dtExpirationDate.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
-            dtExpirationDate.Properties.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
-            dtExpirationDate.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.DateTimeAdvancingCaret;
-            dtExpirationDate.Properties.MaskSettings.Set("MaskManagerType", typeof(DevExpress.Data.Mask.DateTimeMaskManager));
-            dtExpirationDate.Properties.MaskSettings.Set("useAdvancingCaret", true);
-            dtExpirationDate.Properties.ReadOnly = true;
-            dtExpirationDate.Size = new Size(188, 22);
-            dtExpirationDate.StatusBarAciklama = null;
-            dtExpirationDate.StatusBarKisaYol = "F4 :";
-            dtExpirationDate.StatusBarKisaYolAciklama = "Tarih Seç";
-            dtExpirationDate.StyleController = myDataLayoutControl1;
-            dtExpirationDate.TabIndex = 3;
-            dtExpirationDate.Tag = "ExpirationDate";
-            // 
             // txtHardwareId
             // 
             txtHardwareId.EnterMoveNextControl = true;
-            txtHardwareId.Location = new Point(198, 12);
+            txtHardwareId.Location = new Point(173, 12);
             txtHardwareId.MenuManager = ribbon;
             txtHardwareId.Name = "txtHardwareId";
-            txtHardwareId.Properties.Appearance.Font = new Font("Segoe UI", 9F);
-            txtHardwareId.Properties.Appearance.Options.UseFont = true;
-            txtHardwareId.Properties.AppearanceDisabled.Font = new Font("Segoe UI", 9F);
-            txtHardwareId.Properties.AppearanceDisabled.Options.UseFont = true;
-            txtHardwareId.Properties.AppearanceFocused.BackColor = Color.FromArgb(255, 255, 192);
-            txtHardwareId.Properties.AppearanceFocused.Font = new Font("Segoe UI", 9F);
-            txtHardwareId.Properties.AppearanceFocused.Options.UseBackColor = true;
-            txtHardwareId.Properties.AppearanceFocused.Options.UseFont = true;
-            txtHardwareId.Properties.AppearanceReadOnly.Font = new Font("Segoe UI", 9F);
-            txtHardwareId.Properties.AppearanceReadOnly.Options.UseFont = true;
+            txtHardwareId.Properties.Appearance.Options.UseTextOptions = true;
+            txtHardwareId.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             txtHardwareId.Properties.MaxLength = 100;
             txtHardwareId.Properties.ReadOnly = true;
-            txtHardwareId.Size = new Size(188, 22);
-            txtHardwareId.StatusBarAciklama = null;
+            txtHardwareId.Size = new Size(213, 20);
+            txtHardwareId.StatusBarAciklama = "Kod Giriniz.";
             txtHardwareId.StyleController = myDataLayoutControl1;
             txtHardwareId.TabIndex = 0;
             txtHardwareId.Tag = "ServerHardwareId";
@@ -195,7 +154,7 @@
             // 
             Root.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
             Root.GroupBordersVisible = false;
-            Root.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] { layoutControlItem1, layoutControlItem4, layoutControlItem7, layoutControlItem3 });
+            Root.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] { layoutControlItem1, layoutControlItem2, layoutControlItem3, layoutControlItem4 });
             Root.LayoutMode = DevExpress.XtraLayout.Utils.LayoutMode.Table;
             Root.Name = "Root";
             columnDefinition1.SizeType = SizeType.Percent;
@@ -215,51 +174,42 @@
             // 
             // layoutControlItem1
             // 
-            layoutControlItem1.AppearanceItemCaption.Font = new Font("Segoe UI", 9F);
-            layoutControlItem1.AppearanceItemCaption.Options.UseFont = true;
             layoutControlItem1.Control = txtHardwareId;
-            layoutControlItem1.CustomizationFormText = "Server Makine Kimliği";
             layoutControlItem1.Location = new Point(0, 0);
             layoutControlItem1.Name = "layoutControlItem1";
             layoutControlItem1.Size = new Size(378, 31);
             layoutControlItem1.Text = "Sunucu Donanım Kimliği (HWID)";
-            layoutControlItem1.TextSize = new Size(174, 15);
+            layoutControlItem1.TextSize = new Size(149, 13);
             // 
-            // layoutControlItem4
+            // layoutControlItem2
             // 
-            layoutControlItem4.AppearanceItemCaption.Font = new Font("Segoe UI", 9F);
-            layoutControlItem4.AppearanceItemCaption.Options.UseFont = true;
-            layoutControlItem4.Control = dtExpirationDate;
-            layoutControlItem4.Location = new Point(0, 139);
-            layoutControlItem4.Name = "layoutControlItem4";
-            layoutControlItem4.OptionsTableLayoutItem.RowIndex = 3;
-            layoutControlItem4.Size = new Size(378, 31);
-            layoutControlItem4.Text = "Geçerlilik Bitiş Tarihi";
-            layoutControlItem4.TextSize = new Size(174, 15);
-            // 
-            // layoutControlItem7
-            // 
-            layoutControlItem7.AppearanceItemCaption.Font = new Font("Segoe UI", 9F);
-            layoutControlItem7.AppearanceItemCaption.Options.UseFont = true;
-            layoutControlItem7.Control = txtLicenseKey;
-            layoutControlItem7.Location = new Point(0, 31);
-            layoutControlItem7.Name = "layoutControlItem7";
-            layoutControlItem7.OptionsTableLayoutItem.RowIndex = 1;
-            layoutControlItem7.Size = new Size(378, 77);
-            layoutControlItem7.Text = "Lisans Anahtarı";
-            layoutControlItem7.TextSize = new Size(174, 15);
+            layoutControlItem2.Control = txtLicenseKey;
+            layoutControlItem2.Location = new Point(0, 31);
+            layoutControlItem2.Name = "layoutControlItem2";
+            layoutControlItem2.OptionsTableLayoutItem.RowIndex = 1;
+            layoutControlItem2.Size = new Size(378, 77);
+            layoutControlItem2.Text = "Lisans Anahtarı";
+            layoutControlItem2.TextSize = new Size(149, 13);
             // 
             // layoutControlItem3
             // 
-            layoutControlItem3.AppearanceItemCaption.Font = new Font("Segoe UI", 9F);
-            layoutControlItem3.AppearanceItemCaption.Options.UseFont = true;
             layoutControlItem3.Control = txtMaxTerminal;
             layoutControlItem3.Location = new Point(0, 108);
             layoutControlItem3.Name = "layoutControlItem3";
             layoutControlItem3.OptionsTableLayoutItem.RowIndex = 2;
             layoutControlItem3.Size = new Size(378, 31);
             layoutControlItem3.Text = "Maksimum Terminal";
-            layoutControlItem3.TextSize = new Size(174, 15);
+            layoutControlItem3.TextSize = new Size(149, 13);
+            // 
+            // layoutControlItem4
+            // 
+            layoutControlItem4.Control = dtExpirationDate;
+            layoutControlItem4.Location = new Point(0, 139);
+            layoutControlItem4.Name = "layoutControlItem4";
+            layoutControlItem4.OptionsTableLayoutItem.RowIndex = 3;
+            layoutControlItem4.Size = new Size(378, 31);
+            layoutControlItem4.Text = "Geçerlilik Bitiş Tarihi";
+            layoutControlItem4.TextSize = new Size(149, 13);
             // 
             // SystemLicenseEditForm
             // 
@@ -276,16 +226,16 @@
             ((System.ComponentModel.ISupportInitialize)ribbon).EndInit();
             ((System.ComponentModel.ISupportInitialize)myDataLayoutControl1).EndInit();
             myDataLayoutControl1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)txtMaxTerminal.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)txtLicenseKey.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)dtExpirationDate.Properties.CalendarTimeProperties).EndInit();
             ((System.ComponentModel.ISupportInitialize)dtExpirationDate.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtMaxTerminal.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtLicenseKey.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtHardwareId.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)Root).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)layoutControlItem4).EndInit();
-            ((System.ComponentModel.ISupportInitialize)layoutControlItem7).EndInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem2).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem4).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -293,14 +243,14 @@
         #endregion
 
         private UserControls.Controls.MyDataLayoutControl myDataLayoutControl1;
-        private DevExpress.XtraLayout.LayoutControlGroup Root;
-        private UserControls.Controls.MyDateEdit dtExpirationDate;
-        private UserControls.Controls.MyTextEdit txtHardwareId;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
         private UserControls.Controls.MyMemoEdit txtLicenseKey;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem7;
+        private UserControls.Controls.MyKodTextEdit txtHardwareId;
+        private DevExpress.XtraLayout.LayoutControlGroup Root;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
+        private UserControls.Controls.MyDateEdit dtExpirationDate;
         private UserControls.Controls.MySpinEdit txtMaxTerminal;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
     }
 }

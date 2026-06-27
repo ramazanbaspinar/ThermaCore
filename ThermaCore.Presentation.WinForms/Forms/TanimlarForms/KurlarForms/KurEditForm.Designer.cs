@@ -335,6 +335,7 @@
             txtTcmbSatis.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             txtTcmbSatis.Properties.Mask.UseMaskAsDisplayFormat = true;
             txtTcmbSatis.Properties.MaskSettings.Set("mask", "n4");
+            txtTcmbSatis.Properties.ReadOnly = true;
             txtTcmbSatis.Size = new Size(257, 20);
             txtTcmbSatis.StatusBarAciklama = null;
             txtTcmbSatis.StatusBarKisaYol = "F4 :";
@@ -357,6 +358,7 @@
             txtTcmbAlis.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             txtTcmbAlis.Properties.Mask.UseMaskAsDisplayFormat = true;
             txtTcmbAlis.Properties.MaskSettings.Set("mask", "n4");
+            txtTcmbAlis.Properties.ReadOnly = true;
             txtTcmbAlis.Size = new Size(257, 20);
             txtTcmbAlis.StatusBarAciklama = null;
             txtTcmbAlis.StatusBarKisaYol = "F4 :";
@@ -411,6 +413,7 @@
             txtDovizKodu.Properties.Appearance.Options.UseTextOptions = true;
             txtDovizKodu.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             txtDovizKodu.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
+            txtDovizKodu.Properties.ReadOnly = true;
             txtDovizKodu.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
             txtDovizKodu.Size = new Size(314, 20);
             txtDovizKodu.StatusBarAciklama = "";
@@ -432,9 +435,9 @@
             txtTarih.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             txtTarih.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
             txtTarih.Properties.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
-            txtTarih.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.DateTimeAdvancingCaret;
             txtTarih.Properties.MaskSettings.Set("MaskManagerType", typeof(DevExpress.Data.Mask.DateTimeMaskManager));
             txtTarih.Properties.MaskSettings.Set("useAdvancingCaret", true);
+            txtTarih.Properties.ReadOnly = true;
             txtTarih.Size = new Size(314, 20);
             txtTarih.StatusBarAciklama = "";
             txtTarih.StatusBarKisaYol = "F4 :";

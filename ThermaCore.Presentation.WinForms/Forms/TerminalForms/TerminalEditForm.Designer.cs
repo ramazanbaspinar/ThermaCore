@@ -117,6 +117,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TerminalForms
             txtCihazAdi.MenuManager = ribbon;
             txtCihazAdi.Name = "txtCihazAdi";
             txtCihazAdi.Properties.MaxLength = 100;
+            txtCihazAdi.Properties.ReadOnly = true;
             txtCihazAdi.Size = new Size(261, 20);
             txtCihazAdi.StatusBarAciklama = "";
             txtCihazAdi.StyleController = myDataLayoutControlPro1;
@@ -132,6 +133,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TerminalForms
             txtHardwareId.Properties.Appearance.Options.UseTextOptions = true;
             txtHardwareId.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             txtHardwareId.Properties.MaxLength = 100;
+            txtHardwareId.Properties.ReadOnly = true;
             txtHardwareId.Size = new Size(152, 20);
             txtHardwareId.StatusBarAciklama = "Kod Giriniz.";
             txtHardwareId.StyleController = myDataLayoutControlPro1;

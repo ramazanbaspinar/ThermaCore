@@ -31,7 +31,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.KullaniciForms
             _branchService = branchService;
 
             BaseKartTuru = Domain.Enums.ModuleType.User;
-            DataLayoutControl = myDataLayoutControl1;
+            DataLayoutControl = new object[] { myDataLayoutControl1, myDataLayoutControl2 };
             Bll = _userService;
         }
 
@@ -146,7 +146,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.KullaniciForms
             var entity = (UserDto)OldEntity;
             
             txtKullaniciAdi.Text = entity.Code;
-            txtAd.Text = entity.FirstName;
+            myDataLayoutControl1.Text = entity.FirstName;
             txtSoyad.Text = entity.LastName;
             txtEmail.Text = entity.Email;
             txtSifre.Text = Id > 0 ? "********" : ""; // Şifre kutusu güncelleme modunda ******** dolar
@@ -207,7 +207,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.KullaniciForms
             {
                 Id = Id,
                 Code = txtKullaniciAdi.Text,
-                FirstName = txtAd.Text,
+                FirstName = myDataLayoutControl1.Text,
                 LastName = txtSoyad.Text,
                 Email = txtEmail.Text,
                 Password = txtSifre.Text == "********" ? "" : txtSifre.Text, // Eğer ******** ise veya boşsa arkada eski şifre korunacak (UserService)
