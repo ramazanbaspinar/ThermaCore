@@ -131,6 +131,7 @@
             colHardwareId.StatusBarKisaYolAciklama = null;
             colHardwareId.Visible = true;
             colHardwareId.VisibleIndex = 1;
+            colHardwareId.Width = 150;
             // 
             // colDescription
             // 
@@ -143,6 +144,7 @@
             colDescription.StatusBarKisaYolAciklama = null;
             colDescription.Visible = true;
             colDescription.VisibleIndex = 2;
+            colDescription.Width = 150;
             // 
             // TerminalListForm
             // 
