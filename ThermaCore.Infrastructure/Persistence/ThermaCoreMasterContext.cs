@@ -32,6 +32,7 @@ public class ThermaCoreMasterContext : DbContext
     public DbSet<UserBranch> UserBranches { get; set; }
     public DbSet<ThermaCore.Domain.Entities.Security.Role> Roles { get; set; }
     public DbSet<ThermaCore.Domain.Entities.Security.RolePermission> RolePermissions { get; set; }
+    public DbSet<ThermaCore.Domain.Entities.Security.UserPermission> UserPermissions { get; set; }
     public DbSet<CodeTemplate> CodeTemplates { get; set; }
     public DbSet<UserInterfaceTemplate> UserInterfaceTemplates { get; set; }
     public DbSet<CodeLog> CodeLogs { get; set; }

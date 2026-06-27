@@ -10,5 +10,6 @@ public class SecurityProfile : Profile
     {
         CreateMap<Role, RoleDto>().ReverseMap();
         CreateMap<RolePermission, RolePermissionDto>().ReverseMap();
+        CreateMap<UserPermission, UserPermissionDto>().ReverseMap();
     }
 }

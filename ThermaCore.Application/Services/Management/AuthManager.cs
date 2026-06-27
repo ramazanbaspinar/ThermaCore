@@ -27,6 +27,7 @@ public class AuthManager : IAuthService
     private readonly IMapper _mapper;
     private readonly IMasterRepository<SystemLicense> _licenseRepository;
     private readonly ILicenseValidator _licenseValidator;
+    private readonly IMasterRepository<UserPermission> _userPermissionRepository;
 
     public AuthManager(
         IMasterRepository<User> userRepository,
@@ -42,7 +43,8 @@ public class AuthManager : IAuthService
         IMasterRepository<UserSession> userSessionRepository,
         IMasterUnitOfWork uow,
         IMasterRepository<SystemLicense> licenseRepository,
-        ILicenseValidator licenseValidator)
+        ILicenseValidator licenseValidator,
+        IMasterRepository<UserPermission> userPermissionRepository)
     {
         _userRepository = userRepository;
         _tenantRepository = tenantRepository;
@@ -58,6 +60,7 @@ public class AuthManager : IAuthService
         _uow = uow;
         _licenseRepository = licenseRepository;
         _licenseValidator = licenseValidator;
+        _userPermissionRepository = userPermissionRepository;
     }
 
     public Task<List<TenantDatabaseDto>> GetAllowedTenantsByUsernameAsync(string username)
@@ -257,11 +260,24 @@ public class AuthManager : IAuthService
             return true;
 
         long tenantId = _currentTenantService.TenantId;
-
-
-        // Rol bazlı yetki kontrolü
-        long roleId = user.UserRoleId;
         int moduleId = (int)moduleType;
+
+        // Aşama 1: Kullanıcı bazlı istisna (Override) yetkisi var mı?
+        var userPermission = _userPermissionRepository.Find(up => up.UserId == userId && up.ModuleId == moduleId).FirstOrDefault();
+        if (userPermission != null)
+        {
+            return permissionType switch
+            {
+                ThermaCore.Domain.Enums.PermissionType.CanView => userPermission.CanRead,
+                ThermaCore.Domain.Enums.PermissionType.CanAdd => userPermission.CanCreate,
+                ThermaCore.Domain.Enums.PermissionType.CanEdit => userPermission.CanUpdate,
+                ThermaCore.Domain.Enums.PermissionType.CanDelete => userPermission.CanDelete,
+                _ => false
+            };
+        }
+
+        // Aşama 2: Kullanıcı özel yetkisi yoksa, rol (grup) bazlı yetki kontrolü
+        long roleId = user.UserRoleId;
 
         var rolePermission = _rolePermissionRepository.Find(rp => 
             rp.RoleId == roleId && 
