@@ -30,7 +30,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.KurlarForms
 
         protected override void DegiskenleriDoldur()
         {
-            Tablo = myGridView1;
+            Tablo = myGridViewPro1;
             BaseKartTuru = ModuleType.KurTanimlari;
             Navigator = longNavigator1.Navigator;
             AktifPasifButonGoster = false;

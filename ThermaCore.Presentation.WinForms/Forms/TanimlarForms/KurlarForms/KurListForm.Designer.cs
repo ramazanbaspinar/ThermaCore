@@ -30,18 +30,18 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(KurListForm));
             longNavigator1 = new RbaYazilim.WinRezistans.UI.Win.UserControls.Controls.Navigators.LongNavigator();
-            myGridControl1 = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridControl();
-            myGridView1 = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridView();
-            colId = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
-            colTarih = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
-            colDoviz = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
-            colGecerliAlis = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
-            colGecerliSatis = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
-            colTcmbAlis = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
-            colTcmbSatis = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
+            myGridControlPro1 = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridControlPro();
+            myGridViewPro1 = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridViewPro();
+            colId = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumnPro();
+            colTarih = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumnPro();
+            colDoviz = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumnPro();
+            colGecerliAlis = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumnPro();
+            colGecerliSatis = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumnPro();
+            colTcmbAlis = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumnPro();
+            colTcmbSatis = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumnPro();
             ((System.ComponentModel.ISupportInitialize)ribbon).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)myGridControl1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)myGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)myGridControlPro1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)myGridViewPro1).BeginInit();
             SuspendLayout();
             // 
             // ribbon
@@ -63,86 +63,41 @@
             longNavigator1.Size = new Size(814, 30);
             longNavigator1.TabIndex = 2;
             // 
-            // myGridControl1
+            // myGridControlPro1
             // 
-            myGridControl1.Dock = DockStyle.Fill;
-            myGridControl1.Location = new Point(0, 135);
-            myGridControl1.MainView = myGridView1;
-            myGridControl1.MenuManager = ribbon;
-            myGridControl1.Name = "myGridControl1";
-            myGridControl1.Size = new Size(814, 236);
-            myGridControl1.TabIndex = 3;
-            myGridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] { myGridView1 });
+            myGridControlPro1.Dock = DockStyle.Fill;
+            myGridControlPro1.Location = new Point(0, 135);
+            myGridControlPro1.MainView = myGridViewPro1;
+            myGridControlPro1.MenuManager = ribbon;
+            myGridControlPro1.Name = "myGridControlPro1";
+            myGridControlPro1.Size = new Size(814, 236);
+            myGridControlPro1.TabIndex = 3;
+            myGridControlPro1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] { myGridViewPro1 });
             // 
-            // myGridView1
+            // myGridViewPro1
             // 
-            myGridView1.Appearance.Empty.BackColor = Color.FromArgb(245, 245, 245);
-            myGridView1.Appearance.Empty.Font = new Font("Segoe UI", 9.75F);
-            myGridView1.Appearance.Empty.Options.UseBackColor = true;
-            myGridView1.Appearance.Empty.Options.UseFont = true;
-            myGridView1.Appearance.EvenRow.BackColor = Color.FromArgb(250, 250, 250);
-            myGridView1.Appearance.EvenRow.Options.UseBackColor = true;
-            myGridView1.Appearance.FocusedCell.BackColor = Color.FromArgb(255, 249, 219);
-            myGridView1.Appearance.FocusedCell.Options.UseBackColor = true;
-            myGridView1.Appearance.FocusedRow.BackColor = Color.FromArgb(255, 249, 219);
-            myGridView1.Appearance.FocusedRow.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
-            myGridView1.Appearance.FocusedRow.Options.UseBackColor = true;
-            myGridView1.Appearance.FocusedRow.Options.UseFont = true;
-            myGridView1.Appearance.FooterPanel.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
-            myGridView1.Appearance.FooterPanel.ForeColor = Color.FromArgb(64, 64, 64);
-            myGridView1.Appearance.FooterPanel.Options.UseFont = true;
-            myGridView1.Appearance.FooterPanel.Options.UseForeColor = true;
-            myGridView1.Appearance.HeaderPanel.BackColor = Color.FromArgb(46, 134, 193);
-            myGridView1.Appearance.HeaderPanel.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
-            myGridView1.Appearance.HeaderPanel.ForeColor = Color.White;
-            myGridView1.Appearance.HeaderPanel.Options.UseBackColor = true;
-            myGridView1.Appearance.HeaderPanel.Options.UseFont = true;
-            myGridView1.Appearance.HeaderPanel.Options.UseForeColor = true;
-            myGridView1.Appearance.HeaderPanel.Options.UseTextOptions = true;
-            myGridView1.Appearance.HeaderPanel.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            myGridView1.Appearance.HideSelectionRow.BackColor = Color.FromArgb(255, 249, 219);
-            myGridView1.Appearance.HideSelectionRow.Options.UseBackColor = true;
-            myGridView1.Appearance.OddRow.BackColor = Color.White;
-            myGridView1.Appearance.OddRow.Options.UseBackColor = true;
-            myGridView1.Appearance.Row.BackColor = Color.White;
-            myGridView1.Appearance.Row.Font = new Font("Segoe UI", 9.75F);
-            myGridView1.Appearance.Row.ForeColor = Color.Black;
-            myGridView1.Appearance.Row.Options.UseBackColor = true;
-            myGridView1.Appearance.Row.Options.UseFont = true;
-            myGridView1.Appearance.Row.Options.UseForeColor = true;
-            myGridView1.Appearance.SelectedRow.BackColor = Color.FromArgb(204, 229, 255);
-            myGridView1.Appearance.SelectedRow.ForeColor = Color.Black;
-            myGridView1.Appearance.SelectedRow.Options.UseBackColor = true;
-            myGridView1.Appearance.SelectedRow.Options.UseForeColor = true;
-            myGridView1.Appearance.ViewCaption.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
-            myGridView1.Appearance.ViewCaption.ForeColor = Color.FromArgb(64, 64, 64);
-            myGridView1.Appearance.ViewCaption.Options.UseFont = true;
-            myGridView1.Appearance.ViewCaption.Options.UseForeColor = true;
-            myGridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colId, colTarih, colDoviz, colGecerliAlis, colGecerliSatis, colTcmbAlis, colTcmbSatis });
-            myGridView1.GridControl = myGridControl1;
-            myGridView1.GroupCount = 1;
-            myGridView1.GroupFormat = "{1}";
-            myGridView1.Name = "myGridView1";
-            myGridView1.OptionsMenu.EnableColumnMenu = false;
-            myGridView1.OptionsMenu.EnableFooterMenu = false;
-            myGridView1.OptionsMenu.EnableGroupPanelMenu = false;
-            myGridView1.OptionsNavigation.EnterMoveNextColumn = true;
-            myGridView1.OptionsPrint.AutoWidth = false;
-            myGridView1.OptionsPrint.PrintFooter = false;
-            myGridView1.OptionsPrint.PrintGroupFooter = false;
-            myGridView1.OptionsView.ColumnAutoWidth = false;
-            myGridView1.OptionsView.EnableAppearanceEvenRow = true;
-            myGridView1.OptionsView.EnableAppearanceOddRow = true;
-            myGridView1.OptionsView.HeaderFilterButtonShowMode = DevExpress.XtraEditors.Controls.FilterButtonShowMode.Button;
-            myGridView1.OptionsView.RowAutoHeight = true;
-            myGridView1.OptionsView.ShowAutoFilterRow = true;
-            myGridView1.OptionsView.ShowGroupPanel = false;
-            myGridView1.OptionsView.ShowViewCaption = true;
-            myGridView1.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] { new DevExpress.XtraGrid.Columns.GridColumnSortInfo(colTarih, DevExpress.Data.ColumnSortOrder.Ascending) });
-            myGridView1.StatusBarAciklama = null;
-            myGridView1.StatusBarKisaYol = null;
-            myGridView1.StatusBarKisaYolAciklama = null;
-            myGridView1.ViewCaption = "Kur Tanımları";
+            myGridViewPro1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colId, colTarih, colDoviz, colGecerliAlis, colGecerliSatis, colTcmbAlis, colTcmbSatis });
+            myGridViewPro1.GridControl = myGridControlPro1;
+            myGridViewPro1.GroupCount = 1;
+            myGridViewPro1.Name = "myGridViewPro1";
+            myGridViewPro1.OptionsMenu.EnableColumnMenu = false;
+            myGridViewPro1.OptionsMenu.EnableFooterMenu = false;
+            myGridViewPro1.OptionsMenu.EnableGroupPanelMenu = false;
+            myGridViewPro1.OptionsNavigation.EnterMoveNextColumn = true;
+            myGridViewPro1.OptionsPrint.AutoWidth = false;
+            myGridViewPro1.OptionsPrint.PrintFooter = false;
+            myGridViewPro1.OptionsPrint.PrintGroupFooter = false;
+            myGridViewPro1.OptionsView.ColumnAutoWidth = false;
+            myGridViewPro1.OptionsView.EnableAppearanceEvenRow = true;
+            myGridViewPro1.OptionsView.HeaderFilterButtonShowMode = DevExpress.XtraEditors.Controls.FilterButtonShowMode.Button;
+            myGridViewPro1.OptionsView.ShowAutoFilterRow = true;
+            myGridViewPro1.OptionsView.ShowGroupPanel = false;
+            myGridViewPro1.OptionsView.ShowViewCaption = true;
+            myGridViewPro1.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] { new DevExpress.XtraGrid.Columns.GridColumnSortInfo(colTarih, DevExpress.Data.ColumnSortOrder.Ascending) });
+            myGridViewPro1.StatusBarAciklama = null;
+            myGridViewPro1.StatusBarKisaYol = null;
+            myGridViewPro1.StatusBarKisaYolAciklama = null;
+            myGridViewPro1.ViewCaption = "Kur Tanımları";
             // 
             // colId
             // 
@@ -157,36 +112,18 @@
             // 
             // colTarih
             // 
-            colTarih.AppearanceCell.Font = new Font("Segoe UI", 9.75F);
-            colTarih.AppearanceCell.Options.UseFont = true;
-            colTarih.AppearanceHeader.BackColor = Color.FromArgb(46, 134, 193);
-            colTarih.AppearanceHeader.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
-            colTarih.AppearanceHeader.ForeColor = Color.White;
-            colTarih.AppearanceHeader.Options.UseBackColor = true;
-            colTarih.AppearanceHeader.Options.UseFont = true;
-            colTarih.AppearanceHeader.Options.UseForeColor = true;
             colTarih.Caption = "Tarih";
             colTarih.FieldName = "RateDate";
             colTarih.Name = "colTarih";
             colTarih.OptionsColumn.AllowEdit = false;
-            colTarih.OptionsColumn.AllowGroup = DevExpress.Utils.DefaultBoolean.False;
             colTarih.StatusBarAciklama = null;
             colTarih.StatusBarKisaYol = null;
             colTarih.StatusBarKisaYolAciklama = null;
             colTarih.Visible = true;
             colTarih.VisibleIndex = 0;
-            colTarih.Width = 175;
             // 
             // colDoviz
             // 
-            colDoviz.AppearanceCell.Font = new Font("Segoe UI", 9.75F);
-            colDoviz.AppearanceCell.Options.UseFont = true;
-            colDoviz.AppearanceHeader.BackColor = Color.FromArgb(46, 134, 193);
-            colDoviz.AppearanceHeader.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
-            colDoviz.AppearanceHeader.ForeColor = Color.White;
-            colDoviz.AppearanceHeader.Options.UseBackColor = true;
-            colDoviz.AppearanceHeader.Options.UseFont = true;
-            colDoviz.AppearanceHeader.Options.UseForeColor = true;
             colDoviz.Caption = "Döviz";
             colDoviz.FieldName = "CurrencyCode";
             colDoviz.Name = "colDoviz";
@@ -196,18 +133,9 @@
             colDoviz.StatusBarKisaYolAciklama = null;
             colDoviz.Visible = true;
             colDoviz.VisibleIndex = 0;
-            colDoviz.Width = 175;
             // 
             // colGecerliAlis
             // 
-            colGecerliAlis.AppearanceCell.Font = new Font("Segoe UI", 9.75F);
-            colGecerliAlis.AppearanceCell.Options.UseFont = true;
-            colGecerliAlis.AppearanceHeader.BackColor = Color.FromArgb(46, 134, 193);
-            colGecerliAlis.AppearanceHeader.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
-            colGecerliAlis.AppearanceHeader.ForeColor = Color.White;
-            colGecerliAlis.AppearanceHeader.Options.UseBackColor = true;
-            colGecerliAlis.AppearanceHeader.Options.UseFont = true;
-            colGecerliAlis.AppearanceHeader.Options.UseForeColor = true;
             colGecerliAlis.Caption = "Geçerli Alış";
             colGecerliAlis.DisplayFormat.FormatString = "n4";
             colGecerliAlis.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
@@ -219,18 +147,9 @@
             colGecerliAlis.StatusBarKisaYolAciklama = null;
             colGecerliAlis.Visible = true;
             colGecerliAlis.VisibleIndex = 1;
-            colGecerliAlis.Width = 175;
             // 
             // colGecerliSatis
             // 
-            colGecerliSatis.AppearanceCell.Font = new Font("Segoe UI", 9.75F);
-            colGecerliSatis.AppearanceCell.Options.UseFont = true;
-            colGecerliSatis.AppearanceHeader.BackColor = Color.FromArgb(46, 134, 193);
-            colGecerliSatis.AppearanceHeader.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
-            colGecerliSatis.AppearanceHeader.ForeColor = Color.White;
-            colGecerliSatis.AppearanceHeader.Options.UseBackColor = true;
-            colGecerliSatis.AppearanceHeader.Options.UseFont = true;
-            colGecerliSatis.AppearanceHeader.Options.UseForeColor = true;
             colGecerliSatis.Caption = "Geçerli Satış";
             colGecerliSatis.DisplayFormat.FormatString = "n4";
             colGecerliSatis.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
@@ -242,18 +161,9 @@
             colGecerliSatis.StatusBarKisaYolAciklama = null;
             colGecerliSatis.Visible = true;
             colGecerliSatis.VisibleIndex = 2;
-            colGecerliSatis.Width = 175;
             // 
             // colTcmbAlis
             // 
-            colTcmbAlis.AppearanceCell.Font = new Font("Segoe UI", 9.75F);
-            colTcmbAlis.AppearanceCell.Options.UseFont = true;
-            colTcmbAlis.AppearanceHeader.BackColor = Color.FromArgb(46, 134, 193);
-            colTcmbAlis.AppearanceHeader.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
-            colTcmbAlis.AppearanceHeader.ForeColor = Color.White;
-            colTcmbAlis.AppearanceHeader.Options.UseBackColor = true;
-            colTcmbAlis.AppearanceHeader.Options.UseFont = true;
-            colTcmbAlis.AppearanceHeader.Options.UseForeColor = true;
             colTcmbAlis.Caption = "TCMB Alış";
             colTcmbAlis.DisplayFormat.FormatString = "n4";
             colTcmbAlis.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
@@ -265,18 +175,9 @@
             colTcmbAlis.StatusBarKisaYolAciklama = null;
             colTcmbAlis.Visible = true;
             colTcmbAlis.VisibleIndex = 3;
-            colTcmbAlis.Width = 175;
             // 
             // colTcmbSatis
             // 
-            colTcmbSatis.AppearanceCell.Font = new Font("Segoe UI", 9.75F);
-            colTcmbSatis.AppearanceCell.Options.UseFont = true;
-            colTcmbSatis.AppearanceHeader.BackColor = Color.FromArgb(46, 134, 193);
-            colTcmbSatis.AppearanceHeader.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
-            colTcmbSatis.AppearanceHeader.ForeColor = Color.White;
-            colTcmbSatis.AppearanceHeader.Options.UseBackColor = true;
-            colTcmbSatis.AppearanceHeader.Options.UseFont = true;
-            colTcmbSatis.AppearanceHeader.Options.UseForeColor = true;
             colTcmbSatis.Caption = "TCMB Satış";
             colTcmbSatis.DisplayFormat.FormatString = "n4";
             colTcmbSatis.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
@@ -288,24 +189,23 @@
             colTcmbSatis.StatusBarKisaYolAciklama = null;
             colTcmbSatis.Visible = true;
             colTcmbSatis.VisibleIndex = 4;
-            colTcmbSatis.Width = 175;
             // 
             // KurListForm
             // 
             AutoScaleDimensions = new SizeF(6F, 13F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(814, 425);
-            Controls.Add(myGridControl1);
+            Controls.Add(myGridControlPro1);
             Controls.Add(longNavigator1);
             IconOptions.ShowIcon = false;
             Name = "KurListForm";
             Text = "Kur Tanımları";
             Controls.SetChildIndex(ribbon, 0);
             Controls.SetChildIndex(longNavigator1, 0);
-            Controls.SetChildIndex(myGridControl1, 0);
+            Controls.SetChildIndex(myGridControlPro1, 0);
             ((System.ComponentModel.ISupportInitialize)ribbon).EndInit();
-            ((System.ComponentModel.ISupportInitialize)myGridControl1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)myGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)myGridControlPro1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)myGridViewPro1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -313,14 +213,14 @@
         #endregion
 
         private RbaYazilim.WinRezistans.UI.Win.UserControls.Controls.Navigators.LongNavigator longNavigator1;
-        private UserControls.Grid.MyGridControl myGridControl1;
-        private UserControls.Grid.MyGridView myGridView1;
-        private UserControls.Grid.MyGridColumn colId;
-        private UserControls.Grid.MyGridColumn colTarih;
-        private UserControls.Grid.MyGridColumn colDoviz;
-        private UserControls.Grid.MyGridColumn colGecerliAlis;
-        private UserControls.Grid.MyGridColumn colGecerliSatis;
-        private UserControls.Grid.MyGridColumn colTcmbAlis;
-        private UserControls.Grid.MyGridColumn colTcmbSatis;
+        private UserControls.Grid.MyGridControlPro myGridControlPro1;
+        private UserControls.Grid.MyGridViewPro myGridViewPro1;
+        private UserControls.Grid.MyGridColumnPro colId;
+        private UserControls.Grid.MyGridColumnPro colTarih;
+        private UserControls.Grid.MyGridColumnPro colDoviz;
+        private UserControls.Grid.MyGridColumnPro colGecerliAlis;
+        private UserControls.Grid.MyGridColumnPro colGecerliSatis;
+        private UserControls.Grid.MyGridColumnPro colTcmbAlis;
+        private UserControls.Grid.MyGridColumnPro colTcmbSatis;
     }
 }

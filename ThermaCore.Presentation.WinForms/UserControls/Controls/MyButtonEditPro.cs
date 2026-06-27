@@ -1,33 +1,33 @@
-﻿#pragma warning disable CS8618
-using DevExpress.XtraEditors;
+﻿using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
 using ThermaCore.Presentation.WinForms.Interfaces;
 using System;
 using System.ComponentModel;
-using System.Drawing;
 using ThermaCore.Presentation.WinForms.UserControls.Controls;
 
 namespace ThermaCore.Presentation.WinForms.UserControls
 {
     [ToolboxItem(true)]
-    public class MyButtonEdit : ButtonEdit, IStatusBarKisaYol
+    public class MyButtonEditPro : ButtonEdit, IStatusBarKisaYol
     {
-        public MyButtonEdit()
+        public MyButtonEditPro()
         {
-            Properties.Appearance.Font = new Font("Segoe UI", 9f);
-            Properties.AppearanceDisabled.Font = new Font("Segoe UI", 9f);
-            Properties.AppearanceFocused.Font = new Font("Segoe UI", 9f);
-            Properties.AppearanceReadOnly.Font = new Font("Segoe UI", 9f);
-
+            // --- İŞLEVSEL AYARLAR ---
+            // Kullanıcının elle metin girmesini engeller, sadece butona tıklanarak/F4 ile seçim yapılmasını sağlar.
             Properties.TextEditStyle = TextEditStyles.DisableTextEditor;
-            Properties.AppearanceFocused.BackColor = Color.FromArgb(255, 255, 192);
-        }
-        public override bool EnterMoveNextControl { get; set; } = true;
-        public string StatusBarAciklama { get; set; }
-        public string StatusBarKisaYol { get; set; } = "F4 :";
-        public string StatusBarKisaYolAciklama { get; set; }
 
-        #region Events
+            // --- GÖRSEL AYARLAR KALDIRILDI ---
+            // Font tanımlamaları ve AppearanceFocused.BackColor (Sarı renk) DevExpress Skin (Tema) motoruna bırakıldı.
+        }
+
+        public override bool EnterMoveNextControl { get; set; } = true;
+
+        // IStatusBarKisaYol Implementasyonu
+        public string StatusBarAciklama { get; set; } = string.Empty;
+        public string StatusBarKisaYol { get; set; } = "F4 :";
+        public string StatusBarKisaYolAciklama { get; set; } = string.Empty;
+
+        #region Events & Properties
 
         private long? _id;
 
@@ -40,6 +40,7 @@ namespace ThermaCore.Presentation.WinForms.UserControls
                 var oldValue = _id;
                 var newValue = value;
                 if (newValue.HasValue && oldValue.HasValue && oldValue == newValue) { return; }
+
                 _id = value;
                 IdChanged(this, new IdChangedEventArgs(oldValue, newValue));
                 EnabledChange(this, EventArgs.Empty);
@@ -51,6 +52,4 @@ namespace ThermaCore.Presentation.WinForms.UserControls
 
         #endregion
     }
- 
 }
-
