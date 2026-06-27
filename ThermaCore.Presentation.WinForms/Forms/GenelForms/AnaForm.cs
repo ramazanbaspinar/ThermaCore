@@ -64,6 +64,9 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             if (miBirimTanimlari != null)
                 miBirimTanimlari.Click += miBirimTanimlari_Click;
 
+            if (miKurTanimlari != null)
+                miKurTanimlari.Click += miKurTanimlari_Click;
+
 
             if (miKullaniciArayuzSablonlari != null)
                 miKullaniciArayuzSablonlari.Click += (s, e) =>
@@ -159,7 +162,36 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
                 // Seçili firma ve kullanıcı bilgilerini bar başlıklarına (veya pencere başlığına) yazdır
                 Text = $"ThermaCore ERP --- Bilgisayar: {Environment.MachineName}";
 
-                // TODO: GuncelDovizBilgisiniYazdir(); (Döviz kurları için dış API / IDovizService eklenecek)
+                var scopeFactory = _serviceProvider.GetRequiredService<IServiceScopeFactory>();
+                
+                string currentConnString = _currentTenantService.ConnectionString;
+                long currentTenantId = _currentTenantService.TenantId;
+                string currentTenantName = _currentTenantService.TenantName;
+                long currentUserId = _currentTenantService.UserId;
+
+                // Fire & Forget TCMB Kurlarını Senkronize Et
+                Task.Run(async () =>
+                {
+                    try
+                    {
+                        using var scope = scopeFactory.CreateScope();
+                        
+                        // Scope içerisinde yeni üretilen ICurrentTenantService'e ana context'teki bilgileri aktar
+                        var backgroundTenantService = scope.ServiceProvider.GetRequiredService<ThermaCore.Application.Interfaces.System.ICurrentTenantService>();
+                        backgroundTenantService.ConnectionString = currentConnString;
+                        backgroundTenantService.TenantId = currentTenantId;
+                        backgroundTenantService.TenantName = currentTenantName;
+                        backgroundTenantService.UserId = currentUserId;
+
+                        var exchangeRateService = scope.ServiceProvider.GetRequiredService<ThermaCore.Application.Interfaces.System.IExchangeRateService>();
+                        await exchangeRateService.SyncTcmbRatesAsync();
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"[AnaForm] TCMB Kurları arka plan senkronizasyon hatası: {ex.Message}");
+                    }
+                });
+
                 // TODO: OnaylanmamisKayitlariKontrolEtAsync(); (İş kuralları Application katmanına taşınacak)
                 // TODO: AylikMetreBilgisiGetirAsync(); (EF Core sorguları Application katmanına taşınacak)
 
@@ -441,6 +473,19 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             if (authService != null && authService.HasPermission(ThermaCore.Domain.Enums.ModuleType.BirimTanimlari, ThermaCore.Domain.Enums.PermissionType.CanView))
             {
                 FormYukle<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.BirimForms.BirimListForm>();
+            }
+            else
+            {
+                XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void miKurTanimlari_Click(object? sender, EventArgs e)
+        {
+            var authService = _serviceProvider.GetService<ThermaCore.Application.Services.Management.IAuthService>();
+            if (authService != null && authService.HasPermission(ThermaCore.Domain.Enums.ModuleType.KurTanimlari, ThermaCore.Domain.Enums.PermissionType.CanView))
+            {
+                FormYukle<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.KurlarForms.KurListForm>();
             }
             else
             {

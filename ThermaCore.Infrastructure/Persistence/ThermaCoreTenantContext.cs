@@ -22,6 +22,7 @@ public class ThermaCoreTenantContext : DbContext
 
     public DbSet<ThermaCore.Domain.Entities.Definitions.Unit> Units { get; set; }
     public DbSet<ThermaCore.Domain.Entities.Definitions.ItemCategory> ItemCategories { get; set; }
+    public DbSet<ThermaCore.Domain.Entities.Management.ExchangeRate> ExchangeRates { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

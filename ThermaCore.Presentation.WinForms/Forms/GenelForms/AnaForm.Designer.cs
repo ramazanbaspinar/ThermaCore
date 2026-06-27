@@ -33,6 +33,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             miTanimlar = new ToolStripMenuItem();
             miTemelTanimlar = new ToolStripMenuItem();
             miBirimTanimlari = new ToolStripMenuItem();
+            miKurTanimlari = new ToolStripMenuItem();
             miMetalVeSacGrubu = new ToolStripMenuItem();
             miSacTanimlari = new ToolStripMenuItem();
             miTelTanimlari = new ToolStripMenuItem();
@@ -121,11 +122,11 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 
             // miTemelTanimlar
             // 
-            miTemelTanimlar.DropDownItems.AddRange(new ToolStripItem[] { miBirimTanimlari });
+            miTemelTanimlar.DropDownItems.AddRange(new ToolStripItem[] { miBirimTanimlari, miKurTanimlari });
             miTemelTanimlar.Name = "miTemelTanimlar";
             miTemelTanimlar.Size = new Size(253, 22);
             miTemelTanimlar.Tag = "TemelTanimlar";
-            miTemelTanimlar.Text = "Temel Tanımlar";
+            miTemelTanimlar.Text = "Temel Tanımları";
             // 
             // miBirimTanimlari
             // 
@@ -133,6 +134,13 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             miBirimTanimlari.Size = new Size(180, 22);
             miBirimTanimlari.Tag = "BirimTanimlari";
             miBirimTanimlari.Text = "Birim Tanımları";
+            // 
+            // miKurTanimlari
+            // 
+            miKurTanimlari.Name = "miKurTanimlari";
+            miKurTanimlari.Size = new Size(180, 22);
+            miKurTanimlari.Tag = "KurTanimlari";
+            miKurTanimlari.Text = "Kur Tanımları";
             // 
             // miMetalVeSacGrubu
             // 
@@ -605,6 +613,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
         private ToolStripMenuItem miSystemLicense;
         private ToolStripMenuItem miTemelTanimlar;
         private ToolStripMenuItem miBirimTanimlari;
+        private ToolStripMenuItem miKurTanimlari;
         private ToolStripMenuItem miMetalVeSacGrubu;
         private ToolStripMenuItem miElektrikVeElektronikGrubu;
         private ToolStripMenuItem miGazVeAteslemeGrubu;

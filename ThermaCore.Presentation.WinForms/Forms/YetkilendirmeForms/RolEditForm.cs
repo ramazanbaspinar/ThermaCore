@@ -322,7 +322,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.YetkilendirmeForms
             if (pTypeObj != null && modObj != null)
             {
                 var modType = (ModuleType)Convert.ToInt32(modObj);
-                if (modType == ModuleType.EmailParameter || modType == ModuleType.SystemLicense || modType == ModuleType.KodLog || modType == ModuleType.TerminalYonetimi)
+                if (modType == ModuleType.EmailParameter || modType == ModuleType.SystemLicense || modType == ModuleType.KodLog || modType == ModuleType.TerminalYonetimi || modType == ModuleType.KurTanimlari)
                 {
                     if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" || 
                         pTypeObj.ToString() == "Delete" || pTypeObj.ToString() == "3")
@@ -353,7 +353,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.YetkilendirmeForms
             else if (pTypeObj != null && modObj != null)
             {
                 var modType = (ModuleType)Convert.ToInt32(modObj);
-                if (modType == ModuleType.EmailParameter || modType == ModuleType.SystemLicense || modType == ModuleType.KodLog || modType == ModuleType.TerminalYonetimi)
+                if (modType == ModuleType.EmailParameter || modType == ModuleType.SystemLicense || modType == ModuleType.KodLog || modType == ModuleType.TerminalYonetimi || modType == ModuleType.KurTanimlari)
                 {
                     if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" || 
                         pTypeObj.ToString() == "Delete" || pTypeObj.ToString() == "3")

@@ -74,5 +74,9 @@ public enum ModuleType
 
     [Description("Birim Tanımları")]
     [ParentModule(TemelTanimlar)]
-    BirimTanimlari = 11
+    BirimTanimlari = 11,
+
+    [Description("Kur Tanımları")]
+    [ParentModule(TemelTanimlar)]
+    KurTanimlari = 12
 }

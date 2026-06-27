@@ -1,9 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using ThermaCore.Application.DTOs.Management;
-using DevExpress.XtraGrid.Views.Grid;
-using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 
 namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
@@ -12,7 +11,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
     {
         public long SeciliSubeId { get; private set; }
         public string SeciliSubeAdi { get; private set; } = string.Empty;
-        public bool SecimiHatirla => myCheckEdit1.Checked;
+        public bool SecimiHatirla => chkHatirla.Checked;
 
         private readonly List<BranchDto> _branches;
 
@@ -20,41 +19,43 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
         {
             InitializeComponent();
             _branches = branches;
-            myGridControl1.DataSource = _branches;
+            
+            foreach (var branch in _branches)
+            {
+                cmbSubeler.Properties.Items.Add(new DevExpress.XtraEditors.Controls.ImageComboBoxItem(branch.BranchName, branch.Id, -1));
+            }
+            
+            if (cmbSubeler.Properties.Items.Count > 0)
+            {
+                cmbSubeler.SelectedIndex = 0;
+            }
 
             btnSecVeBasla.Click += BtnSecVeBasla_Click;
             btnIptalCikis.Click += BtnIptalCikis_Click;
-            myGridView1.DoubleClick += MyGridView1_DoubleClick;
             this.FormClosing += SubeSecimForm_FormClosing;
         }
 
-        private void MyGridView1_DoubleClick(object? sender, System.EventArgs e)
+        private void BtnSecVeBasla_Click(object? sender, EventArgs e)
         {
-            SecimiYap();
-        }
-
-        private void BtnSecVeBasla_Click(object? sender, System.EventArgs e)
-        {
-            SecimiYap();
-        }
-
-        private void SecimiYap()
-        {
-            var rowHandle = myGridView1.FocusedRowHandle;
-            if (rowHandle >= 0)
+            if (cmbSubeler.EditValue == null)
             {
-                var row = myGridView1.GetRow(rowHandle) as BranchDto;
-                if (row != null)
-                {
-                    SeciliSubeId = row.Id;
-                    SeciliSubeAdi = row.BranchName;
-                    this.DialogResult = DialogResult.OK;
-                    this.Close();
-                }
+                XtraMessageBox.Show("Lütfen giriş yapmak için bir şube/fabrika seçiniz.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            long selectedId = (long)cmbSubeler.EditValue;
+            var selectedBranch = _branches.FirstOrDefault(x => x.Id == selectedId);
+            
+            if (selectedBranch != null)
+            {
+                SeciliSubeId = selectedBranch.Id;
+                SeciliSubeAdi = selectedBranch.BranchName;
+                this.DialogResult = DialogResult.OK;
+                this.Close();
             }
         }
 
-        private void BtnIptalCikis_Click(object? sender, System.EventArgs e)
+        private void BtnIptalCikis_Click(object? sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
             this.Close();

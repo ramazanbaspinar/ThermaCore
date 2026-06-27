@@ -66,12 +66,11 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
 
             if (status == ThermaCore.Domain.Enums.LicenseStatus.Valid)
             {
-                // İsteğe bağlı olarak kalan gün verisi parse edilip yazdırılabilir. Şimdilik sade tutuyoruz.
-                lblLisansKalanGun.Text = "Lisans Durumu: Geçerli";
+                lblLisansKalanGun.Text = $"Lisans Durumu:\r\n{message} Gün Kaldı";
             }
             else
             {
-                lblLisansKalanGun.Text = "Lisans Durumu: Geçersiz / Süresi Dolmuş";
+                lblLisansKalanGun.Text = "Lisans Durumu:\r\nGeçersiz / Süresi Dolmuş";
             }
 
             string lastUser = _appConfigService.GetLastLoginUser();
