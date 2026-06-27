@@ -33,11 +33,11 @@
             DevExpress.XtraLayout.RowDefinition rowDefinition2 = new DevExpress.XtraLayout.RowDefinition();
             DevExpress.XtraLayout.RowDefinition rowDefinition3 = new DevExpress.XtraLayout.RowDefinition();
             DevExpress.XtraLayout.RowDefinition rowDefinition4 = new DevExpress.XtraLayout.RowDefinition();
-            myDataLayoutControl1 = new ThermaCore.Presentation.WinForms.UserControls.MyDataLayoutControl();
-            txtMaxTerminal = new ThermaCore.Presentation.WinForms.UserControls.MySpinEdit();
-            txtLicenseKey = new ThermaCore.Presentation.WinForms.UserControls.MyMemoEdit();
-            dtExpirationDate = new ThermaCore.Presentation.WinForms.UserControls.MyDateEdit();
-            txtHardwareId = new ThermaCore.Presentation.WinForms.UserControls.MyTextEdit();
+            myDataLayoutControl1 = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyDataLayoutControlPro();
+            txtMaxTerminal = new ThermaCore.Presentation.WinForms.UserControls.Controls.MySpinEditPro();
+            txtLicenseKey = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyMemoEditPro();
+            dtExpirationDate = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyDateEditPro();
+            txtHardwareId = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyTextEditPro();
             Root = new DevExpress.XtraLayout.LayoutControlGroup();
             layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
@@ -292,15 +292,15 @@
 
         #endregion
 
-        private UserControls.MyDataLayoutControl myDataLayoutControl1;
+        private UserControls.Controls.MyDataLayoutControlPro myDataLayoutControl1;
         private DevExpress.XtraLayout.LayoutControlGroup Root;
-        private UserControls.MyDateEdit dtExpirationDate;
-        private UserControls.MyTextEdit txtHardwareId;
+        private UserControls.Controls.MyDateEditPro dtExpirationDate;
+        private UserControls.Controls.MyTextEditPro txtHardwareId;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
-        private UserControls.MyMemoEdit txtLicenseKey;
+        private UserControls.Controls.MyMemoEditPro txtLicenseKey;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem7;
-        private UserControls.MySpinEdit txtMaxTerminal;
+        private UserControls.Controls.MySpinEditPro txtMaxTerminal;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
     }
 }

@@ -35,11 +35,11 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             labelControl1 = new DevExpress.XtraEditors.LabelControl();
             pictureBox1 = new PictureBox();
             panel1 = new Panel();
-            linkSifremi = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyHyperlinkLabelControl();
+            linkSifremi = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyHyperlinkLabelControlPro();
             chcBeniHatirla = new DevExpress.XtraEditors.CheckEdit();
             picExit = new DevExpress.XtraEditors.PictureEdit();
             panel5 = new Panel();
-            gluSirket = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyLookUpEdit();
+            gluSirket = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyLookUpEditPro();
             pictureEdit3 = new DevExpress.XtraEditors.PictureEdit();
             btnGiris = new DevExpress.XtraEditors.SimpleButton();
             panel4 = new Panel();
@@ -337,9 +337,9 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
         private DevExpress.XtraEditors.PictureEdit pictureEdit3;
         private DevExpress.XtraEditors.CheckEdit chcBeniHatirla;
         private DevExpress.XtraEditors.LabelControl lblVersiyon;
-        private ThermaCore.Presentation.WinForms.UserControls.Controls.MyHyperlinkLabelControl linkSifremi;
+        private ThermaCore.Presentation.WinForms.UserControls.Controls.MyHyperlinkLabelControlPro linkSifremi;
         private DevExpress.XtraEditors.LabelControl lblLisansKalanGun;
-        private UserControls.Controls.MyLookUpEdit gluSirket;
+        private UserControls.Controls.MyLookUpEditPro gluSirket;
 
     }
 }

@@ -85,7 +85,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             timerDoviz = new System.Windows.Forms.Timer(components);
             menuStrip1 = new MenuStrip();
             txtDovizBilgisi = new ToolStripMenuItem();
-            btnAnaFormResim = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyPictureEdit();
+            btnAnaFormResim = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyPictureEditPro();
             miTepsiTanimlari = new ToolStripMenuItem();
             miTimerTanimlari = new ToolStripMenuItem();
             miLambaTanimlari = new ToolStripMenuItem();
@@ -597,7 +597,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
         private ToolStripMenuItem miTanimlar;
         private ToolStripMenuItem btnCariTanim;
         private ToolStripMenuItem btnMusteriCariKartlar;
-        private UserControls.Controls.MyPictureEdit btnAnaFormResim;
+        private UserControls.Controls.MyPictureEditPro btnAnaFormResim;
         private ToolStripMenuItem miSistemYonetimi;
         private ToolStripMenuItem miKurumsalTanimlar;
         private ToolStripMenuItem miSirketTanimlari;

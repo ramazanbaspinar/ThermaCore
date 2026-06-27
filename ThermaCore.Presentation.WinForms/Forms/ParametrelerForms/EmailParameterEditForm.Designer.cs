@@ -37,15 +37,15 @@ namespace ThermaCore.Presentation.WinForms.Forms.ParametrelerForms
             DevExpress.XtraLayout.RowDefinition rowDefinition5 = new DevExpress.XtraLayout.RowDefinition();
             DevExpress.XtraLayout.RowDefinition rowDefinition6 = new DevExpress.XtraLayout.RowDefinition();
             DevExpress.XtraLayout.RowDefinition rowDefinition7 = new DevExpress.XtraLayout.RowDefinition();
-            myDataLayoutControl1 = new ThermaCore.Presentation.WinForms.UserControls.MyDataLayoutControl();
-            btnTestMailGonder = new ThermaCore.Presentation.WinForms.UserControls.MySimpleButton();
-            txtAliciEmail = new ThermaCore.Presentation.WinForms.UserControls.MyTextEdit();
-            chkEnableSsl = new ThermaCore.Presentation.WinForms.UserControls.MyCheckEdit();
-            txtPassword = new ThermaCore.Presentation.WinForms.UserControls.MyTextEdit();
-            txtSenderEmail = new ThermaCore.Presentation.WinForms.UserControls.MyTextEdit();
-            txtSenderName = new ThermaCore.Presentation.WinForms.UserControls.MyTextEdit();
-            txtPort = new ThermaCore.Presentation.WinForms.UserControls.MySpinEdit();
-            txtSmtpServer = new ThermaCore.Presentation.WinForms.UserControls.MyTextEdit();
+            myDataLayoutControl1 = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyDataLayoutControlPro();
+            btnTestMailGonder = new ThermaCore.Presentation.WinForms.UserControls.Controls.MySimpleButtonPro();
+            txtAliciEmail = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyTextEditPro();
+            chkEnableSsl = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyCheckEditPro();
+            txtPassword = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyTextEditPro();
+            txtSenderEmail = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyTextEditPro();
+            txtSenderName = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyTextEditPro();
+            txtPort = new ThermaCore.Presentation.WinForms.UserControls.Controls.MySpinEditPro();
+            txtSmtpServer = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyTextEditPro();
             Root = new DevExpress.XtraLayout.LayoutControlGroup();
             layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
@@ -454,22 +454,22 @@ namespace ThermaCore.Presentation.WinForms.Forms.ParametrelerForms
 
         #endregion
 
-        private UserControls.MyDataLayoutControl myDataLayoutControl1;
+        private UserControls.Controls.MyDataLayoutControlPro myDataLayoutControl1;
         private DevExpress.XtraLayout.LayoutControlGroup Root;
-        private UserControls.MySpinEdit txtPort;
-        private UserControls.MyTextEdit txtSmtpServer;
+        private UserControls.Controls.MySpinEditPro txtPort;
+        private UserControls.Controls.MyTextEditPro txtSmtpServer;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
-        private UserControls.MyCheckEdit chkEnableSsl;
-        private UserControls.MyTextEdit txtPassword;
-        private UserControls.MyTextEdit txtSenderEmail;
-        private UserControls.MyTextEdit txtSenderName;
+        private UserControls.Controls.MyCheckEditPro chkEnableSsl;
+        private UserControls.Controls.MyTextEditPro txtPassword;
+        private UserControls.Controls.MyTextEditPro txtSenderEmail;
+        private UserControls.Controls.MyTextEditPro txtSenderName;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem6;
-        private UserControls.MySimpleButton btnTestMailGonder;
-        private UserControls.MyTextEdit txtAliciEmail;
+        private UserControls.Controls.MySimpleButtonPro btnTestMailGonder;
+        private UserControls.Controls.MyTextEditPro txtAliciEmail;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem8;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem7;
     }

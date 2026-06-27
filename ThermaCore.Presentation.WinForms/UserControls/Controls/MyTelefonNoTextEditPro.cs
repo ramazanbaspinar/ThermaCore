@@ -1,7 +1,7 @@
 ﻿using DevExpress.XtraEditors.Mask;
 using System.ComponentModel;
 
-namespace ThermaCore.Presentation.WinForms.UserControls
+namespace ThermaCore.Presentation.WinForms.UserControls.Controls
 {
     [ToolboxItem(true)]
     public class MyTelefonNoTextEditPro : MyTextEditPro // Standartlaştırdığımız ana sınıftan miras alıyor

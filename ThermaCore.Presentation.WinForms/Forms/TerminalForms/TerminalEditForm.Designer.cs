@@ -34,11 +34,11 @@ namespace ThermaCore.Presentation.WinForms.Forms.TerminalForms
             DevExpress.XtraLayout.RowDefinition rowDefinition1 = new DevExpress.XtraLayout.RowDefinition();
             DevExpress.XtraLayout.RowDefinition rowDefinition2 = new DevExpress.XtraLayout.RowDefinition();
             DevExpress.XtraLayout.RowDefinition rowDefinition3 = new DevExpress.XtraLayout.RowDefinition();
-            myDataLayoutControl1 = new ThermaCore.Presentation.WinForms.UserControls.MyDataLayoutControl();
-            txtHardwareId = new ThermaCore.Presentation.WinForms.UserControls.MyTextEdit();
-            tglDurum = new ThermaCore.Presentation.WinForms.UserControls.MyToggleSwitch();
-            txtAciklama = new ThermaCore.Presentation.WinForms.UserControls.MyMemoEdit();
-            txtCihazAdi = new ThermaCore.Presentation.WinForms.UserControls.MyTextEdit();
+            myDataLayoutControl1 = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyDataLayoutControlPro();
+            txtHardwareId = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyTextEditPro();
+            tglDurum = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyToggleSwitchPro();
+            txtAciklama = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyMemoEditPro();
+            txtCihazAdi = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyTextEditPro();
             Root = new DevExpress.XtraLayout.LayoutControlGroup();
             layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
@@ -278,14 +278,14 @@ namespace ThermaCore.Presentation.WinForms.Forms.TerminalForms
 
         #endregion
 
-        private UserControls.MyDataLayoutControl myDataLayoutControl1;
-        private UserControls.MyMemoEdit txtAciklama;
-        private UserControls.MyTextEdit txtCihazAdi;
+        private UserControls.Controls.MyDataLayoutControlPro myDataLayoutControl1;
+        private UserControls.Controls.MyMemoEditPro txtAciklama;
+        private UserControls.Controls.MyTextEditPro txtCihazAdi;
         private DevExpress.XtraLayout.LayoutControlGroup Root;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
-        private UserControls.MyToggleSwitch tglDurum;
+        private UserControls.Controls.MyToggleSwitchPro tglDurum;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem8;
-        private UserControls.MyTextEdit txtHardwareId;
+        private UserControls.Controls.MyTextEditPro txtHardwareId;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
     }

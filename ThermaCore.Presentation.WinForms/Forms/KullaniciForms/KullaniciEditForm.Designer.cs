@@ -41,17 +41,17 @@
             DevExpress.XtraLayout.ColumnDefinition columnDefinition4 = new DevExpress.XtraLayout.ColumnDefinition();
             DevExpress.XtraLayout.RowDefinition rowDefinition7 = new DevExpress.XtraLayout.RowDefinition();
             DevExpress.XtraLayout.RowDefinition rowDefinition8 = new DevExpress.XtraLayout.RowDefinition();
-            myDataLayoutControl1 = new ThermaCore.Presentation.WinForms.UserControls.MyDataLayoutControl();
-            glufRol = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyGridLookUpFind();
+            myDataLayoutControl1 = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyDataLayoutControlPro();
+            glufRol = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyGridLookUpFindPro();
             myGridLookUpFind1View = new DevExpress.XtraGrid.Views.Grid.GridView();
             colId = new DevExpress.XtraGrid.Columns.GridColumn();
             colRoleName = new DevExpress.XtraGrid.Columns.GridColumn();
-            tglDurum = new ThermaCore.Presentation.WinForms.UserControls.MyToggleSwitch();
-            txtSifre = new ThermaCore.Presentation.WinForms.UserControls.MyTextEdit();
-            txtEmail = new ThermaCore.Presentation.WinForms.UserControls.MyEmailTextEdit();
-            txtSoyad = new ThermaCore.Presentation.WinForms.UserControls.MyTextEdit();
-            txtAd = new ThermaCore.Presentation.WinForms.UserControls.MyTextEdit();
-            txtKullaniciAdi = new ThermaCore.Presentation.WinForms.UserControls.MyKodTextEdit();
+            tglDurum = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyToggleSwitchPro();
+            txtSifre = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyTextEditPro();
+            txtEmail = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyEmailTextEditPro();
+            txtSoyad = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyTextEditPro();
+            txtAd = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyTextEditPro();
+            txtKullaniciAdi = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyKodTextEditPro();
             Root = new DevExpress.XtraLayout.LayoutControlGroup();
             layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
@@ -63,9 +63,9 @@
             xtraTabControl1 = new DevExpress.XtraTab.XtraTabControl();
             tpGenelBilgiler = new DevExpress.XtraTab.XtraTabPage();
             tpSirketVeFabrikaYet = new DevExpress.XtraTab.XtraTabPage();
-            myDataLayoutControl2 = new ThermaCore.Presentation.WinForms.UserControls.MyDataLayoutControl();
-            clbFabrikalar = new ThermaCore.Presentation.WinForms.UserControls.MyCheckedListBoxControl();
-            clbSirketler = new ThermaCore.Presentation.WinForms.UserControls.MyCheckedListBoxControl();
+            myDataLayoutControl2 = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyDataLayoutControlPro();
+            clbFabrikalar = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyCheckedListBoxControlPro();
+            clbSirketler = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyCheckedListBoxControlPro();
             labelControl2 = new DevExpress.XtraEditors.LabelControl();
             labelControl1 = new DevExpress.XtraEditors.LabelControl();
             layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
@@ -666,20 +666,20 @@
 
         #endregion
 
-        private UserControls.MyDataLayoutControl myDataLayoutControl1;
-        private UserControls.MyToggleSwitch tglDurum;
-        private UserControls.MyTextEdit txtSifre;
-        private UserControls.MyEmailTextEdit txtEmail;
-        private UserControls.MyTextEdit txtSoyad;
-        private UserControls.MyTextEdit txtAd;
-        private UserControls.MyKodTextEdit txtKullaniciAdi;
+        private UserControls.Controls.MyDataLayoutControlPro myDataLayoutControl1;
+        private UserControls.Controls.MyToggleSwitchPro tglDurum;
+        private UserControls.Controls.MyTextEditPro txtSifre;
+        private UserControls.Controls.MyEmailTextEditPro txtEmail;
+        private UserControls.Controls.MyTextEditPro txtSoyad;
+        private UserControls.Controls.MyTextEditPro txtAd;
+        private UserControls.Controls.MyKodTextEditPro txtKullaniciAdi;
         private DevExpress.XtraLayout.LayoutControlGroup Root;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem7;
-        private UserControls.Controls.MyGridLookUpFind glufRol;
+        private UserControls.Controls.MyGridLookUpFindPro glufRol;
         private DevExpress.XtraGrid.Views.Grid.GridView myGridLookUpFind1View;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem6;
@@ -688,14 +688,14 @@
         private DevExpress.XtraTab.XtraTabControl xtraTabControl1;
         private DevExpress.XtraTab.XtraTabPage tpGenelBilgiler;
         private DevExpress.XtraTab.XtraTabPage tpSirketVeFabrikaYet;
-        private UserControls.MyDataLayoutControl myDataLayoutControl2;
+        private UserControls.Controls.MyDataLayoutControlPro myDataLayoutControl2;
         private DevExpress.XtraEditors.LabelControl labelControl2;
         private DevExpress.XtraEditors.LabelControl labelControl1;
         private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup1;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem8;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem9;
-        private UserControls.MyCheckedListBoxControl clbFabrikalar;
-        private UserControls.MyCheckedListBoxControl clbSirketler;
+        private UserControls.Controls.MyCheckedListBoxControlPro clbFabrikalar;
+        private UserControls.Controls.MyCheckedListBoxControlPro clbSirketler;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem10;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem11;
     }

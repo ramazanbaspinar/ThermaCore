@@ -36,19 +36,19 @@ namespace ThermaCore.Presentation.WinForms.Forms.CodeTemplateForms
             DevExpress.XtraLayout.RowDefinition rowDefinition4 = new DevExpress.XtraLayout.RowDefinition();
             DevExpress.XtraLayout.RowDefinition rowDefinition5 = new DevExpress.XtraLayout.RowDefinition();
             DevExpress.XtraLayout.RowDefinition rowDefinition6 = new DevExpress.XtraLayout.RowDefinition();
-            myDataLayoutControl1 = new ThermaCore.Presentation.WinForms.UserControls.MyDataLayoutControl();
-            btnKoduTestEt = new ThermaCore.Presentation.WinForms.UserControls.MySimpleButton();
-            txtKullaniciMudahaleEdebilsin = new ThermaCore.Presentation.WinForms.UserControls.MyCheckEdit();
-            txtFirmaKisaKoduKullan = new ThermaCore.Presentation.WinForms.UserControls.MyCheckEdit();
-            txtTarihBazliKodSifirlama = new ThermaCore.Presentation.WinForms.UserControls.MyCheckEdit();
-            txtOtomatikKodUretimi = new ThermaCore.Presentation.WinForms.UserControls.MyCheckEdit();
-            txtKodSonEk = new ThermaCore.Presentation.WinForms.UserControls.MyTextEdit();
-            txtTarihFormati = new ThermaCore.Presentation.WinForms.UserControls.MyComboBoxEdit();
-            txtBaslangicSayisi = new ThermaCore.Presentation.WinForms.UserControls.MySpinEdit();
-            txtSayisalUzunluk = new ThermaCore.Presentation.WinForms.UserControls.MySpinEdit();
-            txtTarihKullan = new ThermaCore.Presentation.WinForms.UserControls.MyCheckEdit();
-            txtKodOnEk = new ThermaCore.Presentation.WinForms.UserControls.MyTextEdit();
-            txtModul = new ThermaCore.Presentation.WinForms.UserControls.MyComboBoxEdit();
+            myDataLayoutControl1 = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyDataLayoutControlPro();
+            btnKoduTestEt = new ThermaCore.Presentation.WinForms.UserControls.Controls.MySimpleButtonPro();
+            txtKullaniciMudahaleEdebilsin = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyCheckEditPro();
+            txtFirmaKisaKoduKullan = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyCheckEditPro();
+            txtTarihBazliKodSifirlama = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyCheckEditPro();
+            txtOtomatikKodUretimi = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyCheckEditPro();
+            txtKodSonEk = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyTextEditPro();
+            txtTarihFormati = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyComboBoxEditPro();
+            txtBaslangicSayisi = new ThermaCore.Presentation.WinForms.UserControls.Controls.MySpinEditPro();
+            txtSayisalUzunluk = new ThermaCore.Presentation.WinForms.UserControls.Controls.MySpinEditPro();
+            txtTarihKullan = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyCheckEditPro();
+            txtKodOnEk = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyTextEditPro();
+            txtModul = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyComboBoxEditPro();
             Root = new DevExpress.XtraLayout.LayoutControlGroup();
             layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
@@ -635,21 +635,21 @@ namespace ThermaCore.Presentation.WinForms.Forms.CodeTemplateForms
 
         #endregion
 
-        private UserControls.MyDataLayoutControl myDataLayoutControl1;
-        private UserControls.MyTextEdit txtKodOnEk;
-        private UserControls.MyComboBoxEdit txtModul;
+        private UserControls.Controls.MyDataLayoutControlPro myDataLayoutControl1;
+        private UserControls.Controls.MyTextEditPro txtKodOnEk;
+        private UserControls.Controls.MyComboBoxEditPro txtModul;
         private DevExpress.XtraLayout.LayoutControlGroup Root;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
-        private UserControls.MyComboBoxEdit txtTarihFormati;
-        private UserControls.MySpinEdit txtBaslangicSayisi;
-        private UserControls.MySpinEdit txtSayisalUzunluk;
-        private UserControls.MyCheckEdit txtTarihKullan;
+        private UserControls.Controls.MyComboBoxEditPro txtTarihFormati;
+        private UserControls.Controls.MySpinEditPro txtBaslangicSayisi;
+        private UserControls.Controls.MySpinEditPro txtSayisalUzunluk;
+        private UserControls.Controls.MyCheckEditPro txtTarihKullan;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
-        private UserControls.MyCheckEdit txtKullaniciMudahaleEdebilsin;
-        private UserControls.MyCheckEdit txtFirmaKisaKoduKullan;
-        private UserControls.MyCheckEdit txtTarihBazliKodSifirlama;
-        private UserControls.MyCheckEdit txtOtomatikKodUretimi;
-        private UserControls.MyTextEdit txtKodSonEk;
+        private UserControls.Controls.MyCheckEditPro txtKullaniciMudahaleEdebilsin;
+        private UserControls.Controls.MyCheckEditPro txtFirmaKisaKoduKullan;
+        private UserControls.Controls.MyCheckEditPro txtTarihBazliKodSifirlama;
+        private UserControls.Controls.MyCheckEditPro txtOtomatikKodUretimi;
+        private UserControls.Controls.MyTextEditPro txtKodSonEk;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem7;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;
@@ -659,7 +659,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.CodeTemplateForms
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem10;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem9;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem8;
-        private UserControls.MySimpleButton btnKoduTestEt;
+        private UserControls.Controls.MySimpleButtonPro btnKoduTestEt;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem12;
     }
 }

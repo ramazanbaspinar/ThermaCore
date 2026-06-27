@@ -30,7 +30,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.BirimForms
 
         protected override void DegiskenleriDoldur()
         {
-            Tablo = myGridView1;
+            Tablo = myGridViewPro1;
             BaseKartTuru = ThermaCore.Domain.Enums.ModuleType.BirimTanimlari; // Assume this enum exists
             Navigator = longNavigator1.Navigator;
             AktifPasifButonGoster = true;

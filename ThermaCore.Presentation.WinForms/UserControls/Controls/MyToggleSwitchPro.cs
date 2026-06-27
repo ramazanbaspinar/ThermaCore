@@ -3,7 +3,7 @@ using DevExpress.XtraEditors;
 using ThermaCore.Presentation.WinForms.Interfaces;
 using System.ComponentModel;
 
-namespace ThermaCore.Presentation.WinForms.UserControls
+namespace ThermaCore.Presentation.WinForms.UserControls.Controls
 {
     [ToolboxItem(true)]
     public class MyToggleSwitchPro : ToggleSwitch, IStatusBarAciklama

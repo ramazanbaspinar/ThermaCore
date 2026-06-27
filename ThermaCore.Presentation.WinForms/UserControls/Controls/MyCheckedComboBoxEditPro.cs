@@ -2,7 +2,7 @@
 using ThermaCore.Presentation.WinForms.Interfaces;
 using System.ComponentModel;
 
-namespace ThermaCore.Presentation.WinForms.UserControls
+namespace ThermaCore.Presentation.WinForms.UserControls.Controls
 {
     [ToolboxItem(true)]
     public class MyCheckedComboBoxEditPro : CheckedComboBoxEdit, IStatusBarKisaYol

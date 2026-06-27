@@ -4,7 +4,7 @@ using System;
 using System.ComponentModel;
 using System.Windows.Forms;
 
-namespace ThermaCore.Presentation.WinForms.UserControls
+namespace ThermaCore.Presentation.WinForms.UserControls.Controls
 {
     [ToolboxItem(true)]
     public class MyCheckedListBoxControlPro : CheckedListBoxControl, IStatusBarKisaYol

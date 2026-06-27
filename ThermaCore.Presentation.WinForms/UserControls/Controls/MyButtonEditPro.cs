@@ -5,7 +5,7 @@ using System;
 using System.ComponentModel;
 using ThermaCore.Presentation.WinForms.UserControls.Controls;
 
-namespace ThermaCore.Presentation.WinForms.UserControls
+namespace ThermaCore.Presentation.WinForms.UserControls.Controls
 {
     [ToolboxItem(true)]
     public class MyButtonEditPro : ButtonEdit, IStatusBarKisaYol

@@ -1,7 +1,7 @@
 ﻿using DevExpress.Utils;
 using System.ComponentModel;
 
-namespace ThermaCore.Presentation.WinForms.UserControls
+namespace ThermaCore.Presentation.WinForms.UserControls.Controls
 {
     [ToolboxItem(true)]
     public class MyKodTextEditPro : MyTextEditPro // Ana metin kutusu sınıfımızın "Pro" versiyonundan miras alıyoruz

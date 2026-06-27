@@ -4,7 +4,7 @@ using System;
 using System.ComponentModel;
 using ThermaCore.Presentation.WinForms.Interfaces;
 
-namespace ThermaCore.Presentation.WinForms.UserControls.Controls
+namespace ThermaCore.Presentation.WinForms.UserControls.Controls.Controls
 {
     [ToolboxItem(true)]
     public class MyGridLookUpPro : GridLookUpEdit, IStatusBarKisaYol

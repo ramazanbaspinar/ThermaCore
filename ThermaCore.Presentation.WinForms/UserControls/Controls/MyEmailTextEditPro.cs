@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using ThermaCore.Presentation.WinForms.Interfaces;
 
-namespace ThermaCore.Presentation.WinForms.UserControls
+namespace ThermaCore.Presentation.WinForms.UserControls.Controls
 {
     [ToolboxItem(true)]
     public class MyEmailTextEditPro : MyTextEditPro // Projenin genel uyumu için miras alınan sınıfı da 'Pro' olarak güncellemeyi unutma.

@@ -37,8 +37,8 @@
             DevExpress.XtraLayout.RowDefinition rowDefinition2 = new DevExpress.XtraLayout.RowDefinition();
             DevExpress.XtraLayout.RowDefinition rowDefinition3 = new DevExpress.XtraLayout.RowDefinition();
             DevExpress.XtraLayout.RowDefinition rowDefinition4 = new DevExpress.XtraLayout.RowDefinition();
-            myDataLayoutControl1 = new ThermaCore.Presentation.WinForms.UserControls.MyDataLayoutControl();
-            tglDurum = new ThermaCore.Presentation.WinForms.UserControls.MyToggleSwitch();
+            myDataLayoutControl1 = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyDataLayoutControlPro();
+            tglDurum = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyToggleSwitchPro();
             treeList1 = new DevExpress.XtraTreeList.TreeList();
             colModulAdi = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             colGorebilir = new DevExpress.XtraTreeList.Columns.TreeListColumn();
@@ -53,20 +53,20 @@
             colParentId = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             colOzelYetkiler = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             repositoryItemButtonEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
-            txtAdSoyad = new ThermaCore.Presentation.WinForms.UserControls.MyTextEdit();
-            txtKod = new ThermaCore.Presentation.WinForms.UserControls.MyKodTextEdit();
+            txtAdSoyad = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyTextEditPro();
+            txtKod = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyKodTextEditPro();
             Root = new DevExpress.XtraLayout.LayoutControlGroup();
             layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
-            btnModulEkle = new ThermaCore.Presentation.WinForms.UserControls.MySimpleButton();
+            btnModulEkle = new ThermaCore.Presentation.WinForms.UserControls.Controls.MySimpleButtonPro();
             layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
-            btnTumModulleriEkle = new ThermaCore.Presentation.WinForms.UserControls.MySimpleButton();
+            btnTumModulleriEkle = new ThermaCore.Presentation.WinForms.UserControls.Controls.MySimpleButtonPro();
             layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
-            btnSeciliModuluCikar = new ThermaCore.Presentation.WinForms.UserControls.MySimpleButton();
+            btnSeciliModuluCikar = new ThermaCore.Presentation.WinForms.UserControls.Controls.MySimpleButtonPro();
             layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
-            btnTumunuTemizle = new ThermaCore.Presentation.WinForms.UserControls.MySimpleButton();
+            btnTumunuTemizle = new ThermaCore.Presentation.WinForms.UserControls.Controls.MySimpleButtonPro();
             layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)ribbon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)myDataLayoutControl1).BeginInit();
@@ -530,8 +530,8 @@
 
         #endregion
 
-        private UserControls.MyDataLayoutControl myDataLayoutControl1;
-        private UserControls.MyToggleSwitch tglDurum;
+        private UserControls.Controls.MyDataLayoutControlPro myDataLayoutControl1;
+        private UserControls.Controls.MyToggleSwitchPro tglDurum;
         private DevExpress.XtraTreeList.TreeList treeList1;
         private DevExpress.XtraTreeList.Columns.TreeListColumn colModulAdi;
         private DevExpress.XtraTreeList.Columns.TreeListColumn colGorebilir;
@@ -546,17 +546,17 @@
         private DevExpress.XtraTreeList.Columns.TreeListColumn colParentId;
         private DevExpress.XtraTreeList.Columns.TreeListColumn colOzelYetkiler;
         private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit repositoryItemButtonEdit1;
-        private UserControls.MyTextEdit txtAdSoyad;
-        private UserControls.MyKodTextEdit txtKod;
+        private UserControls.Controls.MyTextEditPro txtAdSoyad;
+        private UserControls.Controls.MyKodTextEditPro txtKod;
         private DevExpress.XtraLayout.LayoutControlGroup Root;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;
-        private UserControls.MySimpleButton btnTumunuTemizle;
-        private UserControls.MySimpleButton btnSeciliModuluCikar;
-        private UserControls.MySimpleButton btnTumModulleriEkle;
-        private UserControls.MySimpleButton btnModulEkle;
+        private UserControls.Controls.MySimpleButtonPro btnTumunuTemizle;
+        private UserControls.Controls.MySimpleButtonPro btnSeciliModuluCikar;
+        private UserControls.Controls.MySimpleButtonPro btnTumModulleriEkle;
+        private UserControls.Controls.MySimpleButtonPro btnModulEkle;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem6;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem7;

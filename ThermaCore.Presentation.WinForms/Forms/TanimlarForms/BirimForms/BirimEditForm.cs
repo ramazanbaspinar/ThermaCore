@@ -32,7 +32,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.BirimForms
             _validator = validator;
             
             BaseKartTuru = ThermaCore.Domain.Enums.ModuleType.BirimTanimlari;
-            DataLayoutControl = myDataLayoutControl1;
+            DataLayoutControl = myDataLayoutControlPro1;
             RequiresCodeTemplate = false;
         }
 
