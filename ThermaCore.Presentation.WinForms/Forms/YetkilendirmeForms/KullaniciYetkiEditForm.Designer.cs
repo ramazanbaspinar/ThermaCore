@@ -268,6 +268,7 @@
             txtAdSoyad.MenuManager = ribbon;
             txtAdSoyad.Name = "txtAdSoyad";
             txtAdSoyad.Properties.MaxLength = 100;
+            txtAdSoyad.Properties.ReadOnly = true;
             txtAdSoyad.Size = new Size(267, 20);
             txtAdSoyad.StatusBarAciklama = "";
             txtAdSoyad.StyleController = myDataLayoutControl1;
@@ -283,6 +284,7 @@
             txtKod.Properties.Appearance.Options.UseTextOptions = true;
             txtKod.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             txtKod.Properties.MaxLength = 100;
+            txtKod.Properties.ReadOnly = true;
             txtKod.Size = new Size(267, 20);
             txtKod.StatusBarAciklama = "Kod Giriniz.";
             txtKod.StyleController = myDataLayoutControl1;

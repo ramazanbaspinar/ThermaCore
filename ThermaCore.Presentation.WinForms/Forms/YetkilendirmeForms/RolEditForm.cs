@@ -158,9 +158,18 @@ namespace ThermaCore.Presentation.WinForms.Forms.YetkilendirmeForms
                 if (pTypeObj != null && modObj != null)
                 {
                     var modType = (ModuleType)Convert.ToInt32(modObj);
-                    if (modType == ModuleType.EmailParameter || modType == ModuleType.SystemLicense || modType == ModuleType.KodLog || modType == ModuleType.TerminalYonetimi)
+                    if (modType == ModuleType.EmailParameter || modType == ModuleType.KodLog || modType == ModuleType.TerminalYonetimi)
                     {
                         if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" || 
+                            pTypeObj.ToString() == "Delete" || pTypeObj.ToString() == "3")
+                        {
+                            continue; // Bu yetkiler yok sayılır
+                        }
+                    }
+                    else if (modType == ModuleType.SystemLicense)
+                    {
+                        if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" || 
+                            pTypeObj.ToString() == "Update" || pTypeObj.ToString() == "2" ||
                             pTypeObj.ToString() == "Delete" || pTypeObj.ToString() == "3")
                         {
                             continue; // Bu yetkiler yok sayılır
@@ -200,9 +209,18 @@ namespace ThermaCore.Presentation.WinForms.Forms.YetkilendirmeForms
                     if (pTypeObj != null && modObj != null)
                     {
                         var modType = (ModuleType)Convert.ToInt32(modObj);
-                        if (modType == ModuleType.EmailParameter || modType == ModuleType.SystemLicense || modType == ModuleType.KodLog || modType == ModuleType.TerminalYonetimi)
+                        if (modType == ModuleType.EmailParameter || modType == ModuleType.KodLog || modType == ModuleType.TerminalYonetimi)
                         {
                             if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" || 
+                                pTypeObj.ToString() == "Delete" || pTypeObj.ToString() == "3")
+                            {
+                                continue; // Sayıma katma!
+                            }
+                        }
+                        else if (modType == ModuleType.SystemLicense)
+                        {
+                            if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" || 
+                                pTypeObj.ToString() == "Update" || pTypeObj.ToString() == "2" ||
                                 pTypeObj.ToString() == "Delete" || pTypeObj.ToString() == "3")
                             {
                                 continue; // Sayıma katma!
@@ -322,9 +340,18 @@ namespace ThermaCore.Presentation.WinForms.Forms.YetkilendirmeForms
             if (pTypeObj != null && modObj != null)
             {
                 var modType = (ModuleType)Convert.ToInt32(modObj);
-                if (modType == ModuleType.EmailParameter || modType == ModuleType.SystemLicense || modType == ModuleType.KodLog || modType == ModuleType.TerminalYonetimi || modType == ModuleType.KurTanimlari)
+                if (modType == ModuleType.EmailParameter || modType == ModuleType.KodLog || modType == ModuleType.TerminalYonetimi || modType == ModuleType.KurTanimlari)
                 {
                     if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" || 
+                        pTypeObj.ToString() == "Delete" || pTypeObj.ToString() == "3")
+                    {
+                        e.CanCheck = false; // Prevent checking
+                    }
+                }
+                else if (modType == ModuleType.SystemLicense)
+                {
+                    if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" || 
+                        pTypeObj.ToString() == "Update" || pTypeObj.ToString() == "2" ||
                         pTypeObj.ToString() == "Delete" || pTypeObj.ToString() == "3")
                     {
                         e.CanCheck = false; // Prevent checking
@@ -353,9 +380,18 @@ namespace ThermaCore.Presentation.WinForms.Forms.YetkilendirmeForms
             else if (pTypeObj != null && modObj != null)
             {
                 var modType = (ModuleType)Convert.ToInt32(modObj);
-                if (modType == ModuleType.EmailParameter || modType == ModuleType.SystemLicense || modType == ModuleType.KodLog || modType == ModuleType.TerminalYonetimi || modType == ModuleType.KurTanimlari)
+                if (modType == ModuleType.EmailParameter || modType == ModuleType.KodLog || modType == ModuleType.TerminalYonetimi || modType == ModuleType.KurTanimlari)
                 {
                     if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" || 
+                        pTypeObj.ToString() == "Delete" || pTypeObj.ToString() == "3")
+                    {
+                        e.Handled = true; // Boş/Kare çizme (Checkbox gizlenir, anlamsız olur)
+                    }
+                }
+                else if (modType == ModuleType.SystemLicense)
+                {
+                    if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" || 
+                        pTypeObj.ToString() == "Update" || pTypeObj.ToString() == "2" ||
                         pTypeObj.ToString() == "Delete" || pTypeObj.ToString() == "3")
                     {
                         e.Handled = true; // Boş/Kare çizme (Checkbox gizlenir, anlamsız olur)
@@ -720,6 +756,37 @@ namespace ThermaCore.Presentation.WinForms.Forms.YetkilendirmeForms
                 Messages.HataMesaji(ex.Message);
                 return false;
             }
+        }
+
+        protected override void ApplyCodeTemplateLogic()
+        {
+            base.ApplyCodeTemplateLogic();
+
+            if (txtRolKodu.Text == "ADMIN_ROLE" && BaseIslemTuru == ActionType.EntityUpdate)
+            {
+                txtRolKodu.Properties.ReadOnly = true;
+                return;
+            }
+
+            var sablonRepo = Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetService<ThermaCore.Application.Interfaces.Repositories.IMasterRepository<ThermaCore.Domain.Entities.Management.CodeTemplate>>(Program.ServiceProvider);
+            ThermaCore.Domain.Entities.Management.CodeTemplate sablon = null;
+
+            if (sablonRepo != null)
+            {
+                sablon = System.Linq.Enumerable.FirstOrDefault(sablonRepo.Find(x => x.Module == BaseKartTuru && !x.IsDeleted));
+            }
+
+            bool isReadOnly = true;
+            if (sablon == null || !sablon.IsAutoCodeGenerationEnabled)
+            {
+                isReadOnly = false;
+            }
+            else if (sablon.IsUserInterventionAllowed)
+            {
+                isReadOnly = false;
+            }
+
+            txtRolKodu.Properties.ReadOnly = isReadOnly;
         }
     }
 }

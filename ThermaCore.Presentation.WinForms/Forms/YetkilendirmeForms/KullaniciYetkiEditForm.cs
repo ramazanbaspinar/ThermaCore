@@ -271,9 +271,18 @@ namespace ThermaCore.Presentation.WinForms.Forms.YetkilendirmeForms
                 if (pTypeObj != null && modObj != null)
                 {
                     var modType = (ModuleType)Convert.ToInt32(modObj);
-                    if (modType == ModuleType.EmailParameter || modType == ModuleType.SystemLicense || modType == ModuleType.KodLog || modType == ModuleType.TerminalYonetimi)
+                    if (modType == ModuleType.EmailParameter || modType == ModuleType.KodLog || modType == ModuleType.TerminalYonetimi)
                     {
                         if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" || 
+                            pTypeObj.ToString() == "Delete" || pTypeObj.ToString() == "3")
+                        {
+                            continue;
+                        }
+                    }
+                    else if (modType == ModuleType.SystemLicense)
+                    {
+                        if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" || 
+                            pTypeObj.ToString() == "Update" || pTypeObj.ToString() == "2" ||
                             pTypeObj.ToString() == "Delete" || pTypeObj.ToString() == "3")
                         {
                             continue;
@@ -313,9 +322,18 @@ namespace ThermaCore.Presentation.WinForms.Forms.YetkilendirmeForms
                     if (pTypeObj != null && modObj != null)
                     {
                         var modType = (ModuleType)Convert.ToInt32(modObj);
-                        if (modType == ModuleType.EmailParameter || modType == ModuleType.SystemLicense || modType == ModuleType.KodLog || modType == ModuleType.TerminalYonetimi)
+                        if (modType == ModuleType.EmailParameter || modType == ModuleType.KodLog || modType == ModuleType.TerminalYonetimi)
                         {
                             if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" || 
+                                pTypeObj.ToString() == "Delete" || pTypeObj.ToString() == "3")
+                            {
+                                continue;
+                            }
+                        }
+                        else if (modType == ModuleType.SystemLicense)
+                        {
+                            if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" || 
+                                pTypeObj.ToString() == "Update" || pTypeObj.ToString() == "2" ||
                                 pTypeObj.ToString() == "Delete" || pTypeObj.ToString() == "3")
                             {
                                 continue;
@@ -408,9 +426,18 @@ namespace ThermaCore.Presentation.WinForms.Forms.YetkilendirmeForms
             if (pTypeObj != null && modObj != null)
             {
                 var modType = (ModuleType)Convert.ToInt32(modObj);
-                if (modType == ModuleType.EmailParameter || modType == ModuleType.SystemLicense || modType == ModuleType.KodLog || modType == ModuleType.TerminalYonetimi || modType == ModuleType.KurTanimlari)
+                if (modType == ModuleType.EmailParameter || modType == ModuleType.KodLog || modType == ModuleType.TerminalYonetimi || modType == ModuleType.KurTanimlari)
                 {
                     if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" || 
+                        pTypeObj.ToString() == "Delete" || pTypeObj.ToString() == "3")
+                    {
+                        e.CanCheck = false;
+                    }
+                }
+                else if (modType == ModuleType.SystemLicense)
+                {
+                    if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" || 
+                        pTypeObj.ToString() == "Update" || pTypeObj.ToString() == "2" ||
                         pTypeObj.ToString() == "Delete" || pTypeObj.ToString() == "3")
                     {
                         e.CanCheck = false;
@@ -439,9 +466,18 @@ namespace ThermaCore.Presentation.WinForms.Forms.YetkilendirmeForms
             else if (pTypeObj != null && modObj != null)
             {
                 var modType = (ModuleType)Convert.ToInt32(modObj);
-                if (modType == ModuleType.EmailParameter || modType == ModuleType.SystemLicense || modType == ModuleType.KodLog || modType == ModuleType.TerminalYonetimi || modType == ModuleType.KurTanimlari)
+                if (modType == ModuleType.EmailParameter || modType == ModuleType.KodLog || modType == ModuleType.TerminalYonetimi || modType == ModuleType.KurTanimlari)
                 {
                     if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" || 
+                        pTypeObj.ToString() == "Delete" || pTypeObj.ToString() == "3")
+                    {
+                        e.Handled = true;
+                    }
+                }
+                else if (modType == ModuleType.SystemLicense)
+                {
+                    if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" || 
+                        pTypeObj.ToString() == "Update" || pTypeObj.ToString() == "2" ||
                         pTypeObj.ToString() == "Delete" || pTypeObj.ToString() == "3")
                     {
                         e.Handled = true;

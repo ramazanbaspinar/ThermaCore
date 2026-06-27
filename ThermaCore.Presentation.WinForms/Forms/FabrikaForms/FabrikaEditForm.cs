@@ -72,7 +72,6 @@ namespace ThermaCore.Presentation.WinForms.Forms.FabrikaForms
                     txtFabrikaAdi.Text = dto.BranchName;
                     txtAciklama.Text = dto.Description;
                     tglDurum.IsOn = dto.IsActive;
-                    txtKod.Enabled = false;
                 }
             }
             else
@@ -222,6 +221,31 @@ namespace ThermaCore.Presentation.WinForms.Forms.FabrikaForms
         protected override bool IsCodeUnique(string code)
         {
             return !_branchService.GetAll().Any(x => x.Code == code && x.TenantDatabaseId == _sirketId);
+        }
+
+        protected override void ApplyCodeTemplateLogic()
+        {
+            base.ApplyCodeTemplateLogic();
+
+            var sablonRepo = Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetService<ThermaCore.Application.Interfaces.Repositories.IMasterRepository<ThermaCore.Domain.Entities.Management.CodeTemplate>>(Program.ServiceProvider);
+            ThermaCore.Domain.Entities.Management.CodeTemplate sablon = null;
+
+            if (sablonRepo != null)
+            {
+                sablon = System.Linq.Enumerable.FirstOrDefault(sablonRepo.Find(x => x.Module == BaseKartTuru && !x.IsDeleted));
+            }
+
+            bool isReadOnly = true;
+            if (sablon == null || !sablon.IsAutoCodeGenerationEnabled)
+            {
+                isReadOnly = false;
+            }
+            else if (sablon.IsUserInterventionAllowed)
+            {
+                isReadOnly = false;
+            }
+
+            txtKod.Properties.ReadOnly = isReadOnly;
         }
     }
 }

@@ -24,10 +24,11 @@ namespace ThermaCore.Presentation.WinForms.Forms.ParametrelerForms
             DataLayoutControl = myDataLayoutControl1;
             RequiresCodeTemplate = false; 
 
-            HideItems = new DevExpress.XtraBars.BarItem[] { btnYeni, btnSil };
+            HideItems = new DevExpress.XtraBars.BarItem[] { btnYeni, btnSil, btnKaydet, btnGerial };
 
             // Kilitlenecek (Sadece Bilgi Gösterimi) alanlar
             txtHardwareId.Properties.ReadOnly = true;
+            txtLicenseKey.Properties.ReadOnly = true;
             dtExpirationDate.Properties.ReadOnly = true;
             txtMaxTerminal.Properties.ReadOnly = true;
         }
