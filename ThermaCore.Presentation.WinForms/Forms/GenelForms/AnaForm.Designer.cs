@@ -93,7 +93,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             xtraTabbedMdiManager = new DevExpress.XtraTabbedMdi.XtraTabbedMdiManager(components);
             timerDoviz = new System.Windows.Forms.Timer(components);
             menuStrip1 = new MenuStrip();
-            lblDovizBilgisi = new ToolStripMenuItem();
+            lblMenuSripBilgi = new ToolStripMenuItem();
             btnAnaFormResim = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyPictureEdit();
             menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)xtraTabbedMdiManager).BeginInit();
@@ -513,20 +513,20 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 
             menuStrip1.BackColor = Color.FromArgb(0, 125, 125);
             menuStrip1.Font = new Font("Tahoma", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 162);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { lblDovizBilgisi });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { lblMenuSripBilgi });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(1248, 24);
             menuStrip1.TabIndex = 2;
             menuStrip1.Text = "menuStrip1";
             // 
-            // lblDovizBilgisi
+            // lblMenuSripBilgi
             // 
-            lblDovizBilgisi.Font = new Font("Tahoma", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            lblDovizBilgisi.ForeColor = Color.Yellow;
-            lblDovizBilgisi.Name = "lblDovizBilgisi";
-            lblDovizBilgisi.Size = new Size(275, 20);
-            lblDovizBilgisi.Text = "Merkez Bankası Döviz Bilgisi Getiriliyor...";
+            lblMenuSripBilgi.Font = new Font("Tahoma", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            lblMenuSripBilgi.ForeColor = Color.Yellow;
+            lblMenuSripBilgi.Name = "lblMenuSripBilgi";
+            lblMenuSripBilgi.Size = new Size(275, 20);
+            lblMenuSripBilgi.Text = "Merkez Bankası Döviz Bilgisi Getiriliyor...";
             // 
             // btnAnaFormResim
             // 
@@ -592,7 +592,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
         private System.Windows.Forms.Timer timerDoviz;
         private System.Windows.Forms.ToolStripMenuItem btnProgramHakkinda;
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem lblDovizBilgisi;
+        private System.Windows.Forms.ToolStripMenuItem lblMenuSripBilgi;
         private System.Windows.Forms.ToolStripMenuItem btnKodYonetimi;
         private System.Windows.Forms.ToolStripMenuItem btnKodSayaclari;
         private ToolStripMenuItem miTanimlar;

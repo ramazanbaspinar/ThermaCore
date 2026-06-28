@@ -99,6 +99,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "SubeSecimForm";
+            ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Şube / Fabrika Seçimi";
             ((System.ComponentModel.ISupportInitialize)cmbSubeler.Properties).EndInit();

@@ -196,11 +196,12 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
                         {
                             if (usdRate != null && eurRate != null)
                             {
-                                lblDovizBilgisi.Text = $"USD: {usdRate.EffectiveSellingRate:F4} | EUR: {eurRate.EffectiveSellingRate:F4} ({usdRate.RateDate:dd.MM.yyyy})";
+                                string kurTarihiEk = usdRate.RateDate.Date == DateTime.Now.Date ? "" : $" (Kur Tarihi: {usdRate.RateDate:dd.MM.yyyy})";
+                                lblMenuSripBilgi.Text = $"{DateTime.Now:dd.MM.yyyy} | USD: {usdRate.EffectiveSellingRate:F4} - EUR: {eurRate.EffectiveSellingRate:F4}{kurTarihiEk}";
                             }
                             else
                             {
-                                lblDovizBilgisi.Text = "Kur Bilgisi Alınamadı";
+                                lblMenuSripBilgi.Text = $"{DateTime.Now:dd.MM.yyyy} | Kur Bilgisi Alınamadı";
                             }
                         });
                     }
@@ -209,7 +210,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
                         Console.WriteLine($"[AnaForm] TCMB Kurları arka plan senkronizasyon hatası: {ex.Message}");
                         this.Invoke((System.Windows.Forms.MethodInvoker)delegate
                         {
-                            lblDovizBilgisi.Text = "Bağlantı Hatası: Kurlar Alınamadı";
+                            lblMenuSripBilgi.Text = "Bağlantı Hatası: Kurlar Alınamadı";
                         });
                     }
                 });
