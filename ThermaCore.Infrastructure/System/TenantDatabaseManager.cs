@@ -15,6 +15,19 @@ public class TenantDatabaseManager : ITenantDatabaseService
         using (var context = new ThermaCoreTenantContext(optionsBuilder.Options))
         {
             await context.Database.MigrateAsync();
+
+            if (!await context.TaxRates.AnyAsync())
+            {
+                var defaultRates = new global::System.Collections.Generic.List<ThermaCore.Domain.Entities.Management.TaxRate>
+                {
+                    new ThermaCore.Domain.Entities.Management.TaxRate { Id = ThermaCore.Domain.Helpers.IdGenerator.GenerateId(), TaxType = ThermaCore.Domain.Enums.TaxType.Kdv, Code = "KDV01", Rate = 1, Description = "KDV %1", IsActive = true, CreatedUserId = 1, CreatedDate = global::System.DateTime.Now },
+                    new ThermaCore.Domain.Entities.Management.TaxRate { Id = ThermaCore.Domain.Helpers.IdGenerator.GenerateId(), TaxType = ThermaCore.Domain.Enums.TaxType.Kdv, Code = "KDV10", Rate = 10, Description = "KDV %10", IsActive = true, CreatedUserId = 1, CreatedDate = global::System.DateTime.Now },
+                    new ThermaCore.Domain.Entities.Management.TaxRate { Id = ThermaCore.Domain.Helpers.IdGenerator.GenerateId(), TaxType = ThermaCore.Domain.Enums.TaxType.Kdv, Code = "KDV20", Rate = 20, Description = "KDV %20", IsActive = true, CreatedUserId = 1, CreatedDate = global::System.DateTime.Now },
+                    new ThermaCore.Domain.Entities.Management.TaxRate { Id = ThermaCore.Domain.Helpers.IdGenerator.GenerateId(), TaxType = ThermaCore.Domain.Enums.TaxType.Otv, Code = "OTV10", Rate = 10, Description = "ÖTV %10", IsActive = true, CreatedUserId = 1, CreatedDate = global::System.DateTime.Now }
+                };
+                context.TaxRates.AddRange(defaultRates);
+                await context.SaveChangesAsync();
+            }
         }
     }
 

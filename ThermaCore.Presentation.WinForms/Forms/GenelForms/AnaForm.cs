@@ -67,6 +67,12 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             if (miKurTanimlari != null)
                 miKurTanimlari.Click += miKurTanimlari_Click;
 
+            if (miKdvOranlari != null)
+                miKdvOranlari.Click += miKdvOranlari_Click;
+
+            if (miOtvOranlari != null)
+                miOtvOranlari.Click += miOtvOranlari_Click;
+
 
             if (miKullaniciArayuzSablonlari != null)
                 miKullaniciArayuzSablonlari.Click += (s, e) =>
@@ -509,6 +515,37 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             if (authService != null && authService.HasPermission(ThermaCore.Domain.Enums.ModuleType.KurTanimlari, ThermaCore.Domain.Enums.PermissionType.CanView))
             {
                 FormYukle<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.KurlarForms.KurListForm>();
+            }
+            else
+            {
+                XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void miKdvOranlari_Click(object? sender, EventArgs e)
+        {
+            var authService = _serviceProvider.GetService<ThermaCore.Application.Services.Management.IAuthService>();
+            if (authService != null && authService.HasPermission(ThermaCore.Domain.Enums.ModuleType.KdvOranlari, ThermaCore.Domain.Enums.PermissionType.CanView))
+            {
+                // Parametre geçmek için ActivatorUtilities kullanıp yeni form oluşturup öne getireceğiz
+                var form = ActivatorUtilities.CreateInstance<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.VergiForms.VergiOraniListForm>(_serviceProvider, ThermaCore.Domain.Enums.TaxType.Kdv);
+                form.MdiParent = this;
+                form.Show();
+            }
+            else
+            {
+                XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void miOtvOranlari_Click(object? sender, EventArgs e)
+        {
+            var authService = _serviceProvider.GetService<ThermaCore.Application.Services.Management.IAuthService>();
+            if (authService != null && authService.HasPermission(ThermaCore.Domain.Enums.ModuleType.OtvOranlari, ThermaCore.Domain.Enums.PermissionType.CanView))
+            {
+                var form = ActivatorUtilities.CreateInstance<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.VergiForms.VergiOraniListForm>(_serviceProvider, ThermaCore.Domain.Enums.TaxType.Otv);
+                form.MdiParent = this;
+                form.Show();
             }
             else
             {

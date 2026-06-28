@@ -78,5 +78,13 @@ public enum ModuleType
 
     [Description("Kur Tanımları")]
     [ParentModule(TemelTanimlar)]
-    KurTanimlari = 12
+    KurTanimlari = 12,
+
+    [Description("KDV Oranları")]
+    [ParentModule(TemelTanimlar)]
+    KdvOranlari = 13,
+
+    [Description("ÖTV Oranları")]
+    [ParentModule(TemelTanimlar)]
+    OtvOranlari = 14
 }

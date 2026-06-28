@@ -130,6 +130,9 @@ internal static class Program
                 
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.KurlarForms.KurListForm>();
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.KurlarForms.KurEditForm>();
+
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.VergiForms.VergiOraniListForm>();
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.VergiForms.VergiOraniEditForm>();
             })
             .Build();
 
