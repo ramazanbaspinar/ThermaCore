@@ -323,6 +323,35 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
                         switch (BaseIslemTuru)
                         {
                             case ActionType.EntityInsert:
+                                if (Program.ServiceProvider != null && CurrentEntity != null)
+                                {
+                                    bool hasTempCode = false;
+                                    if (string.IsNullOrWhiteSpace(CurrentEntity.Code)) 
+                                    {
+                                        CurrentEntity.Code = "TEMP_VALIDATION_CODE";
+                                        hasTempCode = true;
+                                    }
+
+                                    var validatorType = typeof(FluentValidation.IValidator<>).MakeGenericType(CurrentEntity.GetType());
+                                    var validator = Program.ServiceProvider.GetService(validatorType) as FluentValidation.IValidator;
+                                    if (validator != null)
+                                    {
+                                        var context = new FluentValidation.ValidationContext<object>(CurrentEntity);
+                                        var valResult = validator.Validate(context);
+                                        
+                                        if (hasTempCode) CurrentEntity.Code = string.Empty;
+
+                                        if (!valResult.IsValid)
+                                        {
+                                            throw new FluentValidation.ValidationException(valResult.Errors);
+                                        }
+                                    }
+                                    else if (hasTempCode)
+                                    {
+                                        CurrentEntity.Code = string.Empty;
+                                    }
+                                }
+
                                 UretilecekKoduHazirla();
                                 if (EntityInsert())
                                     return KayitSonrasiIslemler();

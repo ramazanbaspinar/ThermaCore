@@ -144,11 +144,11 @@ namespace ThermaCore.Presentation.WinForms.Forms.CodeTemplateForms
         protected override void GuncelNesneOlustur()
         {
             ModuleType selectedModul = ModuleType.Factory;
-            if (!string.IsNullOrEmpty(txtModul.Text))
+            if (!string.IsNullOrWhiteSpace(txtModul.Text))
                 selectedModul = txtModul.Text.GetEnum<ModuleType>();
 
             DateFormat selectedTarih = DateFormat.None;
-            if (!string.IsNullOrEmpty(txtTarihFormati.Text))
+            if (!string.IsNullOrWhiteSpace(txtTarihFormati.Text))
                 selectedTarih = txtTarihFormati.Text.GetEnum<DateFormat>();
 
             CurrentEntity = new CodeTemplateDto

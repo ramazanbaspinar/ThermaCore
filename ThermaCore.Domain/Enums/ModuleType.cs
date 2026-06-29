@@ -99,5 +99,10 @@ public enum ModuleType
     [Description("Sac Cinsi Tanımları")]
     [ParentModule(MetalVeSacGrubu)]
     [RequiresCodeTemplate]
-    SacCinsiTanimlari = 15
+    SacCinsiTanimlari = 15,
+
+    [Description("Kalite Standart Tanımları")]
+    [ParentModule(TemelTanimlar)]
+    [RequiresCodeTemplate]
+    KaliteStandartTanimlari = 16
 }

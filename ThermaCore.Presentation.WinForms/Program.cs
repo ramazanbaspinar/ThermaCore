@@ -138,6 +138,9 @@ internal static class Program
                 // Production
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.SacCinsiForms.SacCinsiListForm>();
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.SacCinsiForms.SacCinsiEditForm>();
+                
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.KaliteStandartForms.KaliteStandartListForm>();
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.KaliteStandartForms.KaliteStandartEditForm>();
             })
             .Build();
 
@@ -240,9 +243,14 @@ internal static class Program
         catch { }
 
         string userMessage = ex.Message;
+        if (ex.InnerException != null)
+        {
+            userMessage += "\nİç Hata: " + ex.InnerException.Message;
+        }
+
         if (!userMessage.StartsWith("Güvenlik Kısıtlaması") && !userMessage.StartsWith("İşlem Başarısız"))
         {
-            userMessage = "Sistemde beklenmeyen bir hata oluştu. Lütfen sistem yöneticinize bilgi veriniz.\n\nHata Nedeni: " + ex.Message;
+            userMessage = "Sistemde beklenmeyen bir hata oluştu. Lütfen sistem yöneticinize bilgi veriniz.\n\nHata Nedeni: " + userMessage;
         }
         ThermaCore.Presentation.WinForms.Helpers.Messages.HataMesaji(userMessage);
     }

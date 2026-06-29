@@ -26,6 +26,7 @@ public static class ApplicationServiceRegistration
         services.AddScoped<ThermaCore.Application.Interfaces.Management.ITaxRateService, ThermaCore.Application.Services.Management.TaxRateManager>();
         services.AddScoped<ISystemParameterService, SystemParameterManager>();
         services.AddScoped<ThermaCore.Application.Interfaces.Production.ISheetMetalTypeService, ThermaCore.Application.Services.Production.SheetMetalTypeManager>();
+        services.AddScoped<ThermaCore.Application.Interfaces.Production.IQualityStandardService, ThermaCore.Application.Services.Production.QualityStandardManager>();
 
         services.AddScoped<ThermaCore.Application.Interfaces.System.ISessionService, ThermaCore.Application.Services.System.SessionManager>();
         services.AddScoped<ThermaCore.Application.Interfaces.System.ICodeGenerationService, ThermaCore.Application.Services.System.CodeGenerationManager>();

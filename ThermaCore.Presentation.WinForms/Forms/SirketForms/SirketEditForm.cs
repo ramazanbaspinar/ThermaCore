@@ -123,7 +123,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.SirketForms
                 CompanyName = txtSirketAdi.Text,
                 DatabaseName = txtVeritabaniAdi.Text.Replace(" ", "_"), // Veritabanı adındaki boşlukları alt çizgiye çeviriyoruz
                 Server = txtServer.Text,
-                AuthType = txtAuthType.EditValue?.ToString().GetEnum<AuthenticationType>() ?? AuthenticationType.Windows,
+                AuthType = string.IsNullOrWhiteSpace(txtAuthType.EditValue?.ToString()) ? AuthenticationType.Windows : txtAuthType.EditValue.ToString()!.GetEnum<AuthenticationType>(),
                 Username = txtSqlKullaniciAdi.Text,
                 Password = txtSqlSifre.Text,
                 IsActive = myToggleSwitch1.IsOn

@@ -97,6 +97,11 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
 
             if (miSacCinsi != null)
                 miSacCinsi.Click += miSacCinsi_Click;
+                
+            if (miKaliteStandartTanimlari != null)
+            {
+                miKaliteStandartTanimlari.Click += miKaliteStandartTanimlari_Click;
+            }
 
             if (xtraTabbedMdiManager != null)
             {
@@ -604,6 +609,11 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             {
                 XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+
+        private void miKaliteStandartTanimlari_Click(object? sender, EventArgs e)
+        {
+            FormYukle<ThermaCore.Presentation.WinForms.Forms.KaliteStandartForms.KaliteStandartListForm>();
         }
 
         private void BtnMusteriCariKartlar_Click(object? sender, EventArgs e)
