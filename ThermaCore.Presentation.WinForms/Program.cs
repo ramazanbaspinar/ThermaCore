@@ -121,6 +121,7 @@ internal static class Program
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TerminalForms.TerminalEditForm>();
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.ParametrelerForms.EmailParameterEditForm>();
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.ParametrelerForms.SystemLicenseEditForm>();
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.ParametrelerForms.GenelParametrelerEditForm>();
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.ParametrelerForms.UserInterfaceTemplateListForm>();
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.LisansForms.LicenseActivationForm>();
                 

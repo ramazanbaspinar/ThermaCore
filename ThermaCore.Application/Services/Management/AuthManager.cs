@@ -199,10 +199,18 @@ public class AuthManager : IAuthService
                 // Ancak gereksinim sadece otomatik kayıt diyor. Limit uyarısını burada da bırakabiliriz.
             }
 
+            string hwSuffix = hwid.Contains("-") ? hwid.Split('-').Last() : hwid.Substring(global::System.Math.Max(0, hwid.Length - 4));
+            string machineName = global::System.Environment.MachineName;
+            int maxMachineNameLen = 100 - 1 - hwSuffix.Length;
+            if (machineName.Length > maxMachineNameLen && maxMachineNameLen > 0)
+            {
+                machineName = machineName.Substring(0, maxMachineNameLen);
+            }
+
             var newTerminal = new Terminal
             {
                 Id = ThermaCore.Domain.Helpers.IdGenerator.GenerateId(),
-                Code = Environment.MachineName,
+                Code = $"{machineName}-{hwSuffix}",
                 HardwareId = hwid,
                 IsActive = false,
                 Description = "Sistem tarafından otomatik keşfedildi. Onay bekleniyor."

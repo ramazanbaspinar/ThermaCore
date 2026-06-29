@@ -58,6 +58,9 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
                 };
             
             // Dinamik Yükleme Click Eventleri
+            if (miGenelParametreler != null)
+                miGenelParametreler.Click += miGenelParametreler_Click;
+
             if (miSirketTanimlari != null)
                 miSirketTanimlari.Click += miSirketTanimlari_Click;
 
@@ -490,6 +493,20 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
         #endregion
 
         #region Buton Olayları (Geçici Test Olarak Bırakılanlar)
+
+        private void miGenelParametreler_Click(object? sender, EventArgs e)
+        {
+            var authService = _serviceProvider.GetService<ThermaCore.Application.Services.Management.IAuthService>();
+            if (authService != null && authService.HasPermission(ThermaCore.Domain.Enums.ModuleType.GenelParametreler, ThermaCore.Domain.Enums.PermissionType.CanView))
+            {
+                var form = _serviceProvider.GetRequiredService<ThermaCore.Presentation.WinForms.Forms.ParametrelerForms.GenelParametrelerEditForm>();
+                form.ShowDialog();
+            }
+            else
+            {
+                XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
 
         private void miSirketTanimlari_Click(object? sender, EventArgs e)
         {

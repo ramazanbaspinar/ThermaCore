@@ -47,7 +47,15 @@ public class MasterRepository<TEntity> : IMasterRepository<TEntity> where TEntit
 
     public void Update(TEntity entity)
     {
-        _dbSet.Update(entity);
+        var local = _dbSet.Local.FirstOrDefault(e => e.Id == entity.Id);
+        if (local != null)
+        {
+            _context.Entry(local).CurrentValues.SetValues(entity);
+        }
+        else
+        {
+            _dbSet.Update(entity);
+        }
     }
 
     public void Remove(TEntity entity)

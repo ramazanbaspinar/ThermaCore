@@ -9,6 +9,10 @@ public enum ModuleType
     [Description("Sistem Yönetimi")]
     SistemYonetimi = 1000,
 
+    [Description("Genel Parametreler")]
+    [ParentModule(SistemYonetimi)]
+    GenelParametreler = 1004,
+
     [Description("Tanımlar")]
     Tanimlar = 2000,
 

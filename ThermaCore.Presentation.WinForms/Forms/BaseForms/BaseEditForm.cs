@@ -14,6 +14,7 @@ using ThermaCore.Domain.Enums;
 using ThermaCore.Presentation.WinForms.Helpers;
 using ThermaCore.Application.Interfaces.System;
 using System.Linq;
+using ThermaCore.Presentation.WinForms.Functions;
 
 namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
 {
@@ -55,6 +56,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
         public BarStaticItem statusBarKisaYolAciklama { get; set; } = new BarStaticItem();
 
         protected DevExpress.XtraBars.BarButtonItem btnYazdir2 = null!;
+        protected DevExpress.XtraBars.PopupMenu resimMenu = null!;
 
         #endregion
 
@@ -169,7 +171,54 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
             FormClosing += BaseEditForm_FormClosing;
             Shown += BaseEditForm_Shown;
 
+            InitializeResimMenu();
             BindControlEvents(this.Controls);
+            BindPictureEditControls(this.Controls);
+        }
+
+        private void InitializeResimMenu()
+        {
+            if (IsDesignMode) return;
+
+            var manager = (this.ribbon != null) ? this.ribbon.Manager : new DevExpress.XtraBars.BarManager { Form = this };
+            
+            resimMenu = new DevExpress.XtraBars.PopupMenu(manager);
+
+            var btnResimSec = new DevExpress.XtraBars.BarButtonItem(manager, "Resim Seç");
+            btnResimSec.ItemClick += (s, e) => { (resimMenu.Tag as ThermaCore.Presentation.WinForms.UserControls.Controls.MyPictureEdit)?.ResimSec(); };
+
+            var btnKamera = new DevExpress.XtraBars.BarButtonItem(manager, "Kameradan Çek");
+            btnKamera.ItemClick += (s, e) => { (resimMenu.Tag as ThermaCore.Presentation.WinForms.UserControls.Controls.MyPictureEdit)?.ShowTakePictureDialog(); };
+
+            var btnResimBuyut = new DevExpress.XtraBars.BarButtonItem(manager, "Resmi Büyüt");
+            btnResimBuyut.ItemClick += (s, e) => { (resimMenu.Tag as ThermaCore.Presentation.WinForms.UserControls.Controls.MyPictureEdit)?.ResimBuyut(); };
+
+            var btnResimIndir = new DevExpress.XtraBars.BarButtonItem(manager, "Resmi İndir");
+            btnResimIndir.ItemClick += (s, e) => { (resimMenu.Tag as ThermaCore.Presentation.WinForms.UserControls.Controls.MyPictureEdit)?.ResimIndir(); };
+
+            var btnResimSil = new DevExpress.XtraBars.BarButtonItem(manager, "Resim Sil");
+            btnResimSil.ItemClick += (s, e) => { (resimMenu.Tag as ThermaCore.Presentation.WinForms.UserControls.Controls.MyPictureEdit)?.ResimSil(); };
+
+            resimMenu.AddItems(new BarItem[] { btnResimSec, btnKamera, btnResimBuyut, btnResimIndir, btnResimSil });
+        }
+
+        protected virtual void BindPictureEditControls(Control.ControlCollection controls)
+        {
+            foreach (Control control in controls)
+            {
+                if (control is ThermaCore.Presentation.WinForms.UserControls.Controls.MyPictureEdit pictureEdit)
+                {
+                    if (resimMenu != null)
+                    {
+                        pictureEdit.Sec(resimMenu);
+                    }
+                }
+
+                if (control.Controls.Count > 0)
+                {
+                    BindPictureEditControls(control.Controls);
+                }
+            }
         }
 
         protected virtual void BindControlEvents(Control.ControlCollection controls)

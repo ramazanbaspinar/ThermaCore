@@ -1,4 +1,4 @@
-﻿using DevExpress.XtraEditors;
+using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
 using ThermaCore.Presentation.WinForms.Interfaces;
 using System.ComponentModel;
@@ -21,6 +21,7 @@ namespace ThermaCore.Presentation.WinForms.UserControls.Controls
             // DevExpress'in varsayılan sağ tık resim menüsünü gizler. Kullanıcıların yanlışlıkla resmi silmesini 
             // veya form yapısını bozacak işlemler yapmasını engeller.
             Properties.ShowMenu = false;
+            Properties.ShowCameraMenuItem = CameraMenuItemVisibility.Auto;
 
             // --- GÖRSEL AYARLAR KALDIRILDI ---
             // Sabit "Segoe UI" fontları ve odaklanıldığında yanan sarı arka plan rengi silindi.

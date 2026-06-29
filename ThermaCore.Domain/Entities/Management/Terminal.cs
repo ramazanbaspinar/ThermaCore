@@ -16,6 +16,6 @@ public class Terminal : FullAuditableEntity
     public string HardwareId { get; set; } = string.Empty;
 
     [MaxLength(500)]
-    public string Description { get; set; } = string.Empty;
+    public string? Description { get; set; }
 
 }
