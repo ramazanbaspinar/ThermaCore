@@ -90,5 +90,14 @@ public enum ModuleType
 
     [Description("ÖTV Oranları")]
     [ParentModule(TemelTanimlar)]
-    OtvOranlari = 14
+    OtvOranlari = 14,
+
+    [Description("Metal ve Sac Grubu")]
+    [ParentModule(Tanimlar)]
+    MetalVeSacGrubu = 3000,
+
+    [Description("Sac Cinsi Tanımları")]
+    [ParentModule(MetalVeSacGrubu)]
+    [RequiresCodeTemplate]
+    SacCinsiTanimlari = 15
 }

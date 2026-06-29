@@ -98,6 +98,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             menuStrip1 = new MenuStrip();
             lblMenuSripBilgi = new ToolStripMenuItem();
             btnAnaFormResim = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyPictureEdit();
+            miSacCinsi = new ToolStripMenuItem();
             menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)xtraTabbedMdiManager).BeginInit();
             menuStrip1.SuspendLayout();
@@ -168,26 +169,27 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 
             // miSacTanimlari
             // 
+            miSacTanimlari.DropDownItems.AddRange(new ToolStripItem[] { miSacCinsi });
             miSacTanimlari.Name = "miSacTanimlari";
-            miSacTanimlari.Size = new Size(168, 22);
+            miSacTanimlari.Size = new Size(180, 22);
             miSacTanimlari.Text = "Sac Tanımları";
             // 
             // miTelTanimlari
             // 
             miTelTanimlari.Name = "miTelTanimlari";
-            miTelTanimlari.Size = new Size(168, 22);
+            miTelTanimlari.Size = new Size(180, 22);
             miTelTanimlari.Text = "Tel Tanımları";
             // 
             // miIzgaraTanimlari
             // 
             miIzgaraTanimlari.Name = "miIzgaraTanimlari";
-            miIzgaraTanimlari.Size = new Size(168, 22);
+            miIzgaraTanimlari.Size = new Size(180, 22);
             miIzgaraTanimlari.Text = "Izgara Tanımları";
             // 
             // miTepsiTanimlari
             // 
             miTepsiTanimlari.Name = "miTepsiTanimlari";
-            miTepsiTanimlari.Size = new Size(168, 22);
+            miTepsiTanimlari.Size = new Size(180, 22);
             miTepsiTanimlari.Text = "Tepsi Tanımları";
             // 
             // miElektrikVeElektronikGrubu
@@ -579,6 +581,13 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             btnAnaFormResim.StatusBarKisaYolAciklama = null;
             btnAnaFormResim.TabIndex = 3;
             // 
+            // miSacCinsi
+            // 
+            miSacCinsi.Name = "miSacCinsi";
+            miSacCinsi.Size = new Size(183, 22);
+            miSacCinsi.Tag = "SacCinsi";
+            miSacCinsi.Text = "Sac Cinsi Tanımlari";
+            // 
             // AnaForm
             // 
             Appearance.BackColor = SystemColors.Control;
@@ -686,5 +695,6 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
         private ToolStripMenuItem miKdvOranlari;
         private ToolStripMenuItem miOtvOranlari;
         private ToolStripMenuItem miGenelParametreler;
+        private ToolStripMenuItem miSacCinsi;
     }
 }

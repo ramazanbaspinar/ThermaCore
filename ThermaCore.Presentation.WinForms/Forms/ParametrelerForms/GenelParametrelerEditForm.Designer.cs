@@ -352,6 +352,8 @@
             // 
             // layoutControlItem7
             // 
+            layoutControlItem7.AppearanceItemCaption.Options.UseTextOptions = true;
+            layoutControlItem7.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             layoutControlItem7.Control = picLogo;
             layoutControlItem7.Location = new Point(293, 0);
             layoutControlItem7.Name = "layoutControlItem7";
@@ -385,7 +387,7 @@
             // 
             tpTicariAyarlar.Controls.Add(myDataLayoutControl2);
             tpTicariAyarlar.Name = "tpTicariAyarlar";
-            tpTicariAyarlar.Size = new Size(607, 218);
+            tpTicariAyarlar.Size = new Size(596, 215);
             tpTicariAyarlar.Text = "Ticari Ayarlar";
             // 
             // myDataLayoutControl2
@@ -400,7 +402,7 @@
             myDataLayoutControl2.Name = "myDataLayoutControl2";
             myDataLayoutControl2.OptionsFocus.EnableAutoTabOrder = false;
             myDataLayoutControl2.Root = layoutControlGroup1;
-            myDataLayoutControl2.Size = new Size(607, 218);
+            myDataLayoutControl2.Size = new Size(596, 215);
             myDataLayoutControl2.TabIndex = 0;
             myDataLayoutControl2.Text = "myDataLayoutControl2";
             // 
@@ -413,7 +415,7 @@
             glfOtv.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo), new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Search), new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Delete) });
             glfOtv.Properties.NullText = "";
             glfOtv.Properties.PopupView = myGridLookUpFind3View;
-            glfOtv.Size = new Size(473, 20);
+            glfOtv.Size = new Size(462, 20);
             glfOtv.StatusBarAciklama = "Kayıt Seçiniz";
             glfOtv.StatusBarKisaYol = "F4 :";
             glfOtv.StatusBarKisaYolAciklama = "Seçim Yap";
@@ -446,7 +448,7 @@
             glfSatisKdv.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo), new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Search), new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Delete) });
             glfSatisKdv.Properties.NullText = "";
             glfSatisKdv.Properties.PopupView = myGridLookUpFind2View;
-            glfSatisKdv.Size = new Size(473, 20);
+            glfSatisKdv.Size = new Size(462, 20);
             glfSatisKdv.StatusBarAciklama = "Kayıt Seçiniz";
             glfSatisKdv.StatusBarKisaYol = "F4 :";
             glfSatisKdv.StatusBarKisaYolAciklama = "Seçim Yap";
@@ -479,7 +481,7 @@
             glfAlisKdv.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo), new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Search), new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Delete) });
             glfAlisKdv.Properties.NullText = "";
             glfAlisKdv.Properties.PopupView = myGridLookUpFind1View;
-            glfAlisKdv.Size = new Size(473, 20);
+            glfAlisKdv.Size = new Size(462, 20);
             glfAlisKdv.StatusBarAciklama = "Kayıt Seçiniz";
             glfAlisKdv.StatusBarKisaYol = "F4 :";
             glfAlisKdv.StatusBarKisaYolAciklama = "Seçim Yap";
@@ -511,7 +513,7 @@
             cmbYerelParaBirimi.Name = "cmbYerelParaBirimi";
             cmbYerelParaBirimi.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
             cmbYerelParaBirimi.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            cmbYerelParaBirimi.Size = new Size(473, 20);
+            cmbYerelParaBirimi.Size = new Size(462, 20);
             cmbYerelParaBirimi.StatusBarAciklama = "";
             cmbYerelParaBirimi.StatusBarKisaYol = "F4 :";
             cmbYerelParaBirimi.StatusBarKisaYolAciklama = "";
@@ -538,7 +540,7 @@
             rowDefinition10.Height = 31D;
             rowDefinition10.SizeType = SizeType.Absolute;
             layoutControlGroup1.OptionsTableLayoutGroup.RowDefinitions.AddRange(new DevExpress.XtraLayout.RowDefinition[] { rowDefinition7, rowDefinition8, rowDefinition9, rowDefinition10 });
-            layoutControlGroup1.Size = new Size(607, 218);
+            layoutControlGroup1.Size = new Size(596, 215);
             layoutControlGroup1.TextVisible = false;
             // 
             // layoutControlItem8
@@ -546,7 +548,7 @@
             layoutControlItem8.Control = cmbYerelParaBirimi;
             layoutControlItem8.Location = new Point(0, 0);
             layoutControlItem8.Name = "layoutControlItem8";
-            layoutControlItem8.Size = new Size(587, 31);
+            layoutControlItem8.Size = new Size(576, 31);
             layoutControlItem8.Text = "Yerel Para Birimi";
             layoutControlItem8.TextSize = new Size(98, 13);
             // 
@@ -556,7 +558,7 @@
             layoutControlItem9.Location = new Point(0, 31);
             layoutControlItem9.Name = "layoutControlItem9";
             layoutControlItem9.OptionsTableLayoutItem.RowIndex = 1;
-            layoutControlItem9.Size = new Size(587, 31);
+            layoutControlItem9.Size = new Size(576, 31);
             layoutControlItem9.Text = "Varsayılan Alış KDV";
             layoutControlItem9.TextSize = new Size(98, 13);
             // 
@@ -566,7 +568,7 @@
             layoutControlItem10.Location = new Point(0, 62);
             layoutControlItem10.Name = "layoutControlItem10";
             layoutControlItem10.OptionsTableLayoutItem.RowIndex = 2;
-            layoutControlItem10.Size = new Size(587, 31);
+            layoutControlItem10.Size = new Size(576, 31);
             layoutControlItem10.Text = "Varsayılan Satış KDV";
             layoutControlItem10.TextSize = new Size(98, 13);
             // 
@@ -576,7 +578,7 @@
             layoutControlItem11.Location = new Point(0, 93);
             layoutControlItem11.Name = "layoutControlItem11";
             layoutControlItem11.OptionsTableLayoutItem.RowIndex = 3;
-            layoutControlItem11.Size = new Size(587, 105);
+            layoutControlItem11.Size = new Size(576, 102);
             layoutControlItem11.Text = "Varsayılan Satış ÖTV";
             layoutControlItem11.TextSize = new Size(98, 13);
             // 
@@ -584,7 +586,7 @@
             // 
             tpUretimAyarlari.Controls.Add(myDataLayoutControl3);
             tpUretimAyarlari.Name = "tpUretimAyarlari";
-            tpUretimAyarlari.Size = new Size(607, 218);
+            tpUretimAyarlari.Size = new Size(596, 215);
             tpUretimAyarlari.Text = "Üretim Ayarları";
             // 
             // myDataLayoutControl3
@@ -596,7 +598,7 @@
             myDataLayoutControl3.Name = "myDataLayoutControl3";
             myDataLayoutControl3.OptionsFocus.EnableAutoTabOrder = false;
             myDataLayoutControl3.Root = layoutControlGroup2;
-            myDataLayoutControl3.Size = new Size(607, 218);
+            myDataLayoutControl3.Size = new Size(596, 215);
             myDataLayoutControl3.TabIndex = 0;
             myDataLayoutControl3.Text = "myDataLayoutControl3";
             // 
@@ -614,7 +616,7 @@
             txtFireOrani.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             txtFireOrani.Properties.Mask.UseMaskAsDisplayFormat = true;
             txtFireOrani.Properties.MaskSettings.Set("mask", "n2");
-            txtFireOrani.Size = new Size(450, 20);
+            txtFireOrani.Size = new Size(439, 20);
             txtFireOrani.StatusBarAciklama = null;
             txtFireOrani.StatusBarKisaYol = "F4 :";
             txtFireOrani.StatusBarKisaYolAciklama = "Hesap Makinesi";
@@ -635,7 +637,7 @@
             rowDefinition11.Height = 31D;
             rowDefinition11.SizeType = SizeType.Absolute;
             layoutControlGroup2.OptionsTableLayoutGroup.RowDefinitions.AddRange(new DevExpress.XtraLayout.RowDefinition[] { rowDefinition11 });
-            layoutControlGroup2.Size = new Size(607, 218);
+            layoutControlGroup2.Size = new Size(596, 215);
             layoutControlGroup2.TextVisible = false;
             // 
             // layoutControlItem12
@@ -643,7 +645,7 @@
             layoutControlItem12.Control = txtFireOrani;
             layoutControlItem12.Location = new Point(0, 0);
             layoutControlItem12.Name = "layoutControlItem12";
-            layoutControlItem12.Size = new Size(587, 198);
+            layoutControlItem12.Size = new Size(576, 195);
             layoutControlItem12.Text = "Varsayılan Fire Oranı (%)";
             layoutControlItem12.TextSize = new Size(121, 13);
             // 

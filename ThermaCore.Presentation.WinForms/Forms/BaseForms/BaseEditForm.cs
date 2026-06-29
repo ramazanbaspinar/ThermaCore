@@ -469,11 +469,19 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
 
         protected virtual void UretilecekKoduHazirla()
         {
+            var kodControl = this.Controls.Find(CodeControlName, true).FirstOrDefault() as DevExpress.XtraEditors.TextEdit;
+            
+            if (kodControl != null && !string.IsNullOrWhiteSpace(kodControl.Text) && kodControl.Text != "< Otomatik Üretilecek >")
+            {
+                if (CurrentEntity != null)
+                    CurrentEntity.Code = kodControl.Text;
+                return;
+            }
+
             var codeService = Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetService<ICodeGenerationService>(Program.ServiceProvider);
             if (codeService != null)
             {
                 string code = "";
-                // Çakışmaları önlemek için kod benzersiz olana kadar dener (Max 20 deneme).
                 for (int i = 0; i < 20; i++)
                 {
                     code = System.Threading.Tasks.Task.Run(async () => await codeService.GetNewCodeAsync(BaseKartTuru, FirmaId)).GetAwaiter().GetResult();
@@ -487,10 +495,8 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
 
                 if (!string.IsNullOrEmpty(code))
                 {
-                    var kodControl = this.Controls.Find(CodeControlName, true).FirstOrDefault() as DevExpress.XtraEditors.TextEdit;
                     if (kodControl != null)
                     {
-                        kodControl.Properties.ReadOnly = true; // Otomatik üretildiği için kullanıcı değiştirememeli
                         kodControl.Text = code;
                     }
                     if (CurrentEntity != null)
@@ -677,38 +683,34 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
         {
             if (!RequiresCodeTemplate) return;
 
-            if (BaseIslemTuru == ActionType.EntityInsert)
-            {
-                var sablonRepo = Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetService<ThermaCore.Application.Interfaces.Repositories.IMasterRepository<ThermaCore.Domain.Entities.Management.CodeTemplate>>(Program.ServiceProvider);
-                ThermaCore.Domain.Entities.Management.CodeTemplate sablon = null;
+            var sablonRepo = Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetService<ThermaCore.Application.Interfaces.Repositories.IMasterRepository<ThermaCore.Domain.Entities.Management.CodeTemplate>>(Program.ServiceProvider);
+            ThermaCore.Domain.Entities.Management.CodeTemplate sablon = null;
 
-                if (sablonRepo != null)
+            if (sablonRepo != null)
+            {
+                sablon = System.Linq.Enumerable.FirstOrDefault(sablonRepo.Find(x => x.Module == BaseKartTuru && !x.IsDeleted));
+            }
+
+            var kodControl = this.Controls.Find(CodeControlName, true).FirstOrDefault() as DevExpress.XtraEditors.TextEdit;
+            if (kodControl != null)
+            {
+                bool isReadOnly = true;
+
+                if (sablon == null || !sablon.IsAutoCodeGenerationEnabled)
                 {
-                    sablon = System.Linq.Enumerable.FirstOrDefault(sablonRepo.Find(x => x.Module == BaseKartTuru && !x.IsDeleted));
+                    isReadOnly = false;
+                }
+                else if (sablon.IsUserInterventionAllowed)
+                {
+                    isReadOnly = false;
                 }
 
-                // Şablon yoksa veya IsActive değilse, sadece alttaki if bloğu (sablon == null) devreye girip TextBox'ı manuel girişe açacaktır.
-                // AnaForm üzerindeki asenkron yapı zaten kullanıcıyı uyaracaktır.
+                kodControl.Properties.ReadOnly = isReadOnly;
 
-                var kodControl = this.Controls.Find(CodeControlName, true).FirstOrDefault() as DevExpress.XtraEditors.TextEdit;
-                if (kodControl != null)
+                if (BaseIslemTuru == ActionType.EntityInsert)
                 {
-                    bool isReadOnly = true;
-                    string nullPrompt = "< Otomatik Üretilecek >";
-
-                    if (sablon == null || !sablon.IsAutoCodeGenerationEnabled)
-                    {
-                        isReadOnly = false;
-                        nullPrompt = "";
-                    }
-                    else if (sablon.IsUserInterventionAllowed)
-                    {
-                        isReadOnly = false;
-                    }
-
                     kodControl.Text = "";
-                    kodControl.Properties.ReadOnly = isReadOnly;
-                    kodControl.Properties.NullValuePrompt = nullPrompt;
+                    kodControl.Properties.NullValuePrompt = isReadOnly ? "< Otomatik Üretilecek >" : "";
                 }
             }
         }
