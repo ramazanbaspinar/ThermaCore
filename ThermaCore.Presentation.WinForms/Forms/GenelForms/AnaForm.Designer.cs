@@ -36,6 +36,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             miKurTanimlari = new ToolStripMenuItem();
             miKdvOranlari = new ToolStripMenuItem();
             miOtvOranlari = new ToolStripMenuItem();
+            miKaliteStandartTanimlari = new ToolStripMenuItem();
             miMetalVeSacGrubu = new ToolStripMenuItem();
             miSacTanimlari = new ToolStripMenuItem();
             miSacCinsi = new ToolStripMenuItem();
@@ -99,7 +100,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             menuStrip1 = new MenuStrip();
             lblMenuSripBilgi = new ToolStripMenuItem();
             btnAnaFormResim = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyPictureEdit();
-            miKaliteStandartTanimlari = new ToolStripMenuItem();
+            miYuzeyTipiTanimlari = new ToolStripMenuItem();
             menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)xtraTabbedMdiManager).BeginInit();
             menuStrip1.SuspendLayout();
@@ -161,6 +162,13 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             miOtvOranlari.Tag = "OtvOranlari";
             miOtvOranlari.Text = "ÖTV Oranları";
             // 
+            // miKaliteStandartTanimlari
+            // 
+            miKaliteStandartTanimlari.Name = "miKaliteStandartTanimlari";
+            miKaliteStandartTanimlari.Size = new Size(217, 22);
+            miKaliteStandartTanimlari.Tag = "KaliteStandartTanimlari";
+            miKaliteStandartTanimlari.Text = "Kalite Standart Tanımları";
+            // 
             // miMetalVeSacGrubu
             // 
             miMetalVeSacGrubu.DropDownItems.AddRange(new ToolStripItem[] { miSacTanimlari, miTelTanimlari, miIzgaraTanimlari, miTepsiTanimlari });
@@ -170,34 +178,34 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 
             // miSacTanimlari
             // 
-            miSacTanimlari.DropDownItems.AddRange(new ToolStripItem[] { miSacCinsi });
+            miSacTanimlari.DropDownItems.AddRange(new ToolStripItem[] { miSacCinsi, miYuzeyTipiTanimlari });
             miSacTanimlari.Name = "miSacTanimlari";
-            miSacTanimlari.Size = new Size(168, 22);
+            miSacTanimlari.Size = new Size(180, 22);
             miSacTanimlari.Text = "Sac Tanımları";
             // 
             // miSacCinsi
             // 
             miSacCinsi.Name = "miSacCinsi";
-            miSacCinsi.Size = new Size(183, 22);
+            miSacCinsi.Size = new Size(190, 22);
             miSacCinsi.Tag = "SacCinsi";
             miSacCinsi.Text = "Sac Cinsi Tanımlari";
             // 
             // miTelTanimlari
             // 
             miTelTanimlari.Name = "miTelTanimlari";
-            miTelTanimlari.Size = new Size(168, 22);
+            miTelTanimlari.Size = new Size(180, 22);
             miTelTanimlari.Text = "Tel Tanımları";
             // 
             // miIzgaraTanimlari
             // 
             miIzgaraTanimlari.Name = "miIzgaraTanimlari";
-            miIzgaraTanimlari.Size = new Size(168, 22);
+            miIzgaraTanimlari.Size = new Size(180, 22);
             miIzgaraTanimlari.Text = "Izgara Tanımları";
             // 
             // miTepsiTanimlari
             // 
             miTepsiTanimlari.Name = "miTepsiTanimlari";
-            miTepsiTanimlari.Size = new Size(168, 22);
+            miTepsiTanimlari.Size = new Size(180, 22);
             miTepsiTanimlari.Text = "Tepsi Tanımları";
             // 
             // miElektrikVeElektronikGrubu
@@ -589,12 +597,12 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             btnAnaFormResim.StatusBarKisaYolAciklama = null;
             btnAnaFormResim.TabIndex = 3;
             // 
-            // miKaliteStandartTanimlari
+            // miYuzeyTipiTanimlari
             // 
-            miKaliteStandartTanimlari.Name = "miKaliteStandartTanimlari";
-            miKaliteStandartTanimlari.Size = new Size(217, 22);
-            miKaliteStandartTanimlari.Tag = "KaliteStandartTanimlari";
-            miKaliteStandartTanimlari.Text = "Kalite Standart Tanımları";
+            miYuzeyTipiTanimlari.Name = "miYuzeyTipiTanimlari";
+            miYuzeyTipiTanimlari.Size = new Size(190, 22);
+            miYuzeyTipiTanimlari.Tag = "YuzeyTipiTanimlari";
+            miYuzeyTipiTanimlari.Text = "Yüzey Tipi Tanımları";
             // 
             // AnaForm
             // 
@@ -705,5 +713,6 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
         private ToolStripMenuItem miGenelParametreler;
         private ToolStripMenuItem miSacCinsi;
         private ToolStripMenuItem miKaliteStandartTanimlari;
+        private ToolStripMenuItem miYuzeyTipiTanimlari;
     }
 }

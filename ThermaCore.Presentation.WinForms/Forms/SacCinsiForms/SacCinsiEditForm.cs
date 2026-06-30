@@ -83,5 +83,30 @@ namespace ThermaCore.Presentation.WinForms.Forms.SacCinsiForms
         {
             return _service.IsCodeUnique(this.Id, code);
         }
+
+        protected override void EntityDelete()
+        {
+            if (Id <= 0) return;
+
+            if (Messages.SilMesaj("Sac Cinsi") == DialogResult.Yes)
+            {
+                try
+                {
+                    Cursor.Current = Cursors.WaitCursor;
+                    _service.Delete(Id);
+                    RefreshYapilacak = true;
+                    Messages.SilindiMesaj();
+                    Close();
+                }
+                catch (Exception ex)
+                {
+                    Messages.HataBasligi($"Hata oluştu:\n{ex.Message}", "Hata");
+                }
+                finally
+                {
+                    Cursor.Current = Cursors.Default;
+                }
+            }
+        }
     }
 }

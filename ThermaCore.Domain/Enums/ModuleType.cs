@@ -104,5 +104,10 @@ public enum ModuleType
     [Description("Kalite Standart Tanımları")]
     [ParentModule(TemelTanimlar)]
     [RequiresCodeTemplate]
-    KaliteStandartTanimlari = 16
+    KaliteStandartTanimlari = 16,
+
+    [Description("Yüzey Tipi Tanımları")]
+    [ParentModule(MetalVeSacGrubu)]
+    [RequiresCodeTemplate]
+    YuzeyTipiTanimlari = 17
 }

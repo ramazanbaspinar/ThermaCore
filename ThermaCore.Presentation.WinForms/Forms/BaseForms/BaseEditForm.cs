@@ -262,6 +262,22 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
 
         //Functions
 
+        protected BaseDto CloneEntity(BaseDto entity)
+        {
+            if (entity == null) return null!;
+            var type = entity.GetType();
+            var cloned = (BaseDto)Activator.CreateInstance(type)!;
+            
+            var properties = type.GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance)
+                                 .Where(p => p.CanRead && p.CanWrite);
+            foreach (var prop in properties)
+            {
+                var value = prop.GetValue(entity, null);
+                prop.SetValue(cloned, value, null);
+            }
+            return cloned;
+        }
+
         protected virtual void EntityDelete()
         {
             RefreshYapilacak = true;
@@ -295,7 +311,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
                 CurrentEntityGuncelle();
                 _isBinding = false;
                 
-                OldEntity = CurrentEntity;
+                OldEntity = CloneEntity(CurrentEntity);
                 ResetControlIsModified(this.Controls);
                 ButonEnabledDurumu();
             }
@@ -323,6 +339,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
                         switch (BaseIslemTuru)
                         {
                             case ActionType.EntityInsert:
+                            case ActionType.EntityUpdate:
                                 if (Program.ServiceProvider != null && CurrentEntity != null)
                                 {
                                     bool hasTempCode = false;
@@ -346,20 +363,24 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
                                             throw new FluentValidation.ValidationException(valResult.Errors);
                                         }
                                     }
-                                    else if (hasTempCode)
+                                    else
                                     {
-                                        CurrentEntity.Code = string.Empty;
+                                        if (hasTempCode) CurrentEntity.Code = string.Empty;
+                                        throw new InvalidOperationException($"{CurrentEntity.GetType().Name} için DI Container'da FluentValidation (IValidator) kaydı bulunamadı! Lütfen ApplicationServiceRegistration içerisine validator sınıfını kaydettiğinizden emin olun.");
                                     }
                                 }
 
-                                UretilecekKoduHazirla();
-                                if (EntityInsert())
-                                    return KayitSonrasiIslemler();
-                                break;
-
-                            case ActionType.EntityUpdate:
-                                if (EntityUpdate())
-                                    return KayitSonrasiIslemler();
+                                if (BaseIslemTuru == ActionType.EntityInsert)
+                                {
+                                    UretilecekKoduHazirla();
+                                    if (EntityInsert())
+                                        return KayitSonrasiIslemler();
+                                }
+                                else if (BaseIslemTuru == ActionType.EntityUpdate)
+                                {
+                                    if (EntityUpdate())
+                                        return KayitSonrasiIslemler();
+                                }
                                 break;
                         }
                     }
@@ -383,7 +404,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
 
                 bool KayitSonrasiIslemler()
                 {
-                    OldEntity = CurrentEntity;
+                    OldEntity = CloneEntity(CurrentEntity);
                     RefreshYapilacak = true;
                     
                     BaseIslemTuru = BaseIslemTuru == ActionType.EntityInsert ? ActionType.EntityUpdate : BaseIslemTuru;
@@ -445,7 +466,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
             _isBinding = false;
             ResetControlIsModified(this.Controls);
             
-            OldEntity = CurrentEntity;
+            OldEntity = CloneEntity(CurrentEntity);
             ButonEnabledDurumu();
 
             if (Kaydet(true))
@@ -629,6 +650,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
             if (name == "btnYeni")
             {
                 BaseIslemTuru = ActionType.EntityInsert;
+                this.Id = 0;
                 _isBinding = true;
                 Yukle();
                 ApplyCodeTemplateLogic();
@@ -699,7 +721,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
             _isBinding = false;
             ResetControlIsModified(this.Controls);
             
-            OldEntity = CurrentEntity;
+            OldEntity = CloneEntity(CurrentEntity);
             IsLoaded = true;
             ButonEnabledDurumu();
             ButonGizleGoster();

@@ -75,13 +75,6 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.BirimForms
         {
             var dto = (UnitDto)CurrentEntity;
 
-            // Benzersiz Kod Kontrolü
-            if (_unitRepository.Find(x => x.Code == dto.Code).Any())
-            {
-                XtraMessageBox.Show($"'{dto.Code}' kodlu birim zaten sistemde kayıtlı. Lütfen farklı bir kod giriniz.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false;
-            }
-
             var validationResult = _validator.Validate(dto);
             if (!validationResult.IsValid)
             {
@@ -108,13 +101,6 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.BirimForms
         protected override bool EntityUpdate()
         {
             var dto = (UnitDto)CurrentEntity;
-
-            // Benzersiz Kod Kontrolü (Kendisi hariç)
-            if (_unitRepository.Find(x => x.Code == dto.Code && x.Id != dto.Id).Any())
-            {
-                XtraMessageBox.Show($"'{dto.Code}' kodlu birim zaten sistemde kayıtlı. Lütfen farklı bir kod giriniz.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false;
-            }
 
             var validationResult = _validator.Validate(dto);
             if (!validationResult.IsValid)

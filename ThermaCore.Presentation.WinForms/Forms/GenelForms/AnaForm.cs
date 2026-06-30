@@ -103,6 +103,9 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
                 miKaliteStandartTanimlari.Click += miKaliteStandartTanimlari_Click;
             }
 
+            if (miYuzeyTipiTanimlari != null)
+                miYuzeyTipiTanimlari.Click += miYuzeyTipiTanimlari_Click;
+
             if (xtraTabbedMdiManager != null)
             {
                 xtraTabbedMdiManager.PageAdded += XtraTabbedMdiManager_PageAdded;
@@ -614,6 +617,19 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
         private void miKaliteStandartTanimlari_Click(object? sender, EventArgs e)
         {
             FormYukle<ThermaCore.Presentation.WinForms.Forms.KaliteStandartForms.KaliteStandartListForm>();
+        }
+
+        private void miYuzeyTipiTanimlari_Click(object? sender, EventArgs e)
+        {
+            var authService = _serviceProvider.GetService<ThermaCore.Application.Services.Management.IAuthService>();
+            if (authService != null && authService.HasPermission(ThermaCore.Domain.Enums.ModuleType.YuzeyTipiTanimlari, ThermaCore.Domain.Enums.PermissionType.CanView))
+            {
+                FormYukle<ThermaCore.Presentation.WinForms.Forms.YuzeyTipiForms.YuzeyTipiListForm>();
+            }
+            else
+            {
+                XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void BtnMusteriCariKartlar_Click(object? sender, EventArgs e)

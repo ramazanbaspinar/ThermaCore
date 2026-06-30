@@ -1,35 +1,26 @@
 using DevExpress.XtraEditors;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using ThermaCore.Application.DTOs.Production;
 using ThermaCore.Application.Interfaces.Production;
 using ThermaCore.Domain.Enums;
-using ThermaCore.Domain.Helpers;
 using ThermaCore.Presentation.WinForms.Forms.BaseForms;
 using ThermaCore.Presentation.WinForms.Helpers;
 
-namespace ThermaCore.Presentation.WinForms.Forms.KaliteStandartForms
+namespace ThermaCore.Presentation.WinForms.Forms.YuzeyTipiForms
 {
-    public partial class KaliteStandartEditForm : BaseEditForm
+    public partial class YuzeyTipiEditForm : BaseEditForm
     {
-        private readonly IQualityStandardService _service;
+        private readonly ISurfaceTypeService _service;
 
-        public KaliteStandartEditForm(IQualityStandardService service)
+        public YuzeyTipiEditForm(ISurfaceTypeService service)
         {
             InitializeComponent();
             _service = service;
             
-            BaseKartTuru = ModuleType.KaliteStandartTanimlari;
+            BaseKartTuru = ModuleType.YuzeyTipiTanimlari;
             DataLayoutControl = myDataLayoutControl1;
-            
-            cmbMalzemeTuru.Properties.Items.AddRange(ThermaCore.Presentation.WinForms.Helpers.EnumFunctions.GetEnumDescriptionList<MaterialGroup>().ToArray());
         }
 
         public override void Yukle()
@@ -40,7 +31,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.KaliteStandartForms
             }
             else
             {
-                CurrentEntity = new QualityStandardDto 
+                CurrentEntity = new SurfaceTypeDto 
                 { 
                     IsActive = true 
                 };
@@ -51,27 +42,22 @@ namespace ThermaCore.Presentation.WinForms.Forms.KaliteStandartForms
 
         protected override void NesneyiKontrollereBagla()
         {
-            var dto = (QualityStandardDto)CurrentEntity;
+            var dto = (SurfaceTypeDto)CurrentEntity;
 
             txtKod.Text = dto.Code;
-            txtStandartAdi.Text = dto.Name;
-            
-            if (dto.MaterialGroup != 0)
-                cmbMalzemeTuru.SelectedItem = dto.MaterialGroup.GetDescription();
-                
-            txtAciklama.Text = dto.Description;
+            txtYuzeyTipiAdi.Text = dto.Name;
+            myMemoEdit1.Text = dto.Description;
             tglDurum.IsOn = dto.IsActive;
         }
 
         protected override void GuncelNesneOlustur()
         {
-            CurrentEntity = new QualityStandardDto
+            CurrentEntity = new SurfaceTypeDto
             {
                 Id = this.Id,
                 Code = txtKod.Text,
-                Name = txtStandartAdi.Text,
-                MaterialGroup = string.IsNullOrWhiteSpace(cmbMalzemeTuru.Text) ? (MaterialGroup)0 : cmbMalzemeTuru.Text.GetEnum<MaterialGroup>(),
-                Description = txtAciklama.Text,
+                Name = txtYuzeyTipiAdi.Text,
+                Description = myMemoEdit1.Text,
                 IsActive = tglDurum.IsOn
             };
             ButonEnabledDurumu();
@@ -79,7 +65,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.KaliteStandartForms
 
         protected override bool EntityInsert()
         {
-            var dto = (QualityStandardDto)CurrentEntity;
+            var dto = (SurfaceTypeDto)CurrentEntity;
             dto.Id = BaseIslemTuru.IdOlustur(OldEntity);
             
             Id = _service.Insert(dto);
@@ -88,11 +74,11 @@ namespace ThermaCore.Presentation.WinForms.Forms.KaliteStandartForms
 
         protected override bool EntityUpdate()
         {
-            var dto = (QualityStandardDto)CurrentEntity;
+            var dto = (SurfaceTypeDto)CurrentEntity;
             _service.Update(dto);
             return true;
         }
-        
+
         protected override bool IsCodeUnique(string code)
         {
             return _service.IsCodeUnique(this.Id, code);
@@ -102,7 +88,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.KaliteStandartForms
         {
             if (Id <= 0) return;
 
-            if (Messages.SilMesaj("Kalite Standart") == DialogResult.Yes)
+            if (Messages.SilMesaj("Yüzey Tipi") == DialogResult.Yes)
             {
                 try
                 {

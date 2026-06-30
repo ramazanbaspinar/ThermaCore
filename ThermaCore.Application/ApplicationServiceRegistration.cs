@@ -12,7 +12,7 @@ public static class ApplicationServiceRegistration
     {
         // AutoMapper ve FluentValidation kayıtları
         services.AddAutoMapper(cfg => cfg.AddMaps(Assembly.GetExecutingAssembly()));
-        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+        services.AddValidatorsFromAssemblyContaining<ThermaCore.Application.Validations.Definitions.UnitValidator>();
         ValidatorOptions.Global.LanguageManager.Culture = new System.Globalization.CultureInfo("tr-TR");
 
         // Manager (Service) Sınıflarının Kayıtları
@@ -27,6 +27,7 @@ public static class ApplicationServiceRegistration
         services.AddScoped<ISystemParameterService, SystemParameterManager>();
         services.AddScoped<ThermaCore.Application.Interfaces.Production.ISheetMetalTypeService, ThermaCore.Application.Services.Production.SheetMetalTypeManager>();
         services.AddScoped<ThermaCore.Application.Interfaces.Production.IQualityStandardService, ThermaCore.Application.Services.Production.QualityStandardManager>();
+        services.AddScoped<ThermaCore.Application.Interfaces.Production.ISurfaceTypeService, ThermaCore.Application.Services.Production.SurfaceTypeManager>();
 
         services.AddScoped<ThermaCore.Application.Interfaces.System.ISessionService, ThermaCore.Application.Services.System.SessionManager>();
         services.AddScoped<ThermaCore.Application.Interfaces.System.ICodeGenerationService, ThermaCore.Application.Services.System.CodeGenerationManager>();
