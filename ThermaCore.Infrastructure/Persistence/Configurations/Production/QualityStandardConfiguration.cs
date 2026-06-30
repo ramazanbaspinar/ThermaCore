@@ -19,6 +19,7 @@ public class QualityStandardConfiguration : IEntityTypeConfiguration<QualityStan
             .HasMaxLength(100);
 
         builder.Property(x => x.Description)
+            .IsRequired(false)
             .HasMaxLength(500);
     }
 }

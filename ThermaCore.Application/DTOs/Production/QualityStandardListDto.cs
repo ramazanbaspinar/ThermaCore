@@ -9,6 +9,6 @@ public class QualityStandardListDto
     public string Name { get; set; } = string.Empty;
     public MaterialGroup MaterialGroup { get; set; }
     public string MaterialGroupName { get; set; } = string.Empty;
-    public string Description { get; set; } = string.Empty;
+    public string? Description { get; set; }
     public bool IsActive { get; set; }
 }
