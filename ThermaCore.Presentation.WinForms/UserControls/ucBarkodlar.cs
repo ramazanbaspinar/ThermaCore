@@ -33,16 +33,28 @@ namespace ThermaCore.Presentation.WinForms.UserControls
                 
                 gridViewBarcodes.ShowingEditor += GridViewBarcodes_ShowingEditor;
                 gridViewBarcodes.CellValueChanged += GridViewBarcodes_CellValueChanged;
+                
+                _barcodes.ListChanged += (s, e) => SetDirty(true);
             }
         }
 
         private void GridViewBarcodes_ShowingEditor(object sender, CancelEventArgs e)
         {
-            if (gridViewBarcodes.FocusedColumn.FieldName == "BarcodeValue" || 
-                gridViewBarcodes.FocusedColumn.FieldName == "BarcodeType")
+            // Tipi hücresi her koşulda kilitli
+            if (gridViewBarcodes.FocusedColumn.FieldName == "BarcodeType")
             {
-                var row = gridViewBarcodes.GetFocusedRow() as ItemBarcodeListDto;
-                if (row != null && row.BarcodeType == "Sistem (Code-128)")
+                e.Cancel = true;
+                return;
+            }
+
+            var row = gridViewBarcodes.GetFocusedRow() as ItemBarcodeListDto;
+            if (row != null && row.BarcodeType == "Sistem (Code-128)")
+            {
+                // Sistem barkodu ise bu alanlar kilitli
+                if (gridViewBarcodes.FocusedColumn.FieldName == "BarcodeValue" ||
+                    gridViewBarcodes.FocusedColumn.FieldName == "Unit" ||
+                    gridViewBarcodes.FocusedColumn.FieldName == "QuantityPerUnit" ||
+                    gridViewBarcodes.FocusedColumn.FieldName == "WeightPerUnit")
                 {
                     e.Cancel = true;
                 }
@@ -51,6 +63,8 @@ namespace ThermaCore.Presentation.WinForms.UserControls
 
         private void GridViewBarcodes_CellValueChanged(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)
         {
+            SetDirty(true);
+
             if (e.Column.FieldName == "IsPrimary")
             {
                 bool isChecked = (bool)e.Value;
@@ -81,12 +95,14 @@ namespace ThermaCore.Presentation.WinForms.UserControls
             {
                 var data = _itemBarcodeService.GetBarcodes(CurrentRecordId, CurrentModuleType);
                 _barcodes = new BindingList<ItemBarcodeListDto>(data);
+                _barcodes.ListChanged += (s, e) => SetDirty(true);
                 gridControlBarcodes.DataSource = _barcodes;
             }
             else
             {
                 _barcodes.Clear();
             }
+            SetDirty(false);
         }
 
         public void InitializeService(IItemBarcodeService itemBarcodeService)
@@ -131,6 +147,9 @@ namespace ThermaCore.Presentation.WinForms.UserControls
                 ModuleType = CurrentModuleType,
                 BarcodeValue = generatedBarcode,
                 BarcodeType = "Sistem (Code-128)",
+                Unit = "Adet",
+                QuantityPerUnit = 1,
+                WeightPerUnit = 0,
                 IsPrimary = true
             };
             
@@ -145,6 +164,9 @@ namespace ThermaCore.Presentation.WinForms.UserControls
                 RecordId = CurrentRecordId, 
                 ModuleType = CurrentModuleType,
                 BarcodeType = "Tedarikçi (EAN-13)",
+                Unit = "Adet",
+                QuantityPerUnit = 1,
+                WeightPerUnit = 0,
                 IsPrimary = false
             };
             
@@ -164,15 +186,57 @@ namespace ThermaCore.Presentation.WinForms.UserControls
                 _barcodes.Remove(current);
             }
         }
+
+        private async void btnEtiketYazdir_Click(object sender, EventArgs e)
+        {
+            if (gridViewBarcodes.GetFocusedRow() is ItemBarcodeListDto current)
+            {
+                if (string.IsNullOrEmpty(current.BarcodeValue))
+                {
+                    XtraMessageBox.Show("Yazdırılacak geçerli bir barkod yok.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                try
+                {
+                    var printService = Program.ServiceProvider.GetRequiredService<ThermaCore.Application.Interfaces.Common.IBarcodePrintService>();
+                    await printService.PrintBarcodeAsync(current.BarcodeValue, current.Unit ?? "Adet", current.QuantityPerUnit);
+                    XtraMessageBox.Show("Etiket yazdırma işlemi başarıyla kuyruğa eklendi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    XtraMessageBox.Show($"Yazdırma sırasında hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
         
+        private bool _isDirty = false;
+        public event EventHandler OnDirtyChanged;
+
+        public void PostGridChanges()
+        {
+            gridViewBarcodes.CloseEditor();
+            gridViewBarcodes.UpdateCurrentRow();
+        }
+
+        public bool IsDirty() => _isDirty;
+
+        private void SetDirty(bool dirty)
+        {
+            if (_isDirty != dirty)
+            {
+                _isDirty = dirty;
+                OnDirtyChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
         public void Kaydet(long recordId)
         {
             if (_itemBarcodeService == null) return;
             if (DesignMode || LicenseManager.UsageMode == LicenseUsageMode.Designtime) return;
 
             // Prevent UI from updating during batch operation
-            gridViewBarcodes.CloseEditor();
-            gridViewBarcodes.UpdateCurrentRow();
+            PostGridChanges();
 
             var existingBarcodes = _itemBarcodeService.GetBarcodes(recordId, CurrentModuleType);
 
@@ -201,6 +265,12 @@ namespace ThermaCore.Presentation.WinForms.UserControls
                 current.RecordId = recordId;
                 current.ModuleType = CurrentModuleType;
 
+                bool isNew = current.Id <= 0;
+                if (isNew)
+                {
+                    current.Id = ThermaCore.Domain.Helpers.IdGenerator.GenerateId();
+                }
+
                 var dto = new ItemBarcodeDto
                 {
                     Id = current.Id,
@@ -209,10 +279,13 @@ namespace ThermaCore.Presentation.WinForms.UserControls
                     RecordId = current.RecordId,
                     ModuleType = current.ModuleType,
                     Description = current.Description,
-                    IsPrimary = current.IsPrimary
+                    IsPrimary = current.IsPrimary,
+                    Unit = current.Unit,
+                    QuantityPerUnit = current.QuantityPerUnit,
+                    WeightPerUnit = current.WeightPerUnit
                 };
 
-                if (current.Id <= 0)
+                if (isNew)
                 {
                     _itemBarcodeService.Insert(dto);
                 }
@@ -221,6 +294,7 @@ namespace ThermaCore.Presentation.WinForms.UserControls
                     _itemBarcodeService.Update(dto);
                 }
             }
+            SetDirty(false);
         }
     }
 }

@@ -26,6 +26,9 @@ public class ItemBarcodeValidator : AbstractValidator<ItemBarcodeDto>
 
         RuleFor(x => x.IsPrimary)
             .Must((dto, isPrimary) => IsOnlyOnePrimary(dto)).WithMessage("Bu kayıt için zaten bir Ana Barkod tanımlanmış. Lütfen sadece bir tane varsayılan barkod seçin.");
+
+        RuleFor(x => x.QuantityPerUnit)
+            .GreaterThan(0).WithMessage("Birim miktarı 0'dan büyük olmalıdır.");
     }
 
     private bool IsOnlyOnePrimary(ItemBarcodeDto dto)

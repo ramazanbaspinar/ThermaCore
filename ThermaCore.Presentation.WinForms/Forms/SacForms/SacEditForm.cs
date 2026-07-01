@@ -48,6 +48,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.SacForms
             picResim.Tag = "Image";
             
             ucBarkodlar1.InitializeService(itemBarcodeService);
+            ucBarkodlar1.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
         }
 
         public override void Yukle()
@@ -127,6 +128,8 @@ namespace ThermaCore.Presentation.WinForms.Forms.SacForms
 
         protected override bool EntityInsert()
         {
+            ucBarkodlar1.PostGridChanges();
+            
             try
             {
                 var dto = (SheetMetalDto)CurrentEntity;
@@ -148,13 +151,16 @@ namespace ThermaCore.Presentation.WinForms.Forms.SacForms
             }
             catch (Exception ex)
             {
-                Messages.HataBasligi(ex.Message, "Kayıt Hatası");
+                string msg = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                Messages.HataBasligi(msg, "Kayıt Hatası");
                 return false;
             }
         }
 
         protected override bool EntityUpdate()
         {
+            ucBarkodlar1.PostGridChanges();
+
             try
             {
                 var dto = (SheetMetalDto)CurrentEntity;
@@ -171,7 +177,8 @@ namespace ThermaCore.Presentation.WinForms.Forms.SacForms
             }
             catch (Exception ex)
             {
-                Messages.HataBasligi(ex.Message, "Kayıt Hatası");
+                string msg = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                Messages.HataBasligi(msg, "Kayıt Hatası");
                 return false;
             }
         }
@@ -278,6 +285,18 @@ namespace ThermaCore.Presentation.WinForms.Forms.SacForms
                     glupBirim.Properties.DataSource = _unitRepository.GetAll().Where(x => x.IsActive).ToList();
                     glupBirim.EditValue = secilenId;
                 }
+            }
+        }
+
+        protected internal override void ButonEnabledDurumu()
+        {
+            base.ButonEnabledDurumu();
+            
+            // Eğer BaseEditForm kaydet butonunu açmadıysa ancak barkodlarda değişiklik varsa Kaydet ve Geri Al butonlarını aktifleştir
+            if (ucBarkodlar1.IsDirty())
+            {
+                if (btnKaydet != null && !btnKaydet.Enabled) btnKaydet.Enabled = true;
+                if (btnGerial != null && !btnGerial.Enabled) btnGerial.Enabled = true;
             }
         }
     }

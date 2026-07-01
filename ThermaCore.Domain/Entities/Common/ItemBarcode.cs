@@ -20,4 +20,11 @@ public class ItemBarcode : FullAuditableEntity
     public string? Description { get; set; }
 
     public bool IsPrimary { get; set; } = false;
+
+    [MaxLength(20)]
+    public string? Unit { get; set; }
+
+    public decimal QuantityPerUnit { get; set; } = 1;
+
+    public decimal WeightPerUnit { get; set; }
 }
