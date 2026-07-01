@@ -144,6 +144,9 @@ internal static class Program
 
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.YuzeyTipiForms.YuzeyTipiListForm>();
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.YuzeyTipiForms.YuzeyTipiEditForm>();
+                
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.SacForms.SacListForm>();
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.SacForms.SacEditForm>();
             })
             .Build();
 

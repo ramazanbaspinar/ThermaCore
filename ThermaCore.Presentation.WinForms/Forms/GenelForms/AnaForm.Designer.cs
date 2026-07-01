@@ -40,6 +40,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             miMetalVeSacGrubu = new ToolStripMenuItem();
             miSacTanimlari = new ToolStripMenuItem();
             miSacCinsi = new ToolStripMenuItem();
+            miYuzeyTipiTanimlari = new ToolStripMenuItem();
             miTelTanimlari = new ToolStripMenuItem();
             miIzgaraTanimlari = new ToolStripMenuItem();
             miTepsiTanimlari = new ToolStripMenuItem();
@@ -100,7 +101,6 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             menuStrip1 = new MenuStrip();
             lblMenuSripBilgi = new ToolStripMenuItem();
             btnAnaFormResim = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyPictureEdit();
-            miYuzeyTipiTanimlari = new ToolStripMenuItem();
             menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)xtraTabbedMdiManager).BeginInit();
             menuStrip1.SuspendLayout();
@@ -181,6 +181,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             miSacTanimlari.DropDownItems.AddRange(new ToolStripItem[] { miSacCinsi, miYuzeyTipiTanimlari });
             miSacTanimlari.Name = "miSacTanimlari";
             miSacTanimlari.Size = new Size(180, 22);
+            miSacTanimlari.Tag = "SacTanimlari";
             miSacTanimlari.Text = "Sac Tanımları";
             // 
             // miSacCinsi
@@ -189,6 +190,13 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             miSacCinsi.Size = new Size(190, 22);
             miSacCinsi.Tag = "SacCinsi";
             miSacCinsi.Text = "Sac Cinsi Tanımlari";
+            // 
+            // miYuzeyTipiTanimlari
+            // 
+            miYuzeyTipiTanimlari.Name = "miYuzeyTipiTanimlari";
+            miYuzeyTipiTanimlari.Size = new Size(190, 22);
+            miYuzeyTipiTanimlari.Tag = "YuzeyTipiTanimlari";
+            miYuzeyTipiTanimlari.Text = "Yüzey Tipi Tanımları";
             // 
             // miTelTanimlari
             // 
@@ -596,13 +604,6 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             btnAnaFormResim.StatusBarKisaYol = "F4 :";
             btnAnaFormResim.StatusBarKisaYolAciklama = null;
             btnAnaFormResim.TabIndex = 3;
-            // 
-            // miYuzeyTipiTanimlari
-            // 
-            miYuzeyTipiTanimlari.Name = "miYuzeyTipiTanimlari";
-            miYuzeyTipiTanimlari.Size = new Size(190, 22);
-            miYuzeyTipiTanimlari.Tag = "YuzeyTipiTanimlari";
-            miYuzeyTipiTanimlari.Text = "Yüzey Tipi Tanımları";
             // 
             // AnaForm
             // 

@@ -353,7 +353,8 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
                                     var validator = Program.ServiceProvider.GetService(validatorType) as FluentValidation.IValidator;
                                     if (validator != null)
                                     {
-                                        var context = new FluentValidation.ValidationContext<object>(CurrentEntity);
+                                        var contextType = typeof(FluentValidation.ValidationContext<>).MakeGenericType(CurrentEntity.GetType());
+                                        var context = (FluentValidation.IValidationContext)Activator.CreateInstance(contextType, CurrentEntity)!;
                                         var valResult = validator.Validate(context);
                                         
                                         if (hasTempCode) CurrentEntity.Code = string.Empty;
