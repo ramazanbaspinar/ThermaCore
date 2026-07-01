@@ -5,7 +5,7 @@ namespace ThermaCore.Application.DTOs.Production;
 public class SheetMetalDto : BaseDto
 {
     public string Name { get; set; } = string.Empty;
-    public long SheetMetalTypeId { get; set; }
+
     public long QualityStandardId { get; set; }
     public long SurfaceTypeId { get; set; }
     public long UnitId { get; set; }

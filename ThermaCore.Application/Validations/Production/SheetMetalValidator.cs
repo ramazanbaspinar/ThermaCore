@@ -26,8 +26,7 @@ public class SheetMetalValidator : AbstractValidator<SheetMetalDto>
         RuleFor(x => x.Description)
             .MaximumLength(500).WithMessage("Açıklama en fazla 500 karakter olabilir.");
 
-        RuleFor(x => x.SheetMetalTypeId)
-            .GreaterThan(0).WithMessage("Lütfen geçerli bir Sac Cinsi seçiniz.");
+
 
         RuleFor(x => x.QualityStandardId)
             .GreaterThan(0).WithMessage("Lütfen geçerli bir Kalite Standardı seçiniz.");

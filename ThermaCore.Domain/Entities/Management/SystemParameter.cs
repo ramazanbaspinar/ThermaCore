@@ -34,4 +34,7 @@ public class SystemParameter : FullAuditableEntity
     public long? DefaultOtvId { get; set; }
 
     public decimal DefaultWastageRate { get; set; }
+    
+    [MaxLength(20)]
+    public string? CompanyBarcodePrefix { get; set; }
 }

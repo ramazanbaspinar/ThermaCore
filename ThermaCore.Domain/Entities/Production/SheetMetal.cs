@@ -14,9 +14,6 @@ public class SheetMetal : FullAuditableEntity
     [MaxLength(100)]
     public string Name { get; set; } = string.Empty;
 
-    public long SheetMetalTypeId { get; set; }
-    public virtual SheetMetalType SheetMetalType { get; set; } = null!;
-
     public long QualityStandardId { get; set; }
     public virtual QualityStandard QualityStandard { get; set; } = null!;
 

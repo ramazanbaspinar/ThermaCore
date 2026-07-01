@@ -39,8 +39,6 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             miKaliteStandartTanimlari = new ToolStripMenuItem();
             miMetalVeSacGrubu = new ToolStripMenuItem();
             miSacTanimlari = new ToolStripMenuItem();
-            miSacCinsi = new ToolStripMenuItem();
-            miYuzeyTipiTanimlari = new ToolStripMenuItem();
             miTelTanimlari = new ToolStripMenuItem();
             miIzgaraTanimlari = new ToolStripMenuItem();
             miTepsiTanimlari = new ToolStripMenuItem();
@@ -178,25 +176,10 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 
             // miSacTanimlari
             // 
-            miSacTanimlari.DropDownItems.AddRange(new ToolStripItem[] { miSacCinsi, miYuzeyTipiTanimlari });
             miSacTanimlari.Name = "miSacTanimlari";
             miSacTanimlari.Size = new Size(180, 22);
             miSacTanimlari.Tag = "SacTanimlari";
             miSacTanimlari.Text = "Sac Tanımları";
-            // 
-            // miSacCinsi
-            // 
-            miSacCinsi.Name = "miSacCinsi";
-            miSacCinsi.Size = new Size(190, 22);
-            miSacCinsi.Tag = "SacCinsi";
-            miSacCinsi.Text = "Sac Cinsi Tanımlari";
-            // 
-            // miYuzeyTipiTanimlari
-            // 
-            miYuzeyTipiTanimlari.Name = "miYuzeyTipiTanimlari";
-            miYuzeyTipiTanimlari.Size = new Size(190, 22);
-            miYuzeyTipiTanimlari.Tag = "YuzeyTipiTanimlari";
-            miYuzeyTipiTanimlari.Text = "Yüzey Tipi Tanımları";
             // 
             // miTelTanimlari
             // 
@@ -712,8 +695,6 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
         private ToolStripMenuItem miKdvOranlari;
         private ToolStripMenuItem miOtvOranlari;
         private ToolStripMenuItem miGenelParametreler;
-        private ToolStripMenuItem miSacCinsi;
         private ToolStripMenuItem miKaliteStandartTanimlari;
-        private ToolStripMenuItem miYuzeyTipiTanimlari;
     }
 }

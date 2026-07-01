@@ -95,16 +95,14 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             if (miTerminalYonetim != null)
                 miTerminalYonetim.Click += miTerminalYonetim_Click;
 
-            if (miSacCinsi != null)
-                miSacCinsi.Click += miSacCinsi_Click;
+
                 
             if (miKaliteStandartTanimlari != null)
             {
                 miKaliteStandartTanimlari.Click += miKaliteStandartTanimlari_Click;
             }
 
-            if (miYuzeyTipiTanimlari != null)
-                miYuzeyTipiTanimlari.Click += miYuzeyTipiTanimlari_Click;
+
 
             if (miSacTanimlari != null)
             {
@@ -618,18 +616,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             FormYukle<ThermaCore.Presentation.WinForms.Forms.TerminalForms.TerminalListForm>();
         }
 
-        private void miSacCinsi_Click(object? sender, EventArgs e)
-        {
-            var authService = _serviceProvider.GetService<ThermaCore.Application.Services.Management.IAuthService>();
-            if (authService != null && authService.HasPermission(ThermaCore.Domain.Enums.ModuleType.SacCinsiTanimlari, ThermaCore.Domain.Enums.PermissionType.CanView))
-            {
-                FormYukle<ThermaCore.Presentation.WinForms.Forms.SacCinsiForms.SacCinsiListForm>();
-            }
-            else
-            {
-                XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-        }
+
 
         private void miKaliteStandartTanimlari_Click(object? sender, EventArgs e)
         {

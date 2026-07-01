@@ -18,4 +18,5 @@ public class SystemParameterDto : BaseDto
     public long? DefaultOtvId { get; set; }
 
     public decimal DefaultWastageRate { get; set; }
+    public string? CompanyBarcodePrefix { get; set; }
 }

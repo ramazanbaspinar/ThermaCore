@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ThermaCore.Infrastructure.Persistence;
 
@@ -11,9 +12,11 @@ using ThermaCore.Infrastructure.Persistence;
 namespace ThermaCore.Infrastructure.Persistence.Migrations.TenantDb
 {
     [DbContext(typeof(ThermaCoreTenantContext))]
-    partial class ThermaCoreTenantContextModelSnapshot : ModelSnapshot
+    [Migration("20260701175323_AddItemBarcodesToTenant")]
+    partial class AddItemBarcodesToTenant
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -219,7 +222,7 @@ namespace ThermaCore.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 1L,
                             Code = "AD",
-                            CreatedDate = new DateTime(2026, 7, 1, 21, 39, 33, 903, DateTimeKind.Local).AddTicks(3311),
+                            CreatedDate = new DateTime(2026, 7, 1, 20, 53, 22, 636, DateTimeKind.Local).AddTicks(6481),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -229,7 +232,7 @@ namespace ThermaCore.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 2L,
                             Code = "KG",
-                            CreatedDate = new DateTime(2026, 7, 1, 21, 39, 33, 903, DateTimeKind.Local).AddTicks(3336),
+                            CreatedDate = new DateTime(2026, 7, 1, 20, 53, 22, 636, DateTimeKind.Local).AddTicks(6501),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -239,7 +242,7 @@ namespace ThermaCore.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 3L,
                             Code = "GR",
-                            CreatedDate = new DateTime(2026, 7, 1, 21, 39, 33, 903, DateTimeKind.Local).AddTicks(3338),
+                            CreatedDate = new DateTime(2026, 7, 1, 20, 53, 22, 636, DateTimeKind.Local).AddTicks(6502),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -249,7 +252,7 @@ namespace ThermaCore.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 10L,
                             Code = "TON",
-                            CreatedDate = new DateTime(2026, 7, 1, 21, 39, 33, 903, DateTimeKind.Local).AddTicks(3339),
+                            CreatedDate = new DateTime(2026, 7, 1, 20, 53, 22, 636, DateTimeKind.Local).AddTicks(6503),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -259,7 +262,7 @@ namespace ThermaCore.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 4L,
                             Code = "LT",
-                            CreatedDate = new DateTime(2026, 7, 1, 21, 39, 33, 903, DateTimeKind.Local).AddTicks(3340),
+                            CreatedDate = new DateTime(2026, 7, 1, 20, 53, 22, 636, DateTimeKind.Local).AddTicks(6504),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -269,7 +272,7 @@ namespace ThermaCore.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 5L,
                             Code = "MT",
-                            CreatedDate = new DateTime(2026, 7, 1, 21, 39, 33, 903, DateTimeKind.Local).AddTicks(3341),
+                            CreatedDate = new DateTime(2026, 7, 1, 20, 53, 22, 636, DateTimeKind.Local).AddTicks(6505),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -279,7 +282,7 @@ namespace ThermaCore.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 6L,
                             Code = "CM",
-                            CreatedDate = new DateTime(2026, 7, 1, 21, 39, 33, 903, DateTimeKind.Local).AddTicks(3342),
+                            CreatedDate = new DateTime(2026, 7, 1, 20, 53, 22, 636, DateTimeKind.Local).AddTicks(6506),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -289,7 +292,7 @@ namespace ThermaCore.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 7L,
                             Code = "MM",
-                            CreatedDate = new DateTime(2026, 7, 1, 21, 39, 33, 903, DateTimeKind.Local).AddTicks(3343),
+                            CreatedDate = new DateTime(2026, 7, 1, 20, 53, 22, 636, DateTimeKind.Local).AddTicks(6507),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -299,7 +302,7 @@ namespace ThermaCore.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 13L,
                             Code = "KM",
-                            CreatedDate = new DateTime(2026, 7, 1, 21, 39, 33, 903, DateTimeKind.Local).AddTicks(3344),
+                            CreatedDate = new DateTime(2026, 7, 1, 20, 53, 22, 636, DateTimeKind.Local).AddTicks(6508),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -309,7 +312,7 @@ namespace ThermaCore.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 14L,
                             Code = "M2",
-                            CreatedDate = new DateTime(2026, 7, 1, 21, 39, 33, 903, DateTimeKind.Local).AddTicks(3345),
+                            CreatedDate = new DateTime(2026, 7, 1, 20, 53, 22, 636, DateTimeKind.Local).AddTicks(6509),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -319,7 +322,7 @@ namespace ThermaCore.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 15L,
                             Code = "CM2",
-                            CreatedDate = new DateTime(2026, 7, 1, 21, 39, 33, 903, DateTimeKind.Local).AddTicks(3346),
+                            CreatedDate = new DateTime(2026, 7, 1, 20, 53, 22, 636, DateTimeKind.Local).AddTicks(6510),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -329,7 +332,7 @@ namespace ThermaCore.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 16L,
                             Code = "M3",
-                            CreatedDate = new DateTime(2026, 7, 1, 21, 39, 33, 903, DateTimeKind.Local).AddTicks(3347),
+                            CreatedDate = new DateTime(2026, 7, 1, 20, 53, 22, 636, DateTimeKind.Local).AddTicks(6511),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -339,7 +342,7 @@ namespace ThermaCore.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 17L,
                             Code = "MIC",
-                            CreatedDate = new DateTime(2026, 7, 1, 21, 39, 33, 903, DateTimeKind.Local).AddTicks(3348),
+                            CreatedDate = new DateTime(2026, 7, 1, 20, 53, 22, 636, DateTimeKind.Local).AddTicks(6512),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -349,7 +352,7 @@ namespace ThermaCore.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 18L,
                             Code = "GR/M2",
-                            CreatedDate = new DateTime(2026, 7, 1, 21, 39, 33, 903, DateTimeKind.Local).AddTicks(3349),
+                            CreatedDate = new DateTime(2026, 7, 1, 20, 53, 22, 636, DateTimeKind.Local).AddTicks(6513),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -359,7 +362,7 @@ namespace ThermaCore.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 19L,
                             Code = "KG/M2",
-                            CreatedDate = new DateTime(2026, 7, 1, 21, 39, 33, 903, DateTimeKind.Local).AddTicks(3350),
+                            CreatedDate = new DateTime(2026, 7, 1, 20, 53, 22, 636, DateTimeKind.Local).AddTicks(6514),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -369,7 +372,7 @@ namespace ThermaCore.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 8L,
                             Code = "PK",
-                            CreatedDate = new DateTime(2026, 7, 1, 21, 39, 33, 903, DateTimeKind.Local).AddTicks(3351),
+                            CreatedDate = new DateTime(2026, 7, 1, 20, 53, 22, 636, DateTimeKind.Local).AddTicks(6514),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -379,7 +382,7 @@ namespace ThermaCore.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 9L,
                             Code = "KL",
-                            CreatedDate = new DateTime(2026, 7, 1, 21, 39, 33, 903, DateTimeKind.Local).AddTicks(3352),
+                            CreatedDate = new DateTime(2026, 7, 1, 20, 53, 22, 636, DateTimeKind.Local).AddTicks(6515),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -389,7 +392,7 @@ namespace ThermaCore.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 20L,
                             Code = "KUT",
-                            CreatedDate = new DateTime(2026, 7, 1, 21, 39, 33, 903, DateTimeKind.Local).AddTicks(3353),
+                            CreatedDate = new DateTime(2026, 7, 1, 20, 53, 22, 636, DateTimeKind.Local).AddTicks(6516),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -399,7 +402,7 @@ namespace ThermaCore.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 11L,
                             Code = "TK",
-                            CreatedDate = new DateTime(2026, 7, 1, 21, 39, 33, 903, DateTimeKind.Local).AddTicks(3354),
+                            CreatedDate = new DateTime(2026, 7, 1, 20, 53, 22, 636, DateTimeKind.Local).AddTicks(6517),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -409,7 +412,7 @@ namespace ThermaCore.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 21L,
                             Code = "TBK",
-                            CreatedDate = new DateTime(2026, 7, 1, 21, 39, 33, 903, DateTimeKind.Local).AddTicks(3355),
+                            CreatedDate = new DateTime(2026, 7, 1, 20, 53, 22, 636, DateTimeKind.Local).AddTicks(6518),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -419,7 +422,7 @@ namespace ThermaCore.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 12L,
                             Code = "CU",
-                            CreatedDate = new DateTime(2026, 7, 1, 21, 39, 33, 903, DateTimeKind.Local).AddTicks(3356),
+                            CreatedDate = new DateTime(2026, 7, 1, 20, 53, 22, 636, DateTimeKind.Local).AddTicks(6519),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -429,7 +432,7 @@ namespace ThermaCore.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 22L,
                             Code = "BDN",
-                            CreatedDate = new DateTime(2026, 7, 1, 21, 39, 33, 903, DateTimeKind.Local).AddTicks(3357),
+                            CreatedDate = new DateTime(2026, 7, 1, 20, 53, 22, 636, DateTimeKind.Local).AddTicks(6520),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -439,7 +442,7 @@ namespace ThermaCore.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 23L,
                             Code = "TNK",
-                            CreatedDate = new DateTime(2026, 7, 1, 21, 39, 33, 903, DateTimeKind.Local).AddTicks(3358),
+                            CreatedDate = new DateTime(2026, 7, 1, 20, 53, 22, 636, DateTimeKind.Local).AddTicks(6521),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -449,7 +452,7 @@ namespace ThermaCore.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 24L,
                             Code = "KOV",
-                            CreatedDate = new DateTime(2026, 7, 1, 21, 39, 33, 903, DateTimeKind.Local).AddTicks(3359),
+                            CreatedDate = new DateTime(2026, 7, 1, 20, 53, 22, 636, DateTimeKind.Local).AddTicks(6522),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -459,7 +462,7 @@ namespace ThermaCore.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 25L,
                             Code = "DZ",
-                            CreatedDate = new DateTime(2026, 7, 1, 21, 39, 33, 903, DateTimeKind.Local).AddTicks(3360),
+                            CreatedDate = new DateTime(2026, 7, 1, 20, 53, 22, 636, DateTimeKind.Local).AddTicks(6523),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -469,7 +472,7 @@ namespace ThermaCore.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 26L,
                             Code = "DST",
-                            CreatedDate = new DateTime(2026, 7, 1, 21, 39, 33, 903, DateTimeKind.Local).AddTicks(3361),
+                            CreatedDate = new DateTime(2026, 7, 1, 20, 53, 22, 636, DateTimeKind.Local).AddTicks(6524),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -479,7 +482,7 @@ namespace ThermaCore.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 27L,
                             Code = "OHM",
-                            CreatedDate = new DateTime(2026, 7, 1, 21, 39, 33, 903, DateTimeKind.Local).AddTicks(3362),
+                            CreatedDate = new DateTime(2026, 7, 1, 20, 53, 22, 636, DateTimeKind.Local).AddTicks(6525),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -489,7 +492,7 @@ namespace ThermaCore.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 28L,
                             Code = "KW",
-                            CreatedDate = new DateTime(2026, 7, 1, 21, 39, 33, 903, DateTimeKind.Local).AddTicks(3368),
+                            CreatedDate = new DateTime(2026, 7, 1, 20, 53, 22, 636, DateTimeKind.Local).AddTicks(6526),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -499,7 +502,7 @@ namespace ThermaCore.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 29L,
                             Code = "W",
-                            CreatedDate = new DateTime(2026, 7, 1, 21, 39, 33, 903, DateTimeKind.Local).AddTicks(3369),
+                            CreatedDate = new DateTime(2026, 7, 1, 20, 53, 22, 636, DateTimeKind.Local).AddTicks(6527),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -509,7 +512,7 @@ namespace ThermaCore.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 30L,
                             Code = "SN",
-                            CreatedDate = new DateTime(2026, 7, 1, 21, 39, 33, 903, DateTimeKind.Local).AddTicks(3376),
+                            CreatedDate = new DateTime(2026, 7, 1, 20, 53, 22, 636, DateTimeKind.Local).AddTicks(6528),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -519,7 +522,7 @@ namespace ThermaCore.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 31L,
                             Code = "DK",
-                            CreatedDate = new DateTime(2026, 7, 1, 21, 39, 33, 903, DateTimeKind.Local).AddTicks(3388),
+                            CreatedDate = new DateTime(2026, 7, 1, 20, 53, 22, 636, DateTimeKind.Local).AddTicks(6529),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -529,7 +532,7 @@ namespace ThermaCore.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 32L,
                             Code = "SA",
-                            CreatedDate = new DateTime(2026, 7, 1, 21, 39, 33, 903, DateTimeKind.Local).AddTicks(3389),
+                            CreatedDate = new DateTime(2026, 7, 1, 20, 53, 22, 636, DateTimeKind.Local).AddTicks(6529),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -539,7 +542,7 @@ namespace ThermaCore.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 33L,
                             Code = "GUN",
-                            CreatedDate = new DateTime(2026, 7, 1, 21, 39, 33, 903, DateTimeKind.Local).AddTicks(3390),
+                            CreatedDate = new DateTime(2026, 7, 1, 20, 53, 22, 636, DateTimeKind.Local).AddTicks(6530),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -616,10 +619,6 @@ namespace ThermaCore.Infrastructure.Persistence.Migrations.TenantDb
                     b.Property<string>("Address")
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
-
-                    b.Property<string>("CompanyBarcodePrefix")
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("CompanyName")
                         .HasMaxLength(100)

@@ -25,14 +25,18 @@ public static class ApplicationServiceRegistration
         services.AddScoped<ThermaCore.Application.Interfaces.System.IExchangeRateService, ThermaCore.Application.Services.Management.ExchangeRateManager>();
         services.AddScoped<ThermaCore.Application.Interfaces.Management.ITaxRateService, ThermaCore.Application.Services.Management.TaxRateManager>();
         services.AddScoped<ISystemParameterService, SystemParameterManager>();
-        services.AddScoped<IValidator<ThermaCore.Application.DTOs.Production.SheetMetalTypeDto>, ThermaCore.Application.Validations.Production.SheetMetalTypeValidator>();
+        services.AddScoped<IValidator<ThermaCore.Application.DTOs.Management.CodeTemplateDto>, ThermaCore.Application.Validations.Management.CodeTemplateValidator>();
+        services.AddScoped<IValidator<ThermaCore.Application.DTOs.Management.CodeLogDto>, ThermaCore.Application.Validations.Management.CodeLogValidator>();
+
         services.AddScoped<IValidator<ThermaCore.Application.DTOs.Production.QualityStandardDto>, ThermaCore.Application.Validations.Production.QualityStandardValidator>();
         services.AddScoped<IValidator<ThermaCore.Application.DTOs.Production.SurfaceTypeDto>, ThermaCore.Application.Validations.Production.SurfaceTypeValidator>();
         services.AddScoped<IValidator<ThermaCore.Application.DTOs.Production.SheetMetalDto>, ThermaCore.Application.Validations.Production.SheetMetalValidator>();
-        services.AddScoped<ThermaCore.Application.Interfaces.Production.ISheetMetalTypeService, ThermaCore.Application.Services.Production.SheetMetalTypeManager>();
+        services.AddScoped<IValidator<ThermaCore.Application.DTOs.Common.ItemBarcodeDto>, ThermaCore.Application.Validations.Common.ItemBarcodeValidator>();
+
         services.AddScoped<ThermaCore.Application.Interfaces.Production.IQualityStandardService, ThermaCore.Application.Services.Production.QualityStandardManager>();
         services.AddScoped<ThermaCore.Application.Interfaces.Production.ISurfaceTypeService, ThermaCore.Application.Services.Production.SurfaceTypeManager>();
         services.AddScoped<ThermaCore.Application.Interfaces.Production.ISheetMetalService, ThermaCore.Application.Services.Production.SheetMetalManager>();
+        services.AddScoped<ThermaCore.Application.Interfaces.Common.IItemBarcodeService, ThermaCore.Application.Services.Common.ItemBarcodeManager>();
 
         services.AddScoped<ThermaCore.Application.Interfaces.System.ISessionService, ThermaCore.Application.Services.System.SessionManager>();
         services.AddScoped<ThermaCore.Application.Interfaces.System.ICodeGenerationService, ThermaCore.Application.Services.System.CodeGenerationManager>();

@@ -118,6 +118,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.ParametrelerForms
             if (glfOtv != null) glfOtv.EditValue = _currentDto.DefaultOtvId;
 
             if (txtFireOrani != null) txtFireOrani.Value = _currentDto.DefaultWastageRate;
+            if (txtFirmaBarkodOneki != null) txtFirmaBarkodOneki.Text = _currentDto.CompanyBarcodePrefix;
         }
 
         protected override void GuncelNesneOlustur()
@@ -132,7 +133,8 @@ namespace ThermaCore.Presentation.WinForms.Forms.ParametrelerForms
                 Email = txtEmail?.Text,
                 Address = txtAdres?.Text,
                 LocalCurrency = cmbYerelParaBirimi?.Text,
-                Logo = picLogo?.EditValue is byte[] b ? b : (picLogo?.EditValue as Image).ToByteArray()
+                Logo = picLogo?.EditValue is byte[] b ? b : (picLogo?.EditValue as Image).ToByteArray(),
+                CompanyBarcodePrefix = txtFirmaBarkodOneki?.Text
             };
 
             if (glfAlisKdv != null && glfAlisKdv.EditValue != null && long.TryParse(glfAlisKdv.EditValue.ToString(), out long aKdv))

@@ -30,10 +30,6 @@ public class SheetMetalConfiguration : ITenantEntityConfiguration, IEntityTypeCo
         builder.Property(x => x.Description)
             .HasMaxLength(500);
 
-        builder.HasOne(x => x.SheetMetalType)
-            .WithMany()
-            .HasForeignKey(x => x.SheetMetalTypeId)
-            .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasOne(x => x.QualityStandard)
             .WithMany()

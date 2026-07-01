@@ -96,10 +96,6 @@ public enum ModuleType
     [ParentModule(Tanimlar)]
     MetalVeSacGrubu = 3000,
 
-    [Description("Sac Cinsi Tanımları")]
-    [ParentModule(MetalVeSacGrubu)]
-    [RequiresCodeTemplate]
-    SacCinsiTanimlari = 15,
 
     [Description("Sac Tanımları")]
     [ParentModule(MetalVeSacGrubu)]

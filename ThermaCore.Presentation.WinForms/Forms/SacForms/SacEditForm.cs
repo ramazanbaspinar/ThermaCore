@@ -1,4 +1,4 @@
-﻿using DevExpress.XtraEditors;
+using DevExpress.XtraEditors;
 using System;
 using System.Linq;
 using System.Windows.Forms;
@@ -9,13 +9,14 @@ using ThermaCore.Domain.Enums;
 using ThermaCore.Presentation.WinForms.Forms.BaseForms;
 using ThermaCore.Presentation.WinForms.Helpers;
 using ThermaCore.Presentation.WinForms.UserControls.Controls;
+using ThermaCore.Application.Interfaces.Common;
 
 namespace ThermaCore.Presentation.WinForms.Forms.SacForms
 {
     public partial class SacEditForm : BaseEditForm
     {
         private readonly ISheetMetalService _sheetMetalService = default!;
-        private readonly ISheetMetalTypeService _sheetMetalTypeService = default!;
+
         private readonly IQualityStandardService _qualityStandardService = default!;
         private readonly ISurfaceTypeService _surfaceTypeService = default!;
         private readonly IUnitRepository _unitRepository = default!;
@@ -27,7 +28,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.SacForms
 
         public SacEditForm(
             ISheetMetalService sheetMetalService,
-            ISheetMetalTypeService sheetMetalTypeService,
+            IItemBarcodeService itemBarcodeService,
             IQualityStandardService qualityStandardService,
             ISurfaceTypeService surfaceTypeService,
             IUnitRepository unitRepository)
@@ -35,7 +36,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.SacForms
             InitializeComponent();
 
             _sheetMetalService = sheetMetalService;
-            _sheetMetalTypeService = sheetMetalTypeService;
+            
             _qualityStandardService = qualityStandardService;
             _surfaceTypeService = surfaceTypeService;
             _unitRepository = unitRepository;
@@ -45,13 +46,13 @@ namespace ThermaCore.Presentation.WinForms.Forms.SacForms
             RequiresCodeTemplate = true;
 
             picResim.Tag = "Image";
+            
+            ucBarkodlar1.InitializeService(itemBarcodeService);
         }
 
         public override void Yukle()
         {
-            glupSacCinsi.Properties.DataSource = _sheetMetalTypeService.GetAll().Where(x => x.IsActive).ToList();
-            glupSacCinsi.Properties.DisplayMember = "Name";
-            glupSacCinsi.Properties.ValueMember = "Id";
+
 
             glupKaliteStandart.Properties.DataSource = _qualityStandardService.GetAll().Where(x => x.IsActive).ToList();
             glupKaliteStandart.Properties.DisplayMember = "Name";
@@ -84,7 +85,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.SacForms
             Id = dto.Id;
             txtKod.Text = dto.Code;
             txtSacAdi.Text = dto.Name;
-            glupSacCinsi.EditValue = dto.SheetMetalTypeId > 0 ? dto.SheetMetalTypeId : null;
+
             glupKaliteStandart.EditValue = dto.QualityStandardId > 0 ? dto.QualityStandardId : null;
             glupYuzeyTip.EditValue = dto.SurfaceTypeId > 0 ? dto.SurfaceTypeId : null;
             glupBirim.EditValue = dto.UnitId > 0 ? dto.UnitId : null;
@@ -98,6 +99,8 @@ namespace ThermaCore.Presentation.WinForms.Forms.SacForms
             {
                 txtKod.Text = "Yeni Kod";
             }
+            
+            ucBarkodlar1.Yukle(Id, txtKod.Text, ModuleType.SacTanimlari);
         }
 
         protected override void GuncelNesneOlustur()
@@ -107,7 +110,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.SacForms
                 Id = Id,
                 Code = txtKod.Text,
                 Name = txtSacAdi.Text,
-                SheetMetalTypeId = glupSacCinsi.EditValue != null ? Convert.ToInt64(glupSacCinsi.EditValue) : 0,
+
                 QualityStandardId = glupKaliteStandart.EditValue != null ? Convert.ToInt64(glupKaliteStandart.EditValue) : 0,
                 SurfaceTypeId = glupYuzeyTip.EditValue != null ? Convert.ToInt64(glupYuzeyTip.EditValue) : 0,
                 UnitId = glupBirim.EditValue != null ? Convert.ToInt64(glupBirim.EditValue) : 0,
@@ -130,6 +133,12 @@ namespace ThermaCore.Presentation.WinForms.Forms.SacForms
                 dto.Id = BaseIslemTuru.IdOlustur(OldEntity);
 
                 Id = _sheetMetalService.Insert(dto);
+                
+                if (Id > 0)
+                {
+                    ucBarkodlar1.Kaydet(Id);
+                }
+                
                 return Id > 0;
             }
             catch (FluentValidation.ValidationException ex)
@@ -150,6 +159,9 @@ namespace ThermaCore.Presentation.WinForms.Forms.SacForms
             {
                 var dto = (SheetMetalDto)CurrentEntity;
                 _sheetMetalService.Update(dto);
+                
+                ucBarkodlar1.Kaydet(Id);
+                
                 return true;
             }
             catch (FluentValidation.ValidationException ex)
@@ -164,9 +176,109 @@ namespace ThermaCore.Presentation.WinForms.Forms.SacForms
             }
         }
 
+        protected override void EntityDelete()
+        {
+            if (Id <= 0) return;
+
+            if (Messages.SilMesaj("Sac Tanımı") == DialogResult.Yes)
+            {
+                try
+                {
+                    Cursor.Current = Cursors.WaitCursor;
+                    _sheetMetalService.Delete(Id);
+                    RefreshYapilacak = true;
+                    Messages.SilindiMesaj();
+                    Close();
+                }
+                catch (Exception ex)
+                {
+                    Messages.HataBasligi(ex.Message, "Silme Hatası");
+                }
+                finally
+                {
+                    Cursor.Current = Cursors.Default;
+                }
+            }
+        }
+
+        protected override void FocusControlByPropertyName(string propertyName)
+        {
+            switch (propertyName)
+            {
+                case "Code": txtKod.Focus(); break;
+                case "Name": txtSacAdi.Focus(); break;
+                case "QualityStandardId": glupKaliteStandart.Focus(); break;
+                case "SurfaceTypeId": glupYuzeyTip.Focus(); break;
+                case "UnitId": glupBirim.Focus(); break;
+                case "Thickness": calcKalinlik.Focus(); break;
+                case "Density": calcOzkutle.Focus(); break;
+                case "Description": txtAciklama.Focus(); break;
+            }
+        }
+
         protected override bool IsCodeUnique(string code)
         {
             return _sheetMetalService.IsCodeUnique(this.Id, code);
+        }
+
+        protected override void EventsLoad()
+        {
+            base.EventsLoad();
+
+
+            glupKaliteStandart.SearchButtonClicked += glupKaliteStandart_SearchButtonClicked;
+            glupYuzeyTip.SearchButtonClicked += glupYuzeyTip_SearchButtonClicked;
+            glupBirim.SearchButtonClicked += glupBirim_SearchButtonClicked;
+        }
+
+
+
+        private void glupKaliteStandart_SearchButtonClicked(object? sender, EventArgs e)
+        {
+            var form = Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ThermaCore.Presentation.WinForms.Forms.KaliteStandartForms.KaliteStandartListForm>(Program.ServiceProvider);
+            if (form != null)
+            {
+                form.FormAcilisTuru = ThermaCore.Presentation.WinForms.Enums.FormAcilisTuru.Secim;
+                form.ShowDialog();
+                if (form.DialogResult == DialogResult.OK && form.SelectedEntities?.Count > 0)
+                {
+                    var secilenId = form.SelectedEntities[0].Id;
+                    glupKaliteStandart.Properties.DataSource = _qualityStandardService.GetAll().Where(x => x.IsActive).ToList();
+                    glupKaliteStandart.EditValue = secilenId;
+                }
+            }
+        }
+
+        private void glupYuzeyTip_SearchButtonClicked(object? sender, EventArgs e)
+        {
+            var form = Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ThermaCore.Presentation.WinForms.Forms.YuzeyTipiForms.YuzeyTipiListForm>(Program.ServiceProvider);
+            if (form != null)
+            {
+                form.FormAcilisTuru = ThermaCore.Presentation.WinForms.Enums.FormAcilisTuru.Secim;
+                form.ShowDialog();
+                if (form.DialogResult == DialogResult.OK && form.SelectedEntities?.Count > 0)
+                {
+                    var secilenId = form.SelectedEntities[0].Id;
+                    glupYuzeyTip.Properties.DataSource = _surfaceTypeService.GetAll().Where(x => x.IsActive).ToList();
+                    glupYuzeyTip.EditValue = secilenId;
+                }
+            }
+        }
+
+        private void glupBirim_SearchButtonClicked(object? sender, EventArgs e)
+        {
+            var form = Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.BirimForms.BirimListForm>(Program.ServiceProvider);
+            if (form != null)
+            {
+                form.FormAcilisTuru = ThermaCore.Presentation.WinForms.Enums.FormAcilisTuru.Secim;
+                form.ShowDialog();
+                if (form.DialogResult == DialogResult.OK && form.SelectedEntities?.Count > 0)
+                {
+                    var secilenId = form.SelectedEntities[0].Id;
+                    glupBirim.Properties.DataSource = _unitRepository.GetAll().Where(x => x.IsActive).ToList();
+                    glupBirim.EditValue = secilenId;
+                }
+            }
         }
     }
 }

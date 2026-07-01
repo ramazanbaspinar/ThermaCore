@@ -44,6 +44,7 @@
             DevExpress.XtraLayout.RowDefinition rowDefinition10 = new DevExpress.XtraLayout.RowDefinition();
             DevExpress.XtraLayout.ColumnDefinition columnDefinition5 = new DevExpress.XtraLayout.ColumnDefinition();
             DevExpress.XtraLayout.RowDefinition rowDefinition11 = new DevExpress.XtraLayout.RowDefinition();
+            DevExpress.XtraLayout.RowDefinition rowDefinition12 = new DevExpress.XtraLayout.RowDefinition();
             xtraTabControl1 = new DevExpress.XtraTab.XtraTabControl();
             tpFirmaBilgileri = new DevExpress.XtraTab.XtraTabPage();
             myDataLayoutControl1 = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyDataLayoutControl();
@@ -83,6 +84,8 @@
             myDataLayoutControl3 = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyDataLayoutControl();
             txtFireOrani = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyCalcEdit();
             layoutControlGroup2 = new DevExpress.XtraLayout.LayoutControlGroup();
+            txtFirmaBarkodOneki = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyTextEdit();
+            layoutControlItem13 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem12 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)ribbon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)xtraTabControl1).BeginInit();
@@ -125,6 +128,8 @@
             myDataLayoutControl3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)txtFireOrani.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlGroup2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtFirmaBarkodOneki.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem13).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem12).BeginInit();
             SuspendLayout();
             // 
@@ -592,10 +597,12 @@
             // myDataLayoutControl3
             // 
             myDataLayoutControl3.AllowCustomization = false;
+            myDataLayoutControl3.Controls.Add(txtFirmaBarkodOneki);
             myDataLayoutControl3.Controls.Add(txtFireOrani);
             myDataLayoutControl3.Dock = DockStyle.Fill;
             myDataLayoutControl3.Location = new Point(0, 0);
             myDataLayoutControl3.Name = "myDataLayoutControl3";
+            myDataLayoutControl3.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new Rectangle(823, 81, 650, 400);
             myDataLayoutControl3.OptionsFocus.EnableAutoTabOrder = false;
             myDataLayoutControl3.Root = layoutControlGroup2;
             myDataLayoutControl3.Size = new Size(596, 215);
@@ -605,7 +612,7 @@
             // txtFireOrani
             // 
             txtFireOrani.EnterMoveNextControl = true;
-            txtFireOrani.Location = new Point(145, 12);
+            txtFireOrani.Location = new Point(145, 43);
             txtFireOrani.MenuManager = ribbon;
             txtFireOrani.Name = "txtFireOrani";
             txtFireOrani.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
@@ -628,24 +635,49 @@
             // 
             layoutControlGroup2.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
             layoutControlGroup2.GroupBordersVisible = false;
-            layoutControlGroup2.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] { layoutControlItem12 });
+            layoutControlGroup2.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] { layoutControlItem13, layoutControlItem12 });
             layoutControlGroup2.LayoutMode = DevExpress.XtraLayout.Utils.LayoutMode.Table;
-            layoutControlGroup2.Name = "layoutControlGroup2";
+            layoutControlGroup2.Name = "Root";
             columnDefinition5.SizeType = SizeType.Percent;
             columnDefinition5.Width = 100D;
             layoutControlGroup2.OptionsTableLayoutGroup.ColumnDefinitions.AddRange(new DevExpress.XtraLayout.ColumnDefinition[] { columnDefinition5 });
             rowDefinition11.Height = 31D;
             rowDefinition11.SizeType = SizeType.Absolute;
-            layoutControlGroup2.OptionsTableLayoutGroup.RowDefinitions.AddRange(new DevExpress.XtraLayout.RowDefinition[] { rowDefinition11 });
+            rowDefinition12.Height = 31D;
+            rowDefinition12.SizeType = SizeType.Absolute;
+            layoutControlGroup2.OptionsTableLayoutGroup.RowDefinitions.AddRange(new DevExpress.XtraLayout.RowDefinition[] { rowDefinition11, rowDefinition12 });
             layoutControlGroup2.Size = new Size(596, 215);
             layoutControlGroup2.TextVisible = false;
+            // 
+            // txtFirmaBarkodOneki
+            // 
+            txtFirmaBarkodOneki.EnterMoveNextControl = true;
+            txtFirmaBarkodOneki.Location = new Point(145, 12);
+            txtFirmaBarkodOneki.MenuManager = ribbon;
+            txtFirmaBarkodOneki.Name = "txtFirmaBarkodOneki";
+            txtFirmaBarkodOneki.Properties.MaxLength = 100;
+            txtFirmaBarkodOneki.Size = new Size(439, 20);
+            txtFirmaBarkodOneki.StatusBarAciklama = "";
+            txtFirmaBarkodOneki.StyleController = myDataLayoutControl3;
+            txtFirmaBarkodOneki.TabIndex = 4;
+            txtFirmaBarkodOneki.Tag = "CompanyBarcodePrefix";
+            // 
+            // layoutControlItem13
+            // 
+            layoutControlItem13.Control = txtFirmaBarkodOneki;
+            layoutControlItem13.Location = new Point(0, 0);
+            layoutControlItem13.Name = "layoutControlItem13";
+            layoutControlItem13.Size = new Size(576, 31);
+            layoutControlItem13.Text = "Şirket Barkod Öneki";
+            layoutControlItem13.TextSize = new Size(121, 13);
             // 
             // layoutControlItem12
             // 
             layoutControlItem12.Control = txtFireOrani;
-            layoutControlItem12.Location = new Point(0, 0);
+            layoutControlItem12.Location = new Point(0, 31);
             layoutControlItem12.Name = "layoutControlItem12";
-            layoutControlItem12.Size = new Size(576, 195);
+            layoutControlItem12.OptionsTableLayoutItem.RowIndex = 1;
+            layoutControlItem12.Size = new Size(576, 164);
             layoutControlItem12.Text = "Varsayılan Fire Oranı (%)";
             layoutControlItem12.TextSize = new Size(121, 13);
             // 
@@ -702,6 +734,8 @@
             myDataLayoutControl3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)txtFireOrani.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlGroup2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtFirmaBarkodOneki.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem13).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem12).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -741,7 +775,6 @@
         private UserControls.Controls.MyDataLayoutControl myDataLayoutControl3;
         private UserControls.Controls.MyCalcEdit txtFireOrani;
         private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup2;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem12;
         private DevExpress.XtraGrid.Columns.GridColumn colAlisKdvVeriOrani;
         private DevExpress.XtraGrid.Columns.GridColumn colOtvVergiOrani;
         private DevExpress.XtraGrid.Columns.GridColumn colSatisKdvVergiOrani;
@@ -749,5 +782,8 @@
         private UserControls.Controls.MyTelefonNoTextEdit txtTelefon;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;
+        private UserControls.Controls.MyTextEdit txtFirmaBarkodOneki;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem13;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem12;
     }
 }

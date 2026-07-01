@@ -1,4 +1,4 @@
-﻿namespace ThermaCore.Presentation.WinForms.Forms.SacForms
+namespace ThermaCore.Presentation.WinForms.Forms.SacForms
 {
     partial class SacListForm
     {
@@ -35,7 +35,7 @@
             colId = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colKod = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colSacAdi = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
-            colSacCinsi = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
+
             colKalite = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colYuzeyTipi = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colKalinlik = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
@@ -77,7 +77,7 @@
             // 
             // myGridView1
             // 
-            myGridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colId, colKod, colSacAdi, colSacCinsi, colKalite, colYuzeyTipi, colKalinlik, colAciklama });
+            myGridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colId, colKod, colSacAdi, colKalite, colYuzeyTipi, colKalinlik, colAciklama });
             myGridView1.GridControl = myGridControl1;
             myGridView1.Name = "myGridView1";
             myGridView1.OptionsMenu.EnableColumnMenu = false;
@@ -135,18 +135,7 @@
             colSacAdi.StatusBarKisaYolAciklama = null;
             colSacAdi.Visible = true;
             colSacAdi.VisibleIndex = 1;
-            // 
-            // colSacCinsi
-            // 
-            colSacCinsi.Caption = "Sac Cinsi";
-            colSacCinsi.FieldName = "SheetMetalTypeName";
-            colSacCinsi.Name = "colSacCinsi";
-            colSacCinsi.OptionsColumn.AllowEdit = false;
-            colSacCinsi.StatusBarAciklama = null;
-            colSacCinsi.StatusBarKisaYol = null;
-            colSacCinsi.StatusBarKisaYolAciklama = null;
-            colSacCinsi.Visible = true;
-            colSacCinsi.VisibleIndex = 2;
+
             // 
             // colKalite
             // 
@@ -224,7 +213,7 @@
         private UserControls.Grid.MyGridColumn colId;
         private UserControls.Grid.MyGridColumn colKod;
         private UserControls.Grid.MyGridColumn colSacAdi;
-        private UserControls.Grid.MyGridColumn colSacCinsi;
+
         private UserControls.Grid.MyGridColumn colKalite;
         private UserControls.Grid.MyGridColumn colYuzeyTipi;
         private UserControls.Grid.MyGridColumn colKalinlik;
