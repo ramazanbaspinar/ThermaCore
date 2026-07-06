@@ -20,6 +20,9 @@ namespace ThermaCore.Presentation.WinForms.Forms.SacForms
         private readonly IQualityStandardService _qualityStandardService = default!;
         private readonly ISurfaceTypeService _surfaceTypeService = default!;
         private readonly IUnitRepository _unitRepository = default!;
+        private readonly ISpecialCodeService _specialCodeService = default!;
+
+
 
         public SacEditForm()
         {
@@ -31,7 +34,8 @@ namespace ThermaCore.Presentation.WinForms.Forms.SacForms
             IItemBarcodeService itemBarcodeService,
             IQualityStandardService qualityStandardService,
             ISurfaceTypeService surfaceTypeService,
-            IUnitRepository unitRepository)
+            IUnitRepository unitRepository,
+            ISpecialCodeService specialCodeService)
         {
             InitializeComponent();
 
@@ -40,15 +44,18 @@ namespace ThermaCore.Presentation.WinForms.Forms.SacForms
             _qualityStandardService = qualityStandardService;
             _surfaceTypeService = surfaceTypeService;
             _unitRepository = unitRepository;
+            _specialCodeService = specialCodeService;
 
             BaseKartTuru = ModuleType.SacTanimlari;
             DataLayoutControl = myDataLayoutControl1;
             RequiresCodeTemplate = true;
 
-            picResim.Tag = "Image";
             
+
             ucBarkodlar1.InitializeService(itemBarcodeService);
             ucBarkodlar1.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
+            ucEntityPicture1.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
+
         }
 
         public override void Yukle()
@@ -67,6 +74,9 @@ namespace ThermaCore.Presentation.WinForms.Forms.SacForms
             glupBirim.Properties.DisplayMember = "Name";
             glupBirim.Properties.ValueMember = "Id";
 
+            glufOzelKod1.Properties.DataSource = _specialCodeService.GetCodes(SpecialCodeType.SpecialCode, "Sac");
+            glufOzelKod1.Properties.DisplayMember = "Code";
+            glufOzelKod1.Properties.ValueMember = "Id";
             if (BaseIslemTuru == ActionType.EntityUpdate)
             {
                 CurrentEntity = _sheetMetalService.GetById(Id);
@@ -90,11 +100,20 @@ namespace ThermaCore.Presentation.WinForms.Forms.SacForms
             glupKaliteStandart.EditValue = dto.QualityStandardId > 0 ? dto.QualityStandardId : null;
             glupYuzeyTip.EditValue = dto.SurfaceTypeId > 0 ? dto.SurfaceTypeId : null;
             glupBirim.EditValue = dto.UnitId > 0 ? dto.UnitId : null;
+            glufOzelKod1.EditValue = dto.SpecialCodeId > 0 ? dto.SpecialCodeId : null;
             calcKalinlik.Value = dto.Thickness;
             calcOzkutle.Value = dto.Density == 0 ? 7.85m : dto.Density;
             txtAciklama.Text = dto.Description;
             tglDurum.IsOn = dto.IsActive;
-            picResim.EditValue = dto.Image;
+
+            if (dto.Id > 0)
+            {
+                ucEntityPicture1.LoadPicture("Sac", dto.Id);
+            }
+            else
+            {
+                ucEntityPicture1.ClearPicture();
+            }
 
             if (BaseIslemTuru == ActionType.EntityInsert)
             {
@@ -115,11 +134,11 @@ namespace ThermaCore.Presentation.WinForms.Forms.SacForms
                 QualityStandardId = glupKaliteStandart.EditValue != null ? Convert.ToInt64(glupKaliteStandart.EditValue) : 0,
                 SurfaceTypeId = glupYuzeyTip.EditValue != null ? Convert.ToInt64(glupYuzeyTip.EditValue) : 0,
                 UnitId = glupBirim.EditValue != null ? Convert.ToInt64(glupBirim.EditValue) : 0,
+                SpecialCodeId = glufOzelKod1.EditValue != null ? Convert.ToInt64(glufOzelKod1.EditValue) : null,
                 Thickness = calcKalinlik.Value,
                 Density = calcOzkutle.Value,
                 Description = txtAciklama.Text,
-                IsActive = tglDurum.IsOn,
-                Image = (byte[]?)picResim.EditValue
+                IsActive = tglDurum.IsOn
             };
 
             CurrentEntity = dto;
@@ -140,6 +159,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.SacForms
                 if (Id > 0)
                 {
                     ucBarkodlar1.Kaydet(Id);
+                    ucEntityPicture1.SavePicture("Sac", Id);
                 }
                 
                 return Id > 0;
@@ -167,6 +187,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.SacForms
                 _sheetMetalService.Update(dto);
                 
                 ucBarkodlar1.Kaydet(Id);
+                ucEntityPicture1.SavePicture("Sac", Id);
                 
                 return true;
             }
@@ -236,9 +257,24 @@ namespace ThermaCore.Presentation.WinForms.Forms.SacForms
             glupKaliteStandart.SearchButtonClicked += glupKaliteStandart_SearchButtonClicked;
             glupYuzeyTip.SearchButtonClicked += glupYuzeyTip_SearchButtonClicked;
             glupBirim.SearchButtonClicked += glupBirim_SearchButtonClicked;
+            glufOzelKod1.SearchButtonClicked += glufOzelKod1_SearchButtonClicked;
         }
 
+        private void glufOzelKod1_SearchButtonClicked(object? sender, EventArgs e)
+        {
+            var form = new ThermaCore.Presentation.WinForms.Forms.OzelKodForms.OzelKodListForm(SpecialCodeType.SpecialCode, "Sac");
+            form.FormAcilisTuru = ThermaCore.Presentation.WinForms.Enums.FormAcilisTuru.Secim;
+            form.ShowDialog();
+            
+            // Kullanıcı liste ekranında yeni bir kod eklemiş olabilir, bu yüzden LookUp'ı yenile
+            glufOzelKod1.Properties.DataSource = _specialCodeService.GetCodes(SpecialCodeType.SpecialCode, "Sac");
 
+            if (form.DialogResult == DialogResult.OK && form.SelectedEntities != null && form.SelectedEntities.Count > 0)
+            {
+                var selectedId = form.SelectedEntities[0].Id;
+                glufOzelKod1.EditValue = selectedId;
+            }
+        }
 
         private void glupKaliteStandart_SearchButtonClicked(object? sender, EventArgs e)
         {
@@ -292,8 +328,8 @@ namespace ThermaCore.Presentation.WinForms.Forms.SacForms
         {
             base.ButonEnabledDurumu();
             
-            // Eğer BaseEditForm kaydet butonunu açmadıysa ancak barkodlarda değişiklik varsa Kaydet ve Geri Al butonlarını aktifleştir
-            if (ucBarkodlar1.IsDirty())
+            // Eğer BaseEditForm kaydet butonunu açmadıysa ancak barkodlarda veya resimde değişiklik varsa Kaydet ve Geri Al butonlarını aktifleştir
+            if (ucBarkodlar1.IsDirty() || ucEntityPicture1.IsDirty())
             {
                 if (btnKaydet != null && !btnKaydet.Enabled) btnKaydet.Enabled = true;
                 if (btnGerial != null && !btnGerial.Enabled) btnGerial.Enabled = true;

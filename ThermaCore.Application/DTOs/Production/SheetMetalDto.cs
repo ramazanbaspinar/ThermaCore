@@ -11,6 +11,8 @@ public class SheetMetalDto : BaseDto
     public long UnitId { get; set; }
     public decimal Thickness { get; set; }
     public decimal Density { get; set; }
-    public byte[]? Image { get; set; }
     public string? Description { get; set; }
+
+    public long? SpecialCodeId { get; set; }
+    public long? GroupCodeId { get; set; }
 }

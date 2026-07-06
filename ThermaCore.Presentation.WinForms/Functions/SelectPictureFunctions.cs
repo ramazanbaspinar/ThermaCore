@@ -40,6 +40,7 @@ namespace ThermaCore.Presentation.WinForms.Functions
                 try
                 {
                     var imageBytes = File.ReadAllBytes(ofd.FileName);
+                    pictureEdit.IsModified = true;
                     pictureEdit.EditValue = imageBytes;
                 }
                 catch (System.Exception ex)
@@ -51,6 +52,7 @@ namespace ThermaCore.Presentation.WinForms.Functions
 
         public static void ResimSil(this MyPictureEdit pictureEdit)
         {
+            pictureEdit.IsModified = true;
             pictureEdit.EditValue = null;
         }
 

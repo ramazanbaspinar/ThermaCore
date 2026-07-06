@@ -208,7 +208,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
             {
                 if (control is ThermaCore.Presentation.WinForms.UserControls.Controls.MyPictureEdit pictureEdit)
                 {
-                    if (resimMenu != null)
+                    if (resimMenu != null && pictureEdit.ContextMenuStrip == null)
                     {
                         pictureEdit.Sec(resimMenu);
                     }

@@ -31,13 +31,18 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IValidator<ThermaCore.Application.DTOs.Production.QualityStandardDto>, ThermaCore.Application.Validations.Production.QualityStandardValidator>();
         services.AddScoped<IValidator<ThermaCore.Application.DTOs.Production.SurfaceTypeDto>, ThermaCore.Application.Validations.Production.SurfaceTypeValidator>();
         services.AddScoped<IValidator<ThermaCore.Application.DTOs.Production.SheetMetalDto>, ThermaCore.Application.Validations.Production.SheetMetalValidator>();
+        services.AddScoped<IValidator<ThermaCore.Application.DTOs.Production.BoyaDto>, ThermaCore.Application.Validations.Production.BoyaValidator>();
         services.AddScoped<IValidator<ThermaCore.Application.DTOs.Common.ItemBarcodeDto>, ThermaCore.Application.Validations.Common.ItemBarcodeValidator>();
+        services.AddScoped<IValidator<ThermaCore.Application.DTOs.Common.SpecialCodeDto>, ThermaCore.Application.Validations.Common.SpecialCodeValidator>();
 
         services.AddScoped<ThermaCore.Application.Interfaces.Production.IQualityStandardService, ThermaCore.Application.Services.Production.QualityStandardManager>();
         services.AddScoped<ThermaCore.Application.Interfaces.Production.ISurfaceTypeService, ThermaCore.Application.Services.Production.SurfaceTypeManager>();
         services.AddScoped<ThermaCore.Application.Interfaces.Production.ISheetMetalService, ThermaCore.Application.Services.Production.SheetMetalManager>();
+        services.AddScoped<ThermaCore.Application.Interfaces.Production.IBoyaService, ThermaCore.Application.Services.Production.BoyaManager>();
         services.AddScoped<ThermaCore.Application.Interfaces.Common.IItemBarcodeService, ThermaCore.Application.Services.Common.ItemBarcodeManager>();
         services.AddScoped<ThermaCore.Application.Interfaces.Common.IBarcodePrintService, ThermaCore.Application.Services.Common.BarcodePrintManager>();
+        services.AddScoped<ThermaCore.Application.Interfaces.Common.IDocumentService, ThermaCore.Application.Services.Common.DocumentManager>();
+        services.AddScoped<ThermaCore.Application.Interfaces.Common.ISpecialCodeService, ThermaCore.Application.Services.Common.SpecialCodeManager>();
 
         services.AddScoped<ThermaCore.Application.Interfaces.System.ISessionService, ThermaCore.Application.Services.System.SessionManager>();
         services.AddScoped<ThermaCore.Application.Interfaces.System.ICodeGenerationService, ThermaCore.Application.Services.System.CodeGenerationManager>();

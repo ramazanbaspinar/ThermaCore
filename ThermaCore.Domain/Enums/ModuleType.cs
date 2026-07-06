@@ -110,5 +110,14 @@ public enum ModuleType
     [Description("Yüzey Tipi Tanımları")]
     [ParentModule(MetalVeSacGrubu)]
     [RequiresCodeTemplate]
-    YuzeyTipiTanimlari = 17
+    YuzeyTipiTanimlari = 17,
+
+    [Description("Kod Yönetimi")]
+    [ParentModule(SistemYonetimi)]
+    KodYonetimi = 18,
+
+    [Description("Boya Tanımları")]
+    [ParentModule(Tanimlar)]
+    [RequiresCodeTemplate]
+    BoyaTanimlari = 19
 }

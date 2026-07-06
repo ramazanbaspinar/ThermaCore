@@ -27,10 +27,15 @@ public class SheetMetal : FullAuditableEntity
 
     public decimal Density { get; set; } = 7.85m;
 
-    public byte[]? Image { get; set; }
 
     [MaxLength(500)]
     public string? Description { get; set; }
+
+    public long? SpecialCodeId { get; set; }
+    public virtual ThermaCore.Domain.Entities.Common.SpecialCode? SpecialCode { get; set; }
+
+    public long? GroupCodeId { get; set; }
+    public virtual ThermaCore.Domain.Entities.Common.SpecialCode? GroupCode { get; set; }
 
     public bool IsActive { get; set; } = true;
 }

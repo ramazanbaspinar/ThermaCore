@@ -45,5 +45,15 @@ public class SheetMetalConfiguration : ITenantEntityConfiguration, IEntityTypeCo
             .WithMany()
             .HasForeignKey(x => x.UnitId)
             .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne(x => x.SpecialCode)
+            .WithMany()
+            .HasForeignKey(x => x.SpecialCodeId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne(x => x.GroupCode)
+            .WithMany()
+            .HasForeignKey(x => x.GroupCodeId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }
