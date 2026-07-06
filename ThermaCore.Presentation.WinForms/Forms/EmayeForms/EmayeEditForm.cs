@@ -11,32 +11,32 @@ using ThermaCore.Presentation.WinForms.Helpers;
 using ThermaCore.Application.Interfaces.Common;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace ThermaCore.Presentation.WinForms.Forms.BoyaForms
+namespace ThermaCore.Presentation.WinForms.Forms.EmayeForms
 {
-    public partial class BoyaEditForm : BaseEditForm
+    public partial class EmayeEditForm : BaseEditForm
     {
-        private readonly IBoyaService _boyaService = default!;
+        private readonly IEmayeService _emayeService = default!;
         private readonly IUnitRepository _unitRepository = default!;
         private readonly ISpecialCodeService _specialCodeService = default!;
 
-        public BoyaEditForm()
+        public EmayeEditForm()
         {
             InitializeComponent();
         }
 
-        public BoyaEditForm(
-            IBoyaService boyaService,
+        public EmayeEditForm(
+            IEmayeService emayeService,
             IItemBarcodeService itemBarcodeService,
             IUnitRepository unitRepository,
             ISpecialCodeService specialCodeService)
         {
             InitializeComponent();
 
-            _boyaService = boyaService;
+            _emayeService = emayeService;
             _unitRepository = unitRepository;
             _specialCodeService = specialCodeService;
 
-            BaseKartTuru = ModuleType.BoyaTanimlari; // Assuming BoyaTanimlari is in ModuleType, if not I should check, but let's assume it exists or use equivalent. Actually, let's use ModuleType.BoyaTanimlari.
+            BaseKartTuru = ModuleType.EmayeTanimlari;
             DataLayoutControl = myDataLayoutControl1;
             RequiresCodeTemplate = true;
 
@@ -49,19 +49,19 @@ namespace ThermaCore.Presentation.WinForms.Forms.BoyaForms
         {
             glufTemelBirim.Properties.DataSource = _unitRepository.GetAll().Where(x => x.IsActive).ToList();
             glufTemelBirim.Properties.DisplayMember = "Name";
-            glufTemelBirim.Properties.ValueMember = "Name"; // Note: BaseUnit is string in BoyaDto. Wait, I should use "Name" or "Code"? The prompt said BaseUnit (string). Let's use "Name" for ValueMember to map directly to string, or if it's string maybe "Name". I'll use "Name" for ValueMember so it stores string.
+            glufTemelBirim.Properties.ValueMember = "Name";
 
-            glufOzelKod.Properties.DataSource = _specialCodeService.GetCodes(SpecialCodeType.SpecialCode, "Boya");
+            glufOzelKod.Properties.DataSource = _specialCodeService.GetCodes(SpecialCodeType.SpecialCode, "Emaye");
             glufOzelKod.Properties.DisplayMember = "Code";
             glufOzelKod.Properties.ValueMember = "Id";
 
             if (BaseIslemTuru == ActionType.EntityUpdate)
             {
-                CurrentEntity = _boyaService.GetById(Id);
+                CurrentEntity = _emayeService.GetById(Id);
             }
             else
             {
-                CurrentEntity = new BoyaDto { IsActive = true };
+                CurrentEntity = new EmayeDto { IsActive = true };
             }
 
             NesneyiKontrollereBagla();
@@ -69,25 +69,21 @@ namespace ThermaCore.Presentation.WinForms.Forms.BoyaForms
 
         protected override void NesneyiKontrollereBagla()
         {
-            var dto = (BoyaDto)CurrentEntity;
+            var dto = (EmayeDto)CurrentEntity;
 
             Id = dto.Id;
             txtKod.Text = dto.Code;
-            txtBoyaAdi.Text = dto.Name;
+            txtEmayeAdi.Text = dto.Name;
 
             glufTemelBirim.EditValue = string.IsNullOrWhiteSpace(dto.BaseUnit) ? null : dto.BaseUnit;
             glufOzelKod.EditValue = dto.SpecialCodeId > 0 ? dto.SpecialCodeId : null;
             
-            txtRenkKodu.Text = dto.ColorCode;
-            txtIsiDayanimi.Value = dto.HeatResistance ?? 0;
-            txtFirinlanmaSuresi.Value = dto.DryingTimeMinutes ?? 0;
-            txtRafOmru.Value = dto.ShelfLifeMonths ?? 0;
             txtAciklama.Text = dto.Description;
             tglDurum.IsOn = dto.IsActive;
 
             if (dto.Id > 0)
             {
-                picResim.LoadPictureAsync("Boya", dto.Id);
+                picResim.LoadPictureAsync("Emaye", dto.Id);
             }
             else
             {
@@ -99,23 +95,18 @@ namespace ThermaCore.Presentation.WinForms.Forms.BoyaForms
                 txtKod.Text = "Yeni Kod";
             }
             
-            ucBarkodlar1.Yukle(Id, txtKod.Text, ModuleType.BoyaTanimlari); // Assuming ModuleType.BoyaTanimlari
+            ucBarkodlar1.Yukle(Id, txtKod.Text, ModuleType.EmayeTanimlari);
         }
 
         protected override void GuncelNesneOlustur()
         {
-            var dto = new BoyaDto
+            var dto = new EmayeDto
             {
                 Id = Id,
                 Code = txtKod.Text,
-                Name = txtBoyaAdi.Text,
+                Name = txtEmayeAdi.Text,
                 BaseUnit = glufTemelBirim.EditValue != null ? glufTemelBirim.EditValue.ToString() : string.Empty,
                 SpecialCodeId = glufOzelKod.EditValue != null ? Convert.ToInt64(glufOzelKod.EditValue) : null,
-                
-                ColorCode = txtRenkKodu.Text,
-                HeatResistance = txtIsiDayanimi.Value > 0 ? (int)txtIsiDayanimi.Value : null,
-                DryingTimeMinutes = txtFirinlanmaSuresi.Value > 0 ? (int)txtFirinlanmaSuresi.Value : null,
-                ShelfLifeMonths = txtRafOmru.Value > 0 ? (int)txtRafOmru.Value : null,
                 Description = txtAciklama.Text,
                 IsActive = tglDurum.IsOn
             };
@@ -130,15 +121,15 @@ namespace ThermaCore.Presentation.WinForms.Forms.BoyaForms
             
             try
             {
-                var dto = (BoyaDto)CurrentEntity;
+                var dto = (EmayeDto)CurrentEntity;
                 dto.Id = BaseIslemTuru.IdOlustur(OldEntity);
 
-                Id = _boyaService.Insert(dto);
+                Id = _emayeService.Insert(dto);
                 
                 if (Id > 0)
                 {
                     ucBarkodlar1.Kaydet(Id);
-                    picResim.SavePictureAsync("Boya", Id);
+                    picResim.SavePictureAsync("Emaye", Id);
                 }
                 
                 return Id > 0;
@@ -162,11 +153,11 @@ namespace ThermaCore.Presentation.WinForms.Forms.BoyaForms
 
             try
             {
-                var dto = (BoyaDto)CurrentEntity;
-                _boyaService.Update(dto);
+                var dto = (EmayeDto)CurrentEntity;
+                _emayeService.Update(dto);
                 
                 ucBarkodlar1.Kaydet(Id);
-                picResim.SavePictureAsync("Boya", Id);
+                picResim.SavePictureAsync("Emaye", Id);
                 
                 return true;
             }
@@ -187,12 +178,12 @@ namespace ThermaCore.Presentation.WinForms.Forms.BoyaForms
         {
             if (Id <= 0) return;
 
-            if (Messages.SilMesaj("Boya Tanımı") == DialogResult.Yes)
+            if (Messages.SilMesaj("Emaye Tanımı") == DialogResult.Yes)
             {
                 try
                 {
                     Cursor.Current = Cursors.WaitCursor;
-                    _boyaService.Delete(Id);
+                    _emayeService.Delete(Id);
                     RefreshYapilacak = true;
                     Messages.SilindiMesaj();
                     Close();
@@ -213,19 +204,15 @@ namespace ThermaCore.Presentation.WinForms.Forms.BoyaForms
             switch (propertyName)
             {
                 case "Code": txtKod.Focus(); break;
-                case "Name": txtBoyaAdi.Focus(); break;
+                case "Name": txtEmayeAdi.Focus(); break;
                 case "BaseUnit": glufTemelBirim.Focus(); break;
-                case "ColorCode": txtRenkKodu.Focus(); break;
-                case "HeatResistance": txtIsiDayanimi.Focus(); break;
-                case "DryingTimeMinutes": txtFirinlanmaSuresi.Focus(); break;
-                case "ShelfLifeMonths": txtRafOmru.Focus(); break;
                 case "Description": txtAciklama.Focus(); break;
             }
         }
 
         protected override bool IsCodeUnique(string code)
         {
-            return _boyaService.IsCodeUnique(this.Id, code);
+            return _emayeService.IsCodeUnique(this.Id, code);
         }
 
         protected override void EventsLoad()
@@ -238,11 +225,11 @@ namespace ThermaCore.Presentation.WinForms.Forms.BoyaForms
 
         private void glufOzelKod_SearchButtonClicked(object? sender, EventArgs e)
         {
-            var form = new ThermaCore.Presentation.WinForms.Forms.OzelKodForms.OzelKodListForm(SpecialCodeType.SpecialCode, "Boya");
+            var form = new ThermaCore.Presentation.WinForms.Forms.OzelKodForms.OzelKodListForm(SpecialCodeType.SpecialCode, "Emaye");
             form.FormAcilisTuru = ThermaCore.Presentation.WinForms.Enums.FormAcilisTuru.Secim;
             form.ShowDialog();
             
-            glufOzelKod.Properties.DataSource = _specialCodeService.GetCodes(SpecialCodeType.SpecialCode, "Boya");
+            glufOzelKod.Properties.DataSource = _specialCodeService.GetCodes(SpecialCodeType.SpecialCode, "Emaye");
 
             if (form.DialogResult == DialogResult.OK && form.SelectedEntities != null && form.SelectedEntities.Count > 0)
             {

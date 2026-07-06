@@ -87,6 +87,17 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
 
                 LockFormControls(this.Controls);
                 
+                if (resimMenu != null)
+                {
+                    foreach (DevExpress.XtraBars.BarItemLink link in resimMenu.ItemLinks)
+                    {
+                        if (link.Item.Caption == "Resim Seç" || link.Item.Caption == "Kameradan Çek" || link.Item.Caption == "Resim Sil")
+                        {
+                            link.Item.Enabled = false;
+                        }
+                    }
+                }
+
                 if (!this.Text.Contains("[SADECE GÖRÜNTÜLEME]"))
                 {
                     this.Text += " [SADECE GÖRÜNTÜLEME]";
@@ -110,6 +121,14 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
                 else if (control is DevExpress.XtraGrid.GridControl gridControl)
                 {
                     gridControl.Enabled = false;
+                }
+                else if (control is DevExpress.XtraEditors.SimpleButton simpleButton)
+                {
+                    simpleButton.Enabled = false;
+                }
+                else if (control is ThermaCore.Presentation.WinForms.UserControls.ucEntityPicture entityPicture)
+                {
+                    entityPicture.SetReadOnly(true);
                 }
 
                 if (control.Controls.Count > 0)

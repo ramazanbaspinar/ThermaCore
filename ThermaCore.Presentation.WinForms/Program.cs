@@ -149,6 +149,9 @@ internal static class Program
 
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.BoyaForms.BoyaListForm>();
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.BoyaForms.BoyaEditForm>();
+
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.EmayeForms.EmayeListForm>();
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.EmayeForms.EmayeEditForm>();
             })
             .Build();
 

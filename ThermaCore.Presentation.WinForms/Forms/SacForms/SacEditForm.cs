@@ -334,6 +334,8 @@ namespace ThermaCore.Presentation.WinForms.Forms.SacForms
                 if (btnKaydet != null && !btnKaydet.Enabled) btnKaydet.Enabled = true;
                 if (btnGerial != null && !btnGerial.Enabled) btnGerial.Enabled = true;
             }
+
+            YetkiKontroluYap();
         }
     }
 }

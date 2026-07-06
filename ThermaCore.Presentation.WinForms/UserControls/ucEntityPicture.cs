@@ -249,5 +249,12 @@ namespace ThermaCore.Presentation.WinForms.UserControls
         {
             pictureEdit1.ResimSil();
         }
+
+        public void SetReadOnly(bool isReadOnly)
+        {
+            if (tsmResimSec != null) tsmResimSec.Enabled = !isReadOnly;
+            if (tsmKameradanCek != null) tsmKameradanCek.Enabled = !isReadOnly;
+            if (tsmResmiSil != null) tsmResmiSil.Enabled = !isReadOnly;
+        }
     }
 }
