@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Globalization;
 using System.IO;
 using System.Threading;
@@ -152,6 +152,9 @@ internal static class Program
 
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.EmayeForms.EmayeListForm>();
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.EmayeForms.EmayeEditForm>();
+
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.VidaForms.VidaListForm>();
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.VidaForms.VidaEditForm>();
             })
             .Build();
 
