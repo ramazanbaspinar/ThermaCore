@@ -1,4 +1,4 @@
-﻿using DevExpress.XtraEditors;
+using DevExpress.XtraEditors;
 using System;
 using System.Linq;
 using System.Windows.Forms;
@@ -186,7 +186,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.VidaForms
         {
             if (Id <= 0) return;
 
-            if (Messages.SilMesaj("Screw Tanımı") == DialogResult.Yes)
+            if (Messages.SilMesaj("Vida Tanımı") == DialogResult.Yes)
             {
                 try
                 {

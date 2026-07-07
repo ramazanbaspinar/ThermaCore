@@ -1,4 +1,4 @@
-﻿using DevExpress.XtraEditors;
+using DevExpress.XtraEditors;
 using DevExpress.XtraTabbedMdi;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -412,7 +412,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
                 if (user != null && (user.Code.ToLower() == "admin" || user.Code.ToLower() == "thermacore"))
                 {
                     _currentTenantService.BranchId = 0;
-                    _currentTenantService.BranchName = "Åube Yok / Kurulum Modu";
+                    _currentTenantService.BranchName = "Şube Yok / Kurulum Modu";
                 }
                 else
                 {
@@ -461,7 +461,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
                 }
             }
 
-            this.Text = $"ThermaCore ERP --- Bilgisayar: {Environment.MachineName} | Åirket: {_currentTenantService.TenantName} | Fabrika: {_currentTenantService.BranchName}";
+            this.Text = $"ThermaCore ERP --- Bilgisayar: {Environment.MachineName} | Şirket: {_currentTenantService.TenantName} | Fabrika: {_currentTenantService.BranchName}";
 
             // Sistemin açılışını kitlemeden arkadan kontrol işlemi başlatalım
             _ = Task.Run(async () => await EksikSablonlariKontrolEtAsync());
@@ -508,11 +508,11 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
                     string moduleList = string.Join("\n- ", displayList);
                     string countMsg = totalMissing > 2 ? $"\n... ve {totalMissing - 2} modül daha eksik." : "";
                     
-                    string msg = $"Sistemin standartlara uygun çalışması için aşağıdaki modüllerin Kod Åablonları eksiktir:\n\n- {moduleList}{countMsg}\n\nLütfen Sistem Yönetimi'nden tanımlayınız.";
+                    string msg = $"Sistemin standartlara uygun çalışması için aşağıdaki modüllerin Kod Şablonları eksiktir:\n\n- {moduleList}{countMsg}\n\nLütfen Sistem Yönetimi'nden tanımlayınız.";
                     
                     this.BeginInvoke(new Action(() => 
                     {
-                        XtraMessageBox.Show(this, msg, "Eksik Kod Åablonları", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        XtraMessageBox.Show(this, msg, "Eksik Kod Şablonları", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }));
                 }
             }
@@ -728,7 +728,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
                             appConfigService.SetLastBranchId(frm.SeciliSubeId);
                         }
 
-                        this.Text = $"ThermaCore ERP | Åirket: {_currentTenantService.TenantName} | Fabrika: {_currentTenantService.BranchName}";
+                        this.Text = $"ThermaCore ERP | Şirket: {_currentTenantService.TenantName} | Fabrika: {_currentTenantService.BranchName}";
                     }
                 }
             }

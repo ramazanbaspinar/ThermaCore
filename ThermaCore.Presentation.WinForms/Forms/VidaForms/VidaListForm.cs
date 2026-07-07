@@ -56,7 +56,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.VidaForms
         {
             if (Tablo.FocusedRowHandle < 0) return;
 
-            if (Messages.SilMesaj("Screw TanÃ„Â±mÃ„Â±") == DialogResult.Yes)
+            if (Messages.SilMesaj("Vida Tanımı") == DialogResult.Yes)
             {
                 try
                 {
@@ -68,7 +68,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.VidaForms
                 }
                 catch (Exception ex)
                 {
-                    Messages.HataBasligi(ex.Message, "Silme HatasÃ„Â±");
+                    Messages.HataBasligi(ex.Message, "Silme Hatası");
                 }
                 finally
                 {

@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 using ThermaCore.Domain.Attributes;
 
 namespace ThermaCore.Domain.Enums;
@@ -30,7 +30,7 @@ public enum ModuleType
     Parametreler = 1003,
 
     // MODÜLLER (Ekranlar)
-    [Description("Åirket Tanımları")]
+    [Description("Şirket Tanımları")]
     [ParentModule(KurumsalTanimlar)]
     SirketTanimlari = 1,
 
@@ -52,7 +52,7 @@ public enum ModuleType
     [ParentModule(GuvenlikVeYetkilendirme)]
     TerminalYonetimi = 5,
 
-    [Description("Kod Åablonları")]
+    [Description("Kod Şablonları")]
     [ParentModule(Parametreler)]
     CodeTemplateYonetimi = 6,
 
@@ -68,7 +68,7 @@ public enum ModuleType
     [ParentModule(Parametreler)]
     SystemLicense = 9,
 
-    [Description("Kullanıcı Arayüz Åablonları")]
+    [Description("Kullanıcı Arayüz Şablonları")]
     [ParentModule(Parametreler)]
     UserInterfaceTemplate = 10,
 
