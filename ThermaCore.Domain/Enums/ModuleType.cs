@@ -129,5 +129,10 @@ public enum ModuleType
     [Description("Vida Tanımları")]
     [ParentModule(Tanimlar)]
     [RequiresCodeTemplate]
-    VidaTanimlari = 22
+    VidaTanimlari = 22,
+
+    [Description("Rezistans Tanımları")]
+    [ParentModule(Tanimlar)]
+    [RequiresCodeTemplate]
+    RezistansTanimlari = 23
 }

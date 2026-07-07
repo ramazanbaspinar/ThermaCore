@@ -42,6 +42,8 @@ public static class ApplicationServiceRegistration
         services.AddScoped<ThermaCore.Application.Interfaces.Production.IBoyaService, ThermaCore.Application.Services.Production.BoyaManager>();
         services.AddScoped<ThermaCore.Application.Interfaces.Production.IEmayeService, ThermaCore.Application.Services.Production.EmayeManager>();
         services.AddScoped<ThermaCore.Application.Interfaces.Production.IScrewService, ThermaCore.Application.Services.Production.ScrewManager>();
+        services.AddScoped<IValidator<ThermaCore.Application.DTOs.Production.HeatingElementDto>, ThermaCore.Application.Validations.Production.HeatingElementValidator>();
+        services.AddScoped<ThermaCore.Application.Interfaces.Production.IHeatingElementService, ThermaCore.Application.Services.Production.HeatingElementManager>();
         services.AddScoped<ThermaCore.Application.Interfaces.Common.IItemBarcodeService, ThermaCore.Application.Services.Common.ItemBarcodeManager>();
         services.AddScoped<ThermaCore.Application.Interfaces.Common.IBarcodePrintService, ThermaCore.Application.Services.Common.BarcodePrintManager>();
         services.AddScoped<ThermaCore.Application.Interfaces.Common.IDocumentService, ThermaCore.Application.Services.Common.DocumentManager>();

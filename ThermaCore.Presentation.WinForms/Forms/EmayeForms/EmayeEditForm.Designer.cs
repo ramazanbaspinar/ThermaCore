@@ -340,7 +340,7 @@
             txtEmayeAdi.Location = new Point(77, 43);
             txtEmayeAdi.MenuManager = ribbon;
             txtEmayeAdi.Name = "txtEmayeAdi";
-            txtEmayeAdi.Properties.MaxLength = 100;
+            txtEmayeAdi.Properties.MaxLength = 150;
             txtEmayeAdi.Size = new Size(379, 20);
             txtEmayeAdi.StatusBarAciklama = "";
             txtEmayeAdi.StyleController = myDataLayoutControl2;

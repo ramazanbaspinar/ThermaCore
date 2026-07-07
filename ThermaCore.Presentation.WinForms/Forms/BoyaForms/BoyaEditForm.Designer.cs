@@ -679,7 +679,7 @@
             // 
             tpBarkodIslemleri.Controls.Add(ucBarkodlar1);
             tpBarkodIslemleri.Name = "tpBarkodIslemleri";
-            tpBarkodIslemleri.Size = new Size(723, 357);
+            tpBarkodIslemleri.Size = new Size(723, 415);
             tpBarkodIslemleri.Text = "Barkod İşlemleri";
             // 
             // ucBarkodlar1
@@ -689,7 +689,7 @@
             ucBarkodlar1.Dock = DockStyle.Fill;
             ucBarkodlar1.Location = new Point(0, 0);
             ucBarkodlar1.Name = "ucBarkodlar1";
-            ucBarkodlar1.Size = new Size(723, 357);
+            ucBarkodlar1.Size = new Size(723, 415);
             ucBarkodlar1.TabIndex = 0;
             // 
             // BoyaEditForm

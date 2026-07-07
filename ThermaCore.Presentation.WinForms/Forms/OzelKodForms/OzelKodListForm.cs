@@ -39,7 +39,15 @@ namespace ThermaCore.Presentation.WinForms.Forms.OzelKodForms
 
             // Form Title (Text) and GridView Caption update dynamically
             string titlePrefix = _codeType == SpecialCodeType.SpecialCode ? "Özel Kod Kartları" : "Grup Kodu Kartları";
-            this.Text = $"{titlePrefix} ({_entityType})";
+            
+            string entityNameTr = _entityType switch
+            {
+                "Screw" => "Vida",
+                "HeatingElement" => "Rezistans",
+                _ => _entityType
+            };
+
+            this.Text = $"{titlePrefix} ({entityNameTr})";
             
             if (myGridView1 != null)
                 myGridView1.ViewCaption = this.Text;
