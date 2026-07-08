@@ -139,5 +139,10 @@ public enum ModuleType
     [Description("Anahtar (Rotary) Tanımları")]
     [ParentModule(Tanimlar)]
     [RequiresCodeTemplate]
-    AnahtarRotaryTanimlari = 24
+    AnahtarRotaryTanimlari = 24,
+
+    [Description("Termostat Tanımları")]
+    [ParentModule(Tanimlar)]
+    [RequiresCodeTemplate]
+    TermostatTanimlari = 25
 }

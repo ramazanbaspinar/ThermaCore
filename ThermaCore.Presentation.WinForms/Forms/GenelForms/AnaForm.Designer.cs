@@ -249,6 +249,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 
             miTermostatTanimlari.Name = "miTermostatTanimlari";
             miTermostatTanimlari.Size = new Size(244, 22);
+            miTermostatTanimlari.Tag = "TermostatTanimlari";
             miTermostatTanimlari.Text = "Termostat Tanımları";
             // 
             // miTimerTanimlari

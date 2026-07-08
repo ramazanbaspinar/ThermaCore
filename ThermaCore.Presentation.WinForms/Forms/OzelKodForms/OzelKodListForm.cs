@@ -45,6 +45,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.OzelKodForms
                 "Screw" => "Vida",
                 "HeatingElement" => "Rezistans",
                 "RotarySwitch" => "Anahtar / Rotary",
+                "Thermostat" => "Termostat",
                 _ => _entityType
             };
 

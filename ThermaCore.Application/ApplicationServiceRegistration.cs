@@ -24,6 +24,7 @@ public static class ApplicationServiceRegistration
         services.AddScoped<ThermaCore.Application.Interfaces.Security.IUserPermissionService, ThermaCore.Application.Services.Security.UserPermissionManager>();
         services.AddScoped<ThermaCore.Application.Interfaces.System.IExchangeRateService, ThermaCore.Application.Services.Management.ExchangeRateManager>();
         services.AddScoped<ThermaCore.Application.Interfaces.Management.ITaxRateService, ThermaCore.Application.Services.Management.TaxRateManager>();
+        services.AddScoped<ThermaCore.Application.Interfaces.Production.IThermostatService, ThermaCore.Application.Services.Production.ThermostatManager>();
         services.AddScoped<ISystemParameterService, SystemParameterManager>();
         services.AddScoped<IValidator<ThermaCore.Application.DTOs.Management.CodeTemplateDto>, ThermaCore.Application.Validations.Management.CodeTemplateValidator>();
         services.AddScoped<IValidator<ThermaCore.Application.DTOs.Management.CodeLogDto>, ThermaCore.Application.Validations.Management.CodeLogValidator>();
@@ -35,6 +36,7 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IValidator<ThermaCore.Application.DTOs.Production.EmayeDto>, ThermaCore.Application.Validations.Production.EmayeValidator>();
         services.AddScoped<IValidator<ThermaCore.Application.DTOs.Common.ItemBarcodeDto>, ThermaCore.Application.Validations.Common.ItemBarcodeValidator>();
         services.AddScoped<IValidator<ThermaCore.Application.DTOs.Common.SpecialCodeDto>, ThermaCore.Application.Validations.Common.SpecialCodeValidator>();
+        services.AddScoped<IValidator<ThermaCore.Application.DTOs.Production.ThermostatDto>, ThermaCore.Application.Validations.Production.ThermostatValidator>();
 
         services.AddScoped<ThermaCore.Application.Interfaces.Production.IQualityStandardService, ThermaCore.Application.Services.Production.QualityStandardManager>();
         services.AddScoped<ThermaCore.Application.Interfaces.Production.ISurfaceTypeService, ThermaCore.Application.Services.Production.SurfaceTypeManager>();
