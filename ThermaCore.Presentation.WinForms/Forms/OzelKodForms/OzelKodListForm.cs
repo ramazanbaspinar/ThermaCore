@@ -38,12 +38,13 @@ namespace ThermaCore.Presentation.WinForms.Forms.OzelKodForms
             }
 
             // Form Title (Text) and GridView Caption update dynamically
-            string titlePrefix = _codeType == SpecialCodeType.SpecialCode ? "Özel Kod Kartları" : "Grup Kodu Kartları";
+            string titlePrefix = _codeType == SpecialCodeType.SpecialCode ? "Özel Kod Kayıtları" : "Grup Kodu Kayıtları";
             
             string entityNameTr = _entityType switch
             {
                 "Screw" => "Vida",
                 "HeatingElement" => "Rezistans",
+                "RotarySwitch" => "Anahtar / Rotary",
                 _ => _entityType
             };
 

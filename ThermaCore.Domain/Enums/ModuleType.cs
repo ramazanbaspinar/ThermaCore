@@ -134,5 +134,10 @@ public enum ModuleType
     [Description("Rezistans Tanımları")]
     [ParentModule(Tanimlar)]
     [RequiresCodeTemplate]
-    RezistansTanimlari = 23
+    RezistansTanimlari = 23,
+
+    [Description("Anahtar (Rotary) Tanımları")]
+    [ParentModule(Tanimlar)]
+    [RequiresCodeTemplate]
+    AnahtarRotaryTanimlari = 24
 }

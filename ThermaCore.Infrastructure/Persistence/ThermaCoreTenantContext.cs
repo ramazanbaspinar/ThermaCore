@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
@@ -31,6 +31,7 @@ public class ThermaCoreTenantContext : DbContext
     public DbSet<ThermaCore.Domain.Entities.Production.Boya> Boyas { get; set; }
     public DbSet<ThermaCore.Domain.Entities.Production.Emaye> Emayes { get; set; }
     public DbSet<ThermaCore.Domain.Entities.Production.Screw> Screws { get; set; }
+    public DbSet<ThermaCore.Domain.Entities.Production.RotarySwitch> RotarySwitches { get; set; }
     public DbSet<ThermaCore.Domain.Entities.Common.ItemBarcode> ItemBarcodes { get; set; }
     public DbSet<ThermaCore.Domain.Entities.Common.AppDocument> AppDocuments { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

@@ -41,8 +41,17 @@ namespace ThermaCore.Presentation.WinForms.Forms.OzelKodForms
             BaseKartTuru = ModuleType.KodYonetimi;
             DataLayoutControl = myDataLayoutControl1;
 
-            string titlePrefix = _codeType == SpecialCodeType.SpecialCode ? "Özel Kod Kartı" : "Grup Kodu Kartı";
-            this.Text = $"{titlePrefix} ({_entityType})";
+            string titlePrefix = _codeType == SpecialCodeType.SpecialCode ? "Özel Kod Kaydı" : "Grup Kodu Kaydı";
+            
+            string entityNameTr = _entityType switch
+            {
+                "Screw" => "Vida",
+                "HeatingElement" => "Rezistans",
+                "RotarySwitch" => "Anahtar / Rotary",
+                _ => _entityType
+            };
+            
+            this.Text = $"{titlePrefix} ({entityNameTr})";
             layoutControlItem2.Text = _codeType == SpecialCodeType.SpecialCode ? "Özel Kod Adı" : "Grup Kodu Adı";
         }
 
