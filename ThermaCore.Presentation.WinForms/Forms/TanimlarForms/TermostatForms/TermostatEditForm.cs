@@ -130,7 +130,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TermostatForms
                 MinTemperature = txtMinSicaklik.EditValue != null && txtMinSicaklik.EditValue != DBNull.Value ? Convert.ToInt32(txtMinSicaklik.EditValue) : (int?)null,
                 MaxTemperature = txtMaxSicaklik.EditValue != null && txtMaxSicaklik.EditValue != DBNull.Value ? Convert.ToInt32(txtMaxSicaklik.EditValue) : (int?)null,
                 CurrentAmper = txtAmper.EditValue != null && txtAmper.EditValue != DBNull.Value ? Convert.ToInt32(txtAmper.EditValue) : (int?)null,
-                CapillaryLengthMm = txtKuyrukBoyu.EditValue != null && txtKuyrukBoyu.EditValue != DBNull.Value ? Convert.ToInt32(txtKuyrukBoyu.EditValue) : (int?)null,
+                CapillaryLengthMm = txtKuyrukBoyu.EditValue != null && txtKuyrukBoyu.EditValue != DBNull.Value ? Convert.ToDecimal(txtKuyrukBoyu.EditValue) : (decimal?)null,
                 Description = txtAciklama.Text,
                 IsActive = tglDurum.IsOn
             };

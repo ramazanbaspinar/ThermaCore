@@ -256,6 +256,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 
             miTimerTanimlari.Name = "miTimerTanimlari";
             miTimerTanimlari.Size = new Size(244, 22);
+            miTimerTanimlari.Tag = "TimerTanimlari";
             miTimerTanimlari.Text = "Timer (Zamanlayıcı) Tanımları";
             // 
             // miLambaTanimlari

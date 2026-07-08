@@ -161,8 +161,10 @@ internal static class Program
 
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.RotaryForms.RotaryListForm>();
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.RotaryForms.RotaryEditForm>();
-                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TermostatForms.TermostatListForm>();
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TermostatForms.TermostatEditForm>();
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TermostatForms.TermostatListForm>();
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.TimerForms.TimerEditForm>();
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.TimerForms.TimerListForm>();
             })
             .Build();
 

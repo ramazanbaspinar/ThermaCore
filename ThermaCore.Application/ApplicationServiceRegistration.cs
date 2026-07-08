@@ -48,6 +48,8 @@ public static class ApplicationServiceRegistration
         services.AddScoped<ThermaCore.Application.Interfaces.Production.IRotarySwitchService, ThermaCore.Application.Services.Production.RotarySwitchManager>();
         services.AddScoped<IValidator<ThermaCore.Application.DTOs.Production.HeatingElementDto>, ThermaCore.Application.Validations.Production.HeatingElementValidator>();
         services.AddScoped<ThermaCore.Application.Interfaces.Production.IHeatingElementService, ThermaCore.Application.Services.Production.HeatingElementManager>();
+        services.AddScoped<IValidator<ThermaCore.Application.DTOs.Production.OvenTimerDto>, ThermaCore.Application.Validations.Production.OvenTimerValidator>();
+        services.AddScoped<ThermaCore.Application.Interfaces.Production.IOvenTimerService, ThermaCore.Application.Services.Production.OvenTimerManager>();
         services.AddScoped<ThermaCore.Application.Interfaces.Common.IItemBarcodeService, ThermaCore.Application.Services.Common.ItemBarcodeManager>();
         services.AddScoped<ThermaCore.Application.Interfaces.Common.IBarcodePrintService, ThermaCore.Application.Services.Common.BarcodePrintManager>();
         services.AddScoped<ThermaCore.Application.Interfaces.Common.IDocumentService, ThermaCore.Application.Services.Common.DocumentManager>();

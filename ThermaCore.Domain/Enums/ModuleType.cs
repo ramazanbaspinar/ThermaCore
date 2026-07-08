@@ -144,5 +144,10 @@ public enum ModuleType
     [Description("Termostat Tanımları")]
     [ParentModule(Tanimlar)]
     [RequiresCodeTemplate]
-    TermostatTanimlari = 25
+    TermostatTanimlari = 25,
+
+    [Description("Timer Tanımları")]
+    [ParentModule(Tanimlar)]
+    [RequiresCodeTemplate]
+    TimerTanimlari = 26
 }

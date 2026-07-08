@@ -98,6 +98,9 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             if (miTermostatTanimlari != null)
                 miTermostatTanimlari.Click += MiTermostatTanimlari_Click;
 
+            if (miTimerTanimlari != null)
+                miTimerTanimlari.Click += MiTimerTanimlari_Click;
+
 
                 
             if (miKaliteStandartTanimlari != null)
@@ -822,6 +825,19 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             if (authService != null && authService.HasPermission(ThermaCore.Domain.Enums.ModuleType.TermostatTanimlari, ThermaCore.Domain.Enums.PermissionType.CanView))
             {
                 FormYukle<ThermaCore.Presentation.WinForms.Forms.TermostatForms.TermostatListForm>();
+            }
+            else
+            {
+                XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void MiTimerTanimlari_Click(object sender, EventArgs e)
+        {
+            var authService = _serviceProvider.GetService<ThermaCore.Application.Services.Management.IAuthService>();
+            if (authService != null && authService.HasPermission(ThermaCore.Domain.Enums.ModuleType.TimerTanimlari, ThermaCore.Domain.Enums.PermissionType.CanView))
+            {
+                FormYukle<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.TimerForms.TimerListForm>();
             }
             else
             {

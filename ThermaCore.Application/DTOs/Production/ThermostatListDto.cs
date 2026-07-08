@@ -9,7 +9,7 @@ public class ThermostatListDto : BaseDto
     public int? MinTemperature { get; set; }
     public int? MaxTemperature { get; set; }
     public int? CurrentAmper { get; set; }
-    public int? CapillaryLengthMm { get; set; }
+    public decimal? CapillaryLengthMm { get; set; }
     public string? Description { get; set; }
     public string? SpecialCodeName { get; set; }
 }
