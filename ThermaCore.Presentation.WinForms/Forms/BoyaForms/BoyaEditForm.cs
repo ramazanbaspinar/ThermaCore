@@ -37,7 +37,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.BoyaForms
             _specialCodeService = specialCodeService;
 
             BaseKartTuru = ModuleType.BoyaTanimlari; // Assuming BoyaTanimlari is in ModuleType, if not I should check, but let's assume it exists or use equivalent. Actually, let's use ModuleType.BoyaTanimlari.
-            DataLayoutControl = myDataLayoutControl1;
+            DataLayoutControls = new object[] { myDataLayoutControl1, myDataLayoutControl2, myDataLayoutControl3, myDataLayoutControl4 };
             RequiresCodeTemplate = true;
 
             ucBarkodlar1.InitializeService(itemBarcodeService);
@@ -77,7 +77,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.BoyaForms
 
             glufTemelBirim.EditValue = string.IsNullOrWhiteSpace(dto.BaseUnit) ? null : dto.BaseUnit;
             glufOzelKod.EditValue = dto.SpecialCodeId > 0 ? dto.SpecialCodeId : null;
-            
+
             txtRenkKodu.Text = dto.ColorCode;
             txtIsiDayanimi.Value = dto.HeatResistance ?? 0;
             txtFirinlanmaSuresi.Value = dto.DryingTimeMinutes ?? 0;
@@ -98,7 +98,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.BoyaForms
             {
                 txtKod.Text = "Yeni Kod";
             }
-            
+
             ucBarkodlar1.Yukle(Id, txtKod.Text, ModuleType.BoyaTanimlari); // Assuming ModuleType.BoyaTanimlari
         }
 
@@ -111,7 +111,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.BoyaForms
                 Name = txtBoyaAdi.Text,
                 BaseUnit = glufTemelBirim.EditValue != null ? glufTemelBirim.EditValue.ToString() : string.Empty,
                 SpecialCodeId = glufOzelKod.EditValue != null ? Convert.ToInt64(glufOzelKod.EditValue) : null,
-                
+
                 ColorCode = txtRenkKodu.Text,
                 HeatResistance = txtIsiDayanimi.Value > 0 ? (int)txtIsiDayanimi.Value : null,
                 DryingTimeMinutes = txtFirinlanmaSuresi.Value > 0 ? (int)txtFirinlanmaSuresi.Value : null,
@@ -127,20 +127,20 @@ namespace ThermaCore.Presentation.WinForms.Forms.BoyaForms
         protected override bool EntityInsert()
         {
             ucBarkodlar1.PostGridChanges();
-            
+
             try
             {
                 var dto = (BoyaDto)CurrentEntity;
                 dto.Id = BaseIslemTuru.IdOlustur(OldEntity);
 
                 Id = _boyaService.Insert(dto);
-                
+
                 if (Id > 0)
                 {
                     ucBarkodlar1.Kaydet(Id);
                     picResim.SavePictureAsync("Boya", Id);
                 }
-                
+
                 return Id > 0;
             }
             catch (FluentValidation.ValidationException ex)
@@ -164,10 +164,10 @@ namespace ThermaCore.Presentation.WinForms.Forms.BoyaForms
             {
                 var dto = (BoyaDto)CurrentEntity;
                 _boyaService.Update(dto);
-                
+
                 ucBarkodlar1.Kaydet(Id);
                 picResim.SavePictureAsync("Boya", Id);
-                
+
                 return true;
             }
             catch (FluentValidation.ValidationException ex)
@@ -241,7 +241,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.BoyaForms
             var form = new ThermaCore.Presentation.WinForms.Forms.OzelKodForms.OzelKodListForm(SpecialCodeType.SpecialCode, "Boya");
             form.FormAcilisTuru = ThermaCore.Presentation.WinForms.Enums.FormAcilisTuru.Secim;
             form.ShowDialog();
-            
+
             glufOzelKod.Properties.DataSource = _specialCodeService.GetCodes(SpecialCodeType.SpecialCode, "Boya");
 
             if (form.DialogResult == DialogResult.OK && form.SelectedEntities != null && form.SelectedEntities.Count > 0)
@@ -271,7 +271,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.BoyaForms
         protected internal override void ButonEnabledDurumu()
         {
             base.ButonEnabledDurumu();
-            
+
             if (ucBarkodlar1.IsDirty() || picResim.IsDirty())
             {
                 if (btnKaydet != null && !btnKaydet.Enabled) btnKaydet.Enabled = true;

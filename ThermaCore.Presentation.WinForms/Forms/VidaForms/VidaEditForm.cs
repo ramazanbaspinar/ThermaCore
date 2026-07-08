@@ -37,7 +37,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.VidaForms
             _specialCodeService = specialCodeService;
 
             BaseKartTuru = ModuleType.VidaTanimlari;
-            DataLayoutControl = myDataLayoutControl1;
+            DataLayoutControls = new object[] { myDataLayoutControl1, myDataLayoutControl2, myDataLayoutControl3, myDataLayoutControl4 };
             RequiresCodeTemplate = true;
 
             ucBarkodlar1.InitializeService(itemBarcodeService);
@@ -77,7 +77,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.VidaForms
 
             glufTemelBirim.EditValue = string.IsNullOrWhiteSpace(dto.BaseUnit) ? null : dto.BaseUnit;
             glufOzelKod.EditValue = dto.SpecialCodeId > 0 ? dto.SpecialCodeId : null;
-            
+
             txtCap.Text = dto.Diameter;
             if (dto.LengthMm.HasValue)
                 txtBoy.EditValue = dto.LengthMm.Value;
@@ -100,7 +100,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.VidaForms
             {
                 txtKod.Text = "Yeni Kod";
             }
-            
+
             ucBarkodlar1.Yukle(Id, txtKod.Text, ModuleType.VidaTanimlari);
         }
 
@@ -126,20 +126,20 @@ namespace ThermaCore.Presentation.WinForms.Forms.VidaForms
         protected override bool EntityInsert()
         {
             ucBarkodlar1.PostGridChanges();
-            
+
             try
             {
                 var dto = (ScrewDto)CurrentEntity;
                 dto.Id = BaseIslemTuru.IdOlustur(OldEntity);
 
                 Id = _screwService.Insert(dto);
-                
+
                 if (Id > 0)
                 {
                     ucBarkodlar1.Kaydet(Id);
                     picResim.SavePictureAsync("Screw", Id);
                 }
-                
+
                 return Id > 0;
             }
             catch (FluentValidation.ValidationException ex)
@@ -163,10 +163,10 @@ namespace ThermaCore.Presentation.WinForms.Forms.VidaForms
             {
                 var dto = (ScrewDto)CurrentEntity;
                 _screwService.Update(dto);
-                
+
                 ucBarkodlar1.Kaydet(Id);
                 picResim.SavePictureAsync("Screw", Id);
-                
+
                 return true;
             }
             catch (FluentValidation.ValidationException ex)
@@ -236,7 +236,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.VidaForms
             var form = new ThermaCore.Presentation.WinForms.Forms.OzelKodForms.OzelKodListForm(SpecialCodeType.SpecialCode, "Screw");
             form.FormAcilisTuru = ThermaCore.Presentation.WinForms.Enums.FormAcilisTuru.Secim;
             form.ShowDialog();
-            
+
             glufOzelKod.Properties.DataSource = _specialCodeService.GetCodes(SpecialCodeType.SpecialCode, "Screw");
 
             if (form.DialogResult == DialogResult.OK && form.SelectedEntities != null && form.SelectedEntities.Count > 0)
@@ -266,7 +266,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.VidaForms
         protected internal override void ButonEnabledDurumu()
         {
             base.ButonEnabledDurumu();
-            
+
             if (ucBarkodlar1.IsDirty() || picResim.IsDirty())
             {
                 if (btnKaydet != null && !btnKaydet.Enabled) btnKaydet.Enabled = true;

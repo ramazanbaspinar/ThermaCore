@@ -37,7 +37,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.EmayeForms
             _specialCodeService = specialCodeService;
 
             BaseKartTuru = ModuleType.EmayeTanimlari;
-            DataLayoutControl = myDataLayoutControl1;
+            DataLayoutControls = new object[] { myDataLayoutControl1, myDataLayoutControl2, myDataLayoutControl4 };
             RequiresCodeTemplate = true;
 
             ucBarkodlar1.InitializeService(itemBarcodeService);
@@ -77,7 +77,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.EmayeForms
 
             glufTemelBirim.EditValue = string.IsNullOrWhiteSpace(dto.BaseUnit) ? null : dto.BaseUnit;
             glufOzelKod.EditValue = dto.SpecialCodeId > 0 ? dto.SpecialCodeId : null;
-            
+
             txtAciklama.Text = dto.Description;
             tglDurum.IsOn = dto.IsActive;
 
@@ -94,7 +94,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.EmayeForms
             {
                 txtKod.Text = "Yeni Kod";
             }
-            
+
             ucBarkodlar1.Yukle(Id, txtKod.Text, ModuleType.EmayeTanimlari);
         }
 
@@ -118,20 +118,20 @@ namespace ThermaCore.Presentation.WinForms.Forms.EmayeForms
         protected override bool EntityInsert()
         {
             ucBarkodlar1.PostGridChanges();
-            
+
             try
             {
                 var dto = (EmayeDto)CurrentEntity;
                 dto.Id = BaseIslemTuru.IdOlustur(OldEntity);
 
                 Id = _emayeService.Insert(dto);
-                
+
                 if (Id > 0)
                 {
                     ucBarkodlar1.Kaydet(Id);
                     picResim.SavePictureAsync("Emaye", Id);
                 }
-                
+
                 return Id > 0;
             }
             catch (FluentValidation.ValidationException ex)
@@ -155,10 +155,10 @@ namespace ThermaCore.Presentation.WinForms.Forms.EmayeForms
             {
                 var dto = (EmayeDto)CurrentEntity;
                 _emayeService.Update(dto);
-                
+
                 ucBarkodlar1.Kaydet(Id);
                 picResim.SavePictureAsync("Emaye", Id);
-                
+
                 return true;
             }
             catch (FluentValidation.ValidationException ex)
@@ -228,7 +228,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.EmayeForms
             var form = new ThermaCore.Presentation.WinForms.Forms.OzelKodForms.OzelKodListForm(SpecialCodeType.SpecialCode, "Emaye");
             form.FormAcilisTuru = ThermaCore.Presentation.WinForms.Enums.FormAcilisTuru.Secim;
             form.ShowDialog();
-            
+
             glufOzelKod.Properties.DataSource = _specialCodeService.GetCodes(SpecialCodeType.SpecialCode, "Emaye");
 
             if (form.DialogResult == DialogResult.OK && form.SelectedEntities != null && form.SelectedEntities.Count > 0)
@@ -258,7 +258,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.EmayeForms
         protected internal override void ButonEnabledDurumu()
         {
             base.ButonEnabledDurumu();
-            
+
             if (ucBarkodlar1.IsDirty() || picResim.IsDirty())
             {
                 if (btnKaydet != null && !btnKaydet.Enabled) btnKaydet.Enabled = true;

@@ -25,6 +25,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.CodeTemplateForms
             InitializeComponent();
             _repository = repository;
             _uow = uow;
+            DataLayoutControl = myDataLayoutControl1;
             BaseKartTuru = ModuleType.CodeTemplateYonetimi;
         }
 

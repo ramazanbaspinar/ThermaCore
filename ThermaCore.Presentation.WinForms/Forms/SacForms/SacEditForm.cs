@@ -40,17 +40,17 @@ namespace ThermaCore.Presentation.WinForms.Forms.SacForms
             InitializeComponent();
 
             _sheetMetalService = sheetMetalService;
-            
+
             _qualityStandardService = qualityStandardService;
             _surfaceTypeService = surfaceTypeService;
             _unitRepository = unitRepository;
             _specialCodeService = specialCodeService;
 
             BaseKartTuru = ModuleType.SacTanimlari;
-            DataLayoutControl = myDataLayoutControl1;
+            DataLayoutControls = new object[] { myDataLayoutControl1, myDataLayoutControl2, myDataLayoutControl3, myDataLayoutControl4 };
             RequiresCodeTemplate = true;
 
-            
+
 
             ucBarkodlar1.InitializeService(itemBarcodeService);
             ucBarkodlar1.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
@@ -119,7 +119,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.SacForms
             {
                 txtKod.Text = "Yeni Kod";
             }
-            
+
             ucBarkodlar1.Yukle(Id, txtKod.Text, ModuleType.SacTanimlari);
         }
 
@@ -148,20 +148,20 @@ namespace ThermaCore.Presentation.WinForms.Forms.SacForms
         protected override bool EntityInsert()
         {
             ucBarkodlar1.PostGridChanges();
-            
+
             try
             {
                 var dto = (SheetMetalDto)CurrentEntity;
                 dto.Id = BaseIslemTuru.IdOlustur(OldEntity);
 
                 Id = _sheetMetalService.Insert(dto);
-                
+
                 if (Id > 0)
                 {
                     ucBarkodlar1.Kaydet(Id);
                     ucEntityPicture1.SavePicture("Sac", Id);
                 }
-                
+
                 return Id > 0;
             }
             catch (FluentValidation.ValidationException ex)
@@ -185,10 +185,10 @@ namespace ThermaCore.Presentation.WinForms.Forms.SacForms
             {
                 var dto = (SheetMetalDto)CurrentEntity;
                 _sheetMetalService.Update(dto);
-                
+
                 ucBarkodlar1.Kaydet(Id);
                 ucEntityPicture1.SavePicture("Sac", Id);
-                
+
                 return true;
             }
             catch (FluentValidation.ValidationException ex)
@@ -265,7 +265,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.SacForms
             var form = new ThermaCore.Presentation.WinForms.Forms.OzelKodForms.OzelKodListForm(SpecialCodeType.SpecialCode, "Sac");
             form.FormAcilisTuru = ThermaCore.Presentation.WinForms.Enums.FormAcilisTuru.Secim;
             form.ShowDialog();
-            
+
             // Kullanıcı liste ekranında yeni bir kod eklemiş olabilir, bu yüzden LookUp'ı yenile
             glufOzelKod1.Properties.DataSource = _specialCodeService.GetCodes(SpecialCodeType.SpecialCode, "Sac");
 
@@ -327,7 +327,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.SacForms
         protected internal override void ButonEnabledDurumu()
         {
             base.ButonEnabledDurumu();
-            
+
             // Eğer BaseEditForm kaydet butonunu açmadıysa ancak barkodlarda veya resimde değişiklik varsa Kaydet ve Geri Al butonlarını aktifleştir
             if (ucBarkodlar1.IsDirty() || ucEntityPicture1.IsDirty())
             {

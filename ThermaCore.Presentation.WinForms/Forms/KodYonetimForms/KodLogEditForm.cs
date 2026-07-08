@@ -24,28 +24,28 @@ namespace ThermaCore.Presentation.WinForms.Forms.KodYonetimForms
             _codeLogRepository = codeLogRepository;
             _uow = uow;
 
+            DataLayoutControl = myDataLayoutControl1;
             HideItems = new DevExpress.XtraBars.BarItem[] { btnYeni, btnSil };
-            
             txtSonKodDegeri.EditValueChanged += (sender, args) => GuncelNesneOlustur();
         }
 
         public override void Yukle()
         {
             var codeLog = _codeLogRepository.GetById(Id);
-            
+
             if (codeLog != null)
             {
-                var dto = new CodeLogDto 
-                { 
-                    Id = codeLog.Id, 
-                    Module = codeLog.Module, 
+                var dto = new CodeLogDto
+                {
+                    Id = codeLog.Id,
+                    Module = codeLog.Module,
                     LastCodeValue = codeLog.LastCodeValue,
                     CompanyCode = codeLog.CompanyCode,
                     DateKey = codeLog.DateKey,
                     BranchId = codeLog.BranchId
                 };
                 OldEntity = dto;
-                
+
                 Text = $"Kod Log Düzenle (Modül: {ThermaCore.Domain.Extensions.EnumExtensions.ToName(codeLog.Module)})";
                 txtSonKodDegeri.Value = codeLog.LastCodeValue;
             }

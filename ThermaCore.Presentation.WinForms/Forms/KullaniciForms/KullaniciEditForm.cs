@@ -31,7 +31,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.KullaniciForms
             _branchService = branchService;
 
             BaseKartTuru = Domain.Enums.ModuleType.User;
-            DataLayoutControl = new object[] { myDataLayoutControl1, myDataLayoutControl2 };
+            DataLayoutControls = new object[] { myDataLayoutControl1, myDataLayoutControl2 };
             Bll = _userService;
         }
 

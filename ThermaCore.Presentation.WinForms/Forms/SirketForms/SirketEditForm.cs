@@ -34,6 +34,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.SirketForms
             _uow = uow;
             _cryptoService = cryptoService;
             this.BaseKartTuru = ThermaCore.Domain.Enums.ModuleType.SirketTanimlari;
+            DataLayoutControl = myDataLayoutControl1;
         }
 
         // BaseForm'daki protected Id alanına dışarıdan müdahale edip ShowDialog yapabilmek için 

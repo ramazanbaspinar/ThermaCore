@@ -37,7 +37,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.RezistansForms
             _specialCodeService = specialCodeService;
 
             BaseKartTuru = ModuleType.RezistansTanimlari;
-            DataLayoutControl = myDataLayoutControl1;
+            DataLayoutControls = new object[] { myDataLayoutControl1, myDataLayoutControl2, myDataLayoutControl3, myDataLayoutControl4 };
             RequiresCodeTemplate = true;
 
             ucBarkodlar1.InitializeService(itemBarcodeService);
@@ -77,7 +77,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.RezistansForms
 
             glufTemelBirim.EditValue = string.IsNullOrWhiteSpace(dto.BaseUnit) ? null : dto.BaseUnit;
             glufOzelKod.EditValue = dto.SpecialCodeId > 0 ? dto.SpecialCodeId : null;
-            
+
             if (dto.PowerWatt.HasValue)
                 txtWatt.EditValue = dto.PowerWatt.Value;
             else
@@ -114,7 +114,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.RezistansForms
             {
                 txtKod.Text = "Yeni Kod";
             }
-            
+
             ucBarkodlar1.Yukle(Id, txtKod.Text, ModuleType.RezistansTanimlari);
         }
 
@@ -142,20 +142,20 @@ namespace ThermaCore.Presentation.WinForms.Forms.RezistansForms
         protected override bool EntityInsert()
         {
             ucBarkodlar1.PostGridChanges();
-            
+
             try
             {
                 var dto = (HeatingElementDto)CurrentEntity;
                 dto.Id = BaseIslemTuru.IdOlustur(OldEntity);
 
                 Id = _heatingElementService.Insert(dto);
-                
+
                 if (Id > 0)
                 {
                     ucBarkodlar1.Kaydet(Id);
                     picResim.SavePictureAsync("HeatingElement", Id);
                 }
-                
+
                 return Id > 0;
             }
             catch (FluentValidation.ValidationException ex)
@@ -179,10 +179,10 @@ namespace ThermaCore.Presentation.WinForms.Forms.RezistansForms
             {
                 var dto = (HeatingElementDto)CurrentEntity;
                 _heatingElementService.Update(dto);
-                
+
                 ucBarkodlar1.Kaydet(Id);
                 picResim.SavePictureAsync("HeatingElement", Id);
-                
+
                 return true;
             }
             catch (FluentValidation.ValidationException ex)
@@ -252,7 +252,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.RezistansForms
             var form = new ThermaCore.Presentation.WinForms.Forms.OzelKodForms.OzelKodListForm(SpecialCodeType.SpecialCode, "HeatingElement");
             form.FormAcilisTuru = ThermaCore.Presentation.WinForms.Enums.FormAcilisTuru.Secim;
             form.ShowDialog();
-            
+
             glufOzelKod.Properties.DataSource = _specialCodeService.GetCodes(SpecialCodeType.SpecialCode, "HeatingElement");
 
             if (form.DialogResult == DialogResult.OK && form.SelectedEntities != null && form.SelectedEntities.Count > 0)
@@ -282,7 +282,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.RezistansForms
         protected internal override void ButonEnabledDurumu()
         {
             base.ButonEnabledDurumu();
-            
+
             if (ucBarkodlar1.IsDirty() || picResim.IsDirty())
             {
                 if (btnKaydet != null && !btnKaydet.Enabled) btnKaydet.Enabled = true;

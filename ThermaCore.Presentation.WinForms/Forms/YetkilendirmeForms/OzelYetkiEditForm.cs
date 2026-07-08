@@ -26,7 +26,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.YetkilendirmeForms
             InitializeComponent();
             _module = module;
             SpecialPermissionsJson = currentJson ?? string.Empty;
-
+            
             this.Load += OzelYetkiEditForm_Load;
             btnTamam.Click += BtnTamam_Click;
             btnIptal.Click += BtnIptal_Click;

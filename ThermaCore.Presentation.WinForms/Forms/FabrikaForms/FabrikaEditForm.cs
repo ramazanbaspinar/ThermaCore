@@ -30,6 +30,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.FabrikaForms
             InitializeComponent();
             _branchService = branchService;
             _currentTenantService = currentTenantService;
+            DataLayoutControl = myDataLayoutControl1;
         }
 
         protected override void EventsLoad()
@@ -53,7 +54,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.FabrikaForms
         public override void Yukle()
         {
             OldEntity = BaseIslemTuru == ActionType.EntityInsert ? new BranchDto() : _branchService.GetById(Id);
-            
+
             Text = $"Fabrika Tanımı ({_sirketAdi})";
 
             if (BaseIslemTuru == ActionType.EntityUpdate)
@@ -111,7 +112,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.FabrikaForms
                 this.Id = dto.Id;
 
                 _branchService.Insert(dto);
-                
+
                 Messages.BilgiBasligi("Fabrika bilgileri başarıyla eklendi.", "Kayıt Başarılı");
                 return true;
             }
@@ -141,7 +142,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.FabrikaForms
                     Messages.HataBasligi("Farklı bir şirkete ait fabrikayı güncelleyemezsiniz!", "Güvenlik İhlali");
                     return false;
                 }
-                
+
                 var existingDto = _branchService.GetById(dto.Id);
                 if (existingDto != null)
                 {
@@ -152,7 +153,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.FabrikaForms
                     }
 
                     _branchService.Update(dto);
-                    
+
                     Messages.BilgiBasligi("Fabrika bilgileri başarıyla güncellendi.", "Bilgi");
                     return true;
                 }

@@ -48,7 +48,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             miFisliKabloTanimlari = new ToolStripMenuItem();
             miMotorTanimlari = new ToolStripMenuItem();
             miFanTanimlari = new ToolStripMenuItem();
-            miSalterTanimlari = new ToolStripMenuItem();
+            miAnahtarRotaryTanimlari = new ToolStripMenuItem();
             miTermostatTanimlari = new ToolStripMenuItem();
             miTimerTanimlari = new ToolStripMenuItem();
             miLambaTanimlari = new ToolStripMenuItem();
@@ -202,7 +202,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 
             // miElektrikVeElektronikGrubu
             // 
-            miElektrikVeElektronikGrubu.DropDownItems.AddRange(new ToolStripItem[] { miRezistansTanimlari, miKabloTanimlari, miFisliKabloTanimlari, miMotorTanimlari, miFanTanimlari, miSalterTanimlari, miTermostatTanimlari, miTimerTanimlari, miLambaTanimlari, miPleytIsiticiTanimlari });
+            miElektrikVeElektronikGrubu.DropDownItems.AddRange(new ToolStripItem[] { miRezistansTanimlari, miKabloTanimlari, miFisliKabloTanimlari, miMotorTanimlari, miFanTanimlari, miAnahtarRotaryTanimlari, miTermostatTanimlari, miTimerTanimlari, miLambaTanimlari, miPleytIsiticiTanimlari });
             miElektrikVeElektronikGrubu.Name = "miElektrikVeElektronikGrubu";
             miElektrikVeElektronikGrubu.Size = new Size(253, 22);
             miElektrikVeElektronikGrubu.Text = "Elektrik ve Elektronik Grubu";
@@ -238,11 +238,12 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             miFanTanimlari.Size = new Size(244, 22);
             miFanTanimlari.Text = "Fan Tanımları";
             // 
-            // miSalterTanimlari
+            // miAnahtarRotaryTanimlari
             // 
-            miSalterTanimlari.Name = "miSalterTanimlari";
-            miSalterTanimlari.Size = new Size(244, 22);
-            miSalterTanimlari.Text = "Şalter (Komütatör) Tanımları";
+            miAnahtarRotaryTanimlari.Name = "miAnahtarRotaryTanimlari";
+            miAnahtarRotaryTanimlari.Size = new Size(244, 22);
+            miAnahtarRotaryTanimlari.Tag = "AnahtarRotaryTanimlari";
+            miAnahtarRotaryTanimlari.Text = "Anahtar (Rotary) Tanımları";
             // 
             // miTermostatTanimlari
             // 
@@ -672,7 +673,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
         private ToolStripMenuItem miFisliKabloTanimlari;
         private ToolStripMenuItem miMotorTanimlari;
         private ToolStripMenuItem miFanTanimlari;
-        private ToolStripMenuItem miSalterTanimlari;
+        private ToolStripMenuItem miAnahtarRotaryTanimlari;
         private ToolStripMenuItem miTermostatTanimlari;
         private ToolStripMenuItem miGazMusluguTanimlari;
         private ToolStripMenuItem miValfTanimlari;
