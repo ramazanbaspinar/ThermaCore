@@ -50,6 +50,10 @@ namespace ThermaCore.Presentation.WinForms.Forms.OzelKodForms
                 "RotarySwitch" => "Anahtar / Rotary",
                 "Thermostat" => "Termostat",
                 "OvenTimer" => "Timer",
+                "Knob" => "Düğme",
+                "OvenGlass" => "Cam",
+                "GlassType" => "Cam Tipi",
+                "ColorFeature" => "Cam Renk Özellik",
                 _ => _entityType
             };
             

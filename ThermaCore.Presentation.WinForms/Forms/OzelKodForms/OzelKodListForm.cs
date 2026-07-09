@@ -43,10 +43,14 @@ namespace ThermaCore.Presentation.WinForms.Forms.OzelKodForms
             string entityNameTr = _entityType switch
             {
                 "Screw" => "Vida",
-                "HeatingElement" => "Rezistans",
-                "RotarySwitch" => "Anahtar / Rotary",
-                "Thermostat" => "Termostat",
-                "OvenTimer" => "Timer",
+                "QualityStandard" => "Kalite Standardı",
+                "Terminal" => "Terminal Cihazı",
+                "Termostat" => "Termostat",
+                "Timer" => "Timer",
+                "Knob" => "Düğme",
+                "OvenGlass" => "Cam",
+                "GlassType" => "Cam Tipi",
+                "ColorFeature" => "Cam Renk Özellik",
                 _ => _entityType
             };
 

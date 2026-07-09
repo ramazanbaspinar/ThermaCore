@@ -11,34 +11,37 @@ using ThermaCore.Presentation.WinForms.Helpers;
 using ThermaCore.Application.Interfaces.Common;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.DugmeForms
+namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.CamForms
 {
-    public partial class DugmeEditForm : BaseEditForm
+    public partial class CamEditForm : BaseEditForm
     {
-        private readonly IKnobService _knobService = default!;
+        private readonly IOvenGlassService _ovenGlassService = default!;
         private readonly IUnitRepository _unitRepository = default!;
         private readonly ISpecialCodeService _specialCodeService = default!;
 
-        public DugmeEditForm()
+        public CamEditForm()
         {
             InitializeComponent();
         }
 
-        public DugmeEditForm(
-            IKnobService knobService,
+        public CamEditForm(
+            IOvenGlassService ovenGlassService,
+            IItemBarcodeService itemBarcodeService,
             IUnitRepository unitRepository,
             ISpecialCodeService specialCodeService)
         {
             InitializeComponent();
 
-            _knobService = knobService;
+            _ovenGlassService = ovenGlassService;
             _unitRepository = unitRepository;
             _specialCodeService = specialCodeService;
 
-            BaseKartTuru = ModuleType.DugmeTanimlari;
-            DataLayoutControls = new object[] { myDataLayoutControl1, myDataLayoutControl2 }; // Assuming default 1 or 2 layout controls, will add standard if there are multiple.
+            BaseKartTuru = ModuleType.CamTanimlari;
+            DataLayoutControls = new object[] { myDataLayoutControl1, myDataLayoutControl2, myDataLayoutControl3, myDataLayoutControl4, myDataLayoutControl5 };
             RequiresCodeTemplate = true;
 
+            ucBarkodlar1.InitializeService(itemBarcodeService);
+            ucBarkodlar1.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
             picResim.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
         }
 
@@ -48,17 +51,29 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.DugmeForms
             glufTemelBirim.Properties.DisplayMember = "Name";
             glufTemelBirim.Properties.ValueMember = "Name";
 
-            glufOzelKod.Properties.DataSource = _specialCodeService.GetCodes(SpecialCodeType.SpecialCode, "Knob");
+            glufOzelKod.Properties.DataSource = _specialCodeService.GetCodes(SpecialCodeType.SpecialCode, "OvenGlass");
             glufOzelKod.Properties.DisplayMember = "Code";
             glufOzelKod.Properties.ValueMember = "Id";
 
+            // Cam Tipi lookup
+            var glassTypeService = Program.ServiceProvider.GetRequiredService<IGlassTypeService>();
+            glufCamTipi.Properties.DataSource = glassTypeService.GetAll().Where(x => x.IsActive).ToList();
+            glufCamTipi.Properties.DisplayMember = "Name";
+            glufCamTipi.Properties.ValueMember = "Id";
+
+            // Renk Özellik lookup
+            var colorFeatureService = Program.ServiceProvider.GetRequiredService<IColorFeatureService>();
+            glufRenkOzellik.Properties.DataSource = colorFeatureService.GetAll().Where(x => x.IsActive).ToList();
+            glufRenkOzellik.Properties.DisplayMember = "Name";
+            glufRenkOzellik.Properties.ValueMember = "Id";
+
             if (BaseIslemTuru == ActionType.EntityUpdate)
             {
-                CurrentEntity = _knobService.GetById(Id);
+                CurrentEntity = _ovenGlassService.GetById(Id);
             }
             else
             {
-                CurrentEntity = new KnobDto { IsActive = true };
+                CurrentEntity = new OvenGlassDto { IsActive = true };
             }
 
             NesneyiKontrollereBagla();
@@ -66,24 +81,34 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.DugmeForms
 
         protected override void NesneyiKontrollereBagla()
         {
-            var dto = (KnobDto)CurrentEntity;
+            var dto = (OvenGlassDto)CurrentEntity;
 
             Id = dto.Id;
             txtKod.Text = dto.Code;
-            txtDugmeAdi.Text = dto.Name;
+            txtCamAdi.Text = dto.Name;
 
             glufTemelBirim.EditValue = string.IsNullOrWhiteSpace(dto.BaseUnit) ? null : dto.BaseUnit;
             glufOzelKod.EditValue = dto.SpecialCodeId > 0 ? dto.SpecialCodeId : null;
+            glufCamTipi.EditValue = dto.GlassTypeId > 0 ? dto.GlassTypeId : null;
+            glufRenkOzellik.EditValue = dto.ColorFeatureId > 0 ? dto.ColorFeatureId : null;
 
-            txtRenkKaplama.Text = dto.Color;
-            txtMilCapiTipi.Text = dto.ShaftType;
+            txtKalinlik.Text = dto.ThicknessMm?.ToString("N2");
+            if (dto.WidthMm.HasValue)
+                txtGenislik.EditValue = dto.WidthMm.Value;
+            else
+                txtGenislik.EditValue = null;
+
+            if (dto.HeightMm.HasValue)
+                txtYukseklik.EditValue = dto.HeightMm.Value;
+            else
+                txtYukseklik.EditValue = null;
 
             txtAciklama.Text = dto.Description;
             tglDurum.IsOn = dto.IsActive;
 
             if (dto.Id > 0)
             {
-                picResim.LoadPictureAsync("Knob", dto.Id);
+                picResim.LoadPictureAsync("OvenGlass", dto.Id);
             }
             else
             {
@@ -94,19 +119,31 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.DugmeForms
             {
                 txtKod.Text = "Yeni Kod";
             }
+
+            ucBarkodlar1.Yukle(Id, txtKod.Text, ModuleType.CamTanimlari);
         }
 
         protected override void GuncelNesneOlustur()
         {
-            var dto = new KnobDto
+            decimal? thickness = null;
+            if (!string.IsNullOrEmpty(txtKalinlik.Text))
+            {
+                if (decimal.TryParse(txtKalinlik.Text, out decimal parsed))
+                    thickness = parsed;
+            }
+
+            var dto = new OvenGlassDto
             {
                 Id = Id,
                 Code = txtKod.Text,
-                Name = txtDugmeAdi.Text,
+                Name = txtCamAdi.Text,
                 BaseUnit = glufTemelBirim.EditValue != null ? glufTemelBirim.EditValue.ToString() : string.Empty,
                 SpecialCodeId = glufOzelKod.EditValue != null ? Convert.ToInt64(glufOzelKod.EditValue) : null,
-                Color = txtRenkKaplama.Text,
-                ShaftType = txtMilCapiTipi.Text,
+                GlassTypeId = glufCamTipi.EditValue != null ? Convert.ToInt64(glufCamTipi.EditValue) : null,
+                ColorFeatureId = glufRenkOzellik.EditValue != null ? Convert.ToInt64(glufRenkOzellik.EditValue) : null,
+                ThicknessMm = thickness,
+                WidthMm = txtGenislik.EditValue != null && txtGenislik.EditValue != DBNull.Value ? Convert.ToDecimal(txtGenislik.EditValue) : (decimal?)null,
+                HeightMm = txtYukseklik.EditValue != null && txtYukseklik.EditValue != DBNull.Value ? Convert.ToDecimal(txtYukseklik.EditValue) : (decimal?)null,
                 Description = txtAciklama.Text,
                 IsActive = tglDurum.IsOn
             };
@@ -117,16 +154,19 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.DugmeForms
 
         protected override bool EntityInsert()
         {
+            ucBarkodlar1.PostGridChanges();
+
             try
             {
-                var dto = (KnobDto)CurrentEntity;
+                var dto = (OvenGlassDto)CurrentEntity;
                 dto.Id = BaseIslemTuru.IdOlustur(OldEntity);
 
-                Id = _knobService.Insert(dto);
+                Id = _ovenGlassService.Insert(dto);
 
                 if (Id > 0)
                 {
-                    picResim.SavePictureAsync("Knob", Id);
+                    ucBarkodlar1.Kaydet(Id);
+                    picResim.SavePictureAsync("OvenGlass", Id);
                 }
 
                 return Id > 0;
@@ -146,12 +186,15 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.DugmeForms
 
         protected override bool EntityUpdate()
         {
+            ucBarkodlar1.PostGridChanges();
+
             try
             {
-                var dto = (KnobDto)CurrentEntity;
-                _knobService.Update(dto);
+                var dto = (OvenGlassDto)CurrentEntity;
+                _ovenGlassService.Update(dto);
 
-                picResim.SavePictureAsync("Knob", Id);
+                ucBarkodlar1.Kaydet(Id);
+                picResim.SavePictureAsync("OvenGlass", Id);
 
                 return true;
             }
@@ -172,12 +215,12 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.DugmeForms
         {
             if (Id <= 0) return;
 
-            if (Messages.SilMesaj("Düğme Tanımı") == DialogResult.Yes)
+            if (Messages.SilMesaj("Cam Tanımı") == DialogResult.Yes)
             {
                 try
                 {
                     Cursor.Current = Cursors.WaitCursor;
-                    _knobService.Delete(Id);
+                    _ovenGlassService.Delete(Id);
                     RefreshYapilacak = true;
                     Messages.SilindiMesaj();
                     Close();
@@ -198,7 +241,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.DugmeForms
             switch (propertyName)
             {
                 case "Code": txtKod.Focus(); break;
-                case "Name": txtDugmeAdi.Focus(); break;
+                case "Name": txtCamAdi.Focus(); break;
                 case "BaseUnit": glufTemelBirim.Focus(); break;
                 case "Description": txtAciklama.Focus(); break;
             }
@@ -206,7 +249,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.DugmeForms
 
         protected override bool IsCodeUnique(string code)
         {
-            return _knobService.IsCodeUnique(this.Id, code);
+            return _ovenGlassService.IsCodeUnique(this.Id, code);
         }
 
         protected override void EventsLoad()
@@ -215,15 +258,49 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.DugmeForms
 
             glufTemelBirim.SearchButtonClicked += glufTemelBirim_SearchButtonClicked;
             glufOzelKod.SearchButtonClicked += glufOzelKod_SearchButtonClicked;
+            glufCamTipi.SearchButtonClicked += GlufCamTipi_SearchButtonClicked;
+            glufRenkOzellik.SearchButtonClicked += GlufRenkOzellik_SearchButtonClicked;
+        }
+
+        private void GlufCamTipi_SearchButtonClicked(object? sender, EventArgs e)
+        {
+            var form = Program.ServiceProvider.GetRequiredService<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.CamForms.CamTipiForms.CamTipiListForm>();
+            form.FormAcilisTuru = ThermaCore.Presentation.WinForms.Enums.FormAcilisTuru.Secim;
+            form.ShowDialog();
+
+            var glassTypeService = Program.ServiceProvider.GetRequiredService<IGlassTypeService>();
+            glufCamTipi.Properties.DataSource = glassTypeService.GetAll().Where(x => x.IsActive).ToList();
+
+            if (form.DialogResult == DialogResult.OK && form.SelectedEntities != null && form.SelectedEntities.Count > 0)
+            {
+                var selectedId = form.SelectedEntities[0].Id;
+                glufCamTipi.EditValue = selectedId;
+            }
+        }
+
+        private void GlufRenkOzellik_SearchButtonClicked(object? sender, EventArgs e)
+        {
+            var form = Program.ServiceProvider.GetRequiredService<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.CamForms.RenkOzellikForms.CamRenkListForm>();
+            form.FormAcilisTuru = ThermaCore.Presentation.WinForms.Enums.FormAcilisTuru.Secim;
+            form.ShowDialog();
+
+            var colorFeatureService = Program.ServiceProvider.GetRequiredService<IColorFeatureService>();
+            glufRenkOzellik.Properties.DataSource = colorFeatureService.GetAll().Where(x => x.IsActive).ToList();
+
+            if (form.DialogResult == DialogResult.OK && form.SelectedEntities != null && form.SelectedEntities.Count > 0)
+            {
+                var selectedId = form.SelectedEntities[0].Id;
+                glufRenkOzellik.EditValue = selectedId;
+            }
         }
 
         private void glufOzelKod_SearchButtonClicked(object? sender, EventArgs e)
         {
-            var form = new ThermaCore.Presentation.WinForms.Forms.OzelKodForms.OzelKodListForm(SpecialCodeType.SpecialCode, "Knob");
+            var form = new ThermaCore.Presentation.WinForms.Forms.OzelKodForms.OzelKodListForm(SpecialCodeType.SpecialCode, "OvenGlass");
             form.FormAcilisTuru = ThermaCore.Presentation.WinForms.Enums.FormAcilisTuru.Secim;
             form.ShowDialog();
 
-            glufOzelKod.Properties.DataSource = _specialCodeService.GetCodes(SpecialCodeType.SpecialCode, "Knob");
+            glufOzelKod.Properties.DataSource = _specialCodeService.GetCodes(SpecialCodeType.SpecialCode, "OvenGlass");
 
             if (form.DialogResult == DialogResult.OK && form.SelectedEntities != null && form.SelectedEntities.Count > 0)
             {
@@ -253,7 +330,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.DugmeForms
         {
             base.ButonEnabledDurumu();
 
-            if (picResim.IsDirty())
+            if (picResim.IsDirty() || ucBarkodlar1.IsDirty())
             {
                 if (btnKaydet != null && !btnKaydet.Enabled) btnKaydet.Enabled = true;
                 if (btnGerial != null && !btnGerial.Enabled) btnGerial.Enabled = true;

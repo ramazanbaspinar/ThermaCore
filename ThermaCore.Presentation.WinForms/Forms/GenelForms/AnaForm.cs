@@ -102,7 +102,22 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
                 miTimerTanimlari.Click += MiTimerTanimlari_Click;
 
 
-                
+            if (miDugmeTanimlari != null)
+            {
+                miDugmeTanimlari.Tag = ThermaCore.Domain.Enums.ModuleType.DugmeTanimlari;
+                miDugmeTanimlari.Click += (s, e) =>
+                {
+                    var authService = _serviceProvider.GetService<ThermaCore.Application.Services.Management.IAuthService>();
+                    if (authService != null && authService.HasPermission(ThermaCore.Domain.Enums.ModuleType.DugmeTanimlari, ThermaCore.Domain.Enums.PermissionType.CanView))
+                    {
+                        FormYukle<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.DugmeForms.DugmeListForm>();
+                    }
+                    else
+                    {
+                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                };
+            }
             if (miKaliteStandartTanimlari != null)
             {
                 miKaliteStandartTanimlari.Click += miKaliteStandartTanimlari_Click;
@@ -136,6 +151,23 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
                     if (authService != null && authService.HasPermission(ThermaCore.Domain.Enums.ModuleType.BoyaTanimlari, ThermaCore.Domain.Enums.PermissionType.CanView))
                     {
                         FormYukle<ThermaCore.Presentation.WinForms.Forms.BoyaForms.BoyaListForm>();
+                    }
+                    else
+                    {
+                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                };
+            }
+
+            if (miCamTanimlari != null)
+            {
+                miCamTanimlari.Tag = ThermaCore.Domain.Enums.ModuleType.CamTanimlari;
+                miCamTanimlari.Click += (s, e) =>
+                {
+                    var authService = _serviceProvider.GetService<ThermaCore.Application.Services.Management.IAuthService>();
+                    if (authService != null && authService.HasPermission(ThermaCore.Domain.Enums.ModuleType.CamTanimlari, ThermaCore.Domain.Enums.PermissionType.CanView))
+                    {
+                        FormYukle<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.CamForms.CamListForm>();
                     }
                     else
                     {

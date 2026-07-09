@@ -96,6 +96,10 @@ public enum ModuleType
     [ParentModule(Tanimlar)]
     MetalVeSacGrubu = 3000,
 
+    [Description("Plastik ve Görsel Aksam Grubu")]
+    [ParentModule(Tanimlar)]
+    PlastikVeGorselAksamGrubu = 4000,
+
 
     [Description("Sac Tanımları")]
     [ParentModule(MetalVeSacGrubu)]
@@ -149,5 +153,25 @@ public enum ModuleType
     [Description("Timer Tanımları")]
     [ParentModule(Tanimlar)]
     [RequiresCodeTemplate]
-    TimerTanimlari = 26
+    TimerTanimlari = 26,
+
+    [Description("Düğme Tanımları")]
+    [ParentModule(PlastikVeGorselAksamGrubu)]
+    [RequiresCodeTemplate]
+    DugmeTanimlari = 27,
+
+    [Description("Cam Tipi Tanımları")]
+    [ParentModule(PlastikVeGorselAksamGrubu)]
+    [RequiresCodeTemplate]
+    CamTipiTanimlari = 28,
+
+    [Description("Cam Renk Özellik Tanımları")]
+    [ParentModule(PlastikVeGorselAksamGrubu)]
+    [RequiresCodeTemplate]
+    RenkTanimlari = 29,
+
+    [Description("Cam Tanımları")]
+    [ParentModule(PlastikVeGorselAksamGrubu)]
+    [RequiresCodeTemplate]
+    CamTanimlari = 30
 }

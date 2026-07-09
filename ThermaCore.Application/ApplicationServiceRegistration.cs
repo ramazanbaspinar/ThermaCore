@@ -32,12 +32,15 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IValidator<ThermaCore.Application.DTOs.Production.QualityStandardDto>, ThermaCore.Application.Validations.Production.QualityStandardValidator>();
         services.AddScoped<IValidator<ThermaCore.Application.DTOs.Production.SurfaceTypeDto>, ThermaCore.Application.Validations.Production.SurfaceTypeValidator>();
         services.AddScoped<IValidator<ThermaCore.Application.DTOs.Production.SheetMetalDto>, ThermaCore.Application.Validations.Production.SheetMetalValidator>();
+
         services.AddScoped<IValidator<ThermaCore.Application.DTOs.Production.BoyaDto>, ThermaCore.Application.Validations.Production.BoyaValidator>();
         services.AddScoped<IValidator<ThermaCore.Application.DTOs.Production.EmayeDto>, ThermaCore.Application.Validations.Production.EmayeValidator>();
         services.AddScoped<IValidator<ThermaCore.Application.DTOs.Common.ItemBarcodeDto>, ThermaCore.Application.Validations.Common.ItemBarcodeValidator>();
         services.AddScoped<IValidator<ThermaCore.Application.DTOs.Common.SpecialCodeDto>, ThermaCore.Application.Validations.Common.SpecialCodeValidator>();
         services.AddScoped<IValidator<ThermaCore.Application.DTOs.Production.ThermostatDto>, ThermaCore.Application.Validations.Production.ThermostatValidator>();
-
+        services.AddScoped<IValidator<ThermaCore.Application.DTOs.Production.GlassTypeDto>, ThermaCore.Application.Validators.Production.GlassTypeValidator>();
+        services.AddScoped<IValidator<ThermaCore.Application.DTOs.Production.ColorFeatureDto>, ThermaCore.Application.Validators.Production.ColorFeatureValidator>();
+        services.AddScoped<IValidator<ThermaCore.Application.DTOs.Production.OvenGlassDto>, ThermaCore.Application.Validators.Production.OvenGlassValidator>();
         services.AddScoped<ThermaCore.Application.Interfaces.Production.IQualityStandardService, ThermaCore.Application.Services.Production.QualityStandardManager>();
         services.AddScoped<ThermaCore.Application.Interfaces.Production.ISurfaceTypeService, ThermaCore.Application.Services.Production.SurfaceTypeManager>();
         services.AddScoped<ThermaCore.Application.Interfaces.Production.ISheetMetalService, ThermaCore.Application.Services.Production.SheetMetalManager>();
@@ -50,6 +53,10 @@ public static class ApplicationServiceRegistration
         services.AddScoped<ThermaCore.Application.Interfaces.Production.IHeatingElementService, ThermaCore.Application.Services.Production.HeatingElementManager>();
         services.AddScoped<IValidator<ThermaCore.Application.DTOs.Production.OvenTimerDto>, ThermaCore.Application.Validations.Production.OvenTimerValidator>();
         services.AddScoped<ThermaCore.Application.Interfaces.Production.IOvenTimerService, ThermaCore.Application.Services.Production.OvenTimerManager>();
+        services.AddScoped<ThermaCore.Application.Interfaces.Production.IKnobService, ThermaCore.Application.Services.Production.KnobManager>();
+        services.AddScoped<ThermaCore.Application.Interfaces.Production.IGlassTypeService, ThermaCore.Application.Services.Production.GlassTypeManager>();
+        services.AddScoped<ThermaCore.Application.Interfaces.Production.IColorFeatureService, ThermaCore.Application.Services.Production.ColorFeatureManager>();
+        services.AddScoped<ThermaCore.Application.Interfaces.Production.IOvenGlassService, ThermaCore.Application.Services.Production.OvenGlassManager>();
         services.AddScoped<ThermaCore.Application.Interfaces.Common.IItemBarcodeService, ThermaCore.Application.Services.Common.ItemBarcodeManager>();
         services.AddScoped<ThermaCore.Application.Interfaces.Common.IBarcodePrintService, ThermaCore.Application.Services.Common.BarcodePrintManager>();
         services.AddScoped<ThermaCore.Application.Interfaces.Common.IDocumentService, ThermaCore.Application.Services.Common.DocumentManager>();
