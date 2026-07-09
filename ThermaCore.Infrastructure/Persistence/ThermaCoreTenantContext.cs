@@ -39,6 +39,7 @@ public class ThermaCoreTenantContext : DbContext
     public DbSet<ThermaCore.Domain.Entities.Production.GlassType> GlassTypes { get; set; }
     public DbSet<ThermaCore.Domain.Entities.Production.ColorFeature> ColorFeatures { get; set; }
     public DbSet<ThermaCore.Domain.Entities.Production.OvenGlass> OvenGlasses { get; set; }
+    public DbSet<ThermaCore.Domain.Entities.Production.Cable> Cables { get; set; }
     public DbSet<ThermaCore.Domain.Entities.Common.ItemBarcode> ItemBarcodes { get; set; }
     public DbSet<ThermaCore.Domain.Entities.Common.AppDocument> AppDocuments { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

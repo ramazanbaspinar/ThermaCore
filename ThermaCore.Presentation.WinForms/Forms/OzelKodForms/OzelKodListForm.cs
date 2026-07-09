@@ -51,6 +51,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.OzelKodForms
                 "OvenGlass" => "Cam",
                 "GlassType" => "Cam Tipi",
                 "ColorFeature" => "Cam Renk Özellik",
+                "Cable" => "Kablo",
                 _ => _entityType
             };
 

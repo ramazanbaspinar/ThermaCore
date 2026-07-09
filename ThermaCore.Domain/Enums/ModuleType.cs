@@ -173,5 +173,14 @@ public enum ModuleType
     [Description("Cam Tanımları")]
     [ParentModule(PlastikVeGorselAksamGrubu)]
     [RequiresCodeTemplate]
-    CamTanimlari = 30
+    CamTanimlari = 30,
+
+    [Description("Elektrik ve Elektronik Grubu")]
+    [ParentModule(Tanimlar)]
+    ElektrikVeElektronikGrubu = 5000,
+
+    [Description("Kablo Tanımları")]
+    [ParentModule(ElektrikVeElektronikGrubu)]
+    [RequiresCodeTemplate]
+    KabloTanimlari = 31
 }

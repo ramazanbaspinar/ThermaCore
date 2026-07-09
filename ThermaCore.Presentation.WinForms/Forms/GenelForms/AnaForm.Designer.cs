@@ -218,6 +218,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 
             miKabloTanimlari.Name = "miKabloTanimlari";
             miKabloTanimlari.Size = new Size(244, 22);
+            miKabloTanimlari.Tag = "KabloTanimlari";
             miKabloTanimlari.Text = "Kablo Tanımları";
             // 
             // miFisliKabloTanimlari

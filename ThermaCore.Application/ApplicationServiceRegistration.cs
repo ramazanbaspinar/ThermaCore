@@ -41,6 +41,7 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IValidator<ThermaCore.Application.DTOs.Production.GlassTypeDto>, ThermaCore.Application.Validators.Production.GlassTypeValidator>();
         services.AddScoped<IValidator<ThermaCore.Application.DTOs.Production.ColorFeatureDto>, ThermaCore.Application.Validators.Production.ColorFeatureValidator>();
         services.AddScoped<IValidator<ThermaCore.Application.DTOs.Production.OvenGlassDto>, ThermaCore.Application.Validators.Production.OvenGlassValidator>();
+        services.AddScoped<IValidator<ThermaCore.Application.DTOs.Production.CableDto>, ThermaCore.Application.Validators.Production.CableValidator>();
         services.AddScoped<ThermaCore.Application.Interfaces.Production.IQualityStandardService, ThermaCore.Application.Services.Production.QualityStandardManager>();
         services.AddScoped<ThermaCore.Application.Interfaces.Production.ISurfaceTypeService, ThermaCore.Application.Services.Production.SurfaceTypeManager>();
         services.AddScoped<ThermaCore.Application.Interfaces.Production.ISheetMetalService, ThermaCore.Application.Services.Production.SheetMetalManager>();
@@ -57,6 +58,7 @@ public static class ApplicationServiceRegistration
         services.AddScoped<ThermaCore.Application.Interfaces.Production.IGlassTypeService, ThermaCore.Application.Services.Production.GlassTypeManager>();
         services.AddScoped<ThermaCore.Application.Interfaces.Production.IColorFeatureService, ThermaCore.Application.Services.Production.ColorFeatureManager>();
         services.AddScoped<ThermaCore.Application.Interfaces.Production.IOvenGlassService, ThermaCore.Application.Services.Production.OvenGlassManager>();
+        services.AddScoped<ThermaCore.Application.Interfaces.Production.ICableService, ThermaCore.Application.Services.Production.CableManager>();
         services.AddScoped<ThermaCore.Application.Interfaces.Common.IItemBarcodeService, ThermaCore.Application.Services.Common.ItemBarcodeManager>();
         services.AddScoped<ThermaCore.Application.Interfaces.Common.IBarcodePrintService, ThermaCore.Application.Services.Common.BarcodePrintManager>();
         services.AddScoped<ThermaCore.Application.Interfaces.Common.IDocumentService, ThermaCore.Application.Services.Common.DocumentManager>();

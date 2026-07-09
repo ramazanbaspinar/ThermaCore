@@ -173,6 +173,8 @@ internal static class Program
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.CamForms.CamTipiForms.CamTipiEditForm>();
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.CamForms.RenkOzellikForms.CamRenkListForm>();
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.CamForms.RenkOzellikForms.CamRenkEditForm>();
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.KabloForms.KabloListForm>();
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.KabloForms.KabloEditForm>();
             })
             .Build();
 
