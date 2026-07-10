@@ -59,6 +59,8 @@ public static class ApplicationServiceRegistration
         services.AddScoped<ThermaCore.Application.Interfaces.Production.IColorFeatureService, ThermaCore.Application.Services.Production.ColorFeatureManager>();
         services.AddScoped<ThermaCore.Application.Interfaces.Production.IOvenGlassService, ThermaCore.Application.Services.Production.OvenGlassManager>();
         services.AddScoped<ThermaCore.Application.Interfaces.Production.ICableService, ThermaCore.Application.Services.Production.CableManager>();
+        services.AddScoped<IValidator<ThermaCore.Application.DTOs.Production.HotplateDto>, ThermaCore.Application.Validators.Production.HotplateValidator>();
+        services.AddScoped<ThermaCore.Application.Interfaces.Production.IHotplateService, ThermaCore.Application.Services.Production.HotplateManager>();
         services.AddScoped<ThermaCore.Application.Interfaces.Common.IItemBarcodeService, ThermaCore.Application.Services.Common.ItemBarcodeManager>();
         services.AddScoped<ThermaCore.Application.Interfaces.Common.IBarcodePrintService, ThermaCore.Application.Services.Common.BarcodePrintManager>();
         services.AddScoped<ThermaCore.Application.Interfaces.Common.IDocumentService, ThermaCore.Application.Services.Common.DocumentManager>();

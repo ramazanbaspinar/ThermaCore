@@ -55,6 +55,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.OzelKodForms
                 "GlassType" => "Cam Tipi",
                 "ColorFeature" => "Cam Renk Özellik",
                 "Cable" => "Kablo",
+                "Hotplate" => "Pleyt Isıtıcı",
                 _ => _entityType
             };
             
@@ -66,8 +67,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.OzelKodForms
         {
             if (BaseIslemTuru == ActionType.EntityUpdate)
             {
-                // Asenkron wrapper ile senkron servisi çağırıyoruz. (Deadlock olmaması için kural)
-                CurrentEntity = Task.Run(() => _specialCodeService.GetById(Id)).GetAwaiter().GetResult();
+                CurrentEntity = _specialCodeService.GetById(Id);
             }
             else
             {
@@ -115,7 +115,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.OzelKodForms
             
             try
             {
-                Id = Task.Run(() => _specialCodeService.Insert(dto)).GetAwaiter().GetResult();
+                Id = _specialCodeService.Insert(dto);
                 return Id > 0;
             }
             catch (FluentValidation.ValidationException ex)
@@ -137,7 +137,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.OzelKodForms
             
             try
             {
-                Task.Run(() => _specialCodeService.Update(dto)).GetAwaiter().GetResult();
+                _specialCodeService.Update(dto);
                 return true;
             }
             catch (FluentValidation.ValidationException ex)
@@ -155,7 +155,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.OzelKodForms
 
         protected override bool IsCodeUnique(string code)
         {
-            return Task.Run(() => _specialCodeService.IsCodeUnique(this.Id, _codeType, _entityType, code)).GetAwaiter().GetResult();
+            return _specialCodeService.IsCodeUnique(this.Id, _codeType, _entityType, code);
         }
 
         protected override void EntityDelete()
@@ -169,7 +169,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.OzelKodForms
                 try
                 {
                     Cursor.Current = Cursors.WaitCursor;
-                    Task.Run(() => _specialCodeService.Delete(Id)).GetAwaiter().GetResult();
+                    _specialCodeService.Delete(Id);
                     RefreshYapilacak = true;
                     Messages.SilindiMesaj();
                     Close();

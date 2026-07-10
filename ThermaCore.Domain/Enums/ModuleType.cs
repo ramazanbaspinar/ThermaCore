@@ -182,5 +182,10 @@ public enum ModuleType
     [Description("Kablo Tanımları")]
     [ParentModule(ElektrikVeElektronikGrubu)]
     [RequiresCodeTemplate]
-    KabloTanimlari = 31
+    KabloTanimlari = 31,
+
+    [Description("Pleyt Isıtıcı Tanımları")]
+    [ParentModule(ElektrikVeElektronikGrubu)]
+    [RequiresCodeTemplate]
+    PleytIsiticiTanimlari = 32
 }

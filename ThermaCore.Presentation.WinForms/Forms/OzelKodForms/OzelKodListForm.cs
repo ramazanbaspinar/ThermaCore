@@ -52,6 +52,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.OzelKodForms
                 "GlassType" => "Cam Tipi",
                 "ColorFeature" => "Cam Renk Özellik",
                 "Cable" => "Kablo",
+                "Hotplate" => "Pleyt Isıtıcı",
                 _ => _entityType
             };
 
@@ -97,16 +98,22 @@ namespace ThermaCore.Presentation.WinForms.Forms.OzelKodForms
 
             string msgName = _codeType == SpecialCodeType.SpecialCode ? "Özel Kod" : "Grup Kodu";
 
-            if (XtraMessageBox.Show($"Seçili {msgName} kaydını silmek istediğinize emin misiniz?", "Onay", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (Messages.SilMesaj(msgName) == DialogResult.Yes)
             {
                 try
                 {
-                    Task.Run(() => _specialCodeService.Delete(entityId)).GetAwaiter().GetResult();
+                    Cursor.Current = Cursors.WaitCursor;
+                    _specialCodeService.Delete(entityId);
                     Listele();
+                    Messages.SilindiMesaj();
                 }
                 catch (Exception ex)
                 {
-                    XtraMessageBox.Show(ex.Message, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Messages.HataBasligi(ex.Message, "Silme Hatası");
+                }
+                finally
+                {
+                    Cursor.Current = Cursors.Default;
                 }
             }
         }

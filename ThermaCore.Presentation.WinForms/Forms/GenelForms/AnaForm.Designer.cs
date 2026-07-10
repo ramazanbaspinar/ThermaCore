@@ -45,7 +45,6 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             miElektrikVeElektronikGrubu = new ToolStripMenuItem();
             miRezistansTanimlari = new ToolStripMenuItem();
             miKabloTanimlari = new ToolStripMenuItem();
-            miFisliKabloTanimlari = new ToolStripMenuItem();
             miMotorTanimlari = new ToolStripMenuItem();
             miFanTanimlari = new ToolStripMenuItem();
             miAnahtarRotaryTanimlari = new ToolStripMenuItem();
@@ -178,31 +177,31 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // miSacTanimlari
             // 
             miSacTanimlari.Name = "miSacTanimlari";
-            miSacTanimlari.Size = new Size(168, 22);
+            miSacTanimlari.Size = new Size(180, 22);
             miSacTanimlari.Tag = "SacTanimlari";
             miSacTanimlari.Text = "Sac Tanımları";
             // 
             // miTelTanimlari
             // 
             miTelTanimlari.Name = "miTelTanimlari";
-            miTelTanimlari.Size = new Size(168, 22);
+            miTelTanimlari.Size = new Size(180, 22);
             miTelTanimlari.Text = "Tel Tanımları";
             // 
             // miIzgaraTanimlari
             // 
             miIzgaraTanimlari.Name = "miIzgaraTanimlari";
-            miIzgaraTanimlari.Size = new Size(168, 22);
+            miIzgaraTanimlari.Size = new Size(180, 22);
             miIzgaraTanimlari.Text = "Izgara Tanımları";
             // 
             // miTepsiTanimlari
             // 
             miTepsiTanimlari.Name = "miTepsiTanimlari";
-            miTepsiTanimlari.Size = new Size(168, 22);
+            miTepsiTanimlari.Size = new Size(180, 22);
             miTepsiTanimlari.Text = "Tepsi Tanımları";
             // 
             // miElektrikVeElektronikGrubu
             // 
-            miElektrikVeElektronikGrubu.DropDownItems.AddRange(new ToolStripItem[] { miRezistansTanimlari, miKabloTanimlari, miFisliKabloTanimlari, miMotorTanimlari, miFanTanimlari, miAnahtarRotaryTanimlari, miTermostatTanimlari, miTimerTanimlari, miLambaTanimlari, miPleytIsiticiTanimlari });
+            miElektrikVeElektronikGrubu.DropDownItems.AddRange(new ToolStripItem[] { miRezistansTanimlari, miKabloTanimlari, miMotorTanimlari, miFanTanimlari, miAnahtarRotaryTanimlari, miTermostatTanimlari, miTimerTanimlari, miLambaTanimlari, miPleytIsiticiTanimlari });
             miElektrikVeElektronikGrubu.Name = "miElektrikVeElektronikGrubu";
             miElektrikVeElektronikGrubu.Size = new Size(253, 22);
             miElektrikVeElektronikGrubu.Text = "Elektrik ve Elektronik Grubu";
@@ -220,12 +219,6 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             miKabloTanimlari.Size = new Size(244, 22);
             miKabloTanimlari.Tag = "KabloTanimlari";
             miKabloTanimlari.Text = "Kablo Tanımları";
-            // 
-            // miFisliKabloTanimlari
-            // 
-            miFisliKabloTanimlari.Name = "miFisliKabloTanimlari";
-            miFisliKabloTanimlari.Size = new Size(244, 22);
-            miFisliKabloTanimlari.Text = "Fişli Kablo Tanımları";
             // 
             // miMotorTanimlari
             // 
@@ -270,6 +263,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 
             miPleytIsiticiTanimlari.Name = "miPleytIsiticiTanimlari";
             miPleytIsiticiTanimlari.Size = new Size(244, 22);
+            miPleytIsiticiTanimlari.Tag = "PleytIsiticiTanimlari";
             miPleytIsiticiTanimlari.Text = "Pleyt Isıtıcı Tanımları";
             // 
             // miGazVeAteslemeGrubu
@@ -675,7 +669,6 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
         private ToolStripMenuItem miIzgaraTanimlari;
         private ToolStripMenuItem miRezistansTanimlari;
         private ToolStripMenuItem miKabloTanimlari;
-        private ToolStripMenuItem miFisliKabloTanimlari;
         private ToolStripMenuItem miMotorTanimlari;
         private ToolStripMenuItem miFanTanimlari;
         private ToolStripMenuItem miAnahtarRotaryTanimlari;
