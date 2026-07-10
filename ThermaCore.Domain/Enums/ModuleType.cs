@@ -187,5 +187,10 @@ public enum ModuleType
     [Description("Pleyt Isıtıcı Tanımları")]
     [ParentModule(ElektrikVeElektronikGrubu)]
     [RequiresCodeTemplate]
-    PleytIsiticiTanimlari = 32
+    PleytIsiticiTanimlari = 32,
+
+    [Description("Lamba Tanımları")]
+    [ParentModule(ElektrikVeElektronikGrubu)]
+    [RequiresCodeTemplate]
+    LambaTanimlari = 33
 }

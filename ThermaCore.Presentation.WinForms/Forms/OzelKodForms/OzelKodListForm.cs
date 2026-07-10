@@ -53,6 +53,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.OzelKodForms
                 "ColorFeature" => "Cam Renk Özellik",
                 "Cable" => "Kablo",
                 "Hotplate" => "Pleyt Isıtıcı",
+                "OvenLamp" => "Lamba",
                 _ => _entityType
             };
 

@@ -177,26 +177,26 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // miSacTanimlari
             // 
             miSacTanimlari.Name = "miSacTanimlari";
-            miSacTanimlari.Size = new Size(180, 22);
+            miSacTanimlari.Size = new Size(168, 22);
             miSacTanimlari.Tag = "SacTanimlari";
             miSacTanimlari.Text = "Sac Tanımları";
             // 
             // miTelTanimlari
             // 
             miTelTanimlari.Name = "miTelTanimlari";
-            miTelTanimlari.Size = new Size(180, 22);
+            miTelTanimlari.Size = new Size(168, 22);
             miTelTanimlari.Text = "Tel Tanımları";
             // 
             // miIzgaraTanimlari
             // 
             miIzgaraTanimlari.Name = "miIzgaraTanimlari";
-            miIzgaraTanimlari.Size = new Size(180, 22);
+            miIzgaraTanimlari.Size = new Size(168, 22);
             miIzgaraTanimlari.Text = "Izgara Tanımları";
             // 
             // miTepsiTanimlari
             // 
             miTepsiTanimlari.Name = "miTepsiTanimlari";
-            miTepsiTanimlari.Size = new Size(180, 22);
+            miTepsiTanimlari.Size = new Size(168, 22);
             miTepsiTanimlari.Text = "Tepsi Tanımları";
             // 
             // miElektrikVeElektronikGrubu
@@ -257,6 +257,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 
             miLambaTanimlari.Name = "miLambaTanimlari";
             miLambaTanimlari.Size = new Size(244, 22);
+            miLambaTanimlari.Tag = "LambaTanimlari";
             miLambaTanimlari.Text = "Lamba Tanımları";
             // 
             // miPleytIsiticiTanimlari
