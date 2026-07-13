@@ -153,7 +153,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.GazForms
                 if (Id > 0)
                 {
                     ucBarkodlar1.Kaydet(Id);
-                    picResim.SavePictureAsync("GasValve", Id);
+                    picResim.SavePicture("GasValve", Id);
                 }
 
                 return Id > 0;
@@ -181,7 +181,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.GazForms
                 _gasValveService.Update(dto);
 
                 ucBarkodlar1.Kaydet(Id);
-                picResim.SavePictureAsync("GasValve", Id);
+                picResim.SavePicture("GasValve", Id);
 
                 return true;
             }
@@ -269,11 +269,12 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.GazForms
             {
                 form.FormAcilisTuru = ThermaCore.Presentation.WinForms.Enums.FormAcilisTuru.Secim;
                 form.ShowDialog();
-                if (form.DialogResult == System.Windows.Forms.DialogResult.OK && form.SelectedEntities?.Count > 0)
+                
+                    glufTemelBirim.Properties.DataSource = _unitRepository.GetAll().Where(x => x.IsActive).ToList();
+            if (form.DialogResult == System.Windows.Forms.DialogResult.OK && form.SelectedEntities?.Count > 0)
                 {
                     dynamic secilenBirim = form.SelectedEntities[0];
                     var secilenAd = secilenBirim.Name;
-                    glufTemelBirim.Properties.DataSource = _unitRepository.GetAll().Where(x => x.IsActive).ToList();
                     glufTemelBirim.EditValue = secilenAd;
                 }
             }

@@ -45,6 +45,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.OzelKodForms
                 "Screw" => "Vida",
                 "QualityStandard" => "Kalite Standardı",
                 "GasValve" => "Gaz Musluğu",
+                "Burner" => "Bek Grubu",
                 "Terminal" => "Terminal Cihazı",
                 "Termostat" => "Termostat",
                 "Timer" => "Timer",

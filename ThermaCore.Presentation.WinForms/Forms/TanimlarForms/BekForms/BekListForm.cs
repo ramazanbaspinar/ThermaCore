@@ -1,59 +1,44 @@
-using DevExpress.XtraEditors;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using ThermaCore.Presentation.WinForms.Forms.BaseForms;
+using DevExpress.XtraBars;
+using Microsoft.Extensions.DependencyInjection;
+using ThermaCore.Application.DTOs.Production;
 using ThermaCore.Application.Interfaces.Production;
+using ThermaCore.Presentation.WinForms.Forms.BaseForms;
+using System.Linq;
 using ThermaCore.Presentation.WinForms.Helpers;
 
-namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.GazForms
+namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.BekForms
 {
-    public partial class GazListForm : BaseListForm
+    public partial class BekListForm : BaseListForm
     {
-        private readonly IGasValveService _gasValveService;
+        private readonly IBurnerService _burnerService;
+        private readonly System.IServiceProvider _serviceProvider;
 
-        // Designer için parametresiz kurucu (DevExpress Designer hatasını önler)
-        public GazListForm()
+        public BekListForm(IBurnerService burnerService, System.IServiceProvider serviceProvider)
         {
             InitializeComponent();
-        }
+            _burnerService = burnerService;
+            _serviceProvider = serviceProvider;
 
-        // DI Constructor
-        public GazListForm(IGasValveService gasValveService)
-        {
-            InitializeComponent();
-            _gasValveService = gasValveService;
+            Bll = _burnerService;
         }
 
         protected override void DegiskenleriDoldur()
         {
             Tablo = myGridView1;
-            BaseKartTuru = ThermaCore.Domain.Enums.ModuleType.GazMusluguTanimlari;
+            BaseKartTuru = Domain.Enums.ModuleType.BekGrubuTanimlari;
             Navigator = longNavigator1.Navigator;
             AktifPasifButonGoster = true;
-            
-            // Tasarıma dokunmadan fieldnameleri fixliyoruz
-            colGazTipi.FieldName = "GasType";
-            colEmniyetVentili.FieldName = "HasSafetyValve";
-            colCikisAcisi.FieldName = "OutletAngle";
-            colMilTipi.FieldName = "ShaftType";
         }
 
         protected override void Listele()
         {
-            var liste = _gasValveService.GetAll().Where(x => x.IsActive == AktifKartlariGoster).ToList();
+            var liste = _burnerService.GetAll().Where(x => x.IsActive == AktifKartlariGoster).ToList();
             Tablo.GridControl.DataSource = liste;
         }
 
         protected override void ShowEditForm(long id)
         {
-            var form = Program.ServiceProvider.GetService(typeof(GazEditForm)) as GazEditForm;
+            var form = _serviceProvider.GetRequiredService<BekEditForm>();
             if (form != null)
             {
                 form.IdAtaVeAc(id);
@@ -79,7 +64,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.GazForms
             {
                 try
                 {
-                    _gasValveService.Delete(entityId);
+                    _burnerService.Delete(entityId);
                     Listele();
                 }
                 catch (System.Exception ex)

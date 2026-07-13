@@ -341,10 +341,28 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
                     }
                     else
                     {
-                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        ThermaCore.Presentation.WinForms.Helpers.Messages.UyariMesaji("Bu işlem için yetkiniz bulunmamaktadır.");
                     }
                 };
             }
+
+            if (miBekGrubuTanimlari != null)
+            {
+                miBekGrubuTanimlari.Tag = ThermaCore.Domain.Enums.ModuleType.BekGrubuTanimlari;
+                miBekGrubuTanimlari.Click += (s, e) =>
+                {
+                    var authService = _serviceProvider.GetService<ThermaCore.Application.Services.Management.IAuthService>();
+                    if (authService != null && authService.HasPermission(ThermaCore.Domain.Enums.ModuleType.BekGrubuTanimlari, ThermaCore.Domain.Enums.PermissionType.CanView))
+                    {
+                        FormYukle<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.BekForms.BekListForm>();
+                    }
+                    else
+                    {
+                        ThermaCore.Presentation.WinForms.Helpers.Messages.UyariMesaji("Bu işlem için yetkiniz bulunmamaktadır.");
+                    }
+                };
+            }
+
             if (xtraTabbedMdiManager != null)
             {
                 xtraTabbedMdiManager.PageAdded += XtraTabbedMdiManager_PageAdded;

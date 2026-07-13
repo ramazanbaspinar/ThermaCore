@@ -283,10 +283,11 @@ namespace ThermaCore.Presentation.WinForms.Forms.SacForms
             {
                 form.FormAcilisTuru = ThermaCore.Presentation.WinForms.Enums.FormAcilisTuru.Secim;
                 form.ShowDialog();
-                if (form.DialogResult == DialogResult.OK && form.SelectedEntities?.Count > 0)
+                
+                    glupKaliteStandart.Properties.DataSource = _qualityStandardService.GetAll().Where(x => x.IsActive).ToList();
+            if (form.DialogResult == DialogResult.OK && form.SelectedEntities?.Count > 0)
                 {
                     var secilenId = form.SelectedEntities[0].Id;
-                    glupKaliteStandart.Properties.DataSource = _qualityStandardService.GetAll().Where(x => x.IsActive).ToList();
                     glupKaliteStandart.EditValue = secilenId;
                 }
             }
@@ -299,10 +300,11 @@ namespace ThermaCore.Presentation.WinForms.Forms.SacForms
             {
                 form.FormAcilisTuru = ThermaCore.Presentation.WinForms.Enums.FormAcilisTuru.Secim;
                 form.ShowDialog();
-                if (form.DialogResult == DialogResult.OK && form.SelectedEntities?.Count > 0)
+                
+                    glupYuzeyTip.Properties.DataSource = _surfaceTypeService.GetAll().Where(x => x.IsActive).ToList();
+            if (form.DialogResult == DialogResult.OK && form.SelectedEntities?.Count > 0)
                 {
                     var secilenId = form.SelectedEntities[0].Id;
-                    glupYuzeyTip.Properties.DataSource = _surfaceTypeService.GetAll().Where(x => x.IsActive).ToList();
                     glupYuzeyTip.EditValue = secilenId;
                 }
             }
@@ -315,10 +317,11 @@ namespace ThermaCore.Presentation.WinForms.Forms.SacForms
             {
                 form.FormAcilisTuru = ThermaCore.Presentation.WinForms.Enums.FormAcilisTuru.Secim;
                 form.ShowDialog();
-                if (form.DialogResult == DialogResult.OK && form.SelectedEntities?.Count > 0)
+                
+                    glupBirim.Properties.DataSource = _unitRepository.GetAll().Where(x => x.IsActive).ToList();
+            if (form.DialogResult == DialogResult.OK && form.SelectedEntities?.Count > 0)
                 {
                     var secilenId = form.SelectedEntities[0].Id;
-                    glupBirim.Properties.DataSource = _unitRepository.GetAll().Where(x => x.IsActive).ToList();
                     glupBirim.EditValue = secilenId;
                 }
             }

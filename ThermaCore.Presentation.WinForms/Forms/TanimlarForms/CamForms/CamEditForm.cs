@@ -316,11 +316,12 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.CamForms
             {
                 form.FormAcilisTuru = ThermaCore.Presentation.WinForms.Enums.FormAcilisTuru.Secim;
                 form.ShowDialog();
-                if (form.DialogResult == DialogResult.OK && form.SelectedEntities?.Count > 0)
+                
+                    glufTemelBirim.Properties.DataSource = _unitRepository.GetAll().Where(x => x.IsActive).ToList();
+            if (form.DialogResult == DialogResult.OK && form.SelectedEntities?.Count > 0)
                 {
                     dynamic secilenBirim = form.SelectedEntities[0];
                     var secilenAd = secilenBirim.Name;
-                    glufTemelBirim.Properties.DataSource = _unitRepository.GetAll().Where(x => x.IsActive).ToList();
                     glufTemelBirim.EditValue = secilenAd;
                 }
             }

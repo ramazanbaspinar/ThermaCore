@@ -48,6 +48,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.OzelKodForms
                 "Screw" => "Vida",
                 "HeatingElement" => "Rezistans",
                 "GasValve" => "Gaz Musluğu",
+                "Burner" => "Bek Grubu",
                 "RotarySwitch" => "Anahtar / Rotary",
                 "Thermostat" => "Termostat",
                 "OvenTimer" => "Timer",

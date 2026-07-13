@@ -70,6 +70,9 @@ public static class ApplicationServiceRegistration
         
         services.AddScoped<IValidator<ThermaCore.Application.DTOs.Production.GasValveDto>, ThermaCore.Application.Validators.Production.GasValveValidator>();
         services.AddScoped<ThermaCore.Application.Interfaces.Production.IGasValveService, ThermaCore.Application.Services.Production.GasValveManager>();
+        
+        services.AddScoped<IValidator<ThermaCore.Application.DTOs.Production.BurnerDto>, ThermaCore.Application.Validators.Production.BurnerValidator>();
+        services.AddScoped<ThermaCore.Application.Interfaces.Production.IBurnerService, ThermaCore.Application.Services.Production.BurnerManager>();
 
         services.AddScoped<ThermaCore.Application.Interfaces.Common.IItemBarcodeService, ThermaCore.Application.Services.Common.ItemBarcodeManager>();
         services.AddScoped<ThermaCore.Application.Interfaces.Common.IBarcodePrintService, ThermaCore.Application.Services.Common.BarcodePrintManager>();

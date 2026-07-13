@@ -40,6 +40,7 @@
             colDisCap = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colKanatSayisi = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colMilDelikCapi = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
+            colAciklama = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             ((System.ComponentModel.ISupportInitialize)ribbon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)myGridControl1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)myGridView1).BeginInit();
@@ -77,7 +78,7 @@
             // 
             // myGridView1
             // 
-            myGridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colId, colKod, colFanAdi, colFanTipi, colMateryal, colDisCap, colKanatSayisi, colMilDelikCapi });
+            myGridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colId, colKod, colFanAdi, colFanTipi, colMateryal, colDisCap, colKanatSayisi, colMilDelikCapi, colAciklama });
             myGridView1.GridControl = myGridControl1;
             myGridView1.Name = "myGridView1";
             myGridView1.OptionsMenu.EnableColumnMenu = false;
@@ -202,6 +203,19 @@
             colMilDelikCapi.VisibleIndex = 6;
             colMilDelikCapi.Width = 150;
             // 
+            // colAciklama
+            // 
+            colAciklama.Caption = "Açıklama";
+            colAciklama.FieldName = "Description";
+            colAciklama.Name = "colAciklama";
+            colAciklama.OptionsColumn.AllowEdit = false;
+            colAciklama.StatusBarAciklama = null;
+            colAciklama.StatusBarKisaYol = null;
+            colAciklama.StatusBarKisaYolAciklama = null;
+            colAciklama.Visible = true;
+            colAciklama.VisibleIndex = 7;
+            colAciklama.Width = 150;
+            // 
             // FanListForm
             // 
             AutoScaleDimensions = new SizeF(6F, 13F);
@@ -235,5 +249,6 @@
         private UserControls.Grid.MyGridColumn colDisCap;
         private UserControls.Grid.MyGridColumn colKanatSayisi;
         private UserControls.Grid.MyGridColumn colMilDelikCapi;
+        private UserControls.Grid.MyGridColumn colAciklama;
     }
 }

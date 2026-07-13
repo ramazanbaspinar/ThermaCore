@@ -362,7 +362,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
                                 if (Program.ServiceProvider != null && CurrentEntity != null)
                                 {
                                     bool hasTempCode = false;
-                                    if (string.IsNullOrWhiteSpace(CurrentEntity.Code)) 
+                                    if (string.IsNullOrWhiteSpace(CurrentEntity.Code) || CurrentEntity.Code == "Yeni Kod" || CurrentEntity.Code == "< Otomatik Üretilecek >") 
                                     {
                                         CurrentEntity.Code = "TEMP_VALIDATION_CODE";
                                         hasTempCode = true;
@@ -541,7 +541,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
         {
             var kodControl = this.Controls.Find(CodeControlName, true).FirstOrDefault() as DevExpress.XtraEditors.TextEdit;
             
-            if (kodControl != null && !string.IsNullOrWhiteSpace(kodControl.Text) && kodControl.Text != "< Otomatik Üretilecek >")
+            if (kodControl != null && !string.IsNullOrWhiteSpace(kodControl.Text) && kodControl.Text != "< Otomatik Üretilecek >" && kodControl.Text != "Yeni Kod")
             {
                 if (CurrentEntity != null)
                     CurrentEntity.Code = kodControl.Text;
@@ -612,6 +612,14 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
             if (!IsLoaded) return;
             UIExtensions.ButtonEnabledDurumu(btnYeni, btnKaydet, btnGerial, btnSil, btnYenile, btnYazdir, btnYazdir2, OldEntity, CurrentEntity, BaseIslemTuru);
             YetkiKontroluYap();
+
+            // Eğer özel kontroller (Resim, Barkod vb) veya herhangi bir BaseEdit değişmişse,
+            // UIExtensions reflection nedeniyle false yapsa bile Kaydet butonunu zorla aç.
+            if (FarklilikVarMi(this.Controls))
+            {
+                if (btnKaydet != null) btnKaydet.Enabled = true;
+                if (btnGerial != null) btnGerial.Enabled = true;
+            }
         }
 
         protected virtual void FocusControlByPropertyName(string propertyName)
@@ -847,9 +855,17 @@ namespace ThermaCore.Presentation.WinForms.Forms.BaseForms
             {
                 if (control is DevExpress.XtraEditors.BaseEdit baseEdit && baseEdit.IsModified)
                     return true;
+                
+                if (control is ThermaCore.Presentation.WinForms.UserControls.ucEntityPicture pic && pic.IsDirty())
+                    return true;
+
+                if (control is ThermaCore.Presentation.WinForms.UserControls.ucBarkodlar barkod && barkod.IsDirty())
+                    return true;
+
                 if (control.Controls.Count > 0 && FarklilikVarMi(control.Controls))
                     return true;
             }
+
             return false;
         }
 

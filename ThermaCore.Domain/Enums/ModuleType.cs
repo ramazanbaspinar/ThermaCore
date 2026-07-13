@@ -211,5 +211,10 @@ public enum ModuleType
     [Description("Gaz Musluğu Tanımları")]
     [ParentModule(GazVeAteslemeGrubu)]
     [RequiresCodeTemplate]
-    GazMusluguTanimlari = 36
+    GazMusluguTanimlari = 36,
+
+    [Description("Bek Grubu Tanımları")]
+    [ParentModule(GazVeAteslemeGrubu)]
+    [RequiresCodeTemplate]
+    BekGrubuTanimlari = 37
 }
