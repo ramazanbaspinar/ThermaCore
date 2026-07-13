@@ -67,6 +67,10 @@ public static class ApplicationServiceRegistration
         services.AddScoped<ThermaCore.Application.Interfaces.Production.IOvenMotorService, ThermaCore.Application.Services.Production.OvenMotorManager>();
         services.AddScoped<IValidator<ThermaCore.Application.DTOs.Production.OvenFanDto>, ThermaCore.Application.Validators.Production.OvenFanValidator>();
         services.AddScoped<ThermaCore.Application.Interfaces.Production.IOvenFanService, ThermaCore.Application.Services.Production.OvenFanManager>();
+        
+        services.AddScoped<IValidator<ThermaCore.Application.DTOs.Production.GasValveDto>, ThermaCore.Application.Validators.Production.GasValveValidator>();
+        services.AddScoped<ThermaCore.Application.Interfaces.Production.IGasValveService, ThermaCore.Application.Services.Production.GasValveManager>();
+
         services.AddScoped<ThermaCore.Application.Interfaces.Common.IItemBarcodeService, ThermaCore.Application.Services.Common.ItemBarcodeManager>();
         services.AddScoped<ThermaCore.Application.Interfaces.Common.IBarcodePrintService, ThermaCore.Application.Services.Common.BarcodePrintManager>();
         services.AddScoped<ThermaCore.Application.Interfaces.Common.IDocumentService, ThermaCore.Application.Services.Common.DocumentManager>();

@@ -202,5 +202,14 @@ public enum ModuleType
     [Description("Fan (Pervane) Tanımları")]
     [ParentModule(ElektrikVeElektronikGrubu)]
     [RequiresCodeTemplate]
-    FanTanimlari = 35
+    FanTanimlari = 35,
+
+    [Description("Gaz ve Ateşleme Grubu")]
+    [ParentModule(Tanimlar)]
+    GazVeAteslemeGrubu = 6000,
+
+    [Description("Gaz Musluğu Tanımları")]
+    [ParentModule(GazVeAteslemeGrubu)]
+    [RequiresCodeTemplate]
+    GazMusluguTanimlari = 36
 }

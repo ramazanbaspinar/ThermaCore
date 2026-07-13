@@ -280,6 +280,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 
             miGazMusluguTanimlari.Name = "miGazMusluguTanimlari";
             miGazMusluguTanimlari.Size = new Size(250, 22);
+            miGazMusluguTanimlari.Tag = "GazMuslugu";
             miGazMusluguTanimlari.Text = "Gaz Musluğu Tanımları";
             // 
             // miValfTanimlari
