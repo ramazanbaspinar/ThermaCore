@@ -39,6 +39,7 @@
             colGucKapasitesi = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colKapakTipi = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colAciklama = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
+            colBekAdi = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             ((System.ComponentModel.ISupportInitialize)ribbon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)myGridControl1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)myGridView1).BeginInit();
@@ -76,7 +77,7 @@
             // 
             // myGridView1
             // 
-            myGridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colId, colKod, colBekTipi, colBekBoyutu, colGucKapasitesi, colKapakTipi, colAciklama });
+            myGridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colId, colKod, colBekAdi, colBekTipi, colBekBoyutu, colGucKapasitesi, colKapakTipi, colAciklama });
             myGridView1.GridControl = myGridControl1;
             myGridView1.Name = "myGridView1";
             myGridView1.OptionsMenu.EnableColumnMenu = false;
@@ -133,7 +134,7 @@
             colBekTipi.StatusBarKisaYol = null;
             colBekTipi.StatusBarKisaYolAciklama = null;
             colBekTipi.Visible = true;
-            colBekTipi.VisibleIndex = 1;
+            colBekTipi.VisibleIndex = 2;
             colBekTipi.Width = 150;
             // 
             // colBekBoyutu
@@ -146,7 +147,7 @@
             colBekBoyutu.StatusBarKisaYol = null;
             colBekBoyutu.StatusBarKisaYolAciklama = null;
             colBekBoyutu.Visible = true;
-            colBekBoyutu.VisibleIndex = 2;
+            colBekBoyutu.VisibleIndex = 3;
             colBekBoyutu.Width = 150;
             // 
             // colGucKapasitesi
@@ -159,7 +160,7 @@
             colGucKapasitesi.StatusBarKisaYol = null;
             colGucKapasitesi.StatusBarKisaYolAciklama = null;
             colGucKapasitesi.Visible = true;
-            colGucKapasitesi.VisibleIndex = 3;
+            colGucKapasitesi.VisibleIndex = 4;
             colGucKapasitesi.Width = 150;
             // 
             // colKapakTipi
@@ -172,7 +173,7 @@
             colKapakTipi.StatusBarKisaYol = null;
             colKapakTipi.StatusBarKisaYolAciklama = null;
             colKapakTipi.Visible = true;
-            colKapakTipi.VisibleIndex = 4;
+            colKapakTipi.VisibleIndex = 5;
             colKapakTipi.Width = 150;
             // 
             // colAciklama
@@ -185,8 +186,21 @@
             colAciklama.StatusBarKisaYol = null;
             colAciklama.StatusBarKisaYolAciklama = null;
             colAciklama.Visible = true;
-            colAciklama.VisibleIndex = 5;
+            colAciklama.VisibleIndex = 6;
             colAciklama.Width = 150;
+            // 
+            // colBekAdi
+            // 
+            colBekAdi.Caption = "Bek Adı";
+            colBekAdi.FieldName = "Name";
+            colBekAdi.Name = "colBekAdi";
+            colBekAdi.OptionsColumn.AllowEdit = false;
+            colBekAdi.StatusBarAciklama = null;
+            colBekAdi.StatusBarKisaYol = null;
+            colBekAdi.StatusBarKisaYolAciklama = null;
+            colBekAdi.Visible = true;
+            colBekAdi.VisibleIndex = 1;
+            colBekAdi.Width = 150;
             // 
             // BekListForm
             // 
@@ -220,5 +234,6 @@
         private UserControls.Grid.MyGridColumn colGucKapasitesi;
         private UserControls.Grid.MyGridColumn colKapakTipi;
         private UserControls.Grid.MyGridColumn colAciklama;
+        private UserControls.Grid.MyGridColumn colBekAdi;
     }
 }
