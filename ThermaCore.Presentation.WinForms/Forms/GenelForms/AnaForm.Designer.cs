@@ -224,12 +224,14 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 
             miMotorTanimlari.Name = "miMotorTanimlari";
             miMotorTanimlari.Size = new Size(244, 22);
+            miMotorTanimlari.Tag = "MotorTanimlari";
             miMotorTanimlari.Text = "Motor Tanımları";
             // 
             // miFanTanimlari
             // 
             miFanTanimlari.Name = "miFanTanimlari";
             miFanTanimlari.Size = new Size(244, 22);
+            miFanTanimlari.Tag = "FanTanimlari";
             miFanTanimlari.Text = "Fan Tanımları";
             // 
             // miAnahtarRotaryTanimlari

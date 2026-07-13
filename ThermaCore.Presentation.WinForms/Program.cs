@@ -179,6 +179,10 @@ internal static class Program
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.PleytForms.PleytEditForm>();
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.LambaForms.LambaListForm>();
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.LambaForms.LambaEditForm>();
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.MotorForms.MotorListForm>();
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.MotorForms.MotorEditForm>();
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.FanForms.FanListForm>();
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.FanForms.FanEditForm>();
             })
             .Build();
 

@@ -63,6 +63,10 @@ public static class ApplicationServiceRegistration
         services.AddScoped<ThermaCore.Application.Interfaces.Production.IHotplateService, ThermaCore.Application.Services.Production.HotplateManager>();
         services.AddScoped<IValidator<ThermaCore.Application.DTOs.Production.OvenLampDto>, ThermaCore.Application.ValidationRules.Production.OvenLampValidator>();
         services.AddScoped<ThermaCore.Application.Interfaces.Production.IOvenLampService, ThermaCore.Application.Services.Production.OvenLampManager>();
+        services.AddScoped<IValidator<ThermaCore.Application.DTOs.Production.OvenMotorDto>, ThermaCore.Application.Validators.Production.OvenMotorValidator>();
+        services.AddScoped<ThermaCore.Application.Interfaces.Production.IOvenMotorService, ThermaCore.Application.Services.Production.OvenMotorManager>();
+        services.AddScoped<IValidator<ThermaCore.Application.DTOs.Production.OvenFanDto>, ThermaCore.Application.Validators.Production.OvenFanValidator>();
+        services.AddScoped<ThermaCore.Application.Interfaces.Production.IOvenFanService, ThermaCore.Application.Services.Production.OvenFanManager>();
         services.AddScoped<ThermaCore.Application.Interfaces.Common.IItemBarcodeService, ThermaCore.Application.Services.Common.ItemBarcodeManager>();
         services.AddScoped<ThermaCore.Application.Interfaces.Common.IBarcodePrintService, ThermaCore.Application.Services.Common.BarcodePrintManager>();
         services.AddScoped<ThermaCore.Application.Interfaces.Common.IDocumentService, ThermaCore.Application.Services.Common.DocumentManager>();

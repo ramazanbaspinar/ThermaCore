@@ -192,5 +192,15 @@ public enum ModuleType
     [Description("Lamba Tanımları")]
     [ParentModule(ElektrikVeElektronikGrubu)]
     [RequiresCodeTemplate]
-    LambaTanimlari = 33
+    LambaTanimlari = 33,
+
+    [Description("Motor Tanımları")]
+    [ParentModule(ElektrikVeElektronikGrubu)]
+    [RequiresCodeTemplate]
+    MotorTanimlari = 34,
+
+    [Description("Fan (Pervane) Tanımları")]
+    [ParentModule(ElektrikVeElektronikGrubu)]
+    [RequiresCodeTemplate]
+    FanTanimlari = 35
 }

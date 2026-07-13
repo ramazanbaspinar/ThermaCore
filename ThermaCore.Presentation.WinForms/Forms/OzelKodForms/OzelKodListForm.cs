@@ -54,6 +54,8 @@ namespace ThermaCore.Presentation.WinForms.Forms.OzelKodForms
                 "Cable" => "Kablo",
                 "Hotplate" => "Pleyt Isıtıcı",
                 "OvenLamp" => "Lamba",
+                "OvenMotor" => "Motor",
+                "OvenFan" => "Fan / Pervane",
                 _ => _entityType
             };
 
