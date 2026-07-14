@@ -10,5 +10,5 @@ public interface IThermocoupleService
     ThermocoupleDto Add(ThermocoupleDto dto);
     ThermocoupleDto Update(ThermocoupleDto dto);
     void Delete(long id);
-    string GetCode();
+
 }

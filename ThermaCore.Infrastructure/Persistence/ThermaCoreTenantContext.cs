@@ -49,6 +49,7 @@ public class ThermaCoreTenantContext : DbContext
     public DbSet<ThermaCore.Domain.Entities.Production.Injector> Injectors { get; set; }
     public DbSet<ThermaCore.Domain.Entities.Production.Valve> Valves { get; set; }
     public DbSet<ThermaCore.Domain.Entities.Production.Thermocouple> Thermocouples { get; set; }
+    public DbSet<ThermaCore.Domain.Entities.Production.SparkPlug> SparkPlugs { get; set; }
     public DbSet<ThermaCore.Domain.Entities.Common.ItemBarcode> ItemBarcodes { get; set; }
     public DbSet<ThermaCore.Domain.Entities.Common.AppDocument> AppDocuments { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

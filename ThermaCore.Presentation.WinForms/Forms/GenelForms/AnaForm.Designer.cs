@@ -315,6 +315,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 
             miCakmakTanimlari.Name = "miCakmakTanimlari";
             miCakmakTanimlari.Size = new Size(250, 22);
+            miCakmakTanimlari.Tag = "CakmakTanimlari";
             miCakmakTanimlari.Text = "Çakmak (Buji) Tanımları";
             // 
             // miAteslemeTrafosuTanimlari

@@ -80,24 +80,5 @@ public class ThermocoupleManager : IThermocoupleService
         }
     }
 
-    public string GetCode()
-    {
-        var lastEntity = _repository.GetAll()
-            .OrderByDescending(x => x.Id)
-            .FirstOrDefault();
 
-        if (lastEntity == null || string.IsNullOrEmpty(lastEntity.Code))
-            return "TK001";
-
-        string currentCode = lastEntity.Code;
-        string prefix = new string(currentCode.TakeWhile(char.IsLetter).ToArray());
-        string numberPart = currentCode.Substring(prefix.Length);
-
-        if (int.TryParse(numberPart, out int number))
-        {
-            return $"{prefix}{(number + 1).ToString().PadLeft(numberPart.Length, '0')}";
-        }
-
-        return currentCode + "_YENI";
-    }
 }

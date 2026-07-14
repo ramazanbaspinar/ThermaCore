@@ -231,5 +231,10 @@ public enum ModuleType
     [Description("Termokupl (Emniyet) Tanımları")]
     [ParentModule(GazVeAteslemeGrubu)]
     [RequiresCodeTemplate]
-    TermokuplTanimlari = 40
+    TermokuplTanimlari = 40,
+
+    [Description("Çakmak (Buji) Tanımları")]
+    [ParentModule(GazVeAteslemeGrubu)]
+    [RequiresCodeTemplate]
+    CakmakTanimlari = 41
 }
