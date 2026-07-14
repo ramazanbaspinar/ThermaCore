@@ -287,6 +287,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 
             miValfTanimlari.Name = "miValfTanimlari";
             miValfTanimlari.Size = new Size(250, 22);
+            miValfTanimlari.Tag = "ValfTanimlari";
             miValfTanimlari.Text = "Valf Tanımları";
             // 
             // miBekGrubuTanimlari

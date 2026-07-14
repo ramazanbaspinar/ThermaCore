@@ -181,6 +181,31 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.EnjektorForms
             }
         }
 
+        protected override void EntityDelete()
+        {
+            if (Id <= 0) return;
+
+            if (ThermaCore.Presentation.WinForms.Helpers.Messages.SilMesaj("Enjektör Tanımı") == System.Windows.Forms.DialogResult.Yes)
+            {
+                try
+                {
+                    System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor;
+                    _injectorService.Delete(Id);
+                    RefreshYapilacak = true;
+                    ThermaCore.Presentation.WinForms.Helpers.Messages.SilindiMesaj();
+                    Close();
+                }
+                catch (System.Exception ex)
+                {
+                    ThermaCore.Presentation.WinForms.Helpers.Messages.HataBasligi(ex.Message, "Silme Hatası");
+                }
+                finally
+                {
+                    System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default;
+                }
+            }
+        }
+
         protected override void FocusControlByPropertyName(string propertyName)
         {
             switch (propertyName)

@@ -63,14 +63,18 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.EnjektorForms
             
             if (entityId <= 0) return;
 
-            try
+            var result = ThermaCore.Presentation.WinForms.Helpers.Messages.SilMesaj(Tablo.GetRowCellValue(Tablo.FocusedRowHandle, "Name")?.ToString() ?? "");
+            if (result == System.Windows.Forms.DialogResult.Yes)
             {
-                _injectorService.Delete(entityId);
-                Listele();
-            }
-            catch (System.Exception ex)
-            {
-                ThermaCore.Presentation.WinForms.Helpers.Messages.HataBasligi(ex.Message, "Silme Hatası");
+                try
+                {
+                    _injectorService.Delete(entityId);
+                    Listele();
+                }
+                catch (System.Exception ex)
+                {
+                    ThermaCore.Presentation.WinForms.Helpers.Messages.HataBasligi(ex.Message, "Silme Hatası");
+                }
             }
         }
     }

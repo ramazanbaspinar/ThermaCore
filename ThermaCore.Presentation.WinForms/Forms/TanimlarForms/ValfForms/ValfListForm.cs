@@ -1,22 +1,82 @@
-﻿using DevExpress.XtraEditors;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using ThermaCore.Presentation.WinForms.Forms.BaseForms;
+using ThermaCore.Application.Interfaces.Production;
+using ThermaCore.Presentation.WinForms.Helpers;
 
 namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.ValfForms
 {
     public partial class ValfListForm : BaseListForm
     {
+        private readonly IValveService _valveService = default!;
+
         public ValfListForm()
         {
             InitializeComponent();
+        }
+
+        public ValfListForm(IValveService valveService)
+        {
+            InitializeComponent();
+            _valveService = valveService;
+        }
+
+        protected override void DegiskenleriDoldur()
+        {
+            Tablo = myGridView1;
+            BaseKartTuru = ThermaCore.Domain.Enums.ModuleType.ValfTanimlari;
+            Navigator = longNavigator1.Navigator;
+            AktifPasifButonGoster = true;
+            
+            // Kolon atamaları
+            colValfTipi.FieldName = "ValveType";
+            colGazTipi.FieldName = "GasType";
+            colBasinc.FieldName = "MaxPressureMbar";
+            colBaglantiOlcusu.FieldName = "ConnectionSize";
+            colCalismaSicaklikAraligi.FieldName = "TemperatureRange";
+        }
+
+        protected override void Listele()
+        {
+            var liste = _valveService.GetAll().Where(x => x.IsActive == AktifKartlariGoster).ToList();
+            Tablo.GridControl.DataSource = liste;
+        }
+
+        protected override void ShowEditForm(long id)
+        {
+            var form = Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetService<ValfEditForm>(Program.ServiceProvider);
+            if (form != null)
+            {
+                form.IdAtaVeAc(id);
+                Listele();
+                if (form.Id > 0)
+                {
+                    Tablo.RowFocus("Id", form.Id);
+                }
+            }
+        }
+
+        protected override void EntityDelete()
+        {
+            if (Tablo.FocusedRowHandle < 0) return;
+
+            long entityId = 0;
+            long.TryParse(Tablo.GetFocusedRowCellValue("Id")?.ToString(), out entityId);
+            
+            if (entityId <= 0) return;
+
+            var result = ThermaCore.Presentation.WinForms.Helpers.Messages.SilMesaj(Tablo.GetRowCellValue(Tablo.FocusedRowHandle, "Name")?.ToString() ?? "");
+            if (result == System.Windows.Forms.DialogResult.Yes)
+            {
+                try
+                {
+                    _valveService.Delete(entityId);
+                    Listele();
+                }
+                catch (System.Exception ex)
+                {
+                    ThermaCore.Presentation.WinForms.Helpers.Messages.HataBasligi(ex.Message, "Silme Hatası");
+                }
+            }
         }
     }
 }

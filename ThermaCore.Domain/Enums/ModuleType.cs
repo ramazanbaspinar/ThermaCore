@@ -221,5 +221,10 @@ public enum ModuleType
     [Description("Enjektör Tanımları")]
     [ParentModule(GazVeAteslemeGrubu)]
     [RequiresCodeTemplate]
-    EnjektorTanimlari = 38
+    EnjektorTanimlari = 38,
+
+    [Description("Valf Tanımları")]
+    [ParentModule(GazVeAteslemeGrubu)]
+    [RequiresCodeTemplate]
+    ValfTanimlari = 39
 }
