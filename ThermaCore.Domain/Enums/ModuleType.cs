@@ -216,5 +216,10 @@ public enum ModuleType
     [Description("Bek Grubu Tanımları")]
     [ParentModule(GazVeAteslemeGrubu)]
     [RequiresCodeTemplate]
-    BekGrubuTanimlari = 37
+    BekGrubuTanimlari = 37,
+
+    [Description("Enjektör Tanımları")]
+    [ParentModule(GazVeAteslemeGrubu)]
+    [RequiresCodeTemplate]
+    EnjektorTanimlari = 38
 }

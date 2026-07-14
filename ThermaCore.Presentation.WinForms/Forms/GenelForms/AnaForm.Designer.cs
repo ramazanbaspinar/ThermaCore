@@ -293,12 +293,14 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 
             miBekGrubuTanimlari.Name = "miBekGrubuTanimlari";
             miBekGrubuTanimlari.Size = new Size(250, 22);
+            miBekGrubuTanimlari.Tag = "BekGrubuTanimlari";
             miBekGrubuTanimlari.Text = "Bek Grubu Tanımları";
             // 
             // miEnjektorTanimlari
             // 
             miEnjektorTanimlari.Name = "miEnjektorTanimlari";
             miEnjektorTanimlari.Size = new Size(250, 22);
+            miEnjektorTanimlari.Tag = "EnjektorTanimlari";
             miEnjektorTanimlari.Text = "Enjektör Tanımları";
             // 
             // miTermokuplTanimlari

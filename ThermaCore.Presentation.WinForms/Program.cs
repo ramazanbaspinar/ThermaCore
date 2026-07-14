@@ -187,6 +187,8 @@ internal static class Program
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.GazForms.GazEditForm>();
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.BekForms.BekListForm>();
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.BekForms.BekEditForm>();
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.EnjektorForms.EnjektorListForm>();
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.EnjektorForms.EnjektorEditForm>();
             })
             .Build();
 

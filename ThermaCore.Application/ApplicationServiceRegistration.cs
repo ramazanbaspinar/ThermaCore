@@ -74,6 +74,8 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IValidator<ThermaCore.Application.DTOs.Production.BurnerDto>, ThermaCore.Application.Validators.Production.BurnerValidator>();
         services.AddScoped<ThermaCore.Application.Interfaces.Production.IBurnerService, ThermaCore.Application.Services.Production.BurnerManager>();
 
+        services.AddScoped<IValidator<ThermaCore.Application.DTOs.Production.InjectorDto>, ThermaCore.Application.Validators.Production.InjectorValidator>();
+        services.AddScoped<ThermaCore.Application.Interfaces.Production.IInjectorService, ThermaCore.Application.Services.Production.InjectorManager>();
         services.AddScoped<ThermaCore.Application.Interfaces.Common.IItemBarcodeService, ThermaCore.Application.Services.Common.ItemBarcodeManager>();
         services.AddScoped<ThermaCore.Application.Interfaces.Common.IBarcodePrintService, ThermaCore.Application.Services.Common.BarcodePrintManager>();
         services.AddScoped<ThermaCore.Application.Interfaces.Common.IDocumentService, ThermaCore.Application.Services.Common.DocumentManager>();
