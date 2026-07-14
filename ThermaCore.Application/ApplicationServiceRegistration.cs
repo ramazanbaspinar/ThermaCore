@@ -85,6 +85,10 @@ public static class ApplicationServiceRegistration
 
         services.AddScoped<IValidator<ThermaCore.Application.DTOs.Production.SparkPlugDto>, ThermaCore.Application.Validators.Production.SparkPlugValidator>();
         services.AddScoped<ThermaCore.Application.Interfaces.Production.ISparkPlugService, ThermaCore.Application.Services.Production.SparkPlugManager>();
+
+        services.AddScoped<IValidator<ThermaCore.Application.DTOs.Production.IgnitionTransformerDto>, ThermaCore.Application.Validations.Production.IgnitionTransformerValidator>();
+        services.AddScoped<ThermaCore.Application.Interfaces.Production.IIgnitionTransformerService, ThermaCore.Application.Services.Production.IgnitionTransformerManager>();
+        
         services.AddScoped<ThermaCore.Application.Interfaces.Common.IItemBarcodeService, ThermaCore.Application.Services.Common.ItemBarcodeManager>();
         services.AddScoped<ThermaCore.Application.Interfaces.Common.IBarcodePrintService, ThermaCore.Application.Services.Common.BarcodePrintManager>();
         services.AddScoped<ThermaCore.Application.Interfaces.Common.IDocumentService, ThermaCore.Application.Services.Common.DocumentManager>();

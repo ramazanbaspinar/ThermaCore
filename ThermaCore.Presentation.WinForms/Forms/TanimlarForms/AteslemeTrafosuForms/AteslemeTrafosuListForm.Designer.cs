@@ -1,6 +1,6 @@
-﻿namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.CakmakForms
+﻿namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.AteslemeTrafosuForms
 {
-    partial class CakmakListForm
+    partial class AteslemeTrafosuListForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,16 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CakmakListForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AteslemeTrafosuListForm));
             longNavigator1 = new RbaYazilim.WinRezistans.UI.Win.UserControls.Controls.Navigators.LongNavigator();
             myGridControl1 = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridControl();
             myGridView1 = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridView();
             colId = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colKod = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
-            colCakmakAdi = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
-            colUzunluk = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
-            colBaglantiTipi = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
-            colUcTipi = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
+            colTrafoAdi = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
+            colCikisSayisi = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
+            colVolt = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
+            colFrekans = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colAciklama = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             ((System.ComponentModel.ISupportInitialize)ribbon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)myGridControl1).BeginInit();
@@ -76,7 +76,7 @@
             // 
             // myGridView1
             // 
-            myGridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colId, colKod, colCakmakAdi, colUzunluk, colBaglantiTipi, colUcTipi, colAciklama });
+            myGridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colId, colKod, colTrafoAdi, colCikisSayisi, colVolt, colFrekans, colAciklama });
             myGridView1.GridControl = myGridControl1;
             myGridView1.Name = "myGridView1";
             myGridView1.OptionsMenu.EnableColumnMenu = false;
@@ -95,7 +95,7 @@
             myGridView1.StatusBarAciklama = null;
             myGridView1.StatusBarKisaYol = null;
             myGridView1.StatusBarKisaYolAciklama = null;
-            myGridView1.ViewCaption = "Çakmak (Buji) Tanımları";
+            myGridView1.ViewCaption = "Ateşleme Trafosu Tanımları";
             // 
             // colId
             // 
@@ -123,57 +123,57 @@
             colKod.VisibleIndex = 0;
             colKod.Width = 120;
             // 
-            // colCakmakAdi
+            // colTrafoAdi
             // 
-            colCakmakAdi.Caption = "Çakmak Adı";
-            colCakmakAdi.FieldName = "Name";
-            colCakmakAdi.Name = "colCakmakAdi";
-            colCakmakAdi.OptionsColumn.AllowEdit = false;
-            colCakmakAdi.StatusBarAciklama = null;
-            colCakmakAdi.StatusBarKisaYol = null;
-            colCakmakAdi.StatusBarKisaYolAciklama = null;
-            colCakmakAdi.Visible = true;
-            colCakmakAdi.VisibleIndex = 1;
-            colCakmakAdi.Width = 150;
+            colTrafoAdi.Caption = "Trafo Adı";
+            colTrafoAdi.FieldName = "Name";
+            colTrafoAdi.Name = "colTrafoAdi";
+            colTrafoAdi.OptionsColumn.AllowEdit = false;
+            colTrafoAdi.StatusBarAciklama = null;
+            colTrafoAdi.StatusBarKisaYol = null;
+            colTrafoAdi.StatusBarKisaYolAciklama = null;
+            colTrafoAdi.Visible = true;
+            colTrafoAdi.VisibleIndex = 1;
+            colTrafoAdi.Width = 150;
             // 
-            // colUzunluk
+            // colCikisSayisi
             // 
-            colUzunluk.Caption = "Uzunluk (mm)";
-            colUzunluk.FieldName = "LengthMm";
-            colUzunluk.Name = "colUzunluk";
-            colUzunluk.OptionsColumn.AllowEdit = false;
-            colUzunluk.StatusBarAciklama = null;
-            colUzunluk.StatusBarKisaYol = null;
-            colUzunluk.StatusBarKisaYolAciklama = null;
-            colUzunluk.Visible = true;
-            colUzunluk.VisibleIndex = 2;
-            colUzunluk.Width = 150;
+            colCikisSayisi.Caption = "Çıkış Sayısı";
+            colCikisSayisi.FieldName = "OutputCount";
+            colCikisSayisi.Name = "colCikisSayisi";
+            colCikisSayisi.OptionsColumn.AllowEdit = false;
+            colCikisSayisi.StatusBarAciklama = null;
+            colCikisSayisi.StatusBarKisaYol = null;
+            colCikisSayisi.StatusBarKisaYolAciklama = null;
+            colCikisSayisi.Visible = true;
+            colCikisSayisi.VisibleIndex = 2;
+            colCikisSayisi.Width = 150;
             // 
-            // colBaglantiTipi
+            // colVolt
             // 
-            colBaglantiTipi.Caption = "Bağlantı Tipi";
-            colBaglantiTipi.FieldName = "ConnectionTypeName";
-            colBaglantiTipi.Name = "colBaglantiTipi";
-            colBaglantiTipi.OptionsColumn.AllowEdit = false;
-            colBaglantiTipi.StatusBarAciklama = null;
-            colBaglantiTipi.StatusBarKisaYol = null;
-            colBaglantiTipi.StatusBarKisaYolAciklama = null;
-            colBaglantiTipi.Visible = true;
-            colBaglantiTipi.VisibleIndex = 3;
-            colBaglantiTipi.Width = 150;
+            colVolt.Caption = "Volt";
+            colVolt.FieldName = "Voltage";
+            colVolt.Name = "colVolt";
+            colVolt.OptionsColumn.AllowEdit = false;
+            colVolt.StatusBarAciklama = null;
+            colVolt.StatusBarKisaYol = null;
+            colVolt.StatusBarKisaYolAciklama = null;
+            colVolt.Visible = true;
+            colVolt.VisibleIndex = 3;
+            colVolt.Width = 150;
             // 
-            // colUcTipi
+            // colFrekans
             // 
-            colUcTipi.Caption = "Uç Tipi / Kıvılcım";
-            colUcTipi.FieldName = "SparkTipTypeName";
-            colUcTipi.Name = "colUcTipi";
-            colUcTipi.OptionsColumn.AllowEdit = false;
-            colUcTipi.StatusBarAciklama = null;
-            colUcTipi.StatusBarKisaYol = null;
-            colUcTipi.StatusBarKisaYolAciklama = null;
-            colUcTipi.Visible = true;
-            colUcTipi.VisibleIndex = 4;
-            colUcTipi.Width = 150;
+            colFrekans.Caption = "Frekans";
+            colFrekans.FieldName = "Frequency";
+            colFrekans.Name = "colFrekans";
+            colFrekans.OptionsColumn.AllowEdit = false;
+            colFrekans.StatusBarAciklama = null;
+            colFrekans.StatusBarKisaYol = null;
+            colFrekans.StatusBarKisaYolAciklama = null;
+            colFrekans.Visible = true;
+            colFrekans.VisibleIndex = 4;
+            colFrekans.Width = 150;
             // 
             // colAciklama
             // 
@@ -188,7 +188,7 @@
             colAciklama.VisibleIndex = 5;
             colAciklama.Width = 150;
             // 
-            // CakmakListForm
+            // AteslemeTrafosuListForm
             // 
             AutoScaleDimensions = new SizeF(6F, 13F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -196,8 +196,8 @@
             Controls.Add(myGridControl1);
             Controls.Add(longNavigator1);
             IconOptions.ShowIcon = false;
-            Name = "CakmakListForm";
-            Text = "Çakmak (Buji) Tanımları";
+            Name = "AteslemeTrafosuListForm";
+            Text = "Ateşleme Trafosu Tanımları";
             Controls.SetChildIndex(ribbon, 0);
             Controls.SetChildIndex(longNavigator1, 0);
             Controls.SetChildIndex(myGridControl1, 0);
@@ -215,10 +215,10 @@
         private UserControls.Grid.MyGridView myGridView1;
         private UserControls.Grid.MyGridColumn colId;
         private UserControls.Grid.MyGridColumn colKod;
-        private UserControls.Grid.MyGridColumn colCakmakAdi;
-        private UserControls.Grid.MyGridColumn colUzunluk;
-        private UserControls.Grid.MyGridColumn colBaglantiTipi;
-        private UserControls.Grid.MyGridColumn colUcTipi;
+        private UserControls.Grid.MyGridColumn colTrafoAdi;
+        private UserControls.Grid.MyGridColumn colCikisSayisi;
+        private UserControls.Grid.MyGridColumn colVolt;
+        private UserControls.Grid.MyGridColumn colFrekans;
         private UserControls.Grid.MyGridColumn colAciklama;
     }
 }

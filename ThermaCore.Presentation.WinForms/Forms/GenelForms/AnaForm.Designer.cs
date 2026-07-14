@@ -322,6 +322,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 
             miAteslemeTrafosuTanimlari.Name = "miAteslemeTrafosuTanimlari";
             miAteslemeTrafosuTanimlari.Size = new Size(250, 22);
+            miAteslemeTrafosuTanimlari.Tag = "AteslemeTrafosuTanimlari";
             miAteslemeTrafosuTanimlari.Text = "Ateşleme Trafosu Tanımları";
             // 
             // miGazBorusuTanimlari

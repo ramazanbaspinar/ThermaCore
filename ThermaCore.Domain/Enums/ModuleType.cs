@@ -236,5 +236,10 @@ public enum ModuleType
     [Description("Çakmak (Buji) Tanımları")]
     [ParentModule(GazVeAteslemeGrubu)]
     [RequiresCodeTemplate]
-    CakmakTanimlari = 41
+    CakmakTanimlari = 41,
+
+    [Description("Ateşleme Trafosu Tanımları")]
+    [ParentModule(GazVeAteslemeGrubu)]
+    [RequiresCodeTemplate]
+    AteslemeTrafosuTanimlari = 42
 }

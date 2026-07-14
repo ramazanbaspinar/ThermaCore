@@ -196,6 +196,9 @@ internal static class Program
 
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.CakmakForms.CakmakListForm>();
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.CakmakForms.CakmakEditForm>();
+
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.AteslemeTrafosuForms.AteslemeTrafosuListForm>();
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.AteslemeTrafosuForms.AteslemeTrafosuEditForm>();
             })
             .Build();
 
