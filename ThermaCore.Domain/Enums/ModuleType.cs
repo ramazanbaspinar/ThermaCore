@@ -226,5 +226,10 @@ public enum ModuleType
     [Description("Valf Tanımları")]
     [ParentModule(GazVeAteslemeGrubu)]
     [RequiresCodeTemplate]
-    ValfTanimlari = 39
+    ValfTanimlari = 39,
+
+    [Description("Termokupl (Emniyet) Tanımları")]
+    [ParentModule(GazVeAteslemeGrubu)]
+    [RequiresCodeTemplate]
+    TermokuplTanimlari = 40
 }

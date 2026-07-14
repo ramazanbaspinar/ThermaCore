@@ -308,6 +308,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 
             miTermokuplTanimlari.Name = "miTermokuplTanimlari";
             miTermokuplTanimlari.Size = new Size(250, 22);
+            miTermokuplTanimlari.Tag = "TermokuplTanimlari";
             miTermokuplTanimlari.Text = "Termokupl (Emniyet) Tanımları";
             // 
             // miCakmakTanimlari

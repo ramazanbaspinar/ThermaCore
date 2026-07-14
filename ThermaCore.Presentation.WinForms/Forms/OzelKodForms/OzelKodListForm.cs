@@ -59,6 +59,8 @@ namespace ThermaCore.Presentation.WinForms.Forms.OzelKodForms
                 "OvenMotor" => "Motor",
                 "OvenFan" => "Fan / Pervane",
                 "Injector" => "Enjektör Tanımları",
+                "Valve" => "Valf Tanımları",
+                "Thermocouple" => "Termokupl Tanımları",
                 _ => _entityType
             };
 

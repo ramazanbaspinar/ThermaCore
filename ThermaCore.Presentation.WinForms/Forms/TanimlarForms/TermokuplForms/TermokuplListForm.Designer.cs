@@ -1,6 +1,6 @@
-﻿namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.ValfForms
+﻿namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.TermokuplForms
 {
-    partial class ValfListForm
+    partial class TermokuplListForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,18 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ValfListForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TermokuplListForm));
             longNavigator1 = new RbaYazilim.WinRezistans.UI.Win.UserControls.Controls.Navigators.LongNavigator();
             myGridControl1 = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridControl();
             myGridView1 = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridView();
             colId = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colKod = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
-            colValfAdi = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
-            colValfTipi = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
-            colGazTipi = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
-            colBasinc = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
-            colBaglantiOlcusu = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
-            colCalismaSicaklikAraligi = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
+            colTermokuplAdi = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
+            colUzunluk = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
+            colKafaTipi = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
+            colUcTipi = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colAciklama = new ThermaCore.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             ((System.ComponentModel.ISupportInitialize)ribbon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)myGridControl1).BeginInit();
@@ -78,7 +76,7 @@
             // 
             // myGridView1
             // 
-            myGridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colId, colKod, colValfAdi, colValfTipi, colGazTipi, colBasinc, colBaglantiOlcusu, colCalismaSicaklikAraligi, colAciklama });
+            myGridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colId, colKod, colTermokuplAdi, colUzunluk, colKafaTipi, colUcTipi, colAciklama });
             myGridView1.GridControl = myGridControl1;
             myGridView1.Name = "myGridView1";
             myGridView1.OptionsMenu.EnableColumnMenu = false;
@@ -97,7 +95,7 @@
             myGridView1.StatusBarAciklama = null;
             myGridView1.StatusBarKisaYol = null;
             myGridView1.StatusBarKisaYolAciklama = null;
-            myGridView1.ViewCaption = "Valf Tanımları";
+            myGridView1.ViewCaption = "Termokupl Tanımları";
             // 
             // colId
             // 
@@ -125,83 +123,57 @@
             colKod.VisibleIndex = 0;
             colKod.Width = 120;
             // 
-            // colValfAdi
+            // colTermokuplAdi
             // 
-            colValfAdi.Caption = "Valf Adı";
-            colValfAdi.FieldName = "Name";
-            colValfAdi.Name = "colValfAdi";
-            colValfAdi.OptionsColumn.AllowEdit = false;
-            colValfAdi.StatusBarAciklama = null;
-            colValfAdi.StatusBarKisaYol = null;
-            colValfAdi.StatusBarKisaYolAciklama = null;
-            colValfAdi.Visible = true;
-            colValfAdi.VisibleIndex = 1;
-            colValfAdi.Width = 150;
+            colTermokuplAdi.Caption = "Termokupl Adı";
+            colTermokuplAdi.FieldName = "Name";
+            colTermokuplAdi.Name = "colTermokuplAdi";
+            colTermokuplAdi.OptionsColumn.AllowEdit = false;
+            colTermokuplAdi.StatusBarAciklama = null;
+            colTermokuplAdi.StatusBarKisaYol = null;
+            colTermokuplAdi.StatusBarKisaYolAciklama = null;
+            colTermokuplAdi.Visible = true;
+            colTermokuplAdi.VisibleIndex = 1;
+            colTermokuplAdi.Width = 150;
             // 
-            // colValfTipi
+            // colUzunluk
             // 
-            colValfTipi.Caption = "Valf Tipi";
-            colValfTipi.FieldName = "ValveTypeName";
-            colValfTipi.Name = "colValfTipi";
-            colValfTipi.OptionsColumn.AllowEdit = false;
-            colValfTipi.StatusBarAciklama = null;
-            colValfTipi.StatusBarKisaYol = null;
-            colValfTipi.StatusBarKisaYolAciklama = null;
-            colValfTipi.Visible = true;
-            colValfTipi.VisibleIndex = 2;
-            colValfTipi.Width = 150;
+            colUzunluk.Caption = "Uzunluk (mm)";
+            colUzunluk.FieldName = "LengthMm";
+            colUzunluk.Name = "colUzunluk";
+            colUzunluk.OptionsColumn.AllowEdit = false;
+            colUzunluk.StatusBarAciklama = null;
+            colUzunluk.StatusBarKisaYol = null;
+            colUzunluk.StatusBarKisaYolAciklama = null;
+            colUzunluk.Visible = true;
+            colUzunluk.VisibleIndex = 2;
+            colUzunluk.Width = 150;
             // 
-            // colGazTipi
+            // colKafaTipi
             // 
-            colGazTipi.Caption = "Gaz Tipi";
-            colGazTipi.FieldName = "GasTypeName";
-            colGazTipi.Name = "colGazTipi";
-            colGazTipi.OptionsColumn.AllowEdit = false;
-            colGazTipi.StatusBarAciklama = null;
-            colGazTipi.StatusBarKisaYol = null;
-            colGazTipi.StatusBarKisaYolAciklama = null;
-            colGazTipi.Visible = true;
-            colGazTipi.VisibleIndex = 3;
-            colGazTipi.Width = 150;
+            colKafaTipi.Caption = "Kafa Tipi / Soket";
+            colKafaTipi.FieldName = "HeadTypeName";
+            colKafaTipi.Name = "colKafaTipi";
+            colKafaTipi.OptionsColumn.AllowEdit = false;
+            colKafaTipi.StatusBarAciklama = null;
+            colKafaTipi.StatusBarKisaYol = null;
+            colKafaTipi.StatusBarKisaYolAciklama = null;
+            colKafaTipi.Visible = true;
+            colKafaTipi.VisibleIndex = 3;
+            colKafaTipi.Width = 150;
             // 
-            // colBasinc
+            // colUcTipi
             // 
-            colBasinc.Caption = "Maksimum Basınç (mbar)";
-            colBasinc.FieldName = "MaxPressureMbar";
-            colBasinc.Name = "colBasinc";
-            colBasinc.OptionsColumn.AllowEdit = false;
-            colBasinc.StatusBarAciklama = null;
-            colBasinc.StatusBarKisaYol = null;
-            colBasinc.StatusBarKisaYolAciklama = null;
-            colBasinc.Visible = true;
-            colBasinc.VisibleIndex = 4;
-            colBasinc.Width = 150;
-            // 
-            // colBaglantiOlcusu
-            // 
-            colBaglantiOlcusu.Caption = "Bağlantı Ölçüsü";
-            colBaglantiOlcusu.FieldName = "ConnectionSize";
-            colBaglantiOlcusu.Name = "colBaglantiOlcusu";
-            colBaglantiOlcusu.OptionsColumn.AllowEdit = false;
-            colBaglantiOlcusu.StatusBarAciklama = null;
-            colBaglantiOlcusu.StatusBarKisaYol = null;
-            colBaglantiOlcusu.StatusBarKisaYolAciklama = null;
-            colBaglantiOlcusu.Visible = true;
-            colBaglantiOlcusu.VisibleIndex = 5;
-            colBaglantiOlcusu.Width = 150;
-            // 
-            // colCalismaSicaklikAraligi
-            // 
-            colCalismaSicaklikAraligi.Caption = "Çalışma Sıcaklık Aralığı";
-            colCalismaSicaklikAraligi.FieldName = "TemperatureRange";
-            colCalismaSicaklikAraligi.Name = "colCalismaSicaklikAraligi";
-            colCalismaSicaklikAraligi.OptionsColumn.AllowEdit = false;
-            colCalismaSicaklikAraligi.StatusBarAciklama = null;
-            colCalismaSicaklikAraligi.StatusBarKisaYol = null;
-            colCalismaSicaklikAraligi.StatusBarKisaYolAciklama = null;
-            colCalismaSicaklikAraligi.Visible = true;
-            colCalismaSicaklikAraligi.VisibleIndex = 6;
-            colCalismaSicaklikAraligi.Width = 150;
+            colUcTipi.Caption = "Uç Tipi";
+            colUcTipi.FieldName = "TipTypeName";
+            colUcTipi.Name = "colUcTipi";
+            colUcTipi.OptionsColumn.AllowEdit = false;
+            colUcTipi.StatusBarAciklama = null;
+            colUcTipi.StatusBarKisaYol = null;
+            colUcTipi.StatusBarKisaYolAciklama = null;
+            colUcTipi.Visible = true;
+            colUcTipi.VisibleIndex = 4;
+            colUcTipi.Width = 150;
             // 
             // colAciklama
             // 
@@ -213,10 +185,10 @@
             colAciklama.StatusBarKisaYol = null;
             colAciklama.StatusBarKisaYolAciklama = null;
             colAciklama.Visible = true;
-            colAciklama.VisibleIndex = 7;
+            colAciklama.VisibleIndex = 5;
             colAciklama.Width = 150;
             // 
-            // ValfListForm
+            // TermokuplListForm
             // 
             AutoScaleDimensions = new SizeF(6F, 13F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -224,8 +196,8 @@
             Controls.Add(myGridControl1);
             Controls.Add(longNavigator1);
             IconOptions.ShowIcon = false;
-            Name = "ValfListForm";
-            Text = "Valf Tanımları";
+            Name = "TermokuplListForm";
+            Text = "Termokupl Tanımları";
             Controls.SetChildIndex(ribbon, 0);
             Controls.SetChildIndex(longNavigator1, 0);
             Controls.SetChildIndex(myGridControl1, 0);
@@ -243,12 +215,10 @@
         private UserControls.Grid.MyGridView myGridView1;
         private UserControls.Grid.MyGridColumn colId;
         private UserControls.Grid.MyGridColumn colKod;
-        private UserControls.Grid.MyGridColumn colValfAdi;
-        private UserControls.Grid.MyGridColumn colValfTipi;
-        private UserControls.Grid.MyGridColumn colGazTipi;
-        private UserControls.Grid.MyGridColumn colBasinc;
-        private UserControls.Grid.MyGridColumn colBaglantiOlcusu;
-        private UserControls.Grid.MyGridColumn colCalismaSicaklikAraligi;
+        private UserControls.Grid.MyGridColumn colTermokuplAdi;
+        private UserControls.Grid.MyGridColumn colUzunluk;
+        private UserControls.Grid.MyGridColumn colKafaTipi;
+        private UserControls.Grid.MyGridColumn colUcTipi;
         private UserControls.Grid.MyGridColumn colAciklama;
     }
 }
