@@ -164,7 +164,7 @@
             // 
             // colFrekans
             // 
-            colFrekans.Caption = "Frekans";
+            colFrekans.Caption = "Frekans(Hz)";
             colFrekans.FieldName = "Frequency";
             colFrekans.Name = "colFrekans";
             colFrekans.OptionsColumn.AllowEdit = false;

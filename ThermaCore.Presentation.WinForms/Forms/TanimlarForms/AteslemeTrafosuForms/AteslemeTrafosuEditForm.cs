@@ -77,7 +77,6 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.AteslemeTrafosuFo
             form.FormAcilisTuru = ThermaCore.Presentation.WinForms.Enums.FormAcilisTuru.Secim;
             form.ShowDialog();
             
-            // Popup Yaşam Döngüsü kuralı: DataSource yenileme işlemi if(DialogResult) DIŞINDA / ALTINDA olmalı
             glufOzelKod.Properties.DataSource = _specialCodeService.GetCodes(SpecialCodeType.SpecialCode, "IgnitionTransformer");
 
             if (form.DialogResult == System.Windows.Forms.DialogResult.OK && form.SelectedEntities != null && form.SelectedEntities.Count > 0)
