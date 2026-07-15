@@ -103,6 +103,9 @@ public static class ApplicationServiceRegistration
         services.AddScoped<ThermaCore.Application.Interfaces.System.ITenantDatabaseSetupService, ThermaCore.Application.Services.System.TenantDatabaseSetupManager>();
         services.AddSingleton<ThermaCore.Application.Interfaces.System.ICurrentTenantService, ThermaCore.Application.Services.System.CurrentTenantService>();
 
+        services.AddScoped<IValidator<ThermaCore.Application.DTOs.Definitions.HingeDto>, ThermaCore.Application.Validations.Definitions.HingeValidator>();
+        services.AddScoped<ThermaCore.Application.Interfaces.Definitions.IHingeService, ThermaCore.Application.Services.Definitions.HingeManager>();
+
         return services;
     }
 }
