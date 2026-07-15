@@ -448,6 +448,23 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
                 };
             }
 
+            if (miGazBorusuTanimlari != null)
+            {
+                miGazBorusuTanimlari.Tag = ThermaCore.Domain.Enums.ModuleType.GazBorusuTanimlari;
+                miGazBorusuTanimlari.Click += (s, e) =>
+                {
+                    var authService = _serviceProvider.GetService<ThermaCore.Application.Services.Management.IAuthService>();
+                    if (authService != null && authService.HasPermission(ThermaCore.Domain.Enums.ModuleType.GazBorusuTanimlari, ThermaCore.Domain.Enums.PermissionType.CanView))
+                    {
+                        FormYukle<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.GazBorusuForms.GazBorusuListForm>();
+                    }
+                    else
+                    {
+                        ThermaCore.Presentation.WinForms.Helpers.Messages.UyariMesaji("Bu işlem için yetkiniz bulunmamaktadır.");
+                    }
+                };
+            }
+
             if (xtraTabbedMdiManager != null)
             {
                 xtraTabbedMdiManager.PageAdded += XtraTabbedMdiManager_PageAdded;

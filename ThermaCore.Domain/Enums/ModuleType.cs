@@ -241,5 +241,10 @@ public enum ModuleType
     [Description("Ateşleme Trafosu Tanımları")]
     [ParentModule(GazVeAteslemeGrubu)]
     [RequiresCodeTemplate]
-    AteslemeTrafosuTanimlari = 42
+    AteslemeTrafosuTanimlari = 42,
+
+    [Description("Gaz Borusu Tanımları")]
+    [ParentModule(GazVeAteslemeGrubu)]
+    [RequiresCodeTemplate]
+    GazBorusuTanimlari = 43
 }
