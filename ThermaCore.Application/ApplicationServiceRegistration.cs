@@ -109,6 +109,9 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IValidator<ThermaCore.Application.DTOs.Definitions.GasketDto>, ThermaCore.Application.Validations.Definitions.GasketValidator>();
         services.AddScoped<ThermaCore.Application.Interfaces.Definitions.IGasketService, ThermaCore.Application.Services.Definitions.GasketManager>();
         
+        services.AddScoped<IValidator<ThermaCore.Application.DTOs.Definitions.InsulationDto>, ThermaCore.Application.Validations.Definitions.InsulationValidator>();
+        services.AddScoped<ThermaCore.Application.Interfaces.Definitions.IInsulationService, ThermaCore.Application.Services.Definitions.InsulationManager>();
+        
         return services;
     }
 }

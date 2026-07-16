@@ -256,5 +256,10 @@ public enum ModuleType
     [Description("Conta Tanımları")]
     [ParentModule(Tanimlar)]
     [RequiresCodeTemplate]
-    ContaTanimlari = 45
+    ContaTanimlari = 45,
+
+    [Description("İzolasyon Tanımları")]
+    [ParentModule(Tanimlar)]
+    [RequiresCodeTemplate]
+    IzolasyonTanimlari = 46
 }

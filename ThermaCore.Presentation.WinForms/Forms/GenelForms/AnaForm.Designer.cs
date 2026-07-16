@@ -81,6 +81,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             miAmbalajMalzemesiTanimlari = new ToolStripMenuItem();
             miMatbaaTanimlari = new ToolStripMenuItem();
             miEtiketTanimlari = new ToolStripMenuItem();
+            tanımlarToolStripMenuItem = new ToolStripMenuItem();
             miSistemYonetimi = new ToolStripMenuItem();
             miKurumsalTanimlar = new ToolStripMenuItem();
             miSirketTanimlari = new ToolStripMenuItem();
@@ -99,7 +100,6 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             menuStrip1 = new MenuStrip();
             lblMenuSripBilgi = new ToolStripMenuItem();
             btnAnaFormResim = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyPictureEdit();
-            tanımlarToolStripMenuItem = new ToolStripMenuItem();
             menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)xtraTabbedMdiManager).BeginInit();
             menuStrip1.SuspendLayout();
@@ -395,6 +395,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 
             miIzolasyonTanimlari.Name = "miIzolasyonTanimlari";
             miIzolasyonTanimlari.Size = new Size(186, 22);
+            miIzolasyonTanimlari.Tag = "IzolasyonTanimlari";
             miIzolasyonTanimlari.Text = "İzolasyon Tanımları";
             // 
             // miContaTanimlari
@@ -461,6 +462,12 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             miEtiketTanimlari.Name = "miEtiketTanimlari";
             miEtiketTanimlari.Size = new Size(245, 22);
             miEtiketTanimlari.Text = "Etiket Tanımları";
+            // 
+            // tanımlarToolStripMenuItem
+            // 
+            tanımlarToolStripMenuItem.Name = "tanımlarToolStripMenuItem";
+            tanımlarToolStripMenuItem.Size = new Size(253, 22);
+            tanımlarToolStripMenuItem.Text = "Tanımlar";
             // 
             // miSistemYonetimi
             // 
@@ -610,12 +617,6 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             btnAnaFormResim.StatusBarKisaYol = "F4 :";
             btnAnaFormResim.StatusBarKisaYolAciklama = null;
             btnAnaFormResim.TabIndex = 3;
-            // 
-            // tanımlarToolStripMenuItem
-            // 
-            tanımlarToolStripMenuItem.Name = "tanımlarToolStripMenuItem";
-            tanımlarToolStripMenuItem.Size = new Size(253, 22);
-            tanımlarToolStripMenuItem.Text = "Tanımlar";
             // 
             // AnaForm
             // 
