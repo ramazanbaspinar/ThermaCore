@@ -261,5 +261,10 @@ public enum ModuleType
     [Description("İzolasyon Tanımları")]
     [ParentModule(Tanimlar)]
     [RequiresCodeTemplate]
-    IzolasyonTanimlari = 46
+    IzolasyonTanimlari = 46,
+
+    [Description("Tel Tanımları")]
+    [ParentModule(Tanimlar)]
+    [RequiresCodeTemplate]
+    TelTanimlari = 47
 }

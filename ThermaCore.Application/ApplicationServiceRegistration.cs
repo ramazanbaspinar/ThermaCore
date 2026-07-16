@@ -112,6 +112,9 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IValidator<ThermaCore.Application.DTOs.Definitions.InsulationDto>, ThermaCore.Application.Validations.Definitions.InsulationValidator>();
         services.AddScoped<ThermaCore.Application.Interfaces.Definitions.IInsulationService, ThermaCore.Application.Services.Definitions.InsulationManager>();
         
+        services.AddScoped<IValidator<ThermaCore.Application.DTOs.Definitions.WireDto>, ThermaCore.Application.Validations.Definitions.WireValidator>();
+        services.AddScoped<ThermaCore.Application.Interfaces.Definitions.IWireService, ThermaCore.Application.Services.Definitions.WireManager>();
+        
         return services;
     }
 }

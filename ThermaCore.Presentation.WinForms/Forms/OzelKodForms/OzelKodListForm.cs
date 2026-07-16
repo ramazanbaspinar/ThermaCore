@@ -67,6 +67,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.OzelKodForms
                 "Hinge" => "Menteşe Tanımları",
                 "Gasket" => "Conta Tanımları",
                 "Insulation" => "İzolasyon Tanımları",
+                "Wire" => "Tel Tanımları",
                 _ => _entityType
             };
 
