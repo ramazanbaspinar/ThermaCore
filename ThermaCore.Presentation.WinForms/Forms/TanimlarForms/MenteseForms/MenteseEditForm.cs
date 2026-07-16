@@ -106,6 +106,18 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.MenteseForms
 
         protected override void GuncelNesneOlustur()
         {
+            long? specialCodeId = null;
+            if (glufOzelKod.EditValue != null && long.TryParse(glufOzelKod.EditValue.ToString(), out long scId))
+            {
+                specialCodeId = scId;
+            }
+
+            decimal? loadCapacity = null;
+            if (txtTasimaKapasitesi.EditValue != null && txtTasimaKapasitesi.EditValue != DBNull.Value && decimal.TryParse(txtTasimaKapasitesi.EditValue.ToString(), out decimal lc))
+            {
+                loadCapacity = lc;
+            }
+
             var dto = new HingeDto
             {
                 Id = Id,
@@ -114,9 +126,9 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.MenteseForms
                 BaseUnit = glufTemelBirim.EditValue != null ? glufTemelBirim.EditValue.ToString() : string.Empty,
                 HingeType = string.IsNullOrWhiteSpace(cmbMenteseTipi.Text) ? (HingeType?)null : cmbMenteseTipi.Text.GetEnum<HingeType>(),
                 MountingDirection = string.IsNullOrWhiteSpace(cmbMontajYonu.Text) ? (MountingDirection?)null : cmbMontajYonu.Text.GetEnum<MountingDirection>(),
-                LoadCapacityKg = txtTasimaKapasitesi.EditValue != null && txtTasimaKapasitesi.EditValue != DBNull.Value ? Convert.ToDecimal(txtTasimaKapasitesi.EditValue) : (decimal?)null,
+                LoadCapacityKg = loadCapacity,
                 Description = txtAciklama.Text,
-                SpecialCodeId = glufOzelKod.EditValue != null ? Convert.ToInt64(glufOzelKod.EditValue) : null,
+                SpecialCodeId = specialCodeId,
                 IsActive = tglDurum.IsOn
             };
 
