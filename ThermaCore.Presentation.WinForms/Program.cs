@@ -205,6 +205,9 @@ internal static class Program
 
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.MenteseForms.MenteseListForm>();
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.MenteseForms.MenteseEditForm>();
+
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.ContaForms.ContaListForm>();
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.ContaForms.ContaEditForm>();
             })
             .Build();
 

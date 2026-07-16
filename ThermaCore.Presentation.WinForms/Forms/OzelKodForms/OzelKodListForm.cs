@@ -64,6 +64,8 @@ namespace ThermaCore.Presentation.WinForms.Forms.OzelKodForms
                 "SparkPlug" => "Çakmak (Buji) Tanımları",
                 "IgnitionTransformer" => "Ateşleme Trafosu Tanımları",
                 "GasPipe" => "Gaz Borusu Tanımları",
+                "Hinge" => "Menteşe Tanımları",
+                "Gasket" => "Conta Tanımları",
                 _ => _entityType
             };
 

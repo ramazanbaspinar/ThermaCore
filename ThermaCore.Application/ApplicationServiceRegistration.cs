@@ -105,7 +105,10 @@ public static class ApplicationServiceRegistration
 
         services.AddScoped<IValidator<ThermaCore.Application.DTOs.Definitions.HingeDto>, ThermaCore.Application.Validations.Definitions.HingeValidator>();
         services.AddScoped<ThermaCore.Application.Interfaces.Definitions.IHingeService, ThermaCore.Application.Services.Definitions.HingeManager>();
-
+        
+        services.AddScoped<IValidator<ThermaCore.Application.DTOs.Definitions.GasketDto>, ThermaCore.Application.Validations.Definitions.GasketValidator>();
+        services.AddScoped<ThermaCore.Application.Interfaces.Definitions.IGasketService, ThermaCore.Application.Services.Definitions.GasketManager>();
+        
         return services;
     }
 }

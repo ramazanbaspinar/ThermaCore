@@ -99,6 +99,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             menuStrip1 = new MenuStrip();
             lblMenuSripBilgi = new ToolStripMenuItem();
             btnAnaFormResim = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyPictureEdit();
+            tanımlarToolStripMenuItem = new ToolStripMenuItem();
             menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)xtraTabbedMdiManager).BeginInit();
             menuStrip1.SuspendLayout();
@@ -119,7 +120,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 
             // miTanimlar
             // 
-            miTanimlar.DropDownItems.AddRange(new ToolStripItem[] { miTemelTanimlar, miMetalVeSacGrubu, miElektrikVeElektronikGrubu, miGazVeAteslemeGrubu, miPlastikVeGorselAksamGrubu, miKimyaVeYalitimGrubu, miMekanikVeHirdavatGrubu, miAmbalajVeMatbaaGrubu });
+            miTanimlar.DropDownItems.AddRange(new ToolStripItem[] { miTemelTanimlar, miMetalVeSacGrubu, miElektrikVeElektronikGrubu, miGazVeAteslemeGrubu, miPlastikVeGorselAksamGrubu, miKimyaVeYalitimGrubu, miMekanikVeHirdavatGrubu, miAmbalajVeMatbaaGrubu, tanımlarToolStripMenuItem });
             miTanimlar.Name = "miTanimlar";
             miTanimlar.Size = new Size(69, 22);
             miTanimlar.Text = "Tanımlar";
@@ -400,6 +401,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 
             miContaTanimlari.Name = "miContaTanimlari";
             miContaTanimlari.Size = new Size(186, 22);
+            miContaTanimlari.Tag = "ContaTanimlari";
             miContaTanimlari.Text = "Conta Tanımları";
             // 
             // miMekanikVeHirdavatGrubu
@@ -609,6 +611,12 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             btnAnaFormResim.StatusBarKisaYolAciklama = null;
             btnAnaFormResim.TabIndex = 3;
             // 
+            // tanımlarToolStripMenuItem
+            // 
+            tanımlarToolStripMenuItem.Name = "tanımlarToolStripMenuItem";
+            tanımlarToolStripMenuItem.Size = new Size(253, 22);
+            tanımlarToolStripMenuItem.Text = "Tanımlar";
+            // 
             // AnaForm
             // 
             Appearance.BackColor = SystemColors.Control;
@@ -717,5 +725,6 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
         private ToolStripMenuItem miGenelParametreler;
         private ToolStripMenuItem miKaliteStandartTanimlari;
         private ToolStripMenuItem miVidaTanimlari;
+        private ToolStripMenuItem tanımlarToolStripMenuItem;
     }
 }
