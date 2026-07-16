@@ -142,6 +142,8 @@ internal static class Program
                 
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.TelForms.TelListForm>();
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.TelForms.TelEditForm>();
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.IzgaraForms.IzgaraListForm>();
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.IzgaraForms.IzgaraEditForm>();
                  
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.KaliteStandartForms.KaliteStandartListForm>();
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.KaliteStandartForms.KaliteStandartEditForm>();

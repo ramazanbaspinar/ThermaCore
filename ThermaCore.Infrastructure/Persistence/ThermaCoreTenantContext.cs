@@ -57,6 +57,7 @@ public class ThermaCoreTenantContext : DbContext
     public DbSet<ThermaCore.Domain.Entities.Definitions.Hinge> Hinges { get; set; }
     public DbSet<ThermaCore.Domain.Entities.Definitions.Gasket> Gaskets { get; set; }
     public DbSet<ThermaCore.Domain.Entities.Definitions.Insulation> Insulations { get; set; }
+    public DbSet<ThermaCore.Domain.Entities.Definitions.Grid> Grids { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         if (_currentTenantService != null && !string.IsNullOrEmpty(_currentTenantService.ConnectionString))
