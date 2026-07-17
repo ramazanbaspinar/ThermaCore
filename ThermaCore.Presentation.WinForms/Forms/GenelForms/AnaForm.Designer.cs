@@ -81,7 +81,6 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             miAmbalajMalzemesiTanimlari = new ToolStripMenuItem();
             miMatbaaTanimlari = new ToolStripMenuItem();
             miEtiketTanimlari = new ToolStripMenuItem();
-            temelTanımlarıToolStripMenuItem = new ToolStripMenuItem();
             miSistemYonetimi = new ToolStripMenuItem();
             miKurumsalTanimlar = new ToolStripMenuItem();
             miSirketTanimlari = new ToolStripMenuItem();
@@ -120,7 +119,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 
             // miTanimlar
             // 
-            miTanimlar.DropDownItems.AddRange(new ToolStripItem[] { miTemelTanimlar, miMetalVeSacGrubu, miElektrikVeElektronikGrubu, miGazVeAteslemeGrubu, miPlastikVeGorselAksamGrubu, miKimyaVeYalitimGrubu, miMekanikVeHirdavatGrubu, miAmbalajVeMatbaaGrubu, temelTanımlarıToolStripMenuItem });
+            miTanimlar.DropDownItems.AddRange(new ToolStripItem[] { miTemelTanimlar, miMetalVeSacGrubu, miElektrikVeElektronikGrubu, miGazVeAteslemeGrubu, miPlastikVeGorselAksamGrubu, miKimyaVeYalitimGrubu, miMekanikVeHirdavatGrubu, miAmbalajVeMatbaaGrubu });
             miTanimlar.Name = "miTanimlar";
             miTanimlar.Size = new Size(69, 22);
             miTanimlar.Text = "Tanımlar";
@@ -178,28 +177,28 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // miSacTanimlari
             // 
             miSacTanimlari.Name = "miSacTanimlari";
-            miSacTanimlari.Size = new Size(180, 22);
+            miSacTanimlari.Size = new Size(168, 22);
             miSacTanimlari.Tag = "SacTanimlari";
             miSacTanimlari.Text = "Sac Tanımları";
             // 
             // miTelTanimlari
             // 
             miTelTanimlari.Name = "miTelTanimlari";
-            miTelTanimlari.Size = new Size(180, 22);
+            miTelTanimlari.Size = new Size(168, 22);
             miTelTanimlari.Tag = "TelTanimlari";
             miTelTanimlari.Text = "Tel Tanımları";
             // 
             // miIzgaraTanimlari
             // 
             miIzgaraTanimlari.Name = "miIzgaraTanimlari";
-            miIzgaraTanimlari.Size = new Size(180, 22);
+            miIzgaraTanimlari.Size = new Size(168, 22);
             miIzgaraTanimlari.Tag = "IzgaraTanimlari";
             miIzgaraTanimlari.Text = "Izgara Tanımları";
             // 
             // miTepsiTanimlari
             // 
             miTepsiTanimlari.Name = "miTepsiTanimlari";
-            miTepsiTanimlari.Size = new Size(180, 22);
+            miTepsiTanimlari.Size = new Size(168, 22);
             miTepsiTanimlari.Tag = "TepsiTanimlari";
             miTepsiTanimlari.Text = "Tepsi Tanımları";
             // 
@@ -340,6 +339,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 
             miRakorTanimlari.Name = "miRakorTanimlari";
             miRakorTanimlari.Size = new Size(250, 22);
+            miRakorTanimlari.Tag = "RakorTanimlari";
             miRakorTanimlari.Text = "Rakor Tanımları";
             // 
             // miPlastikVeGorselAksamGrubu
@@ -466,12 +466,6 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             miEtiketTanimlari.Name = "miEtiketTanimlari";
             miEtiketTanimlari.Size = new Size(245, 22);
             miEtiketTanimlari.Text = "Etiket Tanımları";
-            // 
-            // temelTanımlarıToolStripMenuItem
-            // 
-            temelTanımlarıToolStripMenuItem.Name = "temelTanımlarıToolStripMenuItem";
-            temelTanımlarıToolStripMenuItem.Size = new Size(253, 22);
-            temelTanımlarıToolStripMenuItem.Text = "Temel Tanımları";
             // 
             // miSistemYonetimi
             // 
@@ -730,6 +724,5 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
         private ToolStripMenuItem miGenelParametreler;
         private ToolStripMenuItem miKaliteStandartTanimlari;
         private ToolStripMenuItem miVidaTanimlari;
-        private ToolStripMenuItem temelTanımlarıToolStripMenuItem;
     }
 }

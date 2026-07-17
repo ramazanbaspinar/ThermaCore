@@ -14,5 +14,11 @@ public enum MaterialType
     Bakelite = 3,
 
     [Description("İnoks")]
-    Inox = 4
+    Inox = 4,
+
+    [Description("Pirinç-Sarı")]
+    Brass = 5,
+
+    [Description("Çelik")]
+    Steel = 6
 }

@@ -3,6 +3,10 @@ using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using ThermaCore.Application.Services.Management;
 using ThermaCore.Application.Interfaces.Management;
+using ThermaCore.Application.Interfaces.Definitions;
+using ThermaCore.Application.Services.Definitions;
+using ThermaCore.Application.DTOs.Definitions;
+using ThermaCore.Application.Validators.Definitions;
 
 namespace ThermaCore.Application;
 
@@ -16,6 +20,10 @@ public static class ApplicationServiceRegistration
         ValidatorOptions.Global.LanguageManager.Culture = new System.Globalization.CultureInfo("tr-TR");
 
         // Manager (Service) Sınıflarının Kayıtları
+        services.AddScoped<IHandleService, HandleManager>();
+        services.AddScoped<IValidator<HandleDto>, HandleValidator>();
+        services.AddScoped<IFittingService, FittingManager>();
+        services.AddScoped<IValidator<FittingDto>, FittingValidator>();
         services.AddScoped<IAuthService, AuthManager>();
         services.AddScoped<IUserService, UserManager>();
         services.AddScoped<ITerminalService, TerminalManager>();
