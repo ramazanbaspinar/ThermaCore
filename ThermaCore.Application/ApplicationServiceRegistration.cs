@@ -118,6 +118,9 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IValidator<ThermaCore.Application.DTOs.Definitions.GridDto>, ThermaCore.Application.Validators.Definitions.GridValidator>();
         services.AddScoped<ThermaCore.Application.Interfaces.Definitions.IGridService, ThermaCore.Application.Services.Definitions.GridManager>();
         
+        services.AddScoped<IValidator<ThermaCore.Application.DTOs.Definitions.TrayDto>, ThermaCore.Application.Validators.Definitions.TrayValidator>();
+        services.AddScoped<ThermaCore.Application.Interfaces.Definitions.ITrayService, ThermaCore.Application.Services.Definitions.TrayManager>();
+        
         return services;
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using AutoMapper;
 using FluentValidation;
 using ThermaCore.Application.DTOs.Base;
@@ -39,12 +40,46 @@ public abstract class BaseManager<TListDto, TDto, TEntity>
         return _mapper.Map<IEnumerable<TListDto>>(entities);
     }
 
+    protected virtual void CheckBusinessRules(TDto dto)
+    {
+        if (string.IsNullOrWhiteSpace(dto.Code) || dto.Code == "Yeni Kod" || dto.Code == "< Otomatik Üretilecek >")
+            return;
+
+        var entityType = typeof(TEntity);
+        var codeProp = entityType.GetProperty("Code");
+        
+        if (codeProp != null)
+        {
+            var parameter = Expression.Parameter(entityType, "x");
+            
+            var codeProperty = Expression.Property(parameter, "Code");
+            var codeValue = Expression.Constant(dto.Code);
+            var codeEquals = Expression.Equal(codeProperty, codeValue);
+
+            var idProperty = Expression.Property(parameter, "Id");
+            var idValue = Expression.Constant(dto.Id);
+            var idNotEquals = Expression.NotEqual(idProperty, idValue);
+
+            var combined = Expression.AndAlso(codeEquals, idNotEquals);
+            var lambda = Expression.Lambda<Func<TEntity, bool>>(combined, parameter);
+
+            if (_repository.Find(lambda).Any())
+            {
+                throw new ValidationException(new[] { 
+                    new FluentValidation.Results.ValidationFailure("Code", "Girdiğiniz benzersiz kod (Code) sistemde zaten kullanılmaktadır. Lütfen farklı bir kod giriniz.") 
+                });
+            }
+        }
+    }
+
     public virtual long Insert(TDto dto)
     {
         if (_validator != null)
         {
             _validator.ValidateAndThrow(dto);
         }
+
+        CheckBusinessRules(dto);
 
         var entity = _mapper.Map<TEntity>(dto);
         _repository.Add(entity);
@@ -58,6 +93,8 @@ public abstract class BaseManager<TListDto, TDto, TEntity>
         {
             _validator.ValidateAndThrow(dto);
         }
+
+        CheckBusinessRules(dto);
 
         var existingEntity = _repository.GetById(dto.Id);
         if (existingEntity != null)

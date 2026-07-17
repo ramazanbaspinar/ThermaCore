@@ -271,5 +271,10 @@ public enum ModuleType
     [Description("Izgara Tanımları")]
     [ParentModule(Tanimlar)]
     [RequiresCodeTemplate]
-    IzgaraTanimlari = 48
+    IzgaraTanimlari = 48,
+
+    [Description("Tepsi Tanımları")]
+    [ParentModule(Tanimlar)]
+    [RequiresCodeTemplate]
+    TepsiTanimlari = 49
 }

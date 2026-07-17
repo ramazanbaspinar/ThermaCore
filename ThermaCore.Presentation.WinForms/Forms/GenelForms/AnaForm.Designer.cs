@@ -200,6 +200,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 
             miTepsiTanimlari.Name = "miTepsiTanimlari";
             miTepsiTanimlari.Size = new Size(180, 22);
+            miTepsiTanimlari.Tag = "TepsiTanimlari";
             miTepsiTanimlari.Text = "Tepsi Tanımları";
             // 
             // miElektrikVeElektronikGrubu
