@@ -260,7 +260,24 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
                     }
                 };
             }
-            
+
+            if (miKulpTanimlari != null)
+            {
+                miKulpTanimlari.Tag = ThermaCore.Domain.Enums.ModuleType.KulpTanimlari;
+                miKulpTanimlari.Click += (s, e) =>
+                {
+                    var authService = _serviceProvider.GetService<ThermaCore.Application.Services.Management.IAuthService>();
+                    if (authService != null && authService.HasPermission(ThermaCore.Domain.Enums.ModuleType.KulpTanimlari, ThermaCore.Domain.Enums.PermissionType.CanView))
+                    {
+                        FormYukle<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.KulpForms.KulpListForm>();
+                    }
+                    else
+                    {
+                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                };
+            }
+
             if (miKabloTanimlari != null)
             {
                 miKabloTanimlari.Tag = ThermaCore.Domain.Enums.ModuleType.KabloTanimlari;

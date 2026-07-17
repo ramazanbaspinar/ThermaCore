@@ -359,6 +359,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 
             miKulpTanimlari.Name = "miKulpTanimlari";
             miKulpTanimlari.Size = new Size(204, 22);
+            miKulpTanimlari.Tag = "KulpTanimlari";
             miKulpTanimlari.Text = "Kulp Tanımları";
             // 
             // miDugmeTanimlari

@@ -1,0 +1,18 @@
+using System.ComponentModel;
+
+namespace ThermaCore.Domain.Enums;
+
+public enum MaterialType
+{
+    [Description("Alüminyum")]
+    Aluminum = 1,
+
+    [Description("Plastik")]
+    Plastic = 2,
+
+    [Description("Bakalit")]
+    Bakelite = 3,
+
+    [Description("İnoks")]
+    Inox = 4
+}

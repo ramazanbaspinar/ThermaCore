@@ -70,6 +70,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.OzelKodForms
                 "Wire" => "Tel Tanımları",
                 "Grid" => "Izgara Tanımları",
                 "Tray" => "Tepsi Tanımları",
+                "Handle" => "Kulp Tanımları",
                 _ => _entityType
             };
 
