@@ -353,6 +353,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 
             miPlastikParcaTanimlari.Name = "miPlastikParcaTanimlari";
             miPlastikParcaTanimlari.Size = new Size(204, 22);
+            miPlastikParcaTanimlari.Tag = "PlastikParcaTanimlari";
             miPlastikParcaTanimlari.Text = "Plastik Parça Tanımları";
             // 
             // miKulpTanimlari

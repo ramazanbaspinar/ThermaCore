@@ -43,6 +43,7 @@ public static class InfrastructureServiceRegistration
         services.AddScoped<ThermaCore.Application.Interfaces.Repositories.ICodeLogRepository, ThermaCore.Infrastructure.Persistence.Repositories.CodeLogRepository>();
         
         services.AddScoped<ThermaCore.Application.Interfaces.Repositories.Definitions.IUnitRepository, ThermaCore.Infrastructure.Persistence.Repositories.Definitions.UnitRepository>();
+        services.AddScoped<ThermaCore.Application.Interfaces.Repositories.Definitions.IPlasticPartRepository, ThermaCore.Infrastructure.Repositories.Definitions.PlasticPartRepository>();
         return services;
     }
 }

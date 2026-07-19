@@ -132,6 +132,9 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IValidator<ThermaCore.Application.DTOs.Definitions.HandleDto>, ThermaCore.Application.Validators.Definitions.HandleValidator>();
         services.AddScoped<ThermaCore.Application.Interfaces.Definitions.IHandleService, ThermaCore.Application.Services.Definitions.HandleManager>();
         
+        services.AddScoped<IValidator<PlasticPartDto>, PlasticPartValidator>();
+        services.AddScoped<IPlasticPartService, PlasticPartManager>();
+        
         return services;
     }
 }

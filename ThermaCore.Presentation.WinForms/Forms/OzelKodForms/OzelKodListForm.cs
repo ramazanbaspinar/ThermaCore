@@ -71,6 +71,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.OzelKodForms
                 "Grid" => "Izgara Tanımları",
                 "Tray" => "Tepsi Tanımları",
                 "Handle" => "Kulp Tanımları",
+                "PlasticPart" => "Plastik Parça Tanımları",
                 _ => _entityType
             };
 

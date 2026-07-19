@@ -286,5 +286,11 @@ public enum ModuleType
     [Description("Rakor Tanımları")]
     [ParentModule(GazVeAteslemeGrubu)]
     [RequiresCodeTemplate]
-    RakorTanimlari = 51
+    RakorTanimlari = 51,
+
+    [Description("Plastik Parça Tanımları")]
+    [ParentModule(PlastikVeGorselAksamGrubu)]
+    [RequiresCodeTemplate]
+    PlastikParcaTanimlari = 52
 }
+

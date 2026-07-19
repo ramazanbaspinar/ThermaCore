@@ -61,6 +61,7 @@ public class ThermaCoreTenantContext : DbContext
     public DbSet<ThermaCore.Domain.Entities.Definitions.Tray> Trays { get; set; }
     public DbSet<ThermaCore.Domain.Entities.Definitions.Handle> Handles { get; set; }
     public DbSet<ThermaCore.Domain.Entities.Definitions.Fitting> Fittings { get; set; }
+    public DbSet<ThermaCore.Domain.Entities.Definitions.PlasticPart> PlasticParts { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         if (_currentTenantService != null && !string.IsNullOrEmpty(_currentTenantService.ConnectionString))
