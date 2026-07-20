@@ -463,6 +463,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 
             miMatbaaTanimlari.Name = "miMatbaaTanimlari";
             miMatbaaTanimlari.Size = new Size(245, 22);
+            miMatbaaTanimlari.Tag = "MatbaaTanimlari";
             miMatbaaTanimlari.Text = "Matbaa (Kılavuz) Tanımları";
             // 
             // miEtiketTanimlari

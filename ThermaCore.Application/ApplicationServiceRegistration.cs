@@ -142,7 +142,9 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IFastenerService, FastenerManager>();
         
         services.AddScoped<IValidator<PackagingMaterialDto>, PackagingMaterialValidator>();
+        services.AddScoped<IValidator<ManualDto>, ManualValidator>();
         services.AddScoped<IPackagingMaterialService, PackagingMaterialManager>();
+        services.AddScoped<IManualService, ManualManager>();
         
         return services;
     }

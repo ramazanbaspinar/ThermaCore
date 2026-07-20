@@ -165,7 +165,8 @@
             // 
             // colDil
             // 
-            colDil.Caption = "LanguageCode";
+            colDil.Caption = "Dil";
+            colDil.FieldName = "LanguageCode";
             colDil.Name = "colDil";
             colDil.OptionsColumn.AllowEdit = false;
             colDil.StatusBarAciklama = null;
