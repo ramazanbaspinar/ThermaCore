@@ -435,12 +435,14 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 
             miKilitTanimlari.Name = "miKilitTanimlari";
             miKilitTanimlari.Size = new Size(227, 22);
+            miKilitTanimlari.Tag = "KilitTanimlari";
             miKilitTanimlari.Text = "Kilit Tanımları";
             // 
             // miBaglantiElemaniTanimlari
             // 
             miBaglantiElemaniTanimlari.Name = "miBaglantiElemaniTanimlari";
             miBaglantiElemaniTanimlari.Size = new Size(227, 22);
+            miBaglantiElemaniTanimlari.Tag = "BaglantiElemaniTanimlari";
             miBaglantiElemaniTanimlari.Text = "Bağlantı Elemanı Tanımları";
             // 
             // miAmbalajVeMatbaaGrubu

@@ -89,6 +89,8 @@
             layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             tpBarkodIslemleri = new DevExpress.XtraTab.XtraTabPage();
             ucBarkodlar1 = new ThermaCore.Presentation.WinForms.UserControls.ucBarkodlar();
+            gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
+            gridColumn2 = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)ribbon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)xtraTabControl1).BeginInit();
             xtraTabControl1.SuspendLayout();
@@ -457,6 +459,7 @@
             // 
             // myGridLookUpFind2View
             // 
+            myGridLookUpFind2View.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { gridColumn2 });
             myGridLookUpFind2View.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
             myGridLookUpFind2View.Name = "myGridLookUpFind2View";
             myGridLookUpFind2View.OptionsSelection.EnableAppearanceFocusedCell = false;
@@ -481,6 +484,7 @@
             // 
             // myGridLookUpFind1View
             // 
+            myGridLookUpFind1View.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { gridColumn1 });
             myGridLookUpFind1View.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
             myGridLookUpFind1View.Name = "myGridLookUpFind1View";
             myGridLookUpFind1View.OptionsSelection.EnableAppearanceFocusedCell = false;
@@ -672,6 +676,22 @@
             ucBarkodlar1.Size = new Size(696, 415);
             ucBarkodlar1.TabIndex = 0;
             // 
+            // gridColumn1
+            // 
+            gridColumn1.Caption = "Temel Birim";
+            gridColumn1.FieldName = "Name";
+            gridColumn1.Name = "gridColumn1";
+            gridColumn1.Visible = true;
+            gridColumn1.VisibleIndex = 0;
+            // 
+            // gridColumn2
+            // 
+            gridColumn2.Caption = "Özel Kod";
+            gridColumn2.FieldName = "Name";
+            gridColumn2.Name = "gridColumn2";
+            gridColumn2.Visible = true;
+            gridColumn2.VisibleIndex = 0;
+            // 
             // PlastikParcaEditForm
             // 
             AutoScaleDimensions = new SizeF(6F, 13F);
@@ -781,5 +801,7 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem13;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem14;
         private UserControls.ucBarkodlar ucBarkodlar1;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn2;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn1;
     }
 }

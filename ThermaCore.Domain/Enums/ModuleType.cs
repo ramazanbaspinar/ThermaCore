@@ -291,6 +291,16 @@ public enum ModuleType
     [Description("Plastik Parça Tanımları")]
     [ParentModule(PlastikVeGorselAksamGrubu)]
     [RequiresCodeTemplate]
-    PlastikParcaTanimlari = 52
+    PlastikParcaTanimlari = 52,
+
+    [Description("Kilit Tanımları")]
+    [ParentModule(PlastikVeGorselAksamGrubu)]
+    [RequiresCodeTemplate]
+    KilitTanimlari = 53,
+
+    [Description("Bağlantı Elemanı Tanımları")]
+    [ParentModule(Tanimlar)]
+    [RequiresCodeTemplate]
+    BaglantiElemaniTanimlari = 54
 }
 

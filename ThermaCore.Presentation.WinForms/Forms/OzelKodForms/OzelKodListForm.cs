@@ -72,6 +72,8 @@ namespace ThermaCore.Presentation.WinForms.Forms.OzelKodForms
                 "Tray" => "Tepsi Tanımları",
                 "Handle" => "Kulp Tanımları",
                 "PlasticPart" => "Plastik Parça Tanımları",
+                "Lock" => "Kilit Tanımları",
+                "Fastener" => "Bağlantı Elemanı Tanımları",
                 _ => _entityType
             };
 

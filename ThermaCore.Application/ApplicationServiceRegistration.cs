@@ -135,6 +135,12 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IValidator<PlasticPartDto>, PlasticPartValidator>();
         services.AddScoped<IPlasticPartService, PlasticPartManager>();
         
+        services.AddScoped<IValidator<LockDto>, LockValidator>();
+        services.AddScoped<ILockService, LockManager>();
+        
+        services.AddScoped<IValidator<FastenerDto>, FastenerValidator>();
+        services.AddScoped<IFastenerService, FastenerManager>();
+        
         return services;
     }
 }

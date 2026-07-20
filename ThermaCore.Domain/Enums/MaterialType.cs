@@ -20,5 +20,8 @@ public enum MaterialType
     Brass = 5,
 
     [Description("Çelik")]
-    Steel = 6
+    Steel = 6,
+
+    [Description("Zamak-Döküm")]
+    Zinc = 7
 }

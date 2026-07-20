@@ -228,6 +228,12 @@ internal static class Program
 
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.PlastikParcaForms.PlastikParcaListForm>();
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.PlastikParcaForms.PlastikParcaEditForm>();
+
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.KilitForms.KilitListForm>();
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.KilitForms.KilitEditForm>();
+
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.BaglantiElemaniForms.BaglantiElemaniListForm>();
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.BaglantiElemaniForms.BaglantiElemaniEditForm>();
             })
             .Build();
 
