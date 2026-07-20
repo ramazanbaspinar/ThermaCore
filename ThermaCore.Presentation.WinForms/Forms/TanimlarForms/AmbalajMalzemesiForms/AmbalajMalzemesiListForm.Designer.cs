@@ -153,7 +153,7 @@
             // colMateryal
             // 
             colMateryal.Caption = "Materyal";
-            colMateryal.FieldName = "MaterialType";
+            colMateryal.FieldName = "PackagingMaterialType";
             colMateryal.Name = "colMateryal";
             colMateryal.OptionsColumn.AllowEdit = false;
             colMateryal.StatusBarAciklama = null;
