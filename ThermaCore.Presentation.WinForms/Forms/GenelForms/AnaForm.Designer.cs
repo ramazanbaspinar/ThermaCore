@@ -456,6 +456,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 
             miAmbalajMalzemesiTanimlari.Name = "miAmbalajMalzemesiTanimlari";
             miAmbalajMalzemesiTanimlari.Size = new Size(245, 22);
+            miAmbalajMalzemesiTanimlari.Tag = "AmbalajMalzemesiTanimlari";
             miAmbalajMalzemesiTanimlari.Text = "Ambalaj Malzemesi Tanımları";
             // 
             // miMatbaaTanimlari

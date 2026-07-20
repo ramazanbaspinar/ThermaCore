@@ -74,6 +74,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.OzelKodForms
                 "PlasticPart" => "Plastik Parça Tanımları",
                 "Lock" => "Kilit Tanımları",
                 "Fastener" => "Bağlantı Elemanı Tanımları",
+                "PackagingMaterial" => "Ambalaj Malzemesi Tanımları",
                 _ => _entityType
             };
 

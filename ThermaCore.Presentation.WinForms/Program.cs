@@ -232,6 +232,9 @@ internal static class Program
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.KilitForms.KilitListForm>();
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.KilitForms.KilitEditForm>();
 
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.AmbalajMalzemesiForms.AmbalajMalzemesiListForm>();
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.AmbalajMalzemesiForms.AmbalajMalzemesiEditForm>();
+
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.BaglantiElemaniForms.BaglantiElemaniListForm>();
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.BaglantiElemaniForms.BaglantiElemaniEditForm>();
             })
