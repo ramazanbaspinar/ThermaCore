@@ -470,6 +470,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 
             miEtiketTanimlari.Name = "miEtiketTanimlari";
             miEtiketTanimlari.Size = new Size(245, 22);
+            miEtiketTanimlari.Tag = "EtiketTanimlari";
             miEtiketTanimlari.Text = "Etiket Tanımları";
             // 
             // miSistemYonetimi

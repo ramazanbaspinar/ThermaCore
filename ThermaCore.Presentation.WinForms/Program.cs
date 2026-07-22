@@ -240,6 +240,9 @@ internal static class Program
 
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.MatbaaKilavuzForms.MatbaaKilavuzListForm>();
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.MatbaaKilavuzForms.MatbaaKilavuzEditForm>();
+                
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.EtiketForms.EtiketListForm>();
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.EtiketForms.EtiketEditForm>();
             })
             .Build();
 

@@ -311,6 +311,11 @@ public enum ModuleType
     [Description("Matbaa (Kılavuz) Tanımları")]
     [ParentModule(Tanimlar)]
     [RequiresCodeTemplate]
-    MatbaaTanimlari = 56
+    MatbaaTanimlari = 56,
+
+    [Description("Etiket Tanımları")]
+    [ParentModule(Tanimlar)]
+    [RequiresCodeTemplate]
+    EtiketTanimlari = 57
 }
 

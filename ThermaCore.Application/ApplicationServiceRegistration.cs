@@ -146,6 +146,9 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IPackagingMaterialService, PackagingMaterialManager>();
         services.AddScoped<IManualService, ManualManager>();
         
+        services.AddScoped<IValidator<ProductLabelDto>, ThermaCore.Application.Validations.Definitions.ProductLabelValidator>();
+        services.AddScoped<IProductLabelService, ProductLabelManager>();
+        
         return services;
     }
 }
