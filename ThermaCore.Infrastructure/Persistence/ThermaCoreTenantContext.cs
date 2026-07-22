@@ -21,6 +21,7 @@ public class ThermaCoreTenantContext : DbContext
     }
 
     public DbSet<ThermaCore.Domain.Entities.Definitions.Unit> Units { get; set; }
+    public DbSet<ThermaCore.Domain.Entities.Definitions.UnitConversion> UnitConversions { get; set; }
     public DbSet<ThermaCore.Domain.Entities.Definitions.Lock> Locks { get; set; }
     public DbSet<ThermaCore.Domain.Entities.Definitions.Fastener> Fasteners { get; set; }
     public DbSet<ThermaCore.Domain.Entities.Management.ExchangeRate> ExchangeRates { get; set; }

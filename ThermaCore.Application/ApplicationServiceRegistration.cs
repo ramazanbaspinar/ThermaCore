@@ -21,7 +21,9 @@ public static class ApplicationServiceRegistration
 
         // Manager (Service) Sınıflarının Kayıtları
         services.AddScoped<IHandleService, HandleManager>();
+        services.AddScoped<IUnitConversionService, UnitConversionManager>();
         services.AddScoped<IValidator<HandleDto>, HandleValidator>();
+        services.AddScoped<IValidator<ThermaCore.Application.DTOs.Definitions.UnitConversionDto>, ThermaCore.Application.Validations.Definitions.UnitConversionValidator>();
         services.AddScoped<IFittingService, FittingManager>();
         services.AddScoped<IValidator<FittingDto>, FittingValidator>();
         services.AddScoped<IAuthService, AuthManager>();
