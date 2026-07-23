@@ -28,13 +28,13 @@ public class UnitConversionManager : IUnitConversionService
         return _mapper.Map<UnitConversionDto>(entity);
     }
 
-    public IEnumerable<UnitConversionListDto> GetByEntityId(Guid entityId)
+    public IEnumerable<UnitConversionListDto> GetByEntityId(long entityId)
     {
         var entities = _repository.Find(x => x.EntityId == entityId).ToList();
         return _mapper.Map<IEnumerable<UnitConversionListDto>>(entities);
     }
 
-    public void SaveChanges(Guid entityId, IEnumerable<UnitConversionDto> conversions)
+    public void SaveChanges(long entityId, IEnumerable<UnitConversionDto> conversions)
     {
         var existingConversions = _repository.Find(x => x.EntityId == entityId).ToList();
         
@@ -65,6 +65,7 @@ public class UnitConversionManager : IUnitConversionService
             else
             {
                 var newEntity = _mapper.Map<UnitConversion>(dto);
+                newEntity.Id = ThermaCore.Domain.Helpers.IdGenerator.GenerateId();
                 newEntity.EntityId = entityId;
                 _repository.Add(newEntity);
             }

@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DevExpress.Utils.Menu;
+using DevExpress.XtraGrid.Views.Grid.ViewInfo;
 using ThermaCore.Application.DTOs.Definitions;
 using ThermaCore.Application.Interfaces.Definitions;
 using ThermaCore.Application.Interfaces.Repositories;
@@ -18,56 +20,153 @@ namespace ThermaCore.Presentation.WinForms.UserControls
     {
         private IUnitConversionService _unitConversionService;
         private IRepository<Unit> _unitRepository;
-        
-        // This is kept for designer support if needed
+
+        public bool IsDirty { get; private set; }
+        public event EventHandler OnDirtyChanged;
+
         public ucBirimCevrimleri()
         {
             InitializeComponent();
+
+            btnEkle.Click += btnEkle_Click;
+            gvBirimCevrimleri.RowDeleted += (s, e) => SetDirty();
+            gvBirimCevrimleri.PopupMenuShowing += GvBirimCevrimleri_PopupMenuShowing;
+
+            // Set default values and masks
+            txtCevrimMiktari.Properties.Mask.EditMask = "n5";
+            txtCevrimMiktari.Properties.Mask.UseMaskAsDisplayFormat = true;
+            txtCevrimMiktari.EditValue = 1m;
+            
+            txtAnaBirimMiktari.Properties.Mask.EditMask = "n5";
+            txtAnaBirimMiktari.Properties.Mask.UseMaskAsDisplayFormat = true;
+            txtAnaBirimMiktari.EditValue = 1m;
+            
+            txtAnaBirimAd.Properties.ReadOnly = true;
         }
 
-        // Dependency Injection constructor
-        public ucBirimCevrimleri(IUnitConversionService unitConversionService, IRepository<Unit> unitRepository) : this()
+        private void GvBirimCevrimleri_PopupMenuShowing(object sender, DevExpress.XtraGrid.Views.Grid.PopupMenuShowingEventArgs e)
         {
-            _unitConversionService = unitConversionService;
-            _unitRepository = unitRepository;
+            if (e.HitInfo.InRow)
+            {
+                var deleteItem = new DXMenuItem("Seçili Satırı Sil");
+                deleteItem.Click += (s, args) =>
+                {
+                    if (DevExpress.XtraEditors.XtraMessageBox.Show("Seçili birim çevrimini silmek istediğinize emin misiniz?", "Uyarı", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes)
+                        return;
+
+                    var bindingList = myGridControl1.DataSource as BindingList<UnitConversionListDto>;
+                    var row = gvBirimCevrimleri.GetFocusedRow() as UnitConversionListDto;
+                    if (bindingList != null && row != null)
+                    {
+                        bindingList.Remove(row);
+                        SetDirty();
+                    }
+                };
+                e.Menu.Items.Add(deleteItem);
+
+                var clearItem = new DXMenuItem("Tümünü Temizle");
+                clearItem.Click += (s, args) =>
+                {
+                    if (DevExpress.XtraEditors.XtraMessageBox.Show("Tüm birim çevrimlerini silmek istediğinize emin misiniz?", "Uyarı", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes)
+                        return;
+
+                    var bindingList = myGridControl1.DataSource as BindingList<UnitConversionListDto>;
+                    if (bindingList != null)
+                    {
+                        bindingList.Clear();
+                        SetDirty();
+                    }
+                };
+                e.Menu.Items.Add(clearItem);
+            }
         }
-        
-        // If your framework doesn't use constructor injection for UserControls,
-        // you can call this method to initialize dependencies.
+
         public void InitializeDependencies(IUnitConversionService unitConversionService, IRepository<Unit> unitRepository)
         {
             _unitConversionService = unitConversionService;
             _unitRepository = unitRepository;
         }
 
-        public void Yukle(Guid entityId)
+        private void SetDirty()
+        {
+            if (!IsDirty)
+            {
+                IsDirty = true;
+                OnDirtyChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        public void Yukle(long entityId, string anaBirimAdi)
         {
             if (_unitConversionService == null || _unitRepository == null) return;
-            
-            // Hedef Birim LookUp doldurma
-            var birimler = _unitRepository.GetAll().Select(u => new { u.Id, u.Code, u.Name }).ToList();
-            repositoryItemGridLookUpEdit1.DataSource = birimler;
-            repositoryItemGridLookUpEdit1.ValueMember = "Id";
-            repositoryItemGridLookUpEdit1.DisplayMember = "Name";
 
-            // Entity'e ait çevrimleri getir
+            txtAnaBirimAd.Text = anaBirimAdi;
+
+            var birimler = _unitRepository.GetAll().Where(x => x.IsActive).Select(u => new { u.Id, u.Code, u.Name }).ToList();
+            glufCevrilecekBirim.Properties.DataSource = birimler;
+            glufCevrilecekBirim.Properties.ValueMember = "Id";
+            glufCevrilecekBirim.Properties.DisplayMember = "Name";
+
             var conversions = _unitConversionService.GetByEntityId(entityId).ToList();
             
-            // Grid'in DataSource'unu ayarlayalım, yeni satır eklenebilmesi için BindingList kullanabiliriz
-            // DTO List formunda binding kolaylığı için
-            var bindingList = new BindingList<UnitConversionDto>(
-                conversions.Select(c => new UnitConversionDto 
-                { 
-                    Id = c.Id, 
-                    EntityId = c.EntityId, 
-                    UnitId = c.UnitId, 
-                    Multiplier = c.Multiplier, 
-                    Divisor = c.Divisor, 
-                    IsMainUnit = c.IsMainUnit 
-                }).ToList()
-            );
+            foreach (var c in conversions)
+            {
+                c.UnitName = birimler.FirstOrDefault(b => b.Id == c.UnitId)?.Name ?? string.Empty;
+            }
 
+            var bindingList = new BindingList<UnitConversionListDto>(conversions);
             myGridControl1.DataSource = bindingList;
+
+            IsDirty = false;
+        }
+
+        private void btnEkle_Click(object sender, EventArgs e)
+        {
+            if (glufCevrilecekBirim.EditValue == null || glufCevrilecekBirim.EditValue.ToString() == "")
+            {
+                DevExpress.XtraEditors.XtraMessageBox.Show("Lütfen çevrilecek birimi seçiniz.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var divisor = Convert.ToDecimal(txtCevrimMiktari.EditValue);
+            var multiplier = Convert.ToDecimal(txtAnaBirimMiktari.EditValue);
+
+            if (divisor <= 0 || multiplier <= 0)
+            {
+                DevExpress.XtraEditors.XtraMessageBox.Show("Miktarlar 0'dan büyük olmalıdır.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var unitId = Convert.ToInt64(glufCevrilecekBirim.EditValue);
+            var unitName = glufCevrilecekBirim.Text;
+
+            var bindingList = myGridControl1.DataSource as BindingList<UnitConversionListDto>;
+            if (bindingList != null)
+            {
+                if (bindingList.Any(x => x.UnitId == unitId))
+                {
+                    DevExpress.XtraEditors.XtraMessageBox.Show("Bu birim zaten listeye eklenmiş.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                var newDto = new UnitConversionListDto
+                {
+                    UnitId = unitId,
+                    UnitName = unitName,
+                    Divisor = divisor,
+                    Multiplier = multiplier,
+                    IsMainUnit = false
+                };
+
+                bindingList.Add(newDto);
+                SetDirty();
+
+                txtCevrimMiktari.EditValue = 1m;
+                txtAnaBirimMiktari.EditValue = 1m;
+                glufCevrilecekBirim.EditValue = null;
+                
+                gvBirimCevrimleri.MoveLast();
+            }
         }
 
         public void PostGridChanges()
@@ -76,17 +175,27 @@ namespace ThermaCore.Presentation.WinForms.UserControls
             gvBirimCevrimleri.UpdateCurrentRow();
         }
 
-        public void Kaydet(Guid entityId)
+        public void Kaydet(long entityId)
         {
             if (_unitConversionService == null) return;
-            
+
             PostGridChanges();
-            
-            var dataSource = myGridControl1.DataSource as BindingList<UnitConversionDto>;
+
+            var dataSource = myGridControl1.DataSource as BindingList<UnitConversionListDto>;
             if (dataSource != null)
             {
-                var conversionsToSave = dataSource.ToList();
+                var conversionsToSave = dataSource.Select(c => new UnitConversionDto
+                {
+                    Id = c.Id,
+                    EntityId = entityId,
+                    UnitId = c.UnitId,
+                    Multiplier = c.Multiplier,
+                    Divisor = c.Divisor,
+                    IsMainUnit = c.IsMainUnit
+                }).ToList();
+
                 _unitConversionService.SaveChanges(entityId, conversionsToSave);
+                IsDirty = false;
             }
         }
     }

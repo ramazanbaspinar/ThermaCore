@@ -12,8 +12,7 @@ public class UnitConversionProfile : Profile
 
         // Optional mapping to resolve UnitName if a repository provides it by Include
         CreateMap<UnitConversion, UnitConversionListDto>()
-            .ForMember(dest => dest.UnitName, opt => opt.MapFrom(src => "")); // Will be populated in service or projection if needed. Assuming Unit nav property is not defined or we don't have it.
-            
+            .ForMember(dest => dest.UnitName, opt => opt.MapFrom(src => src.Unit != null ? src.Unit.Name : string.Empty));
         // Wait, does UnitConversion have a Unit navigation property? I didn't add one in Domain.
         // Let me refine it:
     }
