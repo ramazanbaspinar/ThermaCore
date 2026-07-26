@@ -50,6 +50,13 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.BaglantiElemaniFo
                 {
                     picResim.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
                 }
+
+                if (ucBirimCevrimleri1 != null)
+                {
+                    var unitConversionService = Program.ServiceProvider.GetRequiredService<ThermaCore.Application.Interfaces.Definitions.IUnitConversionService>();
+                    ucBirimCevrimleri1.InitializeDependencies(unitConversionService, _unitRepository);
+                    ucBirimCevrimleri1.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
+                }
             }
         }
 
@@ -139,6 +146,11 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.BaglantiElemaniFo
             {
                 ucBarkodlar1.Yukle(Id, txtKod.Text, ModuleType.BaglantiElemaniTanimlari);
             }
+
+            if (ucBirimCevrimleri1 != null && glufTemelBirim != null)
+            {
+                ucBirimCevrimleri1.Yukle(Id, glufTemelBirim.Text);
+            }
         }
 
         protected override void GuncelNesneOlustur()
@@ -175,6 +187,11 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.BaglantiElemaniFo
                 ucBarkodlar1.PostGridChanges();
             }
 
+            if (ucBirimCevrimleri1 != null)
+            {
+                ucBirimCevrimleri1.PostGridChanges();
+            }
+
             try
             {
                 var dto = (FastenerDto)CurrentEntity;
@@ -185,6 +202,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.BaglantiElemaniFo
                 if (Id > 0)
                 {
                     if (ucBarkodlar1 != null) ucBarkodlar1.Kaydet(Id);
+                    if (ucBirimCevrimleri1 != null) ucBirimCevrimleri1.Kaydet(Id);
                     if (picResim != null) picResim.SavePicture("Fastener", Id);
                 }
 
@@ -210,12 +228,18 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.BaglantiElemaniFo
                 ucBarkodlar1.PostGridChanges();
             }
 
+            if (ucBirimCevrimleri1 != null)
+            {
+                ucBirimCevrimleri1.PostGridChanges();
+            }
+
             try
             {
                 var dto = (FastenerDto)CurrentEntity;
                 _fastenerService.Update(dto);
 
                 if (ucBarkodlar1 != null) ucBarkodlar1.Kaydet(Id);
+                if (ucBirimCevrimleri1 != null) ucBirimCevrimleri1.Kaydet(Id);
                 if (picResim != null) picResim.SavePicture("Fastener", Id);
 
                 return true;
@@ -390,8 +414,9 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.BaglantiElemaniFo
 
             bool isBarkodDirty = ucBarkodlar1 != null && ucBarkodlar1.IsDirty();
             bool isResimDirty = picResim != null && picResim.IsDirty();
+            bool isBirimCevrimDirty = ucBirimCevrimleri1 != null && ucBirimCevrimleri1.IsDirty;
 
-            if (isBarkodDirty || isResimDirty)
+            if (isBarkodDirty || isResimDirty || isBirimCevrimDirty)
             {
                 if (btnKaydet != null && !btnKaydet.Enabled) btnKaydet.Enabled = true;
                 if (btnGerial != null && !btnGerial.Enabled) btnGerial.Enabled = true;
