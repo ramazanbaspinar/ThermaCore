@@ -27,7 +27,8 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.DugmeForms
         public DugmeEditForm(
             IKnobService knobService,
             IUnitRepository unitRepository,
-            ISpecialCodeService specialCodeService)
+            ISpecialCodeService specialCodeService,
+            ThermaCore.Application.Interfaces.Definitions.IUnitConversionService unitConversionService)
         {
             InitializeComponent();
 
@@ -40,6 +41,9 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.DugmeForms
             RequiresCodeTemplate = true;
 
             picResim.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
+
+            ucBirimCevrimleri1.InitializeDependencies(unitConversionService, _unitRepository);
+            ucBirimCevrimleri1.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
         }
 
         public override void Yukle()
@@ -94,6 +98,8 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.DugmeForms
             {
                 txtKod.Text = "Yeni Kod";
             }
+
+            ucBirimCevrimleri1.Yukle(Id, dto.BaseUnit ?? string.Empty);
         }
 
         protected override void GuncelNesneOlustur()
@@ -117,6 +123,8 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.DugmeForms
 
         protected override bool EntityInsert()
         {
+            ucBirimCevrimleri1.PostGridChanges();
+
             try
             {
                 var dto = (KnobDto)CurrentEntity;
@@ -127,6 +135,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.DugmeForms
                 if (Id > 0)
                 {
                     picResim.SavePictureAsync("Knob", Id);
+                    ucBirimCevrimleri1.Kaydet(Id);
                 }
 
                 return Id > 0;
@@ -146,12 +155,15 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.DugmeForms
 
         protected override bool EntityUpdate()
         {
+            ucBirimCevrimleri1.PostGridChanges();
+
             try
             {
                 var dto = (KnobDto)CurrentEntity;
                 _knobService.Update(dto);
 
                 picResim.SavePictureAsync("Knob", Id);
+                ucBirimCevrimleri1.Kaydet(Id);
 
                 return true;
             }
@@ -254,7 +266,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.DugmeForms
         {
             base.ButonEnabledDurumu();
 
-            if (picResim.IsDirty())
+            if (picResim.IsDirty() || ucBirimCevrimleri1.IsDirty)
             {
                 if (btnKaydet != null && !btnKaydet.Enabled) btnKaydet.Enabled = true;
                 if (btnGerial != null && !btnGerial.Enabled) btnGerial.Enabled = true;
