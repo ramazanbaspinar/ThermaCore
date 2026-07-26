@@ -38,6 +38,10 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.AteslemeTrafosuFo
                 ucBarkodlar1.InitializeService(_itemBarcodeService);
                 ucBarkodlar1.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
                 picResim.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
+
+                var unitConversionService = Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ThermaCore.Application.Interfaces.Definitions.IUnitConversionService>(Program.ServiceProvider);
+                ucBirimCevrimleri1.InitializeDependencies(unitConversionService, _unitRepository);
+                ucBirimCevrimleri1.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
             }
         }
 
@@ -147,6 +151,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.AteslemeTrafosuFo
             }
             
             ucBarkodlar1.Yukle(Id, txtKod.Text, ModuleType.AteslemeTrafosuTanimlari);
+            ucBirimCevrimleri1.Yukle(Id, glufTemelBirim.Text);
         }
 
         protected override void GuncelNesneOlustur()
@@ -172,6 +177,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.AteslemeTrafosuFo
         protected override bool EntityInsert()
         {
             ucBarkodlar1.PostGridChanges();
+            ucBirimCevrimleri1.PostGridChanges();
 
             try
             {
@@ -182,6 +188,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.AteslemeTrafosuFo
                 if (Id > 0)
                 {
                     ucBarkodlar1.Kaydet(Id);
+                    ucBirimCevrimleri1.Kaydet(Id);
                     picResim.SavePicture("IgnitionTransformer", Id);
                 }
 
@@ -203,6 +210,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.AteslemeTrafosuFo
         protected override bool EntityUpdate()
         {
             ucBarkodlar1.PostGridChanges();
+            ucBirimCevrimleri1.PostGridChanges();
 
             try
             {
@@ -210,6 +218,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.AteslemeTrafosuFo
                 _service.Update(dto);
                 
                 ucBarkodlar1.Kaydet(Id);
+                ucBirimCevrimleri1.Kaydet(Id);
                 picResim.SavePicture("IgnitionTransformer", Id);
 
                 return true;
@@ -272,7 +281,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.AteslemeTrafosuFo
         {
             base.ButonEnabledDurumu();
 
-            if (ucBarkodlar1.IsDirty() || picResim.IsDirty())
+            if (ucBarkodlar1.IsDirty() || picResim.IsDirty() || ucBirimCevrimleri1.IsDirty)
             {
                 if (btnKaydet != null && !btnKaydet.Enabled) btnKaydet.Enabled = true;
                 if (btnGerial != null && !btnGerial.Enabled) btnGerial.Enabled = true;

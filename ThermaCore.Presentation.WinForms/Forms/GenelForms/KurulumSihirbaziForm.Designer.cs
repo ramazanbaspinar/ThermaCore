@@ -40,7 +40,6 @@
             DevExpress.XtraLayout.ColumnDefinition columnDefinition3 = new DevExpress.XtraLayout.ColumnDefinition();
             DevExpress.XtraLayout.RowDefinition rowDefinition8 = new DevExpress.XtraLayout.RowDefinition();
             myDataLayoutControl1 = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyDataLayoutControl();
-            btnKurulumuTamamla = new ThermaCore.Presentation.WinForms.UserControls.Controls.MySimpleButton();
             xtraTabControl1 = new DevExpress.XtraTab.XtraTabControl();
             xtraTabPage1 = new DevExpress.XtraTab.XtraTabPage();
             myDataLayoutControl2 = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyDataLayoutControl();
@@ -51,6 +50,7 @@
             cmbYetkilendirme = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyComboBoxEdit();
             txtMasterVeritabani = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyTextEdit();
             txtSunucuAdresi = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyTextEdit();
+            btnKurulumuTamamla = new ThermaCore.Presentation.WinForms.UserControls.Controls.MySimpleButton();
             layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
             layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
@@ -58,10 +58,10 @@
             layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem13 = new DevExpress.XtraLayout.LayoutControlItem();
-            Root = new DevExpress.XtraLayout.LayoutControlGroup();
-            layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem12 = new DevExpress.XtraLayout.LayoutControlItem();
+            Root = new DevExpress.XtraLayout.LayoutControlGroup();
+            layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)myDataLayoutControl1).BeginInit();
             myDataLayoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)xtraTabControl1).BeginInit();
@@ -81,10 +81,10 @@
             ((System.ComponentModel.ISupportInitialize)layoutControlItem7).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem13).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)Root).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)layoutControlItem1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem12).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)Root).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem1).BeginInit();
             SuspendLayout();
             // 
             // myDataLayoutControl1
@@ -99,24 +99,6 @@
             myDataLayoutControl1.Size = new Size(498, 298);
             myDataLayoutControl1.TabIndex = 0;
             myDataLayoutControl1.Text = "myDataLayoutControl1";
-            // 
-            // btnKurulumuTamamla
-            // 
-            btnKurulumuTamamla.Appearance.Font = new Font("Segoe UI", 9F);
-            btnKurulumuTamamla.Appearance.Options.UseFont = true;
-            btnKurulumuTamamla.AppearanceDisabled.Font = new Font("Segoe UI", 9F);
-            btnKurulumuTamamla.AppearanceDisabled.Options.UseFont = true;
-            btnKurulumuTamamla.AppearanceHovered.Font = new Font("Segoe UI", 9F);
-            btnKurulumuTamamla.AppearanceHovered.Options.UseFont = true;
-            btnKurulumuTamamla.AppearancePressed.Font = new Font("Segoe UI", 9F);
-            btnKurulumuTamamla.AppearancePressed.Options.UseFont = true;
-            btnKurulumuTamamla.Location = new Point(12, 198);
-            btnKurulumuTamamla.Name = "btnKurulumuTamamla";
-            btnKurulumuTamamla.Size = new Size(448, 22);
-            btnKurulumuTamamla.StatusBarAciklama = null;
-            btnKurulumuTamamla.StyleController = myDataLayoutControl2;
-            btnKurulumuTamamla.TabIndex = 0;
-            btnKurulumuTamamla.Text = "Yeni Veritabanı Kur (Ana Sunucu)";
             // 
             // xtraTabControl1
             // 
@@ -206,6 +188,7 @@
             txtDbSifre.Properties.AppearanceReadOnly.Font = new Font("Segoe UI", 9F);
             txtDbSifre.Properties.AppearanceReadOnly.Options.UseFont = true;
             txtDbSifre.Properties.MaxLength = 100;
+            txtDbSifre.Properties.UseSystemPasswordChar = true;
             txtDbSifre.Size = new Size(327, 22);
             txtDbSifre.StatusBarAciklama = null;
             txtDbSifre.StyleController = myDataLayoutControl2;
@@ -306,6 +289,24 @@
             txtSunucuAdresi.StatusBarAciklama = null;
             txtSunucuAdresi.StyleController = myDataLayoutControl2;
             txtSunucuAdresi.TabIndex = 0;
+            // 
+            // btnKurulumuTamamla
+            // 
+            btnKurulumuTamamla.Appearance.Font = new Font("Segoe UI", 9F);
+            btnKurulumuTamamla.Appearance.Options.UseFont = true;
+            btnKurulumuTamamla.AppearanceDisabled.Font = new Font("Segoe UI", 9F);
+            btnKurulumuTamamla.AppearanceDisabled.Options.UseFont = true;
+            btnKurulumuTamamla.AppearanceHovered.Font = new Font("Segoe UI", 9F);
+            btnKurulumuTamamla.AppearanceHovered.Options.UseFont = true;
+            btnKurulumuTamamla.AppearancePressed.Font = new Font("Segoe UI", 9F);
+            btnKurulumuTamamla.AppearancePressed.Options.UseFont = true;
+            btnKurulumuTamamla.Location = new Point(12, 198);
+            btnKurulumuTamamla.Name = "btnKurulumuTamamla";
+            btnKurulumuTamamla.Size = new Size(448, 22);
+            btnKurulumuTamamla.StatusBarAciklama = null;
+            btnKurulumuTamamla.StyleController = myDataLayoutControl2;
+            btnKurulumuTamamla.TabIndex = 0;
+            btnKurulumuTamamla.Text = "Yeni Veritabanı Kur (Ana Sunucu)";
             // 
             // layoutControlGroup1
             // 
@@ -411,6 +412,31 @@
             layoutControlItem13.Size = new Size(226, 31);
             layoutControlItem13.TextVisible = false;
             // 
+            // layoutControlItem3
+            // 
+            layoutControlItem3.AppearanceItemCaption.Font = new Font("Segoe UI", 9F);
+            layoutControlItem3.AppearanceItemCaption.Options.UseFont = true;
+            layoutControlItem3.Control = txtMasterVeritabani;
+            layoutControlItem3.Location = new Point(0, 31);
+            layoutControlItem3.Name = "layoutControlItem3";
+            layoutControlItem3.OptionsTableLayoutItem.ColumnSpan = 2;
+            layoutControlItem3.OptionsTableLayoutItem.RowIndex = 1;
+            layoutControlItem3.Size = new Size(452, 31);
+            layoutControlItem3.Text = "Veritabanı Adı";
+            layoutControlItem3.TextSize = new Size(109, 15);
+            // 
+            // layoutControlItem12
+            // 
+            layoutControlItem12.AppearanceItemCaption.Font = new Font("Segoe UI", 9F);
+            layoutControlItem12.AppearanceItemCaption.Options.UseFont = true;
+            layoutControlItem12.Control = btnKurulumuTamamla;
+            layoutControlItem12.Location = new Point(0, 186);
+            layoutControlItem12.Name = "layoutControlItem12";
+            layoutControlItem12.OptionsTableLayoutItem.ColumnSpan = 2;
+            layoutControlItem12.OptionsTableLayoutItem.RowIndex = 6;
+            layoutControlItem12.Size = new Size(452, 43);
+            layoutControlItem12.TextVisible = false;
+            // 
             // Root
             // 
             Root.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
@@ -436,31 +462,6 @@
             layoutControlItem1.Name = "layoutControlItem1";
             layoutControlItem1.Size = new Size(478, 278);
             layoutControlItem1.TextVisible = false;
-            // 
-            // layoutControlItem3
-            // 
-            layoutControlItem3.AppearanceItemCaption.Font = new Font("Segoe UI", 9F);
-            layoutControlItem3.AppearanceItemCaption.Options.UseFont = true;
-            layoutControlItem3.Control = txtMasterVeritabani;
-            layoutControlItem3.Location = new Point(0, 31);
-            layoutControlItem3.Name = "layoutControlItem3";
-            layoutControlItem3.OptionsTableLayoutItem.ColumnSpan = 2;
-            layoutControlItem3.OptionsTableLayoutItem.RowIndex = 1;
-            layoutControlItem3.Size = new Size(452, 31);
-            layoutControlItem3.Text = "Veritabanı Adı";
-            layoutControlItem3.TextSize = new Size(109, 15);
-            // 
-            // layoutControlItem12
-            // 
-            layoutControlItem12.AppearanceItemCaption.Font = new Font("Segoe UI", 9F);
-            layoutControlItem12.AppearanceItemCaption.Options.UseFont = true;
-            layoutControlItem12.Control = btnKurulumuTamamla;
-            layoutControlItem12.Location = new Point(0, 186);
-            layoutControlItem12.Name = "layoutControlItem12";
-            layoutControlItem12.OptionsTableLayoutItem.ColumnSpan = 2;
-            layoutControlItem12.OptionsTableLayoutItem.RowIndex = 6;
-            layoutControlItem12.Size = new Size(452, 43);
-            layoutControlItem12.TextVisible = false;
             // 
             // KurulumSihirbaziForm
             // 
@@ -495,10 +496,10 @@
             ((System.ComponentModel.ISupportInitialize)layoutControlItem7).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem2).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem13).EndInit();
-            ((System.ComponentModel.ISupportInitialize)Root).EndInit();
-            ((System.ComponentModel.ISupportInitialize)layoutControlItem1).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem3).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem12).EndInit();
+            ((System.ComponentModel.ISupportInitialize)Root).EndInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem1).EndInit();
             ResumeLayout(false);
         }
 

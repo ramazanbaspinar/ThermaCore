@@ -366,7 +366,11 @@
             // colDivisor
             // 
             colDivisor.Caption = "Çevrim Miktarı";
+            colDivisor.DisplayFormat.FormatString = "n5";
+            colDivisor.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             colDivisor.FieldName = "Divisor";
+            colDivisor.GroupFormat.FormatString = "n5";
+            colDivisor.GroupFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             colDivisor.Name = "colDivisor";
             colDivisor.OptionsColumn.AllowEdit = false;
             colDivisor.StatusBarAciklama = null;
@@ -379,7 +383,11 @@
             // colMultiplier
             // 
             colMultiplier.Caption = "Ana Birim Miktarı";
+            colMultiplier.DisplayFormat.FormatString = "n5";
+            colMultiplier.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             colMultiplier.FieldName = "Multiplier";
+            colMultiplier.GroupFormat.FormatString = "n5";
+            colMultiplier.GroupFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             colMultiplier.Name = "colMultiplier";
             colMultiplier.OptionsColumn.AllowEdit = false;
             colMultiplier.StatusBarAciklama = null;
