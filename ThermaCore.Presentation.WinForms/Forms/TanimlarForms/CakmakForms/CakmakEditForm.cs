@@ -26,6 +26,20 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.CakmakForms
                 _unitRepository = Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetService<ThermaCore.Application.Interfaces.Repositories.Definitions.IUnitRepository>(Program.ServiceProvider);
                 _specialCodeService = Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetService<ThermaCore.Application.Interfaces.Common.ISpecialCodeService>(Program.ServiceProvider);
                 BaseKartTuru = ThermaCore.Domain.Enums.ModuleType.CakmakTanimlari;
+
+                var itemBarcodeService = Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetService<ThermaCore.Application.Interfaces.Common.IItemBarcodeService>(Program.ServiceProvider);
+                if (itemBarcodeService != null)
+                {
+                    ucBarkodlar1.InitializeService(itemBarcodeService);
+                    ucBarkodlar1.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
+                }
+
+                var unitConversionService = Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetService<ThermaCore.Application.Interfaces.Definitions.IUnitConversionService>(Program.ServiceProvider);
+                if (unitConversionService != null && _unitRepository != null)
+                {
+                    ucBirimCevrimleri1.InitializeDependencies(unitConversionService, _unitRepository);
+                    ucBirimCevrimleri1.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
+                }
             }
         }
 
@@ -33,7 +47,8 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.CakmakForms
             ISparkPlugService sparkPlugService,
             ThermaCore.Application.Interfaces.Common.IItemBarcodeService itemBarcodeService,
             ThermaCore.Application.Interfaces.Repositories.Definitions.IUnitRepository unitRepository,
-            ThermaCore.Application.Interfaces.Common.ISpecialCodeService specialCodeService)
+            ThermaCore.Application.Interfaces.Common.ISpecialCodeService specialCodeService,
+            ThermaCore.Application.Interfaces.Definitions.IUnitConversionService unitConversionService)
         {
             InitializeComponent();
 
@@ -48,6 +63,9 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.CakmakForms
             ucBarkodlar1.InitializeService(itemBarcodeService);
             ucBarkodlar1.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
             picResim.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
+
+            ucBirimCevrimleri1.InitializeDependencies(unitConversionService, _unitRepository);
+            ucBirimCevrimleri1.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
         }
 
         public override void Yukle()
@@ -104,6 +122,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.CakmakForms
             }
 
             ucBarkodlar1.Yukle(Id, txtKod.Text, ThermaCore.Domain.Enums.ModuleType.CakmakTanimlari);
+            ucBirimCevrimleri1.Yukle(Id, dto.BaseUnit ?? string.Empty);
         }
 
         protected override void GuncelNesneOlustur()
@@ -129,6 +148,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.CakmakForms
         protected override bool EntityInsert()
         {
             ucBarkodlar1.PostGridChanges();
+            ucBirimCevrimleri1.PostGridChanges();
 
             try
             {
@@ -140,6 +160,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.CakmakForms
                 if (Id > 0)
                 {
                     ucBarkodlar1.Kaydet(Id);
+                    ucBirimCevrimleri1.Kaydet(Id);
                     picResim.SavePicture("SparkPlug", Id);
                 }
 
@@ -161,6 +182,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.CakmakForms
         protected override bool EntityUpdate()
         {
             ucBarkodlar1.PostGridChanges();
+            ucBirimCevrimleri1.PostGridChanges();
 
             try
             {
@@ -168,6 +190,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.CakmakForms
                 _sparkPlugService.Update(dto);
 
                 ucBarkodlar1.Kaydet(Id);
+                ucBirimCevrimleri1.Kaydet(Id);
                 picResim.SavePicture("SparkPlug", Id);
 
                 return true;
@@ -272,7 +295,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.CakmakForms
         {
             base.ButonEnabledDurumu();
 
-            if (ucBarkodlar1.IsDirty() || picResim.IsDirty())
+            if (ucBarkodlar1.IsDirty() || picResim.IsDirty() || (ucBirimCevrimleri1 != null && ucBirimCevrimleri1.IsDirty))
             {
                 if (btnKaydet != null && !btnKaydet.Enabled) btnKaydet.Enabled = true;
                 if (btnGerial != null && !btnGerial.Enabled) btnGerial.Enabled = true;
