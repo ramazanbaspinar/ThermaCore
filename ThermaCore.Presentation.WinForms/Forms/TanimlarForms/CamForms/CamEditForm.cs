@@ -28,7 +28,8 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.CamForms
             IOvenGlassService ovenGlassService,
             IItemBarcodeService itemBarcodeService,
             IUnitRepository unitRepository,
-            ISpecialCodeService specialCodeService)
+            ISpecialCodeService specialCodeService,
+            ThermaCore.Application.Interfaces.Definitions.IUnitConversionService unitConversionService)
         {
             InitializeComponent();
 
@@ -43,6 +44,9 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.CamForms
             ucBarkodlar1.InitializeService(itemBarcodeService);
             ucBarkodlar1.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
             picResim.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
+
+            ucBirimCevrimleri1.InitializeDependencies(unitConversionService, _unitRepository);
+            ucBirimCevrimleri1.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
         }
 
         public override void Yukle()
@@ -121,6 +125,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.CamForms
             }
 
             ucBarkodlar1.Yukle(Id, txtKod.Text, ModuleType.CamTanimlari);
+            ucBirimCevrimleri1.Yukle(Id, dto.BaseUnit ?? string.Empty);
         }
 
         protected override void GuncelNesneOlustur()
@@ -155,6 +160,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.CamForms
         protected override bool EntityInsert()
         {
             ucBarkodlar1.PostGridChanges();
+            ucBirimCevrimleri1.PostGridChanges();
 
             try
             {
@@ -167,6 +173,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.CamForms
                 {
                     ucBarkodlar1.Kaydet(Id);
                     picResim.SavePictureAsync("OvenGlass", Id);
+                    ucBirimCevrimleri1.Kaydet(Id);
                 }
 
                 return Id > 0;
@@ -187,6 +194,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.CamForms
         protected override bool EntityUpdate()
         {
             ucBarkodlar1.PostGridChanges();
+            ucBirimCevrimleri1.PostGridChanges();
 
             try
             {
@@ -195,6 +203,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.CamForms
 
                 ucBarkodlar1.Kaydet(Id);
                 picResim.SavePictureAsync("OvenGlass", Id);
+                ucBirimCevrimleri1.Kaydet(Id);
 
                 return true;
             }
@@ -331,7 +340,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.CamForms
         {
             base.ButonEnabledDurumu();
 
-            if (picResim.IsDirty() || ucBarkodlar1.IsDirty())
+            if (picResim.IsDirty() || ucBarkodlar1.IsDirty() || ucBirimCevrimleri1.IsDirty)
             {
                 if (btnKaydet != null && !btnKaydet.Enabled) btnKaydet.Enabled = true;
                 if (btnGerial != null && !btnGerial.Enabled) btnGerial.Enabled = true;
