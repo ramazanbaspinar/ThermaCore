@@ -33,7 +33,8 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.BekForms
             IBurnerService burnerService,
             ThermaCore.Application.Interfaces.Common.IItemBarcodeService itemBarcodeService,
             ThermaCore.Application.Interfaces.Repositories.Definitions.IUnitRepository unitRepository,
-            ThermaCore.Application.Interfaces.Common.ISpecialCodeService specialCodeService)
+            ThermaCore.Application.Interfaces.Common.ISpecialCodeService specialCodeService,
+            ThermaCore.Application.Interfaces.Definitions.IUnitConversionService unitConversionService)
         {
             InitializeComponent();
 
@@ -48,6 +49,9 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.BekForms
             ucBarkodlar1.InitializeService(itemBarcodeService);
             ucBarkodlar1.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
             picResim.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
+
+            ucBirimCevrimleri1.InitializeDependencies(unitConversionService, _unitRepository);
+            ucBirimCevrimleri1.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
         }
 
         public override void Yukle()
@@ -109,6 +113,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.BekForms
             }
 
             ucBarkodlar1.Yukle(Id, txtKod.Text, ThermaCore.Domain.Enums.ModuleType.BekGrubuTanimlari);
+            ucBirimCevrimleri1.Yukle(Id, glufTemelBirim.Text);
         }
 
         protected override void GuncelNesneOlustur()
@@ -135,6 +140,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.BekForms
         protected override bool EntityInsert()
         {
             ucBarkodlar1.PostGridChanges();
+            ucBirimCevrimleri1.PostGridChanges();
 
             try
             {
@@ -146,6 +152,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.BekForms
                 if (Id > 0)
                 {
                     ucBarkodlar1.Kaydet(Id);
+                    ucBirimCevrimleri1.Kaydet(Id);
                     picResim.SavePicture("Burner", Id);
                 }
                 
@@ -167,6 +174,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.BekForms
         protected override bool EntityUpdate()
         {
             ucBarkodlar1.PostGridChanges();
+            ucBirimCevrimleri1.PostGridChanges();
 
             try
             {
@@ -174,6 +182,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.BekForms
                 _burnerService.Update(dto);
                 
                 ucBarkodlar1.Kaydet(Id);
+                ucBirimCevrimleri1.Kaydet(Id);
                 picResim.SavePicture("Burner", Id);
 
                 return true;
@@ -189,6 +198,23 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.BekForms
                 ThermaCore.Presentation.WinForms.Helpers.Messages.HataBasligi(msg, "Kayıt Hatası");
                 return false;
             }
+        }
+
+        protected internal override void ButonEnabledDurumu()
+        {
+            base.ButonEnabledDurumu();
+
+            bool isBarkodDirty = ucBarkodlar1 != null && ucBarkodlar1.IsDirty();
+            bool isResimDirty = picResim != null && picResim.IsDirty();
+            bool isBirimCevrimDirty = ucBirimCevrimleri1 != null && ucBirimCevrimleri1.IsDirty;
+
+            if (isBarkodDirty || isResimDirty || isBirimCevrimDirty)
+            {
+                if (btnKaydet != null && !btnKaydet.Enabled) btnKaydet.Enabled = true;
+                if (btnGerial != null && !btnGerial.Enabled) btnGerial.Enabled = true;
+            }
+
+            YetkiKontroluYap();
         }
 
         protected override void EntityDelete()
