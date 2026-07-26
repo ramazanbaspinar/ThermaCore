@@ -76,11 +76,13 @@
             layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             tpBarkodIslemleri = new DevExpress.XtraTab.XtraTabPage();
             ucBarkodlar1 = new ThermaCore.Presentation.WinForms.UserControls.ucBarkodlar();
+            tpBirimCevirileri = new DevExpress.XtraTab.XtraTabPage();
             txtPisirmeFirinDerecesi = new ThermaCore.Presentation.WinForms.UserControls.Controls.MySpinEdit();
             txtTermalSokDayanimi = new ThermaCore.Presentation.WinForms.UserControls.Controls.MySpinEdit();
             layoutControlGroup2 = new DevExpress.XtraLayout.LayoutControlGroup();
             layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem10 = new DevExpress.XtraLayout.LayoutControlItem();
+            ucBirimCevrimleri1 = new ThermaCore.Presentation.WinForms.UserControls.ucBirimCevrimleri();
             ((System.ComponentModel.ISupportInitialize)ribbon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)xtraTabControl1).BeginInit();
             xtraTabControl1.SuspendLayout();
@@ -116,6 +118,7 @@
             ((System.ComponentModel.ISupportInitialize)layoutControlItem1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem3).BeginInit();
             tpBarkodIslemleri.SuspendLayout();
+            tpBirimCevirileri.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)txtPisirmeFirinDerecesi.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtTermalSokDayanimi.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlGroup2).BeginInit();
@@ -137,7 +140,7 @@
             xtraTabControl1.SelectedTabPage = tpTemelBilgiler;
             xtraTabControl1.Size = new Size(498, 415);
             xtraTabControl1.TabIndex = 0;
-            xtraTabControl1.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] { tpTemelBilgiler, tpBarkodIslemleri });
+            xtraTabControl1.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] { tpTemelBilgiler, tpBarkodIslemleri, tpBirimCevirileri });
             // 
             // tpTemelBilgiler
             // 
@@ -508,6 +511,13 @@
             ucBarkodlar1.Size = new Size(496, 390);
             ucBarkodlar1.TabIndex = 0;
             // 
+            // tpBirimCevirileri
+            // 
+            tpBirimCevirileri.Controls.Add(ucBirimCevrimleri1);
+            tpBirimCevirileri.Name = "tpBirimCevirileri";
+            tpBirimCevirileri.Size = new Size(496, 390);
+            tpBirimCevirileri.Text = "Birim Çevirileri";
+            // 
             // txtPisirmeFirinDerecesi
             // 
             txtPisirmeFirinDerecesi.EditValue = new decimal(new int[] { 0, 0, 0, 0 });
@@ -576,6 +586,14 @@
             layoutControlItem10.Text = "Termal Şok Dayanımı (°C)";
             layoutControlItem10.TextSize = new Size(50, 20);
             // 
+            // ucBirimCevrimleri1
+            // 
+            ucBirimCevrimleri1.Dock = DockStyle.Fill;
+            ucBirimCevrimleri1.Location = new Point(0, 0);
+            ucBirimCevrimleri1.Name = "ucBirimCevrimleri1";
+            ucBirimCevrimleri1.Size = new Size(496, 390);
+            ucBirimCevrimleri1.TabIndex = 0;
+            // 
             // EmayeEditForm
             // 
             AutoScaleDimensions = new SizeF(6F, 13F);
@@ -623,6 +641,7 @@
             ((System.ComponentModel.ISupportInitialize)layoutControlItem1).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem3).EndInit();
             tpBarkodIslemleri.ResumeLayout(false);
+            tpBirimCevirileri.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)txtPisirmeFirinDerecesi.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtTermalSokDayanimi.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlGroup2).EndInit();
@@ -671,5 +690,7 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem10;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn2;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn1;
+        private DevExpress.XtraTab.XtraTabPage tpBirimCevirileri;
+        private UserControls.ucBirimCevrimleri ucBirimCevrimleri1;
     }
 }
