@@ -38,6 +38,10 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.ContaForms
                 ucBarkodlar1.InitializeService(_itemBarcodeService);
                 ucBarkodlar1.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
                 picResim.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
+
+                var unitConversionService = Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ThermaCore.Application.Interfaces.Definitions.IUnitConversionService>(Program.ServiceProvider);
+                ucBirimCevrimleri1.InitializeDependencies(unitConversionService, _unitRepository);
+                ucBirimCevrimleri1.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
             }
         }
 
@@ -99,6 +103,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.ContaForms
             }
 
             ucBarkodlar1.Yukle(Id, txtKod.Text, ThermaCore.Domain.Enums.ModuleType.ContaTanimlari);
+            ucBirimCevrimleri1.Yukle(Id, dto.BaseUnit ?? string.Empty);
         }
 
         protected override void GuncelNesneOlustur()
@@ -142,6 +147,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.ContaForms
         protected override bool EntityInsert()
         {
             ucBarkodlar1.PostGridChanges();
+            ucBirimCevrimleri1.PostGridChanges();
 
             try
             {
@@ -154,6 +160,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.ContaForms
                 {
                     ucBarkodlar1.Kaydet(Id);
                     picResim.SavePicture("Gasket", Id);
+                    ucBirimCevrimleri1.Kaydet(Id);
                 }
 
                 return Id > 0;
@@ -174,6 +181,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.ContaForms
         protected override bool EntityUpdate()
         {
             ucBarkodlar1.PostGridChanges();
+            ucBirimCevrimleri1.PostGridChanges();
 
             try
             {
@@ -182,6 +190,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.ContaForms
 
                 ucBarkodlar1.Kaydet(Id);
                 picResim.SavePicture("Gasket", Id);
+                ucBirimCevrimleri1.Kaydet(Id);
 
                 return true;
             }
@@ -287,7 +296,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.ContaForms
         {
             base.ButonEnabledDurumu();
 
-            if (ucBarkodlar1.IsDirty() || picResim.IsDirty())
+            if (ucBarkodlar1.IsDirty() || picResim.IsDirty() || ucBirimCevrimleri1.IsDirty)
             {
                 if (btnKaydet != null && !btnKaydet.Enabled) btnKaydet.Enabled = true;
                 if (btnGerial != null && !btnGerial.Enabled) btnGerial.Enabled = true;
