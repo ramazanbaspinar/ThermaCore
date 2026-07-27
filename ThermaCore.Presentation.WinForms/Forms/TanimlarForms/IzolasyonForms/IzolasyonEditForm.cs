@@ -33,6 +33,14 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.IzolasyonForms
             ucBarkodlar1.InitializeService(_itemBarcodeService);
             ucBarkodlar1.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
             picResim.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
+
+            if (ucBirimCevrimleri1 != null && Program.ServiceProvider != null)
+            {
+                var unitConversionService = Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ThermaCore.Application.Interfaces.Definitions.IUnitConversionService>(Program.ServiceProvider);
+                var _unitRepository = Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ThermaCore.Application.Interfaces.Repositories.Definitions.IUnitRepository>(Program.ServiceProvider);
+                ucBirimCevrimleri1.InitializeDependencies(unitConversionService, _unitRepository);
+                ucBirimCevrimleri1.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
+            }
         }
 
         public override void Yukle()
@@ -101,6 +109,11 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.IzolasyonForms
             }
 
             ucBarkodlar1.Yukle(Id, txtKod.Text, ModuleType.IzolasyonTanimlari);
+
+            if (ucBirimCevrimleri1 != null)
+            {
+                ucBirimCevrimleri1.Yukle(Id, dto.BaseUnit ?? string.Empty);
+            }
         }
 
         protected override void GuncelNesneOlustur()
@@ -162,6 +175,11 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.IzolasyonForms
                     txtKod.Text = dto.Code;
                     picResim.SavePicture("Insulation", Id);
                     ucBarkodlar1.Kaydet(Id);
+                    if (ucBirimCevrimleri1 != null)
+                    {
+                        ucBirimCevrimleri1.PostGridChanges();
+                        ucBirimCevrimleri1.Kaydet(Id);
+                    }
                 }
                 return Id > 0;
             }
@@ -188,6 +206,13 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.IzolasyonForms
                 _insulationService.Update(dto);
                 picResim.SavePicture("Insulation", Id);
                 ucBarkodlar1.Kaydet(Id);
+                
+                if (ucBirimCevrimleri1 != null)
+                {
+                    ucBirimCevrimleri1.PostGridChanges();
+                    ucBirimCevrimleri1.Kaydet(Id);
+                }
+
                 return true;
             }
             catch (FluentValidation.ValidationException ex)
@@ -295,7 +320,11 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.IzolasyonForms
         {
             base.ButonEnabledDurumu();
 
-            if (ucBarkodlar1.IsDirty() || picResim.IsDirty())
+            bool isBarkodDirty = ucBarkodlar1 != null && ucBarkodlar1.IsDirty();
+            bool isResimDirty = picResim != null && picResim.IsDirty();
+            bool isBirimCevrimDirty = ucBirimCevrimleri1 != null && ucBirimCevrimleri1.IsDirty;
+
+            if (isBarkodDirty || isResimDirty || isBirimCevrimDirty)
             {
                 if (btnKaydet != null && !btnKaydet.Enabled) btnKaydet.Enabled = true;
                 if (btnGerial != null && !btnGerial.Enabled) btnGerial.Enabled = true;
