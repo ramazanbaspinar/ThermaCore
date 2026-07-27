@@ -44,6 +44,13 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.EtiketForms
                     ucBarkodlar1.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
                 }
 
+                if (ucBirimCevrimleri1 != null)
+                {
+                    var unitConversionService = Program.ServiceProvider.GetRequiredService<IUnitConversionService>();
+                    ucBirimCevrimleri1.InitializeDependencies(unitConversionService, _unitRepository);
+                    ucBirimCevrimleri1.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
+                }
+
                 if (picResim != null)
                 {
                     picResim.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
@@ -123,6 +130,11 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.EtiketForms
             {
                 ucBarkodlar1.Yukle(Id, txtKod.Text, ModuleType.EtiketTanimlari);
             }
+
+            if (ucBirimCevrimleri1 != null)
+            {
+                ucBirimCevrimleri1.Yukle(Id, dto.BaseUnit ?? string.Empty);
+            }
         }
 
         protected override void GuncelNesneOlustur()
@@ -176,6 +188,11 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.EtiketForms
                 {
                     if (ucBarkodlar1 != null) ucBarkodlar1.Kaydet(Id);
                     if (picResim != null) picResim.SavePicture("ProductLabel", Id);
+                    if (ucBirimCevrimleri1 != null)
+                    {
+                        ucBirimCevrimleri1.PostGridChanges();
+                        ucBirimCevrimleri1.Kaydet(Id);
+                    }
                 }
 
                 return Id > 0;
@@ -207,6 +224,11 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.EtiketForms
 
                 if (ucBarkodlar1 != null) ucBarkodlar1.Kaydet(Id);
                 if (picResim != null) picResim.SavePicture("ProductLabel", Id);
+                if (ucBirimCevrimleri1 != null)
+                {
+                    ucBirimCevrimleri1.PostGridChanges();
+                    ucBirimCevrimleri1.Kaydet(Id);
+                }
 
                 return true;
             }
@@ -354,8 +376,9 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.EtiketForms
 
             bool isBarkodDirty = ucBarkodlar1 != null && ucBarkodlar1.IsDirty();
             bool isResimDirty = picResim != null && picResim.IsDirty();
+            bool isBirimCevrimDirty = ucBirimCevrimleri1 != null && ucBirimCevrimleri1.IsDirty;
 
-            if (isBarkodDirty || isResimDirty)
+            if (isBarkodDirty || isResimDirty || isBirimCevrimDirty)
             {
                 if (btnKaydet != null && !btnKaydet.Enabled) btnKaydet.Enabled = true;
                 if (btnGerial != null && !btnGerial.Enabled) btnGerial.Enabled = true;
