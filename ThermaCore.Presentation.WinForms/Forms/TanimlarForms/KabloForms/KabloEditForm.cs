@@ -40,6 +40,13 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.KabloForms
             RequiresCodeTemplate = true;
 
             picResim.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
+
+            if (ucBirimCevrimleri1 != null && Program.ServiceProvider != null)
+            {
+                var unitConversionService = Program.ServiceProvider.GetRequiredService<ThermaCore.Application.Interfaces.Definitions.IUnitConversionService>();
+                ucBirimCevrimleri1.InitializeDependencies(unitConversionService, _unitRepository);
+                ucBirimCevrimleri1.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
+            }
         }
 
         public override void Yukle()
@@ -112,6 +119,11 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.KabloForms
             {
                 txtKod.Text = "Yeni Kod";
             }
+
+            if (ucBirimCevrimleri1 != null)
+            {
+                ucBirimCevrimleri1.Yukle(Id, dto.BaseUnit ?? string.Empty);
+            }
         }
 
         protected override void GuncelNesneOlustur()
@@ -147,6 +159,11 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.KabloForms
                 if (Id > 0)
                 {
                     picResim.SavePictureAsync("Cable", Id);
+                    if (ucBirimCevrimleri1 != null)
+                    {
+                        ucBirimCevrimleri1.PostGridChanges();
+                        ucBirimCevrimleri1.Kaydet(Id);
+                    }
                 }
 
                 return Id > 0;
@@ -172,6 +189,12 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.KabloForms
                 _cableService.Update(dto);
 
                 picResim.SavePictureAsync("Cable", Id);
+
+                if (ucBirimCevrimleri1 != null)
+                {
+                    ucBirimCevrimleri1.PostGridChanges();
+                    ucBirimCevrimleri1.Kaydet(Id);
+                }
 
                 return true;
             }
@@ -274,7 +297,10 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.KabloForms
         {
             base.ButonEnabledDurumu();
 
-            if (picResim.IsDirty())
+            bool isResimDirty = picResim != null && picResim.IsDirty();
+            bool isBirimCevrimDirty = ucBirimCevrimleri1 != null && ucBirimCevrimleri1.IsDirty;
+
+            if (isResimDirty || isBirimCevrimDirty)
             {
                 if (btnKaydet != null && !btnKaydet.Enabled) btnKaydet.Enabled = true;
                 if (btnGerial != null && !btnGerial.Enabled) btnGerial.Enabled = true;
