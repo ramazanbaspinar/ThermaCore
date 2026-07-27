@@ -201,7 +201,7 @@ internal static class Program
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.FanForms.FanListForm>();
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.FanForms.FanEditForm>();
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.GazForms.GazListForm>();
-                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.GazForms.GazEditForm>();
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.GazForms.GazMusluguEditForm>();
                 
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.GazBorusuForms.GazBorusuListForm>();
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.GazBorusuForms.GazBorusuEditForm>();

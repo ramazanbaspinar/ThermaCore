@@ -96,7 +96,7 @@
             myGridView1.StatusBarAciklama = null;
             myGridView1.StatusBarKisaYol = null;
             myGridView1.StatusBarKisaYolAciklama = null;
-            myGridView1.ViewCaption = "Gaz Tanımları";
+            myGridView1.ViewCaption = "Gaz Musluğu Tanımları";
             // 
             // colId
             // 
@@ -211,7 +211,7 @@
             Controls.Add(longNavigator1);
             IconOptions.ShowIcon = false;
             Name = "GazListForm";
-            Text = "Gaz Tanımları";
+            Text = "Gaz Musluğu Tanımları";
             Controls.SetChildIndex(ribbon, 0);
             Controls.SetChildIndex(longNavigator1, 0);
             Controls.SetChildIndex(myGridControl1, 0);

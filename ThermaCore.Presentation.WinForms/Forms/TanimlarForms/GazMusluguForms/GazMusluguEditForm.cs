@@ -16,20 +16,20 @@ using ThermaCore.Presentation.WinForms.Helpers;
 
 namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.GazForms
 {
-    public partial class GazEditForm : BaseEditForm
+    public partial class GazMusluguEditForm : BaseEditForm
     {
         private readonly IGasValveService _gasValveService = default!;
         private readonly ThermaCore.Application.Interfaces.Repositories.Definitions.IUnitRepository _unitRepository = default!;
         private readonly ThermaCore.Application.Interfaces.Common.ISpecialCodeService _specialCodeService = default!;
 
         // DevExpress Designer için parametresiz kurucu
-        public GazEditForm()
+        public GazMusluguEditForm()
         {
             InitializeComponent();
         }
 
         // DI Constructor
-        public GazEditForm(
+        public GazMusluguEditForm(
             IGasValveService gasValveService,
             ThermaCore.Application.Interfaces.Common.IItemBarcodeService itemBarcodeService,
             ThermaCore.Application.Interfaces.Repositories.Definitions.IUnitRepository unitRepository,
@@ -48,6 +48,13 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.GazForms
             ucBarkodlar1.InitializeService(itemBarcodeService);
             ucBarkodlar1.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
             picResim.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
+
+            if (ucBirimCevrimleri1 != null)
+            {
+                var unitConversionService = Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ThermaCore.Application.Interfaces.Definitions.IUnitConversionService>(Program.ServiceProvider);
+                ucBirimCevrimleri1.InitializeDependencies(unitConversionService, _unitRepository);
+                ucBirimCevrimleri1.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
+            }
         }
 
         public override void Yukle()
@@ -116,6 +123,11 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.GazForms
             }
 
             ucBarkodlar1.Yukle(Id, txtKod.Text, ThermaCore.Domain.Enums.ModuleType.GazMusluguTanimlari);
+
+            if (ucBirimCevrimleri1 != null)
+            {
+                ucBirimCevrimleri1.Yukle(Id, dto.BaseUnit ?? string.Empty);
+            }
         }
 
         protected override void GuncelNesneOlustur()
@@ -154,6 +166,11 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.GazForms
                 {
                     ucBarkodlar1.Kaydet(Id);
                     picResim.SavePicture("GasValve", Id);
+                    if (ucBirimCevrimleri1 != null)
+                    {
+                        ucBirimCevrimleri1.PostGridChanges();
+                        ucBirimCevrimleri1.Kaydet(Id);
+                    }
                 }
 
                 return Id > 0;
@@ -182,6 +199,12 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.GazForms
 
                 ucBarkodlar1.Kaydet(Id);
                 picResim.SavePicture("GasValve", Id);
+
+                if (ucBirimCevrimleri1 != null)
+                {
+                    ucBirimCevrimleri1.PostGridChanges();
+                    ucBirimCevrimleri1.Kaydet(Id);
+                }
 
                 return true;
             }
@@ -284,7 +307,11 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.GazForms
         {
             base.ButonEnabledDurumu();
 
-            if (ucBarkodlar1.IsDirty() || picResim.IsDirty())
+            bool isBarkodDirty = ucBarkodlar1 != null && ucBarkodlar1.IsDirty();
+            bool isResimDirty = picResim != null && picResim.IsDirty();
+            bool isBirimCevrimDirty = ucBirimCevrimleri1 != null && ucBirimCevrimleri1.IsDirty;
+
+            if (isBarkodDirty || isResimDirty || isBirimCevrimDirty)
             {
                 if (btnKaydet != null && !btnKaydet.Enabled) btnKaydet.Enabled = true;
                 if (btnGerial != null && !btnGerial.Enabled) btnGerial.Enabled = true;

@@ -53,7 +53,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.GazForms
 
         protected override void ShowEditForm(long id)
         {
-            var form = Program.ServiceProvider.GetService(typeof(GazEditForm)) as GazEditForm;
+            var form = Program.ServiceProvider.GetService(typeof(GazMusluguEditForm)) as GazMusluguEditForm;
             if (form != null)
             {
                 form.IdAtaVeAc(id);
