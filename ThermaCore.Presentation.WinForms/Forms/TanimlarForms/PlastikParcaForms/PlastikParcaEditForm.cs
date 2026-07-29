@@ -43,6 +43,10 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.PlastikParcaForms
                     ucBarkodlar1.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
                 }
 
+                var unitConversionService = Program.ServiceProvider.GetRequiredService<IUnitConversionService>();
+                ucBirimCevrimleri1.InitializeDependencies(unitConversionService, _unitRepository);
+                ucBirimCevrimleri1.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
+
                 if (picResim != null)
                 {
                     picResim.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
@@ -129,6 +133,8 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.PlastikParcaForms
             {
                 ucBarkodlar1.Yukle(Id, txtKod.Text, ModuleType.PlastikParcaTanimlari);
             }
+            
+            ucBirimCevrimleri1.Yukle(Id, dto.BaseUnit ?? string.Empty);
         }
 
         protected override void GuncelNesneOlustur()
@@ -176,6 +182,8 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.PlastikParcaForms
                 {
                     if (ucBarkodlar1 != null) ucBarkodlar1.Kaydet(Id);
                     if (picResim != null) picResim.SavePicture("PlasticPart", Id);
+                    ucBirimCevrimleri1.PostGridChanges();
+                    ucBirimCevrimleri1.Kaydet(Id);
                 }
 
                 return Id > 0;
@@ -207,6 +215,8 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.PlastikParcaForms
 
                 if (ucBarkodlar1 != null) ucBarkodlar1.Kaydet(Id);
                 if (picResim != null) picResim.SavePicture("PlasticPart", Id);
+                ucBirimCevrimleri1.PostGridChanges();
+                ucBirimCevrimleri1.Kaydet(Id);
 
                 return true;
             }
@@ -355,7 +365,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.PlastikParcaForms
             bool isBarkodDirty = ucBarkodlar1 != null && ucBarkodlar1.IsDirty();
             bool isResimDirty = picResim != null && picResim.IsDirty();
 
-            if (isBarkodDirty || isResimDirty)
+            if (isBarkodDirty || isResimDirty || ucBirimCevrimleri1.IsDirty)
             {
                 if (btnKaydet != null && !btnKaydet.Enabled) btnKaydet.Enabled = true;
                 if (btnGerial != null && !btnGerial.Enabled) btnGerial.Enabled = true;
