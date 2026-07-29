@@ -32,13 +32,16 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.MenteseForms
                 _unitRepository = Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<IUnitRepository>(Program.ServiceProvider);
                 _specialCodeService = Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ISpecialCodeService>(Program.ServiceProvider);
                 _itemBarcodeService = Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<IItemBarcodeService>(Program.ServiceProvider);
+                var unitConversionService = Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<IUnitConversionService>(Program.ServiceProvider);
 
                 BaseKartTuru = ModuleType.MenteseTanimlari;
                 DataLayoutControls = new object[] { myDataLayoutControl1, myDataLayoutControl2, myDataLayoutControl3, myDataLayoutControl4 }; // Zırhlı Kural
                 RequiresCodeTemplate = true;
 
                 ucBarkodlar1.InitializeService(_itemBarcodeService); // Zırhlı Kural
+                ucBirimCevrimleri1.InitializeDependencies(unitConversionService, _unitRepository);
                 ucBarkodlar1.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
+                ucBirimCevrimleri1.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
                 picResim.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
             }
         }
@@ -102,6 +105,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.MenteseForms
             }
 
             ucBarkodlar1.Yukle(Id, txtKod.Text, ModuleType.MenteseTanimlari); // Barkod Yükleme
+            ucBirimCevrimleri1.Yukle(Id, dto.BaseUnit ?? string.Empty);
         }
 
         protected override void GuncelNesneOlustur()
@@ -151,6 +155,8 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.MenteseForms
                 {
                     ucBarkodlar1.Kaydet(Id); // Zırhlı Kural: Senkron Kayıt
                     picResim.SavePicture("Hinge", Id); // Zırhlı Kural: Senkron Kayıt
+                    ucBirimCevrimleri1.PostGridChanges();
+                    ucBirimCevrimleri1.Kaydet(Id);
                 }
 
                 return Id > 0;
@@ -179,6 +185,8 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.MenteseForms
 
                 ucBarkodlar1.Kaydet(Id); // Zırhlı Kural: Senkron Kayıt
                 picResim.SavePicture("Hinge", Id); // Zırhlı Kural: Senkron Kayıt
+                ucBirimCevrimleri1.PostGridChanges();
+                ucBirimCevrimleri1.Kaydet(Id);
 
                 return true;
             }
@@ -287,7 +295,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.MenteseForms
         {
             base.ButonEnabledDurumu();
 
-            if (ucBarkodlar1.IsDirty() || picResim.IsDirty())
+            if (ucBarkodlar1.IsDirty() || picResim.IsDirty() || ucBirimCevrimleri1.IsDirty)
             {
                 if (btnKaydet != null && !btnKaydet.Enabled) btnKaydet.Enabled = true;
                 if (btnGerial != null && !btnGerial.Enabled) btnGerial.Enabled = true;
