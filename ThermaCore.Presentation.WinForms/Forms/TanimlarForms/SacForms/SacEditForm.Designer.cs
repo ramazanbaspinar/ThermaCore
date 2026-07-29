@@ -86,6 +86,7 @@
             layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem14 = new DevExpress.XtraLayout.LayoutControlItem();
+            layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
             Root = new DevExpress.XtraLayout.LayoutControlGroup();
             layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
@@ -94,7 +95,8 @@
             tpSacTanimi = new DevExpress.XtraTab.XtraTabPage();
             tpBarkodIslemleri = new DevExpress.XtraTab.XtraTabPage();
             ucBarkodlar1 = new ThermaCore.Presentation.WinForms.UserControls.ucBarkodlar();
-            layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
+            tpBirimCevirileri = new DevExpress.XtraTab.XtraTabPage();
+            ucBirimCevrimleri1 = new ThermaCore.Presentation.WinForms.UserControls.ucBirimCevrimleri();
             ((System.ComponentModel.ISupportInitialize)ribbon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)myDataLayoutControl1).BeginInit();
             myDataLayoutControl1.SuspendLayout();
@@ -137,6 +139,7 @@
             ((System.ComponentModel.ISupportInitialize)layoutControlItem7).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem8).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem14).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem5).BeginInit();
             ((System.ComponentModel.ISupportInitialize)Root).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem2).BeginInit();
@@ -145,7 +148,7 @@
             xtraTabControl1.SuspendLayout();
             tpSacTanimi.SuspendLayout();
             tpBarkodIslemleri.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)layoutControlItem5).BeginInit();
+            tpBirimCevirileri.SuspendLayout();
             SuspendLayout();
             // 
             // ribbon
@@ -651,6 +654,15 @@
             layoutControlItem14.TextSize = new Size(100, 13);
             layoutControlItem14.TextToControlDistance = 5;
             // 
+            // layoutControlItem5
+            // 
+            layoutControlItem5.Control = txtKod;
+            layoutControlItem5.Location = new Point(0, 0);
+            layoutControlItem5.Name = "layoutControlItem5";
+            layoutControlItem5.Size = new Size(211, 31);
+            layoutControlItem5.Text = "Kod";
+            layoutControlItem5.TextSize = new Size(53, 13);
+            // 
             // Root
             // 
             Root.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
@@ -706,7 +718,7 @@
             xtraTabControl1.SelectedTabPage = tpSacTanimi;
             xtraTabControl1.Size = new Size(698, 466);
             xtraTabControl1.TabIndex = 0;
-            xtraTabControl1.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] { tpSacTanimi, tpBarkodIslemleri });
+            xtraTabControl1.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] { tpSacTanimi, tpBarkodIslemleri, tpBirimCevirileri });
             // 
             // tpSacTanimi
             // 
@@ -734,14 +746,20 @@
             ucBarkodlar1.Size = new Size(696, 441);
             ucBarkodlar1.TabIndex = 0;
             // 
-            // layoutControlItem5
+            // tpBirimCevirileri
             // 
-            layoutControlItem5.Control = txtKod;
-            layoutControlItem5.Location = new Point(0, 0);
-            layoutControlItem5.Name = "layoutControlItem5";
-            layoutControlItem5.Size = new Size(211, 31);
-            layoutControlItem5.Text = "Kod";
-            layoutControlItem5.TextSize = new Size(53, 13);
+            tpBirimCevirileri.Controls.Add(ucBirimCevrimleri1);
+            tpBirimCevirileri.Name = "tpBirimCevirileri";
+            tpBirimCevirileri.Size = new Size(696, 441);
+            tpBirimCevirileri.Text = "Birim Çevirileri";
+            // 
+            // ucBirimCevrimleri1
+            // 
+            ucBirimCevrimleri1.Dock = DockStyle.Fill;
+            ucBirimCevrimleri1.Location = new Point(0, 0);
+            ucBirimCevrimleri1.Name = "ucBirimCevrimleri1";
+            ucBirimCevrimleri1.Size = new Size(696, 441);
+            ucBirimCevrimleri1.TabIndex = 0;
             // 
             // SacEditForm
             // 
@@ -797,6 +815,7 @@
             ((System.ComponentModel.ISupportInitialize)layoutControlItem7).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem8).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem14).EndInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem5).EndInit();
             ((System.ComponentModel.ISupportInitialize)Root).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem1).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem2).EndInit();
@@ -805,7 +824,7 @@
             xtraTabControl1.ResumeLayout(false);
             tpSacTanimi.ResumeLayout(false);
             tpBarkodIslemleri.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)layoutControlItem5).EndInit();
+            tpBirimCevirileri.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -861,5 +880,7 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem14;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn2;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;
+        private DevExpress.XtraTab.XtraTabPage tpBirimCevirileri;
+        private UserControls.ucBirimCevrimleri ucBirimCevrimleri1;
     }
 }

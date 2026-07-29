@@ -43,7 +43,12 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.TelForms
             RequiresCodeTemplate = true;
 
             ucBarkodlar1.InitializeService(itemBarcodeService);
+            
+            var unitConversionService = Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ThermaCore.Application.Interfaces.Definitions.IUnitConversionService>(Program.ServiceProvider);
+            ucBirimCevrimleri1.InitializeDependencies(unitConversionService, _unitRepository);
+
             ucBarkodlar1.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
+            ucBirimCevrimleri1.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
             picResim.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
         }
 
@@ -103,6 +108,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.TelForms
             }
 
             ucBarkodlar1.Yukle(Id, txtKod.Text, ModuleType.TelTanimlari);
+            ucBirimCevrimleri1.Yukle(Id, dto.BaseUnit ?? string.Empty);
         }
 
         protected override void GuncelNesneOlustur()
@@ -139,6 +145,8 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.TelForms
                 {
                     ucBarkodlar1.Kaydet(Id);
                     picResim.SavePicture("Wire", Id);
+                    ucBirimCevrimleri1.PostGridChanges();
+                    ucBirimCevrimleri1.Kaydet(Id);
                 }
 
                 return Id > 0;
@@ -167,6 +175,8 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.TelForms
 
                 ucBarkodlar1.Kaydet(Id);
                 picResim.SavePicture("Wire", Id);
+                ucBirimCevrimleri1.PostGridChanges();
+                ucBirimCevrimleri1.Kaydet(Id);
 
                 return true;
             }
@@ -222,6 +232,19 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.TelForms
             txtCap.EditValueChanged += (s, e) => ButonEnabledDurumu();
             txtAciklama.EditValueChanged += (s, e) => ButonEnabledDurumu();
             tglDurum.EditValueChanged += (s, e) => ButonEnabledDurumu();
+        }
+
+        protected internal override void ButonEnabledDurumu()
+        {
+            base.ButonEnabledDurumu();
+
+            if (ucBarkodlar1.IsDirty() || picResim.IsDirty() || ucBirimCevrimleri1.IsDirty)
+            {
+                if (btnKaydet != null && !btnKaydet.Enabled) btnKaydet.Enabled = true;
+                if (btnGerial != null && !btnGerial.Enabled) btnGerial.Enabled = true;
+            }
+
+            YetkiKontroluYap();
         }
 
         protected override void FocusControlByPropertyName(string propertyName)

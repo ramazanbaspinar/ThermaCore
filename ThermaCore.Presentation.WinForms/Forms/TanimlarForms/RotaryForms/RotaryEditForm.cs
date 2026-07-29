@@ -41,7 +41,12 @@ namespace ThermaCore.Presentation.WinForms.Forms.RotaryForms
             RequiresCodeTemplate = true;
 
             ucBarkodlar1.InitializeService(itemBarcodeService);
+            
+            var unitConversionService = Program.ServiceProvider.GetRequiredService<ThermaCore.Application.Interfaces.Definitions.IUnitConversionService>();
+            ucBirimCevrimleri1.InitializeDependencies(unitConversionService, _unitRepository);
+
             ucBarkodlar1.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
+            ucBirimCevrimleri1.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
             picResim.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
         }
 
@@ -107,6 +112,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.RotaryForms
             }
 
             ucBarkodlar1.Yukle(Id, txtKod.Text, ModuleType.AnahtarRotaryTanimlari);
+            ucBirimCevrimleri1.Yukle(Id, dto.BaseUnit ?? string.Empty);
         }
 
         protected override void GuncelNesneOlustur()
@@ -144,6 +150,8 @@ namespace ThermaCore.Presentation.WinForms.Forms.RotaryForms
                 {
                     ucBarkodlar1.Kaydet(Id);
                     picResim.SavePictureAsync("RotarySwitch", Id);
+                    ucBirimCevrimleri1.PostGridChanges();
+                    ucBirimCevrimleri1.Kaydet(Id);
                 }
 
                 return Id > 0;
@@ -172,6 +180,8 @@ namespace ThermaCore.Presentation.WinForms.Forms.RotaryForms
 
                 ucBarkodlar1.Kaydet(Id);
                 picResim.SavePictureAsync("RotarySwitch", Id);
+                ucBirimCevrimleri1.PostGridChanges();
+                ucBirimCevrimleri1.Kaydet(Id);
 
                 return true;
             }
@@ -274,7 +284,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.RotaryForms
         {
             base.ButonEnabledDurumu();
 
-            if (ucBarkodlar1.IsDirty() || picResim.IsDirty())
+            if (ucBarkodlar1.IsDirty() || picResim.IsDirty() || ucBirimCevrimleri1.IsDirty)
             {
                 if (btnKaydet != null && !btnKaydet.Enabled) btnKaydet.Enabled = true;
                 if (btnGerial != null && !btnGerial.Enabled) btnGerial.Enabled = true;
