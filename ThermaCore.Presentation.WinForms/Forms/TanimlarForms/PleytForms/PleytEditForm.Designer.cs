@@ -710,6 +710,7 @@
             ucBirimCevrimleri1.Name = "ucBirimCevrimleri1";
             ucBirimCevrimleri1.Size = new Size(696, 415);
             ucBirimCevrimleri1.TabIndex = 0;
+            ucBirimCevrimleri1.Load += ucBirimCevrimleri1_Load;
             // 
             // PleytEditForm
             // 

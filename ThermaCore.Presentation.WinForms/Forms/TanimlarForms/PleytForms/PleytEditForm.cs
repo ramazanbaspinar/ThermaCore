@@ -42,9 +42,9 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.PleytForms
             DataLayoutControl = myDataLayoutControl1;
             BaseKartTuru = ModuleType.PleytIsiticiTanimlari;
             RequiresCodeTemplate = true;
-            
+
             ucBarkodlar1.InitializeService(itemBarcodeService);
-            
+
             var unitConversionService = Program.ServiceProvider.GetRequiredService<ThermaCore.Application.Interfaces.Definitions.IUnitConversionService>();
             ucBirimCevrimleri1.InitializeDependencies(unitConversionService, _unitRepository);
 
@@ -58,10 +58,10 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.PleytForms
             base.EventsLoad();
             txtKod.Enter += (s, e) => txtKod.SelectAll();
             txtPleytAdi.Enter += (s, e) => txtPleytAdi.SelectAll();
-            
+
             glufTemelBirim.SearchButtonClicked += glufTemelBirim_SearchButtonClicked;
             glufOzelKod.SearchButtonClicked += glufOzelKod_SearchButtonClicked;
-            
+
             cmbPleytTipi.Properties.Items.AddRange(EnumFunctions.GetEnumDescriptionList<HotplateType>().ToArray());
         }
 
@@ -94,10 +94,10 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.PleytForms
             Id = dto.Id;
             txtKod.Text = dto.Code;
             txtPleytAdi.Text = dto.Name;
-            
+
             glufTemelBirim.EditValue = string.IsNullOrWhiteSpace(dto.BaseUnit) ? null : dto.BaseUnit;
             glufOzelKod.EditValue = dto.SpecialCodeId > 0 ? dto.SpecialCodeId : null;
-            
+
             cmbPleytTipi.SelectedItem = dto.HotplateType.HasValue ? ThermaCore.Domain.Extensions.EnumExtensions.ToName(dto.HotplateType.Value) : null;
             txtCap.EditValue = dto.DiameterMm;
             txtWatt.EditValue = dto.PowerWatt;
@@ -152,9 +152,9 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.PleytForms
             {
                 var dto = (HotplateDto)CurrentEntity;
                 dto.Id = BaseIslemTuru.IdOlustur(OldEntity);
-                
+
                 Id = _hotplateService.Insert(dto);
-                
+
                 if (Id > 0)
                 {
                     ucBarkodlar1.Kaydet(Id);
@@ -162,7 +162,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.PleytForms
                     ucBirimCevrimleri1.PostGridChanges();
                     ucBirimCevrimleri1.Kaydet(Id);
                 }
-                
+
                 return Id > 0;
             }
             catch (FluentValidation.ValidationException ex)
@@ -186,7 +186,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.PleytForms
             {
                 var dto = (HotplateDto)CurrentEntity;
                 _hotplateService.Update(dto);
-                
+
                 ucBarkodlar1.Kaydet(Id);
                 picResim.SavePictureAsync("Hotplate", Id);
                 ucBirimCevrimleri1.PostGridChanges();
@@ -246,7 +246,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.PleytForms
         {
             return _hotplateService.IsCodeUnique(this.Id, code);
         }
-        
+
         protected internal override void ButonEnabledDurumu()
         {
             base.ButonEnabledDurumu();
@@ -282,9 +282,9 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.PleytForms
             {
                 form.FormAcilisTuru = ThermaCore.Presentation.WinForms.Enums.FormAcilisTuru.Secim;
                 form.ShowDialog();
-                
-                    glufTemelBirim.Properties.DataSource = _unitRepository.GetAll().Where(x => x.IsActive).ToList();
-            if (form.DialogResult == DialogResult.OK && form.SelectedEntities?.Count > 0)
+
+                glufTemelBirim.Properties.DataSource = _unitRepository.GetAll().Where(x => x.IsActive).ToList();
+                if (form.DialogResult == DialogResult.OK && form.SelectedEntities?.Count > 0)
                 {
                     dynamic secilenBirim = form.SelectedEntities[0];
                     var secilenAd = secilenBirim.Name;
@@ -297,6 +297,11 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.PleytForms
         {
             base.LockFormControls(controls);
             picResim.SetReadOnly(true);
+        }
+
+        private void ucBirimCevrimleri1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
