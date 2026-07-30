@@ -28,7 +28,8 @@ namespace ThermaCore.Presentation.WinForms.Forms.TermostatForms
             IThermostatService thermostatService,
             IItemBarcodeService itemBarcodeService,
             IUnitRepository unitRepository,
-            ISpecialCodeService specialCodeService)
+            ISpecialCodeService specialCodeService,
+            ThermaCore.Application.Interfaces.Definitions.IUnitConversionService unitConversionService)
         {
             InitializeComponent();
 
@@ -41,7 +42,9 @@ namespace ThermaCore.Presentation.WinForms.Forms.TermostatForms
             RequiresCodeTemplate = true;
 
             ucBarkodlar1.InitializeService(itemBarcodeService);
+            ucBirimCevrimleri1.InitializeDependencies(unitConversionService, _unitRepository);
             ucBarkodlar1.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
+            ucBirimCevrimleri1.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
             picResim.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
         }
 
@@ -116,6 +119,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TermostatForms
             }
 
             ucBarkodlar1.Yukle(Id, txtKod.Text, ModuleType.TermostatTanimlari);
+            ucBirimCevrimleri1.Yukle(Id, dto.BaseUnit ?? string.Empty);
         }
 
         protected override void GuncelNesneOlustur()
@@ -142,6 +146,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TermostatForms
         protected override bool EntityInsert()
         {
             ucBarkodlar1.PostGridChanges();
+            ucBirimCevrimleri1.PostGridChanges();
 
             try
             {
@@ -153,6 +158,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TermostatForms
                 if (Id > 0)
                 {
                     ucBarkodlar1.Kaydet(Id);
+                    ucBirimCevrimleri1.Kaydet(Id);
                     picResim.SavePictureAsync("Thermostat", Id);
                 }
 
@@ -174,6 +180,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TermostatForms
         protected override bool EntityUpdate()
         {
             ucBarkodlar1.PostGridChanges();
+            ucBirimCevrimleri1.PostGridChanges();
 
             try
             {
@@ -181,6 +188,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TermostatForms
                 _thermostatService.Update(dto);
 
                 ucBarkodlar1.Kaydet(Id);
+                ucBirimCevrimleri1.Kaydet(Id);
                 picResim.SavePictureAsync("Thermostat", Id);
 
                 return true;
@@ -284,7 +292,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TermostatForms
         {
             base.ButonEnabledDurumu();
 
-            if (ucBarkodlar1.IsDirty() || picResim.IsDirty())
+            if (ucBarkodlar1.IsDirty() || ucBirimCevrimleri1.IsDirty || picResim.IsDirty())
             {
                 if (btnKaydet != null && !btnKaydet.Enabled) btnKaydet.Enabled = true;
                 if (btnGerial != null && !btnGerial.Enabled) btnGerial.Enabled = true;

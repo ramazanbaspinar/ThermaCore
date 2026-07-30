@@ -58,17 +58,21 @@
             layoutControlItem13 = new DevExpress.XtraLayout.LayoutControlItem();
             grpTeknikOzellikler = new DevExpress.XtraEditors.GroupControl();
             myDataLayoutControl3 = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyDataLayoutControl();
+            txtUzunluk = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyCalcEdit();
             txtUcTipi = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyTextEdit();
             txtKafaTipi = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyTextEdit();
             layoutControlGroup2 = new DevExpress.XtraLayout.LayoutControlGroup();
             layoutControlItem10 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem11 = new DevExpress.XtraLayout.LayoutControlItem();
+            layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
             grpTemelBilgiler = new DevExpress.XtraEditors.GroupControl();
             myDataLayoutControl2 = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyDataLayoutControl();
             glufOzelKod = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyGridLookUpFind();
             myGridLookUpFind2View = new DevExpress.XtraGrid.Views.Grid.GridView();
+            gridColumn2 = new DevExpress.XtraGrid.Columns.GridColumn();
             glufTemelBirim = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyGridLookUpFind();
             myGridLookUpFind1View = new DevExpress.XtraGrid.Views.Grid.GridView();
+            gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
             txtTermokuplAdi = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyTextEdit();
             txtKod = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyKodTextEdit();
             tglDurum = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyToggleSwitch();
@@ -84,10 +88,8 @@
             layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             tpBarkodIslemleri = new DevExpress.XtraTab.XtraTabPage();
             ucBarkodlar1 = new ThermaCore.Presentation.WinForms.UserControls.ucBarkodlar();
-            gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
-            gridColumn2 = new DevExpress.XtraGrid.Columns.GridColumn();
-            txtUzunluk = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyCalcEdit();
-            layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
+            tpBirimCevirileri = new DevExpress.XtraTab.XtraTabPage();
+            ucBirimCevrimleri1 = new ThermaCore.Presentation.WinForms.UserControls.ucBirimCevrimleri();
             ((System.ComponentModel.ISupportInitialize)ribbon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)xtraTabControl1).BeginInit();
             xtraTabControl1.SuspendLayout();
@@ -106,11 +108,13 @@
             grpTeknikOzellikler.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)myDataLayoutControl3).BeginInit();
             myDataLayoutControl3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)txtUzunluk.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtUcTipi.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtKafaTipi.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlGroup2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem10).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem11).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem9).BeginInit();
             ((System.ComponentModel.ISupportInitialize)grpTemelBilgiler).BeginInit();
             grpTemelBilgiler.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)myDataLayoutControl2).BeginInit();
@@ -133,8 +137,7 @@
             ((System.ComponentModel.ISupportInitialize)layoutControlItem2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem3).BeginInit();
             tpBarkodIslemleri.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)txtUzunluk.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)layoutControlItem9).BeginInit();
+            tpBirimCevirileri.SuspendLayout();
             SuspendLayout();
             // 
             // ribbon
@@ -151,7 +154,7 @@
             xtraTabControl1.SelectedTabPage = tpTemelBilgiler;
             xtraTabControl1.Size = new Size(698, 440);
             xtraTabControl1.TabIndex = 0;
-            xtraTabControl1.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] { tpTemelBilgiler, tpBarkodIslemleri });
+            xtraTabControl1.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] { tpTemelBilgiler, tpBarkodIslemleri, tpBirimCevirileri });
             // 
             // tpTemelBilgiler
             // 
@@ -280,6 +283,28 @@
             myDataLayoutControl3.TabIndex = 0;
             myDataLayoutControl3.Text = "myDataLayoutControl3";
             // 
+            // txtUzunluk
+            // 
+            txtUzunluk.EnterMoveNextControl = true;
+            txtUzunluk.Location = new Point(102, 12);
+            txtUzunluk.MenuManager = ribbon;
+            txtUzunluk.Name = "txtUzunluk";
+            txtUzunluk.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
+            txtUzunluk.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
+            txtUzunluk.Properties.DisplayFormat.FormatString = "n2";
+            txtUzunluk.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            txtUzunluk.Properties.EditFormat.FormatString = "n2";
+            txtUzunluk.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            txtUzunluk.Properties.Mask.UseMaskAsDisplayFormat = true;
+            txtUzunluk.Properties.MaskSettings.Set("mask", "n2");
+            txtUzunluk.Size = new Size(216, 20);
+            txtUzunluk.StatusBarAciklama = null;
+            txtUzunluk.StatusBarKisaYol = "F4 :";
+            txtUzunluk.StatusBarKisaYolAciklama = "Hesap Makinesi";
+            txtUzunluk.StyleController = myDataLayoutControl3;
+            txtUzunluk.TabIndex = 4;
+            txtUzunluk.Tag = "LengthMm";
+            // 
             // txtUcTipi
             // 
             txtUcTipi.EnterMoveNextControl = true;
@@ -346,6 +371,15 @@
             layoutControlItem11.Text = "Uç Tipi";
             layoutControlItem11.TextSize = new Size(78, 13);
             // 
+            // layoutControlItem9
+            // 
+            layoutControlItem9.Control = txtUzunluk;
+            layoutControlItem9.Location = new Point(0, 0);
+            layoutControlItem9.Name = "layoutControlItem9";
+            layoutControlItem9.Size = new Size(310, 31);
+            layoutControlItem9.Text = "Uzunluk (mm)";
+            layoutControlItem9.TextSize = new Size(78, 13);
+            // 
             // grpTemelBilgiler
             // 
             grpTemelBilgiler.Controls.Add(myDataLayoutControl2);
@@ -397,6 +431,14 @@
             myGridLookUpFind2View.OptionsSelection.EnableAppearanceFocusedCell = false;
             myGridLookUpFind2View.OptionsView.ShowGroupPanel = false;
             // 
+            // gridColumn2
+            // 
+            gridColumn2.Caption = "Özel Kod";
+            gridColumn2.FieldName = "Name";
+            gridColumn2.Name = "gridColumn2";
+            gridColumn2.Visible = true;
+            gridColumn2.VisibleIndex = 0;
+            // 
             // glufTemelBirim
             // 
             glufTemelBirim.EnterMoveNextControl = true;
@@ -421,6 +463,14 @@
             myGridLookUpFind1View.Name = "myGridLookUpFind1View";
             myGridLookUpFind1View.OptionsSelection.EnableAppearanceFocusedCell = false;
             myGridLookUpFind1View.OptionsView.ShowGroupPanel = false;
+            // 
+            // gridColumn1
+            // 
+            gridColumn1.Caption = "Temel Birim";
+            gridColumn1.FieldName = "Name";
+            gridColumn1.Name = "gridColumn1";
+            gridColumn1.Visible = true;
+            gridColumn1.VisibleIndex = 0;
             // 
             // txtTermokuplAdi
             // 
@@ -608,52 +658,20 @@
             ucBarkodlar1.Size = new Size(696, 415);
             ucBarkodlar1.TabIndex = 0;
             // 
-            // gridColumn1
+            // tpBirimCevirileri
             // 
-            gridColumn1.Caption = "Temel Birim";
-            gridColumn1.FieldName = "Name";
-            gridColumn1.Name = "gridColumn1";
-            gridColumn1.Visible = true;
-            gridColumn1.VisibleIndex = 0;
+            tpBirimCevirileri.Controls.Add(ucBirimCevrimleri1);
+            tpBirimCevirileri.Name = "tpBirimCevirileri";
+            tpBirimCevirileri.Size = new Size(696, 415);
+            tpBirimCevirileri.Text = "Birim Çevirileri";
             // 
-            // gridColumn2
+            // ucBirimCevrimleri1
             // 
-            gridColumn2.Caption = "Özel Kod";
-            gridColumn2.FieldName = "Name";
-            gridColumn2.Name = "gridColumn2";
-            gridColumn2.Visible = true;
-            gridColumn2.VisibleIndex = 0;
-            // 
-            // txtUzunluk
-            // 
-            txtUzunluk.EnterMoveNextControl = true;
-            txtUzunluk.Location = new Point(102, 12);
-            txtUzunluk.MenuManager = ribbon;
-            txtUzunluk.Name = "txtUzunluk";
-            txtUzunluk.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
-            txtUzunluk.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
-            txtUzunluk.Properties.DisplayFormat.FormatString = "n2";
-            txtUzunluk.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            txtUzunluk.Properties.EditFormat.FormatString = "n2";
-            txtUzunluk.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            txtUzunluk.Properties.Mask.UseMaskAsDisplayFormat = true;
-            txtUzunluk.Properties.MaskSettings.Set("mask", "n2");
-            txtUzunluk.Size = new Size(216, 20);
-            txtUzunluk.StatusBarAciklama = null;
-            txtUzunluk.StatusBarKisaYol = "F4 :";
-            txtUzunluk.StatusBarKisaYolAciklama = "Hesap Makinesi";
-            txtUzunluk.StyleController = myDataLayoutControl3;
-            txtUzunluk.TabIndex = 4;
-            txtUzunluk.Tag = "LengthMm";
-            // 
-            // layoutControlItem9
-            // 
-            layoutControlItem9.Control = txtUzunluk;
-            layoutControlItem9.Location = new Point(0, 0);
-            layoutControlItem9.Name = "layoutControlItem9";
-            layoutControlItem9.Size = new Size(310, 31);
-            layoutControlItem9.Text = "Uzunluk (mm)";
-            layoutControlItem9.TextSize = new Size(78, 13);
+            ucBirimCevrimleri1.Dock = DockStyle.Fill;
+            ucBirimCevrimleri1.Location = new Point(0, 0);
+            ucBirimCevrimleri1.Name = "ucBirimCevrimleri1";
+            ucBirimCevrimleri1.Size = new Size(696, 415);
+            ucBirimCevrimleri1.TabIndex = 0;
             // 
             // TermokuplEditForm
             // 
@@ -685,11 +703,13 @@
             grpTeknikOzellikler.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)myDataLayoutControl3).EndInit();
             myDataLayoutControl3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)txtUzunluk.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtUcTipi.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtKafaTipi.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlGroup2).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem10).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem11).EndInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem9).EndInit();
             ((System.ComponentModel.ISupportInitialize)grpTemelBilgiler).EndInit();
             grpTemelBilgiler.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)myDataLayoutControl2).EndInit();
@@ -712,8 +732,7 @@
             ((System.ComponentModel.ISupportInitialize)layoutControlItem2).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem3).EndInit();
             tpBarkodIslemleri.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)txtUzunluk.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)layoutControlItem9).EndInit();
+            tpBirimCevirileri.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -762,5 +781,7 @@
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn2;
         private UserControls.Controls.MyCalcEdit txtUzunluk;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem9;
+        private DevExpress.XtraTab.XtraTabPage tpBirimCevirileri;
+        private UserControls.ucBirimCevrimleri ucBirimCevrimleri1;
     }
 }

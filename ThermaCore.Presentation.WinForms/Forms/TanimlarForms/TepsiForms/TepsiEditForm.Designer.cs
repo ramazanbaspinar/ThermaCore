@@ -97,6 +97,8 @@
             layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             tpBarkodIslemleri = new DevExpress.XtraTab.XtraTabPage();
             ucBarkodlar1 = new ThermaCore.Presentation.WinForms.UserControls.ucBarkodlar();
+            tpBirimCevirileri = new DevExpress.XtraTab.XtraTabPage();
+            ucBirimCevrimleri1 = new ThermaCore.Presentation.WinForms.UserControls.ucBirimCevrimleri();
             ((System.ComponentModel.ISupportInitialize)ribbon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)xtraTabControl1).BeginInit();
             xtraTabControl1.SuspendLayout();
@@ -150,6 +152,7 @@
             ((System.ComponentModel.ISupportInitialize)layoutControlItem2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem3).BeginInit();
             tpBarkodIslemleri.SuspendLayout();
+            tpBirimCevirileri.SuspendLayout();
             SuspendLayout();
             // 
             // ribbon
@@ -166,7 +169,7 @@
             xtraTabControl1.SelectedTabPage = tpTemelBilgiler;
             xtraTabControl1.Size = new Size(698, 518);
             xtraTabControl1.TabIndex = 0;
-            xtraTabControl1.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] { tpTemelBilgiler, tpBarkodIslemleri });
+            xtraTabControl1.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] { tpTemelBilgiler, tpBarkodIslemleri, tpBirimCevirileri });
             // 
             // tpTemelBilgiler
             // 
@@ -782,6 +785,21 @@
             ucBarkodlar1.Size = new Size(696, 493);
             ucBarkodlar1.TabIndex = 0;
             // 
+            // tpBirimCevirileri
+            // 
+            tpBirimCevirileri.Controls.Add(ucBirimCevrimleri1);
+            tpBirimCevirileri.Name = "tpBirimCevirileri";
+            tpBirimCevirileri.Size = new Size(696, 493);
+            tpBirimCevirileri.Text = "Birim Çevirileri";
+            // 
+            // ucBirimCevrimleri1
+            // 
+            ucBirimCevrimleri1.Dock = DockStyle.Fill;
+            ucBirimCevrimleri1.Location = new Point(0, 0);
+            ucBirimCevrimleri1.Name = "ucBirimCevrimleri1";
+            ucBirimCevrimleri1.Size = new Size(696, 493);
+            ucBirimCevrimleri1.TabIndex = 0;
+            // 
             // TepsiEditForm
             // 
             AutoScaleDimensions = new SizeF(6F, 13F);
@@ -847,6 +865,7 @@
             ((System.ComponentModel.ISupportInitialize)layoutControlItem2).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem3).EndInit();
             tpBarkodIslemleri.ResumeLayout(false);
+            tpBirimCevirileri.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -901,5 +920,7 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem14;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn2;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn1;
+        private DevExpress.XtraTab.XtraTabPage tpBirimCevirileri;
+        private UserControls.ucBirimCevrimleri ucBirimCevrimleri1;
     }
 }

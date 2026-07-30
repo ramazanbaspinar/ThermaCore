@@ -59,6 +59,7 @@
             layoutControlItem14 = new DevExpress.XtraLayout.LayoutControlItem();
             grpTeknikOzellikler = new DevExpress.XtraEditors.GroupControl();
             myDataLayoutControl3 = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyDataLayoutControl();
+            txtKuyrukBoyu = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyCalcEdit();
             txtAmper = new ThermaCore.Presentation.WinForms.UserControls.Controls.MySpinEdit();
             txtMaxSicaklik = new ThermaCore.Presentation.WinForms.UserControls.Controls.MySpinEdit();
             txtMinSicaklik = new ThermaCore.Presentation.WinForms.UserControls.Controls.MySpinEdit();
@@ -66,6 +67,7 @@
             layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem10 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem11 = new DevExpress.XtraLayout.LayoutControlItem();
+            layoutControlItem12 = new DevExpress.XtraLayout.LayoutControlItem();
             grpTemelBilgiler = new DevExpress.XtraEditors.GroupControl();
             myDataLayoutControl2 = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyDataLayoutControl();
             glufOzelKod = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyGridLookUpFind();
@@ -89,8 +91,8 @@
             layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             tpBarkodIslemleri = new DevExpress.XtraTab.XtraTabPage();
             ucBarkodlar1 = new ThermaCore.Presentation.WinForms.UserControls.ucBarkodlar();
-            txtKuyrukBoyu = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyCalcEdit();
-            layoutControlItem12 = new DevExpress.XtraLayout.LayoutControlItem();
+            tpBirimCevirileri = new DevExpress.XtraTab.XtraTabPage();
+            ucBirimCevrimleri1 = new ThermaCore.Presentation.WinForms.UserControls.ucBirimCevrimleri();
             ((System.ComponentModel.ISupportInitialize)ribbon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)xtraTabControl1).BeginInit();
             xtraTabControl1.SuspendLayout();
@@ -109,6 +111,7 @@
             grpTeknikOzellikler.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)myDataLayoutControl3).BeginInit();
             myDataLayoutControl3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)txtKuyrukBoyu.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtAmper.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtMaxSicaklik.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtMinSicaklik.Properties).BeginInit();
@@ -116,6 +119,7 @@
             ((System.ComponentModel.ISupportInitialize)layoutControlItem9).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem10).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem11).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem12).BeginInit();
             ((System.ComponentModel.ISupportInitialize)grpTemelBilgiler).BeginInit();
             grpTemelBilgiler.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)myDataLayoutControl2).BeginInit();
@@ -138,8 +142,7 @@
             ((System.ComponentModel.ISupportInitialize)layoutControlItem2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem3).BeginInit();
             tpBarkodIslemleri.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)txtKuyrukBoyu.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)layoutControlItem12).BeginInit();
+            tpBirimCevirileri.SuspendLayout();
             SuspendLayout();
             // 
             // ribbon
@@ -156,7 +159,7 @@
             xtraTabControl1.SelectedTabPage = tpTemelBilgiler;
             xtraTabControl1.Size = new Size(749, 440);
             xtraTabControl1.TabIndex = 0;
-            xtraTabControl1.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] { tpTemelBilgiler, tpBarkodIslemleri });
+            xtraTabControl1.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] { tpTemelBilgiler, tpBarkodIslemleri, tpBirimCevirileri });
             // 
             // tpTemelBilgiler
             // 
@@ -286,6 +289,28 @@
             myDataLayoutControl3.TabIndex = 0;
             myDataLayoutControl3.Text = "myDataLayoutControl3";
             // 
+            // txtKuyrukBoyu
+            // 
+            txtKuyrukBoyu.EnterMoveNextControl = true;
+            txtKuyrukBoyu.Location = new Point(169, 105);
+            txtKuyrukBoyu.MenuManager = ribbon;
+            txtKuyrukBoyu.Name = "txtKuyrukBoyu";
+            txtKuyrukBoyu.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
+            txtKuyrukBoyu.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
+            txtKuyrukBoyu.Properties.DisplayFormat.FormatString = "n2";
+            txtKuyrukBoyu.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            txtKuyrukBoyu.Properties.EditFormat.FormatString = "n2";
+            txtKuyrukBoyu.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            txtKuyrukBoyu.Properties.Mask.UseMaskAsDisplayFormat = true;
+            txtKuyrukBoyu.Properties.MaskSettings.Set("mask", "n2");
+            txtKuyrukBoyu.Size = new Size(175, 20);
+            txtKuyrukBoyu.StatusBarAciklama = null;
+            txtKuyrukBoyu.StatusBarKisaYol = "F4 :";
+            txtKuyrukBoyu.StatusBarKisaYolAciklama = "Hesap Makinesi";
+            txtKuyrukBoyu.StyleController = myDataLayoutControl3;
+            txtKuyrukBoyu.TabIndex = 4;
+            txtKuyrukBoyu.Tag = "CapillaryLengthMm";
+            // 
             // txtAmper
             // 
             txtAmper.EditValue = new decimal(new int[] { 0, 0, 0, 0 });
@@ -384,6 +409,16 @@
             layoutControlItem11.Size = new Size(336, 31);
             layoutControlItem11.Text = "Amper / Akım Derecesi";
             layoutControlItem11.TextSize = new Size(145, 13);
+            // 
+            // layoutControlItem12
+            // 
+            layoutControlItem12.Control = txtKuyrukBoyu;
+            layoutControlItem12.Location = new Point(0, 93);
+            layoutControlItem12.Name = "layoutControlItem12";
+            layoutControlItem12.OptionsTableLayoutItem.RowIndex = 3;
+            layoutControlItem12.Size = new Size(336, 55);
+            layoutControlItem12.Text = "Kılcal Boru / Kuyruk Boyu (mm)";
+            layoutControlItem12.TextSize = new Size(145, 13);
             // 
             // grpTemelBilgiler
             // 
@@ -663,37 +698,20 @@
             ucBarkodlar1.Size = new Size(747, 415);
             ucBarkodlar1.TabIndex = 0;
             // 
-            // txtKuyrukBoyu
+            // tpBirimCevirileri
             // 
-            txtKuyrukBoyu.EnterMoveNextControl = true;
-            txtKuyrukBoyu.Location = new Point(169, 105);
-            txtKuyrukBoyu.MenuManager = ribbon;
-            txtKuyrukBoyu.Name = "txtKuyrukBoyu";
-            txtKuyrukBoyu.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
-            txtKuyrukBoyu.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
-            txtKuyrukBoyu.Properties.DisplayFormat.FormatString = "n2";
-            txtKuyrukBoyu.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            txtKuyrukBoyu.Properties.EditFormat.FormatString = "n2";
-            txtKuyrukBoyu.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            txtKuyrukBoyu.Properties.Mask.UseMaskAsDisplayFormat = true;
-            txtKuyrukBoyu.Properties.MaskSettings.Set("mask", "n2");
-            txtKuyrukBoyu.Size = new Size(175, 20);
-            txtKuyrukBoyu.StatusBarAciklama = null;
-            txtKuyrukBoyu.StatusBarKisaYol = "F4 :";
-            txtKuyrukBoyu.StatusBarKisaYolAciklama = "Hesap Makinesi";
-            txtKuyrukBoyu.StyleController = myDataLayoutControl3;
-            txtKuyrukBoyu.TabIndex = 4;
-            txtKuyrukBoyu.Tag = "CapillaryLengthMm";
+            tpBirimCevirileri.Controls.Add(ucBirimCevrimleri1);
+            tpBirimCevirileri.Name = "tpBirimCevirileri";
+            tpBirimCevirileri.Size = new Size(747, 415);
+            tpBirimCevirileri.Text = "Birim Çevirileri";
             // 
-            // layoutControlItem12
+            // ucBirimCevrimleri1
             // 
-            layoutControlItem12.Control = txtKuyrukBoyu;
-            layoutControlItem12.Location = new Point(0, 93);
-            layoutControlItem12.Name = "layoutControlItem12";
-            layoutControlItem12.OptionsTableLayoutItem.RowIndex = 3;
-            layoutControlItem12.Size = new Size(336, 55);
-            layoutControlItem12.Text = "Kılcal Boru / Kuyruk Boyu (mm)";
-            layoutControlItem12.TextSize = new Size(145, 13);
+            ucBirimCevrimleri1.Dock = DockStyle.Fill;
+            ucBirimCevrimleri1.Location = new Point(0, 0);
+            ucBirimCevrimleri1.Name = "ucBirimCevrimleri1";
+            ucBirimCevrimleri1.Size = new Size(747, 415);
+            ucBirimCevrimleri1.TabIndex = 0;
             // 
             // TermostatEditForm
             // 
@@ -725,6 +743,7 @@
             grpTeknikOzellikler.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)myDataLayoutControl3).EndInit();
             myDataLayoutControl3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)txtKuyrukBoyu.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtAmper.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtMaxSicaklik.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtMinSicaklik.Properties).EndInit();
@@ -732,6 +751,7 @@
             ((System.ComponentModel.ISupportInitialize)layoutControlItem9).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem10).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem11).EndInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem12).EndInit();
             ((System.ComponentModel.ISupportInitialize)grpTemelBilgiler).EndInit();
             grpTemelBilgiler.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)myDataLayoutControl2).EndInit();
@@ -754,8 +774,7 @@
             ((System.ComponentModel.ISupportInitialize)layoutControlItem2).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem3).EndInit();
             tpBarkodIslemleri.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)txtKuyrukBoyu.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)layoutControlItem12).EndInit();
+            tpBirimCevirileri.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -806,5 +825,7 @@
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn1;
         private UserControls.Controls.MyCalcEdit txtKuyrukBoyu;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem12;
+        private DevExpress.XtraTab.XtraTabPage tpBirimCevirileri;
+        private UserControls.ucBirimCevrimleri ucBirimCevrimleri1;
     }
 }

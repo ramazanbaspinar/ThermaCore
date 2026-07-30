@@ -28,7 +28,8 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.TimerForms
             IOvenTimerService ovenTimerService,
             IItemBarcodeService itemBarcodeService,
             IUnitRepository unitRepository,
-            ISpecialCodeService specialCodeService)
+            ISpecialCodeService specialCodeService,
+            ThermaCore.Application.Interfaces.Definitions.IUnitConversionService unitConversionService)
         {
             InitializeComponent();
 
@@ -41,6 +42,8 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.TimerForms
             RequiresCodeTemplate = true;
 
             // Barkod servisi kaldırıldı
+            ucBirimCevrimleri1.InitializeDependencies(unitConversionService, _unitRepository);
+            ucBirimCevrimleri1.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
             picResim.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
         }
 
@@ -112,6 +115,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.TimerForms
             }
 
             // Barkod yükleme kaldırıldı
+            ucBirimCevrimleri1.Yukle(Id, dto.BaseUnit ?? string.Empty);
         }
 
         protected override void GuncelNesneOlustur()
@@ -138,6 +142,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.TimerForms
         protected override bool EntityInsert()
         {
             // Barkod post changes kaldırıldı
+            ucBirimCevrimleri1.PostGridChanges();
 
             try
             {
@@ -149,6 +154,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.TimerForms
                 if (Id > 0)
                 {
                     // Barkod kaydet kaldırıldı
+                    ucBirimCevrimleri1.Kaydet(Id);
                     picResim.SavePictureAsync("OvenTimer", Id);
                 }
 
@@ -170,6 +176,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.TimerForms
         protected override bool EntityUpdate()
         {
             // Barkod post changes kaldırıldı
+            ucBirimCevrimleri1.PostGridChanges();
 
             try
             {
@@ -177,6 +184,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.TimerForms
                 _ovenTimerService.Update(dto);
 
                 // Barkod kaydet kaldırıldı
+                ucBirimCevrimleri1.Kaydet(Id);
                 picResim.SavePictureAsync("OvenTimer", Id);
 
                 return true;
@@ -280,7 +288,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.TimerForms
         {
             base.ButonEnabledDurumu();
 
-            if (picResim.IsDirty())
+            if (ucBirimCevrimleri1.IsDirty || picResim.IsDirty())
             {
                 if (btnKaydet != null && !btnKaydet.Enabled) btnKaydet.Enabled = true;
                 if (btnGerial != null && !btnGerial.Enabled) btnGerial.Enabled = true;

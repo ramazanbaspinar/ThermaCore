@@ -27,7 +27,8 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.TermokuplForms
             ThermaCore.Application.Interfaces.Common.IItemBarcodeService itemBarcodeService,
             ThermaCore.Application.Interfaces.Repositories.Definitions.IUnitRepository unitRepository,
             ThermaCore.Application.Interfaces.Common.ISpecialCodeService specialCodeService,
-            IRepository<Thermocouple> repository)
+            IRepository<Thermocouple> repository,
+            ThermaCore.Application.Interfaces.Definitions.IUnitConversionService unitConversionService)
         {
             InitializeComponent();
 
@@ -41,7 +42,9 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.TermokuplForms
             RequiresCodeTemplate = true;
 
             ucBarkodlar1.InitializeService(itemBarcodeService);
+            ucBirimCevrimleri1.InitializeDependencies(unitConversionService, _unitRepository);
             ucBarkodlar1.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
+            ucBirimCevrimleri1.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
             picResim.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
         }
 
@@ -100,6 +103,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.TermokuplForms
             }
 
             ucBarkodlar1.Yukle(Id, txtKod.Text, ThermaCore.Domain.Enums.ModuleType.TermokuplTanimlari);
+            ucBirimCevrimleri1.Yukle(Id, dto.BaseUnit ?? string.Empty);
         }
 
         protected override void GuncelNesneOlustur()
@@ -125,6 +129,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.TermokuplForms
         protected override bool EntityInsert()
         {
             ucBarkodlar1.PostGridChanges();
+            ucBirimCevrimleri1.PostGridChanges();
 
             try
             {
@@ -137,6 +142,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.TermokuplForms
                 if (Id > 0)
                 {
                     ucBarkodlar1.Kaydet(Id);
+                    ucBirimCevrimleri1.Kaydet(Id);
                     picResim.SavePicture("Thermocouple", Id);
                 }
 
@@ -158,6 +164,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.TermokuplForms
         protected override bool EntityUpdate()
         {
             ucBarkodlar1.PostGridChanges();
+            ucBirimCevrimleri1.PostGridChanges();
 
             try
             {
@@ -165,6 +172,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.TermokuplForms
                 _thermocoupleService.Update(dto);
 
                 ucBarkodlar1.Kaydet(Id);
+                ucBirimCevrimleri1.Kaydet(Id);
                 picResim.SavePicture("Thermocouple", Id);
 
                 return true;
@@ -270,7 +278,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.TanimlarForms.TermokuplForms
         {
             base.ButonEnabledDurumu();
 
-            if (ucBarkodlar1.IsDirty() || picResim.IsDirty())
+            if (ucBarkodlar1.IsDirty() || ucBirimCevrimleri1.IsDirty || picResim.IsDirty())
             {
                 if (btnKaydet != null && !btnKaydet.Enabled) btnKaydet.Enabled = true;
                 if (btnGerial != null && !btnGerial.Enabled) btnGerial.Enabled = true;
