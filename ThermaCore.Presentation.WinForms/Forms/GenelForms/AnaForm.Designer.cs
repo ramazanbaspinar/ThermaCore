@@ -99,6 +99,8 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             menuStrip1 = new MenuStrip();
             lblMenuSripBilgi = new ToolStripMenuItem();
             btnAnaFormResim = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyPictureEdit();
+            miMaliyet = new ToolStripMenuItem();
+            miGenelGiderler = new ToolStripMenuItem();
             menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)xtraTabbedMdiManager).BeginInit();
             menuStrip1.SuspendLayout();
@@ -109,7 +111,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 
             menuStrip.BackColor = Color.Gainsboro;
             menuStrip.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 162);
-            menuStrip.Items.AddRange(new ToolStripItem[] { miTanimlar, miSistemYonetimi });
+            menuStrip.Items.AddRange(new ToolStripItem[] { miTanimlar, miMaliyet, miSistemYonetimi });
             menuStrip.Location = new Point(0, 24);
             menuStrip.Name = "menuStrip";
             menuStrip.Padding = new Padding(7, 1, 0, 1);
@@ -622,6 +624,21 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             btnAnaFormResim.StatusBarKisaYolAciklama = null;
             btnAnaFormResim.TabIndex = 3;
             // 
+            // miMaliyet
+            // 
+            miMaliyet.DropDownItems.AddRange(new ToolStripItem[] { miGenelGiderler });
+            miMaliyet.Name = "miMaliyet";
+            miMaliyet.Size = new Size(62, 22);
+            miMaliyet.Tag = "Maliyet";
+            miMaliyet.Text = "Maliyet";
+            // 
+            // miGenelGiderler
+            // 
+            miGenelGiderler.Name = "miGenelGiderler";
+            miGenelGiderler.Size = new Size(180, 22);
+            miGenelGiderler.Tag = "GenelGiderler";
+            miGenelGiderler.Text = "Genel Giderler";
+            // 
             // AnaForm
             // 
             Appearance.BackColor = SystemColors.Control;
@@ -730,5 +747,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
         private ToolStripMenuItem miGenelParametreler;
         private ToolStripMenuItem miKaliteStandartTanimlari;
         private ToolStripMenuItem miVidaTanimlari;
+        private ToolStripMenuItem miMaliyet;
+        private ToolStripMenuItem miGenelGiderler;
     }
 }

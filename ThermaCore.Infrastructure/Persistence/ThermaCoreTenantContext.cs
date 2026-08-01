@@ -68,6 +68,8 @@ public class ThermaCoreTenantContext : DbContext
     public DbSet<ThermaCore.Domain.Entities.Definitions.PackagingMaterial> PackagingMaterials { get; set; }
     public DbSet<ThermaCore.Domain.Entities.Definitions.Manual> Manuals { get; set; }
     public DbSet<ThermaCore.Domain.Entities.Definitions.ProductLabel> ProductLabels { get; set; }
+    public DbSet<ThermaCore.Domain.Entities.Definitions.GeneralExpense> GeneralExpenses { get; set; }
+    
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         if (_currentTenantService != null && !string.IsNullOrEmpty(_currentTenantService.ConnectionString))

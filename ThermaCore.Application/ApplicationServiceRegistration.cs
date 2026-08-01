@@ -151,6 +151,9 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IValidator<ProductLabelDto>, ThermaCore.Application.Validations.Definitions.ProductLabelValidator>();
         services.AddScoped<IProductLabelService, ProductLabelManager>();
         
+        services.AddScoped<IValidator<ThermaCore.Application.DTOs.Definitions.GeneralExpenseDto>, ThermaCore.Application.Validations.Definitions.GeneralExpenseValidator>();
+        services.AddScoped<ThermaCore.Application.Interfaces.Definitions.IGeneralExpenseService, ThermaCore.Application.Services.Definitions.GeneralExpenseManager>();
+        
         return services;
     }
 }

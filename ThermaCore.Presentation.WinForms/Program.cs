@@ -126,6 +126,9 @@ internal static class Program
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.LisansForms.LicenseActivationForm>();
                 
                 // Definitions
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.MaliyetForms.GenelGiderForms.GenelGiderListForm>();
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.MaliyetForms.GenelGiderForms.GenelGiderEditForm>();
+                
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.BirimForms.BirimListForm>();
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.BirimForms.BirimEditForm>();
                 

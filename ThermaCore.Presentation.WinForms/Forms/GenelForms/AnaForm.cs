@@ -702,6 +702,22 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
                     }
                 };
             }
+            if (miGenelGiderler != null)
+            {
+                miGenelGiderler.Tag = ThermaCore.Domain.Enums.ModuleType.GenelGiderTanimlari;
+                miGenelGiderler.Click += (s, e) =>
+                {
+                    var authService = _serviceProvider.GetService<ThermaCore.Application.Services.Management.IAuthService>();
+                    if (authService != null && authService.HasPermission(ThermaCore.Domain.Enums.ModuleType.GenelGiderTanimlari, ThermaCore.Domain.Enums.PermissionType.CanView))
+                    {
+                        FormYukle<ThermaCore.Presentation.WinForms.Forms.MaliyetForms.GenelGiderForms.GenelGiderListForm>();
+                    }
+                    else
+                    {
+                        ThermaCore.Presentation.WinForms.Helpers.Messages.UyariMesaji("Bu işlem için yetkiniz bulunmamaktadır.");
+                    }
+                };
+            }
 
             if (xtraTabbedMdiManager != null)
             {

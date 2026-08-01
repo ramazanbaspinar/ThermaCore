@@ -316,6 +316,11 @@ public enum ModuleType
     [Description("Etiket Tanımları")]
     [ParentModule(Tanimlar)]
     [RequiresCodeTemplate]
-    EtiketTanimlari = 57
+    EtiketTanimlari = 57,
+
+    [Description("Genel Gider Tanımları")]
+    [ParentModule(Tanimlar)]
+    [RequiresCodeTemplate]
+    GenelGiderTanimlari = 58
 }
 
