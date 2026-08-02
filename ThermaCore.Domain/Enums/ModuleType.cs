@@ -321,6 +321,14 @@ public enum ModuleType
     [Description("Genel Gider Tanımları")]
     [ParentModule(Tanimlar)]
     [RequiresCodeTemplate]
-    GenelGiderTanimlari = 58
+    GenelGiderTanimlari = 58,
+
+    [Description("Maliyet Yönetimi")]
+    MaliyetYonetimi = 7000,
+
+    [Description("Sac Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    SacMaliyetleri = 7001
 }
 

@@ -35,8 +35,14 @@ namespace ThermaCore.Presentation.WinForms.Forms.SacForms
 
         protected override void Listele()
         {
-            var liste = _service.GetAll().Where(x => x.IsActive == AktifKartlariGoster).ToList();
-            Tablo.GridControl.DataSource = liste;
+            var liste = _service.GetAll().Where(x => x.IsActive == AktifKartlariGoster);
+            
+            if (ListeDisiTutulacakKayitlar != null && ListeDisiTutulacakKayitlar.Any())
+            {
+                liste = liste.Where(x => !ListeDisiTutulacakKayitlar.Contains(x.Id));
+            }
+            
+            Tablo.GridControl.DataSource = liste.ToList();
         }
 
         protected override void ShowEditForm(long id)

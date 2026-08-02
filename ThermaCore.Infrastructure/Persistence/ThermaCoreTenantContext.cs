@@ -69,6 +69,7 @@ public class ThermaCoreTenantContext : DbContext
     public DbSet<ThermaCore.Domain.Entities.Definitions.Manual> Manuals { get; set; }
     public DbSet<ThermaCore.Domain.Entities.Definitions.ProductLabel> ProductLabels { get; set; }
     public DbSet<ThermaCore.Domain.Entities.Definitions.GeneralExpense> GeneralExpenses { get; set; }
+    public DbSet<ThermaCore.Domain.Entities.Production.MaterialCost> MaterialCosts { get; set; }
     
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
