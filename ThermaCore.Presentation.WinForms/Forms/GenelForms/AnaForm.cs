@@ -16,19 +16,19 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
     public partial class AnaForm : XtraForm
     {
         private bool _programiOtomatikKapat = false;
-        
+
         // DI Konteynerinden Gelecek Servisler
         private readonly IServiceProvider _serviceProvider;
         private readonly ICurrentTenantService _currentTenantService;
         private readonly ISessionService _sessionService;
 
         public AnaForm(
-            IServiceProvider serviceProvider, 
-            ICurrentTenantService currentTenantService, 
+            IServiceProvider serviceProvider,
+            ICurrentTenantService currentTenantService,
             ISessionService sessionService)
         {
             InitializeComponent();
-            
+
             _serviceProvider = serviceProvider;
             _currentTenantService = currentTenantService;
             _sessionService = sessionService;
@@ -42,21 +42,21 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             Shown += AnaForm_Shown;
             FormClosing += AnaForm_FormClosing;
             KeyDown += Control_KeyDown;
-            
+
             if (miEmailParameter != null)
-                miEmailParameter.Click += (s, e) => 
+                miEmailParameter.Click += (s, e) =>
                 {
                     var form = _serviceProvider.GetRequiredService<ThermaCore.Presentation.WinForms.Forms.ParametrelerForms.EmailParameterEditForm>();
                     form.ShowDialog();
                 };
-            
+
             if (miSystemLicense != null)
-                miSystemLicense.Click += (s, e) => 
+                miSystemLicense.Click += (s, e) =>
                 {
                     var form = _serviceProvider.GetRequiredService<ThermaCore.Presentation.WinForms.Forms.ParametrelerForms.SystemLicenseEditForm>();
                     form.ShowDialog();
                 };
-            
+
             // Dinamik Yükleme Click Eventleri
             if (miGenelParametreler != null)
                 miGenelParametreler.Click += miGenelParametreler_Click;
@@ -88,7 +88,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
 
             if (miYetkiGruplariRoller != null)
                 miYetkiGruplariRoller.Click += miYetkiGruplariRoller_Click;
-            
+
             if (miKullaniciTanimlari != null)
                 miKullaniciTanimlari.Click += KullaniciTanimlari_Click;
 
@@ -243,7 +243,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
                     }
                 };
             }
-            
+
             if (miRezistansTanimlari != null)
             {
                 miRezistansTanimlari.Tag = ThermaCore.Domain.Enums.ModuleType.RezistansTanimlari;
@@ -328,7 +328,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
                     }
                 };
             }
-            
+
             if (miLambaTanimlari != null)
             {
                 miLambaTanimlari.Tag = ThermaCore.Domain.Enums.ModuleType.LambaTanimlari;
@@ -345,7 +345,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
                     }
                 };
             }
-            
+
             if (miMotorTanimlari != null)
             {
                 miMotorTanimlari.Tag = ThermaCore.Domain.Enums.ModuleType.MotorTanimlari;
@@ -362,7 +362,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
                     }
                 };
             }
-            
+
             if (miFanTanimlari != null)
             {
                 miFanTanimlari.Tag = ThermaCore.Domain.Enums.ModuleType.FanTanimlari;
@@ -787,6 +787,91 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
                 };
             }
 
+            if (miRezistansMaliyetleri != null)
+            {
+                miRezistansMaliyetleri.Tag = ThermaCore.Domain.Enums.ModuleType.RezistansMaliyetleri;
+                miRezistansMaliyetleri.Click += (s, e) =>
+                {
+                    var authService = _serviceProvider.GetService<ThermaCore.Application.Services.Management.IAuthService>();
+                    if (authService != null && authService.HasPermission(ThermaCore.Domain.Enums.ModuleType.RezistansMaliyetleri, ThermaCore.Domain.Enums.PermissionType.CanView))
+                    {
+                        FormYukle<ThermaCore.Presentation.WinForms.Forms.MaliyetForms.RezistansMaliyetForms.RezistansMaliyetListForm>();
+                    }
+                    else
+                    {
+                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                };
+            }
+
+            if (miKabloMaliyetleri != null)
+            {
+                miKabloMaliyetleri.Tag = ThermaCore.Domain.Enums.ModuleType.KabloMaliyetleri;
+                miKabloMaliyetleri.Click += (s, e) =>
+                {
+                    var authService = _serviceProvider.GetService<ThermaCore.Application.Services.Management.IAuthService>();
+                    if (authService != null && authService.HasPermission(ThermaCore.Domain.Enums.ModuleType.KabloMaliyetleri, ThermaCore.Domain.Enums.PermissionType.CanView))
+                    {
+                        FormYukle<ThermaCore.Presentation.WinForms.Forms.MaliyetForms.KabloMaliyetForms.KabloMaliyetListForm>();
+                    }
+                    else
+                    {
+                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                };
+            }
+
+            if (miMotorMaliyetleri != null)
+            {
+                miMotorMaliyetleri.Tag = ThermaCore.Domain.Enums.ModuleType.MotorMaliyetleri;
+                miMotorMaliyetleri.Click += (s, e) =>
+                {
+                    var authService = _serviceProvider.GetService<ThermaCore.Application.Services.Management.IAuthService>();
+                    if (authService != null && authService.HasPermission(ThermaCore.Domain.Enums.ModuleType.MotorMaliyetleri, ThermaCore.Domain.Enums.PermissionType.CanView))
+                    {
+                        FormYukle<ThermaCore.Presentation.WinForms.Forms.MaliyetForms.MotorMaliyetForms.MotorMaliyetListForm>();
+                    }
+                    else
+                    {
+                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                };
+            }
+
+            if (miFanMaliyetleri != null)
+            {
+                miFanMaliyetleri.Tag = ThermaCore.Domain.Enums.ModuleType.FanMaliyetleri;
+                miFanMaliyetleri.Click += (s, e) =>
+                {
+                    var authService = _serviceProvider.GetService<ThermaCore.Application.Services.Management.IAuthService>();
+                    if (authService != null && authService.HasPermission(ThermaCore.Domain.Enums.ModuleType.FanMaliyetleri, ThermaCore.Domain.Enums.PermissionType.CanView))
+                    {
+                        FormYukle<ThermaCore.Presentation.WinForms.Forms.MaliyetForms.FanMaliyetForms.FanMaliyetEditForm>();
+                    }
+                    else
+                    {
+                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                };
+            }
+
+            if (miAnahtarRotaryMaliyetleri != null)
+            {
+                miAnahtarRotaryMaliyetleri.Tag = ThermaCore.Domain.Enums.ModuleType.RotaryMaliyetleri;
+                miAnahtarRotaryMaliyetleri.Click += (s, e) =>
+                {
+                    var authService = _serviceProvider.GetService<ThermaCore.Application.Services.Management.IAuthService>();
+                    if (authService != null && authService.HasPermission(ThermaCore.Domain.Enums.ModuleType.RotaryMaliyetleri, ThermaCore.Domain.Enums.PermissionType.CanView))
+                    {
+                        FormYukle<ThermaCore.Presentation.WinForms.Forms.MaliyetForms.RotaryMaliyetForms.RotaryMaliyetListForm>();
+                    }
+                    else
+                    {
+                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                };
+            }
+
             if (xtraTabbedMdiManager != null)
             {
                 xtraTabbedMdiManager.PageAdded += XtraTabbedMdiManager_PageAdded;
@@ -864,7 +949,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
                 Text = $"ThermaCore ERP --- Bilgisayar: {Environment.MachineName}";
 
                 var scopeFactory = _serviceProvider.GetRequiredService<IServiceScopeFactory>();
-                
+
                 string currentConnString = _currentTenantService.ConnectionString;
                 long currentTenantId = _currentTenantService.TenantId;
                 string currentTenantName = _currentTenantService.TenantName;
@@ -876,7 +961,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
                     try
                     {
                         using var scope = scopeFactory.CreateScope();
-                        
+
                         // Scope içerisinde yeni üretilen ICurrentTenantService'e ana context'teki bilgileri aktar
                         var backgroundTenantService = scope.ServiceProvider.GetRequiredService<ThermaCore.Application.Interfaces.System.ICurrentTenantService>();
                         backgroundTenantService.ConnectionString = currentConnString;
@@ -886,10 +971,10 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
 
                         var exchangeRateService = scope.ServiceProvider.GetRequiredService<ThermaCore.Application.Interfaces.System.IExchangeRateService>();
                         await exchangeRateService.SyncTcmbRatesAsync();
-                        
+
                         // Veritabanından (TenantDB) en güncel USD ve EUR EffectiveSellingRate değerlerini oku.
                         var exchangeRateRepository = scope.ServiceProvider.GetRequiredService<ThermaCore.Application.Interfaces.Repositories.IRepository<ThermaCore.Domain.Entities.Management.ExchangeRate>>();
-                        
+
                         var usdRate = exchangeRateRepository.Find(x => x.CurrencyCode == "USD").OrderByDescending(x => x.RateDate).FirstOrDefault();
                         var eurRate = exchangeRateRepository.Find(x => x.CurrencyCode == "EUR").OrderByDescending(x => x.RateDate).FirstOrDefault();
 
@@ -944,7 +1029,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
         {
             var authService = _serviceProvider.GetService<ThermaCore.Application.Services.Management.IAuthService>();
             if (authService == null) return;
-            
+
             var userRepo = _serviceProvider.GetService<ThermaCore.Application.Interfaces.Repositories.IMasterRepository<ThermaCore.Domain.Entities.Management.User>>();
             var user = userRepo?.GetById(_currentTenantService.UserId);
             bool isSuperAdmin = user != null && (user.Code.ToLower() == "admin" || user.Code.ToLower() == "thermacore");
@@ -967,7 +1052,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
                 }
 
                 bool hasVisibleChildren = false;
-                
+
                 if (item is ToolStripMenuItem menuItem && menuItem.DropDownItems.Count > 0)
                 {
                     ApplyMenuPermissionsRecursive(menuItem.DropDownItems, authService, isSuperAdmin);
@@ -1088,7 +1173,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             {
                 var requiredModules = Enum.GetValues(typeof(ThermaCore.Domain.Enums.ModuleType))
                     .Cast<ThermaCore.Domain.Enums.ModuleType>()
-                    .Where(m => 
+                    .Where(m =>
                     {
                         var field = typeof(ThermaCore.Domain.Enums.ModuleType).GetField(m.ToString());
                         return field != null && Attribute.IsDefined(field, typeof(ThermaCore.Domain.Attributes.RequiresCodeTemplateAttribute));
@@ -1097,7 +1182,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
 
                 using var scope = _serviceProvider.CreateScope();
                 var sablonRepo = scope.ServiceProvider.GetService<ThermaCore.Application.Interfaces.Repositories.IMasterRepository<ThermaCore.Domain.Entities.Management.CodeTemplate>>();
-                
+
                 if (sablonRepo == null) return;
 
                 var missingModules = new System.Collections.Generic.List<string>();
@@ -1110,7 +1195,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
                         var field = typeof(ThermaCore.Domain.Enums.ModuleType).GetField(module.ToString());
                         var attr = (System.ComponentModel.DescriptionAttribute?)Attribute.GetCustomAttribute(field!, typeof(System.ComponentModel.DescriptionAttribute));
                         string desc = attr != null ? attr.Description : module.ToString();
-                        
+
                         missingModules.Add(desc);
                     }
                 }
@@ -1119,13 +1204,13 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
                 {
                     int totalMissing = missingModules.Count;
                     var displayList = missingModules.Take(2).ToList();
-                    
+
                     string moduleList = string.Join("\n- ", displayList);
                     string countMsg = totalMissing > 2 ? $"\n... ve {totalMissing - 2} modül daha eksik." : "";
-                    
+
                     string msg = $"Sistemin standartlara uygun çalışması için aşağıdaki modüllerin Kod Şablonları eksiktir:\n\n- {moduleList}{countMsg}\n\nLütfen Sistem Yönetimi'nden tanımlayınız.";
-                    
-                    this.BeginInvoke(new Action(() => 
+
+                    this.BeginInvoke(new Action(() =>
                     {
                         XtraMessageBox.Show(this, msg, "Eksik Kod Şablonları", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }));
@@ -1137,7 +1222,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
         }
 
         #region MDI Yöneticisi ve Form Açıcı
-        
+
         /// <summary>
         /// Sadece DI (IServiceProvider) üzerinden belirtilen T tipindeki formu MDI Child olarak açar veya öne getirir.
         /// Eski switch/case ve ModulTuru bağımlılığı kaldırılmıştır.
@@ -1173,7 +1258,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             if (((XtraTabbedMdiManager)sender).Pages.Count == 0)
             {
                 // MDI sekmesi kalmadığında arka plandaki resim/logo gösterilebilir
-                if (btnAnaFormResim != null) btnAnaFormResim.Visible = true; 
+                if (btnAnaFormResim != null) btnAnaFormResim.Visible = true;
             }
         }
 
@@ -1318,7 +1403,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
         {
             var appConfigService = _serviceProvider.GetRequiredService<ThermaCore.Application.Interfaces.Configuration.IAppConfigService>();
             appConfigService.SetLastBranchId(0); // RememberedBranchId'yi sıfırla
-            
+
             // Tüm sekmeleri kapat
             foreach (Form form in MdiChildren)
             {
@@ -1354,7 +1439,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
         }
 
         #endregion
-        
+
         #region Temizlenen ve Yorum Satırına Alınan Eski İş Mantıkları (EF Core, BLL vb.)
 
         /*

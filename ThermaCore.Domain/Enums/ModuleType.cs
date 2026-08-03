@@ -344,6 +344,31 @@ public enum ModuleType
     [Description("Tepsi Maliyetleri")]
     [ParentModule(MaliyetYonetimi)]
     [RequiresCodeTemplate]
-    TepsiMaliyetleri = 7004
+    TepsiMaliyetleri = 7004,
+
+    [Description("Rezistans Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    RezistansMaliyetleri = 7005,
+
+    [Description("Kablo Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    KabloMaliyetleri = 7006,
+
+    [Description("Motor Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    MotorMaliyetleri = 7007,
+
+    [Description("Fan Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    FanMaliyetleri = 7008,
+
+    [Description("Anahtar (Rotary) Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    RotaryMaliyetleri = 7009
 }
 
