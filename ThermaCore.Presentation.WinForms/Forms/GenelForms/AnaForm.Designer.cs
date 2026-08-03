@@ -86,6 +86,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             mimMetalVeSacGrubu = new ToolStripMenuItem();
             miSacMaliyetleri = new ToolStripMenuItem();
             miTelMaliyetleri = new ToolStripMenuItem();
+            miIzgaraMaliyetleri = new ToolStripMenuItem();
             miSistemYonetimi = new ToolStripMenuItem();
             miKurumsalTanimlar = new ToolStripMenuItem();
             miSirketTanimlari = new ToolStripMenuItem();
@@ -104,6 +105,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             menuStrip1 = new MenuStrip();
             lblMenuSripBilgi = new ToolStripMenuItem();
             btnAnaFormResim = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyPictureEdit();
+            miTepsiMaliyetleri = new ToolStripMenuItem();
             menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)xtraTabbedMdiManager).BeginInit();
             menuStrip1.SuspendLayout();
@@ -495,7 +497,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 
             // mimMetalVeSacGrubu
             // 
-            mimMetalVeSacGrubu.DropDownItems.AddRange(new ToolStripItem[] { miSacMaliyetleri, miTelMaliyetleri });
+            mimMetalVeSacGrubu.DropDownItems.AddRange(new ToolStripItem[] { miSacMaliyetleri, miTelMaliyetleri, miIzgaraMaliyetleri, miTepsiMaliyetleri });
             mimMetalVeSacGrubu.Name = "mimMetalVeSacGrubu";
             mimMetalVeSacGrubu.Size = new Size(190, 22);
             mimMetalVeSacGrubu.Tag = "mMetalVeSacGrubu";
@@ -514,6 +516,12 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             miTelMaliyetleri.Size = new Size(180, 22);
             miTelMaliyetleri.Tag = "TelMaliyetleri";
             miTelMaliyetleri.Text = "Tel Maliyetleri";
+            // 
+            // miIzgaraMaliyetleri
+            // 
+            miIzgaraMaliyetleri.Name = "miIzgaraMaliyetleri";
+            miIzgaraMaliyetleri.Size = new Size(180, 22);
+            miIzgaraMaliyetleri.Text = "Izgara Maliyetleri";
             // 
             // miSistemYonetimi
             // 
@@ -664,6 +672,13 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             btnAnaFormResim.StatusBarKisaYolAciklama = null;
             btnAnaFormResim.TabIndex = 3;
             // 
+            // miTepsiMaliyetleri
+            // 
+            miTepsiMaliyetleri.Name = "miTepsiMaliyetleri";
+            miTepsiMaliyetleri.Size = new Size(180, 22);
+            miTepsiMaliyetleri.Tag = "TepsiMaliyetleri";
+            miTepsiMaliyetleri.Text = "Tepsi Maliyetleri";
+            // 
             // AnaForm
             // 
             Appearance.BackColor = SystemColors.Control;
@@ -777,5 +792,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
         private ToolStripMenuItem mimMetalVeSacGrubu;
         private ToolStripMenuItem miSacMaliyetleri;
         private ToolStripMenuItem miTelMaliyetleri;
+        private ToolStripMenuItem miIzgaraMaliyetleri;
+        private ToolStripMenuItem miTepsiMaliyetleri;
     }
 }

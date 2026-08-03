@@ -135,6 +135,12 @@ internal static class Program
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.MaliyetForms.TelMaliyetForms.TelMaliyetListForm>();
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.MaliyetForms.TelMaliyetForms.TelMaliyetEditForm>();
                 
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.MaliyetForms.IzgaraMaliyetForms.IzgaraMaliyetListForm>();
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.MaliyetForms.IzgaraMaliyetForms.IzgaraMaliyetEditForm>();
+                
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.MaliyetForms.TepsiMaliyetForms.TepsiMaliyetListForm>();
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.MaliyetForms.TepsiMaliyetForms.TepsiMaliyetEditForm>();
+                
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.BirimForms.BirimListForm>();
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.BirimForms.BirimEditForm>();
                 

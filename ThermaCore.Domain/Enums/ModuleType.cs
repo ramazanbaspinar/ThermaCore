@@ -334,6 +334,16 @@ public enum ModuleType
     [Description("Tel Maliyetleri")]
     [ParentModule(MaliyetYonetimi)]
     [RequiresCodeTemplate]
-    TelMaliyetleri = 7002
+    TelMaliyetleri = 7002,
+
+    [Description("Izgara Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    IzgaraMaliyetleri = 7003,
+
+    [Description("Tepsi Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    TepsiMaliyetleri = 7004
 }
 
