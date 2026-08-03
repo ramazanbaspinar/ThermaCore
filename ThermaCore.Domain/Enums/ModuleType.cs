@@ -319,7 +319,7 @@ public enum ModuleType
     EtiketTanimlari = 57,
 
     [Description("Genel Gider Tanımları")]
-    [ParentModule(Tanimlar)]
+    [ParentModule(MaliyetYonetimi)]
     [RequiresCodeTemplate]
     GenelGiderTanimlari = 58,
 
@@ -329,6 +329,11 @@ public enum ModuleType
     [Description("Sac Maliyetleri")]
     [ParentModule(MaliyetYonetimi)]
     [RequiresCodeTemplate]
-    SacMaliyetleri = 7001
+    SacMaliyetleri = 7001,
+
+    [Description("Tel Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    TelMaliyetleri = 7002
 }
 

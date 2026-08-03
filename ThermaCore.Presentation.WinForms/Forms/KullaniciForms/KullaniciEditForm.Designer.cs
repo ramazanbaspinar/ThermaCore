@@ -29,24 +29,25 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DevExpress.XtraLayout.ColumnDefinition columnDefinition5 = new DevExpress.XtraLayout.ColumnDefinition();
-            DevExpress.XtraLayout.ColumnDefinition columnDefinition6 = new DevExpress.XtraLayout.ColumnDefinition();
-            DevExpress.XtraLayout.RowDefinition rowDefinition9 = new DevExpress.XtraLayout.RowDefinition();
-            DevExpress.XtraLayout.RowDefinition rowDefinition10 = new DevExpress.XtraLayout.RowDefinition();
-            DevExpress.XtraLayout.RowDefinition rowDefinition11 = new DevExpress.XtraLayout.RowDefinition();
-            DevExpress.XtraLayout.RowDefinition rowDefinition12 = new DevExpress.XtraLayout.RowDefinition();
-            DevExpress.XtraLayout.RowDefinition rowDefinition13 = new DevExpress.XtraLayout.RowDefinition();
-            DevExpress.XtraLayout.RowDefinition rowDefinition14 = new DevExpress.XtraLayout.RowDefinition();
-            DevExpress.XtraLayout.ColumnDefinition columnDefinition7 = new DevExpress.XtraLayout.ColumnDefinition();
-            DevExpress.XtraLayout.ColumnDefinition columnDefinition8 = new DevExpress.XtraLayout.ColumnDefinition();
-            DevExpress.XtraLayout.RowDefinition rowDefinition15 = new DevExpress.XtraLayout.RowDefinition();
-            DevExpress.XtraLayout.RowDefinition rowDefinition16 = new DevExpress.XtraLayout.RowDefinition();
+            DevExpress.XtraLayout.ColumnDefinition columnDefinition1 = new DevExpress.XtraLayout.ColumnDefinition();
+            DevExpress.XtraLayout.ColumnDefinition columnDefinition2 = new DevExpress.XtraLayout.ColumnDefinition();
+            DevExpress.XtraLayout.RowDefinition rowDefinition1 = new DevExpress.XtraLayout.RowDefinition();
+            DevExpress.XtraLayout.RowDefinition rowDefinition2 = new DevExpress.XtraLayout.RowDefinition();
+            DevExpress.XtraLayout.RowDefinition rowDefinition3 = new DevExpress.XtraLayout.RowDefinition();
+            DevExpress.XtraLayout.RowDefinition rowDefinition4 = new DevExpress.XtraLayout.RowDefinition();
+            DevExpress.XtraLayout.RowDefinition rowDefinition5 = new DevExpress.XtraLayout.RowDefinition();
+            DevExpress.XtraLayout.RowDefinition rowDefinition6 = new DevExpress.XtraLayout.RowDefinition();
+            DevExpress.XtraLayout.ColumnDefinition columnDefinition3 = new DevExpress.XtraLayout.ColumnDefinition();
+            DevExpress.XtraLayout.ColumnDefinition columnDefinition4 = new DevExpress.XtraLayout.ColumnDefinition();
+            DevExpress.XtraLayout.RowDefinition rowDefinition7 = new DevExpress.XtraLayout.RowDefinition();
+            DevExpress.XtraLayout.RowDefinition rowDefinition8 = new DevExpress.XtraLayout.RowDefinition();
             xtraTabControl1 = new DevExpress.XtraTab.XtraTabControl();
             tpGenelBilgiler = new DevExpress.XtraTab.XtraTabPage();
             myDataLayoutControl1 = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyDataLayoutControl();
             tglDurum = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyToggleSwitch();
             glufRol = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyGridLookUpFind();
             myGridLookUpFind1View = new DevExpress.XtraGrid.Views.Grid.GridView();
+            gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
             txtSifre = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyTextEdit();
             txtEmail = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyEmailTextEdit();
             txtSoyad = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyTextEdit();
@@ -183,10 +184,19 @@
             // 
             // myGridLookUpFind1View
             // 
+            myGridLookUpFind1View.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { gridColumn1 });
             myGridLookUpFind1View.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
             myGridLookUpFind1View.Name = "myGridLookUpFind1View";
             myGridLookUpFind1View.OptionsSelection.EnableAppearanceFocusedCell = false;
             myGridLookUpFind1View.OptionsView.ShowGroupPanel = false;
+            // 
+            // gridColumn1
+            // 
+            gridColumn1.Caption = "Rol";
+            gridColumn1.FieldName = "RoleName";
+            gridColumn1.Name = "gridColumn1";
+            gridColumn1.Visible = true;
+            gridColumn1.VisibleIndex = 0;
             // 
             // txtSifre
             // 
@@ -195,6 +205,7 @@
             txtSifre.MenuManager = ribbon;
             txtSifre.Name = "txtSifre";
             txtSifre.Properties.MaxLength = 100;
+            txtSifre.Properties.UseSystemPasswordChar = true;
             txtSifre.Size = new Size(318, 20);
             txtSifre.StatusBarAciklama = "";
             txtSifre.StyleController = myDataLayoutControl1;
@@ -267,24 +278,24 @@
             Root.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] { layoutControlItem1, layoutControlItem2, layoutControlItem3, layoutControlItem4, layoutControlItem5, layoutControlItem6, layoutControlItem7 });
             Root.LayoutMode = DevExpress.XtraLayout.Utils.LayoutMode.Table;
             Root.Name = "Root";
-            columnDefinition5.SizeType = SizeType.Percent;
-            columnDefinition5.Width = 100D;
-            columnDefinition6.SizeType = SizeType.Absolute;
-            columnDefinition6.Width = 99D;
-            Root.OptionsTableLayoutGroup.ColumnDefinitions.AddRange(new DevExpress.XtraLayout.ColumnDefinition[] { columnDefinition5, columnDefinition6 });
-            rowDefinition9.Height = 31D;
-            rowDefinition9.SizeType = SizeType.Absolute;
-            rowDefinition10.Height = 31D;
-            rowDefinition10.SizeType = SizeType.Absolute;
-            rowDefinition11.Height = 31D;
-            rowDefinition11.SizeType = SizeType.Absolute;
-            rowDefinition12.Height = 31D;
-            rowDefinition12.SizeType = SizeType.Absolute;
-            rowDefinition13.Height = 31D;
-            rowDefinition13.SizeType = SizeType.Absolute;
-            rowDefinition14.Height = 31D;
-            rowDefinition14.SizeType = SizeType.Absolute;
-            Root.OptionsTableLayoutGroup.RowDefinitions.AddRange(new DevExpress.XtraLayout.RowDefinition[] { rowDefinition9, rowDefinition10, rowDefinition11, rowDefinition12, rowDefinition13, rowDefinition14 });
+            columnDefinition1.SizeType = SizeType.Percent;
+            columnDefinition1.Width = 100D;
+            columnDefinition2.SizeType = SizeType.Absolute;
+            columnDefinition2.Width = 99D;
+            Root.OptionsTableLayoutGroup.ColumnDefinitions.AddRange(new DevExpress.XtraLayout.ColumnDefinition[] { columnDefinition1, columnDefinition2 });
+            rowDefinition1.Height = 31D;
+            rowDefinition1.SizeType = SizeType.Absolute;
+            rowDefinition2.Height = 31D;
+            rowDefinition2.SizeType = SizeType.Absolute;
+            rowDefinition3.Height = 31D;
+            rowDefinition3.SizeType = SizeType.Absolute;
+            rowDefinition4.Height = 31D;
+            rowDefinition4.SizeType = SizeType.Absolute;
+            rowDefinition5.Height = 31D;
+            rowDefinition5.SizeType = SizeType.Absolute;
+            rowDefinition6.Height = 31D;
+            rowDefinition6.SizeType = SizeType.Absolute;
+            Root.OptionsTableLayoutGroup.RowDefinitions.AddRange(new DevExpress.XtraLayout.RowDefinition[] { rowDefinition1, rowDefinition2, rowDefinition3, rowDefinition4, rowDefinition5, rowDefinition6 });
             Root.Size = new Size(409, 206);
             Root.TextVisible = false;
             // 
@@ -445,16 +456,16 @@
             layoutControlGroup1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] { layoutControlItem8, layoutControlItem9, layoutControlItem10, layoutControlItem11 });
             layoutControlGroup1.LayoutMode = DevExpress.XtraLayout.Utils.LayoutMode.Table;
             layoutControlGroup1.Name = "layoutControlGroup1";
-            columnDefinition7.SizeType = SizeType.Percent;
-            columnDefinition7.Width = 100D;
-            columnDefinition8.SizeType = SizeType.Percent;
-            columnDefinition8.Width = 100D;
-            layoutControlGroup1.OptionsTableLayoutGroup.ColumnDefinitions.AddRange(new DevExpress.XtraLayout.ColumnDefinition[] { columnDefinition7, columnDefinition8 });
-            rowDefinition15.Height = 31D;
-            rowDefinition15.SizeType = SizeType.Absolute;
-            rowDefinition16.Height = 100D;
-            rowDefinition16.SizeType = SizeType.Percent;
-            layoutControlGroup1.OptionsTableLayoutGroup.RowDefinitions.AddRange(new DevExpress.XtraLayout.RowDefinition[] { rowDefinition15, rowDefinition16 });
+            columnDefinition3.SizeType = SizeType.Percent;
+            columnDefinition3.Width = 100D;
+            columnDefinition4.SizeType = SizeType.Percent;
+            columnDefinition4.Width = 100D;
+            layoutControlGroup1.OptionsTableLayoutGroup.ColumnDefinitions.AddRange(new DevExpress.XtraLayout.ColumnDefinition[] { columnDefinition3, columnDefinition4 });
+            rowDefinition7.Height = 31D;
+            rowDefinition7.SizeType = SizeType.Absolute;
+            rowDefinition8.Height = 100D;
+            rowDefinition8.SizeType = SizeType.Percent;
+            layoutControlGroup1.OptionsTableLayoutGroup.RowDefinitions.AddRange(new DevExpress.XtraLayout.RowDefinition[] { rowDefinition7, rowDefinition8 });
             layoutControlGroup1.Size = new Size(426, 195);
             layoutControlGroup1.TextVisible = false;
             // 
@@ -578,5 +589,6 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem9;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem10;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem11;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn1;
     }
 }

@@ -8,9 +8,9 @@ namespace ThermaCore.Application.Validations.Management;
 
 public class TerminalValidator : AbstractValidator<TerminalDto>
 {
-    private readonly IRepository<Terminal> _repository;
+    private readonly IMasterRepository<Terminal> _repository;
 
-    public TerminalValidator(IRepository<Terminal> repository)
+    public TerminalValidator(IMasterRepository<Terminal> repository)
     {
         _repository = repository;
 

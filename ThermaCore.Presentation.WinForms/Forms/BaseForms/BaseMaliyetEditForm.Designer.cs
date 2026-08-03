@@ -38,13 +38,13 @@
             txtMaliyet = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyCalcEdit();
             glfMalzemeSecimi = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyGridLookUpFind();
             myGridLookUpFind1View = new DevExpress.XtraGrid.Views.Grid.GridView();
+            gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
             txtKod = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyKodTextEdit();
             Root = new DevExpress.XtraLayout.LayoutControlGroup();
             layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
-            gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)ribbon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)myDataLayoutControl1).BeginInit();
             myDataLayoutControl1.SuspendLayout();
@@ -106,12 +106,12 @@
             txtMaliyet.Name = "txtMaliyet";
             txtMaliyet.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
             txtMaliyet.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
-            txtMaliyet.Properties.DisplayFormat.FormatString = "n2";
+            txtMaliyet.Properties.DisplayFormat.FormatString = "n4";
             txtMaliyet.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            txtMaliyet.Properties.EditFormat.FormatString = "n2";
+            txtMaliyet.Properties.EditFormat.FormatString = "n4";
             txtMaliyet.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             txtMaliyet.Properties.Mask.UseMaskAsDisplayFormat = true;
-            txtMaliyet.Properties.MaskSettings.Set("mask", "n2");
+            txtMaliyet.Properties.MaskSettings.Set("mask", "n4");
             txtMaliyet.Size = new Size(272, 20);
             txtMaliyet.StatusBarAciklama = null;
             txtMaliyet.StatusBarKisaYol = "F4 :";
@@ -144,6 +144,14 @@
             myGridLookUpFind1View.Name = "myGridLookUpFind1View";
             myGridLookUpFind1View.OptionsSelection.EnableAppearanceFocusedCell = false;
             myGridLookUpFind1View.OptionsView.ShowGroupPanel = false;
+            // 
+            // gridColumn1
+            // 
+            gridColumn1.Caption = "Malzeme Adı";
+            gridColumn1.FieldName = "Name";
+            gridColumn1.Name = "gridColumn1";
+            gridColumn1.Visible = true;
+            gridColumn1.VisibleIndex = 0;
             // 
             // txtKod
             // 
@@ -221,14 +229,6 @@
             layoutControlItem4.Text = "Para Birimi";
             layoutControlItem4.TextSize = new Size(73, 13);
             // 
-            // gridColumn1
-            // 
-            gridColumn1.Caption = "Malzeme Adı";
-            gridColumn1.FieldName = "Name";
-            gridColumn1.Name = "gridColumn1";
-            gridColumn1.Visible = true;
-            gridColumn1.VisibleIndex = 0;
-            // 
             // BaseMaliyetEditForm
             // 
             AutoScaleDimensions = new SizeF(6F, 13F);
@@ -236,6 +236,7 @@
             ClientSize = new Size(398, 299);
             Controls.Add(myDataLayoutControl1);
             IconOptions.ShowIcon = false;
+            MinimumSize = new Size(400, 300);
             Name = "BaseMaliyetEditForm";
             Controls.SetChildIndex(ribbon, 0);
             Controls.SetChildIndex(myDataLayoutControl1, 0);
