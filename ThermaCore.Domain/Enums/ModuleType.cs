@@ -394,6 +394,16 @@ public enum ModuleType
     [Description("Gaz Musluğu Maliyetleri")]
     [ParentModule(MaliyetYonetimi)]
     [RequiresCodeTemplate]
-    GazMusluguMaliyetleri = 7014
+    GazMusluguMaliyetleri = 7014,
+
+    [Description("Valf Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    ValfMaliyetleri = 7015,
+
+    [Description("Bek (Bek Grubu) Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    BekMaliyetleri = 7016
 }
 
