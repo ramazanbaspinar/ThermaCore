@@ -409,6 +409,16 @@ public enum ModuleType
     [Description("Enjektör Maliyetleri")]
     [ParentModule(MaliyetYonetimi)]
     [RequiresCodeTemplate]
-    EnjektorMaliyetleri = 7017
+    EnjektorMaliyetleri = 7017,
+
+    [Description("Termokupl (Emniyet) Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    TermokuplMaliyetleri = 7018,
+
+    [Description("Çakmak (Buji) Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    CakmakMaliyetleri = 7019
 }
 
