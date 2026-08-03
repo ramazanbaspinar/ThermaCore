@@ -379,6 +379,11 @@ public enum ModuleType
     [Description("Timer (Zamanlayıcı) Maliyetleri")]
     [ParentModule(MaliyetYonetimi)]
     [RequiresCodeTemplate]
-    TimerMaliyetleri = 7011
+    TimerMaliyetleri = 7011,
+
+    [Description("Lamba Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    LambaMaliyetleri = 7012
 }
 
