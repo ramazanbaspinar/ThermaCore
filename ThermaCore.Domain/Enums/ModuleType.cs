@@ -369,6 +369,11 @@ public enum ModuleType
     [Description("Anahtar (Rotary) Maliyetleri")]
     [ParentModule(MaliyetYonetimi)]
     [RequiresCodeTemplate]
-    RotaryMaliyetleri = 7009
+    RotaryMaliyetleri = 7009,
+
+    [Description("Termostat Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    TermostatMaliyetleri = 7010
 }
 

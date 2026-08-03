@@ -93,6 +93,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             miKabloMaliyetleri = new ToolStripMenuItem();
             miMotorMaliyetleri = new ToolStripMenuItem();
             miFanMaliyetleri = new ToolStripMenuItem();
+            miAnahtarRotaryMaliyetleri = new ToolStripMenuItem();
             miSistemYonetimi = new ToolStripMenuItem();
             miKurumsalTanimlar = new ToolStripMenuItem();
             miSirketTanimlari = new ToolStripMenuItem();
@@ -111,7 +112,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             menuStrip1 = new MenuStrip();
             lblMenuSripBilgi = new ToolStripMenuItem();
             btnAnaFormResim = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyPictureEdit();
-            miAnahtarRotaryMaliyetleri = new ToolStripMenuItem();
+            miTermostatMaliyetleri = new ToolStripMenuItem();
             menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)xtraTabbedMdiManager).BeginInit();
             menuStrip1.SuspendLayout();
@@ -538,7 +539,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 
             // miMElektrikVeElektronikGrubu
             // 
-            miMElektrikVeElektronikGrubu.DropDownItems.AddRange(new ToolStripItem[] { miRezistansMaliyetleri, miKabloMaliyetleri, miMotorMaliyetleri, miFanMaliyetleri, miAnahtarRotaryMaliyetleri });
+            miMElektrikVeElektronikGrubu.DropDownItems.AddRange(new ToolStripItem[] { miRezistansMaliyetleri, miKabloMaliyetleri, miMotorMaliyetleri, miFanMaliyetleri, miAnahtarRotaryMaliyetleri, miTermostatMaliyetleri });
             miMElektrikVeElektronikGrubu.Name = "miMElektrikVeElektronikGrubu";
             miMElektrikVeElektronikGrubu.Size = new Size(234, 22);
             miMElektrikVeElektronikGrubu.Text = "Elektrik ve Elektronik Grubu";
@@ -570,6 +571,13 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             miFanMaliyetleri.Size = new Size(235, 22);
             miFanMaliyetleri.Tag = "FanMaliyetleri";
             miFanMaliyetleri.Text = "Fan Maliyetleri";
+            // 
+            // miAnahtarRotaryMaliyetleri
+            // 
+            miAnahtarRotaryMaliyetleri.Name = "miAnahtarRotaryMaliyetleri";
+            miAnahtarRotaryMaliyetleri.Size = new Size(235, 22);
+            miAnahtarRotaryMaliyetleri.Tag = "AnahtarRotaryMaliyetleri";
+            miAnahtarRotaryMaliyetleri.Text = "Anahtar (Rotary) Maliyetleri";
             // 
             // miSistemYonetimi
             // 
@@ -720,12 +728,12 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             btnAnaFormResim.StatusBarKisaYolAciklama = null;
             btnAnaFormResim.TabIndex = 3;
             // 
-            // miAnahtarRotaryMaliyetleri
+            // miTermostatMaliyetleri
             // 
-            miAnahtarRotaryMaliyetleri.Name = "miAnahtarRotaryMaliyetleri";
-            miAnahtarRotaryMaliyetleri.Size = new Size(235, 22);
-            miAnahtarRotaryMaliyetleri.Tag = "AnahtarRotaryMaliyetleri";
-            miAnahtarRotaryMaliyetleri.Text = "Anahtar (Rotary) Maliyetleri";
+            miTermostatMaliyetleri.Name = "miTermostatMaliyetleri";
+            miTermostatMaliyetleri.Size = new Size(235, 22);
+            miTermostatMaliyetleri.Tag = "TermostatMaliyetleri";
+            miTermostatMaliyetleri.Text = "Termostat Maliyetleri";
             // 
             // AnaForm
             // 
@@ -848,5 +856,6 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
         private ToolStripMenuItem miMotorMaliyetleri;
         private ToolStripMenuItem miFanMaliyetleri;
         private ToolStripMenuItem miAnahtarRotaryMaliyetleri;
+        private ToolStripMenuItem miTermostatMaliyetleri;
     }
 }
