@@ -923,6 +923,40 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
                 };
             }
 
+            if (miPleytIsiticiMaliyetleri != null)
+            {
+                miPleytIsiticiMaliyetleri.Tag = ThermaCore.Domain.Enums.ModuleType.PleytMaliyetleri;
+                miPleytIsiticiMaliyetleri.Click += (s, e) =>
+                {
+                    var authService = _serviceProvider.GetService<ThermaCore.Application.Services.Management.IAuthService>();
+                    if (authService != null && authService.HasPermission(ThermaCore.Domain.Enums.ModuleType.PleytMaliyetleri, ThermaCore.Domain.Enums.PermissionType.CanView))
+                    {
+                        FormYukle<ThermaCore.Presentation.WinForms.Forms.MaliyetForms.PleytMaliyetForms.PleytMaliyetListForm>();
+                    }
+                    else
+                    {
+                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                };
+            }
+
+            if (miGazMusluguMaliyetleri != null)
+            {
+                miGazMusluguMaliyetleri.Tag = ThermaCore.Domain.Enums.ModuleType.GazMusluguMaliyetleri;
+                miGazMusluguMaliyetleri.Click += (s, e) =>
+                {
+                    var authService = _serviceProvider.GetService<ThermaCore.Application.Services.Management.IAuthService>();
+                    if (authService != null && authService.HasPermission(ThermaCore.Domain.Enums.ModuleType.GazMusluguMaliyetleri, ThermaCore.Domain.Enums.PermissionType.CanView))
+                    {
+                        FormYukle<ThermaCore.Presentation.WinForms.Forms.MaliyetForms.GazMusluguMaliyetForms.GazMusluguMaliyetListForm>();
+                    }
+                    else
+                    {
+                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                };
+            }
+
             if (xtraTabbedMdiManager != null)
             {
                 xtraTabbedMdiManager.PageAdded += XtraTabbedMdiManager_PageAdded;
@@ -1494,12 +1528,6 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
         #region Temizlenen ve Yorum Satırına Alınan Eski İş Mantıkları (EF Core, BLL vb.)
 
         /*
-        private bool VersiyonKontroluYap()
-        {
-            // ... Eski versiyon kontrolü iptal edildi ...
-            return true;
-        }
-
         private async Task OnaylanmamisKayitlariKontrolEtAsync()
         {
             // CRITICAL: Form katmanı EF Core'u bilmemeli! 
@@ -1519,15 +1547,6 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
         {
             // ... Eski güncelleme işlemi ...
         }
-
-        private async void TimerDoviz_Tick(object sender, EventArgs e)
-        {
-            // ... IDovizService yazılıp entegre edilmelidir ...
-        }
-
-        private async Task DovizVerileriGuncelleAsync() { }
-
-        private void GuncelDovizBilgisiniYazdir() { }
         */
 
         private void MiTermostatTanimlari_Click(object sender, EventArgs e)

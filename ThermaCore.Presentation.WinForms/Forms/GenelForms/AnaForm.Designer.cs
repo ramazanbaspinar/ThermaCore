@@ -96,6 +96,8 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             miAnahtarRotaryMaliyetleri = new ToolStripMenuItem();
             miTermostatMaliyetleri = new ToolStripMenuItem();
             miTimerZamanlayiciMaliyetleri = new ToolStripMenuItem();
+            miLambaMaliyetleri = new ToolStripMenuItem();
+            miPleytIsiticiMaliyetleri = new ToolStripMenuItem();
             miSistemYonetimi = new ToolStripMenuItem();
             miKurumsalTanimlar = new ToolStripMenuItem();
             miSirketTanimlari = new ToolStripMenuItem();
@@ -110,11 +112,11 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             miSystemLicense = new ToolStripMenuItem();
             miGenelParametreler = new ToolStripMenuItem();
             xtraTabbedMdiManager = new DevExpress.XtraTabbedMdi.XtraTabbedMdiManager(components);
-            timerDoviz = new System.Windows.Forms.Timer(components);
             menuStrip1 = new MenuStrip();
             lblMenuSripBilgi = new ToolStripMenuItem();
             btnAnaFormResim = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyPictureEdit();
-            miLambaMaliyetleri = new ToolStripMenuItem();
+            miMGazVeAteslemeGrubu = new ToolStripMenuItem();
+            miGazMusluguMaliyetleri = new ToolStripMenuItem();
             menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)xtraTabbedMdiManager).BeginInit();
             menuStrip1.SuspendLayout();
@@ -286,7 +288,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             miPleytIsiticiTanimlari.Name = "miPleytIsiticiTanimlari";
             miPleytIsiticiTanimlari.Size = new Size(244, 22);
             miPleytIsiticiTanimlari.Tag = "PleytIsiticiTanimlari";
-            miPleytIsiticiTanimlari.Text = "Pleyt Isıtıcı Tanımları";
+            miPleytIsiticiTanimlari.Text = "Pleyt (Isıtıcı) Tanımları";
             // 
             // miGazVeAteslemeGrubu
             // 
@@ -491,7 +493,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 
             // miMaliyet
             // 
-            miMaliyet.DropDownItems.AddRange(new ToolStripItem[] { miGenelGiderler, mimMetalVeSacGrubu, miMElektrikVeElektronikGrubu });
+            miMaliyet.DropDownItems.AddRange(new ToolStripItem[] { miGenelGiderler, mimMetalVeSacGrubu, miMElektrikVeElektronikGrubu, miMGazVeAteslemeGrubu });
             miMaliyet.Name = "miMaliyet";
             miMaliyet.Size = new Size(62, 22);
             miMaliyet.Tag = "Maliyet";
@@ -541,7 +543,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 
             // miMElektrikVeElektronikGrubu
             // 
-            miMElektrikVeElektronikGrubu.DropDownItems.AddRange(new ToolStripItem[] { miRezistansMaliyetleri, miKabloMaliyetleri, miMotorMaliyetleri, miFanMaliyetleri, miAnahtarRotaryMaliyetleri, miTermostatMaliyetleri, miTimerZamanlayiciMaliyetleri, miLambaMaliyetleri });
+            miMElektrikVeElektronikGrubu.DropDownItems.AddRange(new ToolStripItem[] { miRezistansMaliyetleri, miKabloMaliyetleri, miMotorMaliyetleri, miFanMaliyetleri, miAnahtarRotaryMaliyetleri, miTermostatMaliyetleri, miTimerZamanlayiciMaliyetleri, miLambaMaliyetleri, miPleytIsiticiMaliyetleri });
             miMElektrikVeElektronikGrubu.Name = "miMElektrikVeElektronikGrubu";
             miMElektrikVeElektronikGrubu.Size = new Size(234, 22);
             miMElektrikVeElektronikGrubu.Text = "Elektrik ve Elektronik Grubu";
@@ -594,6 +596,20 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             miTimerZamanlayiciMaliyetleri.Size = new Size(252, 22);
             miTimerZamanlayiciMaliyetleri.Tag = "TimerZamanlayiciMaliyetleri";
             miTimerZamanlayiciMaliyetleri.Text = "Timer (Zamanlayıcı) Maliyetleri";
+            // 
+            // miLambaMaliyetleri
+            // 
+            miLambaMaliyetleri.Name = "miLambaMaliyetleri";
+            miLambaMaliyetleri.Size = new Size(252, 22);
+            miLambaMaliyetleri.Tag = "LambaMaliyetleri";
+            miLambaMaliyetleri.Text = "Lamba Maliyetleri";
+            // 
+            // miPleytIsiticiMaliyetleri
+            // 
+            miPleytIsiticiMaliyetleri.Name = "miPleytIsiticiMaliyetleri";
+            miPleytIsiticiMaliyetleri.Size = new Size(252, 22);
+            miPleytIsiticiMaliyetleri.Tag = "PleytIsiticiMaliyetleri";
+            miPleytIsiticiMaliyetleri.Text = "Pleyt (Isıtıcı) Maliyetleri";
             // 
             // miSistemYonetimi
             // 
@@ -694,10 +710,6 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 
             xtraTabbedMdiManager.MdiParent = this;
             // 
-            // timerDoviz
-            // 
-            timerDoviz.Interval = 30000;
-            // 
             // menuStrip1
             // 
             menuStrip1.BackColor = Color.FromArgb(0, 125, 125);
@@ -744,12 +756,19 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             btnAnaFormResim.StatusBarKisaYolAciklama = null;
             btnAnaFormResim.TabIndex = 3;
             // 
-            // miLambaMaliyetleri
+            // miMGazVeAteslemeGrubu
             // 
-            miLambaMaliyetleri.Name = "miLambaMaliyetleri";
-            miLambaMaliyetleri.Size = new Size(252, 22);
-            miLambaMaliyetleri.Tag = "LambaMaliyetleri";
-            miLambaMaliyetleri.Text = "Lamba Maliyetleri";
+            miMGazVeAteslemeGrubu.DropDownItems.AddRange(new ToolStripItem[] { miGazMusluguMaliyetleri });
+            miMGazVeAteslemeGrubu.Name = "miMGazVeAteslemeGrubu";
+            miMGazVeAteslemeGrubu.Size = new Size(234, 22);
+            miMGazVeAteslemeGrubu.Text = "Gaz ve Ateşleme Grubu";
+            // 
+            // miGazMusluguMaliyetleri
+            // 
+            miGazMusluguMaliyetleri.Name = "miGazMusluguMaliyetleri";
+            miGazMusluguMaliyetleri.Size = new Size(216, 22);
+            miGazMusluguMaliyetleri.Tag = "GazMusluguMaliyetleri";
+            miGazMusluguMaliyetleri.Text = "Gaz Musluğu Maliyetleri";
             // 
             // AnaForm
             // 
@@ -785,7 +804,6 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
 
         private System.Windows.Forms.MenuStrip menuStrip;
         private DevExpress.XtraTabbedMdi.XtraTabbedMdiManager xtraTabbedMdiManager;
-        private System.Windows.Forms.Timer timerDoviz;
         private System.Windows.Forms.ToolStripMenuItem btnProgramHakkinda;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem lblMenuSripBilgi;
@@ -875,5 +893,8 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
         private ToolStripMenuItem miTermostatMaliyetleri;
         private ToolStripMenuItem miTimerZamanlayiciMaliyetleri;
         private ToolStripMenuItem miLambaMaliyetleri;
+        private ToolStripMenuItem miPleytIsiticiMaliyetleri;
+        private ToolStripMenuItem miMGazVeAteslemeGrubu;
+        private ToolStripMenuItem miGazMusluguMaliyetleri;
     }
 }

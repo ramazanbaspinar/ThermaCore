@@ -384,6 +384,16 @@ public enum ModuleType
     [Description("Lamba Maliyetleri")]
     [ParentModule(MaliyetYonetimi)]
     [RequiresCodeTemplate]
-    LambaMaliyetleri = 7012
+    LambaMaliyetleri = 7012,
+
+    [Description("Pleyt (Isıtıcı) Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    PleytMaliyetleri = 7013,
+
+    [Description("Gaz Musluğu Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    GazMusluguMaliyetleri = 7014
 }
 
