@@ -404,6 +404,11 @@ public enum ModuleType
     [Description("Bek (Bek Grubu) Maliyetleri")]
     [ParentModule(MaliyetYonetimi)]
     [RequiresCodeTemplate]
-    BekMaliyetleri = 7016
+    BekMaliyetleri = 7016,
+
+    [Description("Enjektör Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    EnjektorMaliyetleri = 7017
 }
 
