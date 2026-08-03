@@ -374,6 +374,11 @@ public enum ModuleType
     [Description("Termostat Maliyetleri")]
     [ParentModule(MaliyetYonetimi)]
     [RequiresCodeTemplate]
-    TermostatMaliyetleri = 7010
+    TermostatMaliyetleri = 7010,
+
+    [Description("Timer (Zamanlayıcı) Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    TimerMaliyetleri = 7011
 }
 

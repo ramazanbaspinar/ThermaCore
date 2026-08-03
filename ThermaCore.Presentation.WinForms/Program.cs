@@ -159,6 +159,9 @@ internal static class Program
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.MaliyetForms.TermostatMaliyetForms.TermostatMaliyetListForm>();
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.MaliyetForms.TermostatMaliyetForms.TermostatMaliyetEditForm>();
                 
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.MaliyetForms.TimerMaliyetForms.TimerMaliyetListForm>();
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.MaliyetForms.TimerMaliyetForms.TimerMaliyetEditForm>();
+                
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.BirimForms.BirimListForm>();
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.BirimForms.BirimEditForm>();
                 
