@@ -449,6 +449,31 @@ public enum ModuleType
     [Description("Düğme Maliyetleri")]
     [ParentModule(MaliyetYonetimi)]
     [RequiresCodeTemplate]
-    DugmeMaliyetleri = 7025
+    DugmeMaliyetleri = 7025,
+
+    [Description("Cam Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    CamMaliyetleri = 7026,
+
+    [Description("Boya Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    BoyaMaliyetleri = 7027,
+
+    [Description("Emaye Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    EmayeMaliyetleri = 7028,
+
+    [Description("İzolasyon Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    IzolasyonMaliyetleri = 7029,
+
+    [Description("Conta Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    ContaMaliyetleri = 7030
 }
 

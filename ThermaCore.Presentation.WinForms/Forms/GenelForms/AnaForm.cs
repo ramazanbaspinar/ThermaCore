@@ -1144,6 +1144,91 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
                 };
             }
 
+            if (miCamMaliyetleri != null)
+            {
+                miCamMaliyetleri.Tag = ThermaCore.Domain.Enums.ModuleType.CamMaliyetleri;
+                miCamMaliyetleri.Click += (s, e) =>
+                {
+                    var authService = _serviceProvider.GetService<ThermaCore.Application.Services.Management.IAuthService>();
+                    if (authService != null && authService.HasPermission(ThermaCore.Domain.Enums.ModuleType.CamMaliyetleri, ThermaCore.Domain.Enums.PermissionType.CanView))
+                    {
+                        FormYukle<ThermaCore.Presentation.WinForms.Forms.MaliyetForms.CamMaliyetForms.CamMaliyetListForm>();
+                    }
+                    else
+                    {
+                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                };
+            }
+
+            if (miBoyaMaliyetleri != null)
+            {
+                miBoyaMaliyetleri.Tag = ThermaCore.Domain.Enums.ModuleType.BoyaMaliyetleri;
+                miBoyaMaliyetleri.Click += (s, e) =>
+                {
+                    var authService = _serviceProvider.GetService<ThermaCore.Application.Services.Management.IAuthService>();
+                    if (authService != null && authService.HasPermission(ThermaCore.Domain.Enums.ModuleType.BoyaMaliyetleri, ThermaCore.Domain.Enums.PermissionType.CanView))
+                    {
+                        FormYukle<ThermaCore.Presentation.WinForms.Forms.MaliyetForms.BoyaMaliyetForms.BoyaMaliyetListForm>();
+                    }
+                    else
+                    {
+                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                };
+            }
+
+            if (miEmayeMaliyetleri != null)
+            {
+                miEmayeMaliyetleri.Tag = ThermaCore.Domain.Enums.ModuleType.EmayeMaliyetleri;
+                miEmayeMaliyetleri.Click += (s, e) =>
+                {
+                    var authService = _serviceProvider.GetService<ThermaCore.Application.Services.Management.IAuthService>();
+                    if (authService != null && authService.HasPermission(ThermaCore.Domain.Enums.ModuleType.EmayeMaliyetleri, ThermaCore.Domain.Enums.PermissionType.CanView))
+                    {
+                        FormYukle<ThermaCore.Presentation.WinForms.Forms.MaliyetForms.EmayeMaliyetForms.EmayeMaliyetListForm>();
+                    }
+                    else
+                    {
+                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                };
+            }
+
+            if (miIzolasyonMaliyetleri != null)
+            {
+                miIzolasyonMaliyetleri.Tag = ThermaCore.Domain.Enums.ModuleType.IzolasyonMaliyetleri;
+                miIzolasyonMaliyetleri.Click += (s, e) =>
+                {
+                    var authService = _serviceProvider.GetService<ThermaCore.Application.Services.Management.IAuthService>();
+                    if (authService != null && authService.HasPermission(ThermaCore.Domain.Enums.ModuleType.IzolasyonMaliyetleri, ThermaCore.Domain.Enums.PermissionType.CanView))
+                    {
+                        FormYukle<ThermaCore.Presentation.WinForms.Forms.MaliyetForms.IzalasyonMaliyetForms.IzolasyonMaliyetListForm>();
+                    }
+                    else
+                    {
+                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                };
+            }
+
+            if (miContaMaliyetleri != null)
+            {
+                miContaMaliyetleri.Tag = ThermaCore.Domain.Enums.ModuleType.ContaMaliyetleri;
+                miContaMaliyetleri.Click += (s, e) =>
+                {
+                    var authService = _serviceProvider.GetService<ThermaCore.Application.Services.Management.IAuthService>();
+                    if (authService != null && authService.HasPermission(ThermaCore.Domain.Enums.ModuleType.ContaMaliyetleri, ThermaCore.Domain.Enums.PermissionType.CanView))
+                    {
+                        FormYukle<ThermaCore.Presentation.WinForms.Forms.MaliyetForms.ContaMaliyetForms.ContaMaliyetListForm>();
+                    }
+                    else
+                    {
+                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                };
+            }
+
             if (xtraTabbedMdiManager != null)
             {
                 xtraTabbedMdiManager.PageAdded += XtraTabbedMdiManager_PageAdded;
