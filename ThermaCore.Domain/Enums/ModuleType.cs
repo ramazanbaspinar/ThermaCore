@@ -474,6 +474,26 @@ public enum ModuleType
     [Description("Conta Maliyetleri")]
     [ParentModule(MaliyetYonetimi)]
     [RequiresCodeTemplate]
-    ContaMaliyetleri = 7030
+    ContaMaliyetleri = 7030,
+
+    [Description("Vida Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    VidaMaliyetleri = 7031,
+
+    [Description("Menteşe Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    MenteseMaliyetleri = 7032,
+
+    [Description("Kilit Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    KilitMaliyetleri = 7033,
+
+    [Description("Bağlantı Elemanı Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    BaglantiElemaniMaliyetleri = 7034
 }
 

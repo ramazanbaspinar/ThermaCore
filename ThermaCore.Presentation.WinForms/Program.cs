@@ -219,6 +219,18 @@ internal static class Program
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.MaliyetForms.ContaMaliyetForms.ContaMaliyetListForm>();
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.MaliyetForms.ContaMaliyetForms.ContaMaliyetEditForm>();
                 
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.MaliyetForms.VidaMaliyetForms.VidaMaliyetListForm>();
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.MaliyetForms.VidaMaliyetForms.VidaMaliyetEditForm>();
+                
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.MaliyetForms.MenteseMaliyetForms.MenteseMaliyetListForm>();
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.MaliyetForms.MenteseMaliyetForms.MenteseMaliyetEditForm>();
+                
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.MaliyetForms.KilitMaliyetForms.KilitMaliyetListForm>();
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.MaliyetForms.KilitMaliyetForms.KilitMaliyetEditForm>();
+                
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.MaliyetForms.BaglantiMaliyetForms.BaglantiElemaniMaliyetListForm>();
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.MaliyetForms.BaglantiMaliyetForms.BaglantiElemaniMaliyetEditForm>();
+                
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.BirimForms.BirimListForm>();
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.BirimForms.BirimEditForm>();
                 

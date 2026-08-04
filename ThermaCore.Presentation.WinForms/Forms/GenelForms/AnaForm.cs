@@ -1229,6 +1229,74 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
                 };
             }
 
+            if (miVidaMaliyetleri != null)
+            {
+                miVidaMaliyetleri.Tag = ThermaCore.Domain.Enums.ModuleType.VidaMaliyetleri;
+                miVidaMaliyetleri.Click += (s, e) =>
+                {
+                    var authService = _serviceProvider.GetService<ThermaCore.Application.Services.Management.IAuthService>();
+                    if (authService != null && authService.HasPermission(ThermaCore.Domain.Enums.ModuleType.VidaMaliyetleri, ThermaCore.Domain.Enums.PermissionType.CanView))
+                    {
+                        FormYukle<ThermaCore.Presentation.WinForms.Forms.MaliyetForms.VidaMaliyetForms.VidaMaliyetListForm>();
+                    }
+                    else
+                    {
+                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                };
+            }
+
+            if (miMenteseMaliyetleri != null)
+            {
+                miMenteseMaliyetleri.Tag = ThermaCore.Domain.Enums.ModuleType.MenteseMaliyetleri;
+                miMenteseMaliyetleri.Click += (s, e) =>
+                {
+                    var authService = _serviceProvider.GetService<ThermaCore.Application.Services.Management.IAuthService>();
+                    if (authService != null && authService.HasPermission(ThermaCore.Domain.Enums.ModuleType.MenteseMaliyetleri, ThermaCore.Domain.Enums.PermissionType.CanView))
+                    {
+                        FormYukle<ThermaCore.Presentation.WinForms.Forms.MaliyetForms.MenteseMaliyetForms.MenteseMaliyetListForm>();
+                    }
+                    else
+                    {
+                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                };
+            }
+
+            if (miKilitMaliyetleri != null)
+            {
+                miKilitMaliyetleri.Tag = ThermaCore.Domain.Enums.ModuleType.KilitMaliyetleri;
+                miKilitMaliyetleri.Click += (s, e) =>
+                {
+                    var authService = _serviceProvider.GetService<ThermaCore.Application.Services.Management.IAuthService>();
+                    if (authService != null && authService.HasPermission(ThermaCore.Domain.Enums.ModuleType.KilitMaliyetleri, ThermaCore.Domain.Enums.PermissionType.CanView))
+                    {
+                        FormYukle<ThermaCore.Presentation.WinForms.Forms.MaliyetForms.KilitMaliyetForms.KilitMaliyetListForm>();
+                    }
+                    else
+                    {
+                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                };
+            }
+
+            if (miBaglantiElemaniMaliyeti != null)
+            {
+                miBaglantiElemaniMaliyeti.Tag = ThermaCore.Domain.Enums.ModuleType.BaglantiElemaniMaliyetleri;
+                miBaglantiElemaniMaliyeti.Click += (s, e) =>
+                {
+                    var authService = _serviceProvider.GetService<ThermaCore.Application.Services.Management.IAuthService>();
+                    if (authService != null && authService.HasPermission(ThermaCore.Domain.Enums.ModuleType.BaglantiElemaniMaliyetleri, ThermaCore.Domain.Enums.PermissionType.CanView))
+                    {
+                        FormYukle<ThermaCore.Presentation.WinForms.Forms.MaliyetForms.BaglantiMaliyetForms.BaglantiElemaniMaliyetListForm>();
+                    }
+                    else
+                    {
+                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                };
+            }
+
             if (xtraTabbedMdiManager != null)
             {
                 xtraTabbedMdiManager.PageAdded += XtraTabbedMdiManager_PageAdded;
