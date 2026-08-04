@@ -107,6 +107,9 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             miCakmakBujiMaliyetleri = new ToolStripMenuItem();
             miAteslemeTrafosuMaliyetleri = new ToolStripMenuItem();
             miGazBorusuMaliyetleri = new ToolStripMenuItem();
+            miRakorMaliyetleri = new ToolStripMenuItem();
+            miMPlastikVeGorselAksamGrubu = new ToolStripMenuItem();
+            miPlastikParcaMaliyetleri = new ToolStripMenuItem();
             miSistemYonetimi = new ToolStripMenuItem();
             miKurumsalTanimlar = new ToolStripMenuItem();
             miSirketTanimlari = new ToolStripMenuItem();
@@ -124,7 +127,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             menuStrip1 = new MenuStrip();
             lblMenuSripBilgi = new ToolStripMenuItem();
             btnAnaFormResim = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyPictureEdit();
-            miRakorMaliyetleri = new ToolStripMenuItem();
+            miKulpMaliyetleri = new ToolStripMenuItem();
             menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)xtraTabbedMdiManager).BeginInit();
             menuStrip1.SuspendLayout();
@@ -501,7 +504,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 
             // miMaliyet
             // 
-            miMaliyet.DropDownItems.AddRange(new ToolStripItem[] { miGenelGiderler, mimMetalVeSacGrubu, miMElektrikVeElektronikGrubu, miMGazVeAteslemeGrubu });
+            miMaliyet.DropDownItems.AddRange(new ToolStripItem[] { miGenelGiderler, mimMetalVeSacGrubu, miMElektrikVeElektronikGrubu, miMGazVeAteslemeGrubu, miMPlastikVeGorselAksamGrubu });
             miMaliyet.Name = "miMaliyet";
             miMaliyet.Size = new Size(62, 22);
             miMaliyet.Tag = "Maliyet";
@@ -510,7 +513,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // miGenelGiderler
             // 
             miGenelGiderler.Name = "miGenelGiderler";
-            miGenelGiderler.Size = new Size(234, 22);
+            miGenelGiderler.Size = new Size(253, 22);
             miGenelGiderler.Tag = "GenelGiderler";
             miGenelGiderler.Text = "Genel Giderler";
             // 
@@ -518,7 +521,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 
             mimMetalVeSacGrubu.DropDownItems.AddRange(new ToolStripItem[] { miSacMaliyetleri, miTelMaliyetleri, miIzgaraMaliyetleri, miTepsiMaliyetleri });
             mimMetalVeSacGrubu.Name = "mimMetalVeSacGrubu";
-            mimMetalVeSacGrubu.Size = new Size(234, 22);
+            mimMetalVeSacGrubu.Size = new Size(253, 22);
             mimMetalVeSacGrubu.Tag = "mMetalVeSacGrubu";
             mimMetalVeSacGrubu.Text = "Metal ve Sac Grubu";
             // 
@@ -553,7 +556,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 
             miMElektrikVeElektronikGrubu.DropDownItems.AddRange(new ToolStripItem[] { miRezistansMaliyetleri, miKabloMaliyetleri, miMotorMaliyetleri, miFanMaliyetleri, miAnahtarRotaryMaliyetleri, miTermostatMaliyetleri, miTimerZamanlayiciMaliyetleri, miLambaMaliyetleri, miPleytIsiticiMaliyetleri });
             miMElektrikVeElektronikGrubu.Name = "miMElektrikVeElektronikGrubu";
-            miMElektrikVeElektronikGrubu.Size = new Size(234, 22);
+            miMElektrikVeElektronikGrubu.Size = new Size(253, 22);
             miMElektrikVeElektronikGrubu.Text = "Elektrik ve Elektronik Grubu";
             // 
             // miRezistansMaliyetleri
@@ -623,7 +626,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 
             miMGazVeAteslemeGrubu.DropDownItems.AddRange(new ToolStripItem[] { miGazMusluguMaliyetleri, miValfMaliyetleri, miBekMaliyetleri, miEnjektorMaliyetleri, miTermokuplEmniyetMaliyetleri, miCakmakBujiMaliyetleri, miAteslemeTrafosuMaliyetleri, miGazBorusuMaliyetleri, miRakorMaliyetleri });
             miMGazVeAteslemeGrubu.Name = "miMGazVeAteslemeGrubu";
-            miMGazVeAteslemeGrubu.Size = new Size(234, 22);
+            miMGazVeAteslemeGrubu.Size = new Size(253, 22);
             miMGazVeAteslemeGrubu.Text = "Gaz ve Ateşleme Grubu";
             // 
             // miGazMusluguMaliyetleri
@@ -681,6 +684,28 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             miGazBorusuMaliyetleri.Size = new Size(258, 22);
             miGazBorusuMaliyetleri.Tag = "GazBorusuMaliyetleri";
             miGazBorusuMaliyetleri.Text = "Gaz Borusu Maliyetleri";
+            // 
+            // miRakorMaliyetleri
+            // 
+            miRakorMaliyetleri.Name = "miRakorMaliyetleri";
+            miRakorMaliyetleri.Size = new Size(258, 22);
+            miRakorMaliyetleri.Tag = "RakorMaliyetleri";
+            miRakorMaliyetleri.Text = "Rakor Maliyetleri";
+            // 
+            // miMPlastikVeGorselAksamGrubu
+            // 
+            miMPlastikVeGorselAksamGrubu.DropDownItems.AddRange(new ToolStripItem[] { miPlastikParcaMaliyetleri, miKulpMaliyetleri });
+            miMPlastikVeGorselAksamGrubu.Name = "miMPlastikVeGorselAksamGrubu";
+            miMPlastikVeGorselAksamGrubu.Size = new Size(253, 22);
+            miMPlastikVeGorselAksamGrubu.Tag = "MPlastikVeGorselAksamGrubu";
+            miMPlastikVeGorselAksamGrubu.Text = "Plastik ve Görsel Aksam Grubu";
+            // 
+            // miPlastikParcaMaliyetleri
+            // 
+            miPlastikParcaMaliyetleri.Name = "miPlastikParcaMaliyetleri";
+            miPlastikParcaMaliyetleri.Size = new Size(212, 22);
+            miPlastikParcaMaliyetleri.Tag = "PlastikParcaMaliyetleri";
+            miPlastikParcaMaliyetleri.Text = "Plastik Parça Maliyetleri";
             // 
             // miSistemYonetimi
             // 
@@ -827,12 +852,12 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             btnAnaFormResim.StatusBarKisaYolAciklama = null;
             btnAnaFormResim.TabIndex = 3;
             // 
-            // miRakorMaliyetleri
+            // miKulpMaliyetleri
             // 
-            miRakorMaliyetleri.Name = "miRakorMaliyetleri";
-            miRakorMaliyetleri.Size = new Size(258, 22);
-            miRakorMaliyetleri.Tag = "RakorMaliyetleri";
-            miRakorMaliyetleri.Text = "Rakor Maliyetleri";
+            miKulpMaliyetleri.Name = "miKulpMaliyetleri";
+            miKulpMaliyetleri.Size = new Size(212, 22);
+            miKulpMaliyetleri.Tag = "KulpMaliyetleri";
+            miKulpMaliyetleri.Text = "Kulp Maliyetleri";
             // 
             // AnaForm
             // 
@@ -968,5 +993,8 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
         private ToolStripMenuItem miAteslemeTrafosuMaliyetleri;
         private ToolStripMenuItem miGazBorusuMaliyetleri;
         private ToolStripMenuItem miRakorMaliyetleri;
+        private ToolStripMenuItem miMPlastikVeGorselAksamGrubu;
+        private ToolStripMenuItem miPlastikParcaMaliyetleri;
+        private ToolStripMenuItem miKulpMaliyetleri;
     }
 }

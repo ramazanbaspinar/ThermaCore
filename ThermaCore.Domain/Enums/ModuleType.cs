@@ -434,6 +434,16 @@ public enum ModuleType
     [Description("Rakor Maliyetleri")]
     [ParentModule(MaliyetYonetimi)]
     [RequiresCodeTemplate]
-    RakorMaliyetleri = 7022
+    RakorMaliyetleri = 7022,
+
+    [Description("Plastik Parça Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    PlastikParcaMaliyetleri = 7023,
+
+    [Description("Kulp Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    KulpMaliyetleri = 7024
 }
 

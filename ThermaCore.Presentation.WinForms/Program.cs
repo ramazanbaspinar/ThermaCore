@@ -195,6 +195,12 @@ internal static class Program
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.MaliyetForms.RakorMaliyetForms.RakorMaliyetListForm>();
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.MaliyetForms.RakorMaliyetForms.RakorMaliyetEditForm>();
                 
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.MaliyetForms.PlastikParcaMaliyetForms.PlastikParcaMaliyetListForm>();
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.MaliyetForms.PlastikParcaMaliyetForms.PlastikParcaMaliyetEditForm>();
+                
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.MaliyetForms.KulpMaliyetForms.KulpMaliyetListForm>();
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.MaliyetForms.KulpMaliyetForms.KulpMaliyetEditForm>();
+                
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.BirimForms.BirimListForm>();
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.TanimlarForms.BirimForms.BirimEditForm>();
                 

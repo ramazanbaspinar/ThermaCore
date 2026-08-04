@@ -1093,6 +1093,40 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
                 };
             }
 
+            if (miPlastikParcaMaliyetleri != null)
+            {
+                miPlastikParcaMaliyetleri.Tag = ThermaCore.Domain.Enums.ModuleType.PlastikParcaMaliyetleri;
+                miPlastikParcaMaliyetleri.Click += (s, e) =>
+                {
+                    var authService = _serviceProvider.GetService<ThermaCore.Application.Services.Management.IAuthService>();
+                    if (authService != null && authService.HasPermission(ThermaCore.Domain.Enums.ModuleType.PlastikParcaMaliyetleri, ThermaCore.Domain.Enums.PermissionType.CanView))
+                    {
+                        FormYukle<ThermaCore.Presentation.WinForms.Forms.MaliyetForms.PlastikParcaMaliyetForms.PlastikParcaMaliyetListForm>();
+                    }
+                    else
+                    {
+                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                };
+            }
+
+            if (miKulpMaliyetleri != null)
+            {
+                miKulpMaliyetleri.Tag = ThermaCore.Domain.Enums.ModuleType.KulpMaliyetleri;
+                miKulpMaliyetleri.Click += (s, e) =>
+                {
+                    var authService = _serviceProvider.GetService<ThermaCore.Application.Services.Management.IAuthService>();
+                    if (authService != null && authService.HasPermission(ThermaCore.Domain.Enums.ModuleType.KulpMaliyetleri, ThermaCore.Domain.Enums.PermissionType.CanView))
+                    {
+                        FormYukle<ThermaCore.Presentation.WinForms.Forms.MaliyetForms.KulpMaliyetForms.KulpMaliyetListForm>();
+                    }
+                    else
+                    {
+                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                };
+            }
+
             if (xtraTabbedMdiManager != null)
             {
                 xtraTabbedMdiManager.PageAdded += XtraTabbedMdiManager_PageAdded;
