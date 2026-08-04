@@ -30,9 +30,9 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GirisForm));
             panel3 = new Panel();
+            myPictureEdit1 = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyPictureEdit();
             lblLisansKalanGun = new DevExpress.XtraEditors.LabelControl();
             lblVersiyon = new DevExpress.XtraEditors.LabelControl();
-            labelControl1 = new DevExpress.XtraEditors.LabelControl();
             pictureBox1 = new PictureBox();
             panel1 = new Panel();
             linkSifremi = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyHyperlinkLabelControl();
@@ -49,6 +49,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             txtKullaniciAdi = new DevExpress.XtraEditors.TextEdit();
             pictureEdit1 = new DevExpress.XtraEditors.PictureEdit();
             panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)myPictureEdit1.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)chcBeniHatirla.Properties).BeginInit();
@@ -66,16 +67,33 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 
             // panel3
             // 
-            panel3.BackColor = Color.DodgerBlue;
+            panel3.BackColor = Color.FromArgb(238, 29, 35);
+            panel3.Controls.Add(myPictureEdit1);
             panel3.Controls.Add(lblLisansKalanGun);
             panel3.Controls.Add(lblVersiyon);
-            panel3.Controls.Add(labelControl1);
             panel3.Controls.Add(pictureBox1);
             panel3.Dock = DockStyle.Left;
             panel3.Location = new Point(0, 0);
             panel3.Name = "panel3";
-            panel3.Size = new Size(127, 250);
+            panel3.Size = new Size(251, 250);
             panel3.TabIndex = 2;
+            // 
+            // myPictureEdit1
+            // 
+            myPictureEdit1.EditValue = Properties.Resources.itimatlogogiris;
+            myPictureEdit1.EnterMoveNextControl = true;
+            myPictureEdit1.Location = new Point(0, 60);
+            myPictureEdit1.Name = "myPictureEdit1";
+            myPictureEdit1.Properties.AllowFocused = false;
+            myPictureEdit1.Properties.NullText = "Resim Yok";
+            myPictureEdit1.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
+            myPictureEdit1.Properties.ShowMenu = false;
+            myPictureEdit1.Properties.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Stretch;
+            myPictureEdit1.Size = new Size(251, 113);
+            myPictureEdit1.StatusBarAciklama = "";
+            myPictureEdit1.StatusBarKisaYol = "F4 :";
+            myPictureEdit1.StatusBarKisaYolAciklama = "";
+            myPictureEdit1.TabIndex = 15;
             // 
             // lblLisansKalanGun
             // 
@@ -97,21 +115,6 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             lblVersiyon.TabIndex = 12;
             lblVersiyon.Text = "Versiyon Yükleniyor...";
             // 
-            // labelControl1
-            // 
-            labelControl1.Appearance.Font = new Font("Tahoma", 14.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 162);
-            labelControl1.Appearance.ForeColor = Color.White;
-            labelControl1.Appearance.Options.UseFont = true;
-            labelControl1.Appearance.Options.UseForeColor = true;
-            labelControl1.Appearance.Options.UseTextOptions = true;
-            labelControl1.Appearance.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
-            labelControl1.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
-            labelControl1.Location = new Point(3, 60);
-            labelControl1.Name = "labelControl1";
-            labelControl1.Size = new Size(124, 108);
-            labelControl1.TabIndex = 1;
-            labelControl1.Text = "ThermaCore \r\n      ERP";
-            // 
             // pictureBox1
             // 
             pictureBox1.Location = new Point(0, 0);
@@ -131,14 +134,31 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             panel1.Controls.Add(panel4);
             panel1.Controls.Add(panel2);
             panel1.Dock = DockStyle.Fill;
-            panel1.Location = new Point(127, 0);
+            panel1.Location = new Point(251, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(268, 250);
+            panel1.Size = new Size(259, 250);
             panel1.TabIndex = 3;
             // 
             // linkSifremi
             // 
+            linkSifremi.Appearance.ForeColor = Color.FromArgb(238, 29, 35);
+            linkSifremi.Appearance.LinkColor = Color.FromArgb(238, 29, 35);
+            linkSifremi.Appearance.Options.UseForeColor = true;
+            linkSifremi.Appearance.Options.UseLinkColor = true;
+            linkSifremi.AppearanceDisabled.ForeColor = Color.FromArgb(238, 29, 35);
+            linkSifremi.AppearanceDisabled.LinkColor = Color.FromArgb(238, 29, 35);
+            linkSifremi.AppearanceDisabled.Options.UseForeColor = true;
+            linkSifremi.AppearanceDisabled.Options.UseLinkColor = true;
+            linkSifremi.AppearanceHovered.ForeColor = Color.FromArgb(238, 29, 35);
+            linkSifremi.AppearanceHovered.LinkColor = Color.FromArgb(238, 29, 35);
+            linkSifremi.AppearanceHovered.Options.UseForeColor = true;
+            linkSifremi.AppearanceHovered.Options.UseLinkColor = true;
+            linkSifremi.AppearancePressed.ForeColor = Color.FromArgb(238, 29, 35);
+            linkSifremi.AppearancePressed.LinkColor = Color.FromArgb(238, 29, 35);
+            linkSifremi.AppearancePressed.Options.UseForeColor = true;
+            linkSifremi.AppearancePressed.Options.UseLinkColor = true;
             linkSifremi.Cursor = Cursors.Hand;
+            linkSifremi.LineColor = Color.FromArgb(238, 29, 35);
             linkSifremi.LinkBehavior = LinkBehavior.NeverUnderline;
             linkSifremi.Location = new Point(6, 223);
             linkSifremi.Name = "linkSifremi";
@@ -157,7 +177,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 
             // picExit
             // 
-            picExit.EditValue = resources.GetObject("picExit.EditValue");
+            picExit.EditValue = Properties.Resources.logout;
             picExit.Location = new Point(205, 10);
             picExit.Name = "picExit";
             picExit.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
@@ -204,7 +224,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 
             // pictureEdit3
             // 
-            pictureEdit3.EditValue = resources.GetObject("pictureEdit3.EditValue");
+            pictureEdit3.EditValue = Properties.Resources.organization;
             pictureEdit3.Location = new Point(3, 2);
             pictureEdit3.Name = "pictureEdit3";
             pictureEdit3.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
@@ -213,7 +233,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 
             // btnGiris
             // 
-            btnGiris.Appearance.BackColor = Color.DodgerBlue;
+            btnGiris.Appearance.BackColor = Color.FromArgb(238, 29, 35);
             btnGiris.Appearance.Font = new Font("Tahoma", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
             btnGiris.Appearance.Options.UseBackColor = true;
             btnGiris.Appearance.Options.UseFont = true;
@@ -237,7 +257,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             txtSifre.EnterMoveNextControl = true;
             txtSifre.Location = new Point(31, 6);
             txtSifre.Name = "txtSifre";
-            txtSifre.Properties.Appearance.ForeColor = Color.RoyalBlue;
+            txtSifre.Properties.Appearance.ForeColor = Color.FromArgb(238, 29, 35);
             txtSifre.Properties.Appearance.Options.UseForeColor = true;
             txtSifre.Properties.UseSystemPasswordChar = true;
             txtSifre.Size = new Size(222, 20);
@@ -269,7 +289,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             txtKullaniciAdi.EnterMoveNextControl = true;
             txtKullaniciAdi.Location = new Point(32, 6);
             txtKullaniciAdi.Name = "txtKullaniciAdi";
-            txtKullaniciAdi.Properties.Appearance.ForeColor = Color.RoyalBlue;
+            txtKullaniciAdi.Properties.Appearance.ForeColor = Color.FromArgb(238, 29, 35);
             txtKullaniciAdi.Properties.Appearance.Options.UseForeColor = true;
             txtKullaniciAdi.Size = new Size(222, 20);
             txtKullaniciAdi.TabIndex = 0;
@@ -287,19 +307,20 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 
             Appearance.Options.UseFont = true;
             AutoScaleMode = AutoScaleMode.None;
-            ClientSize = new Size(395, 250);
+            ClientSize = new Size(510, 250);
             Controls.Add(panel1);
             Controls.Add(panel3);
             Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 162);
             FormBorderStyle = FormBorderStyle.None;
             IconOptions.ShowIcon = false;
-            MinimumSize = new Size(395, 250);
+            MinimumSize = new Size(510, 250);
             Name = "GirisForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "frmLogin";
             Activated += frmLogin_Activated;
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)myPictureEdit1.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
@@ -322,7 +343,6 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Panel panel1;
-        private DevExpress.XtraEditors.LabelControl labelControl1;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Panel panel2;
         private DevExpress.XtraEditors.PictureEdit pictureEdit1;
@@ -340,6 +360,6 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
         private ThermaCore.Presentation.WinForms.UserControls.Controls.MyHyperlinkLabelControl linkSifremi;
         private DevExpress.XtraEditors.LabelControl lblLisansKalanGun;
         private UserControls.Controls.MyLookUpEdit gluSirket;
-
+        private UserControls.Controls.MyPictureEdit myPictureEdit1;
     }
 }

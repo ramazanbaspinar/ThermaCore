@@ -118,38 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="picExit.EditValue" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAA
-        qAAAAKgBefSzxgAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAJSSURBVFhH7Za/
-        a9RgHMZPB90sgi7+gCR29MemDiIuCo4qRahokva9ox3Of8B7j0wOl0yHeU+tgosOhUKP5j0HJxGcVJCu
-        /gEuPc6+ufcspY2kNKf55k3y5ryqgw98tuR5PvAmIaXKm+6E6fGlGY9vTy/3g6uv/ODsMxaopBAbWot9
-        1FrsVqloEOVLiPIAcqc9moxCfB1uZAZR/h2OQyKZMwvJQQE97Ul3Au6kBo7lEYoIRuO4/jW4kxo4IMPp
-        p7kSU3AnNbBchvMv/rLAhQICFcs5oj9wLluWtT++vBtYLkMRAaNmfzawHZi40Z6yrAPx9T8hgO0gwsR2
-        p1ptHhy3QE8h/kON+NPhcMhkk58QCQglYLkMvwisnnL5yWGZIFAgIQHLZdgV2FQf++fgIAwcT0jAchl2
-        BFz2Phq5V7dv6NhmcESCl6MLENaOBHTcWBCUy9AdWUAh7EskcLdmqwZ2nhvYWUySGI3YMuu2ObJA+BAq
-        LrsdSaRFMByybdYa8zsXwHIZfr4Fvq+66+VSEOyDw1Eyx8PAchnghyg8DrXFllXCFkMU8u1iikB8fFwC
-        AoZfQh3bm8Mzxw6KjYeB5TIUETDqziMDN76adUf8pwTLZSgikBtYLsN/gX9fYK9/SnME2GRz7RDcSQ2i
-        fAsO5JEloBA2Bzcyg+hgFQ7kIRDYUAn7oLnsJuzPDVoZXEGUr8ORLGY9Lv+QycTssKOI8vuzHn8ncyTl
-        Tv867Bhb5lb48RyZtXmvdxjetyeZafePlT1eRZS/RZT7iPJPldeDS/C638kP3J654yIQxlEAAAAASUVO
-        RK5CYII=
-</value>
-  </data>
-  <data name="pictureEdit3.EditValue" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAA
-        cAAAAHABznhikwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAH3SURBVDhPjZPN
-        T9NgHMd73NGLMaAbGhJgNUtg6NqxQQpxptKZYCLJJigbhJdtbmCXQiOX4sU/wZmBSiC8TWI4eubIyZNx
-        i4aDQ1jCaQcSIfmS5yk8sFGUX/Lt6dNPfi95OK6ybBzHPfhPCHNpSYIooFvptozb7QZhqn86X7bmhmtb
-        c2+7YIyLMFIijOR9GMl7+GD44bhu+3qhA4/g+RIMBgskiqLk6+tu7KnxHiwvLWP69TTN/MdPSA/6UH+n
-        rnTKyrL83XHb8Y4jH1lyHUV7fYckbmftXzX+BDvFHawsrdAUfhSQjnjRereWcQG/84AKSE2NCoj2P0Yk
-        JEHvawIRLC4snutgHukBL/ShFpMLd0Hvd5J9mKXH/FBfjSMRG/i3YEQ44SIXBROplxWC7V/bbIR8Ps8E
-        Jmch8LV54RVbqSAdUzA3OwtN02gy7zNMwLhqQSqZYB1s5gbxRn1IY0y00zNuZgJUYHIWHaSScSRGn7MR
-        1lbXLHdAubEXlQJ6hXAnIiH/iaAH5XKZzp9bzaH4u3h2Bcp1VAomh5uxvxWl0Z81Qh1TsPtnlwrWP6+j
-        VCpRwVTUdcb1NTEBH5JuYWNGxIbhQbijBk8DLrbESU1DNptFb2cDQtJNk5sREG6vIQKe43n+Z/WjuUrk
-        RzLsdvs32oHFk71q+GMmKKTLOXap7gAAAABJRU5ErkJggg==
-</value>
-  </data>
   <data name="picPassword.EditValue" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAjFJREFUOE+F

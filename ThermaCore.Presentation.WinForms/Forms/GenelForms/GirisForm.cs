@@ -66,11 +66,11 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
 
             if (status == ThermaCore.Domain.Enums.LicenseStatus.Valid)
             {
-                lblLisansKalanGun.Text = $"Lisans Durumu:\r\n{message} Gün Kaldı";
+                lblLisansKalanGun.Text = $"Lisans Durumu:{message} Gün Kaldı";
             }
             else
             {
-                lblLisansKalanGun.Text = "Lisans Durumu:\r\nGeçersiz / Süresi Dolmuş";
+                lblLisansKalanGun.Text = "Lisans Durumu:Geçersiz / Süresi Dolmuş";
             }
 
             string lastUser = _appConfigService.GetLastLoginUser();
@@ -120,7 +120,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
                     gluSirket.Properties.DataSource = tenants;
                     gluSirket.Properties.DisplayMember = "CompanyName"; // DB'den gelen Şirket Adı kolonu
                     gluSirket.Properties.ValueMember = "Id";     // DB'den gelen Şirket Id kolonu
-                    
+
                     if (gluSirket.EditValue != null && !tenants.Any(t => t.Id == Convert.ToInt64(gluSirket.EditValue)))
                     {
                         gluSirket.EditValue = null;
@@ -182,7 +182,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
                     string ipAddress = ThermaCore.Domain.Helpers.NetworkHelper.GetLocalIpAddress();
                     string pcName = Environment.MachineName;
                     await _sessionService.StartSessionAsync(loginResult.UserId, ipAddress, pcName);
-                    
+
                     if (loginResult.SessionId.HasValue)
                     {
                         Program.CurrentSessionId = loginResult.SessionId.Value;
@@ -261,7 +261,5 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
         {
             return ConfigurationManager.ConnectionStrings[""].ConnectionString;
         }
-
-      
     }
 }

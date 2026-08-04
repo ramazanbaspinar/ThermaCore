@@ -126,6 +126,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             miMAmbalajVeMatbaaGrubu = new ToolStripMenuItem();
             miAmbalajMalzemesiMaliyetleri = new ToolStripMenuItem();
             miMatbaaKilavuzMaliyetleri = new ToolStripMenuItem();
+            miEtiketMaliyetleri = new ToolStripMenuItem();
             miSistemYonetimi = new ToolStripMenuItem();
             miKurumsalTanimlar = new ToolStripMenuItem();
             miSirketTanimlari = new ToolStripMenuItem();
@@ -143,7 +144,6 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             menuStrip1 = new MenuStrip();
             lblMenuSripBilgi = new ToolStripMenuItem();
             btnAnaFormResim = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyPictureEdit();
-            miEtiketMaliyetleri = new ToolStripMenuItem();
             menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)xtraTabbedMdiManager).BeginInit();
             menuStrip1.SuspendLayout();
@@ -838,13 +838,20 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             miMatbaaKilavuzMaliyetleri.Tag = "MatbaaKilavuzMaliyetleri";
             miMatbaaKilavuzMaliyetleri.Text = "Matbaa (Kılavuz) Maliyetleri";
             // 
+            // miEtiketMaliyetleri
+            // 
+            miEtiketMaliyetleri.Name = "miEtiketMaliyetleri";
+            miEtiketMaliyetleri.Size = new Size(253, 22);
+            miEtiketMaliyetleri.Tag = "EtiketMaliyetleri";
+            miEtiketMaliyetleri.Text = "Etiket Maliyetleri";
+            // 
             // miSistemYonetimi
             // 
             miSistemYonetimi.DropDownItems.AddRange(new ToolStripItem[] { miKurumsalTanimlar, miGuvenlikVeYetkilendirme, miParametreler });
             miSistemYonetimi.Name = "miSistemYonetimi";
-            miSistemYonetimi.Size = new Size(111, 22);
+            miSistemYonetimi.Size = new Size(61, 22);
             miSistemYonetimi.Tag = "SistemYonetimi";
-            miSistemYonetimi.Text = "Sistem Yönetimi";
+            miSistemYonetimi.Text = "Ayarlar";
             // 
             // miKurumsalTanimlar
             // 
@@ -857,7 +864,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // miSirketTanimlari
             // 
             miSirketTanimlari.Name = "miSirketTanimlari";
-            miSirketTanimlari.Size = new Size(164, 22);
+            miSirketTanimlari.Size = new Size(180, 22);
             miSirketTanimlari.Tag = "SirketTanimlari";
             miSirketTanimlari.Text = "Şirket Tanımları";
             // 
@@ -982,13 +989,6 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             btnAnaFormResim.StatusBarKisaYol = "F4 :";
             btnAnaFormResim.StatusBarKisaYolAciklama = null;
             btnAnaFormResim.TabIndex = 3;
-            // 
-            // miEtiketMaliyetleri
-            // 
-            miEtiketMaliyetleri.Name = "miEtiketMaliyetleri";
-            miEtiketMaliyetleri.Size = new Size(253, 22);
-            miEtiketMaliyetleri.Tag = "EtiketMaliyetleri";
-            miEtiketMaliyetleri.Text = "Etiket Maliyetleri";
             // 
             // AnaForm
             // 
