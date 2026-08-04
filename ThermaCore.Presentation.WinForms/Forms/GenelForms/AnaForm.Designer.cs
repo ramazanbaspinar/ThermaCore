@@ -104,6 +104,9 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             miBekMaliyetleri = new ToolStripMenuItem();
             miEnjektorMaliyetleri = new ToolStripMenuItem();
             miTermokuplEmniyetMaliyetleri = new ToolStripMenuItem();
+            miCakmakBujiMaliyetleri = new ToolStripMenuItem();
+            miAteslemeTrafosuMaliyetleri = new ToolStripMenuItem();
+            miGazBorusuMaliyetleri = new ToolStripMenuItem();
             miSistemYonetimi = new ToolStripMenuItem();
             miKurumsalTanimlar = new ToolStripMenuItem();
             miSirketTanimlari = new ToolStripMenuItem();
@@ -121,7 +124,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             menuStrip1 = new MenuStrip();
             lblMenuSripBilgi = new ToolStripMenuItem();
             btnAnaFormResim = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyPictureEdit();
-            miCakmakBujiMaliyetleri = new ToolStripMenuItem();
+            miRakorMaliyetleri = new ToolStripMenuItem();
             menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)xtraTabbedMdiManager).BeginInit();
             menuStrip1.SuspendLayout();
@@ -618,7 +621,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 
             // miMGazVeAteslemeGrubu
             // 
-            miMGazVeAteslemeGrubu.DropDownItems.AddRange(new ToolStripItem[] { miGazMusluguMaliyetleri, miValfMaliyetleri, miBekMaliyetleri, miEnjektorMaliyetleri, miTermokuplEmniyetMaliyetleri, miCakmakBujiMaliyetleri });
+            miMGazVeAteslemeGrubu.DropDownItems.AddRange(new ToolStripItem[] { miGazMusluguMaliyetleri, miValfMaliyetleri, miBekMaliyetleri, miEnjektorMaliyetleri, miTermokuplEmniyetMaliyetleri, miCakmakBujiMaliyetleri, miAteslemeTrafosuMaliyetleri, miGazBorusuMaliyetleri, miRakorMaliyetleri });
             miMGazVeAteslemeGrubu.Name = "miMGazVeAteslemeGrubu";
             miMGazVeAteslemeGrubu.Size = new Size(234, 22);
             miMGazVeAteslemeGrubu.Text = "Gaz ve Ateşleme Grubu";
@@ -657,6 +660,27 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             miTermokuplEmniyetMaliyetleri.Size = new Size(258, 22);
             miTermokuplEmniyetMaliyetleri.Tag = "TermokuplEmniyetMaliyetleri";
             miTermokuplEmniyetMaliyetleri.Text = "Termokupl (Emniyet) Maliyetleri";
+            // 
+            // miCakmakBujiMaliyetleri
+            // 
+            miCakmakBujiMaliyetleri.Name = "miCakmakBujiMaliyetleri";
+            miCakmakBujiMaliyetleri.Size = new Size(258, 22);
+            miCakmakBujiMaliyetleri.Tag = "CakmakBujiMaliyetleri";
+            miCakmakBujiMaliyetleri.Text = "Çakmak (Buji) Maliyetleri";
+            // 
+            // miAteslemeTrafosuMaliyetleri
+            // 
+            miAteslemeTrafosuMaliyetleri.Name = "miAteslemeTrafosuMaliyetleri";
+            miAteslemeTrafosuMaliyetleri.Size = new Size(258, 22);
+            miAteslemeTrafosuMaliyetleri.Tag = "AteslemeTrafosuMaliyetleri";
+            miAteslemeTrafosuMaliyetleri.Text = "Ateşleme Trafosu Maliyetleri";
+            // 
+            // miGazBorusuMaliyetleri
+            // 
+            miGazBorusuMaliyetleri.Name = "miGazBorusuMaliyetleri";
+            miGazBorusuMaliyetleri.Size = new Size(258, 22);
+            miGazBorusuMaliyetleri.Tag = "GazBorusuMaliyetleri";
+            miGazBorusuMaliyetleri.Text = "Gaz Borusu Maliyetleri";
             // 
             // miSistemYonetimi
             // 
@@ -803,12 +827,12 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             btnAnaFormResim.StatusBarKisaYolAciklama = null;
             btnAnaFormResim.TabIndex = 3;
             // 
-            // miCakmakBujiMaliyetleri
+            // miRakorMaliyetleri
             // 
-            miCakmakBujiMaliyetleri.Name = "miCakmakBujiMaliyetleri";
-            miCakmakBujiMaliyetleri.Size = new Size(258, 22);
-            miCakmakBujiMaliyetleri.Tag = "CakmakBujiMaliyetleri";
-            miCakmakBujiMaliyetleri.Text = "Çakmak (Buji) Maliyetleri";
+            miRakorMaliyetleri.Name = "miRakorMaliyetleri";
+            miRakorMaliyetleri.Size = new Size(258, 22);
+            miRakorMaliyetleri.Tag = "RakorMaliyetleri";
+            miRakorMaliyetleri.Text = "Rakor Maliyetleri";
             // 
             // AnaForm
             // 
@@ -941,5 +965,8 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
         private ToolStripMenuItem miEnjektorMaliyetleri;
         private ToolStripMenuItem miTermokuplEmniyetMaliyetleri;
         private ToolStripMenuItem miCakmakBujiMaliyetleri;
+        private ToolStripMenuItem miAteslemeTrafosuMaliyetleri;
+        private ToolStripMenuItem miGazBorusuMaliyetleri;
+        private ToolStripMenuItem miRakorMaliyetleri;
     }
 }

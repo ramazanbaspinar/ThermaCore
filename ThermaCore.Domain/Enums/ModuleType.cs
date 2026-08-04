@@ -419,6 +419,21 @@ public enum ModuleType
     [Description("Çakmak (Buji) Maliyetleri")]
     [ParentModule(MaliyetYonetimi)]
     [RequiresCodeTemplate]
-    CakmakMaliyetleri = 7019
+    CakmakMaliyetleri = 7019,
+
+    [Description("Ateşleme Trafosu Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    AteslemeTrafosuMaliyetleri = 7020,
+
+    [Description("Gaz Borusu Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    GazBorusuMaliyetleri = 7021,
+
+    [Description("Rakor Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    RakorMaliyetleri = 7022
 }
 
