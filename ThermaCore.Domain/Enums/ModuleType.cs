@@ -494,6 +494,21 @@ public enum ModuleType
     [Description("Bağlantı Elemanı Maliyetleri")]
     [ParentModule(MaliyetYonetimi)]
     [RequiresCodeTemplate]
-    BaglantiElemaniMaliyetleri = 7034
+    BaglantiElemaniMaliyetleri = 7034,
+
+    [Description("Ambalaj Malzemesi Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    AmbalajMalzemesiMaliyetleri = 7035,
+
+    [Description("Matbaa (Kılavuz) Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    MatbaaKilavuzMaliyetleri = 7036,
+
+    [Description("Etiket Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    EtiketMaliyetleri = 7037
 }
 
