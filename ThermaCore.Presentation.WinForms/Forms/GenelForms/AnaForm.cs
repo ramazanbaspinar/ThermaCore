@@ -1422,7 +1422,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
                 Cursor.Current = Cursors.WaitCursor;
 
                 // Seçili firma ve kullanıcı bilgilerini bar başlıklarına (veya pencere başlığına) yazdır
-                Text = $"ThermaCore ERP --- Bilgisayar: {Environment.MachineName}";
+                Text = $"İtimat ERP --- Bilgisayar: {Environment.MachineName}";
 
                 var scopeFactory = _serviceProvider.GetRequiredService<IServiceScopeFactory>();
 
@@ -1637,7 +1637,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
                 }
             }
 
-            this.Text = $"ThermaCore ERP --- Bilgisayar: {Environment.MachineName} | Şirket: {_currentTenantService.TenantName} | Fabrika: {_currentTenantService.BranchName}";
+            this.Text = $"İtimat ERP --- Bilgisayar: {Environment.MachineName} | Şirket: {_currentTenantService.TenantName} | Fabrika: {_currentTenantService.BranchName}";
 
             // Sistemin açılışını kitlemeden arkadan kontrol işlemi başlatalım
             _ = Task.Run(async () => await EksikSablonlariKontrolEtAsync());
@@ -1904,7 +1904,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
                             appConfigService.SetLastBranchId(frm.SeciliSubeId);
                         }
 
-                        this.Text = $"ThermaCore ERP | Şirket: {_currentTenantService.TenantName} | Fabrika: {_currentTenantService.BranchName}";
+                        this.Text = $"İtimat ERP | Şirket: {_currentTenantService.TenantName} | Fabrika: {_currentTenantService.BranchName}";
                     }
                 }
             }

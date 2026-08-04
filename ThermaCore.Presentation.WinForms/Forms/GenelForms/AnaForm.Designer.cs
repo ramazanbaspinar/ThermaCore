@@ -864,7 +864,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // miSirketTanimlari
             // 
             miSirketTanimlari.Name = "miSirketTanimlari";
-            miSirketTanimlari.Size = new Size(180, 22);
+            miSirketTanimlari.Size = new Size(164, 22);
             miSirketTanimlari.Tag = "SirketTanimlari";
             miSirketTanimlari.Text = "Şirket Tanımları";
             // 
@@ -1007,7 +1007,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             MainMenuStrip = menuStrip;
             Margin = new Padding(4);
             Name = "AnaForm";
-            Text = "ThermaCore";
+            Text = "İtimat";
             WindowState = FormWindowState.Maximized;
             menuStrip.ResumeLayout(false);
             menuStrip.PerformLayout();
