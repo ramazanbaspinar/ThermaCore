@@ -444,6 +444,11 @@ public enum ModuleType
     [Description("Kulp Maliyetleri")]
     [ParentModule(MaliyetYonetimi)]
     [RequiresCodeTemplate]
-    KulpMaliyetleri = 7024
+    KulpMaliyetleri = 7024,
+
+    [Description("Düğme Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    DugmeMaliyetleri = 7025
 }
 

@@ -110,6 +110,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             miRakorMaliyetleri = new ToolStripMenuItem();
             miMPlastikVeGorselAksamGrubu = new ToolStripMenuItem();
             miPlastikParcaMaliyetleri = new ToolStripMenuItem();
+            miKulpMaliyetleri = new ToolStripMenuItem();
             miSistemYonetimi = new ToolStripMenuItem();
             miKurumsalTanimlar = new ToolStripMenuItem();
             miSirketTanimlari = new ToolStripMenuItem();
@@ -127,7 +128,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             menuStrip1 = new MenuStrip();
             lblMenuSripBilgi = new ToolStripMenuItem();
             btnAnaFormResim = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyPictureEdit();
-            miKulpMaliyetleri = new ToolStripMenuItem();
+            miDugmeMaliyetleri = new ToolStripMenuItem();
             menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)xtraTabbedMdiManager).BeginInit();
             menuStrip1.SuspendLayout();
@@ -694,7 +695,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 
             // miMPlastikVeGorselAksamGrubu
             // 
-            miMPlastikVeGorselAksamGrubu.DropDownItems.AddRange(new ToolStripItem[] { miPlastikParcaMaliyetleri, miKulpMaliyetleri });
+            miMPlastikVeGorselAksamGrubu.DropDownItems.AddRange(new ToolStripItem[] { miPlastikParcaMaliyetleri, miKulpMaliyetleri, miDugmeMaliyetleri });
             miMPlastikVeGorselAksamGrubu.Name = "miMPlastikVeGorselAksamGrubu";
             miMPlastikVeGorselAksamGrubu.Size = new Size(253, 22);
             miMPlastikVeGorselAksamGrubu.Tag = "MPlastikVeGorselAksamGrubu";
@@ -706,6 +707,13 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             miPlastikParcaMaliyetleri.Size = new Size(212, 22);
             miPlastikParcaMaliyetleri.Tag = "PlastikParcaMaliyetleri";
             miPlastikParcaMaliyetleri.Text = "Plastik Parça Maliyetleri";
+            // 
+            // miKulpMaliyetleri
+            // 
+            miKulpMaliyetleri.Name = "miKulpMaliyetleri";
+            miKulpMaliyetleri.Size = new Size(212, 22);
+            miKulpMaliyetleri.Tag = "KulpMaliyetleri";
+            miKulpMaliyetleri.Text = "Kulp Maliyetleri";
             // 
             // miSistemYonetimi
             // 
@@ -852,12 +860,12 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             btnAnaFormResim.StatusBarKisaYolAciklama = null;
             btnAnaFormResim.TabIndex = 3;
             // 
-            // miKulpMaliyetleri
+            // miDugmeMaliyetleri
             // 
-            miKulpMaliyetleri.Name = "miKulpMaliyetleri";
-            miKulpMaliyetleri.Size = new Size(212, 22);
-            miKulpMaliyetleri.Tag = "KulpMaliyetleri";
-            miKulpMaliyetleri.Text = "Kulp Maliyetleri";
+            miDugmeMaliyetleri.Name = "miDugmeMaliyetleri";
+            miDugmeMaliyetleri.Size = new Size(212, 22);
+            miDugmeMaliyetleri.Tag = "DugmeMaliyetleri";
+            miDugmeMaliyetleri.Text = "Düğme Maliyetleri";
             // 
             // AnaForm
             // 
@@ -996,5 +1004,6 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
         private ToolStripMenuItem miMPlastikVeGorselAksamGrubu;
         private ToolStripMenuItem miPlastikParcaMaliyetleri;
         private ToolStripMenuItem miKulpMaliyetleri;
+        private ToolStripMenuItem miDugmeMaliyetleri;
     }
 }
