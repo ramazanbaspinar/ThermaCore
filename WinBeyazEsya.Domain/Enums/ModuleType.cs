@@ -1,0 +1,520 @@
+﻿using System.ComponentModel;
+using WinBeyazEsya.Domain.Attributes;
+
+namespace WinBeyazEsya.Domain.Enums;
+
+public enum ModuleType
+{
+    // ANA MENÜLER (Root)
+    [Description("Sistem Yönetimi")]
+    SistemYonetimi = 1000,
+
+    [Description("Genel Parametreler")]
+    [ParentModule(SistemYonetimi)]
+    GenelParametreler = 1004,
+
+    [Description("Tanımlar")]
+    Tanimlar = 2000,
+
+    // ALT MENÜLER (Klasörler)
+    [Description("Kurumsal Tanımlar")]
+    [ParentModule(SistemYonetimi)]
+    KurumsalTanimlar = 1001,
+
+    [Description("Güvenlik ve Yetkilendirme")]
+    [ParentModule(SistemYonetimi)]
+    GuvenlikVeYetkilendirme = 1002,
+
+    [Description("Parametreler")]
+    [ParentModule(SistemYonetimi)]
+    Parametreler = 1003,
+
+    // MODÜLLER (Ekranlar)
+    [Description("Şirket Tanımları")]
+    [ParentModule(KurumsalTanimlar)]
+    SirketTanimlari = 1,
+
+    [Description("Fabrikalar")]
+    [ParentModule(KurumsalTanimlar)]
+    [RequiresCodeTemplate]
+    Factory = 2,
+
+    [Description("Yetki Grupları (Roller)")]
+    [ParentModule(GuvenlikVeYetkilendirme)]
+    [RequiresCodeTemplate]
+    YetkiGruplari = 3,
+
+    [Description("Kullanıcı Tanımları")]
+    [ParentModule(GuvenlikVeYetkilendirme)]
+    User = 4,
+
+    [Description("Terminal Cihaz Yönetimi")]
+    [ParentModule(GuvenlikVeYetkilendirme)]
+    TerminalYonetimi = 5,
+
+    [Description("Kod Şablonları")]
+    [ParentModule(Parametreler)]
+    CodeTemplateYonetimi = 6,
+
+    [Description("Kod Üretim Logları")]
+    [ParentModule(Parametreler)]
+    KodLog = 7,
+
+    [Description("E-Mail Parametreleri")]
+    [ParentModule(Parametreler)]
+    EmailParameter = 8,
+
+    [Description("Sistem Lisansı")]
+    [ParentModule(Parametreler)]
+    SystemLicense = 9,
+
+    [Description("Kullanıcı Arayüz Şablonları")]
+    [ParentModule(Parametreler)]
+    UserInterfaceTemplate = 10,
+
+    [Description("Temel Tanımlar")]
+    [ParentModule(Tanimlar)]
+    TemelTanimlar = 2001,
+
+    [Description("Birim Tanımları")]
+    [ParentModule(TemelTanimlar)]
+    BirimTanimlari = 11,
+
+    [Description("Kur Tanımları")]
+    [ParentModule(TemelTanimlar)]
+    KurTanimlari = 12,
+
+    [Description("KDV Oranları")]
+    [ParentModule(TemelTanimlar)]
+    KdvOranlari = 13,
+
+    [Description("ÖTV Oranları")]
+    [ParentModule(TemelTanimlar)]
+    OtvOranlari = 14,
+
+    [Description("Metal ve Sac Grubu")]
+    [ParentModule(Tanimlar)]
+    MetalVeSacGrubu = 3000,
+
+    [Description("Plastik ve Görsel Aksam Grubu")]
+    [ParentModule(Tanimlar)]
+    PlastikVeGorselAksamGrubu = 4000,
+
+
+    [Description("Sac Tanımları")]
+    [ParentModule(MetalVeSacGrubu)]
+    [RequiresCodeTemplate]
+    SacTanimlari = 16,
+
+    [Description("Kalite Standart Tanımları")]
+    [ParentModule(TemelTanimlar)]
+    [RequiresCodeTemplate]
+    KaliteStandartTanimlari = 17,
+
+    [Description("Yüzey Tipi Tanımları")]
+    [ParentModule(MetalVeSacGrubu)]
+    [RequiresCodeTemplate]
+    YuzeyTipiTanimlari = 21,
+
+    [Description("Kod Yönetimi")]
+    [ParentModule(SistemYonetimi)]
+    KodYonetimi = 18,
+
+    [Description("Boya Tanımları")]
+    [ParentModule(Tanimlar)]
+    [RequiresCodeTemplate]
+    BoyaTanimlari = 19,
+
+    [Description("Emaye Tanımları")]
+    [ParentModule(Tanimlar)]
+    [RequiresCodeTemplate]
+    EmayeTanimlari = 20,
+
+    [Description("Vida Tanımları")]
+    [ParentModule(Tanimlar)]
+    [RequiresCodeTemplate]
+    VidaTanimlari = 22,
+
+    [Description("Rezistans Tanımları")]
+    [ParentModule(Tanimlar)]
+    [RequiresCodeTemplate]
+    RezistansTanimlari = 23,
+
+    [Description("Anahtar (Rotary) Tanımları")]
+    [ParentModule(Tanimlar)]
+    [RequiresCodeTemplate]
+    AnahtarRotaryTanimlari = 24,
+
+    [Description("Termostat Tanımları")]
+    [ParentModule(Tanimlar)]
+    [RequiresCodeTemplate]
+    TermostatTanimlari = 25,
+
+    [Description("Timer Tanımları")]
+    [ParentModule(Tanimlar)]
+    [RequiresCodeTemplate]
+    TimerTanimlari = 26,
+
+    [Description("Düğme Tanımları")]
+    [ParentModule(PlastikVeGorselAksamGrubu)]
+    [RequiresCodeTemplate]
+    DugmeTanimlari = 27,
+
+    [Description("Cam Tipi Tanımları")]
+    [ParentModule(PlastikVeGorselAksamGrubu)]
+    [RequiresCodeTemplate]
+    CamTipiTanimlari = 28,
+
+    [Description("Cam Renk Özellik Tanımları")]
+    [ParentModule(PlastikVeGorselAksamGrubu)]
+    [RequiresCodeTemplate]
+    RenkTanimlari = 29,
+
+    [Description("Cam Tanımları")]
+    [ParentModule(PlastikVeGorselAksamGrubu)]
+    [RequiresCodeTemplate]
+    CamTanimlari = 30,
+
+    [Description("Elektrik ve Elektronik Grubu")]
+    [ParentModule(Tanimlar)]
+    ElektrikVeElektronikGrubu = 5000,
+
+    [Description("Kablo Tanımları")]
+    [ParentModule(ElektrikVeElektronikGrubu)]
+    [RequiresCodeTemplate]
+    KabloTanimlari = 31,
+
+    [Description("Pleyt Isıtıcı Tanımları")]
+    [ParentModule(ElektrikVeElektronikGrubu)]
+    [RequiresCodeTemplate]
+    PleytIsiticiTanimlari = 32,
+
+    [Description("Lamba Tanımları")]
+    [ParentModule(ElektrikVeElektronikGrubu)]
+    [RequiresCodeTemplate]
+    LambaTanimlari = 33,
+
+    [Description("Motor Tanımları")]
+    [ParentModule(ElektrikVeElektronikGrubu)]
+    [RequiresCodeTemplate]
+    MotorTanimlari = 34,
+
+    [Description("Fan (Pervane) Tanımları")]
+    [ParentModule(ElektrikVeElektronikGrubu)]
+    [RequiresCodeTemplate]
+    FanTanimlari = 35,
+
+    [Description("Gaz ve Ateşleme Grubu")]
+    [ParentModule(Tanimlar)]
+    GazVeAteslemeGrubu = 6000,
+
+    [Description("Gaz Musluğu Tanımları")]
+    [ParentModule(GazVeAteslemeGrubu)]
+    [RequiresCodeTemplate]
+    GazMusluguTanimlari = 36,
+
+    [Description("Bek Grubu Tanımları")]
+    [ParentModule(GazVeAteslemeGrubu)]
+    [RequiresCodeTemplate]
+    BekGrubuTanimlari = 37,
+
+    [Description("Enjektör Tanımları")]
+    [ParentModule(GazVeAteslemeGrubu)]
+    [RequiresCodeTemplate]
+    EnjektorTanimlari = 38,
+
+    [Description("Valf Tanımları")]
+    [ParentModule(GazVeAteslemeGrubu)]
+    [RequiresCodeTemplate]
+    ValfTanimlari = 39,
+
+    [Description("Termokupl (Emniyet) Tanımları")]
+    [ParentModule(GazVeAteslemeGrubu)]
+    [RequiresCodeTemplate]
+    TermokuplTanimlari = 40,
+
+    [Description("Çakmak (Buji) Tanımları")]
+    [ParentModule(GazVeAteslemeGrubu)]
+    [RequiresCodeTemplate]
+    CakmakTanimlari = 41,
+
+    [Description("Ateşleme Trafosu Tanımları")]
+    [ParentModule(GazVeAteslemeGrubu)]
+    [RequiresCodeTemplate]
+    AteslemeTrafosuTanimlari = 42,
+
+    [Description("Gaz Borusu Tanımları")]
+    [ParentModule(GazVeAteslemeGrubu)]
+    [RequiresCodeTemplate]
+    GazBorusuTanimlari = 43,
+
+    [Description("Menteşe Tanımları")]
+    [ParentModule(Tanimlar)]
+    [RequiresCodeTemplate]
+    MenteseTanimlari = 44,
+
+    [Description("Conta Tanımları")]
+    [ParentModule(Tanimlar)]
+    [RequiresCodeTemplate]
+    ContaTanimlari = 45,
+
+    [Description("İzolasyon Tanımları")]
+    [ParentModule(Tanimlar)]
+    [RequiresCodeTemplate]
+    IzolasyonTanimlari = 46,
+
+    [Description("Tel Tanımları")]
+    [ParentModule(Tanimlar)]
+    [RequiresCodeTemplate]
+    TelTanimlari = 47,
+
+    [Description("Izgara Tanımları")]
+    [ParentModule(Tanimlar)]
+    [RequiresCodeTemplate]
+    IzgaraTanimlari = 48,
+
+    [Description("Tepsi Tanımları")]
+    [ParentModule(Tanimlar)]
+    [RequiresCodeTemplate]
+    TepsiTanimlari = 49,
+
+    [Description("Kulp Tanımları")]
+    [ParentModule(PlastikVeGorselAksamGrubu)]
+    [RequiresCodeTemplate]
+    KulpTanimlari = 50,
+
+    [Description("Rakor Tanımları")]
+    [ParentModule(GazVeAteslemeGrubu)]
+    [RequiresCodeTemplate]
+    RakorTanimlari = 51,
+
+    [Description("Plastik Parça Tanımları")]
+    [ParentModule(PlastikVeGorselAksamGrubu)]
+    [RequiresCodeTemplate]
+    PlastikParcaTanimlari = 52,
+
+    [Description("Kilit Tanımları")]
+    [ParentModule(PlastikVeGorselAksamGrubu)]
+    [RequiresCodeTemplate]
+    KilitTanimlari = 53,
+
+    [Description("Bağlantı Elemanı Tanımları")]
+    [ParentModule(Tanimlar)]
+    [RequiresCodeTemplate]
+    BaglantiElemaniTanimlari = 54,
+
+    [Description("Ambalaj Malzemesi Tanımları")]
+    [ParentModule(Tanimlar)]
+    [RequiresCodeTemplate]
+    AmbalajMalzemesiTanimlari = 55,
+
+    [Description("Matbaa (Kılavuz) Tanımları")]
+    [ParentModule(Tanimlar)]
+    [RequiresCodeTemplate]
+    MatbaaTanimlari = 56,
+
+    [Description("Etiket Tanımları")]
+    [ParentModule(Tanimlar)]
+    [RequiresCodeTemplate]
+    EtiketTanimlari = 57,
+
+    [Description("Genel Gider Tanımları")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    GenelGiderTanimlari = 58,
+
+    [Description("Maliyet Yönetimi")]
+    MaliyetYonetimi = 7000,
+
+    [Description("Sac Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    SacMaliyetleri = 7001,
+
+    [Description("Tel Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    TelMaliyetleri = 7002,
+
+    [Description("Izgara Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    IzgaraMaliyetleri = 7003,
+
+    [Description("Tepsi Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    TepsiMaliyetleri = 7004,
+
+    [Description("Rezistans Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    RezistansMaliyetleri = 7005,
+
+    [Description("Kablo Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    KabloMaliyetleri = 7006,
+
+    [Description("Motor Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    MotorMaliyetleri = 7007,
+
+    [Description("Fan Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    FanMaliyetleri = 7008,
+
+    [Description("Anahtar (Rotary) Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    RotaryMaliyetleri = 7009,
+
+    [Description("Termostat Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    TermostatMaliyetleri = 7010,
+
+    [Description("Timer (Zamanlayıcı) Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    TimerMaliyetleri = 7011,
+
+    [Description("Lamba Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    LambaMaliyetleri = 7012,
+
+    [Description("Pleyt (Isıtıcı) Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    PleytMaliyetleri = 7013,
+
+    [Description("Gaz Musluğu Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    GazMusluguMaliyetleri = 7014,
+
+    [Description("Valf Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    ValfMaliyetleri = 7015,
+
+    [Description("Bek (Bek Grubu) Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    BekMaliyetleri = 7016,
+
+    [Description("Enjektör Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    EnjektorMaliyetleri = 7017,
+
+    [Description("Termokupl (Emniyet) Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    TermokuplMaliyetleri = 7018,
+
+    [Description("Çakmak (Buji) Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    CakmakMaliyetleri = 7019,
+
+    [Description("Ateşleme Trafosu Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    AteslemeTrafosuMaliyetleri = 7020,
+
+    [Description("Gaz Borusu Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    GazBorusuMaliyetleri = 7021,
+
+    [Description("Rakor Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    RakorMaliyetleri = 7022,
+
+    [Description("Plastik Parça Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    PlastikParcaMaliyetleri = 7023,
+
+    [Description("Kulp Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    KulpMaliyetleri = 7024,
+
+    [Description("Düğme Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    DugmeMaliyetleri = 7025,
+
+    [Description("Cam Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    CamMaliyetleri = 7026,
+
+    [Description("Boya Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    BoyaMaliyetleri = 7027,
+
+    [Description("Emaye Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    EmayeMaliyetleri = 7028,
+
+    [Description("İzolasyon Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    IzolasyonMaliyetleri = 7029,
+
+    [Description("Conta Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    ContaMaliyetleri = 7030,
+
+    [Description("Vida Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    VidaMaliyetleri = 7031,
+
+    [Description("Menteşe Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    MenteseMaliyetleri = 7032,
+
+    [Description("Kilit Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    KilitMaliyetleri = 7033,
+
+    [Description("Bağlantı Elemanı Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    BaglantiElemaniMaliyetleri = 7034,
+
+    [Description("Ambalaj Malzemesi Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    AmbalajMalzemesiMaliyetleri = 7035,
+
+    [Description("Matbaa (Kılavuz) Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    MatbaaKilavuzMaliyetleri = 7036,
+
+    [Description("Etiket Maliyetleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    EtiketMaliyetleri = 7037,
+
+    [Description("Maliyet Parametreleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    MaliyetParametreleri = 7038
+}
+
+

@@ -1,7 +1,0 @@
-<Solution>
-  <Project Path="ThermaCore.Application/ThermaCore.Application.csproj" />
-  <Project Path="ThermaCore.Domain/ThermaCore.Domain.csproj" />
-  <Project Path="ThermaCore.Infrastructure/ThermaCore.Infrastructure.csproj" />
-  <Project Path="ThermaCore.Keygen/ThermaCore.Keygen.csproj" />
-  <Project Path="ThermaCore.Presentation.WinForms/ThermaCore.Presentation.WinForms.csproj" />
-</Solution>

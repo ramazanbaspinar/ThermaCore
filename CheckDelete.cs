@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.IO;
 using System.Linq;
 
@@ -6,7 +6,7 @@ class Program
 {
     static void Main()
     {
-        string dir = @"c:\Users\User\source\repos\ThermaCore\ThermaCore.Presentation.WinForms\Forms\TanimlarForms";
+        string dir = @"c:\Users\User\source\repos\WinBeyazEsya\WinBeyazEsya.Presentation.WinForms\Forms\TanimlarForms";
         var files = Directory.GetFiles(dir, "*.cs", SearchOption.AllDirectories)
             .Where(f => f.EndsWith("ListForm.cs") || f.EndsWith("EditForm.cs"));
 
@@ -66,3 +66,4 @@ class Program
         }
     }
 }
+

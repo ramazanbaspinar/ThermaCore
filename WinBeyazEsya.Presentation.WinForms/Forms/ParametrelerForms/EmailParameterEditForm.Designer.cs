@@ -1,0 +1,397 @@
+﻿namespace WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms
+{
+    partial class EmailParameterEditForm
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            DevExpress.XtraLayout.ColumnDefinition columnDefinition1 = new DevExpress.XtraLayout.ColumnDefinition();
+            DevExpress.XtraLayout.ColumnDefinition columnDefinition2 = new DevExpress.XtraLayout.ColumnDefinition();
+            DevExpress.XtraLayout.RowDefinition rowDefinition1 = new DevExpress.XtraLayout.RowDefinition();
+            DevExpress.XtraLayout.RowDefinition rowDefinition2 = new DevExpress.XtraLayout.RowDefinition();
+            DevExpress.XtraLayout.RowDefinition rowDefinition3 = new DevExpress.XtraLayout.RowDefinition();
+            DevExpress.XtraLayout.RowDefinition rowDefinition4 = new DevExpress.XtraLayout.RowDefinition();
+            DevExpress.XtraLayout.RowDefinition rowDefinition5 = new DevExpress.XtraLayout.RowDefinition();
+            DevExpress.XtraLayout.RowDefinition rowDefinition6 = new DevExpress.XtraLayout.RowDefinition();
+            DevExpress.XtraLayout.RowDefinition rowDefinition7 = new DevExpress.XtraLayout.RowDefinition();
+            myDataLayoutControl1 = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyDataLayoutControl();
+            txtAliciEmail = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyEmailTextEdit();
+            btnTestMailGonder = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MySimpleButton();
+            chkEnableSsl = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyCheckEdit();
+            txtPassword = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyTextEdit();
+            txtSenderEmail = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyEmailTextEdit();
+            txtSenderName = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyTextEdit();
+            txtPort = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MySpinEdit();
+            txtSmtpServer = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyTextEdit();
+            Root = new DevExpress.XtraLayout.LayoutControlGroup();
+            layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
+            layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
+            layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
+            layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
+            layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
+            layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
+            layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
+            layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
+            ((System.ComponentModel.ISupportInitialize)ribbon).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)myDataLayoutControl1).BeginInit();
+            myDataLayoutControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)txtAliciEmail.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)chkEnableSsl.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtPassword.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtSenderEmail.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtSenderName.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtPort.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtSmtpServer.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)Root).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem4).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem5).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem6).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem7).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem8).BeginInit();
+            SuspendLayout();
+            // 
+            // ribbon
+            // 
+            ribbon.ExpandCollapseItem.Id = 0;
+            ribbon.Size = new Size(348, 135);
+            ribbon.Toolbar.ShowCustomizeItem = false;
+            // 
+            // myDataLayoutControl1
+            // 
+            myDataLayoutControl1.AllowCustomization = false;
+            myDataLayoutControl1.Controls.Add(txtAliciEmail);
+            myDataLayoutControl1.Controls.Add(btnTestMailGonder);
+            myDataLayoutControl1.Controls.Add(chkEnableSsl);
+            myDataLayoutControl1.Controls.Add(txtPassword);
+            myDataLayoutControl1.Controls.Add(txtSenderEmail);
+            myDataLayoutControl1.Controls.Add(txtSenderName);
+            myDataLayoutControl1.Controls.Add(txtPort);
+            myDataLayoutControl1.Controls.Add(txtSmtpServer);
+            myDataLayoutControl1.Dock = DockStyle.Fill;
+            myDataLayoutControl1.Location = new Point(0, 135);
+            myDataLayoutControl1.Name = "myDataLayoutControl1";
+            myDataLayoutControl1.OptionsFocus.EnableAutoTabOrder = false;
+            myDataLayoutControl1.Root = Root;
+            myDataLayoutControl1.Size = new Size(348, 220);
+            myDataLayoutControl1.TabIndex = 0;
+            myDataLayoutControl1.Text = "myDataLayoutControl1";
+            // 
+            // txtAliciEmail
+            // 
+            txtAliciEmail.EnterMoveNextControl = true;
+            txtAliciEmail.Location = new Point(105, 198);
+            txtAliciEmail.MenuManager = ribbon;
+            txtAliciEmail.Name = "txtAliciEmail";
+            txtAliciEmail.Properties.Mask.AutoComplete = DevExpress.XtraEditors.Mask.AutoCompleteType.Strong;
+            txtAliciEmail.Properties.Mask.EditMask = "((([0-9a-zA-Z_%-])+[.])+|([0-9a-zA-Z_%-])+)+@((([0-9a-zA-Z_-])+[.])+|([0-9a-zA-Z_-])+)+";
+            txtAliciEmail.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.RegEx;
+            txtAliciEmail.Properties.MaskSettings.Set("MaskManagerType", typeof(DevExpress.Data.Mask.RegExpMaskManager));
+            txtAliciEmail.Properties.MaskSettings.Set("allowBlankInput", true);
+            txtAliciEmail.Properties.MaskSettings.Set("mask", "((([0-9a-zA-Z_%-])+[.])+|([0-9a-zA-Z_%-])+)+@((([0-9a-zA-Z_-])+[.])+|([0-9a-zA-Z_-])+)+");
+            txtAliciEmail.Properties.MaskSettings.Set("isAutoComplete", true);
+            txtAliciEmail.Properties.MaskSettings.Set("isOptimistic", false);
+            txtAliciEmail.Properties.MaxLength = 100;
+            txtAliciEmail.Size = new Size(214, 20);
+            txtAliciEmail.StatusBarAciklama = "E-Posta Adresi Giriniz.";
+            txtAliciEmail.StyleController = myDataLayoutControl1;
+            txtAliciEmail.TabIndex = 7;
+            txtAliciEmail.Tag = "TestAliciEmail";
+            // 
+            // btnTestMailGonder
+            // 
+            btnTestMailGonder.Location = new Point(167, 167);
+            btnTestMailGonder.Name = "btnTestMailGonder";
+            btnTestMailGonder.Size = new Size(152, 22);
+            btnTestMailGonder.StatusBarAciklama = "";
+            btnTestMailGonder.StyleController = myDataLayoutControl1;
+            btnTestMailGonder.TabIndex = 6;
+            btnTestMailGonder.Text = "Test E-Mail'i Gönder";
+            // 
+            // chkEnableSsl
+            // 
+            chkEnableSsl.EnterMoveNextControl = true;
+            chkEnableSsl.Location = new Point(12, 167);
+            chkEnableSsl.MenuManager = ribbon;
+            chkEnableSsl.Name = "chkEnableSsl";
+            chkEnableSsl.Properties.Caption = "SSL Etkin";
+            chkEnableSsl.Size = new Size(151, 20);
+            chkEnableSsl.StatusBarAciklama = "";
+            chkEnableSsl.StyleController = myDataLayoutControl1;
+            chkEnableSsl.TabIndex = 5;
+            chkEnableSsl.Tag = "EnableSsl";
+            // 
+            // txtPassword
+            // 
+            txtPassword.EnterMoveNextControl = true;
+            txtPassword.Location = new Point(105, 136);
+            txtPassword.MenuManager = ribbon;
+            txtPassword.Name = "txtPassword";
+            txtPassword.Properties.MaxLength = 100;
+            txtPassword.Properties.UseSystemPasswordChar = true;
+            txtPassword.Size = new Size(214, 20);
+            txtPassword.StatusBarAciklama = "";
+            txtPassword.StyleController = myDataLayoutControl1;
+            txtPassword.TabIndex = 4;
+            txtPassword.Tag = "Password";
+            // 
+            // txtSenderEmail
+            // 
+            txtSenderEmail.EnterMoveNextControl = true;
+            txtSenderEmail.Location = new Point(105, 105);
+            txtSenderEmail.MenuManager = ribbon;
+            txtSenderEmail.Name = "txtSenderEmail";
+            txtSenderEmail.Properties.Mask.AutoComplete = DevExpress.XtraEditors.Mask.AutoCompleteType.Strong;
+            txtSenderEmail.Properties.Mask.EditMask = "((([0-9a-zA-Z_%-])+[.])+|([0-9a-zA-Z_%-])+)+@((([0-9a-zA-Z_-])+[.])+|([0-9a-zA-Z_-])+)+";
+            txtSenderEmail.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.RegEx;
+            txtSenderEmail.Properties.MaskSettings.Set("MaskManagerType", typeof(DevExpress.Data.Mask.RegExpMaskManager));
+            txtSenderEmail.Properties.MaskSettings.Set("allowBlankInput", true);
+            txtSenderEmail.Properties.MaskSettings.Set("mask", "((([0-9a-zA-Z_%-])+[.])+|([0-9a-zA-Z_%-])+)+@((([0-9a-zA-Z_-])+[.])+|([0-9a-zA-Z_-])+)+");
+            txtSenderEmail.Properties.MaskSettings.Set("isAutoComplete", true);
+            txtSenderEmail.Properties.MaskSettings.Set("isOptimistic", false);
+            txtSenderEmail.Properties.MaxLength = 100;
+            txtSenderEmail.Size = new Size(214, 20);
+            txtSenderEmail.StatusBarAciklama = "E-Posta Adresi Giriniz.";
+            txtSenderEmail.StyleController = myDataLayoutControl1;
+            txtSenderEmail.TabIndex = 3;
+            txtSenderEmail.Tag = "SenderEmail";
+            // 
+            // txtSenderName
+            // 
+            txtSenderName.EnterMoveNextControl = true;
+            txtSenderName.Location = new Point(105, 74);
+            txtSenderName.MenuManager = ribbon;
+            txtSenderName.Name = "txtSenderName";
+            txtSenderName.Properties.MaxLength = 100;
+            txtSenderName.Size = new Size(214, 20);
+            txtSenderName.StatusBarAciklama = "";
+            txtSenderName.StyleController = myDataLayoutControl1;
+            txtSenderName.TabIndex = 2;
+            txtSenderName.Tag = "SenderName";
+            // 
+            // txtPort
+            // 
+            txtPort.EditValue = new decimal(new int[] { 0, 0, 0, 0 });
+            txtPort.EnterMoveNextControl = true;
+            txtPort.Location = new Point(105, 43);
+            txtPort.MenuManager = ribbon;
+            txtPort.Name = "txtPort";
+            txtPort.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
+            txtPort.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
+            txtPort.Properties.MaskSettings.Set("mask", "n0");
+            txtPort.Properties.MaxValue = new decimal(new int[] { 99999999, 0, 0, 0 });
+            txtPort.Size = new Size(214, 20);
+            txtPort.StatusBarAciklama = "";
+            txtPort.StyleController = myDataLayoutControl1;
+            txtPort.TabIndex = 1;
+            txtPort.Tag = "Port";
+            // 
+            // txtSmtpServer
+            // 
+            txtSmtpServer.EnterMoveNextControl = true;
+            txtSmtpServer.Location = new Point(105, 12);
+            txtSmtpServer.MenuManager = ribbon;
+            txtSmtpServer.Name = "txtSmtpServer";
+            txtSmtpServer.Properties.MaxLength = 100;
+            txtSmtpServer.Size = new Size(214, 20);
+            txtSmtpServer.StatusBarAciklama = "";
+            txtSmtpServer.StyleController = myDataLayoutControl1;
+            txtSmtpServer.TabIndex = 0;
+            txtSmtpServer.Tag = "SmtpServer";
+            // 
+            // Root
+            // 
+            Root.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
+            Root.GroupBordersVisible = false;
+            Root.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] { layoutControlItem1, layoutControlItem2, layoutControlItem3, layoutControlItem4, layoutControlItem5, layoutControlItem6, layoutControlItem7, layoutControlItem8 });
+            Root.LayoutMode = DevExpress.XtraLayout.Utils.LayoutMode.Table;
+            Root.Name = "Root";
+            columnDefinition1.SizeType = SizeType.Percent;
+            columnDefinition1.Width = 100D;
+            columnDefinition2.SizeType = SizeType.Percent;
+            columnDefinition2.Width = 100D;
+            Root.OptionsTableLayoutGroup.ColumnDefinitions.AddRange(new DevExpress.XtraLayout.ColumnDefinition[] { columnDefinition1, columnDefinition2 });
+            rowDefinition1.Height = 31D;
+            rowDefinition1.SizeType = SizeType.Absolute;
+            rowDefinition2.Height = 31D;
+            rowDefinition2.SizeType = SizeType.Absolute;
+            rowDefinition3.Height = 31D;
+            rowDefinition3.SizeType = SizeType.Absolute;
+            rowDefinition4.Height = 31D;
+            rowDefinition4.SizeType = SizeType.Absolute;
+            rowDefinition5.Height = 31D;
+            rowDefinition5.SizeType = SizeType.Absolute;
+            rowDefinition6.Height = 31D;
+            rowDefinition6.SizeType = SizeType.Absolute;
+            rowDefinition7.Height = 31D;
+            rowDefinition7.SizeType = SizeType.Absolute;
+            Root.OptionsTableLayoutGroup.RowDefinitions.AddRange(new DevExpress.XtraLayout.RowDefinition[] { rowDefinition1, rowDefinition2, rowDefinition3, rowDefinition4, rowDefinition5, rowDefinition6, rowDefinition7 });
+            Root.Size = new Size(331, 237);
+            Root.TextVisible = false;
+            // 
+            // layoutControlItem1
+            // 
+            layoutControlItem1.Control = txtSmtpServer;
+            layoutControlItem1.Location = new Point(0, 0);
+            layoutControlItem1.Name = "layoutControlItem1";
+            layoutControlItem1.OptionsTableLayoutItem.ColumnSpan = 2;
+            layoutControlItem1.Size = new Size(311, 31);
+            layoutControlItem1.Text = "Smtp Server";
+            layoutControlItem1.TextSize = new Size(81, 13);
+            // 
+            // layoutControlItem2
+            // 
+            layoutControlItem2.Control = txtPort;
+            layoutControlItem2.Location = new Point(0, 31);
+            layoutControlItem2.Name = "layoutControlItem2";
+            layoutControlItem2.OptionsTableLayoutItem.ColumnSpan = 2;
+            layoutControlItem2.OptionsTableLayoutItem.RowIndex = 1;
+            layoutControlItem2.Size = new Size(311, 31);
+            layoutControlItem2.Text = "Port";
+            layoutControlItem2.TextSize = new Size(81, 13);
+            // 
+            // layoutControlItem3
+            // 
+            layoutControlItem3.Control = txtSenderName;
+            layoutControlItem3.Location = new Point(0, 62);
+            layoutControlItem3.Name = "layoutControlItem3";
+            layoutControlItem3.OptionsTableLayoutItem.ColumnSpan = 2;
+            layoutControlItem3.OptionsTableLayoutItem.RowIndex = 2;
+            layoutControlItem3.Size = new Size(311, 31);
+            layoutControlItem3.Text = "Gönderen Adı";
+            layoutControlItem3.TextSize = new Size(81, 13);
+            // 
+            // layoutControlItem4
+            // 
+            layoutControlItem4.Control = txtSenderEmail;
+            layoutControlItem4.Location = new Point(0, 93);
+            layoutControlItem4.Name = "layoutControlItem4";
+            layoutControlItem4.OptionsTableLayoutItem.ColumnSpan = 2;
+            layoutControlItem4.OptionsTableLayoutItem.RowIndex = 3;
+            layoutControlItem4.Size = new Size(311, 31);
+            layoutControlItem4.Text = "Gönderen E-Mail";
+            layoutControlItem4.TextSize = new Size(81, 13);
+            // 
+            // layoutControlItem5
+            // 
+            layoutControlItem5.Control = txtPassword;
+            layoutControlItem5.Location = new Point(0, 124);
+            layoutControlItem5.Name = "layoutControlItem5";
+            layoutControlItem5.OptionsTableLayoutItem.ColumnSpan = 2;
+            layoutControlItem5.OptionsTableLayoutItem.RowIndex = 4;
+            layoutControlItem5.Size = new Size(311, 31);
+            layoutControlItem5.Text = "Şifre";
+            layoutControlItem5.TextSize = new Size(81, 13);
+            // 
+            // layoutControlItem6
+            // 
+            layoutControlItem6.Control = chkEnableSsl;
+            layoutControlItem6.Location = new Point(0, 155);
+            layoutControlItem6.Name = "layoutControlItem6";
+            layoutControlItem6.OptionsTableLayoutItem.RowIndex = 5;
+            layoutControlItem6.Size = new Size(155, 31);
+            layoutControlItem6.TextVisible = false;
+            // 
+            // layoutControlItem7
+            // 
+            layoutControlItem7.Control = btnTestMailGonder;
+            layoutControlItem7.Location = new Point(155, 155);
+            layoutControlItem7.Name = "layoutControlItem7";
+            layoutControlItem7.OptionsTableLayoutItem.ColumnIndex = 1;
+            layoutControlItem7.OptionsTableLayoutItem.RowIndex = 5;
+            layoutControlItem7.Size = new Size(156, 31);
+            layoutControlItem7.TextVisible = false;
+            // 
+            // layoutControlItem8
+            // 
+            layoutControlItem8.Control = txtAliciEmail;
+            layoutControlItem8.Location = new Point(0, 186);
+            layoutControlItem8.Name = "layoutControlItem8";
+            layoutControlItem8.OptionsTableLayoutItem.ColumnSpan = 2;
+            layoutControlItem8.OptionsTableLayoutItem.RowIndex = 6;
+            layoutControlItem8.Size = new Size(311, 31);
+            layoutControlItem8.Text = "Alıcı E-Mail (Test)";
+            layoutControlItem8.TextSize = new Size(81, 13);
+            // 
+            // EmailParameterEditForm
+            // 
+            AutoScaleDimensions = new SizeF(6F, 13F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(348, 379);
+            Controls.Add(myDataLayoutControl1);
+            IconOptions.ShowIcon = false;
+            MinimumSize = new Size(350, 380);
+            Name = "EmailParameterEditForm";
+            Text = "E-Mail Parametre Tanımı";
+            Controls.SetChildIndex(ribbon, 0);
+            Controls.SetChildIndex(myDataLayoutControl1, 0);
+            ((System.ComponentModel.ISupportInitialize)ribbon).EndInit();
+            ((System.ComponentModel.ISupportInitialize)myDataLayoutControl1).EndInit();
+            myDataLayoutControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)txtAliciEmail.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)chkEnableSsl.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtPassword.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtSenderEmail.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtSenderName.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtPort.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtSmtpServer.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)Root).EndInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem4).EndInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem5).EndInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem6).EndInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem7).EndInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem8).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
+        }
+
+        #endregion
+
+        private UserControls.Controls.MyDataLayoutControl myDataLayoutControl1;
+        private UserControls.Controls.MyTextEdit txtSenderName;
+        private UserControls.Controls.MySpinEdit txtPort;
+        private UserControls.Controls.MyTextEdit txtSmtpServer;
+        private DevExpress.XtraLayout.LayoutControlGroup Root;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
+        private UserControls.Controls.MyEmailTextEdit txtAliciEmail;
+        private UserControls.Controls.MySimpleButton btnTestMailGonder;
+        private UserControls.Controls.MyCheckEdit chkEnableSsl;
+        private UserControls.Controls.MyTextEdit txtPassword;
+        private UserControls.Controls.MyEmailTextEdit txtSenderEmail;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem6;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem7;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem8;
+    }
+}

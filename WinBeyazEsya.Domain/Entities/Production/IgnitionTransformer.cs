@@ -1,0 +1,36 @@
+﻿using System.ComponentModel.DataAnnotations;
+using WinBeyazEsya.Domain.Entities.Base;
+
+namespace WinBeyazEsya.Domain.Entities.Production;
+
+public class IgnitionTransformer : FullAuditableEntity
+{
+    [Required]
+    [MaxLength(100)]
+    public string Code { get; set; } = string.Empty;
+
+    [Required]
+    [MaxLength(200)]
+    public string Name { get; set; } = string.Empty;
+
+    [Required]
+    [MaxLength(50)]
+    public string BaseUnit { get; set; } = string.Empty;
+
+    public int? OutputCount { get; set; }
+
+    [MaxLength(50)]
+    public string? Voltage { get; set; }
+
+    [MaxLength(50)]
+    public string? Frequency { get; set; }
+
+    [MaxLength(500)]
+    public string? Description { get; set; }
+
+    public long? SpecialCodeId { get; set; }
+    public virtual WinBeyazEsya.Domain.Entities.Common.SpecialCode? SpecialCode { get; set; }
+
+    public bool IsActive { get; set; } = true;
+}
+

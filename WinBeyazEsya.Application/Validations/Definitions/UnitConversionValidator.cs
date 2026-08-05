@@ -1,0 +1,23 @@
+﻿using FluentValidation;
+using WinBeyazEsya.Application.DTOs.Definitions;
+
+namespace WinBeyazEsya.Application.Validations.Definitions;
+
+public class UnitConversionValidator : AbstractValidator<UnitConversionDto>
+{
+    public UnitConversionValidator()
+    {
+        RuleFor(x => x.Multiplier)
+            .GreaterThan(0)
+            .WithMessage("Çarpan değeri 0'dan büyük olmalıdır.");
+
+        RuleFor(x => x.Divisor)
+            .GreaterThan(0)
+            .WithMessage("Bölen değeri 0'dan büyük olmalıdır.");
+            
+        RuleFor(x => x.UnitId)
+            .NotEmpty()
+            .WithMessage("Birim seçilmelidir.");
+    }
+}
+

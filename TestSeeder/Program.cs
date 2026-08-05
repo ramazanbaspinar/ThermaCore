@@ -1,7 +1,7 @@
-using System;
+﻿using System;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using ThermaCore.Infrastructure.Persistence;
+using WinBeyazEsya.Infrastructure.Persistence;
 
 namespace TestSeeder
 {
@@ -9,10 +9,10 @@ namespace TestSeeder
     {
         static void Main(string[] args)
         {
-            var optionsBuilder = new DbContextOptionsBuilder<ThermaCoreMasterContext>();
-            optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=ThermaCore_Master;Trusted_Connection=True;Encrypt=False;");
+            var optionsBuilder = new DbContextOptionsBuilder<WinBeyazEsyaMasterContext>();
+            optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=WinBeyazEsya_Master;Trusted_Connection=True;Encrypt=False;");
 
-            using (var context = new ThermaCoreMasterContext(optionsBuilder.Options))
+            using (var context = new WinBeyazEsyaMasterContext(optionsBuilder.Options))
             {
                 Console.WriteLine("Checking DB...");
                 var rolesCount = context.Roles.IgnoreQueryFilters().Count();
@@ -34,3 +34,4 @@ namespace TestSeeder
         }
     }
 }
+

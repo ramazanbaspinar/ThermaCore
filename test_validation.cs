@@ -1,21 +1,21 @@
-using System;
+﻿using System;
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using FluentValidation;
-using ThermaCore.Application.DTOs.Definitions;
-using ThermaCore.Application.Validations.Definitions;
-using ThermaCore.Application;
-using ThermaCore.Infrastructure;
-using ThermaCore.Infrastructure.Persistence.Repositories.Definitions;
-using ThermaCore.Application.Interfaces.Repositories.Definitions;
+using WinBeyazEsya.Application.DTOs.Definitions;
+using WinBeyazEsya.Application.Validations.Definitions;
+using WinBeyazEsya.Application;
+using WinBeyazEsya.Infrastructure;
+using WinBeyazEsya.Infrastructure.Persistence.Repositories.Definitions;
+using WinBeyazEsya.Application.Interfaces.Repositories.Definitions;
 using Microsoft.EntityFrameworkCore;
-using ThermaCore.Infrastructure.Persistence;
+using WinBeyazEsya.Infrastructure.Persistence;
 
 class Program {
     static void Main() {
         var services = new ServiceCollection();
         services.AddApplicationServices();
-        services.AddDbContext<ThermaCoreTenantContext>(options => options.UseInMemoryDatabase("TestDb"));
+        services.AddDbContext<WinBeyazEsyaTenantContext>(options => options.UseInMemoryDatabase("TestDb"));
         services.AddScoped<IUnitRepository, UnitRepository>();
         
         var provider = services.BuildServiceProvider();
@@ -37,3 +37,4 @@ class Program {
         }
     }
 }
+

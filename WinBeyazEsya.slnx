@@ -1,0 +1,10 @@
+﻿<Solution>
+  <Project Path="WinBeyazEsya.Application/WinBeyazEsya.Application.csproj" />
+  <Project Path="WinBeyazEsya.Domain/WinBeyazEsya.Domain.csproj" />
+  <Project Path="WinBeyazEsya.Infrastructure/WinBeyazEsya.Infrastructure.csproj" />
+  <Project Path="WinBeyazEsya.Keygen/WinBeyazEsya.Keygen.csproj" />
+  <Project Path="WinBeyazEsya.ManifestBuilder/WinBeyazEsya.ManifestBuilder.csproj" />
+  <Project Path="WinBeyazEsya.Presentation.WinForms/WinBeyazEsya.Presentation.WinForms.csproj" />
+  <Project Path="WinBeyazEsya.Updater/WinBeyazEsya.Updater.csproj" />
+</Solution>
+
