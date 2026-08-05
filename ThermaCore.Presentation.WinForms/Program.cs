@@ -128,7 +128,7 @@ internal static class Program
                 // Definitions
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.MaliyetForms.GenelGiderForms.GenelGiderListForm>();
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.MaliyetForms.GenelGiderForms.GenelGiderEditForm>();
-                
+                services.AddTransient<ThermaCore.Presentation.WinForms.Forms.MaliyetForms.MaliyetParametreForms.MaliyetParametreEditForm>();                
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.MaliyetForms.SacMaliyetForms.SacMaliyetListForm>();
                 services.AddTransient<ThermaCore.Presentation.WinForms.Forms.MaliyetForms.SacMaliyetForms.SacMaliyetEditForm>();
                 

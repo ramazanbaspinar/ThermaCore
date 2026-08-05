@@ -509,6 +509,11 @@ public enum ModuleType
     [Description("Etiket Maliyetleri")]
     [ParentModule(MaliyetYonetimi)]
     [RequiresCodeTemplate]
-    EtiketMaliyetleri = 7037
+    EtiketMaliyetleri = 7037,
+
+    [Description("Maliyet Parametreleri")]
+    [ParentModule(MaliyetYonetimi)]
+    [RequiresCodeTemplate]
+    MaliyetParametreleri = 7038
 }
 

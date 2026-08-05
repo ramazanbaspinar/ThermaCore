@@ -38,6 +38,7 @@ public static class ApplicationServiceRegistration
         services.AddScoped<ISystemParameterService, SystemParameterManager>();
         services.AddScoped<IValidator<ThermaCore.Application.DTOs.Management.CodeTemplateDto>, ThermaCore.Application.Validations.Management.CodeTemplateValidator>();
         services.AddScoped<IValidator<ThermaCore.Application.DTOs.Management.CodeLogDto>, ThermaCore.Application.Validations.Management.CodeLogValidator>();
+        services.AddScoped<IValidator<ThermaCore.Application.DTOs.Management.MaliyetParametreDto>, ThermaCore.Application.Validations.Management.MaliyetParametreValidator>();
 
         services.AddScoped<IValidator<ThermaCore.Application.DTOs.Production.QualityStandardDto>, ThermaCore.Application.Validations.Production.QualityStandardValidator>();
         services.AddScoped<IValidator<ThermaCore.Application.DTOs.Production.SurfaceTypeDto>, ThermaCore.Application.Validations.Production.SurfaceTypeValidator>();
@@ -157,7 +158,7 @@ public static class ApplicationServiceRegistration
         
         services.AddScoped<IValidator<ThermaCore.Application.DTOs.Definitions.GeneralExpenseDto>, ThermaCore.Application.Validations.Definitions.GeneralExpenseValidator>();
         services.AddScoped<ThermaCore.Application.Interfaces.Definitions.IGeneralExpenseService, ThermaCore.Application.Services.Definitions.GeneralExpenseManager>();
-        
+        services.AddScoped<ThermaCore.Application.Interfaces.Management.IMaliyetParametreService, ThermaCore.Application.Services.Management.MaliyetParametreManager>();        
         return services;
     }
 }

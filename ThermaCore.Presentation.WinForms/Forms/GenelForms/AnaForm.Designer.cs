@@ -144,6 +144,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             menuStrip1 = new MenuStrip();
             lblMenuSripBilgi = new ToolStripMenuItem();
             btnAnaFormResim = new ThermaCore.Presentation.WinForms.UserControls.Controls.MyPictureEdit();
+            miMaliyetParametreleri = new ToolStripMenuItem();
             menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)xtraTabbedMdiManager).BeginInit();
             menuStrip1.SuspendLayout();
@@ -520,7 +521,7 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             // 
             // miMaliyet
             // 
-            miMaliyet.DropDownItems.AddRange(new ToolStripItem[] { miGenelGiderler, mimMetalVeSacGrubu, miMElektrikVeElektronikGrubu, miMGazVeAteslemeGrubu, miMPlastikVeGorselAksamGrubu, miMKimyaVeYalitimGrubu, miMMekanikVeHirdavatGrubu, miMAmbalajVeMatbaaGrubu });
+            miMaliyet.DropDownItems.AddRange(new ToolStripItem[] { miGenelGiderler, mimMetalVeSacGrubu, miMElektrikVeElektronikGrubu, miMGazVeAteslemeGrubu, miMPlastikVeGorselAksamGrubu, miMKimyaVeYalitimGrubu, miMMekanikVeHirdavatGrubu, miMAmbalajVeMatbaaGrubu, miMaliyetParametreleri });
             miMaliyet.Name = "miMaliyet";
             miMaliyet.Size = new Size(62, 22);
             miMaliyet.Tag = "Maliyet";
@@ -990,6 +991,13 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
             btnAnaFormResim.StatusBarKisaYolAciklama = null;
             btnAnaFormResim.TabIndex = 3;
             // 
+            // miMaliyetParametreleri
+            // 
+            miMaliyetParametreleri.Name = "miMaliyetParametreleri";
+            miMaliyetParametreleri.Size = new Size(253, 22);
+            miMaliyetParametreleri.Tag = "MaliyetParametreleri";
+            miMaliyetParametreleri.Text = "Maliyet Parametreleri";
+            // 
             // AnaForm
             // 
             Appearance.BackColor = SystemColors.Control;
@@ -1143,5 +1151,6 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
         private ToolStripMenuItem miAmbalajMalzemesiMaliyetleri;
         private ToolStripMenuItem miMatbaaKilavuzMaliyetleri;
         private ToolStripMenuItem miEtiketMaliyetleri;
+        private ToolStripMenuItem miMaliyetParametreleri;
     }
 }

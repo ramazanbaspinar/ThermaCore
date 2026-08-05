@@ -27,7 +27,7 @@ public class ThermaCoreTenantContext : DbContext
     public DbSet<ThermaCore.Domain.Entities.Management.ExchangeRate> ExchangeRates { get; set; }
     public DbSet<ThermaCore.Domain.Entities.Management.TaxRate> TaxRates { get; set; }
     public DbSet<ThermaCore.Domain.Entities.Management.SystemParameter> SystemParameters { get; set; }
-
+    public DbSet<ThermaCore.Domain.Entities.Management.MaliyetParametre> MaliyetParametreleri { get; set; }
     public DbSet<ThermaCore.Domain.Entities.Production.QualityStandard> QualityStandards { get; set; }
     public DbSet<ThermaCore.Domain.Entities.Production.SurfaceType> SurfaceTypes { get; set; }
     public DbSet<ThermaCore.Domain.Entities.Production.SheetMetal> SheetMetals { get; set; }

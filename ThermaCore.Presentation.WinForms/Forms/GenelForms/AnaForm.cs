@@ -57,6 +57,24 @@ namespace ThermaCore.Presentation.WinForms.Forms.GenelForms
                     form.ShowDialog();
                 };
 
+            if (miMaliyetParametreleri != null)
+            {
+                miMaliyetParametreleri.Tag = ThermaCore.Domain.Enums.ModuleType.MaliyetParametreleri;
+                miMaliyetParametreleri.Click += (s, e) =>
+                {
+                    var authService = _serviceProvider.GetService<ThermaCore.Application.Services.Management.IAuthService>();
+                    if (authService != null && authService.HasPermission(ThermaCore.Domain.Enums.ModuleType.MaliyetParametreleri, ThermaCore.Domain.Enums.PermissionType.CanView))
+                    {
+                        var form = _serviceProvider.GetRequiredService<ThermaCore.Presentation.WinForms.Forms.MaliyetForms.MaliyetParametreForms.MaliyetParametreEditForm>();
+                        form.ShowDialog();
+                    }
+                    else
+                    {
+                        ThermaCore.Presentation.WinForms.Helpers.Messages.UyariMesaji("Bu işlem için yetkiniz bulunmamaktadır.");
+                    }
+                };
+            }
+
             // Dinamik Yükleme Click Eventleri
             if (miGenelParametreler != null)
                 miGenelParametreler.Click += miGenelParametreler_Click;
