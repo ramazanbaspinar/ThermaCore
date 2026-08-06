@@ -49,8 +49,11 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             _clockTimer.Interval = 1000;
             _clockTimer.Tick += (s, e) => 
             {
-                if (barMenuBilgi != null)
-                    barMenuBilgi.Caption = $"{DateTime.Now:dd.MM.yyyy HH:mm:ss} | {_currencyInfo}";
+                if (barTrhSaatBilgisi != null)
+                    barTrhSaatBilgisi.Caption = $"{DateTime.Now:dd.MM.yyyy HH:mm:ss}";
+
+                if (barDovizBilgi != null)
+                    barDovizBilgi.Caption = $"Döviz: {_currencyInfo}";
             };
             _clockTimer.Start();
 
@@ -62,6 +65,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             if (aceKullaniciTanimlari != null) aceKullaniciTanimlari.Click += KullaniciTanimlari_Click;
             if (aceYetkiGruplariRoller != null) aceYetkiGruplariRoller.Click += miYetkiGruplariRoller_Click;
             if (aceTerminalCihazYonetimi != null) aceTerminalCihazYonetimi.Click += miTerminalYonetim_Click;
+            if (btnFabrikaDegistir != null) btnFabrikaDegistir.ItemClick += btnFabrikaDegistir_ItemClick;
             if (aceKodSablonlari != null) aceKodSablonlari.Click += miCodeTemplatelari_Click;
             if (aceGenelParametreler != null) aceGenelParametreler.Click += miGenelParametreler_Click;
             
@@ -570,26 +574,33 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             else
             {
                 long rememberedBranchId = appConfigService.GetLastBranchId();
+                bool askBranchAtStartup = appConfigService.GetAskBranchAtStartup();
                 var rememberedBranch = allowedBranches.FirstOrDefault(b => b.Id == rememberedBranchId);
 
-                if (rememberedBranch != null)
+                if (!askBranchAtStartup && rememberedBranch != null)
                 {
                     _currentTenantService.BranchId = rememberedBranch.Id;
                     _currentTenantService.BranchName = rememberedBranch.BranchName;
                 }
                 else
                 {
-                    using (var frm = new SubeSecimForm(allowedBranches))
+                    using (var frm = new SubeSecimForm(allowedBranches, rememberedBranchId, askBranchAtStartup))
                     {
                         if (frm.ShowDialog(this) == DialogResult.OK)
                         {
                             _currentTenantService.BranchId = frm.SeciliSubeId;
                             _currentTenantService.BranchName = frm.SeciliSubeAdi;
 
-                            if (frm.SecimiHatirla)
+                            if (frm.VarsayilanYap)
                             {
                                 appConfigService.SetLastBranchId(frm.SeciliSubeId);
                             }
+                            else
+                            {
+                                appConfigService.SetLastBranchId(0);
+                            }
+                            
+                            appConfigService.SetAskBranchAtStartup(frm.AcilistaSor);
                         }
                         else
                         {
@@ -603,8 +614,68 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
 
             this.Text = $"WinBeyazEsya ERP --- Bilgisayar: {Environment.MachineName} | Şirket: {_currentTenantService.TenantName} | Fabrika: {_currentTenantService.BranchName}";
 
+            if (allowedBranches != null && allowedBranches.Count > 1)
+            {
+                if (btnFabrikaDegistir != null)
+                {
+                    btnFabrikaDegistir.Visibility = DevExpress.XtraBars.BarItemVisibility.Always;
+                    btnFabrikaDegistir.Caption = $"🏢 Aktif Fabrika: {_currentTenantService.BranchName} [Değiştir]";
+                }
+            }
+            else
+            {
+                if (btnFabrikaDegistir != null)
+                {
+                    btnFabrikaDegistir.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
+                }
+            }
+
             // Sistemin açılışını kitlemeden arkadan kontrol işlemi başlatalım
             _ = Task.Run(async () => await EksikSablonlariKontrolEtAsync());
+        }
+
+        private async void btnFabrikaDegistir_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            var authService = _serviceProvider.GetRequiredService<WinBeyazEsya.Application.Services.Management.IAuthService>();
+            var allowedBranches = await authService.GetAllowedBranchesAsync(_currentTenantService.UserId, _currentTenantService.TenantId);
+
+            if (allowedBranches != null && allowedBranches.Count > 1)
+            {
+                var appConfigService = _serviceProvider.GetRequiredService<WinBeyazEsya.Application.Interfaces.Configuration.IAppConfigService>();
+                long rememberedBranchId = appConfigService.GetLastBranchId();
+                bool askBranchAtStartup = appConfigService.GetAskBranchAtStartup();
+
+                using (var frm = new SubeSecimForm(allowedBranches, rememberedBranchId, askBranchAtStartup))
+                {
+                    if (frm.ShowDialog(this) == DialogResult.OK)
+                    {
+                        // Ayarları güncelle
+                        if (frm.VarsayilanYap)
+                        {
+                            appConfigService.SetLastBranchId(frm.SeciliSubeId);
+                        }
+                        else
+                        {
+                            appConfigService.SetLastBranchId(0);
+                        }
+                        appConfigService.SetAskBranchAtStartup(frm.AcilistaSor);
+
+                        // GÜVENLİK KURALI: O anki açık olan tüm MDI formlarını kapat
+                        foreach (System.Windows.Forms.Form child in this.MdiChildren)
+                        {
+                            child.Close();
+                        }
+
+                        // Servisi yeni fabrikaya göre güncelle
+                        _currentTenantService.BranchId = frm.SeciliSubeId;
+                        _currentTenantService.BranchName = frm.SeciliSubeAdi;
+
+                        // Bar üzerindeki yazıyı güncelle
+                        btnFabrikaDegistir.Caption = $"🏢 Aktif Fabrika: {frm.SeciliSubeAdi} [Değiştir]";
+                        this.Text = $"WinBeyazEsya ERP --- Bilgisayar: {Environment.MachineName} | Şirket: {_currentTenantService.TenantName} | Fabrika: {_currentTenantService.BranchName}";
+                    }
+                }
+            }
         }
 
         private async Task EksikSablonlariKontrolEtAsync()
@@ -887,19 +958,31 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
 
             if (allowedBranches != null && allowedBranches.Count > 1)
             {
-                using (var frm = new SubeSecimForm(allowedBranches))
+                long rememberedBranchId = appConfigService.GetLastBranchId();
+                bool askBranchAtStartup = appConfigService.GetAskBranchAtStartup();
+
+                using (var frm = new SubeSecimForm(allowedBranches, rememberedBranchId, askBranchAtStartup))
                 {
                     if (frm.ShowDialog(this) == DialogResult.OK)
                     {
                         _currentTenantService.BranchId = frm.SeciliSubeId;
                         _currentTenantService.BranchName = frm.SeciliSubeAdi;
 
-                        if (frm.SecimiHatirla)
+                        if (frm.VarsayilanYap)
                         {
                             appConfigService.SetLastBranchId(frm.SeciliSubeId);
                         }
+                        else
+                        {
+                            appConfigService.SetLastBranchId(0);
+                        }
+                        appConfigService.SetAskBranchAtStartup(frm.AcilistaSor);
 
-                        this.Text = $"WinBeyazEsya ERP | Şirket: {_currentTenantService.TenantName} | Fabrika: {_currentTenantService.BranchName}";
+                        this.Text = $"WinBeyazEsya ERP --- Bilgisayar: {Environment.MachineName} | Şirket: {_currentTenantService.TenantName} | Fabrika: {_currentTenantService.BranchName}";
+                        if (btnFabrikaDegistir != null)
+                        {
+                            btnFabrikaDegistir.Caption = $"🏢 Aktif Fabrika: {_currentTenantService.BranchName} [Değiştir]";
+                        }
                     }
                 }
             }

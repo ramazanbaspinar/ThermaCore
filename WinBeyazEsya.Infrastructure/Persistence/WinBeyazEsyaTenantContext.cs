@@ -101,7 +101,18 @@ public class WinBeyazEsyaTenantContext : DbContext
             {
                 modelBuilder.Entity(entityType.ClrType).HasIndex("Code");
             }
+            
+            if (typeof(IMustHaveBranch).IsAssignableFrom(entityType.ClrType))
+            {
+                var method = typeof(WinBeyazEsyaTenantContext).GetMethod(nameof(SetGlobalQueryFilterForBranch), BindingFlags.NonPublic | BindingFlags.Instance);
+                method?.MakeGenericMethod(entityType.ClrType).Invoke(this, new object[] { modelBuilder });
+            }
         }
+    }
+
+    private void SetGlobalQueryFilterForBranch<TEntity>(ModelBuilder modelBuilder) where TEntity : class, IMustHaveBranch
+    {
+        modelBuilder.Entity<TEntity>().HasQueryFilter(e => e.BranchId == (_currentTenantService != null ? _currentTenantService.BranchId : 0));
     }
 
     public override int SaveChanges()
@@ -139,6 +150,14 @@ public class WinBeyazEsyaTenantContext : DbContext
                     
                     entry.Property(nameof(AuditableEntity.CreatedDate)).IsModified = false;
                     entry.Property(nameof(AuditableEntity.CreatedUserId)).IsModified = false;
+                }
+            }
+            
+            if (entry.Entity is IMustHaveBranch mustHaveBranch)
+            {
+                if (entry.State == EntityState.Added && mustHaveBranch.BranchId == 0)
+                {
+                    mustHaveBranch.BranchId = _currentTenantService?.BranchId ?? 0;
                 }
             }
 

@@ -87,7 +87,18 @@ public class WinBeyazEsyaMasterContext : DbContext
                     indexBuilder.HasFilter("[IsDeleted] = 0");
                 }
             }
+            
+            if (typeof(IMustHaveBranch).IsAssignableFrom(entityType.ClrType))
+            {
+                var method = typeof(WinBeyazEsyaMasterContext).GetMethod(nameof(SetGlobalQueryFilterForBranch), BindingFlags.NonPublic | BindingFlags.Instance);
+                method?.MakeGenericMethod(entityType.ClrType).Invoke(this, new object[] { modelBuilder });
+            }
         }
+    }
+
+    private void SetGlobalQueryFilterForBranch<TEntity>(ModelBuilder modelBuilder) where TEntity : class, IMustHaveBranch
+    {
+        modelBuilder.Entity<TEntity>().HasQueryFilter(e => e.BranchId == (_currentTenantService != null ? _currentTenantService.BranchId : 0));
     }
 
     public override int SaveChanges()
@@ -124,6 +135,14 @@ public class WinBeyazEsyaMasterContext : DbContext
                     
                     entry.Property(nameof(AuditableEntity.CreatedDate)).IsModified = false;
                     entry.Property(nameof(AuditableEntity.CreatedUserId)).IsModified = false;
+                }
+            }
+            
+            if (entry.Entity is IMustHaveBranch mustHaveBranch)
+            {
+                if (entry.State == EntityState.Added && mustHaveBranch.BranchId == 0)
+                {
+                    mustHaveBranch.BranchId = _currentTenantService?.BranchId ?? 0;
                 }
             }
 

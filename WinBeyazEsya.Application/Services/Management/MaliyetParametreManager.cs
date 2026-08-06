@@ -56,17 +56,8 @@ public class MaliyetParametreManager : IMaliyetParametreService
             _repository.Update(existing);
         }
         
-        var sysExisting = _systemRepo.Find(x => true).FirstOrDefault();
-        if (sysExisting != null)
-        {
-            sysExisting.DefaultWastageRate = dto.WastageRate;
-            _systemRepo.Update(sysExisting);
-        }
-        else
-        {
-            var newSys = new SystemParameter { DefaultWastageRate = dto.WastageRate, Id = WinBeyazEsya.Domain.Helpers.IdGenerator.GenerateId() };
-            _systemRepo.Add(newSys);
-        }
+        // SystemParameter (Genel Parametreler) artık şube bazlı Maliyet Parametrelerinden geriye dönük güncellenmeyecek.
+        // Çünkü her şubenin kendi fire oranı olabilir. Genel parametreler sadece toplu güncelleme (Forward-Sync) için kullanılacak.
 
         _unitOfWork.SaveChanges();
         return Task.CompletedTask;

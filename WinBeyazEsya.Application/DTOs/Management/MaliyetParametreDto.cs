@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using WinBeyazEsya.Application.DTOs.Base;
 
@@ -20,5 +20,8 @@ public class MaliyetParametreDto : BaseDto
     [DisplayName("Ortalama Üretim Değeri")]
     [Description("Üretim birimlerinin ortalama üretim maliyet değeridir.")]
     public decimal AverageProductionValue { get; set; }
+    
+    [Browsable(false)]
+    public long BranchId { get; set; }
 }
 

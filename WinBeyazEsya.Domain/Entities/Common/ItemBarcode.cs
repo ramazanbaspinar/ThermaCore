@@ -1,10 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using WinBeyazEsya.Domain.Entities.Base;
 using WinBeyazEsya.Domain.Enums;
 
 namespace WinBeyazEsya.Domain.Entities.Common;
 
-public class ItemBarcode : FullAuditableEntity
+public class ItemBarcode : FullAuditableEntity, IMustHaveBranch
 {
     [Required]
     [MaxLength(100)]
@@ -27,5 +27,7 @@ public class ItemBarcode : FullAuditableEntity
     public decimal QuantityPerUnit { get; set; } = 1;
 
     public decimal WeightPerUnit { get; set; }
+    
+    public long BranchId { get; set; }
 }
 

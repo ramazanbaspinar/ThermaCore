@@ -1,4 +1,4 @@
-﻿using DevExpress.XtraEditors;
+using DevExpress.XtraEditors;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -43,7 +43,6 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.OzelKodForms
             string entityNameTr = _entityType switch
             {
                 "Screw" => "Vida",
-                "QualityStandard" => "Kalite Standardı",
                 "GasValve" => "Gaz Musluğu",
                 "Burner" => "Bek Grubu",
                 "Terminal" => "Terminal Cihazı",
@@ -51,7 +50,6 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.OzelKodForms
                 "Timer" => "Timer",
                 "Knob" => "Düğme",
                 "OvenGlass" => "Cam",
-                "GlassType" => "Cam Tipi",
                 "ColorFeature" => "Cam Renk Özellik",
                 "Cable" => "Kablo",
                 "Hotplate" => "Pleyt Isıtıcı",

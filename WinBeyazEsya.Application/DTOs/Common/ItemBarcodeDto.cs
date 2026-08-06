@@ -1,4 +1,4 @@
-﻿using WinBeyazEsya.Application.DTOs.Base;
+using WinBeyazEsya.Application.DTOs.Base;
 using WinBeyazEsya.Domain.Enums;
 
 namespace WinBeyazEsya.Application.DTOs.Common;
@@ -15,5 +15,6 @@ public class ItemBarcodeDto : BaseDto
     public string? Unit { get; set; }
     public decimal QuantityPerUnit { get; set; } = 1;
     public decimal WeightPerUnit { get; set; }
+    public long BranchId { get; set; }
 }
 

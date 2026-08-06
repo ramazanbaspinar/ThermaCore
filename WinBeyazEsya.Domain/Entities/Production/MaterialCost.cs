@@ -1,11 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using WinBeyazEsya.Domain.Entities.Base;
 using WinBeyazEsya.Domain.Enums;
 
 namespace WinBeyazEsya.Domain.Entities.Production;
 
-public class MaterialCost : FullAuditableEntity
+public class MaterialCost : FullAuditableEntity, IMustHaveBranch
 {
     [Required]
     [MaxLength(100)]
@@ -20,5 +20,7 @@ public class MaterialCost : FullAuditableEntity
     [Required]
     [MaxLength(5)]
     public string CurrencyCode { get; set; } = string.Empty;
+    
+    public long BranchId { get; set; }
 }
 

@@ -84,7 +84,9 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             aceGenelParametreler = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             barManager1 = new DevExpress.XtraBars.BarManager(components);
             bar = new DevExpress.XtraBars.Bar();
-            barMenuBilgi = new DevExpress.XtraBars.BarStaticItem();
+            barTrhSaatBilgisi = new DevExpress.XtraBars.BarStaticItem();
+            barDovizBilgi = new DevExpress.XtraBars.BarStaticItem();
+            btnFabrikaDegistir = new DevExpress.XtraBars.BarButtonItem();
             barDockControlTop = new DevExpress.XtraBars.BarDockControl();
             barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
             barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
@@ -256,7 +258,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             btnAnaFormResim.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
             btnAnaFormResim.Properties.ShowMenu = false;
             btnAnaFormResim.Properties.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Stretch;
-            btnAnaFormResim.Size = new Size(800, 666);
+            btnAnaFormResim.Size = new Size(752, 666);
             btnAnaFormResim.StatusBarAciklama = null;
             btnAnaFormResim.StatusBarKisaYol = "F4 :";
             btnAnaFormResim.StatusBarKisaYolAciklama = null;
@@ -470,9 +472,9 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             barManager1.DockControls.Add(barDockControlLeft);
             barManager1.DockControls.Add(barDockControlRight);
             barManager1.Form = this;
-            barManager1.Items.AddRange(new DevExpress.XtraBars.BarItem[] { barMenuBilgi });
+            barManager1.Items.AddRange(new DevExpress.XtraBars.BarItem[] { barTrhSaatBilgisi, barDovizBilgi, btnFabrikaDegistir });
             barManager1.MainMenu = bar;
-            barManager1.MaxItemId = 1;
+            barManager1.MaxItemId = 3;
             // 
             // bar
             // 
@@ -481,19 +483,33 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             bar.DockCol = 0;
             bar.DockRow = 0;
             bar.DockStyle = DevExpress.XtraBars.BarDockStyle.Top;
-            bar.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] { new DevExpress.XtraBars.LinkPersistInfo(barMenuBilgi) });
+            bar.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] { new DevExpress.XtraBars.LinkPersistInfo(barTrhSaatBilgisi), new DevExpress.XtraBars.LinkPersistInfo(barDovizBilgi, true), new DevExpress.XtraBars.LinkPersistInfo(btnFabrikaDegistir, true) });
             bar.OptionsBar.AllowQuickCustomization = false;
             bar.OptionsBar.MultiLine = true;
             bar.OptionsBar.UseWholeRow = true;
             bar.Text = "Main menu";
             // 
-            // barMenuBilgi
+            // barTrhSaatBilgisi
             // 
-            barMenuBilgi.Caption = "Yükleniyor...";
-            barMenuBilgi.Id = 0;
-            barMenuBilgi.ItemAppearance.Normal.Font = new Font("Tahoma", 9F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            barMenuBilgi.ItemAppearance.Normal.Options.UseFont = true;
-            barMenuBilgi.Name = "barMenuBilgi";
+            barTrhSaatBilgisi.Caption = "Yükleniyor...";
+            barTrhSaatBilgisi.Id = 0;
+            barTrhSaatBilgisi.ItemAppearance.Normal.Font = new Font("Tahoma", 9F, FontStyle.Bold);
+            barTrhSaatBilgisi.ItemAppearance.Normal.Options.UseFont = true;
+            barTrhSaatBilgisi.Name = "barTrhSaatBilgisi";
+            // 
+            // barDovizBilgi
+            // 
+            barDovizBilgi.Caption = "Yükleniyor...";
+            barDovizBilgi.Id = 1;
+            barDovizBilgi.ItemAppearance.Normal.Font = new Font("Tahoma", 9F, FontStyle.Bold);
+            barDovizBilgi.ItemAppearance.Normal.Options.UseFont = true;
+            barDovizBilgi.Name = "barDovizBilgi";
+            // 
+            // btnFabrikaDegistir
+            // 
+            btnFabrikaDegistir.Caption = "Aktif Fabrika";
+            btnFabrikaDegistir.Id = 2;
+            btnFabrikaDegistir.Name = "btnFabrikaDegistir";
             // 
             // barDockControlTop
             // 
@@ -503,7 +519,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             barDockControlTop.Dock = DockStyle.Top;
             barDockControlTop.Location = new Point(0, 0);
             barDockControlTop.Manager = barManager1;
-            barDockControlTop.Size = new Size(1060, 20);
+            barDockControlTop.Size = new Size(1012, 20);
             // 
             // barDockControlBottom
             // 
@@ -511,7 +527,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             barDockControlBottom.Dock = DockStyle.Bottom;
             barDockControlBottom.Location = new Point(0, 686);
             barDockControlBottom.Manager = barManager1;
-            barDockControlBottom.Size = new Size(1060, 0);
+            barDockControlBottom.Size = new Size(1012, 0);
             // 
             // barDockControlLeft
             // 
@@ -525,7 +541,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             // 
             barDockControlRight.CausesValidation = false;
             barDockControlRight.Dock = DockStyle.Right;
-            barDockControlRight.Location = new Point(1060, 20);
+            barDockControlRight.Location = new Point(1012, 20);
             barDockControlRight.Manager = barManager1;
             barDockControlRight.Size = new Size(0, 666);
             // 
@@ -536,7 +552,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             Appearance.Options.UseFont = true;
             AutoScaleDimensions = new SizeF(7F, 16F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1060, 686);
+            ClientSize = new Size(1012, 686);
             Controls.Add(btnAnaFormResim);
             Controls.Add(accordionControl1);
             Controls.Add(barDockControlLeft);
@@ -595,7 +611,8 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
         private DevExpress.XtraBars.BarDockControl barDockControlTop;
         private DevExpress.XtraBars.BarDockControl barDockControlBottom;
         private DevExpress.XtraBars.BarDockControl barDockControlRight;
-        private DevExpress.XtraBars.BarStaticItem barMenuBilgi;
+        private DevExpress.XtraBars.BarStaticItem barTrhSaatBilgisi;
+        private DevExpress.XtraBars.BarStaticItem barDovizBilgi;
         private DevExpress.XtraBars.Navigation.AccordionControlElement aceKurTanimlari;
         private DevExpress.XtraBars.Navigation.AccordionControlElement aceKdvOranlari;
         private DevExpress.XtraBars.Navigation.AccordionControlElement aceOtvOranlari;
@@ -621,6 +638,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
         private DevExpress.XtraBars.Navigation.AccordionControlElement aceMaliyet;
         private DevExpress.XtraBars.Navigation.AccordionControlElement aceGenelGiderler;
         private DevExpress.XtraBars.Navigation.AccordionControlElement aceMaliyetParametreleri;
+        private DevExpress.XtraBars.BarButtonItem btnFabrikaDegistir;
     }
 }
 

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace WinBeyazEsya.Application.DTOs.Common;
 
@@ -12,5 +12,6 @@ public class AppDocumentDto
     public string ContentType { get; set; } = null!;
     public long FileSize { get; set; }
     public byte[] FileData { get; set; } = null!;
+    public long BranchId { get; set; }
 }
 

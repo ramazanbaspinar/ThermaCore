@@ -1,4 +1,4 @@
-﻿namespace WinBeyazEsya.Application.Interfaces.Configuration;
+namespace WinBeyazEsya.Application.Interfaces.Configuration;
 
 public interface IAppConfigService
 {
@@ -10,5 +10,7 @@ public interface IAppConfigService
     void SetLastTenantId(long tenantId);
     long GetLastBranchId();
     void SetLastBranchId(long branchId);
+    bool GetAskBranchAtStartup();
+    void SetAskBranchAtStartup(bool ask);
 }
 

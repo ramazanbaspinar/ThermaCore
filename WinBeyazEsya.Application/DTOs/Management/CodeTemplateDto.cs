@@ -1,4 +1,4 @@
-﻿using WinBeyazEsya.Application.DTOs.Base;
+using WinBeyazEsya.Application.DTOs.Base;
 using WinBeyazEsya.Domain.Enums;
 
 namespace WinBeyazEsya.Application.DTOs.Management;
@@ -16,5 +16,6 @@ public class CodeTemplateDto : BaseDto
     public bool IsCompanyShortCodeUsed { get; set; }
     public bool IsDateBasedCodeGenerationEnabled { get; set; }
     public bool IsDateBasedCodeResetEnabled { get; set; }
+    public long BranchId { get; set; }
 }
 

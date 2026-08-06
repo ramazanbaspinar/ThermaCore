@@ -66,6 +66,8 @@ public class SystemParameterManager : ISystemParameterService
             _repository.Update(existing);
         }
         
+        // Sadece mevcut aktif fabrikanın (branch) Maliyet Parametresini senkronize eder.
+        // Diğer fabrikalara erişim Global Query Filter tarafından engellenmiştir. (Isolated Architecture)
         var maliyetExisting = _maliyetRepo.Find(x => true).FirstOrDefault();
         if (maliyetExisting != null)
         {

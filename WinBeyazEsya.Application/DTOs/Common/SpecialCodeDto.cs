@@ -1,4 +1,4 @@
-﻿using WinBeyazEsya.Application.DTOs.Base;
+using WinBeyazEsya.Application.DTOs.Base;
 using WinBeyazEsya.Domain.Enums;
 
 namespace WinBeyazEsya.Application.DTOs.Common;
@@ -9,5 +9,6 @@ public class SpecialCodeDto : BaseDto
     public string EntityType { get; set; } = null!;
     public string Name { get; set; } = null!;
     public string? Description { get; set; }
+    public long BranchId { get; set; }
 }
 

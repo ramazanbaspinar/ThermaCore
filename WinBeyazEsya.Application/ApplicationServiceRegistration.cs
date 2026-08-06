@@ -36,16 +36,9 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IValidator<WinBeyazEsya.Application.DTOs.Management.MaliyetParametreDto>, WinBeyazEsya.Application.Validations.Management.MaliyetParametreValidator>();
         services.AddScoped<IMaliyetParametreService, MaliyetParametreManager>();
 
-        services.AddScoped<IValidator<WinBeyazEsya.Application.DTOs.Production.QualityStandardDto>, WinBeyazEsya.Application.Validations.Production.QualityStandardValidator>();
-        services.AddScoped<IValidator<WinBeyazEsya.Application.DTOs.Production.SurfaceTypeDto>, WinBeyazEsya.Application.Validations.Production.SurfaceTypeValidator>();
-
         services.AddScoped<IValidator<WinBeyazEsya.Application.DTOs.Common.ItemBarcodeDto>, WinBeyazEsya.Application.Validations.Common.ItemBarcodeValidator>();
         services.AddScoped<IValidator<WinBeyazEsya.Application.DTOs.Common.SpecialCodeDto>, WinBeyazEsya.Application.Validations.Common.SpecialCodeValidator>();
-        services.AddScoped<IValidator<WinBeyazEsya.Application.DTOs.Production.GlassTypeDto>, WinBeyazEsya.Application.Validators.Production.GlassTypeValidator>();
         services.AddScoped<IValidator<WinBeyazEsya.Application.DTOs.Production.ColorFeatureDto>, WinBeyazEsya.Application.Validators.Production.ColorFeatureValidator>();
-        services.AddScoped<WinBeyazEsya.Application.Interfaces.Production.IQualityStandardService, WinBeyazEsya.Application.Services.Production.QualityStandardManager>();
-        services.AddScoped<WinBeyazEsya.Application.Interfaces.Production.ISurfaceTypeService, WinBeyazEsya.Application.Services.Production.SurfaceTypeManager>();
-        services.AddScoped<WinBeyazEsya.Application.Interfaces.Production.IGlassTypeService, WinBeyazEsya.Application.Services.Production.GlassTypeManager>();
         services.AddScoped<WinBeyazEsya.Application.Interfaces.Production.IColorFeatureService, WinBeyazEsya.Application.Services.Production.ColorFeatureManager>();
         
         

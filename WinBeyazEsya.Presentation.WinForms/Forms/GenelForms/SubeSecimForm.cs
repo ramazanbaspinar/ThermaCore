@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -11,14 +11,18 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
     {
         public long SeciliSubeId { get; private set; }
         public string SeciliSubeAdi { get; private set; } = string.Empty;
-        public bool SecimiHatirla => chkHatirla.Checked;
+        public bool VarsayilanYap => chkVarsayilanYap.Checked;
+        public bool AcilistaSor => chkAcilistaSor.Checked;
 
         private readonly List<BranchDto> _branches;
 
-        public SubeSecimForm(List<BranchDto> branches)
+        public SubeSecimForm(List<BranchDto> branches, long lastBranchId = 0, bool askAtStartup = true)
         {
             InitializeComponent();
             _branches = branches;
+            
+            chkVarsayilanYap.Checked = lastBranchId > 0;
+            chkAcilistaSor.Checked = askAtStartup;
             
             foreach (var branch in _branches)
             {
@@ -27,7 +31,14 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             
             if (cmbSubeler.Properties.Items.Count > 0)
             {
-                cmbSubeler.SelectedIndex = 0;
+                if (lastBranchId > 0 && _branches.Any(b => b.Id == lastBranchId))
+                {
+                    cmbSubeler.EditValue = lastBranchId;
+                }
+                else
+                {
+                    cmbSubeler.SelectedIndex = 0;
+                }
             }
 
             btnSecVeBasla.Click += BtnSecVeBasla_Click;

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Text.Json;
 using WinBeyazEsya.Application.Interfaces.Configuration;
@@ -103,11 +103,24 @@ public class AppConfigService : IAppConfigService
         SaveSettings(settings);
     }
 
+    public bool GetAskBranchAtStartup()
+    {
+        return LoadSettings().AskBranchAtStartup;
+    }
+
+    public void SetAskBranchAtStartup(bool ask)
+    {
+        var settings = LoadSettings();
+        settings.AskBranchAtStartup = ask;
+        SaveSettings(settings);
+    }
+
     private class SettingsModel
     {
         public string LastLoginUser { get; set; } = string.Empty;
         public long LastTenantId { get; set; } = 0;
         public long LastBranchId { get; set; } = 0;
+        public bool AskBranchAtStartup { get; set; } = true;
         public string ConnectionString { get; set; } = string.Empty;
     }
 }

@@ -1,4 +1,4 @@
-﻿using DevExpress.XtraEditors;
+using DevExpress.XtraEditors;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -37,6 +37,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
 
             DataLayoutControl = myDataLayoutControl1;
             Bll = _userService; // Form can use user service as base BLL if needed for Kaydet
+            BaseKartTuru = WinBeyazEsya.Domain.Enums.ModuleType.User;
         }
 
         public override void Yukle()

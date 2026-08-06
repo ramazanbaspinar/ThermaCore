@@ -1,9 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using WinBeyazEsya.Domain.Entities.Base;
 
 namespace WinBeyazEsya.Domain.Entities.Definitions;
 
-public class GeneralExpense : FullAuditableEntity
+public class GeneralExpense : FullAuditableEntity, IMustHaveBranch
 {
     [Required]
     [MaxLength(50)]
@@ -17,5 +17,7 @@ public class GeneralExpense : FullAuditableEntity
 
     [MaxLength(5)]
     public string CurrencyCode { get; set; } = string.Empty;
+    
+    public long BranchId { get; set; }
 }
 

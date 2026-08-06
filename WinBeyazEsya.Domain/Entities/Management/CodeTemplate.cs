@@ -1,28 +1,25 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using WinBeyazEsya.Domain.Entities.Base;
 using WinBeyazEsya.Domain.Enums;
 
 namespace WinBeyazEsya.Domain.Entities.Management;
 
-public class CodeTemplate : FullAuditableEntity
+public class CodeTemplate : FullAuditableEntity, IMustHaveBranch
 {
     [Required]
     public ModuleType Module { get; set; }
 
     [Required]
-    [StringLength(100)]
+    [MaxLength(20)]
     public string CodePrefix { get; set; } = string.Empty;
 
-    [Required]
     public byte NumericLength { get; set; }
 
-    [Required]
     public int StartNumber { get; set; }
 
-    [Required]
     public DateFormat DateFormat { get; set; }
 
-    [StringLength(100)]
+    [MaxLength(20)]
     public string CodeSuffix { get; set; } = string.Empty;
 
     public bool IsAutoCodeGenerationEnabled { get; set; }
@@ -30,5 +27,6 @@ public class CodeTemplate : FullAuditableEntity
     public bool IsCompanyShortCodeUsed { get; set; }
     public bool IsDateBasedCodeGenerationEnabled { get; set; }
     public bool IsDateBasedCodeResetEnabled { get; set; }
-}
 
+    public long BranchId { get; set; }
+}
