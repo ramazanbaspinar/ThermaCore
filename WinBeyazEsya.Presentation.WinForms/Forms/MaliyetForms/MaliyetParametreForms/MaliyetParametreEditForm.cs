@@ -61,85 +61,31 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MaliyetParametre
             }
 
             CurrentEntity = _currentDto;
-            OldEntity = new MaliyetParametreDto 
-            { 
-                Id = _currentDto.Id,
-                WastageRate = _currentDto.WastageRate,
-                MaturityDifferenceRate = _currentDto.MaturityDifferenceRate,
-                AverageProductionValue = _currentDto.AverageProductionValue
-            };
+            OldEntity = new MaliyetParametreDto { Id = _currentDto.Id };
 
             NesneyiKontrollereBagla();
-        }
-
-        protected override void EventsLoad()
-        {
-            base.EventsLoad();
-            if (propertyGridControl1 != null)
-            {
-                propertyGridControl1.CellValueChanged += PropertyGridControl1_CellValueChanged;
-            }
-        }
-
-        private void PropertyGridControl1_CellValueChanged(object sender, DevExpress.XtraVerticalGrid.Events.CellValueChangedEventArgs e)
-        {
-            // KURAL 1: Tetikleyici Kopukluğu (Manuel tetikleme)
-            Control_EditValueChanged(sender, e);
         }
 
         protected override void NesneyiKontrollereBagla()
         {
             if (_currentDto == null) return;
-            propertyGridControl1.SelectedObject = _currentDto;
+            
+            if (txtVadeFarkiOrani != null) txtVadeFarkiOrani.Value = _currentDto.MaturityDifferenceRate;
+            if (txtFireOrani != null) txtFireOrani.Value = _currentDto.WastageRate;
+            if (txtOrtalamaUretimDegeri != null) txtOrtalamaUretimDegeri.Value = _currentDto.AverageProductionValue;
         }
 
         protected override void GuncelNesneOlustur()
         {
-            // KURAL 2: Veri Kopukluğu (Manuel nesne aktarımı)
-            var gridNesnesi = (MaliyetParametreDto)propertyGridControl1.SelectedObject;
-            if (gridNesnesi != null)
+            var dto = new MaliyetParametreDto 
             {
-                CurrentEntity = new MaliyetParametreDto 
-                {
-                    // KURAL 3: Id değerinin kaybolmamasını sağlıyoruz
-                    Id = _currentDto?.Id ?? 0,
-                    WastageRate = gridNesnesi.WastageRate,
-                    MaturityDifferenceRate = gridNesnesi.MaturityDifferenceRate,
-                    AverageProductionValue = gridNesnesi.AverageProductionValue
-                };
-            }
-        }
-
-        protected override bool FarklilikVarMi(System.Windows.Forms.Control.ControlCollection controls)
-        {
-            var selected = propertyGridControl1.SelectedObject as MaliyetParametreDto;
-            var old = OldEntity as MaliyetParametreDto;
-
-            if (selected == null || old == null) return false;
-
-            return selected.WastageRate != old.WastageRate ||
-                   selected.MaturityDifferenceRate != old.MaturityDifferenceRate ||
-                   selected.AverageProductionValue != old.AverageProductionValue;
-        }
-
-        protected override void Button_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            if (e.Item.Name == "btnKaydet")
-            {
-                // Kullanıcının son yazdığı değerin hücreden çıkmadan DTO'ya işlenmesi için kritik
-                propertyGridControl1.PostEditor();
-                propertyGridControl1.CloseEditor();
-                // Kalan işlemleri (Kaydetme, OldEntity güncelleme, Buton durumlarını resetleme vs.)
-                // BaseEditForm'un kendi standart işleyişine bırakıyoruz.
-            }
-            else if (e.Item.Name == "btnGerial")
-            {
-                propertyGridControl1.PostEditor();
-                propertyGridControl1.CloseEditor();
-                // Geri al işlemini de BaseEditForm'a bırakıyoruz.
-            }
+                Id = _currentDto?.Id ?? 0,
+                MaturityDifferenceRate = txtVadeFarkiOrani?.Value ?? 0,
+                WastageRate = txtFireOrani?.Value ?? 0,
+                AverageProductionValue = txtOrtalamaUretimDegeri?.Value ?? 0
+            };
             
-            base.Button_ItemClick(sender, e);
+            CurrentEntity = dto;
         }
 
         protected override bool EntityInsert()
@@ -156,12 +102,22 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MaliyetParametre
         {
             try
             {
-                if (_maliyetParametreService == null) return false;
+                var service = _maliyetParametreService;
+                if (service == null && Program.ServiceProvider != null)
+                {
+                    service = Program.ServiceProvider.GetService(typeof(IMaliyetParametreService)) as IMaliyetParametreService;
+                }
+
+                if (service == null)
+                {
+                    Messages.HataBasligi("MaliyetParametreService bulunamadı! Lütfen DI ayarlarını kontrol edin.", "Servis Hatası");
+                    return false;
+                }
 
                 GuncelNesneOlustur();
                 _currentDto = (MaliyetParametreDto)CurrentEntity;
 
-                _maliyetParametreService.SaveParametreAsync(_currentDto).GetAwaiter().GetResult();
+                service.SaveParametreAsync(_currentDto).GetAwaiter().GetResult();
                 return true;
             }
             catch (Exception ex)

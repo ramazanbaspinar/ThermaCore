@@ -443,13 +443,14 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
 
                     if (KayitSonrasiFormuKapat && kapanis)
                         Close();
-                    else
-                    {
-                        _isBinding = true;
-                        Yukle();
-                        _isBinding = false;
-                        ResetControlIsModified(this.Controls);
-                    }
+                      else
+                      {
+                          _isBinding = true;
+                          Yukle();
+                          _isBinding = false;
+                          ResetControlIsModified(this.Controls);
+                          ButonEnabledDurumu();
+                      }
 
                     return true;
                 }
