@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Linq;
+using System.Net.Http;
+using System.Security.Cryptography;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -12,17 +15,26 @@ namespace WinBeyazEsya.Updater
     public partial class UpdateForm : Form
     {
         private string _appPath;
+        private string _serverUrl;
         private string _tempFolder;
         private string _backupFolder;
+        private List<string> _addedFiles = new List<string>();
+        
+        // Akıllı Temizlik ve İstisna Listesi (Kara Liste)
+        private readonly HashSet<string> _exclusionExactMatches = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+        {
+            "license.lic",
+            "update_config.json"
+        };
+        private readonly string[] _exclusionPrefixes = { "logs\\", "logs/", "temp\\", "temp/", "update_backups\\", "update_backups/" };
+        private readonly string[] _exclusionExtensions = { ".config" };
 
-        public UpdateForm()
+        public UpdateForm(string appPath, string serverUrl)
         {
             InitializeComponent();
 
-            _appPath = AppDomain.CurrentDomain.BaseDirectory;
-            
-            // Eğer Updater, WinBeyazEsya ile aynı dizinde değilse (örn. geliştirme ortamı), 
-            // args veya Parent process üzerinden appPath alınabilir. Şimdilik aynı dizinde varsayıyoruz.
+            _appPath = string.IsNullOrWhiteSpace(appPath) ? AppDomain.CurrentDomain.BaseDirectory : appPath;
+            _serverUrl = serverUrl?.TrimEnd('/', '\\') ?? "";
             _tempFolder = Path.Combine(_appPath, "Temp", "UpdateCache");
             _backupFolder = Path.Combine(_appPath, "Temp", "Backup");
         }
@@ -30,6 +42,14 @@ namespace WinBeyazEsya.Updater
         protected override async void OnShown(EventArgs e)
         {
             base.OnShown(e);
+            
+            if (string.IsNullOrWhiteSpace(_serverUrl))
+            {
+                MessageBox.Show("Güncelleme sunucu adresi (URL) belirtilmemiş!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Application.Exit();
+                return;
+            }
+
             await PerformUpdateAsync();
         }
 
@@ -40,92 +60,188 @@ namespace WinBeyazEsya.Updater
                 this.Invoke(new Action(() => UpdateStatus(message, progress)));
                 return;
             }
-            _lblStatus.Text = message;
-            _progressBar.Value = progress;
+            this._lblStatus.Text = message;
+            if (progress >= 0 && progress <= 100)
+                this._progressBar.Value = progress;
+        }
+
+        private bool IsExcluded(string relativePath)
+        {
+            if (_exclusionExactMatches.Contains(relativePath)) return true;
+            if (_exclusionPrefixes.Any(p => relativePath.StartsWith(p, StringComparison.OrdinalIgnoreCase))) return true;
+            if (_exclusionExtensions.Any(ext => relativePath.EndsWith(ext, StringComparison.OrdinalIgnoreCase))) return true;
+            return false;
         }
 
         private async Task PerformUpdateAsync()
         {
             try
             {
-                UpdateStatus("Uygulamanın kapanması bekleniyor...", 10);
-                await Task.Delay(2000); // Ana uygulamanın tamamen kapanması için bekle
+                UpdateStatus("Uygulamanın kapanması bekleniyor...", 5);
+                await GracefulKillAppAsync("WinBeyazEsya.Presentation.WinForms");
 
-                KillApp("WinBeyazEsya.Presentation.WinForms"); // Gerekirse zorla kapat
-
-                string manifestPath = Path.Combine(_tempFolder, "update_manifest.json");
-                if (!File.Exists(manifestPath))
+                // Temp klasörünü hazırla
+                if (Directory.Exists(_tempFolder))
                 {
-                    MessageBox.Show("Güncelleme dosyaları bulunamadı!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Application.Exit();
-                    return;
+                    try { Directory.Delete(_tempFolder, true); } catch { }
+                }
+                Directory.CreateDirectory(_tempFolder);
+
+                string manifestTempPath = Path.Combine(_tempFolder, "update_manifest.json");
+
+                bool isCloud = _serverUrl.StartsWith("http://", StringComparison.OrdinalIgnoreCase) || 
+                               _serverUrl.StartsWith("https://", StringComparison.OrdinalIgnoreCase);
+
+                if (isCloud)
+                {
+                    UpdateStatus("Bulut sunucusundan manifest indiriliyor...", 10);
+                    using (HttpClient client = new HttpClient())
+                    {
+                        string manifestUrl = _serverUrl + "/update_manifest.json";
+                        await DownloadFileAsync(client, manifestUrl, manifestTempPath);
+                    }
+                }
+                else
+                {
+                    UpdateStatus("Yerel ağdan manifest kopyalanıyor...", 10);
+                    string manifestLocalPath = Path.Combine(_serverUrl, "update_manifest.json");
+                    if (!File.Exists(manifestLocalPath))
+                    {
+                        throw new Exception($"Yerel sunucuda manifest bulunamadı: {manifestLocalPath}");
+                    }
+                    File.Copy(manifestLocalPath, manifestTempPath, true);
                 }
 
-                string json = File.ReadAllText(manifestPath);
+                string json = File.ReadAllText(manifestTempPath);
                 var options = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
                 var manifest = JsonSerializer.Deserialize<UpdateManifestDto>(json, options);
+                
+                if (manifest == null || manifest.Files == null || manifest.Files.Count == 0)
+                {
+                    throw new Exception("Güncelleme manifest dosyası geçersiz veya boş!");
+                }
 
-                UpdateStatus("Yedekleme alınıyor...", 30);
-                if (Directory.Exists(_backupFolder)) Directory.Delete(_backupFolder, true);
-                Directory.CreateDirectory(_backupFolder);
+                // Download/Copy Files
+                int count = 0;
+                using (HttpClient client = isCloud ? new HttpClient() : null)
+                {
+                    foreach (var mf in manifest.Files)
+                    {
+                        string relativePath = mf.Path.Replace('/', Path.DirectorySeparatorChar);
+                        
+                        // Exclusion list kontrolü
+                        if (IsExcluded(relativePath)) continue;
 
-                var backupItems = new List<string>();
+                        string tempPath = Path.Combine(_tempFolder, relativePath);
+                        Directory.CreateDirectory(Path.GetDirectoryName(tempPath)!);
 
-                // Yedekleme işlemi
+                        if (isCloud)
+                        {
+                            UpdateStatus($"Buluttan indiriliyor... ({count + 1}/{manifest.Files.Count})", 15 + (20 * count / manifest.Files.Count));
+                            string fileUrl = _serverUrl + "/" + mf.Path.Replace('\\', '/');
+                            await DownloadFileAsync(client, fileUrl, tempPath);
+                        }
+                        else
+                        {
+                            UpdateStatus($"Yerel ağdan kopyalanıyor... ({count + 1}/{manifest.Files.Count})", 15 + (20 * count / manifest.Files.Count));
+                            string sourcePath = Path.Combine(_serverUrl, relativePath);
+                            if (File.Exists(sourcePath))
+                            {
+                                File.Copy(sourcePath, tempPath, true);
+                            }
+                            else
+                            {
+                                throw new Exception($"Yerel sunucuda dosya bulunamadı: {sourcePath}");
+                            }
+                        }
+
+                        count++;
+                    }
+                }
+
+                UpdateStatus("Dosya bütünlükleri (SHA256) kontrol ediliyor...", 40);
                 foreach (var mf in manifest.Files)
                 {
                     string relativePath = mf.Path.Replace('/', Path.DirectorySeparatorChar);
+                    if (IsExcluded(relativePath)) continue;
+
+                    string tempPath = Path.Combine(_tempFolder, relativePath);
+                    if (File.Exists(tempPath))
+                    {
+                        string localHash = CalculateSHA256(tempPath);
+                        if (!string.Equals(localHash, mf.Hash, StringComparison.OrdinalIgnoreCase))
+                        {
+                            throw new Exception($"'{relativePath}' dosyasının bütünlüğü doğrulanamadı (SHA256 uyuşmazlığı)! İndirme işlemi bozulmuş olabilir.");
+                        }
+                    }
+                    else
+                    {
+                        throw new Exception($"'{relativePath}' güncelleme paketi içinde bulunamadı!");
+                    }
+                }
+
+                UpdateStatus("Yedekleme alınıyor...", 50);
+                if (Directory.Exists(_backupFolder)) Directory.Delete(_backupFolder, true);
+                Directory.CreateDirectory(_backupFolder);
+
+                var filesToUpdate = manifest.Files
+                    .Select(mf => mf.Path.Replace('/', Path.DirectorySeparatorChar))
+                    .Where(p => !IsExcluded(p))
+                    .ToList();
+
+                foreach (var relativePath in filesToUpdate)
+                {
                     string localPath = Path.Combine(_appPath, relativePath);
                     string backupPath = Path.Combine(_backupFolder, relativePath);
 
                     if (File.Exists(localPath))
                     {
-                        Directory.CreateDirectory(Path.GetDirectoryName(backupPath));
+                        Directory.CreateDirectory(Path.GetDirectoryName(backupPath)!);
                         File.Copy(localPath, backupPath, true);
-                        backupItems.Add(relativePath);
                     }
                 }
 
-                UpdateStatus("Yeni dosyalar kopyalanıyor...", 60);
-                int count = 0;
-                foreach (var mf in manifest.Files)
+                UpdateStatus("Yeni dosyalar sisteme entegre ediliyor...", 65);
+                count = 0;
+                foreach (var relativePath in filesToUpdate)
                 {
-                    string relativePath = mf.Path.Replace('/', Path.DirectorySeparatorChar);
                     string localPath = Path.Combine(_appPath, relativePath);
                     string tempPath = Path.Combine(_tempFolder, relativePath);
 
-                    if (File.Exists(tempPath))
+                    bool fileExistedBefore = File.Exists(localPath);
+                    
+                    Directory.CreateDirectory(Path.GetDirectoryName(localPath)!);
+                    
+                    bool copied = false;
+                    for (int i = 0; i < 5; i++)
                     {
-                        Directory.CreateDirectory(Path.GetDirectoryName(localPath));
-                        
-                        bool copied = false;
-                        for (int i = 0; i < 5; i++)
+                        try
                         {
-                            try
+                            File.Copy(tempPath, localPath, true);
+                            copied = true;
+                            if (!fileExistedBefore)
                             {
-                                File.Copy(tempPath, localPath, true);
-                                copied = true;
-                                break;
+                                _addedFiles.Add(localPath);
                             }
-                            catch (IOException)
-                            {
-                                KillApp("WinBeyazEsya.Presentation.WinForms");
-                                await Task.Delay(1000);
-                            }
-                            catch (UnauthorizedAccessException)
-                            {
-                                KillApp("WinBeyazEsya.Presentation.WinForms");
-                                await Task.Delay(1000);
-                            }
+                            break;
                         }
-                        
-                        if (!copied)
+                        catch (IOException)
                         {
-                            throw new Exception($"'{relativePath}' dosyası kilitli olduğu için kopyalanamadı.");
+                            await GracefulKillAppAsync("WinBeyazEsya.Presentation.WinForms", true);
+                        }
+                        catch (UnauthorizedAccessException)
+                        {
+                            await GracefulKillAppAsync("WinBeyazEsya.Presentation.WinForms", true);
                         }
                     }
+                    
+                    if (!copied)
+                    {
+                        throw new Exception($"'{relativePath}' dosyası kilitli olduğu için kopyalanamadı.");
+                    }
+                    
                     count++;
-                    UpdateStatus($"Dosyalar kopyalanıyor... ({count}/{manifest.Files.Count})", 60 + (30 * count / manifest.Files.Count));
+                    UpdateStatus($"Sisteme entegre ediliyor... ({count}/{filesToUpdate.Count})", 65 + (25 * count / filesToUpdate.Count));
                 }
 
                 UpdateStatus("Güncelleme tamamlandı, program başlatılıyor...", 95);
@@ -148,9 +264,21 @@ namespace WinBeyazEsya.Updater
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Güncelleme sırasında hata oluştu. Değişiklikler geri alınıyor...\n\nHata: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Güncelleme başarısız oldu. Değişiklikler geri alınıyor...\n\nHata: {ex.Message}", "Kritik Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Rollback();
                 Application.Exit();
+            }
+        }
+
+        private async Task DownloadFileAsync(HttpClient client, string url, string destPath)
+        {
+            using (var response = await client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead))
+            {
+                response.EnsureSuccessStatusCode();
+                using (var fs = new FileStream(destPath, FileMode.Create, FileAccess.Write, FileShare.None))
+                {
+                    await response.Content.CopyToAsync(fs);
+                }
             }
         }
 
@@ -158,7 +286,18 @@ namespace WinBeyazEsya.Updater
         {
             try
             {
-                UpdateStatus("Değişiklikler geri alınıyor...", 0);
+                UpdateStatus("Geri alma (Rollback) işlemi başlatıldı...", 0);
+                
+                // Yeni eklenen dosyaları sil
+                foreach (var addedFile in _addedFiles)
+                {
+                    if (File.Exists(addedFile))
+                    {
+                        try { File.Delete(addedFile); } catch { }
+                    }
+                }
+
+                // Yedeklenenleri geri kopyala
                 if (Directory.Exists(_backupFolder))
                 {
                     var files = Directory.GetFiles(_backupFolder, "*.*", SearchOption.AllDirectories);
@@ -166,27 +305,65 @@ namespace WinBeyazEsya.Updater
                     {
                         string relativePath = backupFile.Substring(_backupFolder.Length + 1);
                         string localPath = Path.Combine(_appPath, relativePath);
-                        File.Copy(backupFile, localPath, true);
+                        try
+                        {
+                            File.Copy(backupFile, localPath, true);
+                        }
+                        catch { }
                     }
                 }
+                
+                MessageBox.Show("Sistem eski kararlı sürüme geri döndürüldü.", "Rollback Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Geri alma işlemi başarısız: {ex.Message}");
+                MessageBox.Show($"Kritik Geri Alma (Rollback) Hatası: {ex.Message}\nSistem manuel onarım gerektirebilir.", "Felaket Kurtarma", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void KillApp(string processName)
+        private async Task GracefulKillAppAsync(string processName, bool forceKill = false)
         {
             var processes = Process.GetProcessesByName(processName);
+            if (processes.Length == 0) return;
+
+            foreach (var p in processes)
+            {
+                try
+                {
+                    if (!forceKill)
+                    {
+                        p.CloseMainWindow();
+                    }
+                }
+                catch { }
+            }
+
+            if (!forceKill)
+            {
+                await Task.Delay(3000); // Kapanmasını bekle
+            }
+
+            processes = Process.GetProcessesByName(processName);
             foreach (var p in processes)
             {
                 try
                 {
                     p.Kill();
-                    p.WaitForExit();
+                    p.WaitForExit(2000);
                 }
                 catch { }
+            }
+        }
+
+        private string CalculateSHA256(string filePath)
+        {
+            using (var sha256 = SHA256.Create())
+            {
+                using (var stream = File.OpenRead(filePath))
+                {
+                    var hash = sha256.ComputeHash(stream);
+                    return BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
+                }
             }
         }
     }
@@ -206,4 +383,3 @@ namespace WinBeyazEsya.Updater
         public long Size { get; set; }
     }
 }
-
