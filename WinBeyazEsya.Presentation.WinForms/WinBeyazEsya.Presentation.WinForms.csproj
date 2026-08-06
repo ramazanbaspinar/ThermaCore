@@ -405,7 +405,13 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Product>$(AssemblyName)</Product>
+    <Product>WinBeyazEsyaERP</Product>
+    <AssemblyName>WinBeyazEsya</AssemblyName>
+    <AssemblyTitle>WinBeyazEsyaERP</AssemblyTitle>
+    <Authors>RamazanBaspinar</Authors>
+    <Description>WinBeyazEsya ERP
+</Description>
+    <Copyright>© 2026 Ramazan Başpınar. Tüm Hakları Saklıdır.</Copyright>
   </PropertyGroup>
 
 </Project>
