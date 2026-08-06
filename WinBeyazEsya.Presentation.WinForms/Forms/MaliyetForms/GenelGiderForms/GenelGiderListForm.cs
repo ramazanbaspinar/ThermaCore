@@ -1,4 +1,4 @@
-﻿using DevExpress.XtraEditors;
+using DevExpress.XtraEditors;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -32,14 +32,12 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.GenelGiderForms
             _serviceProvider = serviceProvider;
             _exchangeRateService = exchangeRateService;
             
-            BaseKartTuru = ModuleType.GenelGiderTanimlari;
         }
 
         protected override void DegiskenleriDoldur()
         {
             Tablo = myGridView1;
             Navigator = longNavigator1.Navigator;
-            BaseKartTuru = ModuleType.GenelGiderTanimlari;
             AktifPasifButonGoster = false;
 
             Tablo.OptionsView.ShowFooter = true;

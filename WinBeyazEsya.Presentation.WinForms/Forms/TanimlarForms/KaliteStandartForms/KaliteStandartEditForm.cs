@@ -1,4 +1,4 @@
-﻿using DevExpress.XtraEditors;
+using DevExpress.XtraEditors;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -26,7 +26,6 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.KaliteStandartForms
             InitializeComponent();
             _service = service;
             
-            BaseKartTuru = ModuleType.KaliteStandartTanimlari;
             DataLayoutControl = myDataLayoutControl1;
             
             cmbMalzemeTuru.Properties.Items.AddRange(WinBeyazEsya.Presentation.WinForms.Helpers.EnumFunctions.GetEnumDescriptionList<MaterialGroup>().ToArray());

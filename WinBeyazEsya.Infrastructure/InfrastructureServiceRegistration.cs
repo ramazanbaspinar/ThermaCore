@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using WinBeyazEsya.Application.Interfaces.Configuration;
 using WinBeyazEsya.Application.Interfaces.Mailing;
@@ -47,7 +47,6 @@ public static class InfrastructureServiceRegistration
         services.AddScoped<WinBeyazEsya.Application.Interfaces.Repositories.ICodeLogRepository, WinBeyazEsya.Infrastructure.Persistence.Repositories.CodeLogRepository>();
         
         services.AddScoped<WinBeyazEsya.Application.Interfaces.Repositories.Definitions.IUnitRepository, WinBeyazEsya.Infrastructure.Persistence.Repositories.Definitions.UnitRepository>();
-        services.AddScoped<WinBeyazEsya.Application.Interfaces.Repositories.Definitions.IPlasticPartRepository, WinBeyazEsya.Infrastructure.Repositories.Definitions.PlasticPartRepository>();
         return services;
     }
 }

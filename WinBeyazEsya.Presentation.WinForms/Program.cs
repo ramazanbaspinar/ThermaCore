@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Globalization;
 using System.IO;
 using System.Threading;
@@ -129,116 +129,42 @@ internal static class Program
                 services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.GenelGiderForms.GenelGiderListForm>();
                 services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.GenelGiderForms.GenelGiderEditForm>();
                 services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MaliyetParametreForms.MaliyetParametreEditForm>();                
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.SacMaliyetForms.SacMaliyetListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.SacMaliyetForms.SacMaliyetEditForm>();
                 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.TelMaliyetForms.TelMaliyetListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.TelMaliyetForms.TelMaliyetEditForm>();
                 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.IzgaraMaliyetForms.IzgaraMaliyetListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.IzgaraMaliyetForms.IzgaraMaliyetEditForm>();
                 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.TepsiMaliyetForms.TepsiMaliyetListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.TepsiMaliyetForms.TepsiMaliyetEditForm>();
                 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.RezistansMaliyetForms.RezistansMaliyetListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.RezistansMaliyetForms.RezistansMaliyetEditForm>();
                 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.KabloMaliyetForms.KabloMaliyetListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.KabloMaliyetForms.KabloMaliyetEditForm>();
                 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MotorMaliyetForms.MotorMaliyetListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MotorMaliyetForms.MotorMaliyetEditForm>();
                 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.FanMaliyetForms.FanMaliyetListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.FanMaliyetForms.FanMaliyetEditForm>();
                 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.RotaryMaliyetForms.RotaryMaliyetListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.RotaryMaliyetForms.RotaryMaliyetEditForm>();
                 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.TermostatMaliyetForms.TermostatMaliyetListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.TermostatMaliyetForms.TermostatMaliyetEditForm>();
                 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.TimerMaliyetForms.TimerMaliyetListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.TimerMaliyetForms.TimerMaliyetEditForm>();
                 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.LambaMaliyetForms.LambaMaliyetListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.LambaMaliyetForms.LambaMaliyetEditForm>();
                 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.PleytMaliyetForms.PleytMaliyetListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.PleytMaliyetForms.PleytMaliyetEditForm>();
                 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.GazMusluguMaliyetForms.GazMusluguMaliyetListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.GazMusluguMaliyetForms.GazMusluguMaliyetEditForm>();
                 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.ValfMaliyetForms.ValfMaliyetListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.ValfMaliyetForms.ValfMaliyetEditForm>();
                 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.BekGrubuMaliyetForms.BekGrubuMaliyetListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.BekGrubuMaliyetForms.BekGrubuMaliyetEditForm>();
                 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.EnjektorMaliyetForms.EnjektorMaliyetListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.EnjektorMaliyetForms.EnjektorMaliyetEditForm>();
                 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.TermokuplMaliyetForms.TermokuplMaliyetListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.TermokuplMaliyetForms.TermokuplMaliyetEditForm>();
                 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.CakmakMaliyetForms.CakmakMaliyetListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.CakmakMaliyetForms.CakmakMaliyetEditForm>();
                 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.AteslemeTrafosuMaliyetForms.AteslemeTrafosuMaliyetListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.AteslemeTrafosuMaliyetForms.AteslemeTrafosuMaliyetEditForm>();
                 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.GazBorusuMaliyetForms.GazBorusuMaliyetListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.GazBorusuMaliyetForms.GazBorusuMaliyetEditForm>();
                 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.RakorMaliyetForms.RakorMaliyetListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.RakorMaliyetForms.RakorMaliyetEditForm>();
                 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.PlastikParcaMaliyetForms.PlastikParcaMaliyetListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.PlastikParcaMaliyetForms.PlastikParcaMaliyetEditForm>();
                 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.KulpMaliyetForms.KulpMaliyetListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.KulpMaliyetForms.KulpMaliyetEditForm>();
                 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.DugmeMaliyetForms.DugmeMaliyetListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.DugmeMaliyetForms.DugmeMaliyetEditForm>();
                 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.CamMaliyetForms.CamMaliyetListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.CamMaliyetForms.CamMaliyetEditForm>();
                 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.BoyaMaliyetForms.BoyaMaliyetListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.BoyaMaliyetForms.BoyaMaliyetEditForm>();
                 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.EmayeMaliyetForms.EmayeMaliyetListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.EmayeMaliyetForms.EmayeMaliyetEditForm>();
                 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.IzalasyonMaliyetForms.IzolasyonMaliyetListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.IzalasyonMaliyetForms.IzolasyonMaliyetEditForm>();
                 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.ContaMaliyetForms.ContaMaliyetListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.ContaMaliyetForms.ContaMaliyetEditForm>();
                 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.VidaMaliyetForms.VidaMaliyetListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.VidaMaliyetForms.VidaMaliyetEditForm>();
                 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MenteseMaliyetForms.MenteseMaliyetListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MenteseMaliyetForms.MenteseMaliyetEditForm>();
                 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.KilitMaliyetForms.KilitMaliyetListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.KilitMaliyetForms.KilitMaliyetEditForm>();
                 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.BaglantiMaliyetForms.BaglantiElemaniMaliyetListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.BaglantiMaliyetForms.BaglantiElemaniMaliyetEditForm>();
                 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.AmbalajMalzemesiMaliyetForms.AmbalajMalzemesiMaliyetListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.AmbalajMaliyetForms.AmbalajMalzemesiMaliyetEditForm>();
                 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MatbaaKilavuzMaliyetForms.MatbaaKilavuzMaliyetListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MatbaaKilavuzMaliyetForms.MatbaaKilavuzMaliyetEditForm>();
                 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.EtiketMaliyetForms.EtiketMaliyetListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.EtiketMaliyetForms.EtiketMaliyetEditForm>();
                 
                 services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.BirimForms.BirimListForm>();
                 services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.BirimForms.BirimEditForm>();
@@ -251,112 +177,30 @@ internal static class Program
 
                 // Production
 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.IzolasyonForms.IzolasyonListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.IzolasyonForms.IzolasyonEditForm>();
                 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.TelForms.TelListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.TelForms.TelEditForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.IzgaraForms.IzgaraListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.IzgaraForms.IzgaraEditForm>();
 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.TepsiForms.TepsiListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.TepsiForms.TepsiEditForm>();
 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.KulpForms.KulpListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.KulpForms.KulpEditForm>();
 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.RakorForms.RakorListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.RakorForms.RakorEditForm>();
                 services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.KaliteStandartForms.KaliteStandartListForm>();
                 services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.KaliteStandartForms.KaliteStandartEditForm>();
 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.YuzeyTipiForms.YuzeyTipiListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.YuzeyTipiForms.YuzeyTipiEditForm>();
                 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.SacForms.SacListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.SacForms.SacEditForm>();
 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.BoyaForms.BoyaListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.BoyaForms.BoyaEditForm>();
 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.EmayeForms.EmayeListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.EmayeForms.EmayeEditForm>();
 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.VidaForms.VidaListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.VidaForms.VidaEditForm>();
 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.RezistansForms.RezistansListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.RezistansForms.RezistansEditForm>();
 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.RotaryForms.RotaryListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.RotaryForms.RotaryEditForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TermostatForms.TermostatEditForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TermostatForms.TermostatListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.TimerForms.TimerEditForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.TimerForms.TimerListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.DugmeForms.DugmeListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.DugmeForms.DugmeEditForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.KulpForms.KulpListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.KulpForms.KulpEditForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.CamForms.CamListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.CamForms.CamEditForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.CamForms.CamTipiForms.CamTipiListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.CamForms.CamTipiForms.CamTipiEditForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.CamForms.RenkOzellikForms.CamRenkListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.CamForms.RenkOzellikForms.CamRenkEditForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.KabloForms.KabloListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.KabloForms.KabloEditForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.PleytForms.PleytListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.PleytForms.PleytEditForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.LambaForms.LambaListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.LambaForms.LambaEditForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.MotorForms.MotorListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.MotorForms.MotorEditForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.FanForms.FanListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.FanForms.FanEditForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.GazForms.GazListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.GazForms.GazMusluguEditForm>();
                 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.GazBorusuForms.GazBorusuListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.GazBorusuForms.GazBorusuEditForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.BekForms.BekListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.BekForms.BekEditForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.EnjektorForms.EnjektorListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.EnjektorForms.EnjektorEditForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.ValfForms.ValfListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.ValfForms.ValfEditForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.TermokuplForms.TermokuplListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.TermokuplForms.TermokuplEditForm>();
 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.CakmakForms.CakmakListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.CakmakForms.CakmakEditForm>();
 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.AteslemeTrafosuForms.AteslemeTrafosuListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.AteslemeTrafosuForms.AteslemeTrafosuEditForm>();
 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.MenteseForms.MenteseListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.MenteseForms.MenteseEditForm>();
 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.ContaForms.ContaListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.ContaForms.ContaEditForm>();
 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.PlastikParcaForms.PlastikParcaListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.PlastikParcaForms.PlastikParcaEditForm>();
 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.KilitForms.KilitListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.KilitForms.KilitEditForm>();
 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.AmbalajMalzemesiForms.AmbalajMalzemesiListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.AmbalajMalzemesiForms.AmbalajMalzemesiEditForm>();
 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.BaglantiElemaniForms.BaglantiElemaniListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.BaglantiElemaniForms.BaglantiElemaniEditForm>();
 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.MatbaaKilavuzForms.MatbaaKilavuzListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.MatbaaKilavuzForms.MatbaaKilavuzEditForm>();
                 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.EtiketForms.EtiketListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.EtiketForms.EtiketEditForm>();
             })
             .Build();
 

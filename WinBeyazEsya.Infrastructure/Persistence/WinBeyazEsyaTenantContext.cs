@@ -22,54 +22,15 @@ public class WinBeyazEsyaTenantContext : DbContext
 
     public DbSet<WinBeyazEsya.Domain.Entities.Definitions.Unit> Units { get; set; }
     public DbSet<WinBeyazEsya.Domain.Entities.Definitions.UnitConversion> UnitConversions { get; set; }
-    public DbSet<WinBeyazEsya.Domain.Entities.Definitions.Lock> Locks { get; set; }
-    public DbSet<WinBeyazEsya.Domain.Entities.Definitions.Fastener> Fasteners { get; set; }
+
     public DbSet<WinBeyazEsya.Domain.Entities.Management.ExchangeRate> ExchangeRates { get; set; }
     public DbSet<WinBeyazEsya.Domain.Entities.Management.TaxRate> TaxRates { get; set; }
     public DbSet<WinBeyazEsya.Domain.Entities.Management.SystemParameter> SystemParameters { get; set; }
     public DbSet<WinBeyazEsya.Domain.Entities.Management.MaliyetParametre> MaliyetParametreleri { get; set; }
-    public DbSet<WinBeyazEsya.Domain.Entities.Production.QualityStandard> QualityStandards { get; set; }
-    public DbSet<WinBeyazEsya.Domain.Entities.Production.SurfaceType> SurfaceTypes { get; set; }
-    public DbSet<WinBeyazEsya.Domain.Entities.Production.SheetMetal> SheetMetals { get; set; }
-    public DbSet<WinBeyazEsya.Domain.Entities.Production.Boya> Boyas { get; set; }
-    public DbSet<WinBeyazEsya.Domain.Entities.Production.Emaye> Emayes { get; set; }
-    public DbSet<WinBeyazEsya.Domain.Entities.Production.Screw> Screws { get; set; }
-    public DbSet<WinBeyazEsya.Domain.Entities.Production.HeatingElement> HeatingElements { get; set; }
-    public DbSet<WinBeyazEsya.Domain.Entities.Production.RotarySwitch> RotarySwitches { get; set; }
-    public DbSet<WinBeyazEsya.Domain.Entities.Production.Thermostat> Thermostats { get; set; }
-    public DbSet<WinBeyazEsya.Domain.Entities.Production.OvenTimer> OvenTimers { get; set; }
-    public DbSet<WinBeyazEsya.Domain.Entities.Production.Knob> Knobs { get; set; }
-    public DbSet<WinBeyazEsya.Domain.Entities.Production.GlassType> GlassTypes { get; set; }
-    public DbSet<WinBeyazEsya.Domain.Entities.Production.ColorFeature> ColorFeatures { get; set; }
-    public DbSet<WinBeyazEsya.Domain.Entities.Production.OvenGlass> OvenGlasses { get; set; }
-    public DbSet<WinBeyazEsya.Domain.Entities.Production.Cable> Cables { get; set; }
-    public DbSet<WinBeyazEsya.Domain.Entities.Production.Hotplate> Hotplates { get; set; }
-    public DbSet<WinBeyazEsya.Domain.Entities.Production.OvenLamp> OvenLamps { get; set; }
-    public DbSet<WinBeyazEsya.Domain.Entities.Production.OvenMotor> OvenMotors { get; set; }
-    public DbSet<WinBeyazEsya.Domain.Entities.Production.OvenFan> OvenFans { get; set; }
-    public DbSet<WinBeyazEsya.Domain.Entities.Production.GasValve> GasValves { get; set; }
-    public DbSet<WinBeyazEsya.Domain.Entities.Production.Burner> Burners { get; set; }
-    public DbSet<WinBeyazEsya.Domain.Entities.Production.Injector> Injectors { get; set; }
-    public DbSet<WinBeyazEsya.Domain.Entities.Production.Valve> Valves { get; set; }
-    public DbSet<WinBeyazEsya.Domain.Entities.Production.Thermocouple> Thermocouples { get; set; }
-    public DbSet<WinBeyazEsya.Domain.Entities.Production.SparkPlug> SparkPlugs { get; set; }
-    public DbSet<WinBeyazEsya.Domain.Entities.Production.GasPipe> GasPipes { get; set; }
-    public DbSet<WinBeyazEsya.Domain.Entities.Production.IgnitionTransformer> IgnitionTransformers { get; set; }
+
     public DbSet<WinBeyazEsya.Domain.Entities.Common.ItemBarcode> ItemBarcodes { get; set; }
     public DbSet<WinBeyazEsya.Domain.Entities.Common.AppDocument> AppDocuments { get; set; }
-    public DbSet<WinBeyazEsya.Domain.Entities.Definitions.Hinge> Hinges { get; set; }
-    public DbSet<WinBeyazEsya.Domain.Entities.Definitions.Gasket> Gaskets { get; set; }
-    public DbSet<WinBeyazEsya.Domain.Entities.Definitions.Insulation> Insulations { get; set; }
-    public DbSet<WinBeyazEsya.Domain.Entities.Definitions.Grid> Grids { get; set; }
-    public DbSet<WinBeyazEsya.Domain.Entities.Definitions.Tray> Trays { get; set; }
-    public DbSet<WinBeyazEsya.Domain.Entities.Definitions.Handle> Handles { get; set; }
-    public DbSet<WinBeyazEsya.Domain.Entities.Definitions.Fitting> Fittings { get; set; }
-    public DbSet<WinBeyazEsya.Domain.Entities.Definitions.PlasticPart> PlasticParts { get; set; }
-    public DbSet<WinBeyazEsya.Domain.Entities.Definitions.PackagingMaterial> PackagingMaterials { get; set; }
-    public DbSet<WinBeyazEsya.Domain.Entities.Definitions.Manual> Manuals { get; set; }
-    public DbSet<WinBeyazEsya.Domain.Entities.Definitions.ProductLabel> ProductLabels { get; set; }
-    public DbSet<WinBeyazEsya.Domain.Entities.Definitions.GeneralExpense> GeneralExpenses { get; set; }
-    public DbSet<WinBeyazEsya.Domain.Entities.Production.MaterialCost> MaterialCosts { get; set; }
+
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

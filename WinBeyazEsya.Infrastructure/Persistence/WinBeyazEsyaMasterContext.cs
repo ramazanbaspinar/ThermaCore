@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
@@ -23,6 +23,7 @@ public class WinBeyazEsyaMasterContext : DbContext
 
     public DbSet<User> Users { get; set; }
     public DbSet<Terminal> Terminals { get; set; }
+    public DbSet<UserFavorite> UserFavorites { get; set; }
     public DbSet<UserSession> UserSessions { get; set; }
     public DbSet<SystemLicense> SystemLicenses { get; set; }
     public DbSet<EmailParameter> EmailParameters { get; set; }

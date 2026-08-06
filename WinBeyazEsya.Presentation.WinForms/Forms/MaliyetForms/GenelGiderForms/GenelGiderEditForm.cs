@@ -1,4 +1,4 @@
-﻿using DevExpress.XtraEditors;
+using DevExpress.XtraEditors;
 using System;
 using System.Linq;
 using System.Windows.Forms;
@@ -26,7 +26,6 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.GenelGiderForms
             InitializeComponent();
             _genelGiderService = genelGiderService;
             _exchangeRateService = exchangeRateService;
-            BaseKartTuru = ModuleType.GenelGiderTanimlari;
         }
 
         public override void Yukle()

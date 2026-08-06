@@ -63,6 +63,7 @@
             bsiKapat = new DevExpress.XtraBars.BarStaticItem();
             bsiKapatAciklama = new DevExpress.XtraBars.BarStaticItem();
             btnBagliKayitlar = new DevExpress.XtraBars.BarButtonItem();
+            btnFavorilereEkle = new DevExpress.XtraBars.BarButtonItem();
             ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             ribbonStatusBar = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
@@ -74,9 +75,9 @@
             ribbon.DrawGroupCaptions = DevExpress.Utils.DefaultBoolean.False;
             ribbon.DrawGroupsBorderMode = DevExpress.Utils.DefaultBoolean.False;
             ribbon.ExpandCollapseItem.Id = 0;
-            ribbon.Items.AddRange(new DevExpress.XtraBars.BarItem[] { ribbon.ExpandCollapseItem, btnYeni, btnSil, btnSec, btnDuzelt, btnYenile, btnKolonlar, btnYazdir, btnBaskiOnizle, btnKapat, barButtonItem1, btnDisariAktar, btnAktifPasifKayitlar, btnExcelDosyalari, btnWordDosyasi, btnPdfDosyasi, btnTxtDosyasi, btnStandartExcelDosyasi, btnFormatliExcelDosyasi, btnFormatsizExcelDosyasi, bsiYeni, bsiYeniAciklama, bsiSil, bsiSilAciklama, bsiDuzelt, bsiDuzeltAciklama, barSec, barSecAciklama, bsiYenile, bsiYenileAciklama, bsiYazdir, bsiYazdirAciklama, bsiKapat, bsiKapatAciklama, btnBagliKayitlar });
+            ribbon.Items.AddRange(new DevExpress.XtraBars.BarItem[] { ribbon.ExpandCollapseItem, btnYeni, btnSil, btnSec, btnDuzelt, btnYenile, btnKolonlar, btnYazdir, btnBaskiOnizle, btnKapat, barButtonItem1, btnDisariAktar, btnAktifPasifKayitlar, btnExcelDosyalari, btnWordDosyasi, btnPdfDosyasi, btnTxtDosyasi, btnStandartExcelDosyasi, btnFormatliExcelDosyasi, btnFormatsizExcelDosyasi, bsiYeni, bsiYeniAciklama, bsiSil, bsiSilAciklama, bsiDuzelt, bsiDuzeltAciklama, barSec, barSecAciklama, bsiYenile, bsiYenileAciklama, bsiYazdir, bsiYazdirAciklama, bsiKapat, bsiKapatAciklama, btnBagliKayitlar, btnFavorilereEkle });
             ribbon.Location = new Point(0, 0);
-            ribbon.MaxItemId = 35;
+            ribbon.MaxItemId = 36;
             ribbon.Name = "ribbon";
             ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] { ribbonPage1 });
             ribbon.ShowApplicationButton = DevExpress.Utils.DefaultBoolean.False;
@@ -86,7 +87,7 @@
             ribbon.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.Hide;
             ribbon.ShowQatLocationSelector = false;
             ribbon.ShowToolbarCustomizeItem = false;
-            ribbon.Size = new Size(814, 135);
+            ribbon.Size = new Size(806, 123);
             ribbon.StatusBar = ribbonStatusBar;
             ribbon.Toolbar.ShowCustomizeItem = false;
             ribbon.ToolbarLocation = DevExpress.XtraBars.Ribbon.RibbonQuickAccessToolbarLocation.Hidden;
@@ -348,6 +349,14 @@
             btnBagliKayitlar.Name = "btnBagliKayitlar";
             btnBagliKayitlar.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
             // 
+            // btnFavorilereEkle
+            // 
+            btnFavorilereEkle.Caption = "Favorilere Ekle";
+            btnFavorilereEkle.Id = 35;
+            btnFavorilereEkle.ImageOptions.Image = Properties.Resources.feature_16x16;
+            btnFavorilereEkle.ImageOptions.LargeImage = Properties.Resources.feature_32x32;
+            btnFavorilereEkle.Name = "btnFavorilereEkle";
+            // 
             // ribbonPage1
             // 
             ribbonPage1.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] { ribbonPageGroup1 });
@@ -366,6 +375,7 @@
             ribbonPageGroup1.ItemLinks.Add(btnYazdir);
             ribbonPageGroup1.ItemLinks.Add(btnBaskiOnizle);
             ribbonPageGroup1.ItemLinks.Add(btnDisariAktar);
+            ribbonPageGroup1.ItemLinks.Add(btnFavorilereEkle);
             ribbonPageGroup1.ItemLinks.Add(btnKapat);
             ribbonPageGroup1.Name = "ribbonPageGroup1";
             ribbonPageGroup1.Text = "ribbonPageGroup1";
@@ -387,16 +397,16 @@
             ribbonStatusBar.ItemLinks.Add(bsiYazdirAciklama);
             ribbonStatusBar.ItemLinks.Add(bsiKapat, true);
             ribbonStatusBar.ItemLinks.Add(bsiKapatAciklama);
-            ribbonStatusBar.Location = new Point(0, 401);
+            ribbonStatusBar.Location = new Point(0, 392);
             ribbonStatusBar.Name = "ribbonStatusBar";
             ribbonStatusBar.Ribbon = ribbon;
-            ribbonStatusBar.Size = new Size(814, 24);
+            ribbonStatusBar.Size = new Size(806, 33);
             // 
             // BaseListForm
             // 
             AutoScaleDimensions = new SizeF(6F, 13F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(814, 425);
+            ClientSize = new Size(806, 425);
             Controls.Add(ribbon);
             Controls.Add(ribbonStatusBar);
             IconOptions.ShowIcon = false;
@@ -449,6 +459,7 @@
         private DevExpress.XtraBars.BarStaticItem bsiKapat;
         private DevExpress.XtraBars.BarStaticItem bsiKapatAciklama;
         protected internal DevExpress.XtraBars.BarButtonItem btnBagliKayitlar;
+        private DevExpress.XtraBars.BarButtonItem btnFavorilereEkle;
     }
 }
 

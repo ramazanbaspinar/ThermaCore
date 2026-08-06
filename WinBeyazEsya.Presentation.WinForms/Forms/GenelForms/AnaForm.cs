@@ -1,4 +1,4 @@
-﻿using DevExpress.XtraEditors;
+using DevExpress.XtraEditors;
 using DevExpress.XtraTabbedMdi;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -16,6 +16,8 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
     public partial class AnaForm : XtraForm
     {
         private bool _programiOtomatikKapat = false;
+        private string _currencyInfo = "Yükleniyor...";
+        private System.Windows.Forms.Timer _clockTimer;
 
         // DI Konteynerinden Gelecek Servisler
         private readonly IServiceProvider _serviceProvider;
@@ -43,6 +45,38 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             FormClosing += AnaForm_FormClosing;
             KeyDown += Control_KeyDown;
 
+            _clockTimer = new System.Windows.Forms.Timer();
+            _clockTimer.Interval = 1000;
+            _clockTimer.Tick += (s, e) => 
+            {
+                if (barMenuBilgi != null)
+                    barMenuBilgi.Caption = $"{DateTime.Now:dd.MM.yyyy HH:mm:ss} | {_currencyInfo}";
+            };
+            _clockTimer.Start();
+
+            if (aceBirimTanimlari != null) aceBirimTanimlari.Click += miBirimTanimlari_Click;
+            if (aceKurTanimlari != null) aceKurTanimlari.Click += miKurTanimlari_Click;
+            if (aceKdvOranlari != null) aceKdvOranlari.Click += miKdvOranlari_Click;
+            if (aceOtvOranlari != null) aceOtvOranlari.Click += miOtvOranlari_Click;
+            if (aceSirketTanimlari != null) aceSirketTanimlari.Click += miSirketTanimlari_Click;
+            if (aceKullaniciTanimlari != null) aceKullaniciTanimlari.Click += KullaniciTanimlari_Click;
+            if (aceYetkiGruplariRoller != null) aceYetkiGruplariRoller.Click += miYetkiGruplariRoller_Click;
+            if (aceTerminalCihazYonetimi != null) aceTerminalCihazYonetimi.Click += miTerminalYonetim_Click;
+            if (aceKodSablonlari != null) aceKodSablonlari.Click += miCodeTemplatelari_Click;
+            if (aceGenelParametreler != null) aceGenelParametreler.Click += miGenelParametreler_Click;
+            if (aceEmailParametreleri != null)
+                aceEmailParametreleri.Click += (s, e) =>
+                {
+                    var form = _serviceProvider.GetRequiredService<WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms.EmailParameterEditForm>();
+                    form.ShowDialog();
+                };
+            if (aceLisansBilgileri != null)
+                aceLisansBilgileri.Click += (s, e) =>
+                {
+                    var form = _serviceProvider.GetRequiredService<WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms.SystemLicenseEditForm>();
+                    form.ShowDialog();
+                };
+
             if (miEmailParameter != null)
                 miEmailParameter.Click += (s, e) =>
                 {
@@ -56,24 +90,6 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
                     var form = _serviceProvider.GetRequiredService<WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms.SystemLicenseEditForm>();
                     form.ShowDialog();
                 };
-
-            if (miMaliyetParametreleri != null)
-            {
-                miMaliyetParametreleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.MaliyetParametreleri;
-                miMaliyetParametreleri.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.MaliyetParametreleri, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        var form = _serviceProvider.GetRequiredService<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MaliyetParametreForms.MaliyetParametreEditForm>();
-                        form.ShowDialog();
-                    }
-                    else
-                    {
-                        WinBeyazEsya.Presentation.WinForms.Helpers.Messages.UyariMesaji("Bu işlem için yetkiniz bulunmamaktadır.");
-                    }
-                };
-            }
 
             // Dinamik Yükleme Click Eventleri
             if (miGenelParametreler != null)
@@ -113,1259 +129,6 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             if (miTerminalYonetim != null)
                 miTerminalYonetim.Click += miTerminalYonetim_Click;
 
-            if (miTermostatTanimlari != null)
-                miTermostatTanimlari.Click += MiTermostatTanimlari_Click;
-
-            if (miTimerTanimlari != null)
-                miTimerTanimlari.Click += MiTimerTanimlari_Click;
-
-
-            if (miDugmeTanimlari != null)
-            {
-                miDugmeTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.DugmeTanimlari;
-                miDugmeTanimlari.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.DugmeTanimlari, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.DugmeForms.DugmeListForm>();
-                    }
-                    else
-                    {
-                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                };
-            }
-            if (miKaliteStandartTanimlari != null)
-            {
-                miKaliteStandartTanimlari.Click += miKaliteStandartTanimlari_Click;
-            }
-
-
-
-            if (miSacTanimlari != null)
-            {
-                miSacTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.SacTanimlari;
-                miSacTanimlari.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.SacTanimlari, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.SacForms.SacListForm>();
-                    }
-                    else
-                    {
-                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                };
-            }
-
-            if (miRakorTanimlari != null)
-            {
-                miRakorTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.RakorTanimlari;
-                miRakorTanimlari.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.RakorTanimlari, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.RakorForms.RakorListForm>();
-                    }
-                    else
-                    {
-                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                };
-            }
-
-            if (miTelTanimlari != null)
-            {
-                miTelTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.TelTanimlari;
-                miTelTanimlari.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.TelTanimlari, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.TelForms.TelListForm>();
-                    }
-                    else
-                    {
-                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                };
-            }
-
-            if (miBoyaTanimlari != null)
-            {
-                miBoyaTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.BoyaTanimlari;
-                miBoyaTanimlari.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.BoyaTanimlari, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.BoyaForms.BoyaListForm>();
-                    }
-                    else
-                    {
-                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                };
-            }
-
-            if (miCamTanimlari != null)
-            {
-                miCamTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.CamTanimlari;
-                miCamTanimlari.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.CamTanimlari, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.CamForms.CamListForm>();
-                    }
-                    else
-                    {
-                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                };
-            }
-
-            if (miEmayeTanimlari != null)
-            {
-                miEmayeTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.EmayeTanimlari;
-                miEmayeTanimlari.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.EmayeTanimlari, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.EmayeForms.EmayeListForm>();
-                    }
-                    else
-                    {
-                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                };
-            }
-
-            if (miVidaTanimlari != null)
-            {
-                miVidaTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.VidaTanimlari;
-                miVidaTanimlari.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.VidaTanimlari, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.VidaForms.VidaListForm>();
-                    }
-                    else
-                    {
-                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                };
-            }
-
-            if (miRezistansTanimlari != null)
-            {
-                miRezistansTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.RezistansTanimlari;
-                miRezistansTanimlari.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.RezistansTanimlari, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.RezistansForms.RezistansListForm>();
-                    }
-                    else
-                    {
-                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                };
-            }
-
-            if (miAnahtarRotaryTanimlari != null)
-            {
-                miAnahtarRotaryTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.AnahtarRotaryTanimlari;
-                miAnahtarRotaryTanimlari.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.AnahtarRotaryTanimlari, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.RotaryForms.RotaryListForm>();
-                    }
-                    else
-                    {
-                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                };
-            }
-
-            if (miKulpTanimlari != null)
-            {
-                miKulpTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.KulpTanimlari;
-                miKulpTanimlari.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.KulpTanimlari, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.KulpForms.KulpListForm>();
-                    }
-                    else
-                    {
-                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                };
-            }
-
-            if (miKabloTanimlari != null)
-            {
-                miKabloTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.KabloTanimlari;
-                miKabloTanimlari.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.KabloTanimlari, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.KabloForms.KabloListForm>();
-                    }
-                    else
-                    {
-                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                };
-            }
-
-            if (miPleytIsiticiTanimlari != null)
-            {
-                miPleytIsiticiTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.PleytIsiticiTanimlari;
-                miPleytIsiticiTanimlari.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.PleytIsiticiTanimlari, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.PleytForms.PleytListForm>();
-                    }
-                    else
-                    {
-                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                };
-            }
-
-            if (miLambaTanimlari != null)
-            {
-                miLambaTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.LambaTanimlari;
-                miLambaTanimlari.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.LambaTanimlari, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.LambaForms.LambaListForm>();
-                    }
-                    else
-                    {
-                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                };
-            }
-
-            if (miMotorTanimlari != null)
-            {
-                miMotorTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.MotorTanimlari;
-                miMotorTanimlari.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.MotorTanimlari, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.MotorForms.MotorListForm>();
-                    }
-                    else
-                    {
-                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                };
-            }
-
-            if (miFanTanimlari != null)
-            {
-                miFanTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.FanTanimlari;
-                miFanTanimlari.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.FanTanimlari, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.FanForms.FanListForm>();
-                    }
-                    else
-                    {
-                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                };
-            }
-
-            if (miGazMusluguTanimlari != null)
-            {
-                miGazMusluguTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.GazMusluguTanimlari;
-                miGazMusluguTanimlari.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.GazMusluguTanimlari, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.GazForms.GazListForm>();
-                    }
-                    else
-                    {
-                        WinBeyazEsya.Presentation.WinForms.Helpers.Messages.UyariMesaji("Bu işlem için yetkiniz bulunmamaktadır.");
-                    }
-                };
-            }
-
-            if (miBekGrubuTanimlari != null)
-            {
-                miBekGrubuTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.BekGrubuTanimlari;
-                miBekGrubuTanimlari.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.BekGrubuTanimlari, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.BekForms.BekListForm>();
-                    }
-                    else
-                    {
-                        WinBeyazEsya.Presentation.WinForms.Helpers.Messages.UyariMesaji("Bu işlem için yetkiniz bulunmamaktadır.");
-                    }
-                };
-            }
-
-            if (miEnjektorTanimlari != null)
-            {
-                miEnjektorTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.EnjektorTanimlari;
-                miEnjektorTanimlari.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.EnjektorTanimlari, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.EnjektorForms.EnjektorListForm>();
-                    }
-                    else
-                    {
-                        WinBeyazEsya.Presentation.WinForms.Helpers.Messages.UyariMesaji("Bu işlem için yetkiniz bulunmamaktadır.");
-                    }
-                };
-            }
-
-            if (miValfTanimlari != null)
-            {
-                miValfTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.ValfTanimlari;
-                miValfTanimlari.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.ValfTanimlari, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.ValfForms.ValfListForm>();
-                    }
-                    else
-                    {
-                        WinBeyazEsya.Presentation.WinForms.Helpers.Messages.UyariMesaji("Bu işlem için yetkiniz bulunmamaktadır.");
-                    }
-                };
-            }
-
-            if (miTermokuplTanimlari != null)
-            {
-                miTermokuplTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.TermokuplTanimlari;
-                miTermokuplTanimlari.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.TermokuplTanimlari, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.TermokuplForms.TermokuplListForm>();
-                    }
-                    else
-                    {
-                        WinBeyazEsya.Presentation.WinForms.Helpers.Messages.UyariMesaji("Bu işlem için yetkiniz bulunmamaktadır.");
-                    }
-                };
-            }
-
-            if (miCakmakTanimlari != null)
-            {
-                miCakmakTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.CakmakTanimlari;
-                miCakmakTanimlari.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.CakmakTanimlari, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.CakmakForms.CakmakListForm>();
-                    }
-                    else
-                    {
-                        WinBeyazEsya.Presentation.WinForms.Helpers.Messages.UyariMesaji("Bu işlem için yetkiniz bulunmamaktadır.");
-                    }
-                };
-            }
-
-            if (miAteslemeTrafosuTanimlari != null)
-            {
-                miAteslemeTrafosuTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.AteslemeTrafosuTanimlari;
-                miAteslemeTrafosuTanimlari.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.AteslemeTrafosuTanimlari, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.AteslemeTrafosuForms.AteslemeTrafosuListForm>();
-                    }
-                    else
-                    {
-                        WinBeyazEsya.Presentation.WinForms.Helpers.Messages.UyariMesaji("Bu işlem için yetkiniz bulunmamaktadır.");
-                    }
-                };
-            }
-
-            if (miIzolasyonTanimlari != null)
-            {
-                miIzolasyonTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.IzolasyonTanimlari;
-                miIzolasyonTanimlari.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.IzolasyonTanimlari, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.IzolasyonForms.IzolasyonListForm>();
-                    }
-                    else
-                    {
-                        WinBeyazEsya.Presentation.WinForms.Helpers.Messages.UyariMesaji("Bu işlem için yetkiniz bulunmamaktadır.");
-                    }
-                };
-            }
-
-            if (miGazBorusuTanimlari != null)
-            {
-                miGazBorusuTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.GazBorusuTanimlari;
-                miGazBorusuTanimlari.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.GazBorusuTanimlari, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.GazBorusuForms.GazBorusuListForm>();
-                    }
-                    else
-                    {
-                        WinBeyazEsya.Presentation.WinForms.Helpers.Messages.UyariMesaji("Bu işlem için yetkiniz bulunmamaktadır.");
-                    }
-                };
-            }
-
-            if (miMenteseTanimlari != null)
-            {
-                miMenteseTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.MenteseTanimlari;
-                miMenteseTanimlari.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.MenteseTanimlari, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.MenteseForms.MenteseListForm>();
-                    }
-                    else
-                    {
-                        WinBeyazEsya.Presentation.WinForms.Helpers.Messages.UyariMesaji("Bu işlem için yetkiniz bulunmamaktadır.");
-                    }
-                };
-            }
-
-            if (miContaTanimlari != null)
-            {
-                miContaTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.ContaTanimlari;
-                miContaTanimlari.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.ContaTanimlari, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.ContaForms.ContaListForm>();
-                    }
-                    else
-                    {
-                        WinBeyazEsya.Presentation.WinForms.Helpers.Messages.UyariMesaji("Bu işlem için yetkiniz bulunmamaktadır.");
-                    }
-                };
-            }
-
-            if (miIzgaraTanimlari != null)
-            {
-                miIzgaraTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.IzgaraTanimlari;
-                miIzgaraTanimlari.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.IzgaraTanimlari, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.IzgaraForms.IzgaraListForm>();
-                    }
-                    else
-                    {
-                        WinBeyazEsya.Presentation.WinForms.Helpers.Messages.UyariMesaji("Bu işlem için yetkiniz bulunmamaktadır.");
-                    }
-                };
-            }
-
-            if (miTepsiTanimlari != null)
-            {
-                miTepsiTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.TepsiTanimlari;
-                miTepsiTanimlari.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.TepsiTanimlari, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.TepsiForms.TepsiListForm>();
-                    }
-                    else
-                    {
-                        WinBeyazEsya.Presentation.WinForms.Helpers.Messages.UyariMesaji("Bu işlem için yetkiniz bulunmamaktadır.");
-                    }
-                };
-            }
-
-            if (miPlastikParcaTanimlari != null)
-            {
-                miPlastikParcaTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.PlastikParcaTanimlari;
-                miPlastikParcaTanimlari.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.PlastikParcaTanimlari, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.PlastikParcaForms.PlastikParcaListForm>();
-                    }
-                    else
-                    {
-                        WinBeyazEsya.Presentation.WinForms.Helpers.Messages.UyariMesaji("Bu işlem için yetkiniz bulunmamaktadır.");
-                    }
-                };
-            }
-
-            if (miKilitTanimlari != null)
-            {
-                miKilitTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.KilitTanimlari;
-                miKilitTanimlari.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.KilitTanimlari, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.KilitForms.KilitListForm>();
-                    }
-                    else
-                    {
-                        WinBeyazEsya.Presentation.WinForms.Helpers.Messages.UyariMesaji("Bu işlem için yetkiniz bulunmamaktadır.");
-                    }
-                };
-            }
-
-            if (miBaglantiElemaniTanimlari != null)
-            {
-                miBaglantiElemaniTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.BaglantiElemaniTanimlari;
-                miBaglantiElemaniTanimlari.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.BaglantiElemaniTanimlari, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.BaglantiElemaniForms.BaglantiElemaniListForm>();
-                    }
-                    else
-                    {
-                        WinBeyazEsya.Presentation.WinForms.Helpers.Messages.UyariMesaji("Bu işlem için yetkiniz bulunmamaktadır.");
-                    }
-                };
-            }
-
-            if (miAmbalajMalzemesiTanimlari != null)
-            {
-                miAmbalajMalzemesiTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.AmbalajMalzemesiTanimlari;
-                miAmbalajMalzemesiTanimlari.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.AmbalajMalzemesiTanimlari, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.AmbalajMalzemesiForms.AmbalajMalzemesiListForm>();
-                    }
-                    else
-                    {
-                        WinBeyazEsya.Presentation.WinForms.Helpers.Messages.UyariMesaji("Bu işlem için yetkiniz bulunmamaktadır.");
-                    }
-                };
-            }
-
-            if (miMatbaaTanimlari != null)
-            {
-                miMatbaaTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.MatbaaTanimlari;
-                miMatbaaTanimlari.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.MatbaaTanimlari, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.MatbaaKilavuzForms.MatbaaKilavuzListForm>();
-                    }
-                    else
-                    {
-                        WinBeyazEsya.Presentation.WinForms.Helpers.Messages.UyariMesaji("Bu işlem için yetkiniz bulunmamaktadır.");
-                    }
-                };
-            }
-
-            if (miEtiketTanimlari != null)
-            {
-                miEtiketTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.EtiketTanimlari;
-                miEtiketTanimlari.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.EtiketTanimlari, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.EtiketForms.EtiketListForm>();
-                    }
-                    else
-                    {
-                        WinBeyazEsya.Presentation.WinForms.Helpers.Messages.UyariMesaji("Bu işlem için yetkiniz bulunmamaktadır.");
-                    }
-                };
-            }
-            if (miGenelGiderler != null)
-            {
-                miGenelGiderler.Tag = WinBeyazEsya.Domain.Enums.ModuleType.GenelGiderTanimlari;
-                miGenelGiderler.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.GenelGiderTanimlari, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.GenelGiderForms.GenelGiderListForm>();
-                    }
-                    else
-                    {
-                        WinBeyazEsya.Presentation.WinForms.Helpers.Messages.UyariMesaji("Bu işlem için yetkiniz bulunmamaktadır.");
-                    }
-                };
-            }
-
-            if (miSacMaliyetleri != null)
-            {
-                miSacMaliyetleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.SacMaliyetleri;
-                miSacMaliyetleri.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.SacMaliyetleri, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.SacMaliyetForms.SacMaliyetListForm>();
-                    }
-                    else
-                    {
-                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                };
-            }
-
-            if (miTelMaliyetleri != null)
-            {
-                miTelMaliyetleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.TelMaliyetleri;
-                miTelMaliyetleri.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.TelMaliyetleri, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.TelMaliyetForms.TelMaliyetListForm>();
-                    }
-                    else
-                    {
-                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                };
-            }
-
-            if (miIzgaraMaliyetleri != null)
-            {
-                miIzgaraMaliyetleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.IzgaraMaliyetleri;
-                miIzgaraMaliyetleri.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.IzgaraMaliyetleri, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.IzgaraMaliyetForms.IzgaraMaliyetListForm>();
-                    }
-                    else
-                    {
-                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                };
-            }
-
-            if (miTepsiMaliyetleri != null)
-            {
-                miTepsiMaliyetleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.TepsiMaliyetleri;
-                miTepsiMaliyetleri.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.TepsiMaliyetleri, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.TepsiMaliyetForms.TepsiMaliyetListForm>();
-                    }
-                    else
-                    {
-                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                };
-            }
-
-            if (miRezistansMaliyetleri != null)
-            {
-                miRezistansMaliyetleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.RezistansMaliyetleri;
-                miRezistansMaliyetleri.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.RezistansMaliyetleri, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.RezistansMaliyetForms.RezistansMaliyetListForm>();
-                    }
-                    else
-                    {
-                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                };
-            }
-
-            if (miKabloMaliyetleri != null)
-            {
-                miKabloMaliyetleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.KabloMaliyetleri;
-                miKabloMaliyetleri.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.KabloMaliyetleri, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.KabloMaliyetForms.KabloMaliyetListForm>();
-                    }
-                    else
-                    {
-                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                };
-            }
-
-            if (miMotorMaliyetleri != null)
-            {
-                miMotorMaliyetleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.MotorMaliyetleri;
-                miMotorMaliyetleri.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.MotorMaliyetleri, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MotorMaliyetForms.MotorMaliyetListForm>();
-                    }
-                    else
-                    {
-                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                };
-            }
-
-            if (miFanMaliyetleri != null)
-            {
-                miFanMaliyetleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.FanMaliyetleri;
-                miFanMaliyetleri.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.FanMaliyetleri, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.FanMaliyetForms.FanMaliyetEditForm>();
-                    }
-                    else
-                    {
-                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                };
-            }
-
-            if (miAnahtarRotaryMaliyetleri != null)
-            {
-                miAnahtarRotaryMaliyetleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.RotaryMaliyetleri;
-                miAnahtarRotaryMaliyetleri.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.RotaryMaliyetleri, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.RotaryMaliyetForms.RotaryMaliyetListForm>();
-                    }
-                    else
-                    {
-                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                };
-            }
-
-            if (miTermostatMaliyetleri != null)
-            {
-                miTermostatMaliyetleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.TermostatMaliyetleri;
-                miTermostatMaliyetleri.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.TermostatMaliyetleri, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.TermostatMaliyetForms.TermostatMaliyetListForm>();
-                    }
-                    else
-                    {
-                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                };
-            }
-
-            if (miTimerZamanlayiciMaliyetleri != null)
-            {
-                miTimerZamanlayiciMaliyetleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.TimerMaliyetleri;
-                miTimerZamanlayiciMaliyetleri.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.TimerMaliyetleri, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.TimerMaliyetForms.TimerMaliyetListForm>();
-                    }
-                    else
-                    {
-                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                };
-            }
-
-            if (miLambaMaliyetleri != null)
-            {
-                miLambaMaliyetleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.LambaMaliyetleri;
-                miLambaMaliyetleri.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.LambaMaliyetleri, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.LambaMaliyetForms.LambaMaliyetListForm>();
-                    }
-                    else
-                    {
-                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                };
-            }
-
-            if (miPleytIsiticiMaliyetleri != null)
-            {
-                miPleytIsiticiMaliyetleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.PleytMaliyetleri;
-                miPleytIsiticiMaliyetleri.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.PleytMaliyetleri, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.PleytMaliyetForms.PleytMaliyetListForm>();
-                    }
-                    else
-                    {
-                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                };
-            }
-
-            if (miGazMusluguMaliyetleri != null)
-            {
-                miGazMusluguMaliyetleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.GazMusluguMaliyetleri;
-                miGazMusluguMaliyetleri.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.GazMusluguMaliyetleri, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.GazMusluguMaliyetForms.GazMusluguMaliyetListForm>();
-                    }
-                    else
-                    {
-                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                };
-            }
-
-            if (miValfMaliyetleri != null)
-            {
-                miValfMaliyetleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.ValfMaliyetleri;
-                miValfMaliyetleri.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.ValfMaliyetleri, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.ValfMaliyetForms.ValfMaliyetListForm>();
-                    }
-                    else
-                    {
-                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                };
-            }
-
-            if (miBekMaliyetleri != null)
-            {
-                miBekMaliyetleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.BekMaliyetleri;
-                miBekMaliyetleri.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.BekMaliyetleri, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.BekGrubuMaliyetForms.BekGrubuMaliyetListForm>();
-                    }
-                    else
-                    {
-                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                };
-            }
-
-            if (miEnjektorMaliyetleri != null)
-            {
-                miEnjektorMaliyetleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.EnjektorMaliyetleri;
-                miEnjektorMaliyetleri.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.EnjektorMaliyetleri, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.EnjektorMaliyetForms.EnjektorMaliyetListForm>();
-                    }
-                    else
-                    {
-                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                };
-            }
-
-            if (miTermokuplEmniyetMaliyetleri != null)
-            {
-                miTermokuplEmniyetMaliyetleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.TermokuplMaliyetleri;
-                miTermokuplEmniyetMaliyetleri.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.TermokuplMaliyetleri, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.TermokuplMaliyetForms.TermokuplMaliyetListForm>();
-                    }
-                    else
-                    {
-                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                };
-            }
-
-            if (miCakmakBujiMaliyetleri != null)
-            {
-                miCakmakBujiMaliyetleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.CakmakMaliyetleri;
-                miCakmakBujiMaliyetleri.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.CakmakMaliyetleri, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.CakmakMaliyetForms.CakmakMaliyetListForm>();
-                    }
-                    else
-                    {
-                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                };
-            }
-
-            if (miAteslemeTrafosuMaliyetleri != null)
-            {
-                miAteslemeTrafosuMaliyetleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.AteslemeTrafosuMaliyetleri;
-                miAteslemeTrafosuMaliyetleri.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.AteslemeTrafosuMaliyetleri, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.AteslemeTrafosuMaliyetForms.AteslemeTrafosuMaliyetListForm>();
-                    }
-                    else
-                    {
-                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                };
-            }
-
-            if (miGazBorusuMaliyetleri != null)
-            {
-                miGazBorusuMaliyetleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.GazBorusuMaliyetleri;
-                miGazBorusuMaliyetleri.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.GazBorusuMaliyetleri, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.GazBorusuMaliyetForms.GazBorusuMaliyetListForm>();
-                    }
-                    else
-                    {
-                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                };
-            }
-
-            if (miRakorMaliyetleri != null)
-            {
-                miRakorMaliyetleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.RakorMaliyetleri;
-                miRakorMaliyetleri.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.RakorMaliyetleri, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.RakorMaliyetForms.RakorMaliyetListForm>();
-                    }
-                    else
-                    {
-                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                };
-            }
-
-            if (miPlastikParcaMaliyetleri != null)
-            {
-                miPlastikParcaMaliyetleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.PlastikParcaMaliyetleri;
-                miPlastikParcaMaliyetleri.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.PlastikParcaMaliyetleri, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.PlastikParcaMaliyetForms.PlastikParcaMaliyetListForm>();
-                    }
-                    else
-                    {
-                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                };
-            }
-
-            if (miKulpMaliyetleri != null)
-            {
-                miKulpMaliyetleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.KulpMaliyetleri;
-                miKulpMaliyetleri.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.KulpMaliyetleri, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.KulpMaliyetForms.KulpMaliyetListForm>();
-                    }
-                    else
-                    {
-                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                };
-            }
-
-            if (miDugmeMaliyetleri != null)
-            {
-                miDugmeMaliyetleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.DugmeMaliyetleri;
-                miDugmeMaliyetleri.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.DugmeMaliyetleri, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.DugmeMaliyetForms.DugmeMaliyetListForm>();
-                    }
-                    else
-                    {
-                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                };
-            }
-
-            if (miCamMaliyetleri != null)
-            {
-                miCamMaliyetleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.CamMaliyetleri;
-                miCamMaliyetleri.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.CamMaliyetleri, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.CamMaliyetForms.CamMaliyetListForm>();
-                    }
-                    else
-                    {
-                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                };
-            }
-
-            if (miBoyaMaliyetleri != null)
-            {
-                miBoyaMaliyetleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.BoyaMaliyetleri;
-                miBoyaMaliyetleri.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.BoyaMaliyetleri, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.BoyaMaliyetForms.BoyaMaliyetListForm>();
-                    }
-                    else
-                    {
-                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                };
-            }
-
-            if (miEmayeMaliyetleri != null)
-            {
-                miEmayeMaliyetleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.EmayeMaliyetleri;
-                miEmayeMaliyetleri.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.EmayeMaliyetleri, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.EmayeMaliyetForms.EmayeMaliyetListForm>();
-                    }
-                    else
-                    {
-                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                };
-            }
-
-            if (miIzolasyonMaliyetleri != null)
-            {
-                miIzolasyonMaliyetleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.IzolasyonMaliyetleri;
-                miIzolasyonMaliyetleri.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.IzolasyonMaliyetleri, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.IzalasyonMaliyetForms.IzolasyonMaliyetListForm>();
-                    }
-                    else
-                    {
-                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                };
-            }
-
-            if (miContaMaliyetleri != null)
-            {
-                miContaMaliyetleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.ContaMaliyetleri;
-                miContaMaliyetleri.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.ContaMaliyetleri, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.ContaMaliyetForms.ContaMaliyetListForm>();
-                    }
-                    else
-                    {
-                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                };
-            }
-
-            if (miVidaMaliyetleri != null)
-            {
-                miVidaMaliyetleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.VidaMaliyetleri;
-                miVidaMaliyetleri.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.VidaMaliyetleri, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.VidaMaliyetForms.VidaMaliyetListForm>();
-                    }
-                    else
-                    {
-                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                };
-            }
-
-            if (miMenteseMaliyetleri != null)
-            {
-                miMenteseMaliyetleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.MenteseMaliyetleri;
-                miMenteseMaliyetleri.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.MenteseMaliyetleri, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MenteseMaliyetForms.MenteseMaliyetListForm>();
-                    }
-                    else
-                    {
-                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                };
-            }
-
-            if (miKilitMaliyetleri != null)
-            {
-                miKilitMaliyetleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.KilitMaliyetleri;
-                miKilitMaliyetleri.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.KilitMaliyetleri, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.KilitMaliyetForms.KilitMaliyetListForm>();
-                    }
-                    else
-                    {
-                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                };
-            }
-
-            if (miBaglantiElemaniMaliyeti != null)
-            {
-                miBaglantiElemaniMaliyeti.Tag = WinBeyazEsya.Domain.Enums.ModuleType.BaglantiElemaniMaliyetleri;
-                miBaglantiElemaniMaliyeti.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.BaglantiElemaniMaliyetleri, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.BaglantiMaliyetForms.BaglantiElemaniMaliyetListForm>();
-                    }
-                    else
-                    {
-                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                };
-            }
-
-            if (miAmbalajMalzemesiMaliyetleri != null)
-            {
-                miAmbalajMalzemesiMaliyetleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.AmbalajMalzemesiMaliyetleri;
-                miAmbalajMalzemesiMaliyetleri.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.AmbalajMalzemesiMaliyetleri, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.AmbalajMalzemesiMaliyetForms.AmbalajMalzemesiMaliyetListForm>();
-                    }
-                    else
-                    {
-                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                };
-            }
-
-            if (miMatbaaKilavuzMaliyetleri != null)
-            {
-                miMatbaaKilavuzMaliyetleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.MatbaaKilavuzMaliyetleri;
-                miMatbaaKilavuzMaliyetleri.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.MatbaaKilavuzMaliyetleri, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MatbaaKilavuzMaliyetForms.MatbaaKilavuzMaliyetListForm>();
-                    }
-                    else
-                    {
-                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                };
-            }
-
-            if (miEtiketMaliyetleri != null)
-            {
-                miEtiketMaliyetleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.EtiketMaliyetleri;
-                miEtiketMaliyetleri.Click += (s, e) =>
-                {
-                    var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-                    if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.EtiketMaliyetleri, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-                    {
-                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.EtiketMaliyetForms.EtiketMaliyetListForm>();
-                    }
-                    else
-                    {
-                        XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                };
-            }
-
             if (xtraTabbedMdiManager != null)
             {
                 xtraTabbedMdiManager.PageAdded += XtraTabbedMdiManager_PageAdded;
@@ -1390,9 +153,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             }
             else
             {
-                // Eski Messages yapısı temizlendiği için standart MessageBox'a çevrildi
                 var cevap = Messages.KapatMesaj();
-
                 if (cevap == DialogResult.Yes)
                 {
                     CloseSessionAndExit();
@@ -1455,7 +216,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
                 Cursor.Current = Cursors.WaitCursor;
 
                 // Seçili firma ve kullanıcı bilgilerini bar başlıklarına (veya pencere başlığına) yazdır
-                Text = $"İtimat ERP --- Bilgisayar: {Environment.MachineName}";
+                Text = $"WinBeyazEsya ERP --- Bilgisayar: {Environment.MachineName}";
 
                 var scopeFactory = _serviceProvider.GetRequiredService<IServiceScopeFactory>();
 
@@ -1547,11 +308,11 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
                             if (usdRate != null && eurRate != null)
                             {
                                 string kurTarihiEk = usdRate.RateDate.Date == DateTime.Now.Date ? "" : $" (Kur Tarihi: {usdRate.RateDate:dd.MM.yyyy})";
-                                lblMenuSripBilgi.Text = $"{DateTime.Now:dd.MM.yyyy} | USD: {usdRate.EffectiveSellingRate:F4} - EUR: {eurRate.EffectiveSellingRate:F4}{kurTarihiEk}";
+                                _currencyInfo = $"USD: {usdRate.EffectiveSellingRate:F4} - EUR: {eurRate.EffectiveSellingRate:F4}{kurTarihiEk}";
                             }
                             else
                             {
-                                lblMenuSripBilgi.Text = $"{DateTime.Now:dd.MM.yyyy} | Kur Bilgisi Alınamadı";
+                                _currencyInfo = "Kur Bilgisi Alınamadı";
                             }
                         });
                     }
@@ -1560,7 +321,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
                         Console.WriteLine($"[AnaForm] TCMB Kurları arka plan senkronizasyon hatası: {ex.Message}");
                         this.Invoke((System.Windows.Forms.MethodInvoker)delegate
                         {
-                            lblMenuSripBilgi.Text = "Bağlantı Hatası: Kurlar Alınamadı";
+                            _currencyInfo = "Bağlantı Hatası: Kurlar Alınamadı";
                         });
                     }
                 });
@@ -1569,10 +330,10 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
                 // TODO: AylikMetreBilgisiGetirAsync(); (EF Core sorguları Application katmanına taşınacak)
 
                 SetMenuTags();
-                if (menuStrip != null)
-                {
-                    ApplyMenuPermissions(menuStrip.Items);
-                }
+                //if (menuStrip != null)
+                //{
+                //    ApplyMenuPermissions(menuStrip.Items);
+                //}
             }
             catch (Exception ex)
             {
@@ -1581,6 +342,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             finally
             {
                 Cursor.Current = Cursors.Default;
+                LoadFavorites();
             }
         }
 
@@ -1725,7 +487,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
                 }
             }
 
-            this.Text = $"İtimat ERP --- Bilgisayar: {Environment.MachineName} | Şirket: {_currentTenantService.TenantName} | Fabrika: {_currentTenantService.BranchName}";
+            this.Text = $"WinBeyazEsya ERP --- Bilgisayar: {Environment.MachineName} | Şirket: {_currentTenantService.TenantName} | Fabrika: {_currentTenantService.BranchName}";
 
             // Sistemin açılışını kitlemeden arkadan kontrol işlemi başlatalım
             _ = Task.Run(async () => await EksikSablonlariKontrolEtAsync());
@@ -1861,6 +623,50 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.SirketForms.SirketListForm>();
         }
 
+
+        public void LoadFavorites()
+        {
+            if (_serviceProvider == null || aceFavoriler == null) return;
+            
+            var favoriteService = _serviceProvider.GetService<WinBeyazEsya.Application.Interfaces.Management.IUserFavoriteService>();
+            if (favoriteService == null) return;
+
+            aceFavoriler.Elements.Clear();
+            var favorites = favoriteService.GetUserFavorites(_currentTenantService.UserId);
+
+            foreach (var fav in favorites)
+            {
+                var el = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+                el.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+                el.Text = fav.FormCaption;
+                el.Tag = fav.FormTypeFullName;
+                
+                el.Click += (s, e) =>
+                {
+                    Type? type = Type.GetType(fav.FormTypeFullName);
+                    if (type != null)
+                    {
+                        var method = this.GetType().GetMethod("FormYukle", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+                        if (method != null)
+                        {
+                            var genericMethod = method.MakeGenericMethod(type);
+                            genericMethod.Invoke(this, null);
+                        }
+                        else 
+                        {
+                            method = this.GetType().GetMethod("FormYukle", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
+                            if (method != null)
+                            {
+                                var genericMethod = method.MakeGenericMethod(type);
+                                genericMethod.Invoke(this, null);
+                            }
+                        }
+                    }
+                };
+                aceFavoriler.Elements.Add(el);
+            }
+        }
+
         private void miBirimTanimlari_Click(object? sender, EventArgs e)
         {
             var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
@@ -1938,26 +744,6 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.TerminalForms.TerminalListForm>();
         }
 
-
-
-        private void miKaliteStandartTanimlari_Click(object? sender, EventArgs e)
-        {
-            FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.KaliteStandartForms.KaliteStandartListForm>();
-        }
-
-        private void miYuzeyTipiTanimlari_Click(object? sender, EventArgs e)
-        {
-            var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-            if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.YuzeyTipiTanimlari, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-            {
-                FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.YuzeyTipiForms.YuzeyTipiListForm>();
-            }
-            else
-            {
-                XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-        }
-
         private void BtnMusteriCariKartlar_Click(object? sender, EventArgs e)
         {
             // TODO: İleride MusteriCariListForm yazılıp DI'a eklendiğinde alttaki kod aktif edilecek:
@@ -1999,65 +785,13 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
                             appConfigService.SetLastBranchId(frm.SeciliSubeId);
                         }
 
-                        this.Text = $"İtimat ERP | Şirket: {_currentTenantService.TenantName} | Fabrika: {_currentTenantService.BranchName}";
+                        this.Text = $"WinBeyazEsya ERP | Şirket: {_currentTenantService.TenantName} | Fabrika: {_currentTenantService.BranchName}";
                     }
                 }
             }
             else
             {
                 Messages.BilgiBasligi("Geçiş yapabileceğiniz başka bir fabrika/şube yetkiniz bulunmamaktadır.", "Bilgi");
-            }
-        }
-
-        #endregion
-
-        #region Temizlenen ve Yorum Satırına Alınan Eski İş Mantıkları (EF Core, BLL vb.)
-
-        /*
-        private async Task OnaylanmamisKayitlariKontrolEtAsync()
-        {
-            // CRITICAL: Form katmanı EF Core'u bilmemeli! 
-            // using (var context = new WinRezistansContext()) { ... } kalıntıları Application'da IOnayService'e taşınacak.
-        }
-
-        private async Task AylikMetreBilgisiGetirAsync()
-        {
-             // CRITICAL: Direkt EF SQL veya BLL kullanımı yasak!
-             // using (var context = new WinRezistansContext())
-             // {
-             //     var result = await context.Database.SqlQuery<DateTime>("SELECT GETDATE()").FirstOrDefaultAsync();
-             // }
-        }
-
-        private void BaslatUpdateExe()
-        {
-            // ... Eski güncelleme işlemi ...
-        }
-        */
-
-        private void MiTermostatTanimlari_Click(object sender, EventArgs e)
-        {
-            var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-            if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.TermostatTanimlari, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-            {
-                FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.TermostatForms.TermostatListForm>();
-            }
-            else
-            {
-                XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-        }
-
-        private void MiTimerTanimlari_Click(object sender, EventArgs e)
-        {
-            var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
-            if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.TimerTanimlari, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
-            {
-                FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.TimerForms.TimerListForm>();
-            }
-            else
-            {
-                XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 

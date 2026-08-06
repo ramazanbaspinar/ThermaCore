@@ -1,4 +1,4 @@
-﻿using DevExpress.XtraEditors;
+using DevExpress.XtraEditors;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -30,7 +30,6 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.KaliteStandartForms
         protected override void DegiskenleriDoldur()
         {
             Tablo = myGridView1;
-            BaseKartTuru = ModuleType.KaliteStandartTanimlari;
             Navigator = longNavigator1.Navigator;
             AktifPasifButonGoster = true;
         }

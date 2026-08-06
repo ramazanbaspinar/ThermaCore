@@ -416,6 +416,8 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
             }
             else if (name == "btnBagliKayitlar")
                 BagliKayitAc();
+            else if (name == "btnFavorilereEkle")
+                FavoriDurumunuDegistir();
             else if (name == "btnYazdir")
                 Yazdir();
             else if (name == "btnYazdir2")
@@ -526,6 +528,48 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
             
             SablonYukle();
             FormCaptionAyarla();
+            FavoriDurumunuKontrolEt();
+        }
+
+
+        private void FavoriDurumunuDegistir()
+        {
+            if (Program.ServiceProvider == null) return;
+            var currentTenantService = (ICurrentTenantService?)Program.ServiceProvider.GetService(typeof(ICurrentTenantService));
+            var favoriteService = (WinBeyazEsya.Application.Interfaces.Management.IUserFavoriteService?)Program.ServiceProvider.GetService(typeof(WinBeyazEsya.Application.Interfaces.Management.IUserFavoriteService));
+            
+            if (currentTenantService != null && favoriteService != null)
+            {
+                favoriteService.ToggleFavorite(currentTenantService.UserId, this.Text, this.GetType().FullName!);
+                FavoriDurumunuKontrolEt(); 
+                
+                if (this.MdiParent is WinBeyazEsya.Presentation.WinForms.Forms.GenelForms.AnaForm anaForm)
+                {
+                    anaForm.LoadFavorites();
+                }
+            }
+        }
+
+        private void FavoriDurumunuKontrolEt()
+        {
+            if (Program.ServiceProvider == null || btnFavorilereEkle == null) return;
+            var currentTenantService = (ICurrentTenantService?)Program.ServiceProvider.GetService(typeof(ICurrentTenantService));
+            var favoriteService = (WinBeyazEsya.Application.Interfaces.Management.IUserFavoriteService?)Program.ServiceProvider.GetService(typeof(WinBeyazEsya.Application.Interfaces.Management.IUserFavoriteService));
+            
+            if (currentTenantService != null && favoriteService != null)
+            {
+                bool isFavorite = favoriteService.IsFavorite(currentTenantService.UserId, this.GetType().FullName!);
+                if (isFavorite)
+                {
+                    btnFavorilereEkle.Caption = "Favorilerden Çıkar";
+                    btnFavorilereEkle.ImageOptions.Image = Properties.Resources.deletelist_16x16; 
+                }
+                else
+                {
+                    btnFavorilereEkle.Caption = "Favorilere Ekle";
+                    btnFavorilereEkle.ImageOptions.Image = Properties.Resources.feature_16x16;
+                }
+            }
         }
 
         private void BaseListForm_FormClosing(object? sender, FormClosingEventArgs e)
