@@ -7,9 +7,9 @@ using DevExpress.XtraLayout;
 
 namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
 {
-    public class ReleaseNotesForm : XtraForm
+    public class SurumNotlariForm : XtraForm
     {
-        public ReleaseNotesForm(string version, List<string> notes)
+        public SurumNotlariForm(string version, List<string> notes)
         {
             this.Text = $"Neler Yeni? - Sürüm {version}";
             this.Size = new Size(500, 400);

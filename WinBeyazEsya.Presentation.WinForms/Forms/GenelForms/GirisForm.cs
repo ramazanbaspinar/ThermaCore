@@ -1,4 +1,4 @@
-﻿using DevExpress.XtraEditors;
+using DevExpress.XtraEditors;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Configuration;
@@ -75,17 +75,24 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
                 {
                     this.Enabled = false; // Kullanıcının giriş yapmasını engelle
                     
-                    var dialogResult = DevExpress.XtraEditors.XtraMessageBox.Show(
-                        "Yeni bir güncelleme mevcut. Sisteme giriş yapabilmek için programı güncellemeniz gerekmektedir. Güncelleme işlemini şimdi başlatmak istiyor musunuz?", 
-                        "Zorunlu Güncelleme", 
-                        MessageBoxButtons.YesNo, 
-                        MessageBoxIcon.Question);
-
-                    if (dialogResult != DialogResult.Yes)
+                    using (var bildirimForm = new GuncellemeBildirimForm(currentVersion, manifest.Version, manifest.IsCritical))
                     {
-                        System.Windows.Forms.Application.Exit();
-                        Environment.Exit(0);
-                        return;
+                        var dialogResult = bildirimForm.ShowDialog(this);
+                        if (dialogResult != DialogResult.OK)
+                        {
+                            if (manifest.IsCritical)
+                            {
+                                System.Windows.Forms.Application.Exit();
+                                Environment.Exit(0);
+                                return;
+                            }
+                            else
+                            {
+                                this.Enabled = true;
+                                // Kullanıcı "Daha Sonra" dedi, giriş ekranına devam
+                                goto SkipUpdate;
+                            }
+                        }
                     }
                     
                     string appPath = AppDomain.CurrentDomain.BaseDirectory;
@@ -103,16 +110,18 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
                     
                     if (downloaded)
                     {
+                        string serverUrl = await _autoUpdateService.GetUpdateServerUrlAsync();
                         string updaterPath = System.IO.Path.Combine(appPath, "WinBeyazEsya.Updater.exe");
                         if (System.IO.File.Exists(updaterPath))
                         {
                             System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
                             {
                                 FileName = updaterPath,
+                                Arguments = $"--url \"{serverUrl}\"",
                                 WorkingDirectory = appPath,
                                 UseShellExecute = true
                             });
-                            System.Threading.Thread.Sleep(500); // Process'in başlaması için süre tanı
+                            System.Threading.Thread.Sleep(500);
                         }
                         else
                         {
@@ -130,6 +139,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
                 }
             }
             catch { /* Hata durumunda devam et */ }
+            SkipUpdate:
             // --- Kritik Güncelleme Kontrolü Bitiş ---
 
             // 1. Temiz Versiyon Formatlaması (.NET 8 Source Link Commit Hash'ini temizle)

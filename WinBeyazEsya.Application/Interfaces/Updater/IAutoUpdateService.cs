@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using WinBeyazEsya.Application.DTOs.Updater;
 
 namespace WinBeyazEsya.Application.Interfaces.Updater
@@ -8,6 +8,7 @@ namespace WinBeyazEsya.Application.Interfaces.Updater
         Task<UpdateManifestDto> CheckForUpdatesAsync();
         Task<bool> DownloadUpdatesAsync(UpdateManifestDto manifest, string appPath);
         bool IsUpdateReady(string appPath, out UpdateManifestDto manifest);
+        Task<string> GetUpdateServerUrlAsync();
     }
 }
 

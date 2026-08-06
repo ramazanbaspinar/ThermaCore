@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
@@ -185,6 +185,12 @@ namespace WinBeyazEsya.Application.Services.Updater
             {
                 return false;
             }
+        }
+
+        public async Task<string> GetUpdateServerUrlAsync()
+        {
+            var systemParam = await _systemParameterService.GetSystemParameterAsync();
+            return systemParam?.GuncellemeYolu ?? "";
         }
 
         private string ComputeSha256Hash(string filePath)

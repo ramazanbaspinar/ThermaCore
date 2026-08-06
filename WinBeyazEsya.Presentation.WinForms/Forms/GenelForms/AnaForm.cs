@@ -293,7 +293,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
                                 {
                                     this.Invoke((System.Windows.Forms.MethodInvoker)delegate
                                     {
-                                        using (var notesForm = new WinBeyazEsya.Presentation.WinForms.Forms.GenelForms.ReleaseNotesForm(manifest.Version, manifest.ReleaseNotes))
+                                        using (var notesForm = new WinBeyazEsya.Presentation.WinForms.Forms.GenelForms.SurumNotlariForm(manifest.Version, manifest.ReleaseNotes))
                                         {
                                             notesForm.ShowDialog(this);
                                         }

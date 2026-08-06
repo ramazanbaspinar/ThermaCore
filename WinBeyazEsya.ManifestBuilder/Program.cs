@@ -85,6 +85,7 @@ namespace WinBeyazEsya.ManifestBuilder
                 var files = Directory.GetFiles(sourceDir, "*.*", SearchOption.AllDirectories);
                 Console.WriteLine($"{files.Length} dosya tarandı, Hash'ler hesaplanıyor...");
 
+                int copyCount = 0;
                 foreach (var file in files)
                 {
                     // Gereksiz dosyaları atla
@@ -93,13 +94,24 @@ namespace WinBeyazEsya.ManifestBuilder
                     var fileInfo = new FileInfo(file);
                     string relativePath = GetRelativePath(sourceDir, file).Replace('\\', '/');
 
+                    string hash = ComputeSha256Hash(file);
                     manifest.Files.Add(new ManifestFile
                     {
                         Path = relativePath,
-                        Hash = ComputeSha256Hash(file),
+                        Hash = hash,
                         Size = fileInfo.Length
                     });
+
+                    // Dosyayı hedef klasöre fiziksel olarak kopyala (klasör yapısını koru)
+                    string destPath = Path.Combine(outputDir, relativePath.Replace('/', Path.DirectorySeparatorChar));
+                    Directory.CreateDirectory(Path.GetDirectoryName(destPath)!);
+                    File.Copy(file, destPath, true);
+                    copyCount++;
+
+                    Console.Write($"\r  İşleniyor: {copyCount}/{files.Length}");
                 }
+
+                Console.WriteLine(); // Yeni satıra geç
 
                 if (!Directory.Exists(outputDir))
                     Directory.CreateDirectory(outputDir);
@@ -111,7 +123,7 @@ namespace WinBeyazEsya.ManifestBuilder
 
                 File.WriteAllText(manifestPath, json);
 
-                Console.WriteLine($"\nBAŞARILI: Manifest dosyası oluşturuldu -> {manifestPath}");
+                Console.WriteLine($"\nBAŞARILI: {manifest.Files.Count} dosya kopyalandı ve manifest oluşturuldu -> {manifestPath}");
             }
             catch (Exception ex)
             {
