@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -11,8 +11,6 @@ namespace WinBeyazEsya.Updater
 {
     public partial class UpdateForm : Form
     {
-        private ProgressBar _progressBar;
-        private Label _lblStatus;
         private string _appPath;
         private string _tempFolder;
         private string _backupFolder;
@@ -20,7 +18,6 @@ namespace WinBeyazEsya.Updater
         public UpdateForm()
         {
             InitializeComponent();
-            SetupUI();
 
             _appPath = AppDomain.CurrentDomain.BaseDirectory;
             
@@ -28,41 +25,6 @@ namespace WinBeyazEsya.Updater
             // args veya Parent process üzerinden appPath alınabilir. Şimdilik aynı dizinde varsayıyoruz.
             _tempFolder = Path.Combine(_appPath, "Temp", "UpdateCache");
             _backupFolder = Path.Combine(_appPath, "Temp", "Backup");
-        }
-
-        private void SetupUI()
-        {
-            this.FormBorderStyle = FormBorderStyle.None;
-            this.StartPosition = FormStartPosition.CenterScreen;
-            this.Size = new Size(400, 150);
-            this.BackColor = Color.FromArgb(45, 45, 48); // Koyu tema
-            this.ForeColor = Color.White;
-
-            Label lblTitle = new Label
-            {
-                Text = "Sistem Güncelleniyor",
-                Font = new Font("Segoe UI", 14, FontStyle.Bold),
-                AutoSize = true,
-                Location = new Point(20, 20)
-            };
-            this.Controls.Add(lblTitle);
-
-            _lblStatus = new Label
-            {
-                Text = "Lütfen bekleyiniz...",
-                Font = new Font("Segoe UI", 10, FontStyle.Regular),
-                AutoSize = true,
-                Location = new Point(20, 60)
-            };
-            this.Controls.Add(_lblStatus);
-
-            _progressBar = new ProgressBar
-            {
-                Style = ProgressBarStyle.Continuous,
-                Location = new Point(20, 90),
-                Size = new Size(360, 20)
-            };
-            this.Controls.Add(_progressBar);
         }
 
         protected override async void OnShown(EventArgs e)
