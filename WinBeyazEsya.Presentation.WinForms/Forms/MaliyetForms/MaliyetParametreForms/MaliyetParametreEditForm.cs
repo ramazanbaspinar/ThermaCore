@@ -8,6 +8,7 @@ using WinBeyazEsya.Application.Interfaces.Management;
 using WinBeyazEsya.Domain.Enums;
 using WinBeyazEsya.Presentation.WinForms.Forms.BaseForms;
 using WinBeyazEsya.Presentation.WinForms.Helpers;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MaliyetParametreForms
 {
@@ -32,6 +33,11 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MaliyetParametre
         {
             InitializeComponent();
             BaseKartTuru = WinBeyazEsya.Domain.Enums.ModuleType.MaliyetParametreleri;
+            
+            if (Program.ServiceProvider != null)
+            {
+                _maliyetParametreService = Program.ServiceProvider.GetService<IMaliyetParametreService>();
+            }
         }
 
         public override void Yukle()
@@ -61,7 +67,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MaliyetParametre
             }
 
             CurrentEntity = _currentDto;
-            OldEntity = new MaliyetParametreDto { Id = _currentDto.Id };
+            OldEntity = CloneEntity(CurrentEntity);
 
             NesneyiKontrollereBagla();
         }
@@ -102,22 +108,11 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MaliyetParametre
         {
             try
             {
-                var service = _maliyetParametreService;
-                if (service == null && Program.ServiceProvider != null)
-                {
-                    service = Program.ServiceProvider.GetService(typeof(IMaliyetParametreService)) as IMaliyetParametreService;
-                }
-
-                if (service == null)
-                {
-                    Messages.HataBasligi("MaliyetParametreService bulunamadı! Lütfen DI ayarlarını kontrol edin.", "Servis Hatası");
-                    return false;
-                }
 
                 GuncelNesneOlustur();
                 _currentDto = (MaliyetParametreDto)CurrentEntity;
 
-                service.SaveParametreAsync(_currentDto).GetAwaiter().GetResult();
+                _maliyetParametreService.SaveParametreAsync(_currentDto).GetAwaiter().GetResult();
                 return true;
             }
             catch (Exception ex)

@@ -97,7 +97,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms
             }
             
             CurrentEntity = _currentDto;
-            OldEntity = new SystemParameterDto { Id = _currentDto.Id };
+            OldEntity = CloneEntity(CurrentEntity);
 
             NesneyiKontrollereBagla();
         }
@@ -176,8 +176,6 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms
         {
             try
             {
-                if (_systemParameterService == null) return false;
-                
                 // Kayıt öncesi nesneyi toparla
                 GuncelNesneOlustur();
                 _currentDto = (SystemParameterDto)CurrentEntity;

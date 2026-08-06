@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+using System.Reflection;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using WinBeyazEsya.Application.Services.Management;
@@ -34,6 +34,7 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IValidator<WinBeyazEsya.Application.DTOs.Management.CodeTemplateDto>, WinBeyazEsya.Application.Validations.Management.CodeTemplateValidator>();
         services.AddScoped<IValidator<WinBeyazEsya.Application.DTOs.Management.CodeLogDto>, WinBeyazEsya.Application.Validations.Management.CodeLogValidator>();
         services.AddScoped<IValidator<WinBeyazEsya.Application.DTOs.Management.MaliyetParametreDto>, WinBeyazEsya.Application.Validations.Management.MaliyetParametreValidator>();
+        services.AddScoped<IMaliyetParametreService, MaliyetParametreManager>();
 
         services.AddScoped<IValidator<WinBeyazEsya.Application.DTOs.Production.QualityStandardDto>, WinBeyazEsya.Application.Validations.Production.QualityStandardValidator>();
         services.AddScoped<IValidator<WinBeyazEsya.Application.DTOs.Production.SurfaceTypeDto>, WinBeyazEsya.Application.Validations.Production.SurfaceTypeValidator>();
