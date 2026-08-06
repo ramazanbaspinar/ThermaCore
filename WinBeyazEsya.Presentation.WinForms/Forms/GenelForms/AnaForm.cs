@@ -1,4 +1,4 @@
-﻿using DevExpress.XtraEditors;
+using DevExpress.XtraEditors;
 using DevExpress.XtraTabbedMdi;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -349,10 +349,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
                 // TODO: AylikMetreBilgisiGetirAsync(); (EF Core sorguları Application katmanına taşınacak)
 
                 SetMenuTags();
-                //if (menuStrip != null)
-                //{
-                //    ApplyMenuPermissions(menuStrip.Items);
-                //}
+                ApplyAccordionPermissions();
             }
             catch (Exception ex)
             {
@@ -367,7 +364,105 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
 
         private void SetMenuTags()
         {
-            // Tasarımcıdan (Designer) verilecek.
+            aceAyarlar.Tag = WinBeyazEsya.Domain.Enums.ModuleType.Ayarlar;
+            aceTanimlar.Tag = WinBeyazEsya.Domain.Enums.ModuleType.Tanimlar;
+            aceMaliyet.Tag = WinBeyazEsya.Domain.Enums.ModuleType.Maliyetler;
+
+            aceKurumsalTanimlar.Tag = WinBeyazEsya.Domain.Enums.ModuleType.KurumsalTanimlar;
+            aceGuvenlikVeYetkilendirme.Tag = WinBeyazEsya.Domain.Enums.ModuleType.GuvenlikVeYetkilendirme;
+            aceParametreler.Tag = WinBeyazEsya.Domain.Enums.ModuleType.Parametreler;
+            aceTemelTanimlar.Tag = WinBeyazEsya.Domain.Enums.ModuleType.TemelTanimlar;
+
+            aceSirketTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.SirketTanimlari;
+
+            aceYetkiGruplariRoller.Tag = WinBeyazEsya.Domain.Enums.ModuleType.YetkiGruplari;
+            aceKullaniciTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.User;
+            aceTerminalCihazYonetimi.Tag = WinBeyazEsya.Domain.Enums.ModuleType.TerminalYonetimi;
+
+            aceKullaniciArayuzSablonlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.UserInterfaceTemplate;
+            aceKodSablonlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.CodeTemplateYonetimi;
+            aceEmailParametreleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.EmailParameter;
+            aceLisansBilgileri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.SystemLicense;
+            aceGenelParametreler.Tag = WinBeyazEsya.Domain.Enums.ModuleType.GenelParametreler;
+            
+            aceBirimTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.BirimTanimlari;
+            aceKurTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.KurTanimlari;
+            aceKdvOranlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.KdvOranlari;
+            aceOtvOranlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.OtvOranlari;
+
+            aceGenelGiderler.Tag = WinBeyazEsya.Domain.Enums.ModuleType.GenelGiderler;
+            aceMaliyetParametreleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.MaliyetParametreleri;
+        }
+
+        private void ApplyAccordionPermissions()
+        {
+            var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
+            if (authService == null) return;
+
+            var userRepo = _serviceProvider.GetService<WinBeyazEsya.Application.Interfaces.Repositories.IMasterRepository<WinBeyazEsya.Domain.Entities.Management.User>>();
+            var user = userRepo?.GetById(_currentTenantService.UserId);
+            bool isSuperAdmin = user != null && (user.Code.ToLower() == "winbeyazesya");
+
+            ApplyAccordionPermissionsRecursive(accordionControl1.Elements, authService, isSuperAdmin);
+        }
+
+        private void ApplyAccordionPermissionsRecursive(DevExpress.XtraBars.Navigation.AccordionControlElementCollection elements, WinBeyazEsya.Application.Services.Management.IAuthService authService, bool isSuperAdmin)
+        {
+            foreach (DevExpress.XtraBars.Navigation.AccordionControlElement element in elements)
+            {
+                if (isSuperAdmin)
+                {
+                    element.Visible = true;
+                    if (element.Elements.Count > 0)
+                    {
+                        ApplyAccordionPermissionsRecursive(element.Elements, authService, isSuperAdmin);
+                    }
+                    continue;
+                }
+
+                bool hasVisibleChildren = false;
+
+                if (element.Elements.Count > 0)
+                {
+                    ApplyAccordionPermissionsRecursive(element.Elements, authService, isSuperAdmin);
+
+                    foreach (DevExpress.XtraBars.Navigation.AccordionControlElement child in element.Elements)
+                    {
+                        if (child.Visible)
+                        {
+                            hasVisibleChildren = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (element.Elements.Count > 0)
+                {
+                    // Klasörse, içi doluysa göster
+                    element.Visible = hasVisibleChildren;
+                }
+                else if (element.Tag is WinBeyazEsya.Domain.Enums.ModuleType moduleType)
+                {
+                    bool hasAccess = authService.HasPermission(moduleType, WinBeyazEsya.Domain.Enums.PermissionType.CanView);
+                    element.Visible = hasAccess;
+                }
+                else if (element.Tag is string tagStr)
+                {
+                    if (Enum.TryParse(tagStr.Trim(), true, out WinBeyazEsya.Domain.Enums.ModuleType parsedModuleType))
+                    {
+                        bool hasAccess = authService.HasPermission(parsedModuleType, WinBeyazEsya.Domain.Enums.PermissionType.CanView);
+                        element.Visible = hasAccess;
+                    }
+                    else
+                    {
+                        element.Visible = true;
+                    }
+                }
+                else
+                {
+                    element.Visible = true; // Favoriler vs.
+                }
+            }
         }
 
         private void ApplyMenuPermissions(ToolStripItemCollection items)

@@ -1,4 +1,4 @@
-﻿using DevExpress.XtraEditors;
+using DevExpress.XtraEditors;
 using System;
 using System.Linq;
 using System.Windows.Forms;
@@ -24,6 +24,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms
             ITaxRateService taxRateService)
         {
             InitializeComponent();
+            BaseKartTuru = WinBeyazEsya.Domain.Enums.ModuleType.GenelParametreler;
             _systemParameterService = systemParameterService;
             _taxRateService = taxRateService;
             
@@ -35,6 +36,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms
         public GenelParametrelerEditForm()
         {
             InitializeComponent();
+            BaseKartTuru = WinBeyazEsya.Domain.Enums.ModuleType.GenelParametreler;
         }
 
         protected override void EventsLoad()

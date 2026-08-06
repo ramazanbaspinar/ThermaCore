@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using WinBeyazEsya.Application.DTOs.Management;
@@ -13,17 +13,20 @@ public class SystemParameterManager : ISystemParameterService
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IRepository<SystemParameter> _repository;
+    private readonly IRepository<MaliyetParametre> _maliyetRepo;
     private readonly IMapper _mapper;
     private readonly IValidator<SystemParameterDto> _validator;
 
     public SystemParameterManager(
         IUnitOfWork unitOfWork, 
         IRepository<SystemParameter> repository, 
+        IRepository<MaliyetParametre> maliyetRepo,
         IMapper mapper,
         IValidator<SystemParameterDto> validator)
     {
         _unitOfWork = unitOfWork;
         _repository = repository;
+        _maliyetRepo = maliyetRepo;
         _mapper = mapper;
         _validator = validator;
     }
@@ -63,6 +66,18 @@ public class SystemParameterManager : ISystemParameterService
             _repository.Update(existing);
         }
         
+        var maliyetExisting = _maliyetRepo.Find(x => true).FirstOrDefault();
+        if (maliyetExisting != null)
+        {
+            maliyetExisting.WastageRate = dto.DefaultWastageRate;
+            _maliyetRepo.Update(maliyetExisting);
+        }
+        else
+        {
+            var newMaliyet = new MaliyetParametre { WastageRate = dto.DefaultWastageRate, Id = WinBeyazEsya.Domain.Helpers.IdGenerator.GenerateId() };
+            _maliyetRepo.Add(newMaliyet);
+        }
+
         _unitOfWork.SaveChanges();
     }
 }

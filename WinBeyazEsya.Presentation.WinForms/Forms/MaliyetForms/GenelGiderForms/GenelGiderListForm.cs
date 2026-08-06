@@ -31,7 +31,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.GenelGiderForms
             _service = service;
             _serviceProvider = serviceProvider;
             _exchangeRateService = exchangeRateService;
-            
+            BaseKartTuru = WinBeyazEsya.Domain.Enums.ModuleType.GenelGiderler;
         }
 
         protected override void DegiskenleriDoldur()

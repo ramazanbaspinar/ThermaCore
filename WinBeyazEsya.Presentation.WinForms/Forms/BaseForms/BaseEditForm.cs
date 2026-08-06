@@ -1,4 +1,4 @@
-﻿using DevExpress.Utils.Extensions;
+using DevExpress.Utils.Extensions;
 using DevExpress.XtraBars;
 using DevExpress.XtraBars.Navigation;
 using DevExpress.XtraBars.Ribbon;
@@ -62,7 +62,14 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
 
         protected virtual void YetkiKontroluYap()
         {
-            if ((int)BaseKartTuru == 0) return;
+            if ((int)BaseKartTuru == 0)
+            {
+                if (!IsDesignMode)
+                {
+                    throw new InvalidOperationException($"{this.GetType().Name} formunda BaseKartTuru (Yetki Modülü) atanmamış! Lütfen constructor içerisinde BaseKartTuru değerini belirleyiniz.");
+                }
+                return;
+            }
 
             if (Program.ServiceProvider == null) return;
             var authService = (WinBeyazEsya.Application.Services.Management.IAuthService?)Program.ServiceProvider.GetService(typeof(WinBeyazEsya.Application.Services.Management.IAuthService));
@@ -108,6 +115,8 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
                 if (btnYeni != null && !hasInsert) btnYeni.Enabled = false;
                 if (btnSil != null && !hasDelete) btnSil.Enabled = false;
             }
+
+            ButonGizleGoster();
         }
 
         protected virtual void LockFormControls(Control.ControlCollection controls)
@@ -847,7 +856,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
             Control_EditValueChanged(sender, e);
         }
 
-        private bool FarklilikVarMi(Control.ControlCollection controls)
+        protected virtual bool FarklilikVarMi(Control.ControlCollection controls)
         {
             if (_isCheckedListBoxModified) return true;
 

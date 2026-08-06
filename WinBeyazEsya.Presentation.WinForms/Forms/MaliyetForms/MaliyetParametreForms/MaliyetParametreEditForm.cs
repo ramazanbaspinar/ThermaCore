@@ -19,6 +19,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MaliyetParametre
         public MaliyetParametreEditForm(IMaliyetParametreService maliyetParametreService)
         {
             InitializeComponent();
+            BaseKartTuru = WinBeyazEsya.Domain.Enums.ModuleType.MaliyetParametreleri;
             _maliyetParametreService = maliyetParametreService;
 
             BaseIslemTuru = ActionType.EntityUpdate;
@@ -30,6 +31,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MaliyetParametre
         public MaliyetParametreEditForm()
         {
             InitializeComponent();
+            BaseKartTuru = WinBeyazEsya.Domain.Enums.ModuleType.MaliyetParametreleri;
         }
 
         public override void Yukle()
@@ -39,16 +41,33 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MaliyetParametre
 
             try
             {
-                _currentDto = _maliyetParametreService?.GetMaliyetParametreAsync().GetAwaiter().GetResult() ?? new MaliyetParametreDto { Id = 0 };
+                _currentDto = _maliyetParametreService?.GetMaliyetParametreAsync().GetAwaiter().GetResult();
+                
+                if (_currentDto == null || _currentDto.Id == 0)
+                {
+                    _currentDto = new MaliyetParametreDto { Id = 0 };
+                    BaseIslemTuru = ActionType.EntityInsert;
+                }
+                else
+                {
+                    BaseIslemTuru = ActionType.EntityUpdate;
+                }
             }
             catch (Exception ex)
             {
                 Messages.HataBasligi(ex.Message, "Hata");
                 _currentDto = new MaliyetParametreDto { Id = 0 };
+                BaseIslemTuru = ActionType.EntityInsert;
             }
 
             CurrentEntity = _currentDto;
-            OldEntity = new MaliyetParametreDto { Id = _currentDto.Id };
+            OldEntity = new MaliyetParametreDto 
+            { 
+                Id = _currentDto.Id,
+                WastageRate = _currentDto.WastageRate,
+                MaturityDifferenceRate = _currentDto.MaturityDifferenceRate,
+                AverageProductionValue = _currentDto.AverageProductionValue
+            };
 
             NesneyiKontrollereBagla();
         }
@@ -64,13 +83,8 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MaliyetParametre
 
         private void PropertyGridControl1_CellValueChanged(object sender, DevExpress.XtraVerticalGrid.Events.CellValueChangedEventArgs e)
         {
-            CurrentEntityGuncelle();
-            ButonEnabledDurumu();
-
-            // PropertyGridControl BaseEdit sınıfından türemediği için BaseEditForm'daki 
-            // FarklilikVarMi() metodunda yakalanamıyor. Bu nedenle manuel olarak aktif ediyoruz:
-            if (btnKaydet != null) btnKaydet.Enabled = true;
-            if (btnGerial != null) btnGerial.Enabled = true;
+            // KURAL 1: Tetikleyici Kopukluğu (Manuel tetikleme)
+            Control_EditValueChanged(sender, e);
         }
 
         protected override void NesneyiKontrollereBagla()
@@ -81,7 +95,31 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MaliyetParametre
 
         protected override void GuncelNesneOlustur()
         {
-            CurrentEntity = propertyGridControl1.SelectedObject as MaliyetParametreDto;
+            // KURAL 2: Veri Kopukluğu (Manuel nesne aktarımı)
+            var gridNesnesi = (MaliyetParametreDto)propertyGridControl1.SelectedObject;
+            if (gridNesnesi != null)
+            {
+                CurrentEntity = new MaliyetParametreDto 
+                {
+                    // KURAL 3: Id değerinin kaybolmamasını sağlıyoruz
+                    Id = _currentDto?.Id ?? 0,
+                    WastageRate = gridNesnesi.WastageRate,
+                    MaturityDifferenceRate = gridNesnesi.MaturityDifferenceRate,
+                    AverageProductionValue = gridNesnesi.AverageProductionValue
+                };
+            }
+        }
+
+        protected override bool FarklilikVarMi(System.Windows.Forms.Control.ControlCollection controls)
+        {
+            var selected = propertyGridControl1.SelectedObject as MaliyetParametreDto;
+            var old = OldEntity as MaliyetParametreDto;
+
+            if (selected == null || old == null) return false;
+
+            return selected.WastageRate != old.WastageRate ||
+                   selected.MaturityDifferenceRate != old.MaturityDifferenceRate ||
+                   selected.AverageProductionValue != old.AverageProductionValue;
         }
 
         protected override void Button_ItemClick(object sender, ItemClickEventArgs e)
@@ -89,12 +127,14 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MaliyetParametre
             if (e.Item.Name == "btnKaydet")
             {
                 // Kullanıcının son yazdığı değerin hücreden çıkmadan DTO'ya işlenmesi için kritik
+                propertyGridControl1.PostEditor();
                 propertyGridControl1.CloseEditor();
                 // Kalan işlemleri (Kaydetme, OldEntity güncelleme, Buton durumlarını resetleme vs.)
                 // BaseEditForm'un kendi standart işleyişine bırakıyoruz.
             }
             else if (e.Item.Name == "btnGerial")
             {
+                propertyGridControl1.PostEditor();
                 propertyGridControl1.CloseEditor();
                 // Geri al işlemini de BaseEditForm'a bırakıyoruz.
             }

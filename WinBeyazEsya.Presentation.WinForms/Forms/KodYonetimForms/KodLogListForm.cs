@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using WinBeyazEsya.Application.DTOs.Management;
 using WinBeyazEsya.Application.Interfaces.Repositories;
@@ -30,6 +30,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.KodYonetimForms
         public KodLogListForm(ICodeLogRepository codeLogRepository, IBranchService branchService, ICodeGenerationService codeGenerationService)
         {
             InitializeComponent();
+            BaseKartTuru = WinBeyazEsya.Domain.Enums.ModuleType.CodeTemplateYonetimi;
             _codeLogRepository = codeLogRepository;
             _branchService = branchService;
             _codeGenerationService = codeGenerationService;

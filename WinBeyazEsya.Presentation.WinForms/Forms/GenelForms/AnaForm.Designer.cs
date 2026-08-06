@@ -58,7 +58,6 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             aceKurTanimlari = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             aceKdvOranlari = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             aceOtvOranlari = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-
             aceMetalVeSacGrubuTanimlari = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             aceElektrikVeElektronikGrubuTanimlari = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             aceGazVeAteslemeGrubuTanimlari = new DevExpress.XtraBars.Navigation.AccordionControlElement();
@@ -277,6 +276,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             // 
             // aceFavoriler
             // 
+            aceFavoriler.Expanded = true;
             aceFavoriler.Name = "aceFavoriler";
             aceFavoriler.Text = "Favoriler";
             // 
@@ -315,8 +315,6 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             aceOtvOranlari.Name = "aceOtvOranlari";
             aceOtvOranlari.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
             aceOtvOranlari.Text = "Ötv Oranları";
-            // 
-
             // 
             // aceMetalVeSacGrubuTanimlari
             // 
@@ -387,7 +385,6 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             // aceAyarlar
             // 
             aceAyarlar.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] { aceKurumsalTanimlar, aceGuvenlikVeYetkilendirme, aceParametreler });
-            aceAyarlar.Expanded = true;
             aceAyarlar.Name = "aceAyarlar";
             aceAyarlar.Text = "Ayarlar";
             // 
@@ -430,7 +427,6 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             // aceParametreler
             // 
             aceParametreler.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] { aceKullaniciArayuzSablonlari, aceKodSablonlari, aceEmailParametreleri, aceLisansBilgileri, aceGenelParametreler });
-            aceParametreler.Expanded = true;
             aceParametreler.Name = "aceParametreler";
             aceParametreler.Text = "Parametreler";
             // 

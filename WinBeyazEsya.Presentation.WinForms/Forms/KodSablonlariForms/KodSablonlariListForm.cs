@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Windows.Forms;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,11 +18,13 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.CodeTemplateForms
         public KodSablonlariListForm()
         {
             InitializeComponent();
+            BaseKartTuru = WinBeyazEsya.Domain.Enums.ModuleType.CodeTemplateYonetimi;
         }
 
         public KodSablonlariListForm(IMasterRepository<CodeTemplate> repository, IMasterUnitOfWork uow)
         {
             InitializeComponent();
+            BaseKartTuru = WinBeyazEsya.Domain.Enums.ModuleType.CodeTemplateYonetimi;
             _repository = repository;
             _uow = uow;
 
