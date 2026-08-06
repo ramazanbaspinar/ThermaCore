@@ -1,4 +1,4 @@
-﻿using DevExpress.XtraEditors;
+using DevExpress.XtraEditors;
 using System;
 using System.Windows.Forms;
 using Microsoft.Data.SqlClient;
@@ -196,6 +196,24 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             var result = XtraMessageBox.Show("Programın ilk kurulum işlemi yapılacaktır. Onaylıyor musunuz?", "Kurulum Onayı", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result != DialogResult.Yes)
                 return;
+
+            DevExpress.XtraEditors.XtraInputBoxArgs inputArgs = new DevExpress.XtraEditors.XtraInputBoxArgs();
+            inputArgs.Caption = "Kurulum Doğrulaması";
+            inputArgs.Prompt = "Yeni bir ana veritabanı kurmak üzeresiniz.\nLütfen Master Kurulum Şifresini giriniz:";
+            inputArgs.DefaultButtonIndex = 0;
+            DevExpress.XtraEditors.TextEdit editor = new DevExpress.XtraEditors.TextEdit();
+            editor.Properties.PasswordChar = '*';
+            inputArgs.Editor = editor;
+            inputArgs.DefaultResponse = "";
+            
+            var resultObj = DevExpress.XtraEditors.XtraInputBox.Show(inputArgs);
+            string inputPwd = resultObj?.ToString() ?? "";
+
+            if (inputPwd != "winbeyazesyayonetim!")
+            {
+                XtraMessageBox.Show("Hatalı Master Kurulum Şifresi! İşlem iptal edildi.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             try
             {
