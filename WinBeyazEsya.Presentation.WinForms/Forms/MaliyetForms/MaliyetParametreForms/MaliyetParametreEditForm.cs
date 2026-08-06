@@ -1,4 +1,4 @@
-﻿using DevExpress.XtraBars;
+using DevExpress.XtraBars;
 using DevExpress.XtraEditors;
 using System;
 using System.Linq;
@@ -22,6 +22,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MaliyetParametre
             _maliyetParametreService = maliyetParametreService;
 
             BaseIslemTuru = ActionType.EntityUpdate;
+            BaseKartTuru = ModuleType.MaliyetParametreleri;
             KayitSonrasiFormuKapat = false; // Singleton form olduğu için kaydetten sonra kapanmamalı
             DataLayoutControls = new object[] { myDataLayoutControl1 };
         }

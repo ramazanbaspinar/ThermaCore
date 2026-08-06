@@ -1,4 +1,4 @@
-using DevExpress.XtraEditors;
+﻿using DevExpress.XtraEditors;
 using DevExpress.XtraTabbedMdi;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -64,6 +64,25 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             if (aceTerminalCihazYonetimi != null) aceTerminalCihazYonetimi.Click += miTerminalYonetim_Click;
             if (aceKodSablonlari != null) aceKodSablonlari.Click += miCodeTemplatelari_Click;
             if (aceGenelParametreler != null) aceGenelParametreler.Click += miGenelParametreler_Click;
+            
+            if (aceKullaniciArayuzSablonlari != null)
+                aceKullaniciArayuzSablonlari.Click += (s, e) =>
+                {
+                    FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms.KullanıcıArayuzSablonlariListForm>();
+                };
+                
+            if (aceGenelGiderler != null)
+                aceGenelGiderler.Click += (s, e) =>
+                {
+                    FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.GenelGiderForms.GenelGiderListForm>();
+                };
+
+            if (aceMaliyetParametreleri != null)
+                aceMaliyetParametreleri.Click += (s, e) =>
+                {
+                    var form = _serviceProvider.GetRequiredService<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MaliyetParametreForms.MaliyetParametreEditForm>();
+                    form.ShowDialog();
+                };
             if (aceEmailParametreleri != null)
                 aceEmailParametreleri.Click += (s, e) =>
                 {
@@ -73,7 +92,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             if (aceLisansBilgileri != null)
                 aceLisansBilgileri.Click += (s, e) =>
                 {
-                    var form = _serviceProvider.GetRequiredService<WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms.SystemLicenseEditForm>();
+                    var form = _serviceProvider.GetRequiredService<WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms.LisansBilgileriEditForm>();
                     form.ShowDialog();
                 };
 
@@ -87,7 +106,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             if (miSystemLicense != null)
                 miSystemLicense.Click += (s, e) =>
                 {
-                    var form = _serviceProvider.GetRequiredService<WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms.SystemLicenseEditForm>();
+                    var form = _serviceProvider.GetRequiredService<WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms.LisansBilgileriEditForm>();
                     form.ShowDialog();
                 };
 
@@ -114,7 +133,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             if (miKullaniciArayuzSablonlari != null)
                 miKullaniciArayuzSablonlari.Click += (s, e) =>
                 {
-                    FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms.UserInterfaceTemplateListForm>();
+                    FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms.KullanıcıArayuzSablonlariListForm>();
                 };
 
             if (miCodeTemplatelari != null)
@@ -726,7 +745,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
 
         private void miCodeTemplatelari_Click(object? sender, EventArgs e)
         {
-            FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.CodeTemplateForms.CodeTemplateListForm>();
+            FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.CodeTemplateForms.KodSablonlariListForm>();
         }
 
         private void miYetkiGruplariRoller_Click(object? sender, EventArgs e)

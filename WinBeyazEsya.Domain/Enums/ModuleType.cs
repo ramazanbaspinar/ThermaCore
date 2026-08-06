@@ -6,30 +6,37 @@ namespace WinBeyazEsya.Domain.Enums;
 public enum ModuleType
 {
     // ANA MENÜLER (Root)
-    [Description("Sistem Yönetimi")]
-    SistemYonetimi = 1000,
-
-    [Description("Genel Parametreler")]
-    [ParentModule(SistemYonetimi)]
-    GenelParametreler = 1004,
+    [Description("Ayarlar")]
+    Ayarlar = 1000,
 
     [Description("Tanımlar")]
     Tanimlar = 2000,
 
-    // ALT MENÜLER (Klasörler)
+    [Description("Maliyetler")]
+    Maliyetler = 3000,
+
+
+    // ALT MENÜLER (Klasörler) - AYARLAR
     [Description("Kurumsal Tanımlar")]
-    [ParentModule(SistemYonetimi)]
+    [ParentModule(Ayarlar)]
     KurumsalTanimlar = 1001,
 
     [Description("Güvenlik ve Yetkilendirme")]
-    [ParentModule(SistemYonetimi)]
+    [ParentModule(Ayarlar)]
     GuvenlikVeYetkilendirme = 1002,
 
     [Description("Parametreler")]
-    [ParentModule(SistemYonetimi)]
+    [ParentModule(Ayarlar)]
     Parametreler = 1003,
 
-    // MODÜLLER (Ekranlar)
+
+    // ALT MENÜLER (Klasörler) - TANIMLAR
+    [Description("Temel Tanımlar")]
+    [ParentModule(Tanimlar)]
+    TemelTanimlar = 2001,
+
+
+    // MODÜLLER (Ekranlar) - KURUMSAL TANIMLAR (Ayarlar -> Kurumsal Tanımlar)
     [Description("Şirket Tanımları")]
     [ParentModule(KurumsalTanimlar)]
     SirketTanimlari = 1,
@@ -39,6 +46,8 @@ public enum ModuleType
     [RequiresCodeTemplate]
     Factory = 2,
 
+
+    // MODÜLLER (Ekranlar) - GÜVENLİK VE YETKİLENDİRME (Ayarlar -> Güvenlik ve Yetkilendirme)
     [Description("Yetki Grupları (Roller)")]
     [ParentModule(GuvenlikVeYetkilendirme)]
     [RequiresCodeTemplate]
@@ -52,13 +61,15 @@ public enum ModuleType
     [ParentModule(GuvenlikVeYetkilendirme)]
     TerminalYonetimi = 5,
 
+
+    // MODÜLLER (Ekranlar) - PARAMETRELER (Ayarlar -> Parametreler)
+    [Description("Kullanıcı Arayüz Şablonları")]
+    [ParentModule(Parametreler)]
+    UserInterfaceTemplate = 10,
+
     [Description("Kod Şablonları")]
     [ParentModule(Parametreler)]
     CodeTemplateYonetimi = 6,
-
-    [Description("Kod Üretim Logları")]
-    [ParentModule(Parametreler)]
-    KodLog = 7,
 
     [Description("E-Mail Parametreleri")]
     [ParentModule(Parametreler)]
@@ -68,14 +79,20 @@ public enum ModuleType
     [ParentModule(Parametreler)]
     SystemLicense = 9,
 
-    [Description("Kullanıcı Arayüz Şablonları")]
+    [Description("Genel Parametreler")]
     [ParentModule(Parametreler)]
-    UserInterfaceTemplate = 10,
+    GenelParametreler = 1004,
 
-    [Description("Temel Tanımlar")]
-    [ParentModule(Tanimlar)]
-    TemelTanimlar = 2001,
+    [Description("Kod Üretim Logları")]
+    [ParentModule(Parametreler)]
+    KodLog = 7,
 
+    [Description("Kod Yönetimi")]
+    [ParentModule(Parametreler)]
+    KodYonetimi = 18,
+
+
+    // MODÜLLER (Ekranlar) - TEMEL TANIMLAR (Tanımlar -> Temel Tanımlar)
     [Description("Birim Tanımları")]
     [ParentModule(TemelTanimlar)]
     BirimTanimlari = 11,
@@ -92,7 +109,15 @@ public enum ModuleType
     [ParentModule(TemelTanimlar)]
     OtvOranlari = 14,
 
-    [Description("Kod Yönetimi")]
-    [ParentModule(SistemYonetimi)]
-    KodYonetimi = 18,
+
+    // MODÜLLER (Ekranlar) - MALİYETLER
+    [Description("Genel Giderler")]
+    [ParentModule(Maliyetler)]
+    [RequiresCodeTemplate]
+    GenelGiderler = 15,
+
+    [Description("Maliyet Parametreleri")]
+    [ParentModule(Maliyetler)]
+    [RequiresCodeTemplate]
+    MaliyetParametreleri = 16,
 }

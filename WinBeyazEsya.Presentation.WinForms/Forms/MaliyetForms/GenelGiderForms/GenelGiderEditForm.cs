@@ -26,6 +26,8 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.GenelGiderForms
             InitializeComponent();
             _genelGiderService = genelGiderService;
             _exchangeRateService = exchangeRateService;
+            
+            BaseKartTuru = ModuleType.GenelGiderler;
         }
 
         public override void Yukle()

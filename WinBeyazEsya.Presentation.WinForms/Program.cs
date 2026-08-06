@@ -109,8 +109,8 @@ internal static class Program
                 services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.SirketForms.SirketEditForm>();
                 services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.FabrikaForms.FabrikaListForm>();
                 services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.FabrikaForms.FabrikaEditForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.CodeTemplateForms.CodeTemplateListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.CodeTemplateForms.CodeTemplateEditForm>();
+                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.CodeTemplateForms.KodSablonlariListForm>();
+                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.CodeTemplateForms.KodSablonlariEditForm>();
                 services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.KodYonetimForms.KodLogListForm>();
                 services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.KodYonetimForms.KodLogEditForm>();
                 services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms.RolListForm>();
@@ -120,10 +120,10 @@ internal static class Program
                 services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TerminalForms.TerminalListForm>();
                 services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TerminalForms.TerminalEditForm>();
                 services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms.EmailParameterEditForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms.SystemLicenseEditForm>();
+                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms.LisansBilgileriEditForm>();
                 services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms.GenelParametrelerEditForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms.UserInterfaceTemplateListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.LisansForms.LicenseActivationForm>();
+                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms.KullanıcıArayuzSablonlariListForm>();
+                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.LisansForms.LisansAktivasyonForm>();
                 
                 // Definitions
                 services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.GenelGiderForms.GenelGiderListForm>();
@@ -181,8 +181,7 @@ internal static class Program
 
 
 
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.KaliteStandartForms.KaliteStandartListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.KaliteStandartForms.KaliteStandartEditForm>();
+            
 
                 
 
@@ -222,7 +221,7 @@ internal static class Program
                 if (!licenseData.IsValid)
                 {
                     MessageBox.Show(licenseData.ErrorMessage, "WinBeyazEsya Lisans Kalkanı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    var activationForm = services.GetRequiredService<WinBeyazEsya.Presentation.WinForms.Forms.LisansForms.LicenseActivationForm>();
+                    var activationForm = services.GetRequiredService<WinBeyazEsya.Presentation.WinForms.Forms.LisansForms.LisansAktivasyonForm>();
                     if (activationForm.ShowDialog() != DialogResult.OK)
                     {
                         return;
