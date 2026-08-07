@@ -269,14 +269,45 @@ namespace WinBeyazEsya.Updater
                 await Task.Delay(1500);
                 
                 string exePath = Path.Combine(_appPath, "WinBeyazEsya.exe");
+                
+                // 1) DEBUG LOGGING: Yolları kontrol etmek için geçici log
+                try
+                {
+                    File.AppendAllText(Path.Combine(_appPath, "updater_debug.log"), 
+                        $"[{DateTime.Now}] _appPath: {_appPath}\r\nexePath: {exePath}\r\nFile.Exists: {File.Exists(exePath)}\r\n");
+                }
+                catch { }
+
                 if (File.Exists(exePath))
                 {
-                    Process.Start(new ProcessStartInfo
+                    try
                     {
-                        FileName = exePath,
-                        WorkingDirectory = _appPath,
-                        UseShellExecute = true
-                    });
+                        // 2) UseShellExecute = false kullanıyoruz (ShellExecute asenkronCOM/DDE kullanabilir, erken kapanmada iptal olabilir)
+                        Process.Start(new ProcessStartInfo
+                        {
+                            FileName = exePath,
+                            WorkingDirectory = _appPath,
+                            UseShellExecute = false 
+                        });
+                        
+                        // 3) RACE CONDITION ÖNLEMİ: Uygulamanın ayağa kalkması için kısa bir bekleme
+                        await Task.Delay(1000); 
+                    }
+                    catch (Exception ex)
+                    {
+                        this.Invoke(new Action(() =>
+                        {
+                            MessageBox.Show($"Uygulama başlatılamadı:\nYol: {exePath}\nHata: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }));
+                    }
+                }
+                else
+                {
+                    // Dosya hiç yoksa sessizce kapanmasını engelle
+                    this.Invoke(new Action(() =>
+                    {
+                        MessageBox.Show($"Başlatılacak dosya bulunamadı!\nAranan Yol: {exePath}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }));
                 }
 
                 this.Invoke(new Action(() => Application.Exit()));
