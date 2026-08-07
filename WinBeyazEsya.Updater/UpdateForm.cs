@@ -273,7 +273,12 @@ namespace WinBeyazEsya.Updater
                 // 1) DEBUG LOGGING: Yolları kontrol etmek için geçici log
                 try
                 {
-                    File.AppendAllText(Path.Combine(_appPath, "updater_debug.log"), 
+                    string logsDir = Path.Combine(_appPath, "Logs");
+                    if (!Directory.Exists(logsDir))
+                    {
+                        Directory.CreateDirectory(logsDir);
+                    }
+                    File.AppendAllText(Path.Combine(logsDir, "updater_debug.log"), 
                         $"[{DateTime.Now}] _appPath: {_appPath}\r\nexePath: {exePath}\r\nFile.Exists: {File.Exists(exePath)}\r\n");
                 }
                 catch { }
