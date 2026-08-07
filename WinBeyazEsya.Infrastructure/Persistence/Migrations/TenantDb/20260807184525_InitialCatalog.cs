@@ -25,6 +25,7 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                     ContentType = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     FileSize = table.Column<long>(type: "bigint", nullable: false),
                     FileData = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    BranchId = table.Column<long>(type: "bigint", nullable: false),
                     RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedUserId = table.Column<long>(type: "bigint", nullable: false),
@@ -37,14 +38,14 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                 });
 
             migrationBuilder.CreateTable(
-                name: "ColorFeature",
+                name: "CostParameters",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false),
-                    Code = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    MaturityDifferenceRate = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    WastageRate = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    AverageProductionValue = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    BranchId = table.Column<long>(type: "bigint", nullable: false),
                     RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedUserId = table.Column<long>(type: "bigint", nullable: false),
@@ -56,7 +57,7 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ColorFeature", x => x.Id);
+                    table.PrimaryKey("PK_CostParameters", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -93,6 +94,7 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Cost = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
                     CurrencyCode = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: false),
+                    BranchId = table.Column<long>(type: "bigint", nullable: false),
                     RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedUserId = table.Column<long>(type: "bigint", nullable: false),
@@ -105,29 +107,6 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_GeneralExpenses", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "GlassType",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false),
-                    Code = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
-                    RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedUserId = table.Column<long>(type: "bigint", nullable: false),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ModifiedUserId = table.Column<long>(type: "bigint", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedUserId = table.Column<long>(type: "bigint", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_GlassType", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -144,6 +123,7 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                     Unit = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
                     QuantityPerUnit = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     WeightPerUnit = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    BranchId = table.Column<long>(type: "bigint", nullable: false),
                     RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedUserId = table.Column<long>(type: "bigint", nullable: false),
@@ -159,28 +139,6 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                 });
 
             migrationBuilder.CreateTable(
-                name: "MaliyetParametreleri",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false),
-                    MaturityDifferenceRate = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    WastageRate = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    AverageProductionValue = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedUserId = table.Column<long>(type: "bigint", nullable: false),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ModifiedUserId = table.Column<long>(type: "bigint", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedUserId = table.Column<long>(type: "bigint", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MaliyetParametreleri", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "MaterialCost",
                 columns: table => new
                 {
@@ -190,6 +148,7 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                     MaterialId = table.Column<long>(type: "bigint", nullable: false),
                     Cost = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
                     CurrencyCode = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: false),
+                    BranchId = table.Column<long>(type: "bigint", nullable: false),
                     RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedUserId = table.Column<long>(type: "bigint", nullable: false),
@@ -205,30 +164,6 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                 });
 
             migrationBuilder.CreateTable(
-                name: "QualityStandard",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false),
-                    Code = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    MaterialGroup = table.Column<int>(type: "int", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
-                    RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedUserId = table.Column<long>(type: "bigint", nullable: false),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ModifiedUserId = table.Column<long>(type: "bigint", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedUserId = table.Column<long>(type: "bigint", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_QualityStandard", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "SpecialCode",
                 columns: table => new
                 {
@@ -238,6 +173,7 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                     Code = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
+                    BranchId = table.Column<long>(type: "bigint", nullable: false),
                     RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedUserId = table.Column<long>(type: "bigint", nullable: false),
@@ -250,29 +186,6 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_SpecialCode", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "SurfaceType",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false),
-                    Code = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
-                    RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedUserId = table.Column<long>(type: "bigint", nullable: false),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ModifiedUserId = table.Column<long>(type: "bigint", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedUserId = table.Column<long>(type: "bigint", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SurfaceType", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -356,6 +269,49 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                 });
 
             migrationBuilder.CreateTable(
+                name: "MetalSheetGroups",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false),
+                    Code = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    BaseUnitId = table.Column<long>(type: "bigint", nullable: false),
+                    SpecialCodeId = table.Column<long>(type: "bigint", nullable: true),
+                    SurfaceType = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    QualityCode = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    Width = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Length = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Thickness = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
+                    BranchId = table.Column<long>(type: "bigint", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedUserId = table.Column<long>(type: "bigint", nullable: false),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedUserId = table.Column<long>(type: "bigint", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedUserId = table.Column<long>(type: "bigint", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MetalSheetGroups", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_MetalSheetGroups_SpecialCode_SpecialCodeId",
+                        column: x => x.SpecialCodeId,
+                        principalTable: "SpecialCode",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_MetalSheetGroups_Units_BaseUnitId",
+                        column: x => x.BaseUnitId,
+                        principalTable: "Units",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "UnitConversions",
                 columns: table => new
                 {
@@ -390,39 +346,39 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                 columns: new[] { "Id", "Code", "CreatedDate", "CreatedUserId", "DeletedDate", "DeletedUserId", "Description", "IsActive", "IsDeleted", "ModifiedDate", "ModifiedUserId", "Name" },
                 values: new object[,]
                 {
-                    { 1L, "AD", new DateTime(2026, 8, 6, 14, 30, 21, 846, DateTimeKind.Local).AddTicks(4802), 1L, null, null, null, true, false, null, null, "Adet" },
-                    { 2L, "KG", new DateTime(2026, 8, 6, 14, 30, 21, 846, DateTimeKind.Local).AddTicks(4821), 1L, null, null, null, true, false, null, null, "Kilogram" },
-                    { 3L, "GR", new DateTime(2026, 8, 6, 14, 30, 21, 846, DateTimeKind.Local).AddTicks(4823), 1L, null, null, null, true, false, null, null, "Gram" },
-                    { 4L, "LT", new DateTime(2026, 8, 6, 14, 30, 21, 846, DateTimeKind.Local).AddTicks(4825), 1L, null, null, null, true, false, null, null, "Litre" },
-                    { 5L, "MT", new DateTime(2026, 8, 6, 14, 30, 21, 846, DateTimeKind.Local).AddTicks(4834), 1L, null, null, null, true, false, null, null, "Metre" },
-                    { 6L, "CM", new DateTime(2026, 8, 6, 14, 30, 21, 846, DateTimeKind.Local).AddTicks(4835), 1L, null, null, null, true, false, null, null, "Santimetre" },
-                    { 7L, "MM", new DateTime(2026, 8, 6, 14, 30, 21, 846, DateTimeKind.Local).AddTicks(4836), 1L, null, null, null, true, false, null, null, "Milimetre" },
-                    { 8L, "PK", new DateTime(2026, 8, 6, 14, 30, 21, 846, DateTimeKind.Local).AddTicks(4844), 1L, null, null, null, true, false, null, null, "Paket" },
-                    { 9L, "KL", new DateTime(2026, 8, 6, 14, 30, 21, 846, DateTimeKind.Local).AddTicks(4845), 1L, null, null, null, true, false, null, null, "Koli" },
-                    { 10L, "TON", new DateTime(2026, 8, 6, 14, 30, 21, 846, DateTimeKind.Local).AddTicks(4824), 1L, null, null, null, true, false, null, null, "Ton" },
-                    { 11L, "TK", new DateTime(2026, 8, 6, 14, 30, 21, 846, DateTimeKind.Local).AddTicks(4847), 1L, null, null, null, true, false, null, null, "Takım" },
-                    { 12L, "CU", new DateTime(2026, 8, 6, 14, 30, 21, 846, DateTimeKind.Local).AddTicks(4849), 1L, null, null, null, true, false, null, null, "Çuval" },
-                    { 13L, "KM", new DateTime(2026, 8, 6, 14, 30, 21, 846, DateTimeKind.Local).AddTicks(4837), 1L, null, null, null, true, false, null, null, "Kilometre" },
-                    { 14L, "M2", new DateTime(2026, 8, 6, 14, 30, 21, 846, DateTimeKind.Local).AddTicks(4838), 1L, null, null, null, true, false, null, null, "Metrekare" },
-                    { 15L, "CM2", new DateTime(2026, 8, 6, 14, 30, 21, 846, DateTimeKind.Local).AddTicks(4839), 1L, null, null, null, true, false, null, null, "Santimetrekare" },
-                    { 16L, "M3", new DateTime(2026, 8, 6, 14, 30, 21, 846, DateTimeKind.Local).AddTicks(4840), 1L, null, null, null, true, false, null, null, "Metreküp" },
-                    { 17L, "MIC", new DateTime(2026, 8, 6, 14, 30, 21, 846, DateTimeKind.Local).AddTicks(4841), 1L, null, null, null, true, false, null, null, "Mikron" },
-                    { 18L, "GR/M2", new DateTime(2026, 8, 6, 14, 30, 21, 846, DateTimeKind.Local).AddTicks(4842), 1L, null, null, null, true, false, null, null, "Gram/Metrekare" },
-                    { 19L, "KG/M2", new DateTime(2026, 8, 6, 14, 30, 21, 846, DateTimeKind.Local).AddTicks(4843), 1L, null, null, null, true, false, null, null, "Kilogram/Metrekare" },
-                    { 20L, "KUT", new DateTime(2026, 8, 6, 14, 30, 21, 846, DateTimeKind.Local).AddTicks(4846), 1L, null, null, null, true, false, null, null, "Kutu" },
-                    { 21L, "TBK", new DateTime(2026, 8, 6, 14, 30, 21, 846, DateTimeKind.Local).AddTicks(4848), 1L, null, null, null, true, false, null, null, "Tabaka" },
-                    { 22L, "BDN", new DateTime(2026, 8, 6, 14, 30, 21, 846, DateTimeKind.Local).AddTicks(4850), 1L, null, null, null, true, false, null, null, "Bidon" },
-                    { 23L, "TNK", new DateTime(2026, 8, 6, 14, 30, 21, 846, DateTimeKind.Local).AddTicks(4851), 1L, null, null, null, true, false, null, null, "Teneke" },
-                    { 24L, "KOV", new DateTime(2026, 8, 6, 14, 30, 21, 846, DateTimeKind.Local).AddTicks(4852), 1L, null, null, null, true, false, null, null, "Kova" },
-                    { 25L, "DZ", new DateTime(2026, 8, 6, 14, 30, 21, 846, DateTimeKind.Local).AddTicks(4853), 1L, null, null, null, true, false, null, null, "Düzine" },
-                    { 26L, "DST", new DateTime(2026, 8, 6, 14, 30, 21, 846, DateTimeKind.Local).AddTicks(4854), 1L, null, null, null, true, false, null, null, "Deste" },
-                    { 27L, "OHM", new DateTime(2026, 8, 6, 14, 30, 21, 846, DateTimeKind.Local).AddTicks(4855), 1L, null, null, null, true, false, null, null, "Ohm" },
-                    { 28L, "KW", new DateTime(2026, 8, 6, 14, 30, 21, 846, DateTimeKind.Local).AddTicks(4855), 1L, null, null, null, true, false, null, null, "Kilowatt" },
-                    { 29L, "W", new DateTime(2026, 8, 6, 14, 30, 21, 846, DateTimeKind.Local).AddTicks(4856), 1L, null, null, null, true, false, null, null, "Watt" },
-                    { 30L, "SN", new DateTime(2026, 8, 6, 14, 30, 21, 846, DateTimeKind.Local).AddTicks(4857), 1L, null, null, null, true, false, null, null, "Saniye" },
-                    { 31L, "DK", new DateTime(2026, 8, 6, 14, 30, 21, 846, DateTimeKind.Local).AddTicks(4858), 1L, null, null, null, true, false, null, null, "Dakika" },
-                    { 32L, "SA", new DateTime(2026, 8, 6, 14, 30, 21, 846, DateTimeKind.Local).AddTicks(4859), 1L, null, null, null, true, false, null, null, "Saat" },
-                    { 33L, "GUN", new DateTime(2026, 8, 6, 14, 30, 21, 846, DateTimeKind.Local).AddTicks(4860), 1L, null, null, null, true, false, null, null, "Gün" }
+                    { 1L, "AD", new DateTime(2026, 8, 7, 21, 45, 25, 230, DateTimeKind.Local).AddTicks(7059), 1L, null, null, null, true, false, null, null, "Adet" },
+                    { 2L, "KG", new DateTime(2026, 8, 7, 21, 45, 25, 230, DateTimeKind.Local).AddTicks(7077), 1L, null, null, null, true, false, null, null, "Kilogram" },
+                    { 3L, "GR", new DateTime(2026, 8, 7, 21, 45, 25, 230, DateTimeKind.Local).AddTicks(7078), 1L, null, null, null, true, false, null, null, "Gram" },
+                    { 4L, "LT", new DateTime(2026, 8, 7, 21, 45, 25, 230, DateTimeKind.Local).AddTicks(7080), 1L, null, null, null, true, false, null, null, "Litre" },
+                    { 5L, "MT", new DateTime(2026, 8, 7, 21, 45, 25, 230, DateTimeKind.Local).AddTicks(7081), 1L, null, null, null, true, false, null, null, "Metre" },
+                    { 6L, "CM", new DateTime(2026, 8, 7, 21, 45, 25, 230, DateTimeKind.Local).AddTicks(7082), 1L, null, null, null, true, false, null, null, "Santimetre" },
+                    { 7L, "MM", new DateTime(2026, 8, 7, 21, 45, 25, 230, DateTimeKind.Local).AddTicks(7083), 1L, null, null, null, true, false, null, null, "Milimetre" },
+                    { 8L, "PK", new DateTime(2026, 8, 7, 21, 45, 25, 230, DateTimeKind.Local).AddTicks(7090), 1L, null, null, null, true, false, null, null, "Paket" },
+                    { 9L, "KL", new DateTime(2026, 8, 7, 21, 45, 25, 230, DateTimeKind.Local).AddTicks(7091), 1L, null, null, null, true, false, null, null, "Koli" },
+                    { 10L, "TON", new DateTime(2026, 8, 7, 21, 45, 25, 230, DateTimeKind.Local).AddTicks(7079), 1L, null, null, null, true, false, null, null, "Ton" },
+                    { 11L, "TK", new DateTime(2026, 8, 7, 21, 45, 25, 230, DateTimeKind.Local).AddTicks(7093), 1L, null, null, null, true, false, null, null, "Takım" },
+                    { 12L, "CU", new DateTime(2026, 8, 7, 21, 45, 25, 230, DateTimeKind.Local).AddTicks(7101), 1L, null, null, null, true, false, null, null, "Çuval" },
+                    { 13L, "KM", new DateTime(2026, 8, 7, 21, 45, 25, 230, DateTimeKind.Local).AddTicks(7084), 1L, null, null, null, true, false, null, null, "Kilometre" },
+                    { 14L, "M2", new DateTime(2026, 8, 7, 21, 45, 25, 230, DateTimeKind.Local).AddTicks(7085), 1L, null, null, null, true, false, null, null, "Metrekare" },
+                    { 15L, "CM2", new DateTime(2026, 8, 7, 21, 45, 25, 230, DateTimeKind.Local).AddTicks(7086), 1L, null, null, null, true, false, null, null, "Santimetrekare" },
+                    { 16L, "M3", new DateTime(2026, 8, 7, 21, 45, 25, 230, DateTimeKind.Local).AddTicks(7087), 1L, null, null, null, true, false, null, null, "Metreküp" },
+                    { 17L, "MIC", new DateTime(2026, 8, 7, 21, 45, 25, 230, DateTimeKind.Local).AddTicks(7088), 1L, null, null, null, true, false, null, null, "Mikron" },
+                    { 18L, "GR/M2", new DateTime(2026, 8, 7, 21, 45, 25, 230, DateTimeKind.Local).AddTicks(7088), 1L, null, null, null, true, false, null, null, "Gram/Metrekare" },
+                    { 19L, "KG/M2", new DateTime(2026, 8, 7, 21, 45, 25, 230, DateTimeKind.Local).AddTicks(7089), 1L, null, null, null, true, false, null, null, "Kilogram/Metrekare" },
+                    { 20L, "KUT", new DateTime(2026, 8, 7, 21, 45, 25, 230, DateTimeKind.Local).AddTicks(7092), 1L, null, null, null, true, false, null, null, "Kutu" },
+                    { 21L, "TBK", new DateTime(2026, 8, 7, 21, 45, 25, 230, DateTimeKind.Local).AddTicks(7100), 1L, null, null, null, true, false, null, null, "Tabaka" },
+                    { 22L, "BDN", new DateTime(2026, 8, 7, 21, 45, 25, 230, DateTimeKind.Local).AddTicks(7102), 1L, null, null, null, true, false, null, null, "Bidon" },
+                    { 23L, "TNK", new DateTime(2026, 8, 7, 21, 45, 25, 230, DateTimeKind.Local).AddTicks(7103), 1L, null, null, null, true, false, null, null, "Teneke" },
+                    { 24L, "KOV", new DateTime(2026, 8, 7, 21, 45, 25, 230, DateTimeKind.Local).AddTicks(7104), 1L, null, null, null, true, false, null, null, "Kova" },
+                    { 25L, "DZ", new DateTime(2026, 8, 7, 21, 45, 25, 230, DateTimeKind.Local).AddTicks(7105), 1L, null, null, null, true, false, null, null, "Düzine" },
+                    { 26L, "DST", new DateTime(2026, 8, 7, 21, 45, 25, 230, DateTimeKind.Local).AddTicks(7106), 1L, null, null, null, true, false, null, null, "Deste" },
+                    { 27L, "OHM", new DateTime(2026, 8, 7, 21, 45, 25, 230, DateTimeKind.Local).AddTicks(7107), 1L, null, null, null, true, false, null, null, "Ohm" },
+                    { 28L, "KW", new DateTime(2026, 8, 7, 21, 45, 25, 230, DateTimeKind.Local).AddTicks(7108), 1L, null, null, null, true, false, null, null, "Kilowatt" },
+                    { 29L, "W", new DateTime(2026, 8, 7, 21, 45, 25, 230, DateTimeKind.Local).AddTicks(7109), 1L, null, null, null, true, false, null, null, "Watt" },
+                    { 30L, "SN", new DateTime(2026, 8, 7, 21, 45, 25, 230, DateTimeKind.Local).AddTicks(7110), 1L, null, null, null, true, false, null, null, "Saniye" },
+                    { 31L, "DK", new DateTime(2026, 8, 7, 21, 45, 25, 230, DateTimeKind.Local).AddTicks(7111), 1L, null, null, null, true, false, null, null, "Dakika" },
+                    { 32L, "SA", new DateTime(2026, 8, 7, 21, 45, 25, 230, DateTimeKind.Local).AddTicks(7112), 1L, null, null, null, true, false, null, null, "Saat" },
+                    { 33L, "GUN", new DateTime(2026, 8, 7, 21, 45, 25, 230, DateTimeKind.Local).AddTicks(7113), 1L, null, null, null, true, false, null, null, "Gün" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -436,24 +392,13 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                 columns: new[] { "EntityName", "EntityId" });
 
             migrationBuilder.CreateIndex(
-                name: "IX_ColorFeature_Code",
-                table: "ColorFeature",
-                column: "Code",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ColorFeature_CreatedDate",
-                table: "ColorFeature",
+                name: "IX_CostParameters_CreatedDate",
+                table: "CostParameters",
                 column: "CreatedDate");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ColorFeature_IsActive",
-                table: "ColorFeature",
-                column: "IsActive");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ColorFeature_IsDeleted",
-                table: "ColorFeature",
+                name: "IX_CostParameters_IsDeleted",
+                table: "CostParameters",
                 column: "IsDeleted");
 
             migrationBuilder.CreateIndex(
@@ -482,27 +427,6 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                 column: "IsDeleted");
 
             migrationBuilder.CreateIndex(
-                name: "IX_GlassType_Code",
-                table: "GlassType",
-                column: "Code",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_GlassType_CreatedDate",
-                table: "GlassType",
-                column: "CreatedDate");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_GlassType_IsActive",
-                table: "GlassType",
-                column: "IsActive");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_GlassType_IsDeleted",
-                table: "GlassType",
-                column: "IsDeleted");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_ItemBarcodes_CreatedDate",
                 table: "ItemBarcodes",
                 column: "CreatedDate");
@@ -510,16 +434,6 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
             migrationBuilder.CreateIndex(
                 name: "IX_ItemBarcodes_IsDeleted",
                 table: "ItemBarcodes",
-                column: "IsDeleted");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MaliyetParametreleri_CreatedDate",
-                table: "MaliyetParametreleri",
-                column: "CreatedDate");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MaliyetParametreleri_IsDeleted",
-                table: "MaliyetParametreleri",
                 column: "IsDeleted");
 
             migrationBuilder.CreateIndex(
@@ -538,25 +452,39 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                 column: "IsDeleted");
 
             migrationBuilder.CreateIndex(
-                name: "IX_QualityStandard_Code",
-                table: "QualityStandard",
-                column: "Code",
-                unique: true);
+                name: "IX_MetalSheetGroups_BaseUnitId",
+                table: "MetalSheetGroups",
+                column: "BaseUnitId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_QualityStandard_CreatedDate",
-                table: "QualityStandard",
+                name: "IX_MetalSheetGroups_BranchId",
+                table: "MetalSheetGroups",
+                column: "BranchId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MetalSheetGroups_Code",
+                table: "MetalSheetGroups",
+                column: "Code");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MetalSheetGroups_CreatedDate",
+                table: "MetalSheetGroups",
                 column: "CreatedDate");
 
             migrationBuilder.CreateIndex(
-                name: "IX_QualityStandard_IsActive",
-                table: "QualityStandard",
+                name: "IX_MetalSheetGroups_IsActive",
+                table: "MetalSheetGroups",
                 column: "IsActive");
 
             migrationBuilder.CreateIndex(
-                name: "IX_QualityStandard_IsDeleted",
-                table: "QualityStandard",
+                name: "IX_MetalSheetGroups_IsDeleted",
+                table: "MetalSheetGroups",
                 column: "IsDeleted");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MetalSheetGroups_SpecialCodeId",
+                table: "MetalSheetGroups",
+                column: "SpecialCodeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SpecialCode_Code",
@@ -577,27 +505,6 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
             migrationBuilder.CreateIndex(
                 name: "IX_SpecialCode_IsDeleted",
                 table: "SpecialCode",
-                column: "IsDeleted");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SurfaceType_Code",
-                table: "SurfaceType",
-                column: "Code",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SurfaceType_CreatedDate",
-                table: "SurfaceType",
-                column: "CreatedDate");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SurfaceType_IsActive",
-                table: "SurfaceType",
-                column: "IsActive");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SurfaceType_IsDeleted",
-                table: "SurfaceType",
                 column: "IsDeleted");
 
             migrationBuilder.CreateIndex(
@@ -679,7 +586,7 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                 name: "AppDocuments");
 
             migrationBuilder.DropTable(
-                name: "ColorFeature");
+                name: "CostParameters");
 
             migrationBuilder.DropTable(
                 name: "ExchangeRates");
@@ -688,25 +595,13 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                 name: "GeneralExpenses");
 
             migrationBuilder.DropTable(
-                name: "GlassType");
-
-            migrationBuilder.DropTable(
                 name: "ItemBarcodes");
-
-            migrationBuilder.DropTable(
-                name: "MaliyetParametreleri");
 
             migrationBuilder.DropTable(
                 name: "MaterialCost");
 
             migrationBuilder.DropTable(
-                name: "QualityStandard");
-
-            migrationBuilder.DropTable(
-                name: "SpecialCode");
-
-            migrationBuilder.DropTable(
-                name: "SurfaceType");
+                name: "MetalSheetGroups");
 
             migrationBuilder.DropTable(
                 name: "SystemParameters");
@@ -716,6 +611,9 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
 
             migrationBuilder.DropTable(
                 name: "UnitConversions");
+
+            migrationBuilder.DropTable(
+                name: "SpecialCode");
 
             migrationBuilder.DropTable(
                 name: "Units");

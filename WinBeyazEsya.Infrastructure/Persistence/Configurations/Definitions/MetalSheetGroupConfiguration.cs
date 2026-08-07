@@ -4,11 +4,11 @@ using WinBeyazEsya.Domain.Entities.Definitions;
 
 namespace WinBeyazEsya.Infrastructure.Persistence.Configurations.Definitions;
 
-public class MetalSheetGroupConfiguration : IEntityTypeConfiguration<MetalSheetGroup>
+public class MetalSheetGroupConfiguration : IEntityTypeConfiguration<MetalSheetGroup>, ITenantEntityConfiguration
 {
     public void Configure(EntityTypeBuilder<MetalSheetGroup> builder)
     {
-        builder.ToTable("MetalSheetGroups", "Definitions");
+        builder.ToTable("MetalSheetGroups");
         builder.HasKey(x => x.Id);
         
         builder.Property(x => x.Code).IsRequired().HasMaxLength(100);

@@ -12,7 +12,7 @@ using WinBeyazEsya.Infrastructure.Persistence;
 namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.MasterDb
 {
     [DbContext(typeof(WinBeyazEsyaMasterContext))]
-    [Migration("20260806112959_InitialCatalog")]
+    [Migration("20260807183401_InitialCatalog")]
     partial class InitialCatalog
     {
         /// <inheritdoc />
@@ -132,15 +132,18 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.MasterDb
                     b.Property<long>("Id")
                         .HasColumnType("bigint");
 
+                    b.Property<long>("BranchId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("CodePrefix")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("CodeSuffix")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");

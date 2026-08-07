@@ -38,8 +38,6 @@ public static class ApplicationServiceRegistration
 
         services.AddScoped<IValidator<WinBeyazEsya.Application.DTOs.Common.ItemBarcodeDto>, WinBeyazEsya.Application.Validations.Common.ItemBarcodeValidator>();
         services.AddScoped<IValidator<WinBeyazEsya.Application.DTOs.Common.SpecialCodeDto>, WinBeyazEsya.Application.Validations.Common.SpecialCodeValidator>();
-        services.AddScoped<IValidator<WinBeyazEsya.Application.DTOs.Production.ColorFeatureDto>, WinBeyazEsya.Application.Validators.Production.ColorFeatureValidator>();
-        services.AddScoped<WinBeyazEsya.Application.Interfaces.Production.IColorFeatureService, WinBeyazEsya.Application.Services.Production.ColorFeatureManager>();
         
         
 
