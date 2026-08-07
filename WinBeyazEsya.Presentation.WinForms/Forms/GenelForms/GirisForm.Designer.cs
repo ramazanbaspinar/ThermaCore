@@ -172,7 +172,7 @@
             chcBeniHatirla.Location = new Point(6, 198);
             chcBeniHatirla.Name = "chcBeniHatirla";
             chcBeniHatirla.Properties.Caption = "Beni Hatırla";
-            chcBeniHatirla.Size = new Size(75, 20);
+            chcBeniHatirla.Size = new Size(92, 19);
             chcBeniHatirla.TabIndex = 0;
             // 
             // picExit
