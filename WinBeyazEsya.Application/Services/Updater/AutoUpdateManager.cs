@@ -61,13 +61,17 @@ namespace WinBeyazEsya.Application.Services.Updater
                 var manifest = JsonSerializer.Deserialize<UpdateManifestDto>(manifestJson, options);
                 
                 if (manifest == null)
+                {
+                    Serilog.Log.Warning("Güncelleme kontrolü: Manifest deserialization sonucu null döndü.");
                     return null;
-                    
+                }
+                
+                Serilog.Log.Information("Güncelleme kontrolü başarılı. Sunucudaki versiyon: {Version}", manifest.Version);
                 return manifest;
             }
             catch(Exception ex)
             {
-                global::System.Diagnostics.Debug.WriteLine($"CheckForUpdatesAsync Hatası:\n{ex.Message}");
+                Serilog.Log.Error(ex, "CheckForUpdatesAsync işleminde hata oluştu.");
                 return null;
             }
         }
@@ -78,11 +82,15 @@ namespace WinBeyazEsya.Application.Services.Updater
 
             try
             {
+                Serilog.Log.Information("Güncelleme dosyaları indirilmeye başlanıyor. Versiyon: {Version}", manifest.Version);
                 var systemParam = await _systemParameterService.GetSystemParameterAsync();
                 string serverUrl = systemParam?.GuncellemeYolu;
 
                 if (string.IsNullOrWhiteSpace(serverUrl))
+                {
+                    Serilog.Log.Warning("Güncelleme yolu (GuncellemeYolu) tanımlı değil, indirme işlemi iptal edildi.");
                     return false;
+                }
 
                 bool isHttp = serverUrl.StartsWith("http://", StringComparison.OrdinalIgnoreCase) ||
                               serverUrl.StartsWith("https://", StringComparison.OrdinalIgnoreCase);
@@ -151,10 +159,12 @@ namespace WinBeyazEsya.Application.Services.Updater
                 string json = JsonSerializer.Serialize(manifest, options);
                 File.WriteAllText(Path.Combine(tempFolder, "update_manifest.json"), json);
 
+                Serilog.Log.Information("Güncelleme paketleri başarıyla Temp klasörüne indirildi.");
                 return true;
             }
-            catch
+            catch (Exception ex)
             {
+                Serilog.Log.Error(ex, "DownloadUpdatesAsync sırasında bir hata oluştu.");
                 return false;
             }
         }

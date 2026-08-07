@@ -41,44 +41,71 @@ public abstract class BaseMasterManager<TListDto, TDto, TEntity>
 
     public virtual long Insert(TDto dto)
     {
-        if (_validator != null)
+        try
         {
-            _validator.ValidateAndThrow(dto);
-        }
+            if (_validator != null)
+            {
+                _validator.ValidateAndThrow(dto);
+            }
 
-        var entity = _mapper.Map<TEntity>(dto);
-        _repository.Add(entity);
-        _unitOfWork.SaveChanges();
-        return entity.Id;
+            var entity = _mapper.Map<TEntity>(dto);
+            _repository.Add(entity);
+            _unitOfWork.SaveChanges();
+            return entity.Id;
+        }
+        catch (ValidationException) { throw; }
+        catch (Exception ex)
+        {
+            Serilog.Log.Error(ex, "BaseMasterManager.Insert işlemi sırasında hata oluştu. Dto türü: {DtoType}", typeof(TDto).Name);
+            throw;
+        }
     }
 
     public virtual void Update(TDto dto)
     {
-        if (_validator != null)
+        try
         {
-            _validator.ValidateAndThrow(dto);
-        }
+            if (_validator != null)
+            {
+                _validator.ValidateAndThrow(dto);
+            }
 
-        var existingEntity = _repository.GetById(dto.Id);
-        if (existingEntity != null)
+            var existingEntity = _repository.GetById(dto.Id);
+            if (existingEntity != null)
+            {
+                _mapper.Map(dto, existingEntity);
+                _unitOfWork.SaveChanges();
+            }
+        }
+        catch (ValidationException) { throw; }
+        catch (Exception ex)
         {
-            _mapper.Map(dto, existingEntity);
-            _unitOfWork.SaveChanges();
+            Serilog.Log.Error(ex, "BaseMasterManager.Update işlemi sırasında hata oluştu. Dto türü: {DtoType}", typeof(TDto).Name);
+            throw;
         }
     }
 
     public virtual void Delete(long id)
     {
-        var entity = _repository.GetById(id);
-        if (entity != null)
+        try
         {
-            if (_repository.IsInUse(entity))
+            var entity = _repository.GetById(id);
+            if (entity != null)
             {
-                throw new InvalidOperationException("Güvenlik Kısıtlaması: Bu kayıt sistemde başka işlemler tarafından kullanılmaktadır ve silinemez! Listelerde görünmesini istemiyorsanız lütfen kaydı 'Pasif' duruma getirin.");
-            }
+                if (_repository.IsInUse(entity))
+                {
+                    throw new InvalidOperationException("Güvenlik Kısıtlaması: Bu kayıt sistemde başka işlemler tarafından kullanılmaktadır ve silinemez! Listelerde görünmesini istemiyorsanız lütfen kaydı 'Pasif' duruma getirin.");
+                }
 
-            _repository.Remove(entity);
-            _unitOfWork.SaveChanges();
+                _repository.Remove(entity);
+                _unitOfWork.SaveChanges();
+            }
+        }
+        catch (InvalidOperationException) { throw; }
+        catch (Exception ex)
+        {
+            Serilog.Log.Error(ex, "BaseMasterManager.Delete işlemi sırasında hata oluştu. Entity türü: {EntityType}, Id: {Id}", typeof(TEntity).Name, id);
+            throw;
         }
     }
 }

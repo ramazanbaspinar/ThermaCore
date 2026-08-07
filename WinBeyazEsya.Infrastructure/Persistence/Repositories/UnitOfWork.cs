@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using WinBeyazEsya.Application.Interfaces.Repositories;
 
 namespace WinBeyazEsya.Infrastructure.Persistence.Repositories;
@@ -14,12 +14,28 @@ public class UnitOfWork : IUnitOfWork
 
     public int SaveChanges()
     {
-        return _context.SaveChanges(); // Interceptorlarımız tetiklenecek
+        try
+        {
+            return _context.SaveChanges(); // Interceptorlarımız tetiklenecek
+        }
+        catch (global::System.Exception ex)
+        {
+            Serilog.Log.Error(ex, "Veritabanına kayıt işlemi sırasında (UnitOfWork) hata oluştu.");
+            throw;
+        }
     }
 
     public async Task<int> SaveChangesAsync()
     {
-        return await _context.SaveChangesAsync();
+        try
+        {
+            return await _context.SaveChangesAsync();
+        }
+        catch (global::System.Exception ex)
+        {
+            Serilog.Log.Error(ex, "Veritabanına asenkron kayıt işlemi sırasında (UnitOfWork) hata oluştu.");
+            throw;
+        }
     }
 }
 

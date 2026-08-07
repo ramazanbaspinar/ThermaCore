@@ -59,6 +59,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             // --- Kritik Güncelleme Kontrolü ---
             try
             {
+                Serilog.Log.Information("Giriş formu yüklendi. Güncelleme kontrolü yapılıyor...");
                 // GuncellemeYolu, Tenant DB'deki SystemParameter tablosunda olduğu için,
                 // henüz giriş yapılmamışken varsayılan bir Tenant ConnectionString'i atamamız gerekir.
                 var currentTenantService = Program.ServiceProvider.GetRequiredService<WinBeyazEsya.Application.Interfaces.System.ICurrentTenantService>();
@@ -73,6 +74,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
                 
                 if (manifest != null && manifest.Version != currentVersion)
                 {
+                    Serilog.Log.Information("Yeni versiyon bulundu. Mevcut: {CurrentVersion}, Yeni: {NewVersion}", currentVersion, manifest.Version);
                     this.Enabled = false; // Kullanıcının giriş yapmasını engelle
                     
                     using (var bildirimForm = new GuncellemeBildirimForm(currentVersion, manifest.Version, manifest.IsCritical))
@@ -138,7 +140,10 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
                     return; // Kodun devamının çalışmaması için
                 }
             }
-            catch { /* Hata durumunda devam et */ }
+            catch (Exception ex)
+            { 
+                Serilog.Log.Warning(ex, "Güncelleme kontrolü sırasında bir hata oluştu veya atlandı.");
+            }
             SkipUpdate:
             // --- Kritik Güncelleme Kontrolü Bitiş ---
 
@@ -257,6 +262,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
 
                 if (loginResult != null && loginResult.IsSuccess)
                 {
+                    Serilog.Log.Information("Giriş başarılı. Kullanıcı: {Username}, Şirket ID: {TenantId}", username, tenantId);
                     // Tenant Routing: Seçili şirketin veritabanı bağlantı cümlesini aktif (Scoped) Context'e ayarla
                     // _tenantService.SetCurrentTenantConnectionString(loginResult.TenantConnectionString);
 
@@ -307,16 +313,19 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
                 {
                     if (loginResult != null && !string.IsNullOrEmpty(loginResult.ErrorMessage))
                     {
+                        Serilog.Log.Warning("Giriş başarısız. Kullanıcı: {Username}, Neden: {ErrorMessage}", username, loginResult.ErrorMessage);
                         Messages.UyariBasligi(loginResult.ErrorMessage, "Uyarı");
                     }
                     else
                     {
+                        Serilog.Log.Warning("Giriş başarısız. Kullanıcı adı veya şifre hatalı. Kullanıcı: {Username}", username);
                         Messages.HataBasligi("Kullanıcı adı veya şifre hatalı.", "Hata");
                     }
                 }
             }
             catch (Exception ex)
             {
+                Serilog.Log.Error(ex, "Giriş işlemi sırasında beklenmeyen bir hata oluştu. Kullanıcı: {Username}", username);
                 if (ex.Message.StartsWith("Güvenlik İhlali"))
                     Messages.HataBasligi(ex.Message, "Erişim Engellendi");
                 else

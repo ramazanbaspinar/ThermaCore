@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using WinBeyazEsya.Application.Interfaces.Repositories;
 
@@ -19,8 +19,9 @@ public class MasterUnitOfWork : IMasterUnitOfWork
         {
             return _context.SaveChanges();
         }
-        catch (DbUpdateConcurrencyException)
+        catch (DbUpdateConcurrencyException ex)
         {
+            Serilog.Log.Error(ex, "MasterUnitOfWork.SaveChanges: Concurrency hatası oluştu.");
             throw new global::System.Exception("Bu kayıt siz işlemi başlatmadan önce başka bir kullanıcı (veya işlem) tarafından değiştirilmiş veya silinmiş. Lütfen kaydı yenileyerek işleminizi tekrar ediniz.");
         }
         catch (DbUpdateException ex)
@@ -36,8 +37,9 @@ public class MasterUnitOfWork : IMasterUnitOfWork
         {
             return await _context.SaveChangesAsync();
         }
-        catch (DbUpdateConcurrencyException)
+        catch (DbUpdateConcurrencyException ex)
         {
+            Serilog.Log.Error(ex, "MasterUnitOfWork.SaveChangesAsync: Concurrency hatası oluştu.");
             throw new global::System.Exception("Bu kayıt siz işlemi başlatmadan önce başka bir kullanıcı (veya işlem) tarafından değiştirilmiş veya silinmiş. Lütfen kaydı yenileyerek işleminizi tekrar ediniz.");
         }
         catch (DbUpdateException ex)
@@ -49,6 +51,7 @@ public class MasterUnitOfWork : IMasterUnitOfWork
 
     private void HandleDbUpdateException(DbUpdateException ex)
     {
+        Serilog.Log.Error(ex, "Master veritabanı kayıt işlemi (DbUpdateException) sırasında hata oluştu.");
         _context.ChangeTracker.Clear();
 
         var sqlEx = ex.InnerException as Microsoft.Data.SqlClient.SqlException ?? 

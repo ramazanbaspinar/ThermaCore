@@ -15,6 +15,7 @@ using WinBeyazEsya.Domain.Enums;
 using WinBeyazEsya.Infrastructure;
 using WinBeyazEsya.Infrastructure.Configuration;
 using WinBeyazEsya.Presentation.WinForms.Forms.GenelForms;
+using Serilog;
 
 namespace WinBeyazEsya.Presentation.WinForms;
 
@@ -26,280 +27,245 @@ internal static class Program
     [STAThread]
     static void Main()
     {
-        bool createdNew;
-        var mutex = new Mutex(true, "Global\\WinBeyazEsyaERP_SingleInstance_Mutex", out createdNew);
-
-        if (!createdNew)
+        // 1. Serilog Konfigürasyonu
+        string logDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs");
+        if (!Directory.Exists(logDir))
         {
-            MessageBox.Show("WinBeyazEsya ERP zaten çalışıyor! Lütfen açık olan uygulamayı kullanınız veya görev çubuğunu kontrol ediniz.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            return;
+            Directory.CreateDirectory(logDir);
         }
+
+        Serilog.Log.Logger = new Serilog.LoggerConfiguration()
+            .MinimumLevel.Information()
+            .WriteTo.File(
+                path: Path.Combine(logDir, "WinBeyazEsya_Log_.txt"),
+                rollingInterval: Serilog.RollingInterval.Day,
+                retainedFileCountLimit: 30,
+                outputTemplate: "[{Timestamp:yyyy-MM-dd HH:mm:ss}] [{Level:u3}] [{SourceContext}] {Message:lj} {Exception}{NewLine}")
+            .CreateLogger();
 
         try
         {
-            try
-        {
-            var cultureInfo = new CultureInfo("tr-TR");
-            Thread.CurrentThread.CurrentCulture = cultureInfo;
-            Thread.CurrentThread.CurrentUICulture = cultureInfo;
-            
-            CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
-            CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+            Serilog.Log.Information("Uygulama başlatılıyor...");
 
-            DevExpress.Utils.FormatInfo.AlwaysUseThreadFormat = true;
-        }
-        catch
-        {
-            // Kültür bulunamazsa program çökmek yerine varsayılan olarak çalışmaya devam etsin.
-        }
+            bool createdNew;
+            var mutex = new Mutex(true, "Global\\WinBeyazEsyaERP_SingleInstance_Mutex", out createdNew);
 
-        System.Windows.Forms.Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
-        System.Windows.Forms.Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(Application_ThreadException);
-        AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
-
-        ApplicationConfiguration.Initialize();
-
-        IAppConfigService configService = new AppConfigService();
-        string connectionString = configService.GetConnectionString();
-
-        bool isConnected = false;
-        if (!string.IsNullOrEmpty(connectionString))
-        {
-            try
+            if (!createdNew)
             {
-                using (var conn = new SqlConnection(connectionString))
-                {
-                    conn.Open();
-                    isConnected = true;
-                }
-            }
-            catch
-            {
-                isConnected = false;
-            }
-        }
-
-        if (!isConnected)
-        {
-            var entryAssembly = System.Reflection.Assembly.GetEntryAssembly()?.GetName().Name;
-            if (entryAssembly != null && (entryAssembly.StartsWith("ef") || entryAssembly.StartsWith("dotnet-ef")))
-            {
-                // EF Core aracı çalışıyorsa, WinForms'u bloke etmeden ilerlemesi için host'u oluşturmalıyız
-            }
-            else
-            {
-                // Kurulum sihirbazı ve veritabanı servisleri için bağımlılıkları manuel çözüyoruz
-                WinBeyazEsya.Application.Interfaces.System.ITenantDatabaseService tenantDbService = new WinBeyazEsya.Infrastructure.System.TenantDatabaseManager();
-                ITenantDatabaseSetupService sistemVeritabaniService = new WinBeyazEsya.Application.Services.System.TenantDatabaseSetupManager(null!, null!, tenantDbService, null!, null!, null!);
-
-                System.Windows.Forms.Application.Run(new BaglantiHataForm(configService, sistemVeritabaniService));
+                Serilog.Log.Warning("Uygulama zaten açık. İkinci instance engellendi.");
+                MessageBox.Show("WinBeyazEsya ERP zaten çalışıyor! Lütfen açık olan uygulamayı kullanınız veya görev çubuğunu kontrol ediniz.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-        }
 
-        var host = Host.CreateDefaultBuilder()
-            .ConfigureServices((context, services) =>
-            {
-                services.AddApplicationServices();
-                services.AddInfrastructureServices(connectionString);
-
-                services.AddTransient<GirisForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.GenelForms.AnaForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.SirketForms.SirketListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.SirketForms.SirketEditForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.FabrikaForms.FabrikaListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.FabrikaForms.FabrikaEditForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.CodeTemplateForms.KodSablonlariListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.CodeTemplateForms.KodSablonlariEditForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.KodYonetimForms.KodLogListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.KodYonetimForms.KodLogEditForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms.RolListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms.RolEditForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.KullaniciForms.KullaniciListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.KullaniciForms.KullaniciEditForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TerminalForms.TerminalListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TerminalForms.TerminalEditForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms.EmailParameterEditForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms.LisansBilgileriEditForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms.GenelParametrelerEditForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms.KullanıcıArayuzSablonlariListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.LisansForms.LisansAktivasyonForm>();
-                
-                // Definitions
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.GenelGiderForms.GenelGiderListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.GenelGiderForms.GenelGiderEditForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MaliyetParametreForms.MaliyetParametreEditForm>();                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.BirimForms.BirimListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.BirimForms.BirimEditForm>();
-                
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.KurlarForms.KurListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.KurlarForms.KurEditForm>();
-
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.VergiForms.VergiOraniListForm>();
-                services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.VergiForms.VergiOraniEditForm>();
-
-                // Production
-
-                
-
-
-
-            
-
-                
-
-
-
-
-
-                
-
-
-
-
-
-
-
-
-
-                
-            })
-            .Build();
-
-        ServiceProvider = host.Services;
-
-        using (var scope = host.Services.CreateScope())
-        {
-            var services = scope.ServiceProvider;
             try
             {
-                var licenseRepo = services.GetRequiredService<WinBeyazEsya.Application.Interfaces.Repositories.IMasterRepository<WinBeyazEsya.Domain.Entities.Management.SystemLicense>>();
-                var activeLicense = licenseRepo.Find(x => true).FirstOrDefault();
-                
-                var licenseValidator = services.GetRequiredService<WinBeyazEsya.Application.Interfaces.Security.ILicenseValidator>();
-
-                string key = activeLicense != null ? activeLicense.LicenseKey : "";
-                var licenseData = licenseValidator.ValidateLicense(key);
-
-                if (!licenseData.IsValid)
+                try
                 {
-                    MessageBox.Show(licenseData.ErrorMessage, "WinBeyazEsya Lisans Kalkanı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    var activationForm = services.GetRequiredService<WinBeyazEsya.Presentation.WinForms.Forms.LisansForms.LisansAktivasyonForm>();
-                    if (activationForm.ShowDialog() != DialogResult.OK)
+                    var cultureInfo = new CultureInfo("tr-TR");
+                    Thread.CurrentThread.CurrentCulture = cultureInfo;
+                    Thread.CurrentThread.CurrentUICulture = cultureInfo;
+                    
+                    CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+                    CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+
+                    DevExpress.Utils.FormatInfo.AlwaysUseThreadFormat = true;
+                }
+                catch (Exception ex)
+                {
+                    Serilog.Log.Warning(ex, "Kültür (Culture) ayarlanırken bir hata oluştu.");
+                }
+
+                System.Windows.Forms.Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
+                System.Windows.Forms.Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(Application_ThreadException);
+                AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+                System.Threading.Tasks.TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
+
+                ApplicationConfiguration.Initialize();
+
+                IAppConfigService configService = new AppConfigService();
+                string connectionString = configService.GetConnectionString();
+
+                bool isConnected = false;
+                if (!string.IsNullOrEmpty(connectionString))
+                {
+                    try
                     {
+                        using (var conn = new SqlConnection(connectionString))
+                        {
+                            conn.Open();
+                            isConnected = true;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Serilog.Log.Error(ex, "Veritabanı bağlantı testi başarısız oldu.");
+                        isConnected = false;
+                    }
+                }
+
+                if (!isConnected)
+                {
+                    var entryAssembly = System.Reflection.Assembly.GetEntryAssembly()?.GetName().Name;
+                    if (entryAssembly != null && (entryAssembly.StartsWith("ef") || entryAssembly.StartsWith("dotnet-ef")))
+                    {
+                        // EF Core aracı çalışıyorsa
+                    }
+                    else
+                    {
+                        WinBeyazEsya.Application.Interfaces.System.ITenantDatabaseService tenantDbService = new WinBeyazEsya.Infrastructure.System.TenantDatabaseManager();
+                        ITenantDatabaseSetupService sistemVeritabaniService = new WinBeyazEsya.Application.Services.System.TenantDatabaseSetupManager(null!, null!, tenantDbService, null!, null!, null!);
+
+                        System.Windows.Forms.Application.Run(new BaglantiHataForm(configService, sistemVeritabaniService));
                         return;
                     }
-                    
-                    // Aktivasyon başarılı olduysa lisansı tekrar doğrula
-                    activeLicense = licenseRepo.Find(x => true).FirstOrDefault();
-                    string updatedKey = activeLicense != null ? activeLicense.LicenseKey : "";
-                    licenseData = licenseValidator.ValidateLicense(updatedKey);
+                }
 
-                    if (!licenseData.IsValid)
+                var host = Host.CreateDefaultBuilder()
+                    .UseSerilog() // Serilog'u .NET Host mekanizmasına entegre et
+                    .ConfigureServices((context, services) =>
                     {
-                        return; // Olası bir hata durumunda güvenli çıkış
+                        services.AddApplicationServices();
+                        services.AddInfrastructureServices(connectionString);
+
+                        services.AddTransient<GirisForm>();
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.GenelForms.AnaForm>();
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.SirketForms.SirketListForm>();
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.SirketForms.SirketEditForm>();
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.FabrikaForms.FabrikaListForm>();
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.FabrikaForms.FabrikaEditForm>();
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.CodeTemplateForms.KodSablonlariListForm>();
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.CodeTemplateForms.KodSablonlariEditForm>();
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.KodYonetimForms.KodLogListForm>();
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.KodYonetimForms.KodLogEditForm>();
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms.RolListForm>();
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms.RolEditForm>();
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.KullaniciForms.KullaniciListForm>();
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.KullaniciForms.KullaniciEditForm>();
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TerminalForms.TerminalListForm>();
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TerminalForms.TerminalEditForm>();
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms.EmailParameterEditForm>();
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms.LisansBilgileriEditForm>();
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms.GenelParametrelerEditForm>();
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms.KullanıcıArayuzSablonlariListForm>();
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.LisansForms.LisansAktivasyonForm>();
+                        
+                        // Definitions
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.GenelGiderForms.GenelGiderListForm>();
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.GenelGiderForms.GenelGiderEditForm>();
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MaliyetParametreForms.MaliyetParametreEditForm>();                
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.BirimForms.BirimListForm>();
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.BirimForms.BirimEditForm>();
+                        
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.KurlarForms.KurListForm>();
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.KurlarForms.KurEditForm>();
+
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.VergiForms.VergiOraniListForm>();
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.VergiForms.VergiOraniEditForm>();
+                    })
+                    .Build();
+
+                ServiceProvider = host.Services;
+
+                using (var scope = host.Services.CreateScope())
+                {
+                    var services = scope.ServiceProvider;
+                    try
+                    {
+                        var licenseRepo = services.GetRequiredService<WinBeyazEsya.Application.Interfaces.Repositories.IMasterRepository<WinBeyazEsya.Domain.Entities.Management.SystemLicense>>();
+                        var activeLicense = licenseRepo.Find(x => true).FirstOrDefault();
+                        
+                        var licenseValidator = services.GetRequiredService<WinBeyazEsya.Application.Interfaces.Security.ILicenseValidator>();
+
+                        string key = activeLicense != null ? activeLicense.LicenseKey : "";
+                        var licenseData = licenseValidator.ValidateLicense(key);
+
+                        if (!licenseData.IsValid)
+                        {
+                            Serilog.Log.Warning("Lisans geçersiz: {ErrorMessage}", licenseData.ErrorMessage);
+                            MessageBox.Show(licenseData.ErrorMessage, "WinBeyazEsya Lisans Kalkanı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            var activationForm = services.GetRequiredService<WinBeyazEsya.Presentation.WinForms.Forms.LisansForms.LisansAktivasyonForm>();
+                            if (activationForm.ShowDialog() != DialogResult.OK)
+                            {
+                                return;
+                            }
+                            
+                            // Aktivasyon başarılı olduysa lisansı tekrar doğrula
+                            activeLicense = licenseRepo.Find(x => true).FirstOrDefault();
+                            string updatedKey = activeLicense != null ? activeLicense.LicenseKey : "";
+                            licenseData = licenseValidator.ValidateLicense(updatedKey);
+
+                            if (!licenseData.IsValid)
+                            {
+                                return; // Olası bir hata durumunda güvenli çıkış
+                            }
+                        }
+
+                        licenseValidator.UpdateLastKnownGoodTime();
+
+                        var seederService = services.GetRequiredService<IDatabaseSeederService>();
+                        seederService.SeedAsync(true).GetAwaiter().GetResult();
+                    }
+                    catch (Exception ex)
+                    {
+                        Serilog.Log.Fatal(ex, "Başlangıç servisleri yüklenirken kritik bir hata oluştu.");
+                        string errMsg = ex.Message;
+                        if (ex.InnerException != null)
+                        {
+                            errMsg += "\nInner Exception: " + ex.InnerException.Message;
+                        }
+                        MessageBox.Show($"Başlangıç hatası: {errMsg}", "WinBeyazEsya", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
                     }
                 }
 
-                licenseValidator.UpdateLastKnownGoodTime();
-
-                var seederService = services.GetRequiredService<IDatabaseSeederService>();
-                seederService.SeedAsync(true).GetAwaiter().GetResult();
-            }
-            catch (Exception ex)
-            {
-                string errMsg = ex.Message;
-                if (ex.InnerException != null)
+                var entryAssembly2 = System.Reflection.Assembly.GetEntryAssembly()?.GetName().Name;
+                if (entryAssembly2 != null && (entryAssembly2.StartsWith("ef") || entryAssembly2.StartsWith("dotnet-ef")))
                 {
-                    errMsg += "\nInner Exception: " + ex.InnerException.Message;
+                    return;
                 }
-                MessageBox.Show($"Başlangıç hatası: {errMsg}", "WinBeyazEsya", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+
+                var mainForm = host.Services.GetRequiredService<GirisForm>();
+                System.Windows.Forms.Application.Run(mainForm);
+            }
+            finally
+            {
+                mutex.ReleaseMutex();
+                mutex.Dispose();
             }
         }
-
-        var entryAssembly2 = System.Reflection.Assembly.GetEntryAssembly()?.GetName().Name;
-        if (entryAssembly2 != null && (entryAssembly2.StartsWith("ef") || entryAssembly2.StartsWith("dotnet-ef")))
+        catch (Exception ex)
         {
-            return;
-        }
-
-        var mainForm = host.Services.GetRequiredService<GirisForm>();
-        System.Windows.Forms.Application.Run(mainForm);
+            Serilog.Log.Fatal(ex, "Uygulama çalıştırılırken beklenmeyen bir çökme yaşandı (Main bloğu).");
         }
         finally
         {
-            mutex.ReleaseMutex();
-            mutex.Dispose();
+            Serilog.Log.Information("Uygulama sonlandırıldı.");
+            Serilog.Log.CloseAndFlush();
         }
     }
 
     private static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
     {
-        HandleException(e.Exception);
+        HandleException(e.Exception, "UI Thread (Application_ThreadException)");
     }
 
     private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
     {
         if (e.ExceptionObject is Exception ex)
         {
-            HandleException(ex);
+            HandleException(ex, "Background Thread (CurrentDomain_UnhandledException)");
         }
     }
 
-    private static void HandleException(Exception ex)
+    private static void TaskScheduler_UnobservedTaskException(object? sender, System.Threading.Tasks.UnobservedTaskExceptionEventArgs e)
     {
-        try
-        {
-            string logDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs");
-            if (!Directory.Exists(logDir))
-            {
-                Directory.CreateDirectory(logDir);
-            }
+        HandleException(e.Exception, "Unobserved Task (TaskScheduler_UnobservedTaskException)");
+        e.SetObserved(); // Uygulamanın çökmesini engelle
+    }
 
-            string logFile = Path.Combine(logDir, $"ErrorLog_{DateTime.Now:yyyyMMdd}.txt");
-            string logContent = $"[{DateTime.Now:dd.MM.yyyy HH:mm:ss}] ERROR: {ex.Message}{Environment.NewLine}STACK TRACE:{Environment.NewLine}{ex.StackTrace}{Environment.NewLine}--------------------------------------------------{Environment.NewLine}";
-            
-            File.AppendAllText(logFile, logContent);
-        }
-        catch { }
+    private static void HandleException(Exception ex, string source)
+    {
+        Serilog.Log.Fatal(ex, "Sistemde beklenmeyen bir hata oluştu. Kaynak: {ErrorSource}", source);
 
         string userMessage = ex.Message;
         if (ex.InnerException != null)
@@ -314,4 +280,3 @@ internal static class Program
         WinBeyazEsya.Presentation.WinForms.Helpers.Messages.HataMesaji(userMessage);
     }
 }
-

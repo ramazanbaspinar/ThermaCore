@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -74,49 +74,76 @@ public abstract class BaseManager<TListDto, TDto, TEntity>
 
     public virtual long Insert(TDto dto)
     {
-        if (_validator != null)
+        try
         {
-            _validator.ValidateAndThrow(dto);
+            if (_validator != null)
+            {
+                _validator.ValidateAndThrow(dto);
+            }
+
+            CheckBusinessRules(dto);
+
+            var entity = _mapper.Map<TEntity>(dto);
+            _repository.Add(entity);
+            _unitOfWork.SaveChanges();
+            return entity.Id;
         }
-
-        CheckBusinessRules(dto);
-
-        var entity = _mapper.Map<TEntity>(dto);
-        _repository.Add(entity);
-        _unitOfWork.SaveChanges();
-        return entity.Id;
+        catch (ValidationException) { throw; }
+        catch (Exception ex)
+        {
+            Serilog.Log.Error(ex, "BaseManager.Insert işlemi sırasında hata oluştu. Dto türü: {DtoType}", typeof(TDto).Name);
+            throw;
+        }
     }
 
     public virtual void Update(TDto dto)
     {
-        if (_validator != null)
+        try
         {
-            _validator.ValidateAndThrow(dto);
+            if (_validator != null)
+            {
+                _validator.ValidateAndThrow(dto);
+            }
+
+            CheckBusinessRules(dto);
+
+            var existingEntity = _repository.GetById(dto.Id);
+            if (existingEntity != null)
+            {
+                _mapper.Map(dto, existingEntity);
+                _repository.Update(existingEntity);
+                _unitOfWork.SaveChanges();
+            }
         }
-
-        CheckBusinessRules(dto);
-
-        var existingEntity = _repository.GetById(dto.Id);
-        if (existingEntity != null)
+        catch (ValidationException) { throw; }
+        catch (Exception ex)
         {
-            _mapper.Map(dto, existingEntity);
-            _repository.Update(existingEntity);
-            _unitOfWork.SaveChanges();
+            Serilog.Log.Error(ex, "BaseManager.Update işlemi sırasında hata oluştu. Dto türü: {DtoType}", typeof(TDto).Name);
+            throw;
         }
     }
 
     public virtual void Delete(long id)
     {
-        var entity = _repository.GetById(id);
-        if (entity != null)
+        try
         {
-            if (_repository.IsInUse(entity))
+            var entity = _repository.GetById(id);
+            if (entity != null)
             {
-                throw new InvalidOperationException("Güvenlik Kısıtlaması: Bu kayıt sistemde başka işlemler tarafından kullanılmaktadır ve silinemez! Listelerde görünmesini istemiyorsanız lütfen kaydı 'Pasif' duruma getirin.");
-            }
+                if (_repository.IsInUse(entity))
+                {
+                    throw new InvalidOperationException("Güvenlik Kısıtlaması: Bu kayıt sistemde başka işlemler tarafından kullanılmaktadır ve silinemez! Listelerde görünmesini istemiyorsanız lütfen kaydı 'Pasif' duruma getirin.");
+                }
 
-            _repository.Remove(entity);
-            _unitOfWork.SaveChanges();
+                _repository.Remove(entity);
+                _unitOfWork.SaveChanges();
+            }
+        }
+        catch (InvalidOperationException) { throw; }
+        catch (Exception ex)
+        {
+            Serilog.Log.Error(ex, "BaseManager.Delete işlemi sırasında hata oluştu. Entity türü: {EntityType}, Id: {Id}", typeof(TEntity).Name, id);
+            throw;
         }
     }
 }
