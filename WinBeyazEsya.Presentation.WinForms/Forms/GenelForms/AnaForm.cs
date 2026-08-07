@@ -281,15 +281,11 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
                             }
                             else if (manifest != null && manifest.Version == currentVersion)
                             {
-                                // Günceliz! Sürüm notları daha önce gösterilmediyse göster
-                                string versionFilePath = System.IO.Path.Combine(appPath, "last_version.txt");
-                                string lastRunVersion = "";
-                                if (System.IO.File.Exists(versionFilePath))
-                                {
-                                    lastRunVersion = System.IO.File.ReadAllText(versionFilePath);
-                                }
+                                // Günceliz! Sürüm notları daha önce gösterilmediyse göster (kullanıcı bazlı)
+                                var appConfigService = _serviceProvider.GetService<WinBeyazEsya.Application.Interfaces.Configuration.IAppConfigService>();
+                                string lastSeenVersion = appConfigService?.GetLastSeenVersion() ?? "";
 
-                                if (lastRunVersion != currentVersion && manifest.ReleaseNotes != null && manifest.ReleaseNotes.Count > 0)
+                                if (lastSeenVersion != currentVersion && manifest.ReleaseNotes != null && manifest.ReleaseNotes.Count > 0)
                                 {
                                     this.Invoke((System.Windows.Forms.MethodInvoker)delegate
                                     {
@@ -298,10 +294,10 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
                                             notesForm.ShowDialog(this);
                                         }
                                         
-                                        // Versiyon bilgisini dosyaya kaydet
+                                        // Kullanıcı ayarına mevcut versiyonu kaydet
                                         try 
                                         { 
-                                            System.IO.File.WriteAllText(versionFilePath, currentVersion);
+                                            appConfigService?.SetLastSeenVersion(currentVersion);
                                         } 
                                         catch { }
                                     });

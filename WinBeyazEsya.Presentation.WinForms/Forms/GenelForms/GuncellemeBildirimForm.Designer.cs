@@ -230,10 +230,15 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             // 
             // btnDahaSonra
             // 
+            this.btnDahaSonra.Appearance.BackColor = System.Drawing.Color.FromArgb(55, 55, 60);
             this.btnDahaSonra.Appearance.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.btnDahaSonra.Appearance.ForeColor = System.Drawing.Color.FromArgb(180, 180, 190);
+            this.btnDahaSonra.Appearance.ForeColor = System.Drawing.Color.FromArgb(230, 230, 240);
+            this.btnDahaSonra.Appearance.BorderColor = System.Drawing.Color.FromArgb(120, 120, 130);
+            this.btnDahaSonra.Appearance.Options.UseBackColor = true;
             this.btnDahaSonra.Appearance.Options.UseFont = true;
             this.btnDahaSonra.Appearance.Options.UseForeColor = true;
+            this.btnDahaSonra.Appearance.Options.UseBorderColor = true;
+            this.btnDahaSonra.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple;
             this.btnDahaSonra.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnDahaSonra.Location = new System.Drawing.Point(370, 22);
             this.btnDahaSonra.Name = "btnDahaSonra";

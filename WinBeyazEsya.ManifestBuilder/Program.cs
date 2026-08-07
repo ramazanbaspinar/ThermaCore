@@ -4,11 +4,33 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 
 namespace WinBeyazEsya.ManifestBuilder
 {
     class Program
     {
+        // Kara Liste: Bu dosya/uzantı/klasörler manifest'e eklenmez ve hedefe kopyalanmaz
+        private static readonly HashSet<string> _blacklistExactFiles = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+        {
+            "license.lic",
+            "update_config.json",
+            "update_manifest.json"
+        };
+
+        private static readonly string[] _blacklistExtensions = { ".pdb", ".xml", ".config" };
+
+        private static readonly string[] _blacklistPrefixes = { "logs\\", "logs/", "temp\\", "temp/", "update_backups\\", "update_backups/" };
+
+        private static bool IsBlacklisted(string relativePath)
+        {
+            string fileName = Path.GetFileName(relativePath);
+            if (_blacklistExactFiles.Contains(fileName)) return true;
+            if (_blacklistExtensions.Any(ext => relativePath.EndsWith(ext, StringComparison.OrdinalIgnoreCase))) return true;
+            if (_blacklistPrefixes.Any(p => relativePath.StartsWith(p, StringComparison.OrdinalIgnoreCase))) return true;
+            return false;
+        }
+
         static void Main(string[] args)
         {
             try
@@ -43,7 +65,7 @@ namespace WinBeyazEsya.ManifestBuilder
                     Console.WriteLine("Lütfen paketlenecek dosyaların bulunduğu Kaynak Klasörü girin:");
                     sourceDir = GetCleanPathFromConsole();
 
-                    Console.WriteLine("\nYeni Versiyon Numarasını girin (Örn: 1.0.5):");
+                    Console.WriteLine("\nYeni Versiyon Numarasını girin (Örn: 1.0.5.0):");
                     version = Console.ReadLine()?.Trim();
 
                     Console.WriteLine("\nManifest ve Çıktı Dosyalarının kaydedileceği Hedef Klasörü girin:");
@@ -73,6 +95,16 @@ namespace WinBeyazEsya.ManifestBuilder
                     return;
                 }
 
+                // Kaynak ve hedef aynı klasörse kopyalama yapma (güvenlik kontrolü)
+                string normalizedSource = Path.GetFullPath(sourceDir).TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+                string normalizedOutput = Path.GetFullPath(outputDir).TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+                bool isSameDirectory = string.Equals(normalizedSource, normalizedOutput, StringComparison.OrdinalIgnoreCase);
+
+                if (isSameDirectory)
+                {
+                    Console.WriteLine("\nUYARI: Kaynak ve hedef klasör aynı! Dosyalar kopyalanmayacak, sadece manifest oluşturulacak.");
+                }
+
                 Console.WriteLine("\nPaketleme işlemi başlatılıyor...");
                 var manifest = new UpdateManifest
                 {
@@ -83,16 +115,21 @@ namespace WinBeyazEsya.ManifestBuilder
                 };
 
                 var files = Directory.GetFiles(sourceDir, "*.*", SearchOption.AllDirectories);
-                Console.WriteLine($"{files.Length} dosya tarandı, Hash'ler hesaplanıyor...");
+                Console.WriteLine($"{files.Length} dosya tarandı, Kara Liste filtreleniyor ve Hash'ler hesaplanıyor...");
 
                 int copyCount = 0;
+                int skippedCount = 0;
                 foreach (var file in files)
                 {
-                    // Gereksiz dosyaları atla
-                    if (file.EndsWith("update_manifest.json", StringComparison.OrdinalIgnoreCase)) continue;
-
                     var fileInfo = new FileInfo(file);
                     string relativePath = GetRelativePath(sourceDir, file).Replace('\\', '/');
+
+                    // Kara Liste kontrolü
+                    if (IsBlacklisted(relativePath))
+                    {
+                        skippedCount++;
+                        continue;
+                    }
 
                     string hash = ComputeSha256Hash(file);
                     manifest.Files.Add(new ManifestFile
@@ -103,12 +140,15 @@ namespace WinBeyazEsya.ManifestBuilder
                     });
 
                     // Dosyayı hedef klasöre fiziksel olarak kopyala (klasör yapısını koru)
-                    string destPath = Path.Combine(outputDir, relativePath.Replace('/', Path.DirectorySeparatorChar));
-                    Directory.CreateDirectory(Path.GetDirectoryName(destPath)!);
-                    File.Copy(file, destPath, true);
+                    if (!isSameDirectory)
+                    {
+                        string destPath = Path.Combine(outputDir, relativePath.Replace('/', Path.DirectorySeparatorChar));
+                        Directory.CreateDirectory(Path.GetDirectoryName(destPath)!);
+                        File.Copy(file, destPath, true);
+                    }
                     copyCount++;
 
-                    Console.Write($"\r  İşleniyor: {copyCount}/{files.Length}");
+                    Console.Write($"\r  İşleniyor: {copyCount}/{files.Length - skippedCount}");
                 }
 
                 Console.WriteLine(); // Yeni satıra geç
@@ -123,7 +163,10 @@ namespace WinBeyazEsya.ManifestBuilder
 
                 File.WriteAllText(manifestPath, json);
 
-                Console.WriteLine($"\nBAŞARILI: {manifest.Files.Count} dosya kopyalandı ve manifest oluşturuldu -> {manifestPath}");
+                Console.WriteLine($"\nBAŞARILI: {manifest.Files.Count} dosya işlendi, {skippedCount} dosya Kara Liste ile atlandı.");
+                if (!isSameDirectory)
+                    Console.WriteLine($"Dosyalar hedefe kopyalandı: {outputDir}");
+                Console.WriteLine($"Manifest oluşturuldu: {manifestPath}");
             }
             catch (Exception ex)
             {

@@ -12,5 +12,7 @@ public interface IAppConfigService
     void SetLastBranchId(long branchId);
     bool GetAskBranchAtStartup();
     void SetAskBranchAtStartup(bool ask);
+    string GetLastSeenVersion();
+    void SetLastSeenVersion(string version);
 }
 

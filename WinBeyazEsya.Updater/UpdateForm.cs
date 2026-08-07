@@ -49,7 +49,7 @@ namespace WinBeyazEsya.Updater
                 return;
             }
 
-            await Task.Run(() => PerformUpdateWorker());
+            await Task.Run(async () => await PerformUpdateWorkerAsync());
         }
 
         private void UpdateStatus(string message, int progress)
@@ -61,7 +61,10 @@ namespace WinBeyazEsya.Updater
             }
             this._lblStatus.Text = message;
             if (progress >= 0 && progress <= 100)
+            {
                 this._progressBar.Value = progress;
+                this.lblPercent.Text = $"%{progress}";
+            }
         }
 
         private bool IsExcluded(string relativePath)
@@ -72,13 +75,13 @@ namespace WinBeyazEsya.Updater
             return false;
         }
 
-        private void PerformUpdateWorker()
+        private async Task PerformUpdateWorkerAsync()
         {
             bool success = false;
             try
             {
                 UpdateStatus("Uygulamanın kapanması bekleniyor...", 5);
-                GracefulKillApp("WinBeyazEsya.Presentation.WinForms");
+                await GracefulKillAppAsync("WinBeyazEsya");
 
                 // Temp klasörünü hazırla
                 if (Directory.Exists(_tempFolder))
@@ -98,7 +101,7 @@ namespace WinBeyazEsya.Updater
                     using (HttpClient client = new HttpClient())
                     {
                         string manifestUrl = _serverUrl + "/update_manifest.json";
-                        DownloadFile(client, manifestUrl, manifestTempPath);
+                        await DownloadFileAsync(client, manifestUrl, manifestTempPath);
                     }
                 }
                 else
@@ -138,7 +141,7 @@ namespace WinBeyazEsya.Updater
                         {
                             UpdateStatus($"☁️ Buluttan indiriliyor... ({count + 1}/{totalFiles})", 10 + (20 * count / totalFiles));
                             string fileUrl = _serverUrl + "/" + mf.Path.Replace('\\', '/');
-                            DownloadFile(client, fileUrl, tempPath);
+                            await DownloadFileAsync(client, fileUrl, tempPath);
                         }
                         else
                         {
@@ -229,11 +232,11 @@ namespace WinBeyazEsya.Updater
                         }
                         catch (IOException)
                         {
-                            GracefulKillApp("WinBeyazEsya.Presentation.WinForms", true);
+                            await GracefulKillAppAsync("WinBeyazEsya.Presentation.WinForms", true);
                         }
                         catch (UnauthorizedAccessException)
                         {
-                            GracefulKillApp("WinBeyazEsya.Presentation.WinForms", true);
+                            await GracefulKillAppAsync("WinBeyazEsya.Presentation.WinForms", true);
                         }
                     }
                     
@@ -263,9 +266,9 @@ namespace WinBeyazEsya.Updater
             finally
             {
                 // Her durumda ERP'yi yeniden başlat ve Updater'ı kapat
-                System.Threading.Thread.Sleep(1500);
+                await Task.Delay(1500);
                 
-                string exePath = Path.Combine(_appPath, "WinBeyazEsya.Presentation.WinForms.exe");
+                string exePath = Path.Combine(_appPath, "WinBeyazEsya.exe");
                 if (File.Exists(exePath))
                 {
                     Process.Start(new ProcessStartInfo
@@ -280,13 +283,13 @@ namespace WinBeyazEsya.Updater
             }
         }
 
-        private void DownloadFile(HttpClient client, string url, string destPath)
+        private async Task DownloadFileAsync(HttpClient client, string url, string destPath)
         {
-            var response = client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead).Result;
+            var response = await client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead);
             response.EnsureSuccessStatusCode();
             using (var fs = new FileStream(destPath, FileMode.Create, FileAccess.Write, FileShare.None))
             {
-                response.Content.CopyToAsync(fs).Wait();
+                await response.Content.CopyToAsync(fs);
             }
         }
 
@@ -322,7 +325,7 @@ namespace WinBeyazEsya.Updater
             catch { }
         }
 
-        private void GracefulKillApp(string processName, bool forceKill = false)
+        private async Task GracefulKillAppAsync(string processName, bool forceKill = false)
         {
             var processes = Process.GetProcessesByName(processName);
             if (processes.Length == 0) return;
@@ -341,7 +344,7 @@ namespace WinBeyazEsya.Updater
 
             if (!forceKill)
             {
-                System.Threading.Thread.Sleep(3000);
+                await Task.Delay(3000);
             }
 
             processes = Process.GetProcessesByName(processName);

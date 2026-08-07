@@ -115,6 +115,18 @@ public class AppConfigService : IAppConfigService
         SaveSettings(settings);
     }
 
+    public string GetLastSeenVersion()
+    {
+        return LoadSettings().LastSeenVersion;
+    }
+
+    public void SetLastSeenVersion(string version)
+    {
+        var settings = LoadSettings();
+        settings.LastSeenVersion = version ?? string.Empty;
+        SaveSettings(settings);
+    }
+
     private class SettingsModel
     {
         public string LastLoginUser { get; set; } = string.Empty;
@@ -122,6 +134,7 @@ public class AppConfigService : IAppConfigService
         public long LastBranchId { get; set; } = 0;
         public bool AskBranchAtStartup { get; set; } = true;
         public string ConnectionString { get; set; } = string.Empty;
+        public string LastSeenVersion { get; set; } = string.Empty;
     }
 }
 

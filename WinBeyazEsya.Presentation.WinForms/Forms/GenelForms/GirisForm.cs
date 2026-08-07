@@ -146,11 +146,11 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
             if (version != null)
             {
-                lblVersiyon.Text = $"Versiyon: {version.Major}.{version.Minor}.{version.Build}";
+                lblVersiyon.Text = $"Versiyon: {version.Major}.{version.Minor}.{version.Build}.{version.Revision}";
             }
             else
             {
-                lblVersiyon.Text = "Versiyon: 1.0.0";
+                lblVersiyon.Text = "Versiyon: 1.0.0.0";
             }
 
             // 2. Lisans Formatlaması (Karmaşık hash'i UI'da gösterme)
