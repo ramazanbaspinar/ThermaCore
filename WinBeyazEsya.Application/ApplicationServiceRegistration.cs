@@ -78,6 +78,10 @@ public static class ApplicationServiceRegistration
         
         services.AddScoped<IValidator<WinBeyazEsya.Application.DTOs.Definitions.GeneralExpenseDto>, WinBeyazEsya.Application.Validations.Definitions.GeneralExpenseValidator>();
         services.AddScoped<WinBeyazEsya.Application.Interfaces.Definitions.IGeneralExpenseService, WinBeyazEsya.Application.Services.Definitions.GeneralExpenseManager>();
+        
+        services.AddScoped<IValidator<WinBeyazEsya.Application.DTOs.Definitions.MetalSheetGroupDto>, WinBeyazEsya.Application.Validators.Definitions.MetalSheetGroupValidator>();
+        services.AddScoped<WinBeyazEsya.Application.Interfaces.Definitions.IMetalSheetGroupService, WinBeyazEsya.Application.Services.Definitions.MetalSheetGroupManager>();
+        
         services.AddScoped<WinBeyazEsya.Application.Interfaces.Management.ISystemParameterService, WinBeyazEsya.Application.Services.Management.SystemParameterManager>();
         services.AddScoped<WinBeyazEsya.Application.Interfaces.Updater.IAutoUpdateService, WinBeyazEsya.Application.Services.Updater.AutoUpdateManager>();        
         return services;

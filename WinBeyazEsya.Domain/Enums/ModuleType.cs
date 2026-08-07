@@ -109,6 +109,11 @@ public enum ModuleType
     [ParentModule(TemelTanimlar)]
     OtvOranlari = 14,
 
+    [Description("Metal ve Sac Grubu")]
+    [ParentModule(TemelTanimlar)]
+    [RequiresCodeTemplate]
+    MetalVeSacGrubu = 17,
+
 
     // MODÜLLER (Ekranlar) - MALİYETLER
     [Description("Genel Giderler")]
