@@ -42,6 +42,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.OzelKodForms
             
             string entityNameTr = _entityType switch
             {
+                "MetalSheetGroup" => "Metal ve Sac Grubu",
                 "Screw" => "Vida",
                 "GasValve" => "Gaz Musluğu",
                 "Burner" => "Bek Grubu",

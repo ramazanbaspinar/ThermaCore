@@ -233,18 +233,6 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.MetalVeSacGrubu
 
             glufTemelBirim.SearchButtonClicked += glufTemelBirim_SearchButtonClicked;
             glufOzelKod.SearchButtonClicked += glufOzelKod_SearchButtonClicked;
-
-            if (txtKod != null) txtKod.EditValueChanged += (s, e) => ButonEnabledDurumu();
-            if (txtMalzemeAdi != null) txtMalzemeAdi.EditValueChanged += (s, e) => ButonEnabledDurumu();
-            if (glufTemelBirim != null) glufTemelBirim.EditValueChanged += (s, e) => ButonEnabledDurumu();
-            if (glufOzelKod != null) glufOzelKod.EditValueChanged += (s, e) => ButonEnabledDurumu();
-            if (txtYuzeyTipi != null) txtYuzeyTipi.EditValueChanged += (s, e) => ButonEnabledDurumu();
-            if (txtKaliteKodu != null) txtKaliteKodu.EditValueChanged += (s, e) => ButonEnabledDurumu();
-            if (txtEn != null) txtEn.EditValueChanged += (s, e) => ButonEnabledDurumu();
-            if (txtBoy != null) txtBoy.EditValueChanged += (s, e) => ButonEnabledDurumu();
-            if (txtKalinlik != null) txtKalinlik.EditValueChanged += (s, e) => ButonEnabledDurumu();
-            if (txtAciklama != null) txtAciklama.EditValueChanged += (s, e) => ButonEnabledDurumu();
-            if (tglDurum != null) tglDurum.EditValueChanged += (s, e) => ButonEnabledDurumu();
         }
 
         private void glufTemelBirim_SearchButtonClicked(object? sender, EventArgs e)

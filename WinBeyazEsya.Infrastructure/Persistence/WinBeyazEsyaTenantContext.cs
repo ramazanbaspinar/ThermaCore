@@ -69,18 +69,6 @@ public class WinBeyazEsyaTenantContext : DbContext
         // Global Query Filter: FullAuditableEntity'den türeyenlere otomatik IsDeleted = false filtresi ekler
         foreach (var entityType in modelBuilder.Model.GetEntityTypes())
         {
-
-            if (typeof(FullAuditableEntity).IsAssignableFrom(entityType.ClrType))
-            {
-                var parameter = global::System.Linq.Expressions.Expression.Parameter(entityType.ClrType, "e");
-                var property = global::System.Linq.Expressions.Expression.Property(parameter, nameof(FullAuditableEntity.IsDeleted));
-                var falseConstant = global::System.Linq.Expressions.Expression.Constant(false);
-                var body = global::System.Linq.Expressions.Expression.Equal(property, falseConstant);
-                var lambda = global::System.Linq.Expressions.Expression.Lambda(body, parameter);
-
-                modelBuilder.Entity(entityType.ClrType).HasQueryFilter(lambda);
-            }
-
             // Index Optimizasyonları (Performans artışı için)
             if (typeof(AuditableEntity).IsAssignableFrom(entityType.ClrType))
             {
@@ -103,17 +91,28 @@ public class WinBeyazEsyaTenantContext : DbContext
                 modelBuilder.Entity(entityType.ClrType).HasIndex("Code");
             }
             
-            if (typeof(IMustHaveBranch).IsAssignableFrom(entityType.ClrType))
-            {
-                var method = typeof(WinBeyazEsyaTenantContext).GetMethod(nameof(SetGlobalQueryFilterForBranch), BindingFlags.NonPublic | BindingFlags.Instance);
-                method?.MakeGenericMethod(entityType.ClrType).Invoke(this, new object[] { modelBuilder });
-            }
+            var method = typeof(WinBeyazEsyaTenantContext).GetMethod(nameof(SetGlobalQueryFilters), BindingFlags.NonPublic | BindingFlags.Instance);
+            method?.MakeGenericMethod(entityType.ClrType).Invoke(this, new object[] { modelBuilder });
         }
     }
 
-    private void SetGlobalQueryFilterForBranch<TEntity>(ModelBuilder modelBuilder) where TEntity : class, IMustHaveBranch
+    private void SetGlobalQueryFilters<TEntity>(ModelBuilder modelBuilder) where TEntity : class
     {
-        modelBuilder.Entity<TEntity>().HasQueryFilter(e => e.BranchId == (_currentTenantService != null ? _currentTenantService.BranchId : 0));
+        bool hasSoftDelete = typeof(FullAuditableEntity).IsAssignableFrom(typeof(TEntity));
+        bool hasBranch = typeof(IMustHaveBranch).IsAssignableFrom(typeof(TEntity));
+
+        if (hasSoftDelete && hasBranch)
+        {
+            modelBuilder.Entity<TEntity>().HasQueryFilter(e => EF.Property<bool>(e, "IsDeleted") == false && EF.Property<long>(e, "BranchId") == (_currentTenantService != null ? _currentTenantService.BranchId : 0));
+        }
+        else if (hasSoftDelete)
+        {
+            modelBuilder.Entity<TEntity>().HasQueryFilter(e => EF.Property<bool>(e, "IsDeleted") == false);
+        }
+        else if (hasBranch)
+        {
+            modelBuilder.Entity<TEntity>().HasQueryFilter(e => EF.Property<long>(e, "BranchId") == (_currentTenantService != null ? _currentTenantService.BranchId : 0));
+        }
     }
 
     public override int SaveChanges()
