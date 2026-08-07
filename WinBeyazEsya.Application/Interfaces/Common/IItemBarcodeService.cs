@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using WinBeyazEsya.Application.DTOs.Common;
 using WinBeyazEsya.Domain.Enums;
 
@@ -12,5 +12,10 @@ public interface IItemBarcodeService
     void Update(ItemBarcodeDto dto);
     void Delete(long id);
     List<ItemBarcodeListDto> GetBarcodes(long recordId, ModuleType moduleType);
+    
+    string GenerateInternalBarcode(string currentRecordCode);
+    void BulkInsert(List<ItemBarcodeDto> items);
+    void BulkUpdate(List<ItemBarcodeDto> items);
+    void BulkDelete(List<long> ids);
 }
 

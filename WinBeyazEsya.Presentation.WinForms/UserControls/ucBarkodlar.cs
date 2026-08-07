@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
@@ -13,6 +13,7 @@ namespace WinBeyazEsya.Presentation.WinForms.UserControls
     public partial class ucBarkodlar : XtraUserControl
     {
         private IItemBarcodeService _itemBarcodeService;
+        private AutoMapper.IMapper _mapper;
         private BindingList<ItemBarcodeListDto> _barcodes = new BindingList<ItemBarcodeListDto>();
 
         public long CurrentRecordId { get; set; }
@@ -22,6 +23,10 @@ namespace WinBeyazEsya.Presentation.WinForms.UserControls
         public ucBarkodlar()
         {
             InitializeComponent();
+            if (!DesignMode && LicenseManager.UsageMode != LicenseUsageMode.Designtime)
+            {
+                try { _mapper = Program.ServiceProvider.GetRequiredService<AutoMapper.IMapper>(); } catch { }
+            }
         }
 
         protected override void OnLoad(EventArgs e)
@@ -113,20 +118,9 @@ namespace WinBeyazEsya.Presentation.WinForms.UserControls
         private void btnIcBarkodUret_Click(object sender, EventArgs e)
         {
             if (DesignMode) return;
+            if (_itemBarcodeService == null) return;
             
-            string prefix = "SYS";
-            try
-            {
-                var paramService = Program.ServiceProvider.GetRequiredService<WinBeyazEsya.Application.Interfaces.Management.ISystemParameterService>();
-                var param = paramService.GetSystemParameterAsync().GetAwaiter().GetResult();
-                if (!string.IsNullOrEmpty(param?.CompanyBarcodePrefix))
-                {
-                    prefix = param.CompanyBarcodePrefix;
-                }
-            }
-            catch { }
-            
-            string generatedBarcode = $"{prefix}-{CurrentRecordCode}";
+            string generatedBarcode = _itemBarcodeService.GenerateInternalBarcode(CurrentRecordCode);
             
             // Eğer zaten varsa ekleme
             foreach (var b in _barcodes)
@@ -241,6 +235,7 @@ namespace WinBeyazEsya.Presentation.WinForms.UserControls
             var existingBarcodes = _itemBarcodeService.GetBarcodes(recordId, CurrentModuleType);
 
             // 1. Delete removed barcodes
+            var idsToDelete = new List<long>();
             foreach (var existing in existingBarcodes)
             {
                 bool stillExists = false;
@@ -255,45 +250,53 @@ namespace WinBeyazEsya.Presentation.WinForms.UserControls
                 
                 if (!stillExists)
                 {
-                    _itemBarcodeService.Delete(existing.Id);
+                    idsToDelete.Add(existing.Id);
                 }
+            }
+            
+            if (idsToDelete.Any())
+            {
+                _itemBarcodeService.BulkDelete(idsToDelete);
             }
 
             // 2. Insert or Update barcodes
+            var itemsToInsert = new List<ItemBarcodeDto>();
+            var itemsToUpdate = new List<ItemBarcodeDto>();
+
             foreach (var current in _barcodes)
             {
                 current.RecordId = recordId;
                 current.ModuleType = CurrentModuleType;
 
-                bool isNew = current.Id <= 0;
-                if (isNew)
-                {
-                    current.Id = WinBeyazEsya.Domain.Helpers.IdGenerator.GenerateId();
-                }
+                var dto = _mapper.Map<ItemBarcodeDto>(current);
 
-                var dto = new ItemBarcodeDto
+                if (current.Id <= 0)
                 {
-                    Id = current.Id,
-                    BarcodeValue = current.BarcodeValue,
-                    BarcodeType = current.BarcodeType,
-                    RecordId = current.RecordId,
-                    ModuleType = current.ModuleType,
-                    Description = current.Description,
-                    IsPrimary = current.IsPrimary,
-                    Unit = current.Unit,
-                    QuantityPerUnit = current.QuantityPerUnit,
-                    WeightPerUnit = current.WeightPerUnit
-                };
-
-                if (isNew)
-                {
-                    _itemBarcodeService.Insert(dto);
+                    itemsToInsert.Add(dto);
+                    // DTO'nun Id'si serviste atanıp UI listesine de yansısın diye:
+                    // Ama WinForms'ta listeyi yeniden yüklemek en temizi.
                 }
                 else
                 {
-                    _itemBarcodeService.Update(dto);
+                    itemsToUpdate.Add(dto);
                 }
             }
+
+            if (itemsToInsert.Any())
+            {
+                _itemBarcodeService.BulkInsert(itemsToInsert);
+            }
+
+            if (itemsToUpdate.Any())
+            {
+                _itemBarcodeService.BulkUpdate(itemsToUpdate);
+            }
+
+            // 3. Refresh UI from DB to get generated IDs properly
+            var data = _itemBarcodeService.GetBarcodes(recordId, CurrentModuleType);
+            _barcodes.Clear();
+            foreach(var d in data) _barcodes.Add(d);
+            
             SetDirty(false);
         }
     }

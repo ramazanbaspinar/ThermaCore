@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using WinBeyazEsya.Application.DTOs.Common;
 using WinBeyazEsya.Domain.Entities.Common;
 
@@ -10,6 +10,7 @@ public class ItemBarcodeProfile : Profile
     {
         CreateMap<ItemBarcode, ItemBarcodeDto>().ReverseMap();
         CreateMap<ItemBarcode, ItemBarcodeListDto>().ReverseMap();
+        CreateMap<ItemBarcodeListDto, ItemBarcodeDto>().ReverseMap();
     }
 }
 

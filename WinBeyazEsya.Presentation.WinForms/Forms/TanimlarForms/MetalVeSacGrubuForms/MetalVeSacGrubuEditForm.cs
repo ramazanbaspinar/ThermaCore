@@ -20,6 +20,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.MetalVeSacGrubu
         private readonly WinBeyazEsya.Application.Interfaces.Repositories.IRepository<WinBeyazEsya.Domain.Entities.Definitions.Unit> _unitRepository = default!;
         private readonly WinBeyazEsya.Application.Interfaces.Common.ISpecialCodeService _specialCodeService = default!;
         private readonly WinBeyazEsya.Application.Interfaces.Definitions.IUnitConversionService _unitConversionService = default!;
+        private readonly WinBeyazEsya.Application.Interfaces.Common.IItemBarcodeService _itemBarcodeService = default!;
         private readonly IServiceProvider _serviceProvider = default!;
 
         public MetalVeSacGrubuEditForm()
@@ -32,6 +33,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.MetalVeSacGrubu
             WinBeyazEsya.Application.Interfaces.Repositories.IRepository<WinBeyazEsya.Domain.Entities.Definitions.Unit> unitRepository,
             WinBeyazEsya.Application.Interfaces.Common.ISpecialCodeService specialCodeService,
             WinBeyazEsya.Application.Interfaces.Definitions.IUnitConversionService unitConversionService,
+            WinBeyazEsya.Application.Interfaces.Common.IItemBarcodeService itemBarcodeService,
             IServiceProvider serviceProvider)
         {
             InitializeComponent();
@@ -42,6 +44,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.MetalVeSacGrubu
                 _unitRepository = unitRepository;
                 _specialCodeService = specialCodeService;
                 _unitConversionService = unitConversionService;
+                _itemBarcodeService = itemBarcodeService;
                 _serviceProvider = serviceProvider;
 
                 Bll = _metalSheetGroupService;
@@ -58,6 +61,8 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.MetalVeSacGrubu
 
             picResim.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
             ucBirimCevrimleri1.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
+            ucBarkodlar1.InitializeService(_itemBarcodeService);
+            ucBarkodlar1.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
         }
 
         public override void Yukle()
@@ -126,6 +131,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.MetalVeSacGrubu
                 baseUnit = unit != null ? unit.Name : string.Empty;
             }
             ucBirimCevrimleri1.Yukle(Id, baseUnit);
+            ucBarkodlar1.Yukle(Id, txtKod.Text, ModuleType.MetalVeSacGrubu);
 
             if (BaseIslemTuru == ActionType.EntityInsert)
             {
@@ -158,6 +164,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.MetalVeSacGrubu
         protected override bool EntityInsert()
         {
             ucBirimCevrimleri1.PostGridChanges();
+            ucBarkodlar1.PostGridChanges();
             
             try
             {
@@ -169,6 +176,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.MetalVeSacGrubu
                 {
                     picResim.SavePicture("MetalVeSacGrubu", Id);
                     ucBirimCevrimleri1.Kaydet(Id);
+                    ucBarkodlar1.Kaydet(Id);
                 }
 
                 return Id > 0;
@@ -184,6 +192,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.MetalVeSacGrubu
         protected override bool EntityUpdate()
         {
             ucBirimCevrimleri1.PostGridChanges();
+            ucBarkodlar1.PostGridChanges();
             
             try
             {
@@ -191,6 +200,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.MetalVeSacGrubu
                 
                 picResim.SavePicture("MetalVeSacGrubu", Id);
                 ucBirimCevrimleri1.Kaydet(Id);
+                ucBarkodlar1.Kaydet(Id);
 
                 return true;
             }
@@ -287,7 +297,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.MetalVeSacGrubu
         {
             base.ButonEnabledDurumu();
 
-            if (picResim.IsDirty() || ucBirimCevrimleri1.IsDirty)
+            if (picResim.IsDirty() || ucBirimCevrimleri1.IsDirty || ucBarkodlar1.IsDirty())
             {
                 if (btnKaydet != null && !btnKaydet.Enabled) btnKaydet.Enabled = true;
                 if (btnGerial != null && !btnGerial.Enabled) btnGerial.Enabled = true;
