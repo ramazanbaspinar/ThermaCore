@@ -25,4 +25,11 @@ public static class Permissions
         public const string Update = "GazveAteslemeGrubu.Update";
         public const string Delete = "GazveAteslemeGrubu.Delete";
     }
+    public static class PlastikVeGorselAksamGrubu
+    {
+        public const string View = "PlastikVeGorselAksamGrubu.View";
+        public const string Create = "PlastikVeGorselAksamGrubu.Create";
+        public const string Update = "PlastikVeGorselAksamGrubu.Update";
+        public const string Delete = "PlastikVeGorselAksamGrubu.Delete";
+    }
 }

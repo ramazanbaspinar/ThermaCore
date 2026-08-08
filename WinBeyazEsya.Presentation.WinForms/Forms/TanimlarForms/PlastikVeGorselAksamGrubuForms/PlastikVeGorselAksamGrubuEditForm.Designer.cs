@@ -1,6 +1,6 @@
-﻿namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.GazveAteslemeGrubuForms
+﻿namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.PlastikVeGorselAksamGrubuForms
 {
-    partial class GazveAteslemeGrubuEditForm
+    partial class PlastikVeGorselAksamGrubuEditForm
     {
         /// <summary>
         /// Required designer variable.
@@ -484,7 +484,7 @@
             // 
             tpBarkodIslemleri.Controls.Add(ucBarkodlar1);
             tpBarkodIslemleri.Name = "tpBarkodIslemleri";
-            tpBarkodIslemleri.Size = new Size(595, 367);
+            tpBarkodIslemleri.Size = new Size(484, 367);
             tpBarkodIslemleri.Text = "Barkod İşlemleri";
             // 
             // ucBarkodlar1
@@ -494,14 +494,14 @@
             ucBarkodlar1.Dock = DockStyle.Fill;
             ucBarkodlar1.Location = new Point(0, 0);
             ucBarkodlar1.Name = "ucBarkodlar1";
-            ucBarkodlar1.Size = new Size(595, 367);
+            ucBarkodlar1.Size = new Size(484, 367);
             ucBarkodlar1.TabIndex = 0;
             // 
             // tpBirimTanimlari
             // 
             tpBirimTanimlari.Controls.Add(ucBirimCevrimleri1);
             tpBirimTanimlari.Name = "tpBirimTanimlari";
-            tpBirimTanimlari.Size = new Size(595, 367);
+            tpBirimTanimlari.Size = new Size(484, 367);
             tpBirimTanimlari.Text = "Birim Tanımları";
             // 
             // ucBirimCevrimleri1
@@ -509,10 +509,10 @@
             ucBirimCevrimleri1.Dock = DockStyle.Fill;
             ucBirimCevrimleri1.Location = new Point(0, 0);
             ucBirimCevrimleri1.Name = "ucBirimCevrimleri1";
-            ucBirimCevrimleri1.Size = new Size(595, 367);
+            ucBirimCevrimleri1.Size = new Size(484, 367);
             ucBirimCevrimleri1.TabIndex = 0;
             // 
-            // GazveAteslemeGrubuEditForm
+            // PlastikVeGorselAksamGrubuEditForm
             // 
             AutoScaleDimensions = new SizeF(6F, 13F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -520,8 +520,8 @@
             Controls.Add(xtraTabControl1);
             IconOptions.ShowIcon = false;
             MinimumSize = new Size(500, 550);
-            Name = "GazveAteslemeGrubuEditForm";
-            Text = "Gaz ve Ateşleme Grubu Tanımı";
+            Name = "PlastikVeGorselAksamGrubuEditForm";
+            Text = "Plastik ve Görsel Aksam Grubu Tanımı";
             Controls.SetChildIndex(ribbon, 0);
             Controls.SetChildIndex(xtraTabControl1, 0);
             ((System.ComponentModel.ISupportInitialize)ribbon).EndInit();

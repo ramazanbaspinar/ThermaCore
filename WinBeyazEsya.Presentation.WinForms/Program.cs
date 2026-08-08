@@ -170,6 +170,9 @@ internal static class Program
 
                         services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.GazveAteslemeGrubuForms.GazveAteslemeGrubuListForm>();
                         services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.GazveAteslemeGrubuForms.GazveAteslemeGrubuEditForm>();
+
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.PlastikVeGorselAksamGrubuForms.PlastikVeGorselAksamGrubuListForm>();
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.PlastikVeGorselAksamGrubuForms.PlastikVeGorselAksamGrubuEditForm>();
                     })
                     .Build();
 

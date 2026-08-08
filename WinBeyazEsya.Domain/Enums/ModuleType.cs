@@ -124,6 +124,11 @@ public enum ModuleType
     [RequiresCodeTemplate]
     GazveAteslemeGrubu = 20,
 
+    [Description("Plastik ve Görsel Aksam Grubu")]
+    [ParentModule(TemelTanimlar)]
+    [RequiresCodeTemplate]
+    PlastikVeGorselAksamGrubu = 21,
+
 
     // MODÜLLER (Ekranlar) - MALİYETLER
     [Description("Genel Giderler")]

@@ -64,6 +64,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             if (aceMetalVeSacGrubuTanimlari != null) aceMetalVeSacGrubuTanimlari.Click += miMetalVeSacGrubuTanimlari_Click;
             if (aceElektrikVeElektronikGrubuTanimlari != null) aceElektrikVeElektronikGrubuTanimlari.Click += miElektrikVeElektronikGrubuTanimlari_Click;
             if (aceGazVeAteslemeGrubuTanimlari != null) aceGazVeAteslemeGrubuTanimlari.Click += miGazveAteslemeGrubuTanimlari_Click;
+            if (acePlastikVeGorselAksamGrubuTanimlari != null) acePlastikVeGorselAksamGrubuTanimlari.Click += miPlastikVeGorselAksamGrubuTanimlari_Click;
             if (aceSirketTanimlari != null) aceSirketTanimlari.Click += miSirketTanimlari_Click;
             if (aceKullaniciTanimlari != null) aceKullaniciTanimlari.Click += KullaniciTanimlari_Click;
             if (aceYetkiGruplariRoller != null) aceYetkiGruplariRoller.Click += miYetkiGruplariRoller_Click;
@@ -395,6 +396,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             aceMetalVeSacGrubuTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.MetalVeSacGrubu;
             aceElektrikVeElektronikGrubuTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.ElektrikVeElektronikGrubu;
             aceGazVeAteslemeGrubuTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.GazveAteslemeGrubu;
+            acePlastikVeGorselAksamGrubuTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.PlastikVeGorselAksamGrubu;
 
             aceGenelGiderler.Tag = WinBeyazEsya.Domain.Enums.ModuleType.GenelGiderler;
             aceMaliyetParametreleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.MaliyetParametreleri;
@@ -899,6 +901,19 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.GazveAteslemeGrubu, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
             {
                 FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.GazveAteslemeGrubuForms.GazveAteslemeGrubuListForm>();
+            }
+            else
+            {
+                XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void miPlastikVeGorselAksamGrubuTanimlari_Click(object? sender, EventArgs e)
+        {
+            var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
+            if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.PlastikVeGorselAksamGrubu, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
+            {
+                FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.PlastikVeGorselAksamGrubuForms.PlastikVeGorselAksamGrubuListForm>();
             }
             else
             {
