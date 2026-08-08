@@ -114,6 +114,11 @@ public enum ModuleType
     [RequiresCodeTemplate]
     MetalVeSacGrubu = 17,
 
+    [Description("Elektrik ve Elektronik Grubu")]
+    [ParentModule(TemelTanimlar)]
+    [RequiresCodeTemplate]
+    ElektrikVeElektronikGrubu = 19,
+
 
     // MODÜLLER (Ekranlar) - MALİYETLER
     [Description("Genel Giderler")]

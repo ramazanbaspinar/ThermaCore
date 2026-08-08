@@ -9,4 +9,12 @@ public static class Permissions
         public const string Update = "MetalVeSacGrubu.Update";
         public const string Delete = "MetalVeSacGrubu.Delete";
     }
+
+    public static class ElektrikVeElektronikGrubu
+    {
+        public const string View = "ElektrikVeElektronikGrubu.View";
+        public const string Create = "ElektrikVeElektronikGrubu.Create";
+        public const string Update = "ElektrikVeElektronikGrubu.Update";
+        public const string Delete = "ElektrikVeElektronikGrubu.Delete";
+    }
 }
