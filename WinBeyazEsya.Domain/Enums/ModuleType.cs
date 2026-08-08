@@ -129,6 +129,11 @@ public enum ModuleType
     [RequiresCodeTemplate]
     PlastikVeGorselAksamGrubu = 21,
 
+    [Description("Kimya ve Yalıtım Grubu")]
+    [ParentModule(TemelTanimlar)]
+    [RequiresCodeTemplate]
+    KimyaVeYalitimGrubu = 22,
+
 
     // MODÜLLER (Ekranlar) - MALİYETLER
     [Description("Genel Giderler")]

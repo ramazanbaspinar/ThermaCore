@@ -89,6 +89,9 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IValidator<WinBeyazEsya.Application.DTOs.Definitions.PlasticAndVisualPartsGroupDto>, WinBeyazEsya.Application.Validators.Definitions.PlasticAndVisualPartsGroupValidator>();
         services.AddScoped<WinBeyazEsya.Application.Interfaces.Definitions.IPlasticAndVisualPartsGroupService, WinBeyazEsya.Application.Services.Definitions.PlasticAndVisualPartsGroupManager>();
 
+        services.AddScoped<IValidator<WinBeyazEsya.Application.DTOs.Definitions.ChemicalAndInsulationGroupDto>, WinBeyazEsya.Application.Validators.Definitions.ChemicalAndInsulationGroupValidator>();
+        services.AddScoped<WinBeyazEsya.Application.Interfaces.Definitions.IChemicalAndInsulationGroupService, WinBeyazEsya.Application.Services.Definitions.ChemicalAndInsulationGroupManager>();
+
         services.AddScoped<WinBeyazEsya.Application.Interfaces.Management.ISystemParameterService, WinBeyazEsya.Application.Services.Management.SystemParameterManager>();
         services.AddScoped<WinBeyazEsya.Application.Interfaces.Updater.IAutoUpdateService, WinBeyazEsya.Application.Services.Updater.AutoUpdateManager>();        
         return services;

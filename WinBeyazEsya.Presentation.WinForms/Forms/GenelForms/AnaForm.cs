@@ -65,6 +65,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             if (aceElektrikVeElektronikGrubuTanimlari != null) aceElektrikVeElektronikGrubuTanimlari.Click += miElektrikVeElektronikGrubuTanimlari_Click;
             if (aceGazVeAteslemeGrubuTanimlari != null) aceGazVeAteslemeGrubuTanimlari.Click += miGazveAteslemeGrubuTanimlari_Click;
             if (acePlastikVeGorselAksamGrubuTanimlari != null) acePlastikVeGorselAksamGrubuTanimlari.Click += miPlastikVeGorselAksamGrubuTanimlari_Click;
+            if (aceKimyaVeYalitimGrubuTanimlari != null) aceKimyaVeYalitimGrubuTanimlari.Click += miKimyaVeYalitimGrubuTanimlari_Click;
             if (aceSirketTanimlari != null) aceSirketTanimlari.Click += miSirketTanimlari_Click;
             if (aceKullaniciTanimlari != null) aceKullaniciTanimlari.Click += KullaniciTanimlari_Click;
             if (aceYetkiGruplariRoller != null) aceYetkiGruplariRoller.Click += miYetkiGruplariRoller_Click;
@@ -397,6 +398,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             aceElektrikVeElektronikGrubuTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.ElektrikVeElektronikGrubu;
             aceGazVeAteslemeGrubuTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.GazveAteslemeGrubu;
             acePlastikVeGorselAksamGrubuTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.PlastikVeGorselAksamGrubu;
+            aceKimyaVeYalitimGrubuTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.KimyaVeYalitimGrubu;
 
             aceGenelGiderler.Tag = WinBeyazEsya.Domain.Enums.ModuleType.GenelGiderler;
             aceMaliyetParametreleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.MaliyetParametreleri;
@@ -918,6 +920,19 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             else
             {
                 XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void miKimyaVeYalitimGrubuTanimlari_Click(object? sender, EventArgs e)
+        {
+            var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
+            if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.KimyaVeYalitimGrubu, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
+            {
+                FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.KimyaVeYalitimGrubuForms.KimyaVeYalitimGrubuListForm>();
+            }
+            else
+            {
+                Messages.YetkisizGirisMesaji();
             }
         }
 

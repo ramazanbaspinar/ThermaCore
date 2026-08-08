@@ -32,4 +32,11 @@ public static class Permissions
         public const string Update = "PlastikVeGorselAksamGrubu.Update";
         public const string Delete = "PlastikVeGorselAksamGrubu.Delete";
     }
+    public static class KimyaVeYalitimGrubu
+    {
+        public const string View = "KimyaVeYalitimGrubu.View";
+        public const string Create = "KimyaVeYalitimGrubu.Create";
+        public const string Update = "KimyaVeYalitimGrubu.Update";
+        public const string Delete = "KimyaVeYalitimGrubu.Delete";
+    }
 }
