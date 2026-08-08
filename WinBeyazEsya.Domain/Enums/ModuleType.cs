@@ -149,6 +149,11 @@ public enum ModuleType
     [RequiresCodeTemplate]
     TelVeIzgaraGrubu = 25,
 
+    [Description("Diğer Malzeme Grubu")]
+    [ParentModule(TemelTanimlar)]
+    [RequiresCodeTemplate]
+    DigerMalzemeGrubu = 26,
+
     // MODÜLLER (Ekranlar) - MALİYETLER
     [Description("Genel Giderler")]
     [ParentModule(Maliyetler)]

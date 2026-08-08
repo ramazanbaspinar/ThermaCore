@@ -101,6 +101,9 @@ public static class ApplicationServiceRegistration
         services.AddScoped<WinBeyazEsya.Application.Interfaces.Definitions.IWireAndGridGroupService, WinBeyazEsya.Application.Services.Definitions.WireAndGridGroupManager>();
         services.AddTransient<IValidator<WinBeyazEsya.Application.DTOs.Definitions.WireAndGridGroupDto>, WinBeyazEsya.Application.Validators.Definitions.WireAndGridGroupValidator>();
 
+        services.AddScoped<WinBeyazEsya.Application.Interfaces.Definitions.IOtherMaterialGroupService, WinBeyazEsya.Application.Services.Definitions.OtherMaterialGroupManager>();
+        services.AddTransient<IValidator<WinBeyazEsya.Application.DTOs.Definitions.OtherMaterialGroupDto>, WinBeyazEsya.Application.Validators.Definitions.OtherMaterialGroupValidator>();
+
         services.AddScoped<WinBeyazEsya.Application.Interfaces.Management.ISystemParameterService, WinBeyazEsya.Application.Services.Management.SystemParameterManager>();
         services.AddScoped<WinBeyazEsya.Application.Interfaces.Updater.IAutoUpdateService, WinBeyazEsya.Application.Services.Updater.AutoUpdateManager>();        
         return services;

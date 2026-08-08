@@ -60,4 +60,11 @@ public static class Permissions
         public const string Update = "TelVeIzgaraGrubu.Update";
         public const string Delete = "TelVeIzgaraGrubu.Delete";
     }
+    public static class DigerMalzemeGrubu
+    {
+        public const string View = "DigerMalzemeGrubu.View";
+        public const string Create = "DigerMalzemeGrubu.Create";
+        public const string Update = "DigerMalzemeGrubu.Update";
+        public const string Delete = "DigerMalzemeGrubu.Delete";
+    }
 }
