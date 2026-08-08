@@ -83,7 +83,7 @@
             // ribbon
             // 
             ribbon.ExpandCollapseItem.Id = 0;
-            ribbon.Size = new Size(498, 135);
+            ribbon.Size = new Size(498, 123);
             ribbon.Toolbar.ShowCustomizeItem = false;
             // 
             // treeList1
@@ -93,8 +93,8 @@
             treeList1.MenuManager = ribbon;
             treeList1.Name = "treeList1";
             treeList1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] { repositoryItemCheckEdit1, repositoryItemCheckEdit2, repositoryItemCheckEdit3, repositoryItemCheckEdit4, repositoryItemButtonEdit1 });
-            treeList1.Size = new Size(474, 123);
-            treeList1.TabIndex = 4;
+            treeList1.Size = new Size(474, 126);
+            treeList1.TabIndex = 3;
             // 
             // colModulAdi
             // 
@@ -196,11 +196,11 @@
             myDataLayoutControl1.Controls.Add(txtRolKodu);
             myDataLayoutControl1.Controls.Add(treeList1);
             myDataLayoutControl1.Dock = DockStyle.Fill;
-            myDataLayoutControl1.Location = new Point(0, 135);
+            myDataLayoutControl1.Location = new Point(0, 123);
             myDataLayoutControl1.Name = "myDataLayoutControl1";
             myDataLayoutControl1.OptionsFocus.EnableAutoTabOrder = false;
             myDataLayoutControl1.Root = layoutControlGroup1;
-            myDataLayoutControl1.Size = new Size(498, 240);
+            myDataLayoutControl1.Size = new Size(498, 243);
             myDataLayoutControl1.TabIndex = 0;
             myDataLayoutControl1.Text = "myDataLayoutControl2";
             // 
@@ -215,52 +215,52 @@
             tglDurum.Properties.GlyphAlignment = DevExpress.Utils.HorzAlignment.Far;
             tglDurum.Properties.OffText = "Pasif";
             tglDurum.Properties.OnText = "Aktif";
-            tglDurum.Size = new Size(77, 27);
+            tglDurum.Size = new Size(97, 27);
             tglDurum.StatusBarAciklama = "Kayıtın Kullanım Durumunu Seçiniz.";
             tglDurum.StyleController = myDataLayoutControl1;
-            tglDurum.TabIndex = 3;
+            tglDurum.TabIndex = 4;
             tglDurum.Tag = "IsActive";
             // 
             // txtAciklama
             // 
             txtAciklama.EnterMoveNextControl = true;
-            txtAciklama.Location = new Point(65, 74);
+            txtAciklama.Location = new Point(57, 74);
             txtAciklama.MenuManager = ribbon;
             txtAciklama.Name = "txtAciklama";
             txtAciklama.Properties.MaxLength = 500;
-            txtAciklama.Size = new Size(421, 27);
+            txtAciklama.Size = new Size(429, 27);
             txtAciklama.StatusBarAciklama = "Açıklama Giriniz.";
             txtAciklama.StyleController = myDataLayoutControl1;
-            txtAciklama.TabIndex = 2;
+            txtAciklama.TabIndex = 1;
             txtAciklama.Tag = "Description";
             // 
             // txtRolAdi
             // 
             txtRolAdi.EnterMoveNextControl = true;
-            txtRolAdi.Location = new Point(65, 43);
+            txtRolAdi.Location = new Point(57, 43);
             txtRolAdi.MenuManager = ribbon;
             txtRolAdi.Name = "txtRolAdi";
             txtRolAdi.Properties.MaxLength = 100;
-            txtRolAdi.Size = new Size(421, 20);
+            txtRolAdi.Size = new Size(429, 20);
             txtRolAdi.StatusBarAciklama = "";
             txtRolAdi.StyleController = myDataLayoutControl1;
-            txtRolAdi.TabIndex = 1;
+            txtRolAdi.TabIndex = 0;
             txtRolAdi.Tag = "RoleName";
             // 
             // txtRolKodu
             // 
             txtRolKodu.EnterMoveNextControl = true;
-            txtRolKodu.Location = new Point(65, 12);
+            txtRolKodu.Location = new Point(57, 12);
             txtRolKodu.MenuManager = ribbon;
             txtRolKodu.Name = "txtRolKodu";
             txtRolKodu.Properties.Appearance.Options.UseTextOptions = true;
             txtRolKodu.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             txtRolKodu.Properties.MaxLength = 100;
             txtRolKodu.Properties.ReadOnly = true;
-            txtRolKodu.Size = new Size(322, 20);
+            txtRolKodu.Size = new Size(330, 20);
             txtRolKodu.StatusBarAciklama = "Kod Giriniz.";
             txtRolKodu.StyleController = myDataLayoutControl1;
-            txtRolKodu.TabIndex = 0;
+            txtRolKodu.TabIndex = 2;
             txtRolKodu.Tag = "Code";
             // 
             // layoutControlGroup1
@@ -284,7 +284,7 @@
             rowDefinition4.Height = 100D;
             rowDefinition4.SizeType = SizeType.Percent;
             layoutControlGroup1.OptionsTableLayoutGroup.RowDefinitions.AddRange(new DevExpress.XtraLayout.RowDefinition[] { rowDefinition1, rowDefinition2, rowDefinition3, rowDefinition4 });
-            layoutControlGroup1.Size = new Size(498, 240);
+            layoutControlGroup1.Size = new Size(498, 243);
             layoutControlGroup1.TextVisible = false;
             // 
             // layoutControlItem3
@@ -296,7 +296,7 @@
             layoutControlItem3.Name = "layoutControlItem3";
             layoutControlItem3.OptionsTableLayoutItem.ColumnSpan = 2;
             layoutControlItem3.OptionsTableLayoutItem.RowIndex = 3;
-            layoutControlItem3.Size = new Size(478, 127);
+            layoutControlItem3.Size = new Size(478, 130);
             layoutControlItem3.TextVisible = false;
             // 
             // layoutControlItem1
@@ -346,7 +346,7 @@
             ClientSize = new Size(498, 399);
             Controls.Add(myDataLayoutControl1);
             IconOptions.ShowIcon = false;
-            MinimumSize = new Size(500, 400);
+            MinimumSize = new Size(508, 400);
             Name = "RolEditForm";
             Text = "Rol Tanımı";
             Controls.SetChildIndex(ribbon, 0);
