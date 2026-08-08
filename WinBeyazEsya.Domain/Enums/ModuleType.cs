@@ -134,6 +134,11 @@ public enum ModuleType
     [RequiresCodeTemplate]
     KimyaVeYalitimGrubu = 22,
 
+    [Description("Mekanik ve Hırdavat Grubu")]
+    [ParentModule(TemelTanimlar)]
+    [RequiresCodeTemplate]
+    MekanikVeHirdavatGrubu = 23,
+
 
     // MODÜLLER (Ekranlar) - MALİYETLER
     [Description("Genel Giderler")]

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WinBeyazEsya.Infrastructure.Persistence;
 
@@ -11,9 +12,11 @@ using WinBeyazEsya.Infrastructure.Persistence;
 namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
 {
     [DbContext(typeof(WinBeyazEsyaTenantContext))]
-    partial class WinBeyazEsyaTenantContextModelSnapshot : ModelSnapshot
+    [Migration("20260808181324_AddMechanicalAndHardwareGroup")]
+    partial class AddMechanicalAndHardwareGroup
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

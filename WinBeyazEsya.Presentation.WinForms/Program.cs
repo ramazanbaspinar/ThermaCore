@@ -176,6 +176,9 @@ internal static class Program
 
                         services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.KimyaVeYalitimGrubuForms.KimyaVeYalitimGrubuListForm>();
                         services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.KimyaVeYalitimGrubuForms.KimyaVeYalitimGrubuEditForm>();
+
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.MekanikVeHirdavatGrubuForms.MekanikVeHirdavatGrubuListForm>();
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.MekanikVeHirdavatGrubuForms.MekanikVeHirdavatGrubuEditForm>();
                     })
                     .Build();
 

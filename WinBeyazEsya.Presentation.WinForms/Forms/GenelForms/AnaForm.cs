@@ -66,6 +66,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             if (aceGazVeAteslemeGrubuTanimlari != null) aceGazVeAteslemeGrubuTanimlari.Click += miGazveAteslemeGrubuTanimlari_Click;
             if (acePlastikVeGorselAksamGrubuTanimlari != null) acePlastikVeGorselAksamGrubuTanimlari.Click += miPlastikVeGorselAksamGrubuTanimlari_Click;
             if (aceKimyaVeYalitimGrubuTanimlari != null) aceKimyaVeYalitimGrubuTanimlari.Click += miKimyaVeYalitimGrubuTanimlari_Click;
+            if (aceMekanikVeHirdavatGrubuTanimlari != null) aceMekanikVeHirdavatGrubuTanimlari.Click += miMekanikVeHirdavatGrubuTanimlari_Click;
             if (aceSirketTanimlari != null) aceSirketTanimlari.Click += miSirketTanimlari_Click;
             if (aceKullaniciTanimlari != null) aceKullaniciTanimlari.Click += KullaniciTanimlari_Click;
             if (aceYetkiGruplariRoller != null) aceYetkiGruplariRoller.Click += miYetkiGruplariRoller_Click;
@@ -397,11 +398,12 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             aceMetalVeSacGrubuTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.MetalVeSacGrubu;
             aceElektrikVeElektronikGrubuTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.ElektrikVeElektronikGrubu;
             aceGazVeAteslemeGrubuTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.GazveAteslemeGrubu;
-            acePlastikVeGorselAksamGrubuTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.PlastikVeGorselAksamGrubu;
-            aceKimyaVeYalitimGrubuTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.KimyaVeYalitimGrubu;
+            if (acePlastikVeGorselAksamGrubuTanimlari != null) acePlastikVeGorselAksamGrubuTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.PlastikVeGorselAksamGrubu;
+            if (aceKimyaVeYalitimGrubuTanimlari != null) aceKimyaVeYalitimGrubuTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.KimyaVeYalitimGrubu;
+            if (aceMekanikVeHirdavatGrubuTanimlari != null) aceMekanikVeHirdavatGrubuTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.MekanikVeHirdavatGrubu;
 
-            aceGenelGiderler.Tag = WinBeyazEsya.Domain.Enums.ModuleType.GenelGiderler;
-            aceMaliyetParametreleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.MaliyetParametreleri;
+            if (aceGenelGiderler != null) aceGenelGiderler.Tag = WinBeyazEsya.Domain.Enums.ModuleType.GenelGiderler;
+            if (aceMaliyetParametreleri != null) aceMaliyetParametreleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.MaliyetParametreleri;
         }
 
         private void ApplyAccordionPermissions()
@@ -929,6 +931,19 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.KimyaVeYalitimGrubu, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
             {
                 FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.KimyaVeYalitimGrubuForms.KimyaVeYalitimGrubuListForm>();
+            }
+            else
+            {
+                Messages.YetkisizGirisMesaji();
+            }
+        }
+
+        private void miMekanikVeHirdavatGrubuTanimlari_Click(object? sender, EventArgs e)
+        {
+            var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
+            if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.MekanikVeHirdavatGrubu, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
+            {
+                FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.MekanikVeHirdavatGrubuForms.MekanikVeHirdavatGrubuListForm>();
             }
             else
             {

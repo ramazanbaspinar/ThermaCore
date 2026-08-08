@@ -13,12 +13,12 @@ public static class ApplicationServiceRegistration
 {
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
-        // AutoMapper ve FluentValidation kay�tlar�
+        // AutoMapper ve FluentValidation kayıtları
         services.AddAutoMapper(cfg => cfg.AddMaps(Assembly.GetExecutingAssembly()));
         services.AddValidatorsFromAssemblyContaining<WinBeyazEsya.Application.Validations.Definitions.UnitValidator>();
         ValidatorOptions.Global.LanguageManager.Culture = new System.Globalization.CultureInfo("tr-TR");
 
-        // Manager (Service) S�n�flar�n�n Kay�tlar�
+        // Manager (Service) Sınıflarının Kayıtları
         services.AddScoped<IUnitConversionService, UnitConversionManager>();
         services.AddScoped<IValidator<WinBeyazEsya.Application.DTOs.Definitions.UnitConversionDto>, WinBeyazEsya.Application.Validations.Definitions.UnitConversionValidator>();
         services.AddScoped<IAuthService, AuthManager>();
@@ -89,8 +89,11 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IValidator<WinBeyazEsya.Application.DTOs.Definitions.PlasticAndVisualPartsGroupDto>, WinBeyazEsya.Application.Validators.Definitions.PlasticAndVisualPartsGroupValidator>();
         services.AddScoped<WinBeyazEsya.Application.Interfaces.Definitions.IPlasticAndVisualPartsGroupService, WinBeyazEsya.Application.Services.Definitions.PlasticAndVisualPartsGroupManager>();
 
-        services.AddScoped<IValidator<WinBeyazEsya.Application.DTOs.Definitions.ChemicalAndInsulationGroupDto>, WinBeyazEsya.Application.Validators.Definitions.ChemicalAndInsulationGroupValidator>();
         services.AddScoped<WinBeyazEsya.Application.Interfaces.Definitions.IChemicalAndInsulationGroupService, WinBeyazEsya.Application.Services.Definitions.ChemicalAndInsulationGroupManager>();
+        services.AddTransient<IValidator<WinBeyazEsya.Application.DTOs.Definitions.ChemicalAndInsulationGroupDto>, WinBeyazEsya.Application.Validators.Definitions.ChemicalAndInsulationGroupValidator>();
+
+        services.AddScoped<WinBeyazEsya.Application.Interfaces.Definitions.IMechanicalAndHardwareGroupService, WinBeyazEsya.Application.Services.Definitions.MechanicalAndHardwareGroupManager>();
+        services.AddTransient<IValidator<WinBeyazEsya.Application.DTOs.Definitions.MechanicalAndHardwareGroupDto>, WinBeyazEsya.Application.Validators.Definitions.MechanicalAndHardwareGroupValidator>();
 
         services.AddScoped<WinBeyazEsya.Application.Interfaces.Management.ISystemParameterService, WinBeyazEsya.Application.Services.Management.SystemParameterManager>();
         services.AddScoped<WinBeyazEsya.Application.Interfaces.Updater.IAutoUpdateService, WinBeyazEsya.Application.Services.Updater.AutoUpdateManager>();        
