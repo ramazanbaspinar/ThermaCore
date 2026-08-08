@@ -95,6 +95,9 @@ public static class ApplicationServiceRegistration
         services.AddScoped<WinBeyazEsya.Application.Interfaces.Definitions.IMechanicalAndHardwareGroupService, WinBeyazEsya.Application.Services.Definitions.MechanicalAndHardwareGroupManager>();
         services.AddTransient<IValidator<WinBeyazEsya.Application.DTOs.Definitions.MechanicalAndHardwareGroupDto>, WinBeyazEsya.Application.Validators.Definitions.MechanicalAndHardwareGroupValidator>();
 
+        services.AddScoped<WinBeyazEsya.Application.Interfaces.Definitions.IPackagingAndPrintingGroupService, WinBeyazEsya.Application.Services.Definitions.PackagingAndPrintingGroupManager>();
+        services.AddTransient<IValidator<WinBeyazEsya.Application.DTOs.Definitions.PackagingAndPrintingGroupDto>, WinBeyazEsya.Application.Validators.Definitions.PackagingAndPrintingGroupValidator>();
+
         services.AddScoped<WinBeyazEsya.Application.Interfaces.Management.ISystemParameterService, WinBeyazEsya.Application.Services.Management.SystemParameterManager>();
         services.AddScoped<WinBeyazEsya.Application.Interfaces.Updater.IAutoUpdateService, WinBeyazEsya.Application.Services.Updater.AutoUpdateManager>();        
         return services;

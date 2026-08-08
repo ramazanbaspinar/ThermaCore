@@ -67,6 +67,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             if (acePlastikVeGorselAksamGrubuTanimlari != null) acePlastikVeGorselAksamGrubuTanimlari.Click += miPlastikVeGorselAksamGrubuTanimlari_Click;
             if (aceKimyaVeYalitimGrubuTanimlari != null) aceKimyaVeYalitimGrubuTanimlari.Click += miKimyaVeYalitimGrubuTanimlari_Click;
             if (aceMekanikVeHirdavatGrubuTanimlari != null) aceMekanikVeHirdavatGrubuTanimlari.Click += miMekanikVeHirdavatGrubuTanimlari_Click;
+            if (aceAmbalajVeMatbaaGrubuTanimlari != null) aceAmbalajVeMatbaaGrubuTanimlari.Click += miAmbalajVeMatbaaGrubuTanimlari_Click;
             if (aceSirketTanimlari != null) aceSirketTanimlari.Click += miSirketTanimlari_Click;
             if (aceKullaniciTanimlari != null) aceKullaniciTanimlari.Click += KullaniciTanimlari_Click;
             if (aceYetkiGruplariRoller != null) aceYetkiGruplariRoller.Click += miYetkiGruplariRoller_Click;
@@ -944,6 +945,19 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.MekanikVeHirdavatGrubu, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
             {
                 FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.MekanikVeHirdavatGrubuForms.MekanikVeHirdavatGrubuListForm>();
+            }
+            else
+            {
+                Messages.YetkisizGirisMesaji();
+            }
+        }
+
+        private void miAmbalajVeMatbaaGrubuTanimlari_Click(object? sender, EventArgs e)
+        {
+            var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
+            if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.AmbalajVeMatbaaGrubu, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
+            {
+                FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.AmbalajVeMatbaaGrubuForms.AmbalajVeMatbaaGrubuListForm>();
             }
             else
             {

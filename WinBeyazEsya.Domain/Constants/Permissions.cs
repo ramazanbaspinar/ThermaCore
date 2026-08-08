@@ -46,4 +46,11 @@ public static class Permissions
         public const string Update = "MekanikVeHirdavatGrubu.Update";
         public const string Delete = "MekanikVeHirdavatGrubu.Delete";
     }
+    public static class AmbalajVeMatbaaGrubu
+    {
+        public const string View = "AmbalajVeMatbaaGrubu.View";
+        public const string Create = "AmbalajVeMatbaaGrubu.Create";
+        public const string Update = "AmbalajVeMatbaaGrubu.Update";
+        public const string Delete = "AmbalajVeMatbaaGrubu.Delete";
+    }
 }
