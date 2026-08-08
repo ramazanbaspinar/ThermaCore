@@ -144,6 +144,11 @@ public enum ModuleType
     [RequiresCodeTemplate]
     AmbalajVeMatbaaGrubu = 24,
 
+    [Description("Tel ve Izgara Grubu")]
+    [ParentModule(TemelTanimlar)]
+    [RequiresCodeTemplate]
+    TelVeIzgaraGrubu = 25,
+
     // MODÜLLER (Ekranlar) - MALİYETLER
     [Description("Genel Giderler")]
     [ParentModule(Maliyetler)]

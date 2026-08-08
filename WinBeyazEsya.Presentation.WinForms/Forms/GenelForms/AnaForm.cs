@@ -68,6 +68,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             if (aceKimyaVeYalitimGrubuTanimlari != null) aceKimyaVeYalitimGrubuTanimlari.Click += miKimyaVeYalitimGrubuTanimlari_Click;
             if (aceMekanikVeHirdavatGrubuTanimlari != null) aceMekanikVeHirdavatGrubuTanimlari.Click += miMekanikVeHirdavatGrubuTanimlari_Click;
             if (aceAmbalajVeMatbaaGrubuTanimlari != null) aceAmbalajVeMatbaaGrubuTanimlari.Click += miAmbalajVeMatbaaGrubuTanimlari_Click;
+            if (aceTelVeIzgaraTanimlari != null) aceTelVeIzgaraTanimlari.Click += miTelVeIzgaraTanimlari_Click;
             if (aceSirketTanimlari != null) aceSirketTanimlari.Click += miSirketTanimlari_Click;
             if (aceKullaniciTanimlari != null) aceKullaniciTanimlari.Click += KullaniciTanimlari_Click;
             if (aceYetkiGruplariRoller != null) aceYetkiGruplariRoller.Click += miYetkiGruplariRoller_Click;
@@ -402,6 +403,8 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             if (acePlastikVeGorselAksamGrubuTanimlari != null) acePlastikVeGorselAksamGrubuTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.PlastikVeGorselAksamGrubu;
             if (aceKimyaVeYalitimGrubuTanimlari != null) aceKimyaVeYalitimGrubuTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.KimyaVeYalitimGrubu;
             if (aceMekanikVeHirdavatGrubuTanimlari != null) aceMekanikVeHirdavatGrubuTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.MekanikVeHirdavatGrubu;
+            if (aceAmbalajVeMatbaaGrubuTanimlari != null) aceAmbalajVeMatbaaGrubuTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.AmbalajVeMatbaaGrubu;
+            if (aceTelVeIzgaraTanimlari != null) aceTelVeIzgaraTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.TelVeIzgaraGrubu;
 
             if (aceGenelGiderler != null) aceGenelGiderler.Tag = WinBeyazEsya.Domain.Enums.ModuleType.GenelGiderler;
             if (aceMaliyetParametreleri != null) aceMaliyetParametreleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.MaliyetParametreleri;
@@ -958,6 +961,19 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.AmbalajVeMatbaaGrubu, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
             {
                 FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.AmbalajVeMatbaaGrubuForms.AmbalajVeMatbaaGrubuListForm>();
+            }
+            else
+            {
+                Messages.YetkisizGirisMesaji();
+            }
+        }
+
+        private void miTelVeIzgaraTanimlari_Click(object? sender, EventArgs e)
+        {
+            var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
+            if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.TelVeIzgaraGrubu, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
+            {
+                FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.TelVeIzgaraForms.TelVeIzgaraListForm>();
             }
             else
             {

@@ -29,6 +29,7 @@ public class WinBeyazEsyaTenantContext : DbContext
     public DbSet<WinBeyazEsya.Domain.Entities.Definitions.ChemicalAndInsulationGroup> ChemicalAndInsulationGroups { get; set; }
     public DbSet<WinBeyazEsya.Domain.Entities.Definitions.MechanicalAndHardwareGroup> MechanicalAndHardwareGroups { get; set; }
     public DbSet<WinBeyazEsya.Domain.Entities.Definitions.PackagingAndPrintingGroup> PackagingAndPrintingGroups { get; set; }
+    public DbSet<WinBeyazEsya.Domain.Entities.Definitions.WireAndGridGroup> WireAndGridGroups { get; set; }
 
     public DbSet<WinBeyazEsya.Domain.Entities.Management.ExchangeRate> ExchangeRates { get; set; }
     public DbSet<WinBeyazEsya.Domain.Entities.Management.TaxRate> TaxRates { get; set; }
