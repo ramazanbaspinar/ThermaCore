@@ -413,6 +413,10 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Forms\TanimlarForms\PlastikVeGorselAksamGrubuForms\" />
+  </ItemGroup>
+
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0-windows</TargetFramework>
