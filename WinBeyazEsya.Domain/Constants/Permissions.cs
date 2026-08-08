@@ -17,4 +17,12 @@ public static class Permissions
         public const string Update = "ElektrikVeElektronikGrubu.Update";
         public const string Delete = "ElektrikVeElektronikGrubu.Delete";
     }
+
+    public static class GazveAteslemeGrubu
+    {
+        public const string View = "GazveAteslemeGrubu.View";
+        public const string Create = "GazveAteslemeGrubu.Create";
+        public const string Update = "GazveAteslemeGrubu.Update";
+        public const string Delete = "GazveAteslemeGrubu.Delete";
+    }
 }

@@ -83,6 +83,9 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IValidator<WinBeyazEsya.Application.DTOs.Definitions.ElectricalElectronicGroupDto>, WinBeyazEsya.Application.Validators.Definitions.ElectricalElectronicGroupValidator>();
         services.AddScoped<WinBeyazEsya.Application.Interfaces.Definitions.IElectricalElectronicGroupService, WinBeyazEsya.Application.Services.Definitions.ElectricalElectronicGroupManager>();
         
+        services.AddScoped<IValidator<WinBeyazEsya.Application.DTOs.Definitions.GasAndIgnitionGroupDto>, WinBeyazEsya.Application.Validators.Definitions.GasAndIgnitionGroupValidator>();
+        services.AddScoped<WinBeyazEsya.Application.Interfaces.Definitions.IGasAndIgnitionGroupService, WinBeyazEsya.Application.Services.Definitions.GasAndIgnitionGroupManager>();
+
         services.AddScoped<WinBeyazEsya.Application.Interfaces.Management.ISystemParameterService, WinBeyazEsya.Application.Services.Management.SystemParameterManager>();
         services.AddScoped<WinBeyazEsya.Application.Interfaces.Updater.IAutoUpdateService, WinBeyazEsya.Application.Services.Updater.AutoUpdateManager>();        
         return services;

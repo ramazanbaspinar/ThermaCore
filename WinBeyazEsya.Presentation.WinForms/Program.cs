@@ -167,6 +167,9 @@ internal static class Program
 
                         services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.ElektrikVeElektronikGrubuForms.ElektrikVeElektronikGrubuListForm>();
                         services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.ElektrikVeElektronikGrubuForms.ElektrikVeElektronikGrubuEditForm>();
+
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.GazveAteslemeGrubuForms.GazveAteslemeGrubuListForm>();
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.GazveAteslemeGrubuForms.GazveAteslemeGrubuEditForm>();
                     })
                     .Build();
 

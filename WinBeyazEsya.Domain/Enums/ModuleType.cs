@@ -119,6 +119,11 @@ public enum ModuleType
     [RequiresCodeTemplate]
     ElektrikVeElektronikGrubu = 19,
 
+    [Description("Gaz ve Ateşleme Grubu")]
+    [ParentModule(TemelTanimlar)]
+    [RequiresCodeTemplate]
+    GazveAteslemeGrubu = 20,
+
 
     // MODÜLLER (Ekranlar) - MALİYETLER
     [Description("Genel Giderler")]
