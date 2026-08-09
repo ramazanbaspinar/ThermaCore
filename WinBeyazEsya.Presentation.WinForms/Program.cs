@@ -163,6 +163,12 @@ internal static class Program
                         services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.PlastikVeGorselAksamGrubuMForms.PlastikVeGorselAksamGrubuMEditForm>();
                         services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.KimyaVeYalitimGrubuMForms.KimyaVeYalitimGrubuMListForm>();
                         services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.KimyaVeYalitimGrubuMForms.KimyaVeYalitimGrubuMEditForm>();
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MekanikVeHirdavatGrubuMForms.MekanikVeHirdavatGrubuMListForm>();
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MekanikVeHirdavatGrubuMForms.MekanikVeHirdavatGrubuMEditForm>();
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.AmbalajVeMatbaaGrubuMForms.AmbalajVeMatbaaGrubuMListForm>();
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.AmbalajVeMatbaaGrubuMForms.AmbalajVeMatbaaGrubuMEditForm>();
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.TelVeIzgaraGrubuMForms.TelVeIzgaraGrubuMListForm>();
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.TelVeIzgaraGrubuMForms.TelVeIzgaraGrubuMEditForm>();
                         services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.BirimForms.BirimListForm>();
                         services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.BirimForms.BirimEditForm>();
                         
@@ -193,7 +199,7 @@ internal static class Program
                         services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.AmbalajVeMatbaaGrubuForms.AmbalajVeMatbaaGrubuListForm>();
                         services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.AmbalajVeMatbaaGrubuForms.AmbalajVeMatbaaGrubuEditForm>();
 
-                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.TelVeIzgaraForms.TelVeIzgaraListForm>();
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.TelVeIzgaraForms.TelVeIzgaraGrubuListForm>();
                         services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.TelVeIzgaraForms.TelVeIzgaraEditForm>();
 
                         services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.DigerMalzemeGrubuForms.DigerMalzemeGrubuListForm>();

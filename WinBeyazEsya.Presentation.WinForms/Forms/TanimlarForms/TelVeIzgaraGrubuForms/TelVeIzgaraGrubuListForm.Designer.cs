@@ -1,6 +1,6 @@
 ﻿namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.TelVeIzgaraForms
 {
-    partial class TelVeIzgaraListForm
+    partial class TelVeIzgaraGrubuListForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TelVeIzgaraListForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TelVeIzgaraGrubuListForm));
             longNavigator1 = new RbaYazilim.WinRezistans.UI.Win.UserControls.Controls.Navigators.LongNavigator();
             myGridControl1 = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridControl();
             myGridView1 = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridView();
@@ -146,7 +146,7 @@
             colAciklama.VisibleIndex = 2;
             colAciklama.Width = 150;
             // 
-            // TelVeIzgaraListForm
+            // TelVeIzgaraGrubuListForm
             // 
             AutoScaleDimensions = new SizeF(6F, 13F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -154,8 +154,8 @@
             Controls.Add(myGridControl1);
             Controls.Add(longNavigator1);
             IconOptions.ShowIcon = false;
-            Name = "TelVeIzgaraListForm";
-            Text = "Tel ve Izgara Tanımları";
+            Name = "TelVeIzgaraGrubuListForm";
+            Text = "Tel ve Izgara Grubu Tanımları";
             Controls.SetChildIndex(ribbon, 0);
             Controls.SetChildIndex(longNavigator1, 0);
             Controls.SetChildIndex(myGridControl1, 0);

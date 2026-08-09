@@ -14,17 +14,17 @@ using WinBeyazEsya.Presentation.WinForms.Helpers;
 
 namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.TelVeIzgaraForms
 {
-    public partial class TelVeIzgaraListForm : BaseListForm
+    public partial class TelVeIzgaraGrubuListForm : BaseListForm
     {
         private readonly WinBeyazEsya.Application.Interfaces.Definitions.IWireAndGridGroupService _wireAndGridGroupService = default!;
         private readonly IServiceProvider _serviceProvider = default!;
 
-        public TelVeIzgaraListForm()
+        public TelVeIzgaraGrubuListForm()
         {
             InitializeComponent();
         }
 
-        public TelVeIzgaraListForm(
+        public TelVeIzgaraGrubuListForm(
             WinBeyazEsya.Application.Interfaces.Definitions.IWireAndGridGroupService wireAndGridGroupService,
             IServiceProvider serviceProvider)
         {

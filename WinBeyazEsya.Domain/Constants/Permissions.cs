@@ -107,4 +107,28 @@ public static class Permissions
         public const string Update = "KimyaVeYalitimGrubuMaliyetleri.Update";
         public const string Delete = "KimyaVeYalitimGrubuMaliyetleri.Delete";
     }
+
+    public static class MekanikVeHirdavatGrubuMaliyetleri
+    {
+        public const string View = "MekanikVeHirdavatGrubuMaliyetleri.View";
+        public const string Create = "MekanikVeHirdavatGrubuMaliyetleri.Create";
+        public const string Update = "MekanikVeHirdavatGrubuMaliyetleri.Update";
+        public const string Delete = "MekanikVeHirdavatGrubuMaliyetleri.Delete";
+    }
+
+    public static class AmbalajVeMatbaaGrubuMaliyetleri
+    {
+        public const string View = "AmbalajVeMatbaaGrubuMaliyetleri.View";
+        public const string Create = "AmbalajVeMatbaaGrubuMaliyetleri.Create";
+        public const string Update = "AmbalajVeMatbaaGrubuMaliyetleri.Update";
+        public const string Delete = "AmbalajVeMatbaaGrubuMaliyetleri.Delete";
+    }
+
+    public static class TelVeIzgaraGrubuMaliyetleri
+    {
+        public const string View = "TelVeIzgaraGrubuMaliyetleri.View";
+        public const string Create = "TelVeIzgaraGrubuMaliyetleri.Create";
+        public const string Update = "TelVeIzgaraGrubuMaliyetleri.Update";
+        public const string Delete = "TelVeIzgaraGrubuMaliyetleri.Delete";
+    }
 }
