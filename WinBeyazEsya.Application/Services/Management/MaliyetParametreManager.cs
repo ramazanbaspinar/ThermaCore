@@ -52,12 +52,19 @@ public class MaliyetParametreManager : IMaliyetParametreService
         {
             // Update
             dto.Id = existing.Id; // Prevent changing the PK
+            dto.BranchId = existing.BranchId; // KORUMA: Şube ID'sinin sıfırlanmasını engelle
             _mapper.Map(dto, existing);
             _repository.Update(existing);
         }
         
-        // SystemParameter (Genel Parametreler) artık şube bazlı Maliyet Parametrelerinden geriye dönük güncellenmeyecek.
-        // Çünkü her şubenin kendi fire oranı olabilir. Genel parametreler sadece toplu güncelleme (Forward-Sync) için kullanılacak.
+        // Sistem Parametreleri (Genel Parametreler) Senkronizasyonu
+        // Maliyet ekranından Fire Oranı değiştirildiğinde, genel parametrelerdeki varsayılan fire oranı da eşzamanlı değişecek.
+        var systemParam = _systemRepo.Find(x => true).FirstOrDefault();
+        if (systemParam != null)
+        {
+            systemParam.DefaultWastageRate = dto.WastageRate;
+            _systemRepo.Update(systemParam);
+        }
 
         _unitOfWork.SaveChanges();
         return Task.CompletedTask;

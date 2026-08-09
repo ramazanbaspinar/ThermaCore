@@ -58,6 +58,10 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
         protected DevExpress.XtraBars.BarButtonItem btnYazdir2 = null!;
         protected DevExpress.XtraBars.PopupMenu resimMenu = null!;
 
+        private bool? _hasInsertPermission;
+        private bool? _hasUpdatePermission;
+        private bool? _hasDeletePermission;
+
         #endregion
 
         protected virtual void YetkiKontroluYap()
@@ -75,9 +79,16 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
             var authService = (WinBeyazEsya.Application.Services.Management.IAuthService?)Program.ServiceProvider.GetService(typeof(WinBeyazEsya.Application.Services.Management.IAuthService));
             if (authService == null) return;
 
-            bool hasInsert = authService.HasPermission(BaseKartTuru, PermissionType.CanAdd);
-            bool hasUpdate = authService.HasPermission(BaseKartTuru, PermissionType.CanEdit);
-            bool hasDelete = authService.HasPermission(BaseKartTuru, PermissionType.CanDelete);
+            if (_hasInsertPermission == null || _hasUpdatePermission == null || _hasDeletePermission == null)
+            {
+                _hasInsertPermission = authService.HasPermission(BaseKartTuru, PermissionType.CanAdd);
+                _hasUpdatePermission = authService.HasPermission(BaseKartTuru, PermissionType.CanEdit);
+                _hasDeletePermission = authService.HasPermission(BaseKartTuru, PermissionType.CanDelete);
+            }
+
+            bool hasInsert = _hasInsertPermission.Value;
+            bool hasUpdate = _hasUpdatePermission.Value;
+            bool hasDelete = _hasDeletePermission.Value;
 
             if (BaseIslemTuru == ActionType.EntityInsert && !hasInsert)
             {
@@ -669,9 +680,16 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
                 var authService = (WinBeyazEsya.Application.Services.Management.IAuthService?)Program.ServiceProvider.GetService(typeof(WinBeyazEsya.Application.Services.Management.IAuthService));
                 if (authService != null)
                 {
-                    bool hasInsert = authService.HasPermission(BaseKartTuru, PermissionType.CanAdd);
-                    bool hasUpdate = authService.HasPermission(BaseKartTuru, PermissionType.CanEdit);
-                    bool hasDelete = authService.HasPermission(BaseKartTuru, PermissionType.CanDelete);
+                    if (_hasInsertPermission == null || _hasUpdatePermission == null || _hasDeletePermission == null)
+                    {
+                        _hasInsertPermission = authService.HasPermission(BaseKartTuru, PermissionType.CanAdd);
+                        _hasUpdatePermission = authService.HasPermission(BaseKartTuru, PermissionType.CanEdit);
+                        _hasDeletePermission = authService.HasPermission(BaseKartTuru, PermissionType.CanDelete);
+                    }
+
+                    bool hasInsert = _hasInsertPermission.Value;
+                    bool hasUpdate = _hasUpdatePermission.Value;
+                    bool hasDelete = _hasDeletePermission.Value;
 
                     if (name == "btnYeni" && !hasInsert) { Messages.UyariMesaji("Bu işlem için yetkiniz bulunmamaktadır."); return; }
                     if (name == "btnSil" && !hasDelete) { Messages.UyariMesaji("Bu işlem için yetkiniz bulunmamaktadır."); return; }

@@ -44,6 +44,11 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
         protected internal bool EklenebilecekEntityVar = false;
         protected internal FormAcilisTuru FormAcilisTuru;
 
+        private bool? _hasInsertPermission;
+        private bool? _hasUpdatePermission;
+        private bool? _hasDeletePermission;
+        private bool? _hasReadPermission;
+
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public BarStaticItem barEnter { get; set; } = new BarStaticItem();
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -290,10 +295,18 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
             var authService = (WinBeyazEsya.Application.Services.Management.IAuthService?)Program.ServiceProvider.GetService(typeof(WinBeyazEsya.Application.Services.Management.IAuthService));
             if (authService == null) return;
 
-            bool hasInsert = authService.HasPermission(BaseKartTuru, PermissionType.CanAdd);
-            bool hasUpdate = authService.HasPermission(BaseKartTuru, PermissionType.CanEdit);
-            bool hasDelete = authService.HasPermission(BaseKartTuru, PermissionType.CanDelete);
-            bool hasRead = authService.HasPermission(BaseKartTuru, PermissionType.CanView);
+            if (_hasInsertPermission == null || _hasUpdatePermission == null || _hasDeletePermission == null || _hasReadPermission == null)
+            {
+                _hasInsertPermission = authService.HasPermission(BaseKartTuru, PermissionType.CanAdd);
+                _hasUpdatePermission = authService.HasPermission(BaseKartTuru, PermissionType.CanEdit);
+                _hasDeletePermission = authService.HasPermission(BaseKartTuru, PermissionType.CanDelete);
+                _hasReadPermission = authService.HasPermission(BaseKartTuru, PermissionType.CanView);
+            }
+
+            bool hasInsert = _hasInsertPermission.Value;
+            bool hasUpdate = _hasUpdatePermission.Value;
+            bool hasDelete = _hasDeletePermission.Value;
+            bool hasRead = _hasReadPermission.Value;
 
             if (btnYeni != null && !hasInsert) btnYeni.Enabled = false;
             if (btnDuzelt != null && !hasRead) btnDuzelt.Enabled = false;
@@ -352,10 +365,18 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
                 var authService = (WinBeyazEsya.Application.Services.Management.IAuthService?)Program.ServiceProvider.GetService(typeof(WinBeyazEsya.Application.Services.Management.IAuthService));
                 if (authService != null)
                 {
-                    bool hasInsert = authService.HasPermission(BaseKartTuru, PermissionType.CanAdd);
-                    bool hasUpdate = authService.HasPermission(BaseKartTuru, PermissionType.CanEdit);
-                    bool hasDelete = authService.HasPermission(BaseKartTuru, PermissionType.CanDelete);
-                    bool hasRead = authService.HasPermission(BaseKartTuru, PermissionType.CanView);
+                    if (_hasInsertPermission == null || _hasUpdatePermission == null || _hasDeletePermission == null || _hasReadPermission == null)
+                    {
+                        _hasInsertPermission = authService.HasPermission(BaseKartTuru, PermissionType.CanAdd);
+                        _hasUpdatePermission = authService.HasPermission(BaseKartTuru, PermissionType.CanEdit);
+                        _hasDeletePermission = authService.HasPermission(BaseKartTuru, PermissionType.CanDelete);
+                        _hasReadPermission = authService.HasPermission(BaseKartTuru, PermissionType.CanView);
+                    }
+
+                    bool hasInsert = _hasInsertPermission.Value;
+                    bool hasUpdate = _hasUpdatePermission.Value;
+                    bool hasDelete = _hasDeletePermission.Value;
+                    bool hasRead = _hasReadPermission.Value;
 
                     if (name == "btnYeni" && !hasInsert) { Messages.UyariMesaji("Bu işlem için yetkiniz bulunmamaktadır."); return; }
                     if (name == "btnSil" && !hasDelete) { Messages.UyariMesaji("Bu işlem için yetkiniz bulunmamaktadır."); return; }

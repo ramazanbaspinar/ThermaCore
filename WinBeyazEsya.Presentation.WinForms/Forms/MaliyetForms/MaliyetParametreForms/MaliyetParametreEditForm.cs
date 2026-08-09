@@ -86,6 +86,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MaliyetParametre
             var dto = new MaliyetParametreDto 
             {
                 Id = _currentDto?.Id ?? 0,
+                BranchId = _currentDto?.BranchId ?? 0, // KORUMA: UI tarafında da BranchId taşınsın
                 MaturityDifferenceRate = txtVadeFarkiOrani?.Value ?? 0,
                 WastageRate = txtFireOrani?.Value ?? 0,
                 AverageProductionValue = txtOrtalamaUretimDegeri?.Value ?? 0
