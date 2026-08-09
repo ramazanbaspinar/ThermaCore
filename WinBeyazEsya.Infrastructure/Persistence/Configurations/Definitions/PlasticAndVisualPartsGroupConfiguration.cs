@@ -14,6 +14,7 @@ public class PlasticAndVisualPartsGroupConfiguration : IEntityTypeConfiguration<
         builder.Property(x => x.Code).IsRequired().HasMaxLength(100);
         builder.Property(x => x.Name).IsRequired().HasMaxLength(150);
         
+        builder.Property(x => x.MaterialType).HasMaxLength(100).IsRequired(false);
         builder.Property(x => x.Description).HasMaxLength(500);
 
         builder.HasOne(x => x.BaseUnit)

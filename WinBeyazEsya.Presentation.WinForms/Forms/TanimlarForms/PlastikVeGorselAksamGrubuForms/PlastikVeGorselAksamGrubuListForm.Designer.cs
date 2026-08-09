@@ -35,6 +35,7 @@
             colId = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colKod = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colMalzemeAdi = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
+            colMalzemeTipi = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colAciklama = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             ((System.ComponentModel.ISupportInitialize)ribbon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)myGridControl1).BeginInit();
@@ -44,7 +45,7 @@
             // ribbon
             // 
             ribbon.ExpandCollapseItem.Id = 0;
-            ribbon.Size = new Size(806, 123);
+            ribbon.Size = new Size(798, 123);
             ribbon.Toolbar.ShowCustomizeItem = false;
             // 
             // btnDisariAktar
@@ -55,9 +56,9 @@
             // 
             longNavigator1.Dock = DockStyle.Bottom;
             longNavigator1.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 162);
-            longNavigator1.Location = new Point(0, 364);
+            longNavigator1.Location = new Point(0, 362);
             longNavigator1.Name = "longNavigator1";
-            longNavigator1.Size = new Size(806, 30);
+            longNavigator1.Size = new Size(798, 30);
             longNavigator1.TabIndex = 4;
             // 
             // myGridControl1
@@ -67,13 +68,13 @@
             myGridControl1.MainView = myGridView1;
             myGridControl1.MenuManager = ribbon;
             myGridControl1.Name = "myGridControl1";
-            myGridControl1.Size = new Size(806, 241);
+            myGridControl1.Size = new Size(798, 239);
             myGridControl1.TabIndex = 5;
             myGridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] { myGridView1 });
             // 
             // myGridView1
             // 
-            myGridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colId, colKod, colMalzemeAdi, colAciklama });
+            myGridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colId, colKod, colMalzemeAdi, colMalzemeTipi, colAciklama });
             myGridView1.GridControl = myGridControl1;
             myGridView1.Name = "myGridView1";
             myGridView1.OptionsMenu.EnableColumnMenu = false;
@@ -133,6 +134,19 @@
             colMalzemeAdi.VisibleIndex = 1;
             colMalzemeAdi.Width = 150;
             // 
+            // colMalzemeTipi
+            // 
+            colMalzemeTipi.Caption = "Malzeme Tipi";
+            colMalzemeTipi.FieldName = "MaterialType";
+            colMalzemeTipi.Name = "colMalzemeTipi";
+            colMalzemeTipi.OptionsColumn.AllowEdit = false;
+            colMalzemeTipi.StatusBarAciklama = null;
+            colMalzemeTipi.StatusBarKisaYol = null;
+            colMalzemeTipi.StatusBarKisaYolAciklama = null;
+            colMalzemeTipi.Visible = true;
+            colMalzemeTipi.VisibleIndex = 2;
+            colMalzemeTipi.Width = 150;
+            // 
             // colAciklama
             // 
             colAciklama.Caption = "Açıklama";
@@ -143,14 +157,14 @@
             colAciklama.StatusBarKisaYol = null;
             colAciklama.StatusBarKisaYolAciklama = null;
             colAciklama.Visible = true;
-            colAciklama.VisibleIndex = 2;
+            colAciklama.VisibleIndex = 3;
             colAciklama.Width = 150;
             // 
             // PlastikVeGorselAksamGrubuListForm
             // 
             AutoScaleDimensions = new SizeF(6F, 13F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(806, 425);
+            ClientSize = new Size(798, 425);
             Controls.Add(myGridControl1);
             Controls.Add(longNavigator1);
             IconOptions.ShowIcon = false;
@@ -175,5 +189,6 @@
         private UserControls.Grid.MyGridColumn colKod;
         private UserControls.Grid.MyGridColumn colMalzemeAdi;
         private UserControls.Grid.MyGridColumn colAciklama;
+        private UserControls.Grid.MyGridColumn colMalzemeTipi;
     }
 }

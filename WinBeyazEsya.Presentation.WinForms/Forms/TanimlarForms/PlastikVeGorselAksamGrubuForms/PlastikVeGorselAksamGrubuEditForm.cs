@@ -107,6 +107,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.PlastikVeGorsel
             glufOzelKod.EditValue = entity.SpecialCodeId;
             
             txtAciklama.Text = entity.Description;
+            if (txtMalzemeTipi != null) txtMalzemeTipi.Text = entity.MaterialType;
 
             if (entity.Id > 0)
             {
@@ -144,6 +145,8 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.PlastikVeGorsel
                 SpecialCodeId = (long?)glufOzelKod.EditValue,
                 Description = txtAciklama.Text
             };
+
+            if (txtMalzemeTipi != null) dto.MaterialType = txtMalzemeTipi.Text;
             
             CurrentEntity = dto;
             ButonEnabledDurumu();

@@ -113,7 +113,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.MetalVeSacGrubu
             txtBoy.Value = entity.Length;
             txtKalinlik.Value = entity.Thickness;
             
-            if (txtYuzeyKaplamaTuru != null) txtYuzeyKaplamaTuru.Text = entity.SurfaceCoatingType;
+            if (txtYuzeyKaplamaTipi != null) txtYuzeyKaplamaTipi.Text = entity.SurfaceCoatingType;
             
             txtAciklama.Text = entity.Description;
 
@@ -159,7 +159,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.MetalVeSacGrubu
                 Description = txtAciklama.Text
             };
 
-            if (txtYuzeyKaplamaTuru != null) dto.SurfaceCoatingType = txtYuzeyKaplamaTuru.Text;
+            if (txtYuzeyKaplamaTipi != null) dto.SurfaceCoatingType = txtYuzeyKaplamaTipi.Text;
             
             CurrentEntity = dto;
             ButonEnabledDurumu();

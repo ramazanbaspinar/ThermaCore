@@ -12,5 +12,7 @@ public class PlasticAndVisualPartsGroupDto : BaseDto
 
     public long? SpecialCodeId { get; set; }
     
+    public string? MaterialType { get; set; }
+    
     public string? Description { get; set; }
 }
