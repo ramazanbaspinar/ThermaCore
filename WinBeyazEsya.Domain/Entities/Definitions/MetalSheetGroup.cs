@@ -21,6 +21,8 @@ public class MetalSheetGroup : FullAuditableEntity, IMustHaveBranch
     public decimal Length { get; set; }
     public decimal Thickness { get; set; }
     
+    public string? SurfaceCoatingType { get; set; }
+    
     public string? Description { get; set; }
 
     public long BranchId { get; set; }

@@ -19,5 +19,7 @@ public class MetalSheetGroupDto : BaseDto
     public decimal Length { get; set; }
     public decimal Thickness { get; set; }
     
+    public string? SurfaceCoatingType { get; set; }
+    
     public string? Description { get; set; }
 }

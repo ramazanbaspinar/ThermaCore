@@ -39,6 +39,7 @@
             colKaliteKodu = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colEnBoyKalinlik = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colAciklama = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
+            colYuzeyKaplamaTuru = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             ((System.ComponentModel.ISupportInitialize)ribbon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)myGridControl1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)myGridView1).BeginInit();
@@ -58,7 +59,7 @@
             // 
             longNavigator1.Dock = DockStyle.Bottom;
             longNavigator1.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 162);
-            longNavigator1.Location = new Point(0, 362);
+            longNavigator1.Location = new Point(0, 364);
             longNavigator1.Name = "longNavigator1";
             longNavigator1.Size = new Size(798, 30);
             longNavigator1.TabIndex = 2;
@@ -70,13 +71,13 @@
             myGridControl1.MainView = myGridView1;
             myGridControl1.MenuManager = ribbon;
             myGridControl1.Name = "myGridControl1";
-            myGridControl1.Size = new Size(798, 239);
+            myGridControl1.Size = new Size(798, 241);
             myGridControl1.TabIndex = 3;
             myGridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] { myGridView1 });
             // 
             // myGridView1
             // 
-            myGridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colId, colKod, colMalzemeAdi, colYuzeyTipi, colKaliteKodu, colEnBoyKalinlik, colAciklama });
+            myGridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colId, colKod, colMalzemeAdi, colYuzeyTipi, colYuzeyKaplamaTuru, colKaliteKodu, colEnBoyKalinlik, colAciklama });
             myGridView1.GridControl = myGridControl1;
             myGridView1.Name = "myGridView1";
             myGridView1.OptionsMenu.EnableColumnMenu = false;
@@ -159,7 +160,7 @@
             colKaliteKodu.StatusBarKisaYol = null;
             colKaliteKodu.StatusBarKisaYolAciklama = null;
             colKaliteKodu.Visible = true;
-            colKaliteKodu.VisibleIndex = 3;
+            colKaliteKodu.VisibleIndex = 4;
             colKaliteKodu.Width = 150;
             // 
             // colEnBoyKalinlik
@@ -174,7 +175,7 @@
             colEnBoyKalinlik.UnboundDataType = typeof(string);
             colEnBoyKalinlik.UnboundExpression = "ToStr([Width]) + ' x ' + ToStr([Length]) + ' x ' + ToStr([Thickness])";
             colEnBoyKalinlik.Visible = true;
-            colEnBoyKalinlik.VisibleIndex = 4;
+            colEnBoyKalinlik.VisibleIndex = 5;
             colEnBoyKalinlik.Width = 150;
             // 
             // colAciklama
@@ -187,8 +188,21 @@
             colAciklama.StatusBarKisaYol = null;
             colAciklama.StatusBarKisaYolAciklama = null;
             colAciklama.Visible = true;
-            colAciklama.VisibleIndex = 5;
+            colAciklama.VisibleIndex = 6;
             colAciklama.Width = 150;
+            // 
+            // colYuzeyKaplamaTuru
+            // 
+            colYuzeyKaplamaTuru.Caption = "Yüzey Kaplama Türü";
+            colYuzeyKaplamaTuru.FieldName = "SurfaceCoatingType";
+            colYuzeyKaplamaTuru.Name = "colYuzeyKaplamaTuru";
+            colYuzeyKaplamaTuru.OptionsColumn.AllowEdit = false;
+            colYuzeyKaplamaTuru.StatusBarAciklama = null;
+            colYuzeyKaplamaTuru.StatusBarKisaYol = null;
+            colYuzeyKaplamaTuru.StatusBarKisaYolAciklama = null;
+            colYuzeyKaplamaTuru.Visible = true;
+            colYuzeyKaplamaTuru.VisibleIndex = 3;
+            colYuzeyKaplamaTuru.Width = 150;
             // 
             // MetalVeSacGrubuListForm
             // 
@@ -222,5 +236,6 @@
         private UserControls.Grid.MyGridColumn colKaliteKodu;
         private UserControls.Grid.MyGridColumn colEnBoyKalinlik;
         private UserControls.Grid.MyGridColumn colAciklama;
+        private UserControls.Grid.MyGridColumn colYuzeyKaplamaTuru;
     }
 }

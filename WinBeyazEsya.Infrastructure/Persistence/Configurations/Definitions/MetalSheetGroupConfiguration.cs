@@ -20,6 +20,7 @@ public class MetalSheetGroupConfiguration : IEntityTypeConfiguration<MetalSheetG
         
         builder.Property(x => x.SurfaceType).HasMaxLength(100);
         builder.Property(x => x.QualityCode).HasMaxLength(100);
+        builder.Property(x => x.SurfaceCoatingType).HasMaxLength(100).IsRequired(false);
         builder.Property(x => x.Description).HasMaxLength(500);
 
         builder.HasOne(x => x.BaseUnit)
