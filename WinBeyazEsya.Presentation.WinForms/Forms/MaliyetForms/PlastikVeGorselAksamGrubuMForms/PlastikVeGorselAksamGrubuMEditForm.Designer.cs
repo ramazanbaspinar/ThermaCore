@@ -1,4 +1,4 @@
-ï»¿namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.PlastikVeGorselAksamGrubuMForms
+namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.PlastikVeGorselAksamGrubuMForms
 {
     partial class PlastikVeGorselAksamGrubuMEditForm
     {
@@ -68,7 +68,7 @@
             ClientSize = new Size(398, 299);
             IconOptions.ShowIcon = false;
             Name = "PlastikVeGorselAksamGrubuMEditForm";
-            Text = "Plastik ve GÃ¶rsel Aksam Grubu Maliyet TanÄ±mÄ±";
+            Text = "Plastik ve Görsel Aksam Grubu Maliyet Tanýmý";
             ((System.ComponentModel.ISupportInitialize)cmbParaBirimi.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtMaliyet.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)glfMalzemeSecimi.Properties).EndInit();
@@ -81,3 +81,5 @@
         #endregion
     }
 }
+
+

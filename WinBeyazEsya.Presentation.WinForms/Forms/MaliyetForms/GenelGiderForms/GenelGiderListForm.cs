@@ -148,3 +148,6 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.GenelGiderForms
         }
     }
 }
+
+
+

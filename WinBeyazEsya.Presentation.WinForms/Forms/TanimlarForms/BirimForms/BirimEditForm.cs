@@ -1,4 +1,4 @@
-ï»¿using DevExpress.XtraEditors;
+using DevExpress.XtraEditors;
 using System;
 using System.Linq;
 using System.Windows.Forms;
@@ -78,7 +78,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.BirimForms
             var validationResult = _validator.Validate(dto);
             if (!validationResult.IsValid)
             {
-                XtraMessageBox.Show(string.Join("\n", validationResult.Errors.Select(e => e.ErrorMessage)), "DoÄŸrulama HatasÄ±", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                XtraMessageBox.Show(string.Join("\n", validationResult.Errors.Select(e => e.ErrorMessage)), "Doðrulama Hatasý", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
 
@@ -105,7 +105,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.BirimForms
             var validationResult = _validator.Validate(dto);
             if (!validationResult.IsValid)
             {
-                XtraMessageBox.Show(string.Join("\n", validationResult.Errors.Select(e => e.ErrorMessage)), "DoÄŸrulama HatasÄ±", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                XtraMessageBox.Show(string.Join("\n", validationResult.Errors.Select(e => e.ErrorMessage)), "Doðrulama Hatasý", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
 
@@ -145,7 +145,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.BirimForms
                 }
                 catch (Exception ex)
                 {
-                    Messages.HataBasligi($"Hata oluÅŸtu:\n{ex.Message}", "Hata");
+                    Messages.HataBasligi($"Hata oluþtu:\n{ex.Message}", "Hata");
                 }
                 finally
                 {
@@ -155,3 +155,4 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.BirimForms
         }
     }
 }
+

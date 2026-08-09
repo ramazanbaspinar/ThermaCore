@@ -1,4 +1,4 @@
-ï»¿namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.ElektrikVeElektronikGrubuMForms
+namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.ElektrikVeElektronikGrubuMForms
 {
     partial class ElektrikVeElektronikGrubuMListForm
     {
@@ -49,7 +49,7 @@
             ClientSize = new Size(814, 425);
             IconOptions.ShowIcon = false;
             Name = "ElektrikVeElektronikGrubuMListForm";
-            Text = "Elektrik ve Elektronik Grubu Maliyet TanÄ±mlarÄ±";
+            Text = "Elektrik ve Elektronik Grubu Maliyet Tanýmlarý";
             ((System.ComponentModel.ISupportInitialize)ribbon).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -58,3 +58,5 @@
         #endregion
     }
 }
+
+

@@ -1,4 +1,4 @@
-ï»¿namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MetalVeSacGrubuMForms
+namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MetalVeSacGrubuMForms
 {
     partial class MetalVeSacGrubuMaliyetEditForm
     {
@@ -68,7 +68,7 @@
             ClientSize = new Size(398, 299);
             IconOptions.ShowIcon = false;
             Name = "MetalVeSacGrubuMaliyetEditForm";
-            Text = "Metal Ve Sac Grubu Maliyet TanÄ±mÄ±";
+            Text = "Metal Ve Sac Grubu Maliyet Tanýmý";
             ((System.ComponentModel.ISupportInitialize)cmbParaBirimi.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtMaliyet.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)glfMalzemeSecimi.Properties).EndInit();
@@ -81,3 +81,5 @@
         #endregion
     }
 }
+
+

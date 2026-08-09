@@ -49,7 +49,8 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.PlastikVeGorselA
         {
             if (_plasticAndVisualPartsGroupService != null)
             {
-                var malzemeler = _plasticAndVisualPartsGroupService.GetAll().ToList();
+                var requiredIds = liste.Select(x => x.MaterialId).Distinct().ToList();
+                var malzemeler = System.Linq.Enumerable.ToList(System.Linq.Queryable.Where(System.Linq.Queryable.AsQueryable(_plasticAndVisualPartsGroupService.GetAll()), x => requiredIds.Contains(x.Id)));
                 foreach (var item in liste)
                 {
                     var malzeme = malzemeler.FirstOrDefault(x => x.Id == item.MaterialId);
@@ -62,3 +63,5 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.PlastikVeGorselA
         }
     }
 }
+
+

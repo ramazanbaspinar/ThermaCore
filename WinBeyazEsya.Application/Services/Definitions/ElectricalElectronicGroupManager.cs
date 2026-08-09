@@ -20,10 +20,5 @@ public class ElectricalElectronicGroupManager : BaseManager<ElectricalElectronic
         : base(mapper, repository, unitOfWork, validator)
     {
     }
-
-    public bool IsCodeUnique(long id, string code)
-    {
-        if (string.IsNullOrWhiteSpace(code)) return true;
-        return _repository.Find(x => x.Code == code && x.Id != id).FirstOrDefault() == null;
-    }
 }
+

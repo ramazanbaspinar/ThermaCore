@@ -19,7 +19,12 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.ElektrikVeElektr
     {
         private readonly IElectricalElectronicGroupService _electricalElectronicGroupService;
 
-        public ElektrikVeElektronikGrubuMEditForm(IElectricalElectronicGroupService electricalElectronicGroupService)
+        public ElektrikVeElektronikGrubuMEditForm(
+            IServiceProvider serviceProvider, 
+            WinBeyazEsya.Application.Interfaces.Production.IMaterialCostService materialCostService, 
+            WinBeyazEsya.Application.Interfaces.System.IExchangeRateService exchangeRateService, 
+            IElectricalElectronicGroupService electricalElectronicGroupService) 
+            : base(serviceProvider, materialCostService, exchangeRateService)
         {
             InitializeComponent();
             BaseKartTuru = ModuleType.ElektrikVeElektronikGrubuMaliyetleri;
@@ -40,14 +45,14 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.ElektrikVeElektr
         {
             if (_electricalElectronicGroupService != null && _materialCostService != null)
             {
-                var butunMalzemeler = _electricalElectronicGroupService.GetAll().ToList();
+                var butunMalzemeler = System.Linq.Queryable.AsQueryable(_electricalElectronicGroupService.GetAll());
                 
                 var girilmisMaliyetler = _materialCostService.GetAllByMaterialType(ModuleType.ElektrikVeElektronikGrubuMaliyetleri);
                 var girilmisIdler = girilmisMaliyetler.Select(x => x.MaterialId).ToList();
 
                 if (Id == 0)
                 {
-                    butunMalzemeler = butunMalzemeler.Where(x => !girilmisIdler.Contains(x.Id)).ToList();
+                    butunMalzemeler = butunMalzemeler.Where(x => !girilmisIdler.Contains(x.Id));
                 }
                 else
                 {
@@ -61,10 +66,10 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.ElektrikVeElektr
                         currentMaterialId = oldDto.MaterialId;
                     }
 
-                    butunMalzemeler = butunMalzemeler.Where(x => !girilmisIdler.Contains(x.Id) || x.Id == currentMaterialId).ToList();
+                    butunMalzemeler = butunMalzemeler.Where(x => !girilmisIdler.Contains(x.Id) || x.Id == currentMaterialId);
                 }
 
-                glfMalzemeSecimi.Properties.DataSource = butunMalzemeler;
+                glfMalzemeSecimi.Properties.DataSource = System.Linq.Enumerable.ToList(butunMalzemeler);
                 glfMalzemeSecimi.Properties.ValueMember = "Id";
                 glfMalzemeSecimi.Properties.DisplayMember = "Name";
             }
@@ -81,9 +86,13 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.ElektrikVeElektr
 
         private void glfMalzemeSecimi_SearchButtonClicked(object? sender, EventArgs e)
         {
-            var form = Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.ElektrikVeElektronikGrubuForms.ElektrikVeElektronikGrubuListForm>(Program.ServiceProvider);
-            if (form != null)
+            if (_serviceProvider == null) return;
+            using (var scope = Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.CreateScope(_serviceProvider))
             {
+                using (var form = Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.ElektrikVeElektronikGrubuForms.ElektrikVeElektronikGrubuListForm>(scope.ServiceProvider))
+                {
+                    if (form != null)
+                    {
                 form.FormAcilisTuru = WinBeyazEsya.Presentation.WinForms.Enums.FormAcilisTuru.Secim;
                 
                 if (_materialCostService != null)
@@ -111,6 +120,11 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.ElektrikVeElektr
                     glfMalzemeSecimi.EditValue = secilenId;
                 }
             }
+                }
+            }
         }
     }
 }
+
+
+

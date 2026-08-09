@@ -1,4 +1,4 @@
-ï»¿using DevExpress.XtraEditors;
+using DevExpress.XtraEditors;
 using System;
 using System.Linq;
 using WinBeyazEsya.Application.DTOs.Management;
@@ -57,7 +57,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.KullaniciForms
 
         private void ClbSirketler_ItemCheck(object? sender, DevExpress.XtraEditors.Controls.ItemCheckEventArgs e)
         {
-            if (_isBinding) return; // Yukle metodu sÄ±rasÄ±nda tetiklenmemesi iÃ§in
+            if (_isBinding) return; // Yukle metodu sýrasýnda tetiklenmemesi için
 
             this.BeginInvoke(new Action(() => 
             {
@@ -113,7 +113,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.KullaniciForms
 
         public override void Yukle()
         {
-            // GridLookUpFind iÃ§in datasource doldur
+            // GridLookUpFind için datasource doldur
             var roller = _roleService.GetActiveRoles().ToList();
             glufRol.Properties.DataSource = roller;
             glufRol.Properties.ValueMember = "Id";
@@ -124,7 +124,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.KullaniciForms
             clbSirketler.ValueMember = "Id";
             clbSirketler.DisplayMember = "CompanyName";
 
-            // Ä°lk aÃ§Ä±lÄ±ÅŸta fabrikalar boÅŸ olmalÄ±, Sirket seÃ§iminden sonra dolacak.
+            // Ýlk açýlýþta fabrikalar boþ olmalý, Sirket seçiminden sonra dolacak.
             clbFabrikalar.DataSource = null;
 
             if (BaseIslemTuru == ActionType.EntityInsert)
@@ -149,7 +149,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.KullaniciForms
             txtAd.Text = entity.FirstName;
             txtSoyad.Text = entity.LastName;
             txtEmail.Text = entity.Email;
-            txtSifre.Text = Id > 0 ? "********" : ""; // Åžifre kutusu gÃ¼ncelleme modunda ******** dolar
+            txtSifre.Text = Id > 0 ? "********" : ""; // Þifre kutusu güncelleme modunda ******** dolar
             glufRol.EditValue = entity.UserRoleId == 0 ? (long?)null : entity.UserRoleId;
             tglDurum.IsOn = entity.IsActive;
 
@@ -168,7 +168,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.KullaniciForms
                 }
             }
 
-            FabrikalariDoldur(); // Åžirketler iÅŸaretlendikten sonra listeyi doldur
+            FabrikalariDoldur(); // Þirketler iþaretlendikten sonra listeyi doldur
 
             if (entity.UserBranches != null)
             {
@@ -190,7 +190,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.KullaniciForms
         {
             base.FocusControlByPropertyName(propertyName);
 
-            // Base'deki genel bulucu eÅŸleÅŸmezse Ã¶zel durumlar:
+            // Base'deki genel bulucu eþleþmezse özel durumlar:
             if (propertyName == nameof(UserDto.UserRoleId))
             {
                 glufRol.Focus();
@@ -210,7 +210,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.KullaniciForms
                 FirstName = txtAd.Text,
                 LastName = txtSoyad.Text,
                 Email = txtEmail.Text,
-                Password = txtSifre.Text == "********" ? "" : txtSifre.Text, // EÄŸer ******** ise veya boÅŸsa arkada eski ÅŸifre korunacak (UserService)
+                Password = txtSifre.Text == "********" ? "" : txtSifre.Text, // Eðer ******** ise veya boþsa arkada eski þifre korunacak (UserService)
                 UserRoleId = glufRol.EditValue != null && glufRol.EditValue != DBNull.Value ? Convert.ToInt64(glufRol.EditValue) : 0,
                 IsActive = tglDurum.IsOn
             };
@@ -244,7 +244,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.KullaniciForms
 
             if (_isCheckedListBoxModified)
             {
-                // AutoMapper N-N koleksiyonlarÄ±nÄ± ignore ettiÄŸi iÃ§in manuel bypass
+                // AutoMapper N-N koleksiyonlarýný ignore ettiði için manuel bypass
                 if (btnKaydet != null) btnKaydet.Enabled = true;
                 if (btnGerial != null) btnGerial.Enabled = true;
                 if (btnYeni != null) btnYeni.Enabled = false;
@@ -256,7 +256,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.KullaniciForms
         {
             using (var frm = new RolListForm())
             {
-                frm.EklenebilecekEntityVar = true; // SeÃ§im modu aktif
+                frm.EklenebilecekEntityVar = true; // Seçim modu aktif
                 if (frm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
                     if (frm.SelectedEntities != null && frm.SelectedEntities.Count > 0)
@@ -264,7 +264,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.KullaniciForms
                         var seciliRol = frm.SelectedEntities[0] as RoleDto;
                         if (seciliRol != null)
                         {
-                            // Listeye yeni eklenmiÅŸ olabilecek kayÄ±tlar iÃ§in veri kaynaÄŸÄ±nÄ± tazele
+                            // Listeye yeni eklenmiþ olabilecek kayýtlar için veri kaynaðýný tazele
                             glufRol.Properties.DataSource = _roleService.GetActiveRoles().ToList();
                             glufRol.EditValue = seciliRol.Id;
                         }
@@ -291,7 +291,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.KullaniciForms
         protected override void EntityDelete()
         {
             if (Id <= 0) return;
-            if (Messages.SilMesaj("KullanÄ±cÄ±") == DialogResult.Yes)
+            if (Messages.SilMesaj("Kullanýcý") == DialogResult.Yes)
             {
                 try
                 {
@@ -307,3 +307,4 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.KullaniciForms
         }
     }
 }
+

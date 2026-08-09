@@ -1,4 +1,4 @@
-ï»¿namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.GazVeAteslemeGrubuMForms
+namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.GazVeAteslemeGrubuMForms
 {
     partial class GazVeAteslemeGrubuMEditForm
     {
@@ -68,7 +68,7 @@
             ClientSize = new Size(398, 299);
             IconOptions.ShowIcon = false;
             Name = "GazVeAteslemeGrubuMEditForm";
-            Text = "Gaz ve AteÅŸleme Grubu Maliyet TanÄ±mÄ±";
+            Text = "Gaz ve Ateþleme Grubu Maliyet Tanýmý";
             ((System.ComponentModel.ISupportInitialize)cmbParaBirimi.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtMaliyet.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)glfMalzemeSecimi.Properties).EndInit();
@@ -81,3 +81,5 @@
         #endregion
     }
 }
+
+

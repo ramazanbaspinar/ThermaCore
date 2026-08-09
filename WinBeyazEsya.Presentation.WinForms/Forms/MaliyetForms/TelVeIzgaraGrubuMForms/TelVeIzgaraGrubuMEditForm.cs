@@ -19,7 +19,12 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.TelVeIzgaraGrubu
     {
         private readonly IWireAndGridGroupService _wireAndGridGroupService;
 
-        public TelVeIzgaraGrubuMEditForm(IWireAndGridGroupService wireAndGridGroupService)
+        public TelVeIzgaraGrubuMEditForm(
+            IServiceProvider serviceProvider, 
+            WinBeyazEsya.Application.Interfaces.Production.IMaterialCostService materialCostService, 
+            WinBeyazEsya.Application.Interfaces.System.IExchangeRateService exchangeRateService, 
+            IWireAndGridGroupService wireAndGridGroupService) 
+            : base(serviceProvider, materialCostService, exchangeRateService)
         {
             InitializeComponent();
             BaseKartTuru = ModuleType.TelVeIzgaraGrubuMaliyetleri;
@@ -40,14 +45,14 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.TelVeIzgaraGrubu
         {
             if (_wireAndGridGroupService != null && _materialCostService != null)
             {
-                var butunMalzemeler = _wireAndGridGroupService.GetAll().ToList();
+                var butunMalzemeler = System.Linq.Queryable.AsQueryable(_wireAndGridGroupService.GetAll());
                 
                 var girilmisMaliyetler = _materialCostService.GetAllByMaterialType(ModuleType.TelVeIzgaraGrubuMaliyetleri);
                 var girilmisIdler = girilmisMaliyetler.Select(x => x.MaterialId).ToList();
 
                 if (Id == 0)
                 {
-                    butunMalzemeler = butunMalzemeler.Where(x => !girilmisIdler.Contains(x.Id)).ToList();
+                    butunMalzemeler = butunMalzemeler.Where(x => !girilmisIdler.Contains(x.Id));
                 }
                 else
                 {
@@ -61,10 +66,10 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.TelVeIzgaraGrubu
                         currentMaterialId = oldDto.MaterialId;
                     }
 
-                    butunMalzemeler = butunMalzemeler.Where(x => !girilmisIdler.Contains(x.Id) || x.Id == currentMaterialId).ToList();
+                    butunMalzemeler = butunMalzemeler.Where(x => !girilmisIdler.Contains(x.Id) || x.Id == currentMaterialId);
                 }
 
-                glfMalzemeSecimi.Properties.DataSource = butunMalzemeler;
+                glfMalzemeSecimi.Properties.DataSource = System.Linq.Enumerable.ToList(butunMalzemeler);
                 glfMalzemeSecimi.Properties.ValueMember = "Id";
                 glfMalzemeSecimi.Properties.DisplayMember = "Name";
             }
@@ -81,9 +86,13 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.TelVeIzgaraGrubu
 
         private void glfMalzemeSecimi_SearchButtonClicked(object? sender, EventArgs e)
         {
-            var form = Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.TelVeIzgaraForms.TelVeIzgaraGrubuListForm>(Program.ServiceProvider);
-            if (form != null)
+            if (_serviceProvider == null) return;
+            using (var scope = Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.CreateScope(_serviceProvider))
             {
+                using (var form = Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.TelVeIzgaraForms.TelVeIzgaraGrubuListForm>(scope.ServiceProvider))
+                {
+                    if (form != null)
+                    {
                 form.FormAcilisTuru = WinBeyazEsya.Presentation.WinForms.Enums.FormAcilisTuru.Secim;
                 
                 if (_materialCostService != null)
@@ -111,6 +120,11 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.TelVeIzgaraGrubu
                     glfMalzemeSecimi.EditValue = secilenId;
                 }
             }
+                }
+            }
         }
     }
 }
+
+
+

@@ -307,7 +307,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.MekanikVeHirdav
 
         protected override bool IsCodeUnique(string code)
         {
-            return _mechanicalAndHardwareGroupService.IsCodeUnique(code, this.Id);
+            return _mechanicalAndHardwareGroupService.IsCodeUnique(this.Id, code);
         }
     }
 }

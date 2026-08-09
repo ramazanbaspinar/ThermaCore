@@ -197,3 +197,4 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.OzelKodForms
         }
     }
 }
+

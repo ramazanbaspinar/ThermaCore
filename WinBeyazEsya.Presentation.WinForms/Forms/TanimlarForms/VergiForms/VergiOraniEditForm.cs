@@ -1,4 +1,4 @@
-ï»¿using DevExpress.XtraEditors;
+using DevExpress.XtraEditors;
 using System;
 using WinBeyazEsya.Application.DTOs.Management;
 using WinBeyazEsya.Application.Interfaces.Management;
@@ -24,16 +24,16 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.VergiForms
             _taxType = taxType;
             _taxRateService = taxRateService;
 
-            // BaseEditForm ayarlarÄ±
+            // BaseEditForm ayarlarý
             BaseKartTuru = _taxType == TaxType.Kdv ? ModuleType.KdvOranlari : ModuleType.OtvOranlari;
             DataLayoutControl = myDataLayoutControl1;
         }
 
         public override void Yukle()
         {
-            this.Text = _taxType.ToName() + " OranÄ± KartÄ±";
+            this.Text = _taxType.ToName() + " Oraný Kartý";
             
-            // ComboBox'Ä± ayarla
+            // ComboBox'ý ayarla
             cmbVergiTuru.Properties.Items.Clear();
             cmbVergiTuru.Properties.Items.Add(_taxType.ToName());
             cmbVergiTuru.SelectedIndex = 0;
@@ -98,7 +98,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.VergiForms
         {
             if (Id <= 0) return;
 
-            if (WinBeyazEsya.Presentation.WinForms.Helpers.Messages.SilMesaj("Vergi OranÄ±") == System.Windows.Forms.DialogResult.Yes)
+            if (WinBeyazEsya.Presentation.WinForms.Helpers.Messages.SilMesaj("Vergi Oraný") == System.Windows.Forms.DialogResult.Yes)
             {
                 try
                 {
@@ -110,7 +110,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.VergiForms
                 }
                 catch (System.Exception ex)
                 {
-                    WinBeyazEsya.Presentation.WinForms.Helpers.Messages.HataBasligi($"Hata oluÅŸtu:\n{ex.Message}", "Hata");
+                    WinBeyazEsya.Presentation.WinForms.Helpers.Messages.HataBasligi($"Hata oluþtu:\n{ex.Message}", "Hata");
                 }
                 finally
                 {
@@ -125,3 +125,4 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.VergiForms
         }
     }
 }
+

@@ -1,4 +1,4 @@
-ï»¿using System;
+using System;
 using System.Windows.Forms;
 using WinBeyazEsya.Application.DTOs.Management;
 using WinBeyazEsya.Application.Interfaces.Repositories;
@@ -55,7 +55,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.FabrikaForms
         {
             OldEntity = BaseIslemTuru == ActionType.EntityInsert ? new BranchDto() : _branchService.GetById(Id);
 
-            Text = $"Fabrika TanÄ±mÄ± ({_sirketAdi})";
+            Text = $"Fabrika Tanımı ({_sirketAdi})";
 
             if (BaseIslemTuru == ActionType.EntityUpdate)
             {
@@ -64,7 +64,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.FabrikaForms
                 {
                     if (dto.TenantDatabaseId != _sirketId)
                     {
-                        Messages.HataBasligi("FarklÄ± bir ÅŸirkete ait fabrikayÄ± gÃ¶rÃ¼ntÃ¼leyemezsiniz!", "GÃ¼venlik Ä°hlali");
+                        Messages.HataBasligi("Farklı bir şirkete ait fabrikayı görüntüleyemezsiniz!", "Güvenlik İhlali");
                         Close();
                         return;
                     }
@@ -113,7 +113,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.FabrikaForms
 
                 _branchService.Insert(dto);
 
-                Messages.BilgiBasligi("Fabrika bilgileri baÅŸarÄ±yla eklendi.", "KayÄ±t BaÅŸarÄ±lÄ±");
+                Messages.BilgiBasligi("Fabrika bilgileri başarıyla eklendi.", "Kayıt Başarılı");
                 return true;
             }
             catch (FluentValidation.ValidationException)
@@ -122,7 +122,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.FabrikaForms
             }
             catch (Exception ex)
             {
-                Messages.HataBasligi($"Ekleme sÄ±rasÄ±nda hata oluÅŸtu:\n{ex.Message}", "Hata");
+                Messages.HataBasligi($"Ekleme sırasında hata oluştu:\n{ex.Message}", "Hata");
                 return false;
             }
             finally
@@ -139,7 +139,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.FabrikaForms
                 var dto = (BranchDto)CurrentEntity;
                 if (dto.TenantDatabaseId != _sirketId)
                 {
-                    Messages.HataBasligi("FarklÄ± bir ÅŸirkete ait fabrikayÄ± gÃ¼ncelleyemezsiniz!", "GÃ¼venlik Ä°hlali");
+                    Messages.HataBasligi("Farklı bir şirkete ait fabrikayı güncelleyemezsiniz!", "Güvenlik İhlali");
                     return false;
                 }
 
@@ -148,13 +148,13 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.FabrikaForms
                 {
                     if (existingDto.TenantDatabaseId != _sirketId)
                     {
-                        Messages.HataBasligi("FarklÄ± bir ÅŸirkete ait fabrikayÄ± gÃ¼ncelleyemezsiniz!", "GÃ¼venlik Ä°hlali");
+                        Messages.HataBasligi("Farklı bir şirkete ait fabrikayı güncelleyemezsiniz!", "Güvenlik İhlali");
                         return false;
                     }
 
                     _branchService.Update(dto);
 
-                    Messages.BilgiBasligi("Fabrika bilgileri baÅŸarÄ±yla gÃ¼ncellendi.", "Bilgi");
+                    Messages.BilgiBasligi("Fabrika bilgileri başarıyla güncellendi.", "Bilgi");
                     return true;
                 }
                 return false;
@@ -165,7 +165,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.FabrikaForms
             }
             catch (Exception ex)
             {
-                Messages.HataBasligi($"GÃ¼ncelleme sÄ±rasÄ±nda hata oluÅŸtu:\n{ex.Message}", "Hata");
+                Messages.HataBasligi($"Güncelleme sırasında hata oluştu:\n{ex.Message}", "Hata");
                 return false;
             }
             finally
@@ -188,7 +188,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.FabrikaForms
                     {
                         if (dto.TenantDatabaseId != _sirketId)
                         {
-                            Messages.HataBasligi("FarklÄ± bir ÅŸirkete ait fabrikayÄ± silemezsiniz!", "GÃ¼venlik Ä°hlali");
+                            Messages.HataBasligi("Farklı bir şirkete ait fabrikayı silemezsiniz!", "Güvenlik İhlali");
                             return;
                         }
 
@@ -200,7 +200,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.FabrikaForms
                 }
                 catch (Exception ex)
                 {
-                    Messages.HataBasligi($"Silme iÅŸlemi sÄ±rasÄ±nda hata oluÅŸtu:\n{ex.Message}", "Hata");
+                    Messages.HataBasligi($"Silme işlemi sırasında hata oluştu:\n{ex.Message}", "Hata");
                 }
                 finally
                 {
@@ -250,3 +250,4 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.FabrikaForms
         }
     }
 }
+

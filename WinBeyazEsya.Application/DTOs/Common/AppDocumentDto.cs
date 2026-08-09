@@ -1,10 +1,11 @@
 using System;
 
+using WinBeyazEsya.Application.DTOs.Base;
+
 namespace WinBeyazEsya.Application.DTOs.Common;
 
-public class AppDocumentDto
+public class AppDocumentDto : BaseDto
 {
-    public long Id { get; set; }
     public string EntityName { get; set; } = null!;
     public long EntityId { get; set; }
     public string FileName { get; set; } = null!;

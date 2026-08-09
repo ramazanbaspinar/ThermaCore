@@ -266,3 +266,4 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SirketForms
         }
     }
 }
+

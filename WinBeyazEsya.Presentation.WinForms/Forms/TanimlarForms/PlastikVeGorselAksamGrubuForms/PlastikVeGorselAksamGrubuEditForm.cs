@@ -310,7 +310,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.PlastikVeGorsel
 
         protected override bool IsCodeUnique(string code)
         {
-            return _plasticAndVisualPartsGroupService.IsCodeUnique(code, this.Id); // Note the parameter order fix
+            return _plasticAndVisualPartsGroupService.IsCodeUnique(this.Id, code); // Note the parameter order fix
         }
     }
 }

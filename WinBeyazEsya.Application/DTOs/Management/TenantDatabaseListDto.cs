@@ -1,10 +1,11 @@
-﻿using WinBeyazEsya.Domain.Enums;
+using WinBeyazEsya.Domain.Enums;
+
+using WinBeyazEsya.Application.DTOs.Base;
 
 namespace WinBeyazEsya.Application.DTOs.Management;
 
-public class TenantDatabaseListDto
+public class TenantDatabaseListDto : BaseDto
 {
-    public long Id { get; set; }
     public string Code { get; set; } = string.Empty;
     public bool IsActive { get; set; }
     

@@ -20,10 +20,5 @@ public class GasAndIgnitionGroupManager : BaseManager<GasAndIgnitionGroupListDto
         : base(mapper, repository, unitOfWork, validator)
     {
     }
-
-    public bool IsCodeUnique(string code, long id = 0)
-    {
-        if (string.IsNullOrWhiteSpace(code)) return true;
-        return _repository.Find(x => x.Code == code && x.Id != id).FirstOrDefault() == null;
-    }
 }
+

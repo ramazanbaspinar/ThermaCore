@@ -1,4 +1,4 @@
-﻿namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.GazVeAteslemeGrubuMForms
+namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.GazVeAteslemeGrubuMForms
 {
     partial class GazVeAteslemeGrubuMListForm
     {
@@ -49,7 +49,7 @@
             ClientSize = new Size(814, 425);
             IconOptions.ShowIcon = false;
             Name = "GazVeAteslemeGrubuMListForm";
-            Text = "Gaz ve Ateşleme Grubu Maliyetleri";
+            Text = "Gaz ve Ate�leme Grubu Maliyetleri";
             ((System.ComponentModel.ISupportInitialize)ribbon).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -58,3 +58,5 @@
         #endregion
     }
 }
+
+

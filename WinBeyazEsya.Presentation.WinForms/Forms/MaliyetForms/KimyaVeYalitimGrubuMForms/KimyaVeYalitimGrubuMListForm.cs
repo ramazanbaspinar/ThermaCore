@@ -1,4 +1,4 @@
-using DevExpress.XtraEditors;
+﻿using DevExpress.XtraEditors;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,7 +23,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.KimyaVeYalitimGr
 
         public KimyaVeYalitimGrubuMListForm(
             IChemicalAndInsulationGroupService chemicalAndInsulationGroupService,
-            IServiceProvider serviceProvider)
+            IServiceProvider serviceProvider, WinBeyazEsya.Application.Interfaces.Production.IMaterialCostService materialCostService) : base(serviceProvider, materialCostService)
         {
             InitializeComponent();
             BaseKartTuru = ModuleType.KimyaVeYalitimGrubuMaliyetleri;
@@ -62,3 +62,6 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.KimyaVeYalitimGr
         }
     }
 }
+
+
+

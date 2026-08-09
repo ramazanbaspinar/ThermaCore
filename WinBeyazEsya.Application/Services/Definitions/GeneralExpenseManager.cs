@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using FluentValidation;
 using WinBeyazEsya.Application.DTOs.Definitions;
 using WinBeyazEsya.Application.Interfaces.Definitions;
@@ -24,12 +24,7 @@ namespace WinBeyazEsya.Application.Services.Definitions
         {
             return AutoMapper.QueryableExtensions.Extensions.ProjectTo<GeneralExpenseListDto>(_repository.GetAll(), _mapper.ConfigurationProvider).ToList();
         }
-
-        public bool IsCodeUnique(long id, string code)
-        {
-            if (string.IsNullOrWhiteSpace(code)) return true;
-            return !_repository.Find(x => x.Code == code && x.Id != id).Any();
-        }
     }
 }
+
 

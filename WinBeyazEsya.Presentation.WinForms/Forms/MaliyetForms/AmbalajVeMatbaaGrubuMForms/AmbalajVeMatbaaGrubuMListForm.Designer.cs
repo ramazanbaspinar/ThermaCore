@@ -1,4 +1,4 @@
-﻿namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.AmbalajVeMatbaaGrubuMForms
+namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.AmbalajVeMatbaaGrubuMForms
 {
     partial class AmbalajVeMatbaaGrubuMListForm
     {
@@ -58,3 +58,5 @@
         #endregion
     }
 }
+
+

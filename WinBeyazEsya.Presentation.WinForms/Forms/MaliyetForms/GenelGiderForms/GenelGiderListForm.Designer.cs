@@ -1,4 +1,4 @@
-ï»¿namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.GenelGiderForms
+namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.GenelGiderForms
 {
     partial class GenelGiderListForm
     {
@@ -94,7 +94,7 @@
             myGridView1.StatusBarAciklama = null;
             myGridView1.StatusBarKisaYol = null;
             myGridView1.StatusBarKisaYolAciklama = null;
-            myGridView1.ViewCaption = "Genel Gider TanÄ±mlarÄ±";
+            myGridView1.ViewCaption = "Genel Gider Tanýmlarý";
             // 
             // colId
             // 
@@ -174,7 +174,7 @@
             Controls.Add(longNavigator1);
             IconOptions.ShowIcon = false;
             Name = "GenelGiderListForm";
-            Text = "Genel Gider TanÄ±mlarÄ±";
+            Text = "Genel Gider Tanýmlarý";
             Controls.SetChildIndex(ribbon, 0);
             Controls.SetChildIndex(longNavigator1, 0);
             Controls.SetChildIndex(myGridControl1, 0);
@@ -197,3 +197,6 @@
         private UserControls.Grid.MyGridColumn colParaBirimi;
     }
 }
+
+
+

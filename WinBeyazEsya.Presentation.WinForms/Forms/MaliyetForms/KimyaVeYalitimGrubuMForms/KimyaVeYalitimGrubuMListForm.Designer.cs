@@ -1,4 +1,4 @@
-ï»¿namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.KimyaVeYalitimGrubuMForms
+namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.KimyaVeYalitimGrubuMForms
 {
     partial class KimyaVeYalitimGrubuMListForm
     {
@@ -49,7 +49,7 @@
             ClientSize = new Size(814, 425);
             IconOptions.ShowIcon = false;
             Name = "KimyaVeYalitimGrubuMListForm";
-            Text = "Kimya ve YalÄ±tÄ±m Grubu Maliyetleri";
+            Text = "Kimya ve Yalýtým Grubu Maliyetleri";
             ((System.ComponentModel.ISupportInitialize)ribbon).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -58,3 +58,5 @@
         #endregion
     }
 }
+
+

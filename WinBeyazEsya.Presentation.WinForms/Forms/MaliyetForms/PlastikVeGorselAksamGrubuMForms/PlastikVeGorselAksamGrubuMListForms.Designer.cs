@@ -1,4 +1,4 @@
-﻿namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.PlastikVeGorselAksamGrubuMForms
+namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.PlastikVeGorselAksamGrubuMForms
 {
     partial class PlastikVeGorselAksamGrubuMListForms
     {
@@ -49,7 +49,7 @@
             ClientSize = new Size(814, 425);
             IconOptions.ShowIcon = false;
             Name = "PlastikVeGorselAksamGrubuMListForms";
-            Text = "Plastik ve Görsel Aksam Grubu Maliyetleri";
+            Text = "Plastik ve G�rsel Aksam Grubu Maliyetleri";
             ((System.ComponentModel.ISupportInitialize)ribbon).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -58,3 +58,5 @@
         #endregion
     }
 }
+
+

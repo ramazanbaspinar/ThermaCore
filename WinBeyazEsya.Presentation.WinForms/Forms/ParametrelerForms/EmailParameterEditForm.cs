@@ -1,4 +1,4 @@
-ï»¿using System;
+using System;
 using System.Linq;
 using WinBeyazEsya.Application.DTOs.Management;
 using WinBeyazEsya.Application.Interfaces.Repositories;
@@ -37,7 +37,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms
         {
             if (string.IsNullOrWhiteSpace(txtAliciEmail.Text))
             {
-                Messages.UyariMesaji("LÃ¼tfen test maili gÃ¶ndermek iÃ§in bir alÄ±cÄ± e-posta adresi giriniz.");
+                Messages.UyariMesaji("Lütfen test maili göndermek için bir alıcı e-posta adresi giriniz.");
                 return;
             }
 
@@ -53,18 +53,18 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms
                     {
                         From = new System.Net.Mail.MailAddress(txtSenderEmail.Text, txtSenderName.Text),
                         Subject = "WinBeyazEsya Test E-Mail",
-                        Body = "Bu e-posta WinBeyazEsya sisteminden e-posta parametrelerinin test edilmesi amacÄ±yla gÃ¶nderilmiÅŸtir.",
+                        Body = "Bu e-posta WinBeyazEsya sisteminden e-posta parametrelerinin test edilmesi amacıyla gönderilmiştir.",
                         IsBodyHtml = false
                     };
                     mailMessage.To.Add(txtAliciEmail.Text);
 
                     client.Send(mailMessage);
                 }
-                Messages.BilgiMesaji("Test e-postasÄ± baÅŸarÄ±yla gÃ¶nderildi.");
+                Messages.BilgiMesaji("Test e-postası başarıyla gönderildi.");
             }
             catch (Exception ex)
             {
-                Messages.HataMesaji("Test e-postasÄ± gÃ¶nderilirken bir hata oluÅŸtu:\n" + ex.Message);
+                Messages.HataMesaji("Test e-postası gönderilirken bir hata oluştu:\n" + ex.Message);
             }
             finally
             {
@@ -181,3 +181,4 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms
         }
     }
 }
+

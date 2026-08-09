@@ -1,4 +1,4 @@
-ï»¿using DevExpress.XtraEditors;
+using DevExpress.XtraEditors;
 using System;
 using System.Linq;
 using System.Windows.Forms;
@@ -32,7 +32,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.KurlarForms
 
             HideItems = new DevExpress.XtraBars.BarItem[] { btnYeni, btnSil };
 
-            // Kurlar dÄ±ÅŸarÄ±dan beslendiÄŸi iÃ§in read-only olan alanlar
+            // Kurlar dýþarýdan beslendiði için read-only olan alanlar
             txtTarih.Properties.ReadOnly = true;
             txtDovizKodu.Properties.ReadOnly = true;
             txtTcmbAlis.Properties.ReadOnly = true;
@@ -82,7 +82,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.KurlarForms
 
         protected override bool EntityInsert()
         {
-            XtraMessageBox.Show("Kur tablosuna manuel kayÄ±t eklenemez.", "Yetki HatasÄ±", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            XtraMessageBox.Show("Kur tablosuna manuel kayýt eklenemez.", "Yetki Hatasý", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             return false;
         }
 
@@ -93,7 +93,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.KurlarForms
             var entity = _exchangeRateRepository.GetById(Id);
             if (entity != null)
             {
-                // KullanÄ±cÄ± yalnÄ±zca efektif kurlarÄ± gÃ¼ncelleyebilir
+                // Kullanýcý yalnýzca efektif kurlarý güncelleyebilir
                 entity.EffectiveBuyingRate = formEntity.EffectiveBuyingRate;
                 entity.EffectiveSellingRate = formEntity.EffectiveSellingRate;
 
@@ -106,7 +106,8 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.KurlarForms
 
         protected override void EntityDelete()
         {
-            XtraMessageBox.Show("Kur tanÄ±mlarÄ±nda silme iÅŸlemi yapÄ±lamaz.", "Yetki HatasÄ±", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            XtraMessageBox.Show("Kur tanýmlarýnda silme iþlemi yapýlamaz.", "Yetki Hatasý", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
     }
 }
+

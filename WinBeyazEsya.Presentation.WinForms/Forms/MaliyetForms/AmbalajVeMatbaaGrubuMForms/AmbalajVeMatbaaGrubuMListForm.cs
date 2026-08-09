@@ -1,4 +1,4 @@
-using DevExpress.XtraEditors;
+﻿using DevExpress.XtraEditors;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,7 +23,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.AmbalajVeMatbaaG
 
         public AmbalajVeMatbaaGrubuMListForm(
             IPackagingAndPrintingGroupService packagingAndPrintingGroupService,
-            IServiceProvider serviceProvider)
+            IServiceProvider serviceProvider, WinBeyazEsya.Application.Interfaces.Production.IMaterialCostService materialCostService) : base(serviceProvider, materialCostService)
         {
             InitializeComponent();
             BaseKartTuru = ModuleType.AmbalajVeMatbaaGrubuMaliyetleri;
@@ -49,7 +49,8 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.AmbalajVeMatbaaG
         {
             if (_packagingAndPrintingGroupService != null)
             {
-                var malzemeler = _packagingAndPrintingGroupService.GetAll().ToList();
+                var requiredIds = liste.Select(x => x.MaterialId).Distinct().ToList();
+                var malzemeler = System.Linq.Enumerable.ToList(System.Linq.Queryable.Where(System.Linq.Queryable.AsQueryable(_packagingAndPrintingGroupService.GetAll()), x => requiredIds.Contains(x.Id)));
                 foreach (var item in liste)
                 {
                     var malzeme = malzemeler.FirstOrDefault(x => x.Id == item.MaterialId);
@@ -62,3 +63,6 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.AmbalajVeMatbaaG
         }
     }
 }
+
+
+

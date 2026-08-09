@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using WinBeyazEsya.Application.Interfaces.Repositories;
@@ -15,39 +15,47 @@ public class CodeLogRepository : MasterRepository<CodeLog>, ICodeLogRepository
 
     public async Task<int> GetAndIncrementNextNumberAtomicAsync(ModuleType modul, string firmaKodu, string tarihKey, int baslangicSayisi, long? branchId)
     {
-        using var transaction = await _context.Database.BeginTransactionAsync(global::System.Data.IsolationLevel.Serializable);
+        var strategy = _context.Database.CreateExecutionStrategy();
+        int result = default;
 
-        var takip = await _context.CodeLogs
-            .FirstOrDefaultAsync(x => x.Module == modul &&
-                                      x.CompanyCode == firmaKodu &&
-                                      x.DateKey == tarihKey &&
-                                      (branchId == null ? x.BranchId == null : x.BranchId == branchId));
-
-        int siradakiSayi;
-        if (takip == null)
+        await strategy.ExecuteAsync(async () =>
         {
-            siradakiSayi = baslangicSayisi;
-            var yeniLog = new CodeLog
+            using var transaction = await _context.Database.BeginTransactionAsync(global::System.Data.IsolationLevel.Serializable);
+
+            var takip = await _context.CodeLogs
+                .FirstOrDefaultAsync(x => x.Module == modul &&
+                                          x.CompanyCode == firmaKodu &&
+                                          x.DateKey == tarihKey &&
+                                          (branchId == null ? x.BranchId == null : x.BranchId == branchId));
+
+            int siradakiSayi;
+            if (takip == null)
             {
-                Id = WinBeyazEsya.Domain.Helpers.IdGenerator.GenerateId(),
-                Module = modul,
-                CompanyCode = firmaKodu,
-                DateKey = tarihKey,
-                BranchId = branchId,
-                LastCodeValue = siradakiSayi
-            };
-            _context.CodeLogs.Add(yeniLog);
-            await _context.SaveChangesAsync();
-        }
-        else
-        {
-            siradakiSayi = takip.LastCodeValue + 1;
-            takip.LastCodeValue = siradakiSayi;
-            await _context.SaveChangesAsync();
-        }
+                siradakiSayi = baslangicSayisi;
+                var yeniLog = new CodeLog
+                {
+                    Id = WinBeyazEsya.Domain.Helpers.IdGenerator.GenerateId(),
+                    Module = modul,
+                    CompanyCode = firmaKodu,
+                    DateKey = tarihKey,
+                    BranchId = branchId,
+                    LastCodeValue = siradakiSayi
+                };
+                _context.CodeLogs.Add(yeniLog);
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                siradakiSayi = takip.LastCodeValue + 1;
+                takip.LastCodeValue = siradakiSayi;
+                await _context.SaveChangesAsync();
+            }
 
-        await transaction.CommitAsync();
-        return siradakiSayi;
+            await transaction.CommitAsync();
+            result = siradakiSayi;
+        });
+
+        return result;
     }
 }
 

@@ -230,3 +230,4 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms
         }
     }
 }
+

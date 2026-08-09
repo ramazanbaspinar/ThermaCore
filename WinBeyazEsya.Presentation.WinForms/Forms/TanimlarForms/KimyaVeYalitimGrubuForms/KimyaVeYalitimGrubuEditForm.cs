@@ -307,7 +307,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.KimyaVeYalitimG
 
         protected override bool IsCodeUnique(string code)
         {
-            return _chemicalAndInsulationGroupService.IsCodeUnique(code, this.Id);
+            return _chemicalAndInsulationGroupService.IsCodeUnique(this.Id, code);
         }
     }
 }

@@ -1,8 +1,7 @@
-﻿namespace WinBeyazEsya.Application.DTOs.Base;
+namespace WinBeyazEsya.Application.DTOs.Base;
 
-public abstract class BaseHareketDto
+public abstract class BaseHareketDto : BaseDto
 {
-    public long Id { get; set; }
     
     // DevExpress GridView satır işlem durumları (Insert/Update/Delete tracker)
     public bool Insert { get; set; }

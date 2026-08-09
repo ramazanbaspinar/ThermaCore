@@ -1,4 +1,4 @@
-ï»¿using System;
+using System;
 using System.Linq;
 using WinBeyazEsya.Application.DTOs.Management;
 using WinBeyazEsya.Application.Interfaces.Repositories;
@@ -26,7 +26,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms
 
             HideItems = new DevExpress.XtraBars.BarItem[] { btnYeni, btnSil, btnKaydet, btnGerial };
 
-            // Kilitlenecek (Sadece Bilgi GÃ¶sterimi) alanlar
+            // Kilitlenecek (Sadece Bilgi Gösterimi) alanlar
             txtHardwareId.Properties.ReadOnly = true;
             txtLicenseKey.Properties.ReadOnly = true;
             dtExpirationDate.Properties.ReadOnly = true;
@@ -62,7 +62,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms
                 txtHardwareId.Text = "";
                 txtLicenseKey.Text = "";
                 dtExpirationDate.DateTime = DateTime.Now.AddDays(30); // Default trial
-                txtMaxTerminal.EditValue = 5; // VarsayÄ±lan deneme sÃ¼rÃ¼mÃ¼ terminal sayÄ±sÄ±
+                txtMaxTerminal.EditValue = 5; // Varsayýlan deneme sürümü terminal sayýsý
                 
                 BaseIslemTuru = ActionType.EntityInsert;
             }
@@ -139,3 +139,4 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms
 
     }
 }
+

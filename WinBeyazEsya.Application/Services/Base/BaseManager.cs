@@ -72,6 +72,31 @@ public abstract class BaseManager<TListDto, TDto, TEntity>
         }
     }
 
+    public virtual bool IsCodeUnique(long id, string code)
+    {
+        var entityType = typeof(TEntity);
+        var codeProp = entityType.GetProperty("Code");
+        
+        if (codeProp != null)
+        {
+            var parameter = Expression.Parameter(entityType, "x");
+            
+            var codeProperty = Expression.Property(parameter, "Code");
+            var codeValue = Expression.Constant(code);
+            var codeEquals = Expression.Equal(codeProperty, codeValue);
+
+            var idProperty = Expression.Property(parameter, "Id");
+            var idValue = Expression.Constant(id);
+            var idNotEquals = Expression.NotEqual(idProperty, idValue);
+
+            var combined = Expression.AndAlso(codeEquals, idNotEquals);
+            var lambda = Expression.Lambda<Func<TEntity, bool>>(combined, parameter);
+
+            return !_repository.Find(lambda).Any();
+        }
+        return true;
+    }
+
     public virtual long Insert(TDto dto)
     {
         try

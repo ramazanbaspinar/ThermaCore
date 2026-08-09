@@ -1,4 +1,4 @@
-ï»¿namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MekanikVeHirdavatGrubuMForms
+namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MekanikVeHirdavatGrubuMForms
 {
     partial class MekanikVeHirdavatGrubuMEditForm
     {
@@ -68,7 +68,7 @@
             ClientSize = new Size(398, 299);
             IconOptions.ShowIcon = false;
             Name = "MekanikVeHirdavatGrubuMEditForm";
-            Text = "Mekanik ve HÄ±rdavat Grubu Maliyet TanÄ±mÄ±";
+            Text = "Mekanik ve Hýrdavat Grubu Maliyet Tanýmý";
             ((System.ComponentModel.ISupportInitialize)cmbParaBirimi.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtMaliyet.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)glfMalzemeSecimi.Properties).EndInit();
@@ -81,3 +81,5 @@
         #endregion
     }
 }
+
+

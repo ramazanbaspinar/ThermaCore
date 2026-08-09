@@ -307,7 +307,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.GazveAteslemeGr
 
         protected override bool IsCodeUnique(string code)
         {
-            return _gasAndIgnitionGroupService.IsCodeUnique(code, this.Id);
+            return _gasAndIgnitionGroupService.IsCodeUnique(this.Id, code);
         }
     }
 }

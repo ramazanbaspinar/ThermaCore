@@ -18,12 +18,22 @@ public static class InfrastructureServiceRegistration
     {
         // DbContext
         services.AddDbContext<WinBeyazEsyaMasterContext>(options =>
-            options.UseSqlServer(connectionString, b => b.MigrationsAssembly("WinBeyazEsya.Infrastructure")));
+            options.UseSqlServer(connectionString, b => 
+            {
+                b.MigrationsAssembly("WinBeyazEsya.Infrastructure");
+                b.EnableRetryOnFailure(maxRetryCount: 3, maxRetryDelay: TimeSpan.FromSeconds(2), errorNumbersToAdd: null);
+                b.CommandTimeout(5);
+            }));
 
         services.AddSingleton<WinBeyazEsya.Infrastructure.System.TenantConnectionStringInterceptor>();
 
         services.AddDbContext<WinBeyazEsyaTenantContext>((sp, options) => {
-            options.UseSqlServer(connectionString, b => b.MigrationsAssembly("WinBeyazEsya.Infrastructure"));
+            options.UseSqlServer(connectionString, b => 
+            {
+                b.MigrationsAssembly("WinBeyazEsya.Infrastructure");
+                b.EnableRetryOnFailure(maxRetryCount: 3, maxRetryDelay: TimeSpan.FromSeconds(2), errorNumbersToAdd: null);
+                b.CommandTimeout(5);
+            });
             options.AddInterceptors(sp.GetRequiredService<WinBeyazEsya.Infrastructure.System.TenantConnectionStringInterceptor>());
         });
 
@@ -37,6 +47,7 @@ public static class InfrastructureServiceRegistration
         services.AddScoped<ICryptoService, CryptoService>();
         services.AddScoped<IMailService, MailService>();
         services.AddScoped<IAppConfigService, AppConfigService>();
+        services.AddScoped<WinBeyazEsya.Application.Interfaces.System.IConnectionMonitorService, WinBeyazEsya.Infrastructure.System.ConnectionMonitorManager>();
 
         services.AddScoped<WinBeyazEsya.Application.Interfaces.System.IDatabaseSeederService, WinBeyazEsya.Infrastructure.System.DatabaseSeederManager>();
         services.AddScoped<WinBeyazEsya.Application.Interfaces.System.ITenantDatabaseService, WinBeyazEsya.Infrastructure.System.TenantDatabaseManager>();

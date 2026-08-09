@@ -1,4 +1,4 @@
-﻿using DevExpress.XtraEditors;
+using DevExpress.XtraEditors;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,15 +20,18 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
     {
         protected readonly IMaterialCostService _materialCostService;
         protected readonly IExchangeRateService _exchangeRateService;
+        protected readonly IServiceProvider _serviceProvider;
 
         public BaseMaliyetEditForm()
         {
             InitializeComponent();
-            if (!IsDesignMode && Program.ServiceProvider != null)
-            {
-                _materialCostService = Program.ServiceProvider.GetService<IMaterialCostService>();
-                _exchangeRateService = Program.ServiceProvider.GetService<IExchangeRateService>();
-            }
+        }
+
+        public BaseMaliyetEditForm(IServiceProvider serviceProvider, IMaterialCostService materialCostService, IExchangeRateService exchangeRateService) : this()
+        {
+            _serviceProvider = serviceProvider;
+            _materialCostService = materialCostService;
+            _exchangeRateService = exchangeRateService;
         }
 
         protected virtual void MalzemeListesiniDoldur() { }
@@ -193,3 +196,4 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
         }
     }
 }
+

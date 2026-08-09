@@ -9,7 +9,9 @@ public class ItemBarcodeProfile : Profile
     public ItemBarcodeProfile()
     {
         CreateMap<ItemBarcode, ItemBarcodeDto>().ReverseMap();
-        CreateMap<ItemBarcode, ItemBarcodeListDto>().ReverseMap();
+        CreateMap<ItemBarcode, ItemBarcodeListDto>()
+            .ForMember(dest => dest.IsActive, opt => opt.Ignore())
+            .ReverseMap();
         CreateMap<ItemBarcodeListDto, ItemBarcodeDto>().ReverseMap();
     }
 }

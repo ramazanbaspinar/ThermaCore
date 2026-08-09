@@ -1,4 +1,4 @@
-﻿using DevExpress.XtraEditors;
+using DevExpress.XtraEditors;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,14 +16,17 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
     public partial class BaseMaliyetListForm : BaseListForm
     {
         protected readonly IMaterialCostService _materialCostService;
+        protected readonly IServiceProvider _serviceProvider;
 
         public BaseMaliyetListForm()
         {
             InitializeComponent();
-            if (!IsDesignMode && Program.ServiceProvider != null)
-            {
-                _materialCostService = Program.ServiceProvider.GetService<IMaterialCostService>();
-            }
+        }
+
+        public BaseMaliyetListForm(IServiceProvider serviceProvider, IMaterialCostService materialCostService) : this()
+        {
+            _serviceProvider = serviceProvider;
+            _materialCostService = materialCostService;
         }
 
         protected override void DegiskenleriDoldur()
@@ -47,7 +50,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
                 {
                     var liste = _materialCostService.GetAllByMaterialType(BaseKartTuru).ToList();
                     MalzemeAdlariniDoldur(liste);
-                    Tablo.GridControl.DataSource = liste;
+                    Tablo.GridControl.DataSource = new System.ComponentModel.BindingList<WinBeyazEsya.Application.DTOs.Production.MaterialCostListDto>(liste);
                 }
             }
         }

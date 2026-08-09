@@ -1,4 +1,4 @@
-ï»¿namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.DigerMalzemeGrubuMForms
+namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.DigerMalzemeGrubuMForms
 {
     partial class DigerMalzemeGrubuMEditForm
     {
@@ -68,7 +68,7 @@
             ClientSize = new Size(398, 299);
             IconOptions.ShowIcon = false;
             Name = "DigerMalzemeGrubuMEditForm";
-            Text = "DiÄŸer Malzeme Grubu Maliyet TanÄ±mÄ±";
+            Text = "Diðer Malzeme Grubu Maliyet Tanýmý";
             ((System.ComponentModel.ISupportInitialize)cmbParaBirimi.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtMaliyet.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)glfMalzemeSecimi.Properties).EndInit();
@@ -81,3 +81,5 @@
         #endregion
     }
 }
+
+

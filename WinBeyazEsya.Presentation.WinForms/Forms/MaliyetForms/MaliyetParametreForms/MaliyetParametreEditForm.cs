@@ -123,3 +123,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MaliyetParametre
         }
     }
 }
+
+
+
+

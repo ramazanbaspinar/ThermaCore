@@ -1,4 +1,4 @@
-ï»¿namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.GenelGiderForms
+namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.GenelGiderForms
 {
     partial class GenelGiderEditForm
     {
@@ -215,7 +215,7 @@
             IconOptions.ShowIcon = false;
             MinimumSize = new Size(400, 300);
             Name = "GenelGiderEditForm";
-            Text = "Genel Gider TanÄ±mÄ±";
+            Text = "Genel Gider Tanýmý";
             Controls.SetChildIndex(ribbon, 0);
             Controls.SetChildIndex(myDataLayoutControl1, 0);
             ((System.ComponentModel.ISupportInitialize)ribbon).EndInit();
@@ -248,3 +248,6 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
     }
 }
+
+
+

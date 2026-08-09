@@ -1,4 +1,4 @@
-﻿using DevExpress.XtraEditors;
+using DevExpress.XtraEditors;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -105,3 +105,4 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
         public bool Secim { get; set; }
     }
 }
+

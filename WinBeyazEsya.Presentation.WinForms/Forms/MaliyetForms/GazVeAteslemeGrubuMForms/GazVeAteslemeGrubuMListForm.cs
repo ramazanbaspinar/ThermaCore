@@ -1,4 +1,4 @@
-using DevExpress.XtraEditors;
+﻿using DevExpress.XtraEditors;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,7 +23,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.GazVeAteslemeGru
 
         public GazVeAteslemeGrubuMListForm(
             IGasAndIgnitionGroupService gasAndIgnitionGroupService,
-            IServiceProvider serviceProvider)
+            IServiceProvider serviceProvider, WinBeyazEsya.Application.Interfaces.Production.IMaterialCostService materialCostService) : base(serviceProvider, materialCostService)
         {
             InitializeComponent();
             BaseKartTuru = ModuleType.GazVeAteslemeGrubuMaliyetleri;
@@ -62,3 +62,6 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.GazVeAteslemeGru
         }
     }
 }
+
+
+

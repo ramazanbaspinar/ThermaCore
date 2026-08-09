@@ -1,4 +1,4 @@
-ï»¿using System;
+using System;
 using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using WinBeyazEsya.Application.DTOs.Management;
@@ -90,7 +90,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.CodeTemplateForms
                 var entity = _repository.GetById(Id);
                 if (entity != null)
                 {
-                    tanimliModuller.Remove(entity.Module); // Kendi modÃ¼lÃ¼nÃ¼ listeden Ã§Ä±kar ki dropdown'da gÃ¶rÃ¼nsÃ¼n
+                    tanimliModuller.Remove(entity.Module); // Kendi modülünü listeden çýkar ki dropdown'da görünsün
                 }
             }
             
@@ -138,7 +138,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.CodeTemplateForms
                 txtTarihBazliKodSifirlama.Checked = false;
             }
 
-            // Ä°lk aÃ§Ä±lÄ±ÅŸta state'i UI'a yansÄ±t
+            // Ýlk açýlýþta state'i UI'a yansýt
             TxtTarihKullan_CheckedChanged(null!, EventArgs.Empty);
         }
 
@@ -173,7 +173,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.CodeTemplateForms
         {
             if (string.IsNullOrEmpty(txtModul.Text))
             {
-                Messages.UyariMesaji("LÃ¼tfen kod ÅŸablonu oluÅŸturulacak bir ModÃ¼l seÃ§iniz.");
+                Messages.UyariMesaji("Lütfen kod þablonu oluþturulacak bir Modül seçiniz.");
                 return false;
             }
 
@@ -207,7 +207,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.CodeTemplateForms
             }
             catch (Exception ex)
             {
-                Messages.HataBasligi($"Hata oluÅŸtu:\n{ex.Message}", "Hata");
+                Messages.HataBasligi($"Hata oluþtu:\n{ex.Message}", "Hata");
                 return false;
             }
             finally
@@ -220,7 +220,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.CodeTemplateForms
         {
             if (string.IsNullOrEmpty(txtModul.Text))
             {
-                Messages.UyariMesaji("LÃ¼tfen kod ÅŸablonu oluÅŸturulacak bir ModÃ¼l seÃ§iniz.");
+                Messages.UyariMesaji("Lütfen kod þablonu oluþturulacak bir Modül seçiniz.");
                 return false;
             }
 
@@ -252,7 +252,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.CodeTemplateForms
             }
             catch (Exception ex)
             {
-                Messages.HataBasligi($"Hata oluÅŸtu:\n{ex.Message}", "Hata");
+                Messages.HataBasligi($"Hata oluþtu:\n{ex.Message}", "Hata");
                 return false;
             }
             finally
@@ -265,7 +265,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.CodeTemplateForms
         {
             if (Id <= 0) return;
 
-            if (Messages.SilMesaj("Kod Åžablonu") == DialogResult.Yes)
+            if (Messages.SilMesaj("Kod Þablonu") == DialogResult.Yes)
             {
                 try
                 {
@@ -282,7 +282,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.CodeTemplateForms
                 }
                 catch (Exception ex)
                 {
-                    Messages.HataBasligi($"Hata oluÅŸtu:\n{ex.Message}", "Hata");
+                    Messages.HataBasligi($"Hata oluþtu:\n{ex.Message}", "Hata");
                 }
                 finally
                 {
@@ -299,12 +299,12 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.CodeTemplateForms
 
             if (!dto.IsAutoCodeGenerationEnabled)
             {
-                Messages.UyariMesaji("Otomatik Kod Ãœretimi kapalÄ± olduÄŸu iÃ§in test edilemez.");
+                Messages.UyariMesaji("Otomatik Kod Üretimi kapalý olduðu için test edilemez.");
                 return;
             }
 
-            // TODO: Ä°leride Cari Kartlar yapÄ±ldÄ±ÄŸÄ±nda, Cari KÄ±sa Kod alanÄ± buradan Ã§ekilecek.
-            // Åžimdilik "FirmaKisaKodKullanimDurumu" seÃ§iliyse cari kÄ±sa kod yerine boÅŸ bÄ±rakÄ±yoruz veya opsiyonel bir ÅŸey eklemiyoruz.
+            // TODO: Ýleride Cari Kartlar yapýldýðýnda, Cari Kýsa Kod alaný buradan çekilecek.
+            // Þimdilik "FirmaKisaKodKullanimDurumu" seçiliyse cari kýsa kod yerine boþ býrakýyoruz veya opsiyonel bir þey eklemiyoruz.
             string firmaKodu = "";
             string tarihStr = "";
             
@@ -334,8 +334,9 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.CodeTemplateForms
             if (!string.IsNullOrEmpty(dto.CodeSuffix)) parcalar.Add(dto.CodeSuffix);
 
             string ornekKod = string.Join("-", parcalar);
-            Messages.BilgiBasligi($"OluÅŸturulan Ã–rnek Kod:\n\n{ornekKod}", "Kod Testi");
+            Messages.BilgiBasligi($"Oluþturulan Örnek Kod:\n\n{ornekKod}", "Kod Testi");
         }
     }
 }
+
 

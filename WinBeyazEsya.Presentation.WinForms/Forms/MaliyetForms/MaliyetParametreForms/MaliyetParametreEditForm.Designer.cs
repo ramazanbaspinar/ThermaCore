@@ -1,4 +1,4 @@
-ï»¿namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MaliyetParametreForms
+namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MaliyetParametreForms
 {
     partial class MaliyetParametreEditForm
     {
@@ -163,7 +163,7 @@
             layoutControlItem1.Location = new Point(0, 0);
             layoutControlItem1.Name = "layoutControlItem1";
             layoutControlItem1.Size = new Size(370, 31);
-            layoutControlItem1.Text = "Vade FarkÄ± OranÄ± (%)";
+            layoutControlItem1.Text = "Vade Farký Oraný (%)";
             layoutControlItem1.TextSize = new Size(146, 13);
             // 
             // layoutControlItem2
@@ -173,7 +173,7 @@
             layoutControlItem2.Name = "layoutControlItem2";
             layoutControlItem2.OptionsTableLayoutItem.RowIndex = 1;
             layoutControlItem2.Size = new Size(370, 31);
-            layoutControlItem2.Text = "Fire OranÄ± (%)";
+            layoutControlItem2.Text = "Fire Oraný (%)";
             layoutControlItem2.TextSize = new Size(146, 13);
             // 
             // layoutControlItem3
@@ -183,7 +183,7 @@
             layoutControlItem3.Name = "layoutControlItem3";
             layoutControlItem3.OptionsTableLayoutItem.RowIndex = 2;
             layoutControlItem3.Size = new Size(370, 61);
-            layoutControlItem3.Text = "Ortalama Ãœretim DeÄŸeri (Adet)";
+            layoutControlItem3.Text = "Ortalama Üretim Deðeri (Adet)";
             layoutControlItem3.TextSize = new Size(146, 13);
             // 
             // MaliyetParametreEditForm
@@ -195,7 +195,7 @@
             IconOptions.ShowIcon = false;
             MinimumSize = new Size(400, 300);
             Name = "MaliyetParametreEditForm";
-            Text = "Maliyet Parametre TanÄ±mÄ±";
+            Text = "Maliyet Parametre Tanýmý";
             Controls.SetChildIndex(ribbon, 0);
             Controls.SetChildIndex(myDataLayoutControl1, 0);
             ((System.ComponentModel.ISupportInitialize)ribbon).EndInit();
@@ -224,3 +224,6 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
     }
 }
+
+
+

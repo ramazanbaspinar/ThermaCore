@@ -312,6 +312,27 @@ internal static class Program
     {
         Serilog.Log.Fatal(ex, "Sistemde beklenmeyen bir hata oluştu. Kaynak: {ErrorSource}", source);
 
+        bool isConnectionError = false;
+        var currentEx = ex;
+
+        while (currentEx != null)
+        {
+            if (currentEx is Microsoft.Data.SqlClient.SqlException || 
+                (currentEx.GetType().Name.Contains("DbUpdateException") && currentEx.InnerException is Microsoft.Data.SqlClient.SqlException) ||
+                (currentEx is System.InvalidOperationException invEx && invEx.Message.Contains("connection")))
+            {
+                isConnectionError = true;
+                break;
+            }
+            currentEx = currentEx.InnerException;
+        }
+
+        if (isConnectionError)
+        {
+            SafeShowOnUIThread("İşleminiz sunucu bağlantısı koptuğu için tamamlanamadı.\nBağlantının gelmesini bekleyiniz.", "Bağlantı Koptu", MessageBoxIcon.Warning);
+            return;
+        }
+
         string userMessage = ex.Message;
         if (ex.InnerException != null)
         {
@@ -322,6 +343,39 @@ internal static class Program
         {
             userMessage = "Sistemde beklenmeyen bir hata oluştu. Lütfen sistem yöneticinize bilgi veriniz.\n\nHata Nedeni: " + userMessage;
         }
-        WinBeyazEsya.Presentation.WinForms.Helpers.Messages.HataMesaji(userMessage);
+
+        SafeShowOnUIThread(userMessage, "Hata", MessageBoxIcon.Error);
+    }
+
+    /// <summary>
+    /// BeginInvoke kullanarak mesajı UI Thread'e asenkron gönderir.
+    /// Böylece UI Thread bloklanmış olsa bile deadlock oluşmaz;
+    /// mesaj kuyrukta bekler ve thread boşaldığında gösterilir.
+    /// </summary>
+    private static void SafeShowOnUIThread(string message, string title, MessageBoxIcon icon)
+    {
+        try
+        {
+            var mainForm = System.Windows.Forms.Application.OpenForms.Count > 0
+                ? System.Windows.Forms.Application.OpenForms[0]
+                : null;
+
+            if (mainForm != null && mainForm.IsHandleCreated && !mainForm.IsDisposed)
+            {
+                mainForm.BeginInvoke(new System.Action(() =>
+                {
+                    DevExpress.XtraEditors.XtraMessageBox.Show(mainForm, message, title, MessageBoxButtons.OK, icon);
+                }));
+            }
+            else
+            {
+                // Açık form yoksa standart MessageBox (son çare)
+                MessageBox.Show(message, title, MessageBoxButtons.OK, icon);
+            }
+        }
+        catch (Exception logEx)
+        {
+            Serilog.Log.Error(logEx, "SafeShowOnUIThread hatası.");
+        }
     }
 }

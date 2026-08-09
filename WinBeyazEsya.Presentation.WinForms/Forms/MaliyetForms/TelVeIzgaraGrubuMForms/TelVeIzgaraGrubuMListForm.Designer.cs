@@ -1,4 +1,4 @@
-﻿namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.TelVeIzgaraGrubuMForms
+namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.TelVeIzgaraGrubuMForms
 {
     partial class TelVeIzgaraGrubuMListForm
     {
@@ -58,3 +58,5 @@
         #endregion
     }
 }
+
+

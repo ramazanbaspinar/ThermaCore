@@ -18,7 +18,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
         private bool _programiOtomatikKapat = false;
         private string _currencyInfo = "Yükleniyor...";
         private System.Windows.Forms.Timer _clockTimer;
-
+        private DevExpress.XtraSplashScreen.IOverlaySplashScreenHandle _overlayHandle = null;
         // DI Konteynerinden Gelecek Servisler
         private readonly IServiceProvider _serviceProvider;
         private readonly ICurrentTenantService _currentTenantService;
@@ -49,6 +49,10 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             _clockTimer.Interval = 1000;
             _clockTimer.Tick += (s, e) => 
             {
+                // Bağlantı koptuğunda (overlay aktifken) saat güncellemesini durdur
+                // yoksa "Bağlantı Koptu" yazısını her saniye ezer
+                if (_overlayHandle != null) return;
+
                 if (barTrhSaatBilgisi != null)
                     barTrhSaatBilgisi.Caption = $"{DateTime.Now:dd.MM.yyyy HH:mm:ss}";
 
@@ -281,6 +285,8 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
                 string userFullName = currentUser != null ? $"{currentUser.FirstName} {currentUser.LastName}" : "Bilinmeyen Kullanıcı";
 
                 this.Text = $"WinBeyazEsya ERP --- Bilgisayar: {Environment.MachineName} | Kullanıcı: {userFullName} | Şirket: {currentTenantName} | Fabrika: {_currentTenantService.BranchName}";
+
+                _ = StartHeartbeatAsync();
 
                 // Fire & Forget TCMB Kurlarını Senkronize Et
                 Task.Run(async () =>
@@ -1248,6 +1254,99 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
         }
 
         #endregion
+        private async System.Threading.Tasks.Task StartHeartbeatAsync()
+        {
+            while (true)
+            {
+                await System.Threading.Tasks.Task.Delay(5000);
+
+                if (IsDisposed || Disposing)
+                    break;
+
+                bool isConnected = false;
+                try
+                {
+                    using (var scope = _serviceProvider.CreateScope())
+                    {
+                        var monitorService = scope.ServiceProvider.GetRequiredService<WinBeyazEsya.Application.Interfaces.System.IConnectionMonitorService>();
+                        isConnected = await monitorService.CheckConnectionAsync();
+                    }
+                }
+                catch
+                {
+                    isConnected = false;
+                }
+
+                this.Invoke((System.Windows.Forms.MethodInvoker)delegate
+                {
+                    if (IsDisposed || Disposing) return;
+
+                    if (!isConnected)
+                    {
+                        if (_overlayHandle == null)
+                        {
+                            var options = new DevExpress.XtraSplashScreen.OverlayWindowOptions(
+                                startupDelay: 0,
+                                customPainter: new CenteredTextOverlayPainter()
+                            );
+                            _overlayHandle = DevExpress.XtraSplashScreen.SplashScreenManager.ShowOverlayForm(this, options);
+                        }
+
+                        if (barTrhSaatBilgisi != null)
+                        {
+                            barTrhSaatBilgisi.Caption = "Bağlantı Koptu, Yeniden Deneniyor...";
+                            barTrhSaatBilgisi.ItemAppearance.Normal.ForeColor = System.Drawing.Color.Red;
+                        }
+                    }
+                    else
+                    {
+                        if (_overlayHandle != null)
+                        {
+                            DevExpress.XtraSplashScreen.SplashScreenManager.CloseOverlayForm(_overlayHandle);
+                            _overlayHandle = null;
+                        }
+
+                        if (barTrhSaatBilgisi != null)
+                        {
+                            barTrhSaatBilgisi.Caption = $"{DateTime.Now:dd.MM.yyyy HH:mm:ss}";
+                            barTrhSaatBilgisi.ItemAppearance.Normal.ForeColor = System.Drawing.Color.Empty;
+                        }
+                    }
+                });
+            }
+        }
+    }
+
+    /// <summary>
+    /// Bağlantı koptuğunda DevExpress'in varsayılan spinner animasyonunu KORUYARAK,
+    /// altına profesyonel, ortalanmış ve renkli bir bilgilendirme metni çizer.
+    /// </summary>
+    class CenteredTextOverlayPainter : DevExpress.XtraSplashScreen.OverlayWindowPainterBase
+    {
+        protected override void Draw(DevExpress.XtraSplashScreen.OverlayWindowCustomDrawContext context)
+        {
+            // context.Handled = true; YAZMIYORUZ! DevExpress varsayılan animasyonu (spinner) kendisi çizsin.
+            // Biz sadece üzerine sade ve kurumsal metnimizi ekliyoruz.
+            
+            var g = context.DrawArgs.Cache.Graphics;
+            var bounds = context.DrawArgs.Bounds;
+
+            string text = "Sunucu bağlantısı koptu...\nYeniden bağlanmaya çalışılıyor, lütfen bekleyiniz.";
+
+            using (var font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular))
+            using (var format = new System.Drawing.StringFormat())
+            using (var brush = new System.Drawing.SolidBrush(System.Drawing.Color.White))
+            {
+                format.Alignment = System.Drawing.StringAlignment.Center;
+                format.LineAlignment = System.Drawing.StringAlignment.Center;
+
+                // Ekran merkezinin biraz altına (spinner'ın altına) kaydır
+                var textBounds = bounds;
+                textBounds.Y += 80;
+
+                g.DrawString(text, font, brush, textBounds, format);
+            }
+        }
     }
 }
 

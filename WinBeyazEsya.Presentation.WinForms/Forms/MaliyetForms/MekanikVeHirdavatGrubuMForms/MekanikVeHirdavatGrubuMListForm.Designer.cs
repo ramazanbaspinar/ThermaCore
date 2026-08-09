@@ -1,4 +1,4 @@
-﻿namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MekanikVeHirdavatGrubuMForms
+namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MekanikVeHirdavatGrubuMForms
 {
     partial class MekanikVeHirdavatGrubuMListForm
     {
@@ -49,7 +49,7 @@
             ClientSize = new Size(814, 425);
             IconOptions.ShowIcon = false;
             Name = "MekanikVeHirdavatGrubuMListForm";
-            Text = "Mekanik ve Hırdavat Grubu Maliyetleri";
+            Text = "Mekanik ve H�rdavat Grubu Maliyetleri";
             ((System.ComponentModel.ISupportInitialize)ribbon).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -58,3 +58,5 @@
         #endregion
     }
 }
+
+

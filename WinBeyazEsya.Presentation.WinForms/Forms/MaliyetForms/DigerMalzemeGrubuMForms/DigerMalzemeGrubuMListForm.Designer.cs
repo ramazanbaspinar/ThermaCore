@@ -1,4 +1,4 @@
-﻿namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.DigerMalzemeGrubuMForms
+namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.DigerMalzemeGrubuMForms
 {
     partial class DigerMalzemeGrubuMListForm
     {
@@ -49,7 +49,7 @@
             ClientSize = new Size(814, 425);
             IconOptions.ShowIcon = false;
             Name = "DigerMalzemeGrubuMListForm";
-            Text = "Diğer Malzeme Grubu Maliyetleri";
+            Text = "Di�er Malzeme Grubu Maliyetleri";
             ((System.ComponentModel.ISupportInitialize)ribbon).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -58,3 +58,5 @@
         #endregion
     }
 }
+
+

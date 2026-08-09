@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 using WinBeyazEsya.Application.DTOs.Base;
 
@@ -6,7 +6,7 @@ namespace WinBeyazEsya.Application.DTOs.Management;
 
 public class ExchangeRateDto : BaseDto
 {
-    public long Id { get; set; }
+
     public DateTime RateDate { get; set; }
     public string CurrencyCode { get; set; } = string.Empty;
 

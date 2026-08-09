@@ -1,4 +1,4 @@
-ï»¿using System.Windows.Forms;
+using System.Windows.Forms;
 using WinBeyazEsya.Application.DTOs.Management;
 using WinBeyazEsya.Application.Interfaces.Repositories;
 using WinBeyazEsya.Domain.Entities.Management;
@@ -46,7 +46,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.KodYonetimForms
                 };
                 OldEntity = dto;
 
-                Text = $"Kod Log DÃ¼zenle (ModÃ¼l: {WinBeyazEsya.Domain.Extensions.EnumExtensions.ToName(codeLog.Module)})";
+                Text = $"Kod Log Düzenle (Modül: {WinBeyazEsya.Domain.Extensions.EnumExtensions.ToName(codeLog.Module)})";
                 txtSonKodDegeri.Value = codeLog.LastCodeValue;
             }
         }
@@ -90,18 +90,18 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.KodYonetimForms
                 if (codeLog != null)
                 {
                     codeLog.LastCodeValue = dto.LastCodeValue;
-                    // GÃ¼venlik: Sadece sayaÃ§ gÃ¼ncelleniyor
+                    // Güvenlik: Sadece sayaç güncelleniyor
                     _codeLogRepository.Update(codeLog);
                     _uow.SaveChanges();
 
-                    Messages.BilgiBasligi("Kod sayacÄ± baÅŸarÄ±yla gÃ¼ncellendi.", "Bilgi");
+                    Messages.BilgiBasligi("Kod sayacý baþarýyla güncellendi.", "Bilgi");
                     return true;
                 }
                 return false;
             }
             catch (System.Exception ex)
             {
-                Messages.HataBasligi($"GÃ¼ncelleme sÄ±rasÄ±nda hata oluÅŸtu:\n{ex.Message}", "Hata");
+                Messages.HataBasligi($"Güncelleme sýrasýnda hata oluþtu:\n{ex.Message}", "Hata");
                 return false;
             }
             finally
@@ -112,7 +112,8 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.KodYonetimForms
 
         protected override void EntityDelete()
         {
-            // Ä°ÅŸlem yapÄ±lmayacak
+            // Ýþlem yapýlmayacak
         }
     }
 }
+

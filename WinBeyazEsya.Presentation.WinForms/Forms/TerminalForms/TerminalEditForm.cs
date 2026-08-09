@@ -1,4 +1,4 @@
-ï»¿using System;
+using System;
 using System.Linq;
 using System.Windows.Forms;
 using WinBeyazEsya.Application.DTOs.Management;
@@ -26,7 +26,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TerminalForms
             DataLayoutControl = myDataLayoutControlPro1;
             Bll = _terminalService;
             HideItems = new DevExpress.XtraBars.BarItem[] { btnYeni, btnSil };
-            RequiresCodeTemplate = false; // Code template mantÄ±ÄŸÄ±nÄ± devre dÄ±ÅŸÄ± bÄ±rakÄ±yoruz, Ã§Ã¼nkÃ¼ Cihaz AdÄ±'nÄ± manuel alÄ±yoruz
+            RequiresCodeTemplate = false; // Code template mantýðýný devre dýþý býrakýyoruz, çünkü Cihaz Adý'ný manuel alýyoruz
         }
 
         public override void Yukle()
@@ -101,3 +101,4 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TerminalForms
         }
     }
 }
+

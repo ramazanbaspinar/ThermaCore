@@ -1,4 +1,4 @@
-ï»¿namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.ElektrikVeElektronikGrubuMForms
+namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.ElektrikVeElektronikGrubuMForms
 {
     partial class ElektrikVeElektronikGrubuMEditForm
     {
@@ -72,7 +72,7 @@
             ClientSize = new Size(390, 299);
             IconOptions.ShowIcon = false;
             Name = "ElektrikVeElektronikGrubuMEditForm";
-            Text = "Elektrik ve Elektronik Grubu Maliyet TanÄ±mÄ±";
+            Text = "Elektrik ve Elektronik Grubu Maliyet Tanýmý";
             ((System.ComponentModel.ISupportInitialize)cmbParaBirimi.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtMaliyet.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)glfMalzemeSecimi.Properties).EndInit();
@@ -85,3 +85,5 @@
         #endregion
     }
 }
+
+
