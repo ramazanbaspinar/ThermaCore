@@ -159,6 +159,10 @@ internal static class Program
                         services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MetalVeSacGrubuMForms.MetalVeSacGrubuMaliyetEditForm>();
                         services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.GazVeAteslemeGrubuMForms.GazVeAteslemeGrubuMListForm>();
                         services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.GazVeAteslemeGrubuMForms.GazVeAteslemeGrubuMEditForm>();
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.PlastikVeGorselAksamGrubuMForms.PlastikVeGorselAksamGrubuMListForms>();
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.PlastikVeGorselAksamGrubuMForms.PlastikVeGorselAksamGrubuMEditForm>();
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.KimyaVeYalitimGrubuMForms.KimyaVeYalitimGrubuMListForm>();
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.KimyaVeYalitimGrubuMForms.KimyaVeYalitimGrubuMEditForm>();
                         services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.BirimForms.BirimListForm>();
                         services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.BirimForms.BirimEditForm>();
                         

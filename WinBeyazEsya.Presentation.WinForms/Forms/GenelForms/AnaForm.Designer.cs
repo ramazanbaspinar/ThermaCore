@@ -73,6 +73,8 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             aceElektrikVeElektronikGrubuMaliyetleri = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             aceMetalVeSacGrubuMaliyetleri = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             aceGazVeAteslemeGrubuMaliyetleri = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            acePlastikVeGorselAksamGrubuMaliyetleri = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            aceKimyaVeYalitimGrubuMaliyetleri = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             aceAyarlar = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             aceKurumsalTanimlar = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             aceSirketTanimlari = new DevExpress.XtraBars.Navigation.AccordionControlElement();
@@ -379,7 +381,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             // 
             // aceMaliyet
             // 
-            aceMaliyet.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] { aceGenelGiderler, aceMaliyetParametreleri, aceElektrikVeElektronikGrubuMaliyetleri, aceMetalVeSacGrubuMaliyetleri, aceGazVeAteslemeGrubuMaliyetleri });
+            aceMaliyet.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] { aceGenelGiderler, aceMaliyetParametreleri, aceElektrikVeElektronikGrubuMaliyetleri, aceMetalVeSacGrubuMaliyetleri, aceGazVeAteslemeGrubuMaliyetleri, acePlastikVeGorselAksamGrubuMaliyetleri, aceKimyaVeYalitimGrubuMaliyetleri });
             aceMaliyet.Expanded = true;
             aceMaliyet.Name = "aceMaliyet";
             aceMaliyet.Text = "Maliyetler";
@@ -413,6 +415,18 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             aceGazVeAteslemeGrubuMaliyetleri.Name = "aceGazVeAteslemeGrubuMaliyetleri";
             aceGazVeAteslemeGrubuMaliyetleri.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
             aceGazVeAteslemeGrubuMaliyetleri.Text = "Gaz ve Ateşleme Grubu Maliyetleri";
+            // 
+            // acePlastikVeGorselAksamGrubuMaliyetleri
+            // 
+            acePlastikVeGorselAksamGrubuMaliyetleri.Name = "acePlastikVeGorselAksamGrubuMaliyetleri";
+            acePlastikVeGorselAksamGrubuMaliyetleri.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            acePlastikVeGorselAksamGrubuMaliyetleri.Text = "Plastik ve Görsel Aksam Grubu Maliyetleri";
+            // 
+            // aceKimyaVeYalitimGrubuMaliyetleri
+            // 
+            aceKimyaVeYalitimGrubuMaliyetleri.Name = "aceKimyaVeYalitimGrubuMaliyetleri";
+            aceKimyaVeYalitimGrubuMaliyetleri.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            aceKimyaVeYalitimGrubuMaliyetleri.Text = "Kimya ve Yalıtım Grubu Maliyetleri";
             // 
             // aceAyarlar
             // 
@@ -671,6 +685,8 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
         private DevExpress.XtraBars.Navigation.AccordionControlElement aceElektrikVeElektronikGrubuMaliyetleri;
         private DevExpress.XtraBars.Navigation.AccordionControlElement aceMetalVeSacGrubuMaliyetleri;
         private DevExpress.XtraBars.Navigation.AccordionControlElement aceGazVeAteslemeGrubuMaliyetleri;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement acePlastikVeGorselAksamGrubuMaliyetleri;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement aceKimyaVeYalitimGrubuMaliyetleri;
         private DevExpress.XtraBars.BarButtonItem btnFabrikaDegistir;
         private DevExpress.XtraBars.Navigation.AccordionControlElement aceTelVeIzgaraTanimlari;
     }

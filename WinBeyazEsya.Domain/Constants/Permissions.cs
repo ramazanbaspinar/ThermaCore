@@ -91,4 +91,20 @@ public static class Permissions
         public const string Update = "GazVeAteslemeGrubuMaliyetleri.Update";
         public const string Delete = "GazVeAteslemeGrubuMaliyetleri.Delete";
     }
+
+    public static class PlastikVeGorselAksamGrubuMaliyetleri
+    {
+        public const string View = "PlastikVeGorselAksamGrubuMaliyetleri.View";
+        public const string Create = "PlastikVeGorselAksamGrubuMaliyetleri.Create";
+        public const string Update = "PlastikVeGorselAksamGrubuMaliyetleri.Update";
+        public const string Delete = "PlastikVeGorselAksamGrubuMaliyetleri.Delete";
+    }
+
+    public static class KimyaVeYalitimGrubuMaliyetleri
+    {
+        public const string View = "KimyaVeYalitimGrubuMaliyetleri.View";
+        public const string Create = "KimyaVeYalitimGrubuMaliyetleri.Create";
+        public const string Update = "KimyaVeYalitimGrubuMaliyetleri.Update";
+        public const string Delete = "KimyaVeYalitimGrubuMaliyetleri.Delete";
+    }
 }

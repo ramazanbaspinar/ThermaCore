@@ -179,4 +179,14 @@ public enum ModuleType
     [ParentModule(Maliyetler)]
     [RequiresCodeTemplate]
     GazVeAteslemeGrubuMaliyetleri = 29,
+
+    [Description("Plastik ve Görsel Aksam Grubu Maliyetleri")]
+    [ParentModule(Maliyetler)]
+    [RequiresCodeTemplate]
+    PlastikVeGorselAksamGrubuMaliyetleri = 30,
+
+    [Description("Kimya ve Yalıtım Grubu Maliyetleri")]
+    [ParentModule(Maliyetler)]
+    [RequiresCodeTemplate]
+    KimyaVeYalitimGrubuMaliyetleri = 31,
 }

@@ -102,6 +102,10 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
                 aceMetalVeSacGrubuMaliyetleri.Click += miMetalVeSacGrubuMaliyetleri_Click;
             if (aceGazVeAteslemeGrubuMaliyetleri != null)
                 aceGazVeAteslemeGrubuMaliyetleri.Click += miGazVeAteslemeGrubuMaliyetleri_Click;
+            if (acePlastikVeGorselAksamGrubuMaliyetleri != null)
+                acePlastikVeGorselAksamGrubuMaliyetleri.Click += miPlastikVeGorselAksamGrubuMaliyetleri_Click;
+            if (aceKimyaVeYalitimGrubuMaliyetleri != null)
+                aceKimyaVeYalitimGrubuMaliyetleri.Click += miKimyaVeYalitimGrubuMaliyetleri_Click;
 
             if (aceEmailParametreleri != null)
                 aceEmailParametreleri.Click += (s, e) =>
@@ -420,6 +424,8 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             if (aceElektrikVeElektronikGrubuMaliyetleri != null) aceElektrikVeElektronikGrubuMaliyetleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.ElektrikVeElektronikGrubuMaliyetleri;
             if (aceMetalVeSacGrubuMaliyetleri != null) aceMetalVeSacGrubuMaliyetleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.MetalVeSacGrubuMaliyetleri;
             if (aceGazVeAteslemeGrubuMaliyetleri != null) aceGazVeAteslemeGrubuMaliyetleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.GazVeAteslemeGrubuMaliyetleri;
+            if (acePlastikVeGorselAksamGrubuMaliyetleri != null) acePlastikVeGorselAksamGrubuMaliyetleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.PlastikVeGorselAksamGrubuMaliyetleri;
+            if (aceKimyaVeYalitimGrubuMaliyetleri != null) aceKimyaVeYalitimGrubuMaliyetleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.KimyaVeYalitimGrubuMaliyetleri;
         }
 
         private void ApplyAccordionPermissions()
@@ -939,6 +945,24 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.GazVeAteslemeGrubuMaliyetleri, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
             {
                 FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.GazVeAteslemeGrubuMForms.GazVeAteslemeGrubuMListForm>();
+            }
+        }
+
+        private void miPlastikVeGorselAksamGrubuMaliyetleri_Click(object? sender, EventArgs e)
+        {
+            var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
+            if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.PlastikVeGorselAksamGrubuMaliyetleri, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
+            {
+                FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.PlastikVeGorselAksamGrubuMForms.PlastikVeGorselAksamGrubuMListForms>();
+            }
+        }
+
+        private void miKimyaVeYalitimGrubuMaliyetleri_Click(object? sender, EventArgs e)
+        {
+            var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
+            if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.KimyaVeYalitimGrubuMaliyetleri, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
+            {
+                FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.KimyaVeYalitimGrubuMForms.KimyaVeYalitimGrubuMListForm>();
             }
         }
 
