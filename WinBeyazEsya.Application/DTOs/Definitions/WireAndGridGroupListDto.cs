@@ -12,5 +12,8 @@ public class WireAndGridGroupListDto : BaseDto
 
     public long? SpecialCodeId { get; set; }
     
+    public string? CoatingType { get; set; }
+    public string? MaterialType { get; set; }
+    
     public string? Description { get; set; }
 }

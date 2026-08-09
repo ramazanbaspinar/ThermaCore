@@ -14,7 +14,7 @@ using WinBeyazEsya.Presentation.WinForms.Helpers;
 
 namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.TelVeIzgaraForms
 {
-    public partial class TelVeIzgaraEditForm : BaseEditForm
+    public partial class TelVeIzgaraGrubuEditForm : BaseEditForm
     {
         private readonly WinBeyazEsya.Application.Interfaces.Definitions.IWireAndGridGroupService _wireAndGridGroupService = default!;
         private readonly WinBeyazEsya.Application.Interfaces.Repositories.IRepository<WinBeyazEsya.Domain.Entities.Definitions.Unit> _unitRepository = default!;
@@ -23,12 +23,12 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.TelVeIzgaraForm
         private readonly WinBeyazEsya.Application.Interfaces.Common.IItemBarcodeService _itemBarcodeService = default!;
         private readonly IServiceProvider _serviceProvider = default!;
 
-        public TelVeIzgaraEditForm()
+        public TelVeIzgaraGrubuEditForm()
         {
             InitializeComponent();
         }
 
-        public TelVeIzgaraEditForm(
+        public TelVeIzgaraGrubuEditForm(
             WinBeyazEsya.Application.Interfaces.Definitions.IWireAndGridGroupService wireAndGridGroupService,
             WinBeyazEsya.Application.Interfaces.Repositories.IRepository<WinBeyazEsya.Domain.Entities.Definitions.Unit> unitRepository,
             WinBeyazEsya.Application.Interfaces.Common.ISpecialCodeService specialCodeService,
@@ -107,6 +107,8 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.TelVeIzgaraForm
             glufOzelKod.EditValue = entity.SpecialCodeId;
             
             txtAciklama.Text = entity.Description;
+            if (txtKaplamaTipi != null) txtKaplamaTipi.Text = entity.CoatingType;
+            if (txtMalzemeTipi != null) txtMalzemeTipi.Text = entity.MaterialType;
 
             if (entity.Id > 0)
             {
@@ -144,6 +146,9 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.TelVeIzgaraForm
                 SpecialCodeId = (long?)glufOzelKod.EditValue,
                 Description = txtAciklama.Text
             };
+
+            if (txtKaplamaTipi != null) dto.CoatingType = txtKaplamaTipi.Text;
+            if (txtMalzemeTipi != null) dto.MaterialType = txtMalzemeTipi.Text;
             
             CurrentEntity = dto;
             ButonEnabledDurumu();

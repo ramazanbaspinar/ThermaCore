@@ -8,5 +8,7 @@ public class WireAndGridGroupDto : BaseDto
     public string Name { get; set; } = string.Empty;
     public long BaseUnitId { get; set; }
     public long? SpecialCodeId { get; set; }
+    public string? CoatingType { get; set; }
+    public string? MaterialType { get; set; }
     public string? Description { get; set; }
 }

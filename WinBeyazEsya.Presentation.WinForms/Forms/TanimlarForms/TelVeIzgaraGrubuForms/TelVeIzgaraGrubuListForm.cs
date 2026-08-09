@@ -64,7 +64,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.TelVeIzgaraForm
         {
             if (_serviceProvider != null)
             {
-                var form = Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<TelVeIzgaraEditForm>(_serviceProvider);
+                var form = Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<TelVeIzgaraGrubuEditForm>(_serviceProvider);
                 if (form != null)
                 {
                     form.IdAtaVeAc(id);

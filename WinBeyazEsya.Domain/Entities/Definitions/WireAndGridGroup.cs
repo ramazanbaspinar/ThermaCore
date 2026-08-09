@@ -11,6 +11,8 @@ public class WireAndGridGroup : FullAuditableEntity, IMustHaveBranch
     public string Code { get; set; } = string.Empty;
     public string Name { get; set; } = string.Empty;
     public bool IsActive { get; set; } = true;
+    public string? CoatingType { get; set; }
+    public string? MaterialType { get; set; }
     public string? Description { get; set; }
     public byte[]? Picture { get; set; }
 

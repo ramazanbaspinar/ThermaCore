@@ -18,6 +18,14 @@ public class WireAndGridGroupConfiguration : IEntityTypeConfiguration<WireAndGri
             .IsRequired()
             .HasMaxLength(150);
             
+        builder.Property(x => x.CoatingType)
+            .HasMaxLength(100)
+            .IsRequired(false);
+
+        builder.Property(x => x.MaterialType)
+            .HasMaxLength(100)
+            .IsRequired(false);
+            
         builder.HasIndex(x => x.Code)
             .IsUnique();
             

@@ -36,6 +36,8 @@
             colKod = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colMalzemeAdi = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colAciklama = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
+            colMalzemeTipi = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
+            colKaplamaTipi = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             ((System.ComponentModel.ISupportInitialize)ribbon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)myGridControl1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)myGridView1).BeginInit();
@@ -73,7 +75,7 @@
             // 
             // myGridView1
             // 
-            myGridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colId, colKod, colMalzemeAdi, colAciklama });
+            myGridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colId, colKod, colMalzemeAdi, colMalzemeTipi, colKaplamaTipi, colAciklama });
             myGridView1.GridControl = myGridControl1;
             myGridView1.Name = "myGridView1";
             myGridView1.OptionsMenu.EnableColumnMenu = false;
@@ -143,8 +145,34 @@
             colAciklama.StatusBarKisaYol = null;
             colAciklama.StatusBarKisaYolAciklama = null;
             colAciklama.Visible = true;
-            colAciklama.VisibleIndex = 2;
+            colAciklama.VisibleIndex = 4;
             colAciklama.Width = 150;
+            // 
+            // colMalzemeTipi
+            // 
+            colMalzemeTipi.Caption = "Malzeme Tipi";
+            colMalzemeTipi.FieldName = "MaterialType";
+            colMalzemeTipi.Name = "colMalzemeTipi";
+            colMalzemeTipi.OptionsColumn.AllowEdit = false;
+            colMalzemeTipi.StatusBarAciklama = null;
+            colMalzemeTipi.StatusBarKisaYol = null;
+            colMalzemeTipi.StatusBarKisaYolAciklama = null;
+            colMalzemeTipi.Visible = true;
+            colMalzemeTipi.VisibleIndex = 2;
+            colMalzemeTipi.Width = 150;
+            // 
+            // colKaplamaTipi
+            // 
+            colKaplamaTipi.Caption = "Kaplama Tipi";
+            colKaplamaTipi.FieldName = "CoatingType";
+            colKaplamaTipi.Name = "colKaplamaTipi";
+            colKaplamaTipi.OptionsColumn.AllowEdit = false;
+            colKaplamaTipi.StatusBarAciklama = null;
+            colKaplamaTipi.StatusBarKisaYol = null;
+            colKaplamaTipi.StatusBarKisaYolAciklama = null;
+            colKaplamaTipi.Visible = true;
+            colKaplamaTipi.VisibleIndex = 3;
+            colKaplamaTipi.Width = 150;
             // 
             // TelVeIzgaraGrubuListForm
             // 
@@ -175,5 +203,7 @@
         private UserControls.Grid.MyGridColumn colKod;
         private UserControls.Grid.MyGridColumn colMalzemeAdi;
         private UserControls.Grid.MyGridColumn colAciklama;
+        private UserControls.Grid.MyGridColumn colMalzemeTipi;
+        private UserControls.Grid.MyGridColumn colKaplamaTipi;
     }
 }

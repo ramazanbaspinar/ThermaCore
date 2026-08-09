@@ -202,7 +202,7 @@ internal static class Program
                         services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.AmbalajVeMatbaaGrubuForms.AmbalajVeMatbaaGrubuEditForm>();
 
                         services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.TelVeIzgaraForms.TelVeIzgaraGrubuListForm>();
-                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.TelVeIzgaraForms.TelVeIzgaraEditForm>();
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.TelVeIzgaraForms.TelVeIzgaraGrubuEditForm>();
 
                         services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.DigerMalzemeGrubuForms.DigerMalzemeGrubuListForm>();
                         services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.DigerMalzemeGrubuForms.DigerMalzemeGrubuEditForm>();
