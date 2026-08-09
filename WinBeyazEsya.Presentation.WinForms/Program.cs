@@ -169,6 +169,8 @@ internal static class Program
                         services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.AmbalajVeMatbaaGrubuMForms.AmbalajVeMatbaaGrubuMEditForm>();
                         services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.TelVeIzgaraGrubuMForms.TelVeIzgaraGrubuMListForm>();
                         services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.TelVeIzgaraGrubuMForms.TelVeIzgaraGrubuMEditForm>();
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.DigerMalzemeGrubuMForms.DigerMalzemeGrubuMListForm>();
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.DigerMalzemeGrubuMForms.DigerMalzemeGrubuMEditForm>();
                         services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.BirimForms.BirimListForm>();
                         services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.BirimForms.BirimEditForm>();
                         

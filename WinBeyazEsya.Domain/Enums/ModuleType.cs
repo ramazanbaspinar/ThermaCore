@@ -204,4 +204,9 @@ public enum ModuleType
     [ParentModule(Maliyetler)]
     [RequiresCodeTemplate]
     TelVeIzgaraGrubuMaliyetleri = 34,
+
+    [Description("Diğer Malzeme Grubu Maliyetleri")]
+    [ParentModule(Maliyetler)]
+    [RequiresCodeTemplate]
+    DigerMalzemeGrubuMaliyetleri = 35,
 }

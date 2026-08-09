@@ -112,6 +112,8 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
                 aceAmbalajVeMatbaaGrubuMaliyetleri.Click += miAmbalajVeMatbaaGrubuMaliyetleri_Click;
             if (aceTelVeIzgaraGrubuMaliyetleri != null)
                 aceTelVeIzgaraGrubuMaliyetleri.Click += miTelVeIzgaraGrubuMaliyetleri_Click;
+            if (aceDigerMalzemeGrubuMaliyetleri != null)
+                aceDigerMalzemeGrubuMaliyetleri.Click += miDigerMalzemeGrubuMaliyetleri_Click;
 
             if (aceEmailParametreleri != null)
                 aceEmailParametreleri.Click += (s, e) =>
@@ -435,6 +437,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             if (aceMekanikVeHirdavatGrubuMaliyetleri != null) aceMekanikVeHirdavatGrubuMaliyetleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.MekanikVeHirdavatGrubuMaliyetleri;
             if (aceAmbalajVeMatbaaGrubuMaliyetleri != null) aceAmbalajVeMatbaaGrubuMaliyetleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.AmbalajVeMatbaaGrubuMaliyetleri;
             if (aceTelVeIzgaraGrubuMaliyetleri != null) aceTelVeIzgaraGrubuMaliyetleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.TelVeIzgaraGrubuMaliyetleri;
+            if (aceDigerMalzemeGrubuMaliyetleri != null) aceDigerMalzemeGrubuMaliyetleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.DigerMalzemeGrubuMaliyetleri;
         }
 
         private void ApplyAccordionPermissions()
@@ -999,6 +1002,15 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.TelVeIzgaraGrubuMaliyetleri, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
             {
                 FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.TelVeIzgaraGrubuMForms.TelVeIzgaraGrubuMListForm>();
+            }
+        }
+
+        private void miDigerMalzemeGrubuMaliyetleri_Click(object? sender, EventArgs e)
+        {
+            var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
+            if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.DigerMalzemeGrubuMaliyetleri, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
+            {
+                FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.DigerMalzemeGrubuMForms.DigerMalzemeGrubuMListForm>();
             }
         }
 

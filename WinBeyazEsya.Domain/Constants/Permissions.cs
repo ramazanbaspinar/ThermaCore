@@ -131,4 +131,12 @@ public static class Permissions
         public const string Update = "TelVeIzgaraGrubuMaliyetleri.Update";
         public const string Delete = "TelVeIzgaraGrubuMaliyetleri.Delete";
     }
+
+    public static class DigerMalzemeGrubuMaliyetleri
+    {
+        public const string View = "DigerMalzemeGrubuMaliyetleri.View";
+        public const string Create = "DigerMalzemeGrubuMaliyetleri.Create";
+        public const string Update = "DigerMalzemeGrubuMaliyetleri.Update";
+        public const string Delete = "DigerMalzemeGrubuMaliyetleri.Delete";
+    }
 }
