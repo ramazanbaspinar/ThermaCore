@@ -267,7 +267,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
                 Cursor.Current = Cursors.WaitCursor;
 
                 // Seçili firma ve kullanıcı bilgilerini bar başlıklarına (veya pencere başlığına) yazdır
-                Text = $"WinBeyazEsya ERP --- Bilgisayar: {Environment.MachineName}";
+                // Seçili firma ve kullanıcı bilgilerini bar başlıklarına (veya pencere başlığına) yazdır
 
                 var scopeFactory = _serviceProvider.GetRequiredService<IServiceScopeFactory>();
 
@@ -275,6 +275,12 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
                 long currentTenantId = _currentTenantService.TenantId;
                 string currentTenantName = _currentTenantService.TenantName;
                 long currentUserId = _currentTenantService.UserId;
+                
+                var userService = _serviceProvider.GetRequiredService<WinBeyazEsya.Application.Interfaces.Management.IUserService>();
+                var currentUser = userService.GetById(currentUserId);
+                string userFullName = currentUser != null ? $"{currentUser.FirstName} {currentUser.LastName}" : "Bilinmeyen Kullanıcı";
+
+                this.Text = $"WinBeyazEsya ERP --- Bilgisayar: {Environment.MachineName} | Kullanıcı: {userFullName} | Şirket: {currentTenantName} | Fabrika: {_currentTenantService.BranchName}";
 
                 // Fire & Forget TCMB Kurlarını Senkronize Et
                 Task.Run(async () =>
@@ -654,7 +660,10 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
                 }
             }
 
-            this.Text = $"WinBeyazEsya ERP --- Bilgisayar: {Environment.MachineName} | Şirket: {_currentTenantService.TenantName} | Fabrika: {_currentTenantService.BranchName}";
+            var userService = _serviceProvider.GetRequiredService<WinBeyazEsya.Application.Interfaces.Management.IUserService>();
+            var currentUser = userService.GetById(_currentTenantService.UserId);
+            string userFullName = currentUser != null ? $"{currentUser.FirstName} {currentUser.LastName}" : "Bilinmeyen Kullanıcı";
+            this.Text = $"WinBeyazEsya ERP --- Bilgisayar: {Environment.MachineName} | Kullanıcı: {userFullName} | Şirket: {_currentTenantService.TenantName} | Fabrika: {_currentTenantService.BranchName}";
 
             if (allowedBranches != null && allowedBranches.Count > 1)
             {
@@ -714,7 +723,10 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
 
                         // Bar üzerindeki yazıyı güncelle
                         btnFabrikaDegistir.Caption = $"🏢 Aktif Fabrika: {frm.SeciliSubeAdi} [Değiştir]";
-                        this.Text = $"WinBeyazEsya ERP --- Bilgisayar: {Environment.MachineName} | Şirket: {_currentTenantService.TenantName} | Fabrika: {_currentTenantService.BranchName}";
+                        var userService = _serviceProvider.GetRequiredService<WinBeyazEsya.Application.Interfaces.Management.IUserService>();
+                        var currentUser = userService.GetById(_currentTenantService.UserId);
+                        string userFullName = currentUser != null ? $"{currentUser.FirstName} {currentUser.LastName}" : "Bilinmeyen Kullanıcı";
+                        this.Text = $"WinBeyazEsya ERP --- Bilgisayar: {Environment.MachineName} | Kullanıcı: {userFullName} | Şirket: {_currentTenantService.TenantName} | Fabrika: {_currentTenantService.BranchName}";
                     }
                 }
             }
@@ -1218,7 +1230,10 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
                         }
                         appConfigService.SetAskBranchAtStartup(frm.AcilistaSor);
 
-                        this.Text = $"WinBeyazEsya ERP --- Bilgisayar: {Environment.MachineName} | Şirket: {_currentTenantService.TenantName} | Fabrika: {_currentTenantService.BranchName}";
+                        var userService = _serviceProvider.GetRequiredService<WinBeyazEsya.Application.Interfaces.Management.IUserService>();
+                        var currentUser = userService.GetById(_currentTenantService.UserId);
+                        string userFullName = currentUser != null ? $"{currentUser.FirstName} {currentUser.LastName}" : "Bilinmeyen Kullanıcı";
+                        this.Text = $"WinBeyazEsya ERP --- Bilgisayar: {Environment.MachineName} | Kullanıcı: {userFullName} | Şirket: {_currentTenantService.TenantName} | Fabrika: {_currentTenantService.BranchName}";
                         if (btnFabrikaDegistir != null)
                         {
                             btnFabrikaDegistir.Caption = $"🏢 Aktif Fabrika: {_currentTenantService.BranchName} [Değiştir]";

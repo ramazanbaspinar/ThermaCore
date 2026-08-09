@@ -268,7 +268,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             btnAnaFormResim.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
             btnAnaFormResim.Properties.ShowMenu = false;
             btnAnaFormResim.Properties.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Stretch;
-            btnAnaFormResim.Size = new Size(712, 666);
+            btnAnaFormResim.Size = new Size(704, 666);
             btnAnaFormResim.StatusBarAciklama = null;
             btnAnaFormResim.StatusBarKisaYol = "F4 :";
             btnAnaFormResim.StatusBarKisaYolAciklama = null;
@@ -295,7 +295,6 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             // aceTanimlar
             // 
             aceTanimlar.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] { aceTemelTanimlar, aceMetalVeSacGrubuTanimlari, aceElektrikVeElektronikGrubuTanimlari, aceGazVeAteslemeGrubuTanimlari, acePlastikVeGorselAksamGrubuTanimlari, aceKimyaVeYalitimGrubuTanimlari, aceMekanikVeHirdavatGrubuTanimlari, aceAmbalajVeMatbaaGrubuTanimlari, aceTelVeIzgaraGrubuTanimlari, aceDigerMalzemeGrubuTanimlari });
-            aceTanimlar.Expanded = true;
             aceTanimlar.Name = "aceTanimlar";
             aceTanimlar.Text = "Tanımlar";
             // 
@@ -386,7 +385,6 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             // aceMaliyet
             // 
             aceMaliyet.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] { aceGenelGiderler, aceMaliyetParametreleri, aceElektrikVeElektronikGrubuMaliyetleri, aceMetalVeSacGrubuMaliyetleri, aceGazVeAteslemeGrubuMaliyetleri, acePlastikVeGorselAksamGrubuMaliyetleri, aceKimyaVeYalitimGrubuMaliyetleri, aceMekanikVeHirdavatGrubuMaliyetleri, aceAmbalajVeMatbaaGrubuMaliyetleri, aceTelVeIzgaraGrubuMaliyetleri, aceDigerMalzemeGrubuMaliyetleri });
-            aceMaliyet.Expanded = true;
             aceMaliyet.Name = "aceMaliyet";
             aceMaliyet.Text = "Maliyetler";
             // 
@@ -591,7 +589,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             barDockControlTop.Dock = DockStyle.Top;
             barDockControlTop.Location = new Point(0, 0);
             barDockControlTop.Manager = barManager1;
-            barDockControlTop.Size = new Size(972, 20);
+            barDockControlTop.Size = new Size(964, 20);
             // 
             // barDockControlBottom
             // 
@@ -599,7 +597,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             barDockControlBottom.Dock = DockStyle.Bottom;
             barDockControlBottom.Location = new Point(0, 686);
             barDockControlBottom.Manager = barManager1;
-            barDockControlBottom.Size = new Size(972, 0);
+            barDockControlBottom.Size = new Size(964, 0);
             // 
             // barDockControlLeft
             // 
@@ -613,7 +611,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             // 
             barDockControlRight.CausesValidation = false;
             barDockControlRight.Dock = DockStyle.Right;
-            barDockControlRight.Location = new Point(972, 20);
+            barDockControlRight.Location = new Point(964, 20);
             barDockControlRight.Manager = barManager1;
             barDockControlRight.Size = new Size(0, 666);
             // 
@@ -624,7 +622,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             Appearance.Options.UseFont = true;
             AutoScaleDimensions = new SizeF(7F, 16F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(972, 686);
+            ClientSize = new Size(964, 686);
             Controls.Add(btnAnaFormResim);
             Controls.Add(accordionControl1);
             Controls.Add(barDockControlLeft);
