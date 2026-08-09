@@ -67,4 +67,28 @@ public static class Permissions
         public const string Update = "DigerMalzemeGrubu.Update";
         public const string Delete = "DigerMalzemeGrubu.Delete";
     }
+
+    public static class ElektrikVeElektronikGrubuMaliyetleri
+    {
+        public const string View = "ElektrikVeElektronikGrubuMaliyetleri.View";
+        public const string Create = "ElektrikVeElektronikGrubuMaliyetleri.Create";
+        public const string Update = "ElektrikVeElektronikGrubuMaliyetleri.Update";
+        public const string Delete = "ElektrikVeElektronikGrubuMaliyetleri.Delete";
+    }
+
+    public static class MetalVeSacGrubuMaliyetleri
+    {
+        public const string View = "MetalVeSacGrubuMaliyetleri.View";
+        public const string Create = "MetalVeSacGrubuMaliyetleri.Create";
+        public const string Update = "MetalVeSacGrubuMaliyetleri.Update";
+        public const string Delete = "MetalVeSacGrubuMaliyetleri.Delete";
+    }
+
+    public static class GazVeAteslemeGrubuMaliyetleri
+    {
+        public const string View = "GazVeAteslemeGrubuMaliyetleri.View";
+        public const string Create = "GazVeAteslemeGrubuMaliyetleri.Create";
+        public const string Update = "GazVeAteslemeGrubuMaliyetleri.Update";
+        public const string Delete = "GazVeAteslemeGrubuMaliyetleri.Delete";
+    }
 }

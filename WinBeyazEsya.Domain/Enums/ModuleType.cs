@@ -164,4 +164,19 @@ public enum ModuleType
     [ParentModule(Maliyetler)]
     [RequiresCodeTemplate]
     MaliyetParametreleri = 16,
+
+    [Description("Elektrik ve Elektronik Grubu Maliyetleri")]
+    [ParentModule(Maliyetler)]
+    [RequiresCodeTemplate]
+    ElektrikVeElektronikGrubuMaliyetleri = 27,
+
+    [Description("Metal ve Sac Grubu Maliyetleri")]
+    [ParentModule(Maliyetler)]
+    [RequiresCodeTemplate]
+    MetalVeSacGrubuMaliyetleri = 28,
+
+    [Description("Gaz ve Ateşleme Grubu Maliyetleri")]
+    [ParentModule(Maliyetler)]
+    [RequiresCodeTemplate]
+    GazVeAteslemeGrubuMaliyetleri = 29,
 }

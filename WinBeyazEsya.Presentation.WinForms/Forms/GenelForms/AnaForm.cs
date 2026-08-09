@@ -96,6 +96,13 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
                     var form = _serviceProvider.GetRequiredService<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MaliyetParametreForms.MaliyetParametreEditForm>();
                     form.ShowDialog();
                 };
+            if (aceElektrikVeElektronikGrubuMaliyetleri != null)
+                aceElektrikVeElektronikGrubuMaliyetleri.Click += miElektrikVeElektronikGrubuMaliyetleri_Click;
+            if (aceMetalVeSacGrubuMaliyetleri != null)
+                aceMetalVeSacGrubuMaliyetleri.Click += miMetalVeSacGrubuMaliyetleri_Click;
+            if (aceGazVeAteslemeGrubuMaliyetleri != null)
+                aceGazVeAteslemeGrubuMaliyetleri.Click += miGazVeAteslemeGrubuMaliyetleri_Click;
+
             if (aceEmailParametreleri != null)
                 aceEmailParametreleri.Click += (s, e) =>
                 {
@@ -410,6 +417,9 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
 
             if (aceGenelGiderler != null) aceGenelGiderler.Tag = WinBeyazEsya.Domain.Enums.ModuleType.GenelGiderler;
             if (aceMaliyetParametreleri != null) aceMaliyetParametreleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.MaliyetParametreleri;
+            if (aceElektrikVeElektronikGrubuMaliyetleri != null) aceElektrikVeElektronikGrubuMaliyetleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.ElektrikVeElektronikGrubuMaliyetleri;
+            if (aceMetalVeSacGrubuMaliyetleri != null) aceMetalVeSacGrubuMaliyetleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.MetalVeSacGrubuMaliyetleri;
+            if (aceGazVeAteslemeGrubuMaliyetleri != null) aceGazVeAteslemeGrubuMaliyetleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.GazVeAteslemeGrubuMaliyetleri;
         }
 
         private void ApplyAccordionPermissions()
@@ -902,6 +912,33 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             else
             {
                 XtraMessageBox.Show("Bu ekrana erişim yetkiniz bulunmamaktadır.", "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void miElektrikVeElektronikGrubuMaliyetleri_Click(object? sender, EventArgs e)
+        {
+            var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
+            if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.ElektrikVeElektronikGrubuMaliyetleri, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
+            {
+                FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.ElektrikVeElektronikGrubuMForms.ElektrikVeElektronikGrubuMListForm>();
+            }
+        }
+
+        private void miMetalVeSacGrubuMaliyetleri_Click(object? sender, EventArgs e)
+        {
+            var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
+            if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.MetalVeSacGrubuMaliyetleri, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
+            {
+                FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MetalVeSacGrubuMForms.MetalVeSacGrubuMaliyetListForm>();
+            }
+        }
+
+        private void miGazVeAteslemeGrubuMaliyetleri_Click(object? sender, EventArgs e)
+        {
+            var authService = _serviceProvider.GetService<WinBeyazEsya.Application.Services.Management.IAuthService>();
+            if (authService != null && authService.HasPermission(WinBeyazEsya.Domain.Enums.ModuleType.GazVeAteslemeGrubuMaliyetleri, WinBeyazEsya.Domain.Enums.PermissionType.CanView))
+            {
+                FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.GazVeAteslemeGrubuMForms.GazVeAteslemeGrubuMListForm>();
             }
         }
 

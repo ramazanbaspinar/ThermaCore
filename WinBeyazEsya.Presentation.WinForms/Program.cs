@@ -153,6 +153,12 @@ internal static class Program
                         services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.GenelGiderForms.GenelGiderListForm>();
                         services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.GenelGiderForms.GenelGiderEditForm>();
                         services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MaliyetParametreForms.MaliyetParametreEditForm>();                
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.ElektrikVeElektronikGrubuMForms.ElektrikVeElektronikGrubuMListForm>();
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.ElektrikVeElektronikGrubuMForms.ElektrikVeElektronikGrubuMEditForm>();
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MetalVeSacGrubuMForms.MetalVeSacGrubuMaliyetListForm>();
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MetalVeSacGrubuMForms.MetalVeSacGrubuMaliyetEditForm>();
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.GazVeAteslemeGrubuMForms.GazVeAteslemeGrubuMListForm>();
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.GazVeAteslemeGrubuMForms.GazVeAteslemeGrubuMEditForm>();
                         services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.BirimForms.BirimListForm>();
                         services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.BirimForms.BirimEditForm>();
                         

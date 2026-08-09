@@ -69,7 +69,7 @@
             myDataLayoutControl1.Name = "myDataLayoutControl1";
             myDataLayoutControl1.OptionsFocus.EnableAutoTabOrder = false;
             myDataLayoutControl1.Root = Root;
-            myDataLayoutControl1.Size = new Size(390, 145);
+            myDataLayoutControl1.Size = new Size(390, 143);
             myDataLayoutControl1.TabIndex = 0;
             myDataLayoutControl1.Text = "myDataLayoutControl1";
             // 
@@ -154,7 +154,7 @@
             rowDefinition3.Height = 31D;
             rowDefinition3.SizeType = SizeType.Absolute;
             Root.OptionsTableLayoutGroup.RowDefinitions.AddRange(new DevExpress.XtraLayout.RowDefinition[] { rowDefinition1, rowDefinition2, rowDefinition3 });
-            Root.Size = new Size(390, 145);
+            Root.Size = new Size(390, 143);
             Root.TextVisible = false;
             // 
             // layoutControlItem1
@@ -182,7 +182,7 @@
             layoutControlItem3.Location = new Point(0, 62);
             layoutControlItem3.Name = "layoutControlItem3";
             layoutControlItem3.OptionsTableLayoutItem.RowIndex = 2;
-            layoutControlItem3.Size = new Size(370, 63);
+            layoutControlItem3.Size = new Size(370, 61);
             layoutControlItem3.Text = "Ortalama Üretim Değeri (Adet)";
             layoutControlItem3.TextSize = new Size(146, 13);
             // 
@@ -195,7 +195,7 @@
             IconOptions.ShowIcon = false;
             MinimumSize = new Size(400, 300);
             Name = "MaliyetParametreEditForm";
-            Text = "Maliyet Parametreleri Tanımı";
+            Text = "Maliyet Parametre Tanımı";
             Controls.SetChildIndex(ribbon, 0);
             Controls.SetChildIndex(myDataLayoutControl1, 0);
             ((System.ComponentModel.ISupportInitialize)ribbon).EndInit();
