@@ -154,6 +154,11 @@ public enum ModuleType
     [RequiresCodeTemplate]
     DigerMalzemeGrubu = 26,
 
+    [Description("Mamül Tanımları")]
+    [ParentModule(TemelTanimlar)]
+    [RequiresCodeTemplate]
+    FinishedGood = 36,
+
     // MODÜLLER (Ekranlar) - MALİYETLER
     [Description("Genel Giderler")]
     [ParentModule(Maliyetler)]

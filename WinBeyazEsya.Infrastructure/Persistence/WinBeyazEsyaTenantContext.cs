@@ -22,6 +22,7 @@ public class WinBeyazEsyaTenantContext : DbContext
 
     public DbSet<WinBeyazEsya.Domain.Entities.Definitions.Unit> Units { get; set; }
     public DbSet<WinBeyazEsya.Domain.Entities.Definitions.UnitConversion> UnitConversions { get; set; }
+    public DbSet<WinBeyazEsya.Domain.Entities.Definitions.FinishedGood> FinishedGoods { get; set; }
     public DbSet<WinBeyazEsya.Domain.Entities.Definitions.MetalSheetGroup> MetalSheetGroups { get; set; }
     public DbSet<WinBeyazEsya.Domain.Entities.Definitions.ElectricalElectronicGroup> ElectricalElectronicGroups { get; set; }
     public DbSet<WinBeyazEsya.Domain.Entities.Definitions.GasAndIgnitionGroup> GasAndIgnitionGroups { get; set; }

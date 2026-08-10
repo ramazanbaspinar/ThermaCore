@@ -10,6 +10,14 @@ public static class Permissions
         public const string Delete = "MetalVeSacGrubu.Delete";
     }
 
+    public static class FinishedGood
+    {
+        public const string View = "FinishedGood.View";
+        public const string Create = "FinishedGood.Create";
+        public const string Update = "FinishedGood.Update";
+        public const string Delete = "FinishedGood.Delete";
+    }
+
     public static class ElektrikVeElektronikGrubu
     {
         public const string View = "ElektrikVeElektronikGrubu.View";
