@@ -29,6 +29,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AnaForm));
             miTanimlar = new ToolStripMenuItem();
             miSistemYonetimi = new ToolStripMenuItem();
             miKurumsalTanimlar = new ToolStripMenuItem();
@@ -252,7 +253,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             btnAnaFormResim.Dock = DockStyle.Fill;
             btnAnaFormResim.EditValue = Properties.Resources.winbeyazesyaarkaplan;
             btnAnaFormResim.EnterMoveNextControl = true;
-            btnAnaFormResim.Location = new Point(260, 20);
+            btnAnaFormResim.Location = new Point(260, 33);
             btnAnaFormResim.Name = "btnAnaFormResim";
             btnAnaFormResim.Properties.Appearance.Font = new Font("Segoe UI", 9F);
             btnAnaFormResim.Properties.Appearance.Options.UseFont = true;
@@ -268,7 +269,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             btnAnaFormResim.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
             btnAnaFormResim.Properties.ShowMenu = false;
             btnAnaFormResim.Properties.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Stretch;
-            btnAnaFormResim.Size = new Size(704, 666);
+            btnAnaFormResim.Size = new Size(696, 657);
             btnAnaFormResim.StatusBarAciklama = null;
             btnAnaFormResim.StatusBarKisaYol = "F4 :";
             btnAnaFormResim.StatusBarKisaYolAciklama = null;
@@ -278,11 +279,11 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             // 
             accordionControl1.Dock = DockStyle.Left;
             accordionControl1.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] { aceFavoriler, aceTanimlar, aceMaliyet, aceAyarlar });
-            accordionControl1.Location = new Point(0, 20);
+            accordionControl1.Location = new Point(0, 33);
             accordionControl1.Name = "accordionControl1";
             accordionControl1.ScrollBarMode = DevExpress.XtraBars.Navigation.ScrollBarMode.Auto;
             accordionControl1.ShowFilterControl = DevExpress.XtraBars.Navigation.ShowFilterControl.Always;
-            accordionControl1.Size = new Size(260, 666);
+            accordionControl1.Size = new Size(260, 657);
             accordionControl1.TabIndex = 4;
             accordionControl1.ViewType = DevExpress.XtraBars.Navigation.AccordionControlViewType.HamburgerMenu;
             // 
@@ -583,37 +584,35 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             // 
             // barDockControlTop
             // 
-            barDockControlTop.Appearance.BackColor = Color.FromArgb(0, 125, 125);
-            barDockControlTop.Appearance.Options.UseBackColor = true;
             barDockControlTop.CausesValidation = false;
             barDockControlTop.Dock = DockStyle.Top;
             barDockControlTop.Location = new Point(0, 0);
             barDockControlTop.Manager = barManager1;
-            barDockControlTop.Size = new Size(964, 20);
+            barDockControlTop.Size = new Size(956, 33);
             // 
             // barDockControlBottom
             // 
             barDockControlBottom.CausesValidation = false;
             barDockControlBottom.Dock = DockStyle.Bottom;
-            barDockControlBottom.Location = new Point(0, 686);
+            barDockControlBottom.Location = new Point(0, 690);
             barDockControlBottom.Manager = barManager1;
-            barDockControlBottom.Size = new Size(964, 0);
+            barDockControlBottom.Size = new Size(956, 0);
             // 
             // barDockControlLeft
             // 
             barDockControlLeft.CausesValidation = false;
             barDockControlLeft.Dock = DockStyle.Left;
-            barDockControlLeft.Location = new Point(0, 20);
+            barDockControlLeft.Location = new Point(0, 33);
             barDockControlLeft.Manager = barManager1;
-            barDockControlLeft.Size = new Size(0, 666);
+            barDockControlLeft.Size = new Size(0, 657);
             // 
             // barDockControlRight
             // 
             barDockControlRight.CausesValidation = false;
             barDockControlRight.Dock = DockStyle.Right;
-            barDockControlRight.Location = new Point(964, 20);
+            barDockControlRight.Location = new Point(956, 33);
             barDockControlRight.Manager = barManager1;
-            barDockControlRight.Size = new Size(0, 666);
+            barDockControlRight.Size = new Size(0, 657);
             // 
             // AnaForm
             // 
@@ -622,7 +621,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             Appearance.Options.UseFont = true;
             AutoScaleDimensions = new SizeF(7F, 16F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(964, 686);
+            ClientSize = new Size(956, 690);
             Controls.Add(btnAnaFormResim);
             Controls.Add(accordionControl1);
             Controls.Add(barDockControlLeft);
@@ -630,7 +629,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             Controls.Add(barDockControlBottom);
             Controls.Add(barDockControlTop);
             Font = new Font("Tahoma", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            IconOptions.ShowIcon = false;
+            IconOptions.Icon = (Icon)resources.GetObject("AnaForm.IconOptions.Icon");
             IsMdiContainer = true;
             Margin = new Padding(4);
             Name = "AnaForm";

@@ -1,6 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
+    <Content Include="itimat_logo_exe.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\WinBeyazEsya.Application\WinBeyazEsya.Application.csproj" />
     <ProjectReference Include="..\WinBeyazEsya.Infrastructure\WinBeyazEsya.Infrastructure.csproj" />
     <ProjectReference Include="..\WinBeyazEsya.Domain\WinBeyazEsya.Domain.csproj" />
@@ -27,6 +31,12 @@
     <PackageReference Include="Serilog" Version="4.4.0" />
     <PackageReference Include="Serilog.Extensions.Hosting" Version="10.0.0" />
     <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="WinBeyazEsyaSkin">
+      <HintPath>Libs\WinBeyazEsyaSkin.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>
@@ -413,6 +423,10 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Libs\" />
+  </ItemGroup>
+
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0-windows</TargetFramework>
@@ -429,6 +443,7 @@
     <AssemblyVersion>1.0.1.1</AssemblyVersion>
     <FileVersion>1.0.1.1</FileVersion>
     <Version>1.0.1.1</Version>
+    <ApplicationIcon>itimat_logo_exe.ico</ApplicationIcon>
   </PropertyGroup>
 
 </Project>

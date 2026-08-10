@@ -82,6 +82,25 @@ internal static class Program
 
                 ApplicationConfiguration.Initialize();
 
+                // ---- ÖZEL TEMA ENTEGRASYONU ----
+                try
+                {
+                    // 1. DevExpress arayüzünü "Compact" (Sıkıştırılmış/Dar) moda al
+                    DevExpress.XtraEditors.WindowsFormsSettings.CompactUIMode = DevExpress.Utils.DefaultBoolean.True;
+
+                    // 2. DLL içindeki temayı projeye kaydet
+                    System.Reflection.Assembly asm = typeof(DevExpress.UserSkins.WinBeyazEsyaSkin).Assembly;
+                    DevExpress.XtraEditors.WindowsFormsSettings.RegisterUserSkins(asm);
+
+                    // 3. Temayı varsayılan olarak uygula
+                    DevExpress.LookAndFeel.UserLookAndFeel.Default.SetSkinStyle("WinBeyazEsyaSkin");
+                }
+                catch (Exception ex)
+                {
+                    Serilog.Log.Warning(ex, "Özel tema (WinBeyazEsyaSkin) yüklenemedi. DevExpress varsayılan teması kullanılacak.");
+                }
+                // ------------------------------------------------------
+
                 IAppConfigService configService = new AppConfigService();
                 string connectionString = configService.GetConnectionString();
 
