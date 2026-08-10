@@ -60,6 +60,94 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.MamulForms
                     ucBarkodlar1.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
                 }
             }
+            
+            if (glufTemelBirim != null) 
+            {
+                glufTemelBirim.Properties.ReadOnly = true;
+                foreach (DevExpress.XtraEditors.Controls.EditorButton btn in glufTemelBirim.Properties.Buttons)
+                {
+                    btn.Enabled = false;
+                }
+            }
+        }
+        
+        protected override void EventsLoad()
+        {
+            base.EventsLoad();
+
+            if (glufTemelBirim != null) glufTemelBirim.SearchButtonClicked += glufTemelBirim_SearchButtonClicked;
+            if (glufOzelKod != null) glufOzelKod.SearchButtonClicked += glufOzelKod_SearchButtonClicked;
+            if (glufKdv != null) glufKdv.SearchButtonClicked += glufKdv_SearchButtonClicked;
+        }
+
+        private void glufTemelBirim_SearchButtonClicked(object? sender, EventArgs e)
+        {
+            if (_serviceProvider != null)
+            {
+                var form = Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.BirimForms.BirimListForm>(_serviceProvider);
+                if (form != null)
+                {
+                    form.FormAcilisTuru = WinBeyazEsya.Presentation.WinForms.Enums.FormAcilisTuru.Secim;
+                    form.ShowDialog();
+                    
+                    if (_unitRepository != null && glufTemelBirim != null)
+                    {
+                        glufTemelBirim.Properties.DataSource = _unitRepository.Find(x => x.IsActive).ToList();
+                    }
+                    
+                    if (form.DialogResult == DialogResult.OK && form.SelectedEntities?.Count > 0 && glufTemelBirim != null)
+                    {
+                        var secilenId = form.SelectedEntities[0].Id;
+                        glufTemelBirim.EditValue = secilenId;
+                    }
+                }
+            }
+        }
+
+        private void glufOzelKod_SearchButtonClicked(object? sender, EventArgs e)
+        {
+            var form = new WinBeyazEsya.Presentation.WinForms.Forms.OzelKodForms.OzelKodListForm(Domain.Enums.SpecialCodeType.SpecialCode, "FinishedGood");
+            form.FormAcilisTuru = WinBeyazEsya.Presentation.WinForms.Enums.FormAcilisTuru.Secim;
+            form.ShowDialog();
+
+            if (_specialCodeService != null && glufOzelKod != null)
+            {
+                glufOzelKod.Properties.DataSource = _specialCodeService.GetCodes(Domain.Enums.SpecialCodeType.SpecialCode, "FinishedGood");
+            }
+
+            if (form.DialogResult == DialogResult.OK && form.SelectedEntities != null && form.SelectedEntities.Count > 0 && glufOzelKod != null)
+            {
+                var selectedId = form.SelectedEntities[0].Id;
+                glufOzelKod.EditValue = selectedId;
+            }
+        }
+
+        private void glufKdv_SearchButtonClicked(object? sender, EventArgs e)
+        {
+            if (_serviceProvider != null)
+            {
+                var form = Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateInstance<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.VergiForms.VergiOraniListForm>(_serviceProvider, WinBeyazEsya.Domain.Enums.TaxType.Kdv);
+                if (form != null)
+                {
+                    form.FormAcilisTuru = WinBeyazEsya.Presentation.WinForms.Enums.FormAcilisTuru.Secim;
+                    form.ShowDialog();
+                    
+                    if (glufKdv != null)
+                    {
+                        var taxRepo = Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetService<WinBeyazEsya.Application.Interfaces.Repositories.IRepository<WinBeyazEsya.Domain.Entities.Management.TaxRate>>(_serviceProvider);
+                        if (taxRepo != null)
+                        {
+                            glufKdv.Properties.DataSource = taxRepo.Find(x => x.IsActive && x.TaxType == Domain.Enums.TaxType.Kdv).ToList();
+                        }
+                    }
+                    
+                    if (form.DialogResult == DialogResult.OK && form.SelectedEntities?.Count > 0 && glufKdv != null)
+                    {
+                        var secilenValue = ((WinBeyazEsya.Application.DTOs.Management.TaxRateListDto)form.SelectedEntities[0]).Rate;
+                        glufKdv.EditValue = secilenValue;
+                    }
+                }
+            }
         }
 
         public override void Yukle()
@@ -85,9 +173,17 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.MamulForms
                 if (_systemParameterRepository != null)
                 {
                     var sysParam = _systemParameterRepository.GetAll().FirstOrDefault();
-                    if (sysParam != null && sysParam.DefaultSalesKdvId.HasValue)
+                    if (sysParam != null && sysParam.DefaultSalesKdvId.HasValue && _serviceProvider != null)
                     {
-                        newEntity.SalesVatRate = sysParam.DefaultSalesKdvId.Value; // As per user request, put default SalesKdvId to glufKdv (we assume SalesVatRate holds the ID or we map it to EditValue)
+                        var taxRepo = Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetService<WinBeyazEsya.Application.Interfaces.Repositories.IRepository<WinBeyazEsya.Domain.Entities.Management.TaxRate>>(_serviceProvider);
+                        if (taxRepo != null)
+                        {
+                            var defaultTax = taxRepo.GetById(sysParam.DefaultSalesKdvId.Value);
+                            if (defaultTax != null)
+                            {
+                                newEntity.SalesVatRate = defaultTax.Rate;
+                            }
+                        }
                     }
                 }
                 
@@ -124,6 +220,26 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.MamulForms
                     glufOzelKod.Properties.DisplayMember = "Name";
                 }
             }
+
+            if (_serviceProvider != null && glufKdv != null)
+            {
+                var taxRepo = Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetService<WinBeyazEsya.Application.Interfaces.Repositories.IRepository<WinBeyazEsya.Domain.Entities.Management.TaxRate>>(_serviceProvider);
+                if (taxRepo != null)
+                {
+                    glufKdv.Properties.DataSource = taxRepo.Find(x => x.IsActive && x.TaxType == Domain.Enums.TaxType.Kdv).ToList();
+                    glufKdv.Properties.ValueMember = "Rate";
+                    glufKdv.Properties.DisplayMember = "Rate";
+                }
+            }
+
+            if (cmbMamulGrubu != null)
+            {
+                cmbMamulGrubu.Properties.Items.Clear();
+                foreach (WinBeyazEsya.Domain.Enums.FinishedGoodGroupType val in Enum.GetValues(typeof(WinBeyazEsya.Domain.Enums.FinishedGoodGroupType)))
+                {
+                    cmbMamulGrubu.Properties.Items.Add(WinBeyazEsya.Domain.Helpers.EnumFunctions.GetDescription(val));
+                }
+            }
         }
 
         protected override void NesneyiKontrollereBagla()
@@ -132,7 +248,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.MamulForms
 
             if (txtKod != null) txtKod.Text = entity.Code;
             if (txtMamulAdi != null) txtMamulAdi.Text = entity.Name;
-            if (glufMamulGrubu != null) glufMamulGrubu.EditValue = entity.GroupId;
+            if (cmbMamulGrubu != null) cmbMamulGrubu.SelectedItem = WinBeyazEsya.Domain.Helpers.EnumFunctions.GetDescription(entity.GroupType);
             if (glufTemelBirim != null) glufTemelBirim.EditValue = entity.UnitId == 0 ? (long?)null : entity.UnitId;
             if (glufOzelKod != null) glufOzelKod.EditValue = entity.SpecialCodeId;
             if (txtSatisFiyati != null) txtSatisFiyati.Value = entity.SalesPrice;
@@ -167,7 +283,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.MamulForms
                 Id = Id,
                 Code = txtKod?.Text ?? string.Empty,
                 Name = txtMamulAdi?.Text ?? string.Empty,
-                GroupId = glufMamulGrubu?.EditValue as long?,
+                GroupType = cmbMamulGrubu?.SelectedItem != null ? WinBeyazEsya.Domain.Helpers.EnumFunctions.GetEnum<WinBeyazEsya.Domain.Enums.FinishedGoodGroupType>(cmbMamulGrubu.SelectedItem.ToString() ?? string.Empty) : default,
                 UnitId = (long)(glufTemelBirim?.EditValue ?? 0L),
                 SpecialCodeId = glufOzelKod?.EditValue as long?,
                 SalesPrice = Convert.ToDecimal(txtSatisFiyati?.EditValue ?? 0m),

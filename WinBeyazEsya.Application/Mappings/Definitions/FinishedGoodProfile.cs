@@ -1,6 +1,7 @@
 using AutoMapper;
 using WinBeyazEsya.Application.DTOs.Definitions;
 using WinBeyazEsya.Domain.Entities.Definitions;
+using WinBeyazEsya.Domain.Helpers;
 
 namespace WinBeyazEsya.Application.Mappings.Definitions;
 
@@ -16,7 +17,7 @@ public class FinishedGoodProfile : Profile
             
         CreateMap<FinishedGood, FinishedGoodListDto>()
             .ForMember(dest => dest.UnitName, opt => opt.MapFrom(src => src.Unit != null ? src.Unit.Name : string.Empty))
-            .ForMember(dest => dest.GroupName, opt => opt.Ignore()) // GroupName and PrimaryBarcode might be handled in the manager or a custom mapping logic if needed
+            .ForMember(dest => dest.GroupName, opt => opt.MapFrom(src => src.GroupType.GetDescription()))
             .ForMember(dest => dest.PrimaryBarcode, opt => opt.Ignore()); 
     }
 }

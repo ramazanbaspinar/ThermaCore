@@ -225,6 +225,8 @@ internal static class Program
 
                         services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.DigerMalzemeGrubuForms.DigerMalzemeGrubuListForm>();
                         services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.DigerMalzemeGrubuForms.DigerMalzemeGrubuEditForm>();
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.MamulForms.MamulListForm>();
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.MamulForms.MamulEditForm>();
                     })
                     .Build();
 

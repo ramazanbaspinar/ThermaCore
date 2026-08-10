@@ -8,8 +8,7 @@ public class FinishedGood : FullAuditableEntity, IMustHaveBranch
     public string Code { get; set; } = null!;
     public string Name { get; set; } = null!;
     
-    public long? GroupId { get; set; }
-    // Add navigation property later if there's a FinishedGoodGroup entity, but the user only mentioned GroupId. We'll leave it as a long? for now.
+    public WinBeyazEsya.Domain.Enums.FinishedGoodGroupType GroupType { get; set; }
 
     public long UnitId { get; set; }
     public virtual Unit Unit { get; set; } = null!;

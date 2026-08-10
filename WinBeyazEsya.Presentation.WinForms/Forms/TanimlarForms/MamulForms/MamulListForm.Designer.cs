@@ -113,7 +113,7 @@
             colKod.AppearanceCell.Options.UseTextOptions = true;
             colKod.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             colKod.Caption = "Kod";
-            colKod.FieldName = "Kod";
+            colKod.FieldName = "Code";
             colKod.Name = "colKod";
             colKod.OptionsColumn.AllowEdit = false;
             colKod.StatusBarAciklama = null;
@@ -195,6 +195,7 @@
             ClientSize = new Size(806, 425);
             Controls.Add(myGridControl1);
             Controls.Add(longNavigator1);
+            Font = new Font("Segoe UI", 8.25F);
             IconOptions.ShowIcon = false;
             Name = "MamulListForm";
             Text = "Ürün (Mamül) Tanımları";

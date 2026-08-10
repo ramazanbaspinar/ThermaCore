@@ -6,6 +6,7 @@ public class FinishedGoodListDto : BaseDto
 {
     public string Name { get; set; } = null!;
     
+    public WinBeyazEsya.Domain.Enums.FinishedGoodGroupType GroupType { get; set; }
     public string? GroupName { get; set; }
     public string? UnitName { get; set; }
 
