@@ -17,10 +17,12 @@ public class MetalSheetGroupConfiguration : IEntityTypeConfiguration<MetalSheetG
         builder.Property(x => x.Width).HasColumnType("decimal(18,2)");
         builder.Property(x => x.Length).HasColumnType("decimal(18,2)");
         builder.Property(x => x.Thickness).HasColumnType("decimal(18,2)");
+        builder.Property(x => x.Density).HasColumnType("decimal(18,6)");
+        builder.Property(x => x.Weight).HasColumnType("decimal(18,6)");
         
         builder.Property(x => x.SurfaceType).HasMaxLength(100);
         builder.Property(x => x.QualityCode).HasMaxLength(100);
-        builder.Property(x => x.SurfaceCoatingType).HasMaxLength(100).IsRequired(false);
+        builder.Property(x => x.SurfaceCoatingType).IsRequired();
         builder.Property(x => x.Description).HasMaxLength(500);
 
         builder.HasOne(x => x.BaseUnit)

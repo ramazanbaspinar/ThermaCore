@@ -12,6 +12,8 @@ public class MetalSheetGroupListDto : BaseDto
     public decimal Width { get; set; }
     public decimal Length { get; set; }
     public decimal Thickness { get; set; }
-    public string? SurfaceCoatingType { get; set; }
+    public WinBeyazEsya.Domain.Enums.SurfaceCoatingType SurfaceCoatingType { get; set; }
+    public decimal Density { get; set; }
+    public decimal Weight { get; set; }
     public string? Description { get; set; }
 }

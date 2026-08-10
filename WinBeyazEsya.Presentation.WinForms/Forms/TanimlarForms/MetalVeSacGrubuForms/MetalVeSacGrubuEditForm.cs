@@ -63,6 +63,28 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.MetalVeSacGrubu
             ucBirimCevrimleri1.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
             ucBarkodlar1.InitializeService(_itemBarcodeService);
             ucBarkodlar1.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
+            
+            if (txtAgirlik != null) 
+            {
+                txtAgirlik.Properties.ReadOnly = true;
+                txtAgirlik.Properties.Mask.EditMask = "n6";
+                txtAgirlik.Properties.DisplayFormat.FormatString = "n6";
+                txtAgirlik.Properties.EditFormat.FormatString = "n6";
+            }
+            if (txtOzkutle != null)
+            {
+                txtOzkutle.Properties.Mask.EditMask = "n6";
+                txtOzkutle.Properties.DisplayFormat.FormatString = "n6";
+                txtOzkutle.Properties.EditFormat.FormatString = "n6";
+            }
+            if (glufTemelBirim != null) 
+            {
+                glufTemelBirim.Properties.ReadOnly = true;
+                foreach (DevExpress.XtraEditors.Controls.EditorButton btn in glufTemelBirim.Properties.Buttons)
+                {
+                    btn.Enabled = false;
+                }
+            }
         }
 
         public override void Yukle()
@@ -70,7 +92,23 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.MetalVeSacGrubu
             InitLookups();
 
             if (BaseIslemTuru == ActionType.EntityInsert)
-                CurrentEntity = new Application.DTOs.Definitions.MetalSheetGroupDto { IsActive = true };
+            {
+                CurrentEntity = new Application.DTOs.Definitions.MetalSheetGroupDto 
+                { 
+                    IsActive = true,
+                    Density = 7.85m,
+                    SurfaceCoatingType = Domain.Enums.SurfaceCoatingType.Boya
+                };
+                
+                if (_unitRepository != null)
+                {
+                    var kgUnit = _unitRepository.Find(x => x.Code == "KG" || x.Name == "Kg" || x.Name == "KG").FirstOrDefault();
+                    if (kgUnit != null)
+                    {
+                        ((Application.DTOs.Definitions.MetalSheetGroupDto)CurrentEntity).BaseUnitId = kgUnit.Id;
+                    }
+                }
+            }
             else
                 CurrentEntity = _metalSheetGroupService.GetById(Id);
 
@@ -94,6 +132,11 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.MetalVeSacGrubu
                 glufOzelKod.Properties.ValueMember = "Id";
                 glufOzelKod.Properties.DisplayMember = "Name";
             }
+            
+            if (cmbYuzeyKaplamaTipi != null)
+            {
+                cmbYuzeyKaplamaTipi.Properties.Items.AddRange(Enum.GetValues(typeof(Domain.Enums.SurfaceCoatingType)));
+            }
         }
 
         protected override void NesneyiKontrollereBagla()
@@ -113,7 +156,13 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.MetalVeSacGrubu
             txtBoy.Value = entity.Length;
             txtKalinlik.Value = entity.Thickness;
             
-            if (txtYuzeyKaplamaTipi != null) txtYuzeyKaplamaTipi.Text = entity.SurfaceCoatingType;
+            if (txtOzkutle != null) txtOzkutle.Value = entity.Density;
+            if (txtAgirlik != null) txtAgirlik.Value = entity.Weight;
+            
+            if (cmbYuzeyKaplamaTipi != null)
+            {
+                cmbYuzeyKaplamaTipi.EditValue = entity.SurfaceCoatingType;
+            }
             
             txtAciklama.Text = entity.Description;
 
@@ -156,10 +205,15 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.MetalVeSacGrubu
                 Width = Convert.ToDecimal(txtEn.EditValue ?? 0m),
                 Length = Convert.ToDecimal(txtBoy.EditValue ?? 0m),
                 Thickness = Convert.ToDecimal(txtKalinlik.EditValue ?? 0m),
+                Density = Convert.ToDecimal(txtOzkutle?.EditValue ?? 0m),
+                Weight = Convert.ToDecimal(txtAgirlik?.EditValue ?? 0m),
                 Description = txtAciklama.Text
             };
 
-            if (txtYuzeyKaplamaTipi != null) dto.SurfaceCoatingType = txtYuzeyKaplamaTipi.Text;
+            if (cmbYuzeyKaplamaTipi != null && cmbYuzeyKaplamaTipi.EditValue != null) 
+            {
+                dto.SurfaceCoatingType = (Domain.Enums.SurfaceCoatingType)cmbYuzeyKaplamaTipi.EditValue;
+            }
             
             CurrentEntity = dto;
             ButonEnabledDurumu();
@@ -247,6 +301,22 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.MetalVeSacGrubu
 
             glufTemelBirim.SearchButtonClicked += glufTemelBirim_SearchButtonClicked;
             glufOzelKod.SearchButtonClicked += glufOzelKod_SearchButtonClicked;
+            
+            if (txtEn != null) txtEn.EditValueChanged += (s, e) => HesaplaAgirlik();
+            if (txtBoy != null) txtBoy.EditValueChanged += (s, e) => HesaplaAgirlik();
+            if (txtKalinlik != null) txtKalinlik.EditValueChanged += (s, e) => HesaplaAgirlik();
+            if (txtOzkutle != null) txtOzkutle.EditValueChanged += (s, e) => HesaplaAgirlik();
+        }
+
+        private void HesaplaAgirlik()
+        {
+            decimal en = Convert.ToDecimal(txtEn?.EditValue ?? 0m);
+            decimal boy = Convert.ToDecimal(txtBoy?.EditValue ?? 0m);
+            decimal kalinlik = Convert.ToDecimal(txtKalinlik?.EditValue ?? 0m);
+            decimal ozkutle = Convert.ToDecimal(txtOzkutle?.EditValue ?? 0m);
+
+            decimal agirlik = (en * boy * kalinlik * ozkutle) / 1000000m;
+            if (txtAgirlik != null) txtAgirlik.Value = Math.Round(agirlik, 6);
         }
 
         private void glufTemelBirim_SearchButtonClicked(object? sender, EventArgs e)
