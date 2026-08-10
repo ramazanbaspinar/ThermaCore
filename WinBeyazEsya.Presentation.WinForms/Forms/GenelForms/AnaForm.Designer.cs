@@ -269,11 +269,12 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             btnAnaFormResim.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
             btnAnaFormResim.Properties.ShowMenu = false;
             btnAnaFormResim.Properties.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Stretch;
-            btnAnaFormResim.Size = new Size(696, 657);
+            btnAnaFormResim.Size = new Size(696, 661);
             btnAnaFormResim.StatusBarAciklama = null;
             btnAnaFormResim.StatusBarKisaYol = "F4 :";
             btnAnaFormResim.StatusBarKisaYolAciklama = null;
             btnAnaFormResim.TabIndex = 3;
+            btnAnaFormResim.Visible = false;
             // 
             // accordionControl1
             // 
@@ -283,7 +284,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             accordionControl1.Name = "accordionControl1";
             accordionControl1.ScrollBarMode = DevExpress.XtraBars.Navigation.ScrollBarMode.Auto;
             accordionControl1.ShowFilterControl = DevExpress.XtraBars.Navigation.ShowFilterControl.Always;
-            accordionControl1.Size = new Size(260, 657);
+            accordionControl1.Size = new Size(260, 661);
             accordionControl1.TabIndex = 4;
             accordionControl1.ViewType = DevExpress.XtraBars.Navigation.AccordionControlViewType.HamburgerMenu;
             // 
@@ -564,7 +565,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             // 
             barTrhSaatBilgisi.Caption = "Yükleniyor...";
             barTrhSaatBilgisi.Id = 0;
-            barTrhSaatBilgisi.ItemAppearance.Normal.Font = new Font("Tahoma", 9F, FontStyle.Bold);
+            barTrhSaatBilgisi.ItemAppearance.Normal.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 162);
             barTrhSaatBilgisi.ItemAppearance.Normal.Options.UseFont = true;
             barTrhSaatBilgisi.Name = "barTrhSaatBilgisi";
             // 
@@ -572,7 +573,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             // 
             barDovizBilgi.Caption = "Yükleniyor...";
             barDovizBilgi.Id = 1;
-            barDovizBilgi.ItemAppearance.Normal.Font = new Font("Tahoma", 9F, FontStyle.Bold);
+            barDovizBilgi.ItemAppearance.Normal.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 162);
             barDovizBilgi.ItemAppearance.Normal.Options.UseFont = true;
             barDovizBilgi.Name = "barDovizBilgi";
             // 
@@ -594,7 +595,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             // 
             barDockControlBottom.CausesValidation = false;
             barDockControlBottom.Dock = DockStyle.Bottom;
-            barDockControlBottom.Location = new Point(0, 690);
+            barDockControlBottom.Location = new Point(0, 694);
             barDockControlBottom.Manager = barManager1;
             barDockControlBottom.Size = new Size(956, 0);
             // 
@@ -604,7 +605,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             barDockControlLeft.Dock = DockStyle.Left;
             barDockControlLeft.Location = new Point(0, 33);
             barDockControlLeft.Manager = barManager1;
-            barDockControlLeft.Size = new Size(0, 657);
+            barDockControlLeft.Size = new Size(0, 661);
             // 
             // barDockControlRight
             // 
@@ -612,7 +613,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             barDockControlRight.Dock = DockStyle.Right;
             barDockControlRight.Location = new Point(956, 33);
             barDockControlRight.Manager = barManager1;
-            barDockControlRight.Size = new Size(0, 657);
+            barDockControlRight.Size = new Size(0, 661);
             // 
             // AnaForm
             // 
@@ -621,7 +622,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             Appearance.Options.UseFont = true;
             AutoScaleDimensions = new SizeF(7F, 16F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(956, 690);
+            ClientSize = new Size(956, 694);
             Controls.Add(btnAnaFormResim);
             Controls.Add(accordionControl1);
             Controls.Add(barDockControlLeft);
