@@ -14,7 +14,6 @@ public class WireAndGridGroup : FullAuditableEntity, IMustHaveBranch
     public string? CoatingType { get; set; }
     public string? MaterialType { get; set; }
     public string? Description { get; set; }
-    public byte[]? Picture { get; set; }
 
     public long? BaseUnitId { get; set; }
     public Unit? BaseUnit { get; set; }
@@ -22,3 +21,5 @@ public class WireAndGridGroup : FullAuditableEntity, IMustHaveBranch
     public long? SpecialCodeId { get; set; }
     public SpecialCode? SpecialCode { get; set; }
 }
+
+

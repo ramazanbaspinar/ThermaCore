@@ -60,7 +60,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             try
             {
                 Serilog.Log.Information("Giriş formu yüklendi. Güncelleme kontrolü yapılıyor...");
-                // GuncellemeYolu, Tenant DB'deki SystemParameter tablosunda olduğu için,
+                // UpdatePath, Tenant DB'deki SystemParameter tablosunda olduğu için,
                 // henüz giriş yapılmamışken varsayılan bir Tenant ConnectionString'i atamamız gerekir.
                 var currentTenantService = Program.ServiceProvider.GetRequiredService<WinBeyazEsya.Application.Interfaces.System.ICurrentTenantService>();
                 if (string.IsNullOrEmpty(currentTenantService.ConnectionString))
@@ -364,4 +364,5 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
         }
     }
 }
+
 

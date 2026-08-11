@@ -11,8 +11,8 @@ public class MetalSheetGroupConfiguration : IEntityTypeConfiguration<MetalSheetG
         builder.ToTable("MetalSheetGroups");
         builder.HasKey(x => x.Id);
         
-        builder.Property(x => x.Code).IsRequired().HasMaxLength(100);
-        builder.Property(x => x.Name).IsRequired().HasMaxLength(150);
+        builder.Property(x => x.Code).IsRequired().HasMaxLength(50);
+        builder.Property(x => x.Name).IsRequired().HasMaxLength(100);
         
         builder.Property(x => x.Width).HasColumnType("decimal(18,2)");
         builder.Property(x => x.Length).HasColumnType("decimal(18,2)");
@@ -39,3 +39,4 @@ public class MetalSheetGroupConfiguration : IEntityTypeConfiguration<MetalSheetG
         builder.HasIndex(x => x.BranchId);
     }
 }
+

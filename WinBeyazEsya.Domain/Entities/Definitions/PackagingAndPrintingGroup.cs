@@ -12,7 +12,6 @@ public class PackagingAndPrintingGroup : FullAuditableEntity, IMustHaveBranch
     public string Name { get; set; } = string.Empty;
     public bool IsActive { get; set; } = true;
     public string? Description { get; set; }
-    public byte[]? Picture { get; set; }
 
     public long? BaseUnitId { get; set; }
     public Unit? BaseUnit { get; set; }

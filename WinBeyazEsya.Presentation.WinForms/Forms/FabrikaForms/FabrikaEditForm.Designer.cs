@@ -61,7 +61,7 @@
             // ribbon
             // 
             ribbon.ExpandCollapseItem.Id = 0;
-            ribbon.Size = new Size(373, 135);
+            ribbon.Size = new Size(373, 155);
             ribbon.Toolbar.ShowCustomizeItem = false;
             // 
             // myDataLayoutControl1
@@ -72,11 +72,11 @@
             myDataLayoutControl1.Controls.Add(txtFabrikaAdi);
             myDataLayoutControl1.Controls.Add(txtKod);
             myDataLayoutControl1.Dock = DockStyle.Fill;
-            myDataLayoutControl1.Location = new Point(0, 135);
+            myDataLayoutControl1.Location = new Point(0, 155);
             myDataLayoutControl1.Name = "myDataLayoutControl1";
             myDataLayoutControl1.OptionsFocus.EnableAutoTabOrder = false;
             myDataLayoutControl1.Root = Root;
-            myDataLayoutControl1.Size = new Size(373, 165);
+            myDataLayoutControl1.Size = new Size(373, 138);
             myDataLayoutControl1.TabIndex = 0;
             myDataLayoutControl1.Text = "myDataLayoutControl1";
             // 
@@ -91,52 +91,52 @@
             tglDurum.Properties.GlyphAlignment = DevExpress.Utils.HorzAlignment.Far;
             tglDurum.Properties.OffText = "Pasif";
             tglDurum.Properties.OnText = "Aktif";
-            tglDurum.Size = new Size(77, 27);
+            tglDurum.Size = new Size(81, 27);
             tglDurum.StatusBarAciklama = "Kayıtın Kullanım Durumunu Seçiniz.";
             tglDurum.StyleController = myDataLayoutControl1;
-            tglDurum.TabIndex = 3;
+            tglDurum.TabIndex = 2;
             tglDurum.Tag = "IsActive";
             // 
             // txtAciklama
             // 
             txtAciklama.EnterMoveNextControl = true;
-            txtAciklama.Location = new Point(77, 74);
+            txtAciklama.Location = new Point(82, 74);
             txtAciklama.MenuManager = ribbon;
             txtAciklama.Name = "txtAciklama";
             txtAciklama.Properties.MaxLength = 500;
-            txtAciklama.Size = new Size(284, 79);
+            txtAciklama.Size = new Size(279, 52);
             txtAciklama.StatusBarAciklama = "Açıklama Giriniz.";
             txtAciklama.StyleController = myDataLayoutControl1;
-            txtAciklama.TabIndex = 2;
+            txtAciklama.TabIndex = 1;
             txtAciklama.Tag = "Description";
             // 
             // txtFabrikaAdi
             // 
             txtFabrikaAdi.EnterMoveNextControl = true;
-            txtFabrikaAdi.Location = new Point(77, 43);
+            txtFabrikaAdi.Location = new Point(82, 43);
             txtFabrikaAdi.MenuManager = ribbon;
             txtFabrikaAdi.Name = "txtFabrikaAdi";
             txtFabrikaAdi.Properties.MaxLength = 100;
-            txtFabrikaAdi.Size = new Size(284, 20);
+            txtFabrikaAdi.Size = new Size(279, 22);
             txtFabrikaAdi.StatusBarAciklama = "";
             txtFabrikaAdi.StyleController = myDataLayoutControl1;
-            txtFabrikaAdi.TabIndex = 1;
+            txtFabrikaAdi.TabIndex = 0;
             txtFabrikaAdi.Tag = "BranchName";
             // 
             // txtKod
             // 
             txtKod.EnterMoveNextControl = true;
-            txtKod.Location = new Point(77, 12);
+            txtKod.Location = new Point(82, 12);
             txtKod.MenuManager = ribbon;
             txtKod.Name = "txtKod";
             txtKod.Properties.Appearance.Options.UseTextOptions = true;
             txtKod.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             txtKod.Properties.MaxLength = 100;
             txtKod.Properties.ReadOnly = true;
-            txtKod.Size = new Size(175, 20);
+            txtKod.Size = new Size(170, 22);
             txtKod.StatusBarAciklama = "Kod Giriniz.";
             txtKod.StyleController = myDataLayoutControl1;
-            txtKod.TabIndex = 0;
+            txtKod.TabIndex = 3;
             txtKod.Tag = "Code";
             // 
             // Root
@@ -160,7 +160,7 @@
             rowDefinition3.Height = 100D;
             rowDefinition3.SizeType = SizeType.Percent;
             Root.OptionsTableLayoutGroup.RowDefinitions.AddRange(new DevExpress.XtraLayout.RowDefinition[] { rowDefinition1, rowDefinition2, rowDefinition3 });
-            Root.Size = new Size(373, 165);
+            Root.Size = new Size(373, 138);
             Root.TextVisible = false;
             // 
             // layoutControlItem1
@@ -170,7 +170,7 @@
             layoutControlItem1.Name = "layoutControlItem1";
             layoutControlItem1.Size = new Size(244, 31);
             layoutControlItem1.Text = "Kod";
-            layoutControlItem1.TextSize = new Size(53, 13);
+            layoutControlItem1.TextSize = new Size(58, 13);
             // 
             // layoutControlItem2
             // 
@@ -181,7 +181,7 @@
             layoutControlItem2.OptionsTableLayoutItem.RowIndex = 1;
             layoutControlItem2.Size = new Size(353, 31);
             layoutControlItem2.Text = "Fabrika Adı";
-            layoutControlItem2.TextSize = new Size(53, 13);
+            layoutControlItem2.TextSize = new Size(58, 13);
             // 
             // layoutControlItem3
             // 
@@ -190,9 +190,9 @@
             layoutControlItem3.Name = "layoutControlItem3";
             layoutControlItem3.OptionsTableLayoutItem.ColumnSpan = 3;
             layoutControlItem3.OptionsTableLayoutItem.RowIndex = 2;
-            layoutControlItem3.Size = new Size(353, 83);
+            layoutControlItem3.Size = new Size(353, 56);
             layoutControlItem3.Text = "Açıklama";
-            layoutControlItem3.TextSize = new Size(53, 13);
+            layoutControlItem3.TextSize = new Size(58, 13);
             // 
             // layoutControlItem4
             // 
@@ -209,6 +209,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(373, 324);
             Controls.Add(myDataLayoutControl1);
+            Font = new Font("Segoe UI", 8.25F);
             IconOptions.ShowIcon = false;
             MinimumSize = new Size(375, 325);
             Name = "FabrikaEditForm";

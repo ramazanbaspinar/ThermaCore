@@ -1,4 +1,4 @@
-using DevExpress.XtraEditors;
+﻿using DevExpress.XtraEditors;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -67,6 +67,15 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.OzelKodForms
                 "SparkPlug" => "Çakmak (Buji) Tanımları",
                 "IgnitionTransformer" => "Ateşleme Trafosu Tanımları",
                 "GasPipe" => "Gaz Borusu Tanımları",
+                                "FinishedGood" => "Ürün (Mamül)",
+                "ChemicalAndInsulationGroup" => "Kimya ve Yalıtım Grubu",
+                "ElectricalElectronicGroup" => "Elektrik ve Elektronik Grubu",
+                "GasAndIgnitionGroup" => "Gaz ve Ateşleme Grubu",
+                "MechanicalAndHardwareGroup" => "Mekanik ve Hırdavat Grubu",
+                "OtherMaterialGroup" => "Diğer Malzeme Grubu",
+                "PackagingAndPrintingGroup" => "Ambalaj ve Matbaa Grubu",
+                "PlasticAndVisualPartsGroup" => "Plastik ve Görsel Aksam Grubu",
+                "WireAndGridGroup" => "Tel ve Izgara Grubu",
                 _ => _entityType
             };
             

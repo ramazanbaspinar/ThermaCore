@@ -4,7 +4,7 @@ using WinBeyazEsya.Domain.Entities.Definitions;
 
 namespace WinBeyazEsya.Infrastructure.Persistence.Configurations.Definitions;
 
-public class WireAndGridGroupConfiguration : IEntityTypeConfiguration<WireAndGridGroup>
+public class WireAndGridGroupConfiguration : IEntityTypeConfiguration<WireAndGridGroup>, ITenantEntityConfiguration
 {
     public void Configure(EntityTypeBuilder<WireAndGridGroup> builder)
     {
@@ -16,7 +16,7 @@ public class WireAndGridGroupConfiguration : IEntityTypeConfiguration<WireAndGri
             
         builder.Property(x => x.Name)
             .IsRequired()
-            .HasMaxLength(150);
+            .HasMaxLength(100);
             
         builder.Property(x => x.CoatingType)
             .HasMaxLength(100)
@@ -40,3 +40,5 @@ public class WireAndGridGroupConfiguration : IEntityTypeConfiguration<WireAndGri
             .OnDelete(DeleteBehavior.SetNull);
     }
 }
+
+

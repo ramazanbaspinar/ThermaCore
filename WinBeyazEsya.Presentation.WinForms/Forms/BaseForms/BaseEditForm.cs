@@ -39,6 +39,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
         protected BaseDto CurrentEntity = default!;
         protected bool IsLoaded;
         protected bool KayitSonrasiFormuKapat = true;
+        protected bool KayitSonrasiYeniKayit = false;
         protected bool FormSablonKaydet = true;
         protected BarItem[] ShowItems = default!;
         protected BarItem[] HideItems = default!;
@@ -447,10 +448,24 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
                     OldEntity = CloneEntity(CurrentEntity);
                     RefreshYapilacak = true;
                     
+                    KodKullanildiKaydet();
+
+                    if (KayitSonrasiYeniKayit)
+                    {
+                        BaseIslemTuru = ActionType.EntityInsert;
+                        this.Id = 0;
+                        _isBinding = true;
+                        Yukle();
+                        ApplyCodeTemplateLogic();
+                        CurrentEntityGuncelle();
+                        _isBinding = false;
+                        ResetControlIsModified(this.Controls);
+                        ButonEnabledDurumu();
+                        return true;
+                    }
+
                     BaseIslemTuru = BaseIslemTuru == ActionType.EntityInsert ? ActionType.EntityUpdate : BaseIslemTuru;
                     ButonEnabledDurumu();
-
-                    KodKullanildiKaydet();
 
                     if (KayitSonrasiFormuKapat && kapanis)
                         Close();

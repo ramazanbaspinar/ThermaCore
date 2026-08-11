@@ -19,6 +19,7 @@ public class SystemParameterDto : BaseDto
 
     public decimal DefaultWastageRate { get; set; }
     public string? CompanyBarcodePrefix { get; set; }
-    public string? GuncellemeYolu { get; set; }
+    public string? UpdatePath { get; set; }
 }
+
 

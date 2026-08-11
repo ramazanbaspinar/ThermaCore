@@ -11,12 +11,12 @@ public class FinishedGoodConfiguration : IEntityTypeConfiguration<FinishedGood>,
         builder.HasKey(x => x.Id);
 
         builder.Property(x => x.Code).IsRequired().HasMaxLength(50);
-        builder.Property(x => x.Name).IsRequired().HasMaxLength(100);
+        builder.Property(x => x.Name).IsRequired().HasMaxLength(150);
         builder.Property(x => x.Description).HasMaxLength(500);
         builder.Property(x => x.GroupType).IsRequired();
 
-        builder.Property(x => x.SalesPrice).HasColumnType("decimal(18,6)");
-        builder.Property(x => x.SalesVatRate).HasColumnType("decimal(18,6)");
+        builder.Property(x => x.SalesPrice).HasColumnType("decimal(18,2)");
+        builder.Property(x => x.SalesVatRate).HasColumnType("decimal(18,2)");
 
         builder.HasOne(x => x.Unit)
             .WithMany()

@@ -38,6 +38,7 @@ public class SystemParameter : FullAuditableEntity
     [MaxLength(20)]
     public string? CompanyBarcodePrefix { get; set; }
 
-    public string? GuncellemeYolu { get; set; }
+    public string? UpdatePath { get; set; }
 }
+
 

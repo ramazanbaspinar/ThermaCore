@@ -25,7 +25,7 @@ namespace WinBeyazEsya.Application.Services.Updater
             try
             {
                 var systemParam = await _systemParameterService.GetSystemParameterAsync();
-                string serverUrl = systemParam?.GuncellemeYolu;
+                string serverUrl = systemParam?.UpdatePath;
 
                 if (string.IsNullOrWhiteSpace(serverUrl))
                     return null; // Update yolu ayarlanmamışsa sessizce geç
@@ -84,11 +84,11 @@ namespace WinBeyazEsya.Application.Services.Updater
             {
                 Serilog.Log.Information("Güncelleme dosyaları indirilmeye başlanıyor. Versiyon: {Version}", manifest.Version);
                 var systemParam = await _systemParameterService.GetSystemParameterAsync();
-                string serverUrl = systemParam?.GuncellemeYolu;
+                string serverUrl = systemParam?.UpdatePath;
 
                 if (string.IsNullOrWhiteSpace(serverUrl))
                 {
-                    Serilog.Log.Warning("Güncelleme yolu (GuncellemeYolu) tanımlı değil, indirme işlemi iptal edildi.");
+                    Serilog.Log.Warning("Güncelleme yolu (UpdatePath) tanımlı değil, indirme işlemi iptal edildi.");
                     return false;
                 }
 
@@ -200,7 +200,7 @@ namespace WinBeyazEsya.Application.Services.Updater
         public async Task<string> GetUpdateServerUrlAsync()
         {
             var systemParam = await _systemParameterService.GetSystemParameterAsync();
-            return systemParam?.GuncellemeYolu ?? "";
+            return systemParam?.UpdatePath ?? "";
         }
 
         private string ComputeSha256Hash(string filePath)
@@ -216,4 +216,5 @@ namespace WinBeyazEsya.Application.Services.Updater
         }
     }
 }
+
 

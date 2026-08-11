@@ -4,7 +4,7 @@ using WinBeyazEsya.Domain.Entities.Definitions;
 
 namespace WinBeyazEsya.Infrastructure.Persistence.Configurations.Definitions;
 
-public class OtherMaterialGroupConfiguration : IEntityTypeConfiguration<OtherMaterialGroup>
+public class OtherMaterialGroupConfiguration : IEntityTypeConfiguration<OtherMaterialGroup>, ITenantEntityConfiguration
 {
     public void Configure(EntityTypeBuilder<OtherMaterialGroup> builder)
     {
@@ -16,7 +16,7 @@ public class OtherMaterialGroupConfiguration : IEntityTypeConfiguration<OtherMat
             
         builder.Property(x => x.Name)
             .IsRequired()
-            .HasMaxLength(150);
+            .HasMaxLength(100);
             
         builder.HasIndex(x => x.Code)
             .IsUnique();
@@ -32,3 +32,6 @@ public class OtherMaterialGroupConfiguration : IEntityTypeConfiguration<OtherMat
             .OnDelete(DeleteBehavior.SetNull);
     }
 }
+
+
+

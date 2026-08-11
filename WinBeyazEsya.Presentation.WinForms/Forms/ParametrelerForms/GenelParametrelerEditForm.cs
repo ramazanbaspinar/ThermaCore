@@ -122,7 +122,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms
             if (txtFireOrani != null) txtFireOrani.Value = _currentDto.DefaultWastageRate;
             if (txtFirmaBarkodOneki != null) txtFirmaBarkodOneki.Text = _currentDto.CompanyBarcodePrefix;
             
-            if (txtGuncellemeYolu != null) txtGuncellemeYolu.Text = _currentDto.GuncellemeYolu;
+            if (txtUpdatePath != null) txtUpdatePath.Text = _currentDto.UpdatePath;
         }
 
         protected override void GuncelNesneOlustur()
@@ -139,7 +139,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms
                 LocalCurrency = cmbYerelParaBirimi?.Text,
                 Logo = picLogo?.EditValue is byte[] b ? b : (picLogo?.EditValue as Image).ToByteArray(),
                 CompanyBarcodePrefix = txtFirmaBarkodOneki?.Text,
-                GuncellemeYolu = txtGuncellemeYolu?.Text
+                UpdatePath = txtUpdatePath?.Text
             };
 
             if (glfAlisKdv != null && glfAlisKdv.EditValue != null && long.TryParse(glfAlisKdv.EditValue.ToString(), out long aKdv))
@@ -230,4 +230,5 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms
         }
     }
 }
+
 

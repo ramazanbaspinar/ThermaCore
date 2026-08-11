@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using WinBeyazEsya.Domain.Entities.Management;
 
@@ -9,6 +9,9 @@ public class TaxRateConfiguration : IEntityTypeConfiguration<TaxRate>, ITenantEn
     public void Configure(EntityTypeBuilder<TaxRate> builder)
     {
         builder.ToTable("TaxRates");
+
+        builder.Property(x => x.Code)
+            .HasMaxLength(50);
 
         builder.Property(x => x.Rate)
             .HasColumnType("decimal(18,2)");

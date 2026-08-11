@@ -35,7 +35,7 @@
             colId = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colKod = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colMamulAdi = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
-            colMalzemeGrubu = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
+            colMamulGrubu = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colSatisFiyati = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colSatisKdv = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colAciklama = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
@@ -76,7 +76,7 @@
             // 
             // myGridView1
             // 
-            myGridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colId, colKod, colMamulAdi, colMalzemeGrubu, colSatisFiyati, colSatisKdv, colAciklama });
+            myGridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colId, colKod, colMamulAdi, colMamulGrubu, colSatisFiyati, colSatisKdv, colAciklama });
             myGridView1.GridControl = myGridControl1;
             myGridView1.Name = "myGridView1";
             myGridView1.OptionsMenu.EnableColumnMenu = false;
@@ -136,18 +136,18 @@
             colMamulAdi.VisibleIndex = 1;
             colMamulAdi.Width = 150;
             // 
-            // colMalzemeGrubu
+            // colMamulGrubu
             // 
-            colMalzemeGrubu.Caption = "Malzeme Grubu";
-            colMalzemeGrubu.FieldName = "GroupName";
-            colMalzemeGrubu.Name = "colMalzemeGrubu";
-            colMalzemeGrubu.OptionsColumn.AllowEdit = false;
-            colMalzemeGrubu.StatusBarAciklama = null;
-            colMalzemeGrubu.StatusBarKisaYol = null;
-            colMalzemeGrubu.StatusBarKisaYolAciklama = null;
-            colMalzemeGrubu.Visible = true;
-            colMalzemeGrubu.VisibleIndex = 2;
-            colMalzemeGrubu.Width = 150;
+            colMamulGrubu.Caption = "Mamül Grubu";
+            colMamulGrubu.FieldName = "GroupName";
+            colMamulGrubu.Name = "colMamulGrubu";
+            colMamulGrubu.OptionsColumn.AllowEdit = false;
+            colMamulGrubu.StatusBarAciklama = null;
+            colMamulGrubu.StatusBarKisaYol = null;
+            colMamulGrubu.StatusBarKisaYolAciklama = null;
+            colMamulGrubu.Visible = true;
+            colMamulGrubu.VisibleIndex = 2;
+            colMamulGrubu.Width = 150;
             // 
             // colSatisFiyati
             // 
@@ -190,6 +190,7 @@
             // 
             // MamulListForm
             // 
+            Appearance.Options.UseFont = true;
             AutoScaleDimensions = new SizeF(6F, 13F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(806, 425);
@@ -217,7 +218,7 @@
         private UserControls.Grid.MyGridColumn colId;
         private UserControls.Grid.MyGridColumn colKod;
         private UserControls.Grid.MyGridColumn colMamulAdi;
-        private UserControls.Grid.MyGridColumn colMalzemeGrubu;
+        private UserControls.Grid.MyGridColumn colMamulGrubu;
         private UserControls.Grid.MyGridColumn colSatisFiyati;
         private UserControls.Grid.MyGridColumn colSatisKdv;
         private UserControls.Grid.MyGridColumn colAciklama;

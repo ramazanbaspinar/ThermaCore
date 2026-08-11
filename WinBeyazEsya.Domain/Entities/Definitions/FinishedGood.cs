@@ -20,7 +20,6 @@ public class FinishedGood : FullAuditableEntity, IMustHaveBranch
     public decimal SalesVatRate { get; set; }
 
     public string? Description { get; set; }
-    public byte[]? Picture { get; set; }
 
     public long BranchId { get; set; }
     public bool IsActive { get; set; } = true;

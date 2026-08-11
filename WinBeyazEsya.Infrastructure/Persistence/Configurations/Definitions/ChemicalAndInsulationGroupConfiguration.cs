@@ -4,7 +4,7 @@ using WinBeyazEsya.Domain.Entities.Definitions;
 
 namespace WinBeyazEsya.Infrastructure.Persistence.Configurations.Definitions;
 
-public class ChemicalAndInsulationGroupConfiguration : IEntityTypeConfiguration<ChemicalAndInsulationGroup>
+public class ChemicalAndInsulationGroupConfiguration : IEntityTypeConfiguration<ChemicalAndInsulationGroup>, ITenantEntityConfiguration
 {
     public void Configure(EntityTypeBuilder<ChemicalAndInsulationGroup> builder)
     {
@@ -17,7 +17,7 @@ public class ChemicalAndInsulationGroupConfiguration : IEntityTypeConfiguration<
 
         builder.Property(x => x.Name)
             .IsRequired()
-            .HasMaxLength(150);
+            .HasMaxLength(100);
 
         builder.Property(x => x.Description)
             .HasMaxLength(500);
@@ -36,3 +36,6 @@ public class ChemicalAndInsulationGroupConfiguration : IEntityTypeConfiguration<
             .OnDelete(DeleteBehavior.Restrict);
     }
 }
+
+
+

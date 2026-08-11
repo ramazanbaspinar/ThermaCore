@@ -13,8 +13,8 @@ public enum FinishedGoodGroupType
     [Description("Ankastre")]
     Ankastre = 3,
     
-    [Description("Davlumbaz")]
-    Davlumbaz = 4,
+    [Description("Tamboy")]
+    Tamboy = 4,
     
     [Description("Diğer")]
     Diger = 5

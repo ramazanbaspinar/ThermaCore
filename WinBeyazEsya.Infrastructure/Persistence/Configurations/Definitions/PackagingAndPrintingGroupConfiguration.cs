@@ -4,7 +4,7 @@ using WinBeyazEsya.Domain.Entities.Definitions;
 
 namespace WinBeyazEsya.Infrastructure.Persistence.Configurations.Definitions;
 
-public class PackagingAndPrintingGroupConfiguration : IEntityTypeConfiguration<PackagingAndPrintingGroup>
+public class PackagingAndPrintingGroupConfiguration : IEntityTypeConfiguration<PackagingAndPrintingGroup>, ITenantEntityConfiguration
 {
     public void Configure(EntityTypeBuilder<PackagingAndPrintingGroup> builder)
     {
@@ -17,7 +17,7 @@ public class PackagingAndPrintingGroupConfiguration : IEntityTypeConfiguration<P
 
         builder.Property(x => x.Name)
             .IsRequired()
-            .HasMaxLength(150);
+            .HasMaxLength(100);
 
         builder.Property(x => x.Description)
             .HasMaxLength(500);
@@ -36,3 +36,6 @@ public class PackagingAndPrintingGroupConfiguration : IEntityTypeConfiguration<P
             .OnDelete(DeleteBehavior.Restrict);
     }
 }
+
+
+

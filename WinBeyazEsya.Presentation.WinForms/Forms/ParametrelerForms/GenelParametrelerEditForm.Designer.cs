@@ -92,7 +92,7 @@
             tpProgramAyarlari = new DevExpress.XtraTab.XtraTabPage();
             myDataLayoutControl4 = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyDataLayoutControl();
             layoutControlGroup3 = new DevExpress.XtraLayout.LayoutControlGroup();
-            txtGuncellemeYolu = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyTextEdit();
+            txtUpdatePath = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyTextEdit();
             layoutControlItem14 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)ribbon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)xtraTabControl1).BeginInit();
@@ -142,7 +142,7 @@
             ((System.ComponentModel.ISupportInitialize)myDataLayoutControl4).BeginInit();
             myDataLayoutControl4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)layoutControlGroup3).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)txtGuncellemeYolu.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtUpdatePath.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem14).BeginInit();
             SuspendLayout();
             // 
@@ -699,7 +699,7 @@
             // myDataLayoutControl4
             // 
             myDataLayoutControl4.AllowCustomization = false;
-            myDataLayoutControl4.Controls.Add(txtGuncellemeYolu);
+            myDataLayoutControl4.Controls.Add(txtUpdatePath);
             myDataLayoutControl4.Dock = DockStyle.Fill;
             myDataLayoutControl4.Location = new Point(0, 0);
             myDataLayoutControl4.Name = "myDataLayoutControl4";
@@ -725,22 +725,22 @@
             layoutControlGroup3.Size = new Size(596, 215);
             layoutControlGroup3.TextVisible = false;
             // 
-            // txtGuncellemeYolu
+            // txtUpdatePath
             // 
-            txtGuncellemeYolu.EnterMoveNextControl = true;
-            txtGuncellemeYolu.Location = new Point(101, 12);
-            txtGuncellemeYolu.MenuManager = ribbon;
-            txtGuncellemeYolu.Name = "txtGuncellemeYolu";
-            txtGuncellemeYolu.Properties.MaxLength = 100;
-            txtGuncellemeYolu.Size = new Size(483, 20);
-            txtGuncellemeYolu.StatusBarAciklama = "";
-            txtGuncellemeYolu.StyleController = myDataLayoutControl4;
-            txtGuncellemeYolu.TabIndex = 4;
-            txtGuncellemeYolu.Tag = "GuncellemeYolu";
+            txtUpdatePath.EnterMoveNextControl = true;
+            txtUpdatePath.Location = new Point(101, 12);
+            txtUpdatePath.MenuManager = ribbon;
+            txtUpdatePath.Name = "txtUpdatePath";
+            txtUpdatePath.Properties.MaxLength = 100;
+            txtUpdatePath.Size = new Size(483, 20);
+            txtUpdatePath.StatusBarAciklama = "";
+            txtUpdatePath.StyleController = myDataLayoutControl4;
+            txtUpdatePath.TabIndex = 4;
+            txtUpdatePath.Tag = "UpdatePath";
             // 
             // layoutControlItem14
             // 
-            layoutControlItem14.Control = txtGuncellemeYolu;
+            layoutControlItem14.Control = txtUpdatePath;
             layoutControlItem14.Location = new Point(0, 0);
             layoutControlItem14.Name = "layoutControlItem14";
             layoutControlItem14.Size = new Size(576, 195);
@@ -807,7 +807,7 @@
             ((System.ComponentModel.ISupportInitialize)myDataLayoutControl4).EndInit();
             myDataLayoutControl4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)layoutControlGroup3).EndInit();
-            ((System.ComponentModel.ISupportInitialize)txtGuncellemeYolu.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtUpdatePath.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem14).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -860,7 +860,8 @@
         private DevExpress.XtraTab.XtraTabPage tpProgramAyarlari;
         private UserControls.Controls.MyDataLayoutControl myDataLayoutControl4;
         private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup3;
-        private UserControls.Controls.MyTextEdit txtGuncellemeYolu;
+        private UserControls.Controls.MyTextEdit txtUpdatePath;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem14;
     }
 }
+

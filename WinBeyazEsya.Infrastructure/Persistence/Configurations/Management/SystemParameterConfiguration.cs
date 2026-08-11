@@ -13,7 +13,8 @@ public class SystemParameterConfiguration : IEntityTypeConfiguration<SystemParam
         builder.Property(x => x.DefaultWastageRate)
             .HasColumnType("decimal(18,2)");
 
-        builder.Property(x => x.GuncellemeYolu).HasMaxLength(250);
+        builder.Property(x => x.UpdatePath).HasMaxLength(250);
     }
 }
+
 
