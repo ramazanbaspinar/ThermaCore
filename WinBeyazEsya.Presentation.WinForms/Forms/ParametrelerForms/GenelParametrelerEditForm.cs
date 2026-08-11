@@ -53,6 +53,13 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms
             if (btnYeni != null) btnYeni.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
             if (btnSil != null) btnSil.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
 
+            if (txtFirmaBarkodOneki != null)
+            {
+                txtFirmaBarkodOneki.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.RegEx;
+                txtFirmaBarkodOneki.Properties.Mask.EditMask = @"\d+";
+                txtFirmaBarkodOneki.Properties.Mask.UseMaskAsDisplayFormat = true;
+            }
+
             // Combobox veri bağlama
             if (cmbYerelParaBirimi != null)
             {

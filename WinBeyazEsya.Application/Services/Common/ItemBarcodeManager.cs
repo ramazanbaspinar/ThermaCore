@@ -39,9 +39,9 @@ public class ItemBarcodeManager : BaseManager<ItemBarcodeListDto, ItemBarcodeDto
         return _mapper.Map<List<ItemBarcodeListDto>>(barcodes);
     }
 
-    public string GenerateInternalBarcode(string currentRecordCode)
+    public string GenerateInternalBarcode(ModuleType moduleType)
     {
-        string prefix = "SYS";
+        string prefix = "869"; // default
         try
         {
             var param = _systemParameterService.GetSystemParameterAsync().GetAwaiter().GetResult();
@@ -52,15 +52,67 @@ public class ItemBarcodeManager : BaseManager<ItemBarcodeListDto, ItemBarcodeDto
         }
         catch 
         { 
-            // Fallback to "SYS" if service fails
+            // Fallback to "869" if service fails
         }
         
-        return $"{prefix}-{currentRecordCode}";
+        int seqLength = 12 - prefix.Length;
+        if(seqLength <= 0) seqLength = 5; // fallback
+        
+        var existingBarcodes = _repository.Find(x => x.ModuleType == moduleType && x.BarcodeValue.StartsWith(prefix)).ToList();
+        
+        long maxSeq = 0;
+        foreach (var barcode in existingBarcodes)
+        {
+            if (barcode.BarcodeValue != null && barcode.BarcodeValue.Length == 13)
+            {
+                string seqPart = barcode.BarcodeValue.Substring(prefix.Length, seqLength);
+                if (long.TryParse(seqPart, out long currentSeq))
+                {
+                    if (currentSeq > maxSeq) maxSeq = currentSeq;
+                }
+            }
+        }
+        
+        maxSeq++;
+        string newSeqStr = maxSeq.ToString().PadLeft(seqLength, '0');
+        string coreBarcode = prefix + newSeqStr;
+        
+        // EAN-13 Checksum calculation
+        int sum = 0;
+        for (int i = 0; i < 12; i++)
+        {
+            int digit = int.Parse(coreBarcode[i].ToString());
+            sum += digit * (i % 2 == 0 ? 1 : 3);
+        }
+        int checksum = (10 - (sum % 10)) % 10;
+        
+        return coreBarcode + checksum.ToString();
+    }
+
+    private void ValidateUniqueness(List<ItemBarcodeDto> items)
+    {
+        var values = items.Where(x => !string.IsNullOrEmpty(x.BarcodeValue)).Select(x => x.BarcodeValue).ToList();
+        var duplicatesInList = values.GroupBy(x => x).Where(g => g.Count() > 1).Select(g => g.Key).ToList();
+        if (duplicatesInList.Any())
+        {
+            throw new Exception($"Listede aynı barkod değeri birden fazla kez girilmiş: {string.Join(", ", duplicatesInList)}");
+        }
+
+        foreach (var item in items)
+        {
+            if (string.IsNullOrEmpty(item.BarcodeValue)) continue;
+            var existing = _repository.Find(x => x.BarcodeValue == item.BarcodeValue && x.Id != item.Id).FirstOrDefault();
+            if (existing != null)
+            {
+                throw new Exception($"Girdiğiniz barkod ({item.BarcodeValue}) sistemde başka bir kayıtta kullanılmaktadır!");
+            }
+        }
     }
 
     public void BulkInsert(List<ItemBarcodeDto> items)
     {
         if (items == null || !items.Any()) return;
+        ValidateUniqueness(items);
 
         var entities = new List<ItemBarcode>();
         foreach (var dto in items)
@@ -85,6 +137,7 @@ public class ItemBarcodeManager : BaseManager<ItemBarcodeListDto, ItemBarcodeDto
     public void BulkUpdate(List<ItemBarcodeDto> items)
     {
         if (items == null || !items.Any()) return;
+        ValidateUniqueness(items);
 
         foreach (var dto in items)
         {

@@ -13,7 +13,7 @@ public interface IItemBarcodeService
     void Delete(long id);
     List<ItemBarcodeListDto> GetBarcodes(long recordId, ModuleType moduleType);
     
-    string GenerateInternalBarcode(string currentRecordCode);
+    string GenerateInternalBarcode(ModuleType moduleType);
     void BulkInsert(List<ItemBarcodeDto> items);
     void BulkUpdate(List<ItemBarcodeDto> items);
     void BulkDelete(List<long> ids);

@@ -29,6 +29,8 @@ namespace WinBeyazEsya.Presentation.WinForms.UserControls
             }
         }
 
+        private DevExpress.XtraEditors.SimpleButton btnManuelBarkodEkle;
+
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
@@ -40,6 +42,31 @@ namespace WinBeyazEsya.Presentation.WinForms.UserControls
                 gridViewBarcodes.CellValueChanged += GridViewBarcodes_CellValueChanged;
                 
                 _barcodes.ListChanged += (s, e) => SetDirty(true);
+
+                // Add btnManuelBarkodEkle programmatically
+                btnManuelBarkodEkle = new DevExpress.XtraEditors.SimpleButton();
+                btnManuelBarkodEkle.Text = "Manuel Barkod Ekle";
+                btnManuelBarkodEkle.Size = new Size(130, 23);
+                btnManuelBarkodEkle.Location = new Point(btnTedarikciBarkoduOku.Right + 6, btnTedarikciBarkoduOku.Top);
+                btnManuelBarkodEkle.Click += btnManuelBarkodEkle_Click;
+                
+                // Shift others
+                btnEtiketYazdir.Left = btnManuelBarkodEkle.Right + 6;
+                btnSil.Left = btnEtiketYazdir.Right + 6;
+                
+                panelControl1.Controls.Add(btnManuelBarkodEkle);
+
+                // Add "Manuel / Legacy" to repository item types if not present
+                var rep = (DevExpress.XtraEditors.Repository.RepositoryItemComboBox)gridViewBarcodes.Columns["BarcodeType"].ColumnEdit;
+                if (!rep.Items.Contains("Manuel / Legacy"))
+                {
+                    rep.Items.Add("Manuel / Legacy");
+                }
+                
+                if (!rep.Items.Contains("Sistem (EAN-13)"))
+                {
+                    rep.Items.Add("Sistem (EAN-13)");
+                }
             }
         }
 
@@ -53,7 +80,7 @@ namespace WinBeyazEsya.Presentation.WinForms.UserControls
             }
 
             var row = gridViewBarcodes.GetFocusedRow() as ItemBarcodeListDto;
-            if (row != null && row.BarcodeType == "Sistem (Code-128)")
+            if (row != null && (row.BarcodeType == "Sistem (Code-128)" || row.BarcodeType == "Sistem (EAN-13)"))
             {
                 // Sistem barkodu ise bu alanlar kilitli
                 if (gridViewBarcodes.FocusedColumn.FieldName == "BarcodeValue" ||
@@ -120,7 +147,7 @@ namespace WinBeyazEsya.Presentation.WinForms.UserControls
             if (DesignMode) return;
             if (_itemBarcodeService == null) return;
             
-            string generatedBarcode = _itemBarcodeService.GenerateInternalBarcode(CurrentRecordCode);
+            string generatedBarcode = _itemBarcodeService.GenerateInternalBarcode(CurrentModuleType);
             
             // Eğer zaten varsa ekleme
             foreach (var b in _barcodes)
@@ -140,7 +167,7 @@ namespace WinBeyazEsya.Presentation.WinForms.UserControls
                 RecordId = CurrentRecordId, 
                 ModuleType = CurrentModuleType,
                 BarcodeValue = generatedBarcode,
-                BarcodeType = "Sistem (Code-128)",
+                BarcodeType = "Sistem (EAN-13)",
                 Unit = "Adet",
                 QuantityPerUnit = 1,
                 WeightPerUnit = 0,
@@ -149,6 +176,31 @@ namespace WinBeyazEsya.Presentation.WinForms.UserControls
             
             _barcodes.Add(newBarcode);
             gridViewBarcodes.RefreshData();
+        }
+
+        private void btnManuelBarkodEkle_Click(object sender, EventArgs e)
+        {
+            var newBarcode = new ItemBarcodeListDto 
+            { 
+                RecordId = CurrentRecordId, 
+                ModuleType = CurrentModuleType,
+                BarcodeType = "Manuel / Legacy",
+                Unit = "Adet",
+                QuantityPerUnit = 1,
+                WeightPerUnit = 0,
+                IsPrimary = true
+            };
+            
+            // Diğerlerini false yap
+            foreach (var b in _barcodes) b.IsPrimary = false;
+            
+            _barcodes.Add(newBarcode);
+            gridViewBarcodes.RefreshData();
+            
+            // Odaklan
+            gridViewBarcodes.FocusedRowHandle = gridViewBarcodes.RowCount - 1;
+            gridViewBarcodes.FocusedColumn = gridViewBarcodes.Columns["BarcodeValue"];
+            gridViewBarcodes.ShowEditor();
         }
 
         private void btnTedarikciBarkoduOku_Click(object sender, EventArgs e)
@@ -177,7 +229,10 @@ namespace WinBeyazEsya.Presentation.WinForms.UserControls
         {
             if (gridViewBarcodes.GetFocusedRow() is ItemBarcodeListDto current)
             {
-                _barcodes.Remove(current);
+                if (XtraMessageBox.Show("Seçili barkodu silmek istediğinize emin misiniz?", "Silme Onayı", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    _barcodes.Remove(current);
+                }
             }
         }
 

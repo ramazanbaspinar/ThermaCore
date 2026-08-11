@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using WinBeyazEsya.Domain.Entities.Common;
 
@@ -8,8 +8,8 @@ public class ItemBarcodeConfiguration : IEntityTypeConfiguration<ItemBarcode>
 {
     public void Configure(EntityTypeBuilder<ItemBarcode> builder)
     {
-        // Non-unique index for BarcodeValue
-        builder.HasIndex(x => x.BarcodeValue).IsUnique(false);
+        // Unique index for BarcodeValue to prevent conflicts
+        builder.HasIndex(x => x.BarcodeValue).IsUnique();
 
         // Composite index for RecordId and ModuleType
         builder.HasIndex(x => new { x.RecordId, x.ModuleType });

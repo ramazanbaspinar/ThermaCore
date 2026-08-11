@@ -1,4 +1,4 @@
-﻿namespace WinBeyazEsya.Presentation.WinForms.UserControls
+namespace WinBeyazEsya.Presentation.WinForms.UserControls
 {
     partial class ucBarkodlar
     {
@@ -83,7 +83,7 @@
             this.colBarcodeValue.Name = "colBarcodeValue";
             this.colBarcodeValue.Visible = true;
             this.colBarcodeValue.VisibleIndex = 0;
-            // 
+            this.colBarcodeValue.Width = 200;
             // colBarcodeType
             // 
             this.colBarcodeType.Caption = "Tipi";
@@ -91,7 +91,8 @@
             this.colBarcodeType.FieldName = "BarcodeType";
             this.colBarcodeType.Name = "colBarcodeType";
             this.colBarcodeType.Visible = true;
-            this.colBarcodeType.VisibleIndex = 1;
+            this.colBarcodeType.VisibleIndex = 6;
+            this.colBarcodeType.Width = 100;
             // 
             // colUnit
             // 
@@ -100,7 +101,7 @@
             this.colUnit.FieldName = "Unit";
             this.colUnit.Name = "colUnit";
             this.colUnit.Visible = true;
-            this.colUnit.VisibleIndex = 2;
+            this.colUnit.VisibleIndex = 1;
             // 
             // colQuantityPerUnit
             // 
@@ -109,7 +110,7 @@
             this.colQuantityPerUnit.FieldName = "QuantityPerUnit";
             this.colQuantityPerUnit.Name = "colQuantityPerUnit";
             this.colQuantityPerUnit.Visible = true;
-            this.colQuantityPerUnit.VisibleIndex = 3;
+            this.colQuantityPerUnit.VisibleIndex = 2;
             // 
             // colWeightPerUnit
             // 
@@ -119,7 +120,7 @@
             this.colWeightPerUnit.Name = "colWeightPerUnit";
             this.colWeightPerUnit.ToolTip = "Seçili birimin toplam ağırlığı (kg)";
             this.colWeightPerUnit.Visible = true;
-            this.colWeightPerUnit.VisibleIndex = 4;
+            this.colWeightPerUnit.VisibleIndex = 3;
             // 
             // colDescription
             // 
@@ -127,7 +128,7 @@
             this.colDescription.FieldName = "Description";
             this.colDescription.Name = "colDescription";
             this.colDescription.Visible = true;
-            this.colDescription.VisibleIndex = 5;
+            this.colDescription.VisibleIndex = 4;
             // 
             // colIsPrimary
             // 
@@ -136,7 +137,7 @@
             this.colIsPrimary.FieldName = "IsPrimary";
             this.colIsPrimary.Name = "colIsPrimary";
             this.colIsPrimary.Visible = true;
-            this.colIsPrimary.VisibleIndex = 6;
+            this.colIsPrimary.VisibleIndex = 5;
             // 
             // repCheckIsPrimary
             // 
