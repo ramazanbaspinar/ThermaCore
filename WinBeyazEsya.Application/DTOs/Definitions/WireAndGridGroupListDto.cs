@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using WinBeyazEsya.Application.DTOs.Base;
 
 namespace WinBeyazEsya.Application.DTOs.Definitions;
@@ -6,7 +6,6 @@ namespace WinBeyazEsya.Application.DTOs.Definitions;
 public class WireAndGridGroupListDto : BaseDto
 {
     public string Name { get; set; } = null!;
-    
     public long BaseUnitId { get; set; }
     public string BaseUnitName { get; set; } = string.Empty;
 
@@ -17,3 +16,4 @@ public class WireAndGridGroupListDto : BaseDto
     
     public string? Description { get; set; }
 }
+

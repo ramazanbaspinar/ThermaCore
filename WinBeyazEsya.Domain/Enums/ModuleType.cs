@@ -159,6 +159,11 @@ public enum ModuleType
     [RequiresCodeTemplate]
     FinishedGood = 36,
 
+    [Description("Ürün (Mamül) Reçeteleri")]
+    [ParentModule(TemelTanimlar)]
+    [RequiresCodeTemplate]
+    ProductRecipe = 37,
+
     // MODÜLLER (Ekranlar) - MALİYETLER
     [Description("Genel Giderler")]
     [ParentModule(Maliyetler)]

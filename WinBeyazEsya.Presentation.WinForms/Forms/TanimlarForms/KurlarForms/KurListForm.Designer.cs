@@ -47,7 +47,7 @@
             // ribbon
             // 
             ribbon.ExpandCollapseItem.Id = 0;
-            ribbon.Size = new Size(814, 135);
+            ribbon.Size = new Size(814, 153);
             ribbon.Toolbar.ShowCustomizeItem = false;
             // 
             // btnDisariAktar
@@ -58,7 +58,7 @@
             // 
             longNavigator1.Dock = DockStyle.Bottom;
             longNavigator1.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 162);
-            longNavigator1.Location = new Point(0, 371);
+            longNavigator1.Location = new Point(0, 364);
             longNavigator1.Name = "longNavigator1";
             longNavigator1.Size = new Size(814, 30);
             longNavigator1.TabIndex = 2;
@@ -66,11 +66,11 @@
             // myGridControlPro1
             // 
             myGridControlPro1.Dock = DockStyle.Fill;
-            myGridControlPro1.Location = new Point(0, 135);
+            myGridControlPro1.Location = new Point(0, 153);
             myGridControlPro1.MainView = myGridViewPro1;
             myGridControlPro1.MenuManager = ribbon;
             myGridControlPro1.Name = "myGridControlPro1";
-            myGridControlPro1.Size = new Size(814, 236);
+            myGridControlPro1.Size = new Size(814, 211);
             myGridControlPro1.TabIndex = 3;
             myGridControlPro1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] { myGridViewPro1 });
             // 
@@ -197,6 +197,7 @@
             ClientSize = new Size(814, 425);
             Controls.Add(myGridControlPro1);
             Controls.Add(longNavigator1);
+            Font = new Font("Segoe UI", 8.25F);
             IconOptions.ShowIcon = false;
             Name = "KurListForm";
             Text = "Kur Tanımları";

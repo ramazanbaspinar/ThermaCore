@@ -107,7 +107,9 @@ public static class ApplicationServiceRegistration
         services.AddTransient<IValidator<WinBeyazEsya.Application.DTOs.Definitions.OtherMaterialGroupDto>, WinBeyazEsya.Application.Validators.Definitions.OtherMaterialGroupValidator>();
 
         services.AddScoped<WinBeyazEsya.Application.Interfaces.Management.ISystemParameterService, WinBeyazEsya.Application.Services.Management.SystemParameterManager>();
-        services.AddScoped<WinBeyazEsya.Application.Interfaces.Updater.IAutoUpdateService, WinBeyazEsya.Application.Services.Updater.AutoUpdateManager>();        
+        services.AddScoped<WinBeyazEsya.Application.Interfaces.Updater.IAutoUpdateService, WinBeyazEsya.Application.Services.Updater.AutoUpdateManager>();
+        services.AddScoped<WinBeyazEsya.Application.Interfaces.Definitions.IProductRecipeService, WinBeyazEsya.Application.Services.Definitions.ProductRecipeManager>();
+        
         return services;
     }
 }

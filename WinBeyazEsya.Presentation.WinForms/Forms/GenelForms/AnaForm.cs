@@ -80,6 +80,11 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
                 {
                     FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.MamulForms.MamulListForm>();
                 };
+            if (aceUrunMamulReceteleri != null)
+                aceUrunMamulReceteleri.Click += (s, e) =>
+                {
+                    FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.UretimForms.UrunReceteListForm>();
+                };
             if (aceKullaniciTanimlari != null) aceKullaniciTanimlari.Click += KullaniciTanimlari_Click;
             if (aceYetkiGruplariRoller != null) aceYetkiGruplariRoller.Click += miYetkiGruplariRoller_Click;
             if (aceTerminalCihazYonetimi != null) aceTerminalCihazYonetimi.Click += miTerminalYonetim_Click;
@@ -436,6 +441,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             aceOtvOranlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.OtvOranlari;
             
             if (aceUrunMamulTanimlari != null) aceUrunMamulTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.FinishedGood;
+            if (aceUrunMamulReceteleri != null) aceUrunMamulReceteleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.ProductRecipe;
             aceMetalVeSacGrubuTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.MetalVeSacGrubu;
             aceElektrikVeElektronikGrubuTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.ElektrikVeElektronikGrubu;
             aceGazVeAteslemeGrubuTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.GazveAteslemeGrubu;
