@@ -78,7 +78,14 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MaliyetParametre
             
             if (txtVadeFarkiOrani != null) txtVadeFarkiOrani.Value = _currentDto.MaturityDifferenceRate;
             if (txtFireOrani != null) txtFireOrani.Value = _currentDto.WastageRate;
-            if (txtOrtalamaUretimDegeri != null) txtOrtalamaUretimDegeri.Value = _currentDto.AverageProductionValue;
+            
+            if (chkVadeFarkliMaliyetHesapla != null) chkVadeFarkliMaliyetHesapla.Checked = _currentDto.UseMaturityDifference;
+            if (chkFireOranliMaliyetHesapla != null) chkFireOranliMaliyetHesapla.Checked = _currentDto.UseWasteRate;
+            if (txtFirinOrtalamaUretimDegeri != null) txtFirinOrtalamaUretimDegeri.Value = _currentDto.OvenAvgMonthlyProduction;
+            if (txtOcakOrtalamaUretimDegeri != null) txtOcakOrtalamaUretimDegeri.Value = _currentDto.CookerAvgMonthlyProduction;
+            if (txtAnkastreOrtalamaUretimDegeri != null) txtAnkastreOrtalamaUretimDegeri.Value = _currentDto.BuiltInAvgMonthlyProduction;
+            if (txtTamboyOrtalamaUretimDegeri != null) txtTamboyOrtalamaUretimDegeri.Value = _currentDto.FreestandingAvgMonthlyProduction;
+            if (txtDigerOrtalamaUretimDegeri != null) txtDigerOrtalamaUretimDegeri.Value = _currentDto.OtherAvgMonthlyProduction;
         }
 
         protected override void GuncelNesneOlustur()
@@ -89,7 +96,13 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MaliyetParametre
                 BranchId = _currentDto?.BranchId ?? 0, // KORUMA: UI tarafında da BranchId taşınsın
                 MaturityDifferenceRate = txtVadeFarkiOrani?.Value ?? 0,
                 WastageRate = txtFireOrani?.Value ?? 0,
-                AverageProductionValue = txtOrtalamaUretimDegeri?.Value ?? 0
+                UseMaturityDifference = chkVadeFarkliMaliyetHesapla?.Checked ?? false,
+                UseWasteRate = chkFireOranliMaliyetHesapla?.Checked ?? false,
+                OvenAvgMonthlyProduction = txtFirinOrtalamaUretimDegeri != null ? Convert.ToInt32(txtFirinOrtalamaUretimDegeri.Value) : 0,
+                CookerAvgMonthlyProduction = txtOcakOrtalamaUretimDegeri != null ? Convert.ToInt32(txtOcakOrtalamaUretimDegeri.Value) : 0,
+                BuiltInAvgMonthlyProduction = txtAnkastreOrtalamaUretimDegeri != null ? Convert.ToInt32(txtAnkastreOrtalamaUretimDegeri.Value) : 0,
+                FreestandingAvgMonthlyProduction = txtTamboyOrtalamaUretimDegeri != null ? Convert.ToInt32(txtTamboyOrtalamaUretimDegeri.Value) : 0,
+                OtherAvgMonthlyProduction = txtDigerOrtalamaUretimDegeri != null ? Convert.ToInt32(txtDigerOrtalamaUretimDegeri.Value) : 0
             };
             
             CurrentEntity = dto;

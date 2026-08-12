@@ -60,6 +60,8 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                     if (finishedGoodService != null)
                     {
                         glufMamul.Properties.DataSource = finishedGoodService.GetAll().Where(x => x.IsActive).ToList();
+                        glufMamul.Properties.ValueMember = "Id";
+                        glufMamul.Properties.DisplayMember = "Name";
                     }
                 }
 
@@ -192,7 +194,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             if (myGridView1.Columns["TotalMaterialCost"] != null)
             {
                 myGridView1.Columns["TotalMaterialCost"].Summary.Clear();
-                myGridView1.Columns["TotalMaterialCost"].Summary.Add(new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalMaterialCost", "Net Malzeme Tutarı: {0:n4} " + _defaultCurrency));
+                myGridView1.Columns["TotalMaterialCost"].Summary.Add(new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalMaterialCost", "Net Malzeme Tutarı: {0:n2} " + _defaultCurrency));
             }
 
             decimal totalOverhead = 0;
@@ -217,7 +219,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             if (myGridView1.Columns["UnitPrice"] != null)
             {
                 myGridView1.Columns["UnitPrice"].Summary.Clear();
-                var overheadSummary = new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Custom, "UnitPrice", "Genel Üretim Gideri: {0:n4} " + _defaultCurrency);
+                var overheadSummary = new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Custom, "UnitPrice", "Genel Üretim Gideri: {0:n2} " + _defaultCurrency);
                 myGridView1.Columns["UnitPrice"].Summary.Add(overheadSummary);
                 myGridView1.Appearance.FooterPanel.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
                 myGridView1.CustomSummaryCalculate -= MyGridView1_CustomSummaryCalculate;
@@ -307,7 +309,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                     
                     if (isOpen)
                     {
-                        e.Appearance.BackColor = Color.White;
+                        if (!myGridView1.IsCellSelected(e.RowHandle, e.Column)) e.Appearance.BackColor = Color.FromArgb(236, 246, 255);
                         e.Appearance.ForeColor = Color.FromArgb(55, 65, 81);
                     }
                     else
@@ -321,7 +323,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
 
             if (e.Column.OptionsColumn.AllowEdit)
             {
-                e.Appearance.BackColor = Color.White;
+                if (!myGridView1.IsCellSelected(e.RowHandle, e.Column)) e.Appearance.BackColor = Color.FromArgb(236, 246, 255);
                 e.Appearance.ForeColor = Color.FromArgb(55, 65, 81);
             }
             else
@@ -378,7 +380,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             {
                 if (e.Value != null && !string.IsNullOrEmpty(row.CurrencyCode))
                 {
-                    e.DisplayText = $"{Convert.ToDecimal(e.Value):n2} {row.CurrencyCode}";
+                    e.DisplayText = $"{Convert.ToDecimal(e.Value):n4} {row.CurrencyCode}";
                 }
             }
         }

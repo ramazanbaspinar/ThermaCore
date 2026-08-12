@@ -16,10 +16,13 @@ public class MaliyetParametreDto : BaseDto
     [Description("Üretim sırasındaki genel fire oranını temsil eder.")]
     public decimal WastageRate { get; set; }
 
-    [Category("Üretim Parametreleri")]
-    [DisplayName("Ortalama Üretim Değeri")]
-    [Description("Üretim birimlerinin ortalama üretim maliyet değeridir.")]
-    public decimal AverageProductionValue { get; set; }
+    public bool UseMaturityDifference { get; set; }
+    public bool UseWasteRate { get; set; }
+    public int OvenAvgMonthlyProduction { get; set; }
+    public int CookerAvgMonthlyProduction { get; set; }
+    public int BuiltInAvgMonthlyProduction { get; set; }
+    public int FreestandingAvgMonthlyProduction { get; set; }
+    public int OtherAvgMonthlyProduction { get; set; }
     
     [Browsable(false)]
     public long BranchId { get; set; }
