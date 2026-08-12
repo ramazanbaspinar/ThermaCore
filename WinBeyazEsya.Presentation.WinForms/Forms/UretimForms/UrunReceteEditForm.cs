@@ -12,10 +12,12 @@ using WinBeyazEsya.Presentation.WinForms.Forms.BaseForms;
 
 using WinBeyazEsya.Application.DTOs.Definitions;
 using WinBeyazEsya.Application.Interfaces.Definitions;
+using WinBeyazEsya.Presentation.WinForms.Helpers;
 using WinBeyazEsya.Domain.Enums;
 using Microsoft.Extensions.DependencyInjection;
 using DevExpress.XtraGrid.Menu;
 using DevExpress.Utils.Menu;
+using WinBeyazEsya.Application.Interfaces.Repositories.Definitions;
 
 namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
 {
@@ -23,15 +25,21 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
     {
         private readonly IProductRecipeService? _productRecipeService;
         private readonly IServiceProvider? _serviceProvider;
+        private readonly IUnitRepository? _unitRepository;
+        private readonly IGeneralExpenseService? _generalExpenseService;
         private ProductRecipeDto _currentDto = new ProductRecipeDto();
         private BindingList<ProductRecipeLineDto> _lines = new BindingList<ProductRecipeLineDto>();
+        private string _defaultCurrency = "TL";
+        private decimal _totalOverhead = 0;
 
-        public UrunReceteEditForm(IProductRecipeService? productRecipeService = null, IServiceProvider? serviceProvider = null)
+        public UrunReceteEditForm(IProductRecipeService? productRecipeService = null, IServiceProvider? serviceProvider = null, IUnitRepository? unitRepository = null, IGeneralExpenseService? generalExpenseService = null)
         {
             InitializeComponent();
             BaseKartTuru = WinBeyazEsya.Domain.Enums.ModuleType.ProductRecipe;
             _productRecipeService = productRecipeService;
             _serviceProvider = serviceProvider;
+            _unitRepository = unitRepository;
+            _generalExpenseService = generalExpenseService;
 
             DataLayoutControl = myDataLayoutControl1;
             DataLayoutControls = new object[] { myDataLayoutControl2 };
@@ -55,6 +63,20 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                     }
                 }
 
+                if (_unitRepository != null)
+                {
+                    var repoUnit = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
+                    repoUnit.DataSource = _unitRepository.Find(x => x.IsActive).ToList();
+                    repoUnit.ValueMember = "Id";
+                    repoUnit.DisplayMember = "Name";
+                    repoUnit.Columns.Clear();
+                    repoUnit.Columns.Add(new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Name", "Birim"));
+                    repoUnit.ShowHeader = true;
+                    
+                    myGridControl1.RepositoryItems.Add(repoUnit);
+                    myGridView1.Columns["UnitId"].ColumnEdit = repoUnit;
+                }
+
                 TreeListDoldur();
 
                 tglDurum.IsOn = true;
@@ -64,6 +86,34 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                 // Allow drag-drop setup
                 treeList1.OptionsBehavior.DragNodes = true;
                 myGridControl1.AllowDrop = true;
+
+                if (_serviceProvider != null)
+                {
+                    var paramService = _serviceProvider.GetService<WinBeyazEsya.Application.Interfaces.Management.ISystemParameterService>();
+                    if (paramService != null)
+                    {
+                        var param = paramService.GetSystemParameterAsync().GetAwaiter().GetResult();
+                        if (param != null && !string.IsNullOrEmpty(param.LocalCurrency))
+                            _defaultCurrency = param.LocalCurrency;
+                    }
+
+                    var exchangeService = _serviceProvider.GetService<WinBeyazEsya.Application.Interfaces.System.IExchangeRateService>();
+                    if (exchangeService != null)
+                    {
+                        var rates = exchangeService.GetAllRates();
+                        var usd = rates.Where(x => x.CurrencyCode == "USD").OrderByDescending(x => x.RateDate).FirstOrDefault();
+                        var eur = rates.Where(x => x.CurrencyCode == "EUR").OrderByDescending(x => x.RateDate).FirstOrDefault();
+                        string kurText = "Kur: ";
+                        if (usd != null) kurText += $"USD {usd.EffectiveSellingRate:n4} - ";
+                        if (eur != null) kurText += $"EUR {eur.EffectiveSellingRate:n4}";
+                        lblKur.Text = kurText.TrimEnd('-', ' ');
+                    }
+                }
+
+                GridAyarlariniYap();
+                
+                // Yükleme sonrası grid düzenini geri yükle
+                Helpers.LayoutHelper.YukleGrid(myGridView1);
             }
         }
 
@@ -82,6 +132,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                 treeList1.NodeCellStyle -= TreeList1_NodeCellStyle;
                 treeList1.PopupMenuShowing -= TreeList1_PopupMenuShowing;
                 myGridView1.PopupMenuShowing -= MyGridView1_PopupMenuShowing;
+                myGridView1.RowCellStyle -= MyGridView1_RowCellStyle;
 
                 treeList1.MouseDown += TreeList1_MouseDown;
                 treeList1.MouseMove += TreeList1_MouseMove;
@@ -90,7 +141,301 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                 treeList1.NodeCellStyle += TreeList1_NodeCellStyle;
                 treeList1.PopupMenuShowing += TreeList1_PopupMenuShowing;
                 myGridView1.PopupMenuShowing += MyGridView1_PopupMenuShowing;
+                myGridView1.RowCellStyle += MyGridView1_RowCellStyle;
+                myGridView1.ShowingEditor += MyGridView1_ShowingEditor;
+                myGridView1.CustomColumnDisplayText += MyGridView1_CustomColumnDisplayText;
+                myGridView1.CellValueChanged += MyGridView1_CellValueChanged;
             }
+        }
+
+        private void GridAyarlariniYap()
+        {
+            if (myGridView1.Columns["WasteRate"] != null)
+                myGridView1.Columns["WasteRate"].Visible = false;
+            
+            if (myGridView1.Columns["MaterialCode"] != null)
+                myGridView1.Columns["MaterialCode"].Visible = false;
+
+            if (myGridView1.Columns["WeightKg"] == null && myGridView1.Columns["Weight"] != null)
+            {
+                myGridView1.Columns["Weight"].FieldName = "WeightKg";
+                myGridView1.Columns["WeightKg"].Caption = "Ağırlık (Kg)";
+            }
+
+            if (_serviceProvider != null)
+            {
+                var chemicalService = _serviceProvider.GetService<IChemicalAndInsulationGroupService>();
+                if (chemicalService != null)
+                {
+                    var repoCoating = new DevExpress.XtraEditors.Repository.RepositoryItemSearchLookUpEdit();
+                    repoCoating.DataSource = chemicalService.GetAll().Where(x => x.IsActive).ToList();
+                    repoCoating.ValueMember = "Id";
+                    repoCoating.DisplayMember = "Name";
+                    repoCoating.NullText = "";
+                    
+                    var view = new DevExpress.XtraGrid.Views.Grid.GridView();
+                    view.Columns.AddVisible("Name", "Kaplama Malzemesi");
+                    repoCoating.PopupView = view;
+                    
+                    myGridControl1.RepositoryItems.Add(repoCoating);
+                    myGridView1.Columns["CoatingMaterialId"].ColumnEdit = repoCoating;
+                }
+            }
+
+            string[] lockedColumns = { "MaterialGroupName", "MaterialName", "UnitId", "SurfaceCoatingType", "TotalMaterialCost", "WeightKg", "UnitPrice" };
+            // Note: CoatingAmount, CoatingMaterialId, ManualCoatingCost are controlled via ShowingEditor based on MaterialType.
+            string[] n6Columns = { "WeightKg" };
+            string[] n4Columns = { "UnitPrice", "TotalMaterialCost", "ManualCoatingCost" };
+            string[] n2Columns = { "Quantity", "CoatingAmount" };
+
+            myGridView1.OptionsView.ShowFooter = true;
+            if (myGridView1.Columns["TotalMaterialCost"] != null)
+            {
+                myGridView1.Columns["TotalMaterialCost"].Summary.Clear();
+                myGridView1.Columns["TotalMaterialCost"].Summary.Add(new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalMaterialCost", "Net Malzeme Tutarı: {0:n4} " + _defaultCurrency));
+            }
+
+            decimal totalOverhead = 0;
+            if (_generalExpenseService != null)
+            {
+                var expenses = _generalExpenseService.GetAll().Where(x => x.IsActive).ToList();
+                var exchangeService = _serviceProvider?.GetService<WinBeyazEsya.Application.Interfaces.System.IExchangeRateService>();
+                var rates = exchangeService?.GetAllRates().ToList();
+                foreach(var exp in expenses)
+                {
+                    decimal amount = exp.Cost;
+                    if (!string.IsNullOrEmpty(exp.CurrencyCode) && exp.CurrencyCode != _defaultCurrency && rates != null)
+                    {
+                        var rate = rates.Where(x => x.CurrencyCode == exp.CurrencyCode).OrderByDescending(x => x.RateDate).FirstOrDefault();
+                        if (rate != null) amount *= rate.EffectiveSellingRate;
+                    }
+                    totalOverhead += amount;
+                }
+            }
+            _totalOverhead = totalOverhead;
+
+            if (myGridView1.Columns["UnitPrice"] != null)
+            {
+                myGridView1.Columns["UnitPrice"].Summary.Clear();
+                var overheadSummary = new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Custom, "UnitPrice", "Genel Üretim Gideri: {0:n4} " + _defaultCurrency);
+                myGridView1.Columns["UnitPrice"].Summary.Add(overheadSummary);
+                myGridView1.Appearance.FooterPanel.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+                myGridView1.CustomSummaryCalculate -= MyGridView1_CustomSummaryCalculate;
+                myGridView1.CustomSummaryCalculate += MyGridView1_CustomSummaryCalculate;
+            }
+            
+            if (myGridView1.Columns["MaterialName"] != null)
+            {
+                myGridView1.Columns["MaterialName"].Summary.Clear();
+            }
+
+            foreach (DevExpress.XtraGrid.Columns.GridColumn col in myGridView1.Columns)
+            {
+                if (lockedColumns.Contains(col.FieldName))
+                {
+                    col.OptionsColumn.AllowEdit = false;
+                    col.OptionsColumn.ReadOnly = true;
+                }
+                else
+                {
+                    col.OptionsColumn.AllowEdit = true;
+                    col.OptionsColumn.ReadOnly = false;
+                }
+
+                if (n6Columns.Contains(col.FieldName))
+                {
+                    col.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+                    col.DisplayFormat.FormatString = "n6";
+                    col.RealColumnEdit.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+                    col.RealColumnEdit.EditFormat.FormatString = "n6";
+                    col.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+                }
+                else if (n4Columns.Contains(col.FieldName))
+                {
+                    col.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+                    col.DisplayFormat.FormatString = "n4";
+                    col.RealColumnEdit.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+                    col.RealColumnEdit.EditFormat.FormatString = "n4";
+                    col.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+                }
+                else if (n2Columns.Contains(col.FieldName))
+                {
+                    col.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+                    col.DisplayFormat.FormatString = "n2";
+                    col.RealColumnEdit.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+                    col.RealColumnEdit.EditFormat.FormatString = "n2";
+                    col.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+                }
+            }
+        }
+
+        private void MyGridView1_RowCellStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowCellStyleEventArgs e)
+        {
+            if (e.RowHandle < 0) return;
+            
+            if (myGridView1.IsCellSelected(e.RowHandle, e.Column)) return;
+
+            var row = myGridView1.GetRow(e.RowHandle) as ProductRecipeLineDto;
+            
+            if (e.Column.FieldName == "TotalMaterialCost")
+            {
+                e.Appearance.BackColor = Color.FromArgb(225, 222, 235);
+                e.Appearance.Font = new Font(e.Appearance.Font, FontStyle.Bold);
+                e.Appearance.ForeColor = Color.FromArgb(55, 65, 81);
+                return;
+            }
+
+            if (row != null && (e.Column.FieldName == "CoatingAmount" || e.Column.FieldName == "CoatingMaterialId" || e.Column.FieldName == "ManualCoatingCost"))
+            {
+                if (row.MaterialType != MaterialType.MetalAndSheet)
+                {
+                    e.Appearance.BackColor = Color.FromArgb(244, 244, 244);
+                    e.Appearance.ForeColor = Color.FromArgb(55, 65, 81);
+                    return;
+                }
+                else
+                {
+                    bool isOpen = false;
+                    if (e.Column.FieldName == "CoatingAmount" || e.Column.FieldName == "CoatingMaterialId")
+                    {
+                        if (row.SurfaceCoatingType != "Diger") isOpen = true;
+                    }
+                    else if (e.Column.FieldName == "ManualCoatingCost")
+                    {
+                        if (row.SurfaceCoatingType == "Diger") isOpen = true;
+                    }
+                    
+                    if (isOpen)
+                    {
+                        e.Appearance.BackColor = Color.White;
+                        e.Appearance.ForeColor = Color.FromArgb(55, 65, 81);
+                    }
+                    else
+                    {
+                        e.Appearance.BackColor = Color.FromArgb(244, 244, 244);
+                        e.Appearance.ForeColor = Color.FromArgb(55, 65, 81);
+                    }
+                    return;
+                }
+            }
+
+            if (e.Column.OptionsColumn.AllowEdit)
+            {
+                e.Appearance.BackColor = Color.White;
+                e.Appearance.ForeColor = Color.FromArgb(55, 65, 81);
+            }
+            else
+            {
+                e.Appearance.BackColor = Color.FromArgb(244, 244, 244);
+                e.Appearance.ForeColor = Color.FromArgb(55, 65, 81);
+            }
+        }
+
+        private void MyGridView1_CustomSummaryCalculate(object sender, DevExpress.Data.CustomSummaryEventArgs e)
+        {
+            if (e.IsTotalSummary && (e.Item as DevExpress.XtraGrid.GridColumnSummaryItem)?.FieldName == "UnitPrice")
+            {
+                e.TotalValue = _totalOverhead;
+            }
+        }
+
+        private void MyGridView1_ShowingEditor(object sender, CancelEventArgs e)
+        {
+            var view = sender as DevExpress.XtraGrid.Views.Grid.GridView;
+            if (view == null) return;
+            var row = view.GetFocusedRow() as ProductRecipeLineDto;
+            if (row == null) return;
+
+            if (view.FocusedColumn.FieldName == "CoatingAmount" || view.FocusedColumn.FieldName == "CoatingMaterialId")
+            {
+                if (row.MaterialType != MaterialType.MetalAndSheet)
+                    e.Cancel = true;
+                else if (row.SurfaceCoatingType == "Diger")
+                    e.Cancel = true;
+            }
+            else if (view.FocusedColumn.FieldName == "ManualCoatingCost")
+            {
+                if (row.MaterialType == MaterialType.MetalAndSheet && row.SurfaceCoatingType == "Diger")
+                    e.Cancel = false;
+                else
+                    e.Cancel = true;
+            }
+        }
+
+        private void MyGridView1_CustomColumnDisplayText(object sender, DevExpress.XtraGrid.Views.Base.CustomColumnDisplayTextEventArgs e)
+        {
+            var view = sender as DevExpress.XtraGrid.Views.Grid.GridView;
+            if (view == null || e.ListSourceRowIndex < 0) return;
+            var row = view.GetRow(e.ListSourceRowIndex) as ProductRecipeLineDto;
+            if (row == null) return;
+
+            if (e.Column.FieldName == "CoatingAmount" || e.Column.FieldName == "ManualCoatingCost")
+            {
+                if (row.MaterialType != MaterialType.MetalAndSheet)
+                    e.DisplayText = string.Empty;
+            }
+            else if (e.Column.FieldName == "UnitPrice" || e.Column.FieldName == "TotalMaterialCost")
+            {
+                if (e.Value != null && !string.IsNullOrEmpty(row.CurrencyCode))
+                {
+                    e.DisplayText = $"{Convert.ToDecimal(e.Value):n2} {row.CurrencyCode}";
+                }
+            }
+        }
+
+        private void MyGridView1_CellValueChanged(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)
+        {
+            var view = sender as DevExpress.XtraGrid.Views.Grid.GridView;
+            if (view == null) return;
+            var row = view.GetRow(e.RowHandle) as ProductRecipeLineDto;
+            if (row == null) return;
+
+            if (e.Column.FieldName == "Quantity" || e.Column.FieldName == "UnitPrice" || e.Column.FieldName == "CoatingAmount" || e.Column.FieldName == "CoatingMaterialId" || e.Column.FieldName == "ManualCoatingCost")
+            {
+                decimal totalCost = 0;
+                
+                if (row.MaterialType == MaterialType.MetalAndSheet)
+                {
+                    decimal coatingCost = 0;
+                    if (row.SurfaceCoatingType == "Diger")
+                    {
+                        coatingCost = row.ManualCoatingCost;
+                    }
+                    else if (row.CoatingMaterialId.HasValue && row.CoatingAmount > 0)
+                    {
+                        var chemicalService = _serviceProvider?.GetService<IChemicalAndInsulationGroupService>();
+                        var costService = _serviceProvider?.GetService<WinBeyazEsya.Application.Interfaces.Production.IMaterialCostService>();
+                        if (costService != null)
+                        {
+                            var allCosts = costService.GetAllByMaterialType(WinBeyazEsya.Domain.Enums.ModuleType.KimyaVeYalitimGrubuMaliyetleri);
+                            var coatCostObj = allCosts?.FirstOrDefault(x => x.MaterialId == row.CoatingMaterialId.Value);
+                            if (coatCostObj != null)
+                            {
+                                decimal bFiyat = coatCostObj.Cost;
+                                if (!string.IsNullOrEmpty(coatCostObj.CurrencyCode) && coatCostObj.CurrencyCode != _defaultCurrency)
+                                {
+                                    var exchangeService = _serviceProvider?.GetService<WinBeyazEsya.Application.Interfaces.System.IExchangeRateService>();
+                                    var bRate = exchangeService?.GetAllRates().Where(x => x.CurrencyCode == coatCostObj.CurrencyCode).OrderByDescending(x => x.RateDate).FirstOrDefault();
+                                    if (bRate != null) bFiyat *= bRate.EffectiveSellingRate;
+                                }
+                                coatingCost = (row.CoatingAmount / 1000m) * bFiyat;
+                            }
+                        }
+                    }
+                    totalCost = (row.WeightKg * row.UnitPrice * row.Quantity) + coatingCost;
+                }
+                else
+                {
+                    totalCost = row.Quantity * row.UnitPrice;
+                }
+
+                row.TotalMaterialCost = totalCost;
+                view.RefreshRow(e.RowHandle);
+            }
+
+            myGridView1.PostEditor();
+            myGridView1.UpdateCurrentRow();
+            myGridView1.UpdateTotalSummary();
         }
 
         private string GetEnumDescription(Enum value)
@@ -427,6 +772,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             {
                 _lines.Remove(row);
                 myGridView1.RefreshData();
+                myGridView1.UpdateTotalSummary();
             }
         }
 
@@ -449,6 +795,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                     _lines.Remove(row);
                 }
                 myGridView1.RefreshData();
+                myGridView1.UpdateTotalSummary();
             }
         }
 
@@ -464,6 +811,67 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                 }
             }
             
+            decimal unitCost = 0;
+            string currencyCode = "";
+            string surfaceCoatingType = "";
+            decimal weightKg = 0;
+
+            var costService = _serviceProvider?.GetService<WinBeyazEsya.Application.Interfaces.Production.IMaterialCostService>();
+            if (costService != null)
+            {
+                WinBeyazEsya.Domain.Enums.ModuleType? modType = null;
+                switch (dragData.MaterialType)
+                {
+                    case MaterialType.MetalAndSheet: modType = WinBeyazEsya.Domain.Enums.ModuleType.MetalVeSacGrubuMaliyetleri; break;
+                    case MaterialType.ElectricalElectronic: modType = WinBeyazEsya.Domain.Enums.ModuleType.ElektrikVeElektronikGrubuMaliyetleri; break;
+                    case MaterialType.GasAndIgnition: modType = WinBeyazEsya.Domain.Enums.ModuleType.GazVeAteslemeGrubuMaliyetleri; break;
+                    case MaterialType.PlasticAndVisualParts: modType = WinBeyazEsya.Domain.Enums.ModuleType.PlastikVeGorselAksamGrubuMaliyetleri; break;
+                    case MaterialType.ChemicalAndInsulation: modType = WinBeyazEsya.Domain.Enums.ModuleType.KimyaVeYalitimGrubuMaliyetleri; break;
+                    case MaterialType.MechanicalAndHardware: modType = WinBeyazEsya.Domain.Enums.ModuleType.MekanikVeHirdavatGrubuMaliyetleri; break;
+                    case MaterialType.PackagingAndPrinting: modType = WinBeyazEsya.Domain.Enums.ModuleType.AmbalajVeMatbaaGrubuMaliyetleri; break;
+                    case MaterialType.WireAndGrid: modType = WinBeyazEsya.Domain.Enums.ModuleType.TelVeIzgaraGrubuMaliyetleri; break;
+                    case MaterialType.OtherMaterial: modType = WinBeyazEsya.Domain.Enums.ModuleType.DigerMalzemeGrubuMaliyetleri; break;
+                }
+                
+                if (modType.HasValue)
+                {
+                    var allCosts = costService.GetAllByMaterialType(modType.Value);
+                    var costObj = allCosts?.FirstOrDefault(x => x.MaterialId == dragData.MaterialId);
+                    if (costObj != null)
+                    {
+                        unitCost = costObj.Cost;
+                        currencyCode = costObj.CurrencyCode;
+
+                        if (!string.IsNullOrEmpty(currencyCode) && currencyCode != _defaultCurrency)
+                        {
+                            var exchangeService = _serviceProvider?.GetService<WinBeyazEsya.Application.Interfaces.System.IExchangeRateService>();
+                            var rate = exchangeService?.GetAllRates().Where(x => x.CurrencyCode == currencyCode).OrderByDescending(x => x.RateDate).FirstOrDefault();
+                            if (rate != null)
+                            {
+                                unitCost *= rate.EffectiveSellingRate;
+                                currencyCode = _defaultCurrency;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (dragData.MaterialType == MaterialType.MetalAndSheet)
+            {
+                var metalService = _serviceProvider?.GetService<IMetalSheetGroupService>();
+                if (metalService != null)
+                {
+                    var metalObj = metalService.GetById(dragData.MaterialId);
+                    if (metalObj != null)
+                    {
+                        surfaceCoatingType = metalObj.SurfaceCoatingType.ToString();
+                        weightKg = metalObj.Weight;
+                    }
+                }
+            }
+
+            decimal totalCostInitial = dragData.MaterialType == MaterialType.MetalAndSheet ? (weightKg * unitCost * 1) : (unitCost * 1);
+
             var newLine = new ProductRecipeLineDto
             {
                 MaterialId = dragData.MaterialId,
@@ -473,11 +881,86 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                 UnitName = dragData.UnitName,
                 MaterialType = dragData.MaterialType,
                 Quantity = 1,
-                WasteRate = 0
+                WeightKg = weightKg,
+                SurfaceCoatingType = surfaceCoatingType,
+                UnitPrice = unitCost,
+                CurrencyCode = currencyCode,
+                TotalMaterialCost = totalCostInitial
             };
             
             _lines.Add(newLine);
             myGridView1.RefreshData();
+            int newRowHandle = myGridView1.GetRowHandle(_lines.Count - 1);
+            myGridView1.MakeRowVisible(newRowHandle);
+            myGridView1.FocusedRowHandle = newRowHandle;
+            myGridView1.UpdateTotalSummary();
+        }
+
+        protected override void BaseEditForm_FormClosing(object? sender, FormClosingEventArgs e)
+        {
+            if (!IsDesignMode)
+            {
+                Helpers.LayoutHelper.KaydetGrid(myGridView1);
+            }
+            base.BaseEditForm_FormClosing(sender, e);
+        }
+
+        protected override bool EntityInsert()
+        {
+            if (!ValidateZeroCost()) return false;
+            if (_productRecipeService == null) return false;
+
+            try
+            {
+                var dto = (ProductRecipeDto)CurrentEntity;
+                dto.Id = BaseIslemTuru.IdOlustur(OldEntity);
+                Id = _productRecipeService.Insert(dto);
+                return Id > 0;
+            }
+            catch (Exception ex)
+            {
+                string msg = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                Helpers.Messages.HataBasligi(msg, "Kayıt Hatası");
+                return false;
+            }
+        }
+
+        protected override bool EntityUpdate()
+        {
+            if (!ValidateZeroCost()) return false;
+            if (_productRecipeService == null) return false;
+
+            try
+            {
+                var dto = (ProductRecipeDto)CurrentEntity;
+                _productRecipeService.Update(dto);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                string msg = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                Helpers.Messages.HataBasligi(msg, "Kayıt Hatası");
+                return false;
+            }
+        }
+
+        private bool ValidateZeroCost()
+        {
+            var invalidLines = _lines.Where(x => x.UnitPrice <= 0).ToList();
+            if (invalidLines.Count > 0)
+            {
+                if (invalidLines.Count <= 3)
+                {
+                    string names = string.Join(", ", invalidLines.Select(x => x.MaterialName));
+                    XtraMessageBox.Show($"Reçetede ekli şu hammaddelerin maliyeti sistemde tanımlanmamış: [{names}]. Lütfen kontrol ediniz.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    XtraMessageBox.Show("Kullanılan hammaddeler arasında birim fiyatı tanımlanmayanlar var. Lütfen hammadde maliyetlerini kontrol ediniz.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                return false;
+            }
+            return true;
         }
     }
 }

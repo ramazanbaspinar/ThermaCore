@@ -58,7 +58,9 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             colBirim = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colAgirlik = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colKaplamaTipi = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
+            colCoatingMaterialId = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colKaplamaGr = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
+            colManualCoatingCost = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colBirimFiyat = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colMalzemeMaliyeti = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colTedarikci = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
@@ -70,6 +72,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             txtReceteAdi = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyTextEdit();
             glufMamul = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyGridLookUpFind();
             myGridLookUpFind1View = new DevExpress.XtraGrid.Views.Grid.GridView();
+            gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
             lblSonDegistirenKullanici = new DevExpress.XtraEditors.LabelControl();
             lblReceteOlusturanKullanici = new DevExpress.XtraEditors.LabelControl();
             txtAciklama = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyMemoEdit();
@@ -232,7 +235,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             // 
             // myGridView1
             // 
-            myGridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colId, colHammaddeGrubu, colMalzemeAdi, colMiktar, colBirim, colAgirlik, colKaplamaTipi, colKaplamaGr, colBirimFiyat, colMalzemeMaliyeti, colTedarikci, colAciklama });
+            myGridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colId, colHammaddeGrubu, colMalzemeAdi, colMiktar, colBirim, colAgirlik, colKaplamaTipi, colCoatingMaterialId, colKaplamaGr, colManualCoatingCost, colBirimFiyat, colMalzemeMaliyeti, colTedarikci, colAciklama });
             myGridView1.GridControl = myGridControl1;
             myGridView1.GroupCount = 1;
             myGridView1.Name = "myGridView1";
@@ -306,8 +309,9 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             // colBirim
             // 
             colBirim.Caption = "Birim";
-            colBirim.FieldName = "UnitName";
+            colBirim.FieldName = "UnitId";
             colBirim.Name = "colBirim";
+            colBirim.OptionsColumn.AllowEdit = false;
             colBirim.StatusBarAciklama = null;
             colBirim.StatusBarKisaYol = null;
             colBirim.StatusBarKisaYolAciklama = null;
@@ -318,7 +322,11 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             // colAgirlik
             // 
             colAgirlik.Caption = "Ağırlık( Kg)";
+            colAgirlik.DisplayFormat.FormatString = "n6";
+            colAgirlik.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             colAgirlik.FieldName = "Weight";
+            colAgirlik.GroupFormat.FormatString = "n6";
+            colAgirlik.GroupFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             colAgirlik.Name = "colAgirlik";
             colAgirlik.OptionsColumn.AllowEdit = false;
             colAgirlik.StatusBarAciklama = null;
@@ -341,6 +349,19 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             colKaplamaTipi.VisibleIndex = 4;
             colKaplamaTipi.Width = 125;
             // 
+            // colCoatingMaterialId
+            // 
+            colCoatingMaterialId.Caption = "Kaplama Malzemesi";
+            colCoatingMaterialId.FieldName = "CoatingMaterialId";
+            colCoatingMaterialId.Name = "colCoatingMaterialId";
+            colCoatingMaterialId.OptionsColumn.AllowEdit = false;
+            colCoatingMaterialId.StatusBarAciklama = null;
+            colCoatingMaterialId.StatusBarKisaYol = null;
+            colCoatingMaterialId.StatusBarKisaYolAciklama = null;
+            colCoatingMaterialId.Visible = true;
+            colCoatingMaterialId.VisibleIndex = 5;
+            colCoatingMaterialId.Width = 125;
+            // 
             // colKaplamaGr
             // 
             colKaplamaGr.Caption = "Kaplama (Gr)";
@@ -350,8 +371,21 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             colKaplamaGr.StatusBarKisaYol = null;
             colKaplamaGr.StatusBarKisaYolAciklama = null;
             colKaplamaGr.Visible = true;
-            colKaplamaGr.VisibleIndex = 5;
+            colKaplamaGr.VisibleIndex = 6;
             colKaplamaGr.Width = 125;
+            // 
+            // colManualCoatingCost
+            // 
+            colManualCoatingCost.Caption = "Manuel Kaplama Maliyeti (TRY)";
+            colManualCoatingCost.FieldName = "ManualCoatingCost";
+            colManualCoatingCost.Name = "colManualCoatingCost";
+            colManualCoatingCost.OptionsColumn.AllowEdit = false;
+            colManualCoatingCost.StatusBarAciklama = null;
+            colManualCoatingCost.StatusBarKisaYol = null;
+            colManualCoatingCost.StatusBarKisaYolAciklama = null;
+            colManualCoatingCost.Visible = true;
+            colManualCoatingCost.VisibleIndex = 7;
+            colManualCoatingCost.Width = 125;
             // 
             // colBirimFiyat
             // 
@@ -363,7 +397,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             colBirimFiyat.StatusBarKisaYol = null;
             colBirimFiyat.StatusBarKisaYolAciklama = null;
             colBirimFiyat.Visible = true;
-            colBirimFiyat.VisibleIndex = 6;
+            colBirimFiyat.VisibleIndex = 8;
             colBirimFiyat.Width = 125;
             // 
             // colMalzemeMaliyeti
@@ -376,7 +410,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             colMalzemeMaliyeti.StatusBarKisaYol = null;
             colMalzemeMaliyeti.StatusBarKisaYolAciklama = null;
             colMalzemeMaliyeti.Visible = true;
-            colMalzemeMaliyeti.VisibleIndex = 7;
+            colMalzemeMaliyeti.VisibleIndex = 9;
             colMalzemeMaliyeti.Width = 125;
             // 
             // colTedarikci
@@ -388,7 +422,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             colTedarikci.StatusBarKisaYol = null;
             colTedarikci.StatusBarKisaYolAciklama = null;
             colTedarikci.Visible = true;
-            colTedarikci.VisibleIndex = 8;
+            colTedarikci.VisibleIndex = 10;
             colTedarikci.Width = 125;
             // 
             // colAciklama
@@ -400,7 +434,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             colAciklama.StatusBarKisaYol = null;
             colAciklama.StatusBarKisaYolAciklama = null;
             colAciklama.Visible = true;
-            colAciklama.VisibleIndex = 9;
+            colAciklama.VisibleIndex = 11;
             colAciklama.Width = 125;
             // 
             // layoutControlGroup2
@@ -501,10 +535,19 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             // 
             // myGridLookUpFind1View
             // 
+            myGridLookUpFind1View.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { gridColumn1 });
             myGridLookUpFind1View.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
             myGridLookUpFind1View.Name = "myGridLookUpFind1View";
             myGridLookUpFind1View.OptionsSelection.EnableAppearanceFocusedCell = false;
             myGridLookUpFind1View.OptionsView.ShowGroupPanel = false;
+            // 
+            // gridColumn1
+            // 
+            gridColumn1.Caption = "Mamül";
+            gridColumn1.FieldName = "Name";
+            gridColumn1.Name = "gridColumn1";
+            gridColumn1.Visible = true;
+            gridColumn1.VisibleIndex = 0;
             // 
             // lblSonDegistirenKullanici
             // 
@@ -817,7 +860,6 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(914, 612);
             Controls.Add(xtraTabControl1);
-            Font = new Font("Segoe UI", 8.25F);
             IconOptions.ShowIcon = false;
             Name = "UrunReceteEditForm";
             Text = "Ürün Reçete Tanımı";
@@ -923,5 +965,8 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
         private UserControls.Controls.MyToggleSwitch tglDurum;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem13;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem8;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn1;
+        private UserControls.Grid.MyGridColumn colCoatingMaterialId;
+        private UserControls.Grid.MyGridColumn colManualCoatingCost;
     }
 }
