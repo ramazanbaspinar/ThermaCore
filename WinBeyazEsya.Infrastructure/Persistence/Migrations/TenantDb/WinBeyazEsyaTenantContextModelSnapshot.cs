@@ -311,6 +311,392 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                     b.ToTable("ChemicalAndInsulationGroups", (string)null);
                 });
 
+            modelBuilder.Entity("WinBeyazEsya.Domain.Entities.Definitions.City", b =>
+                {
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("CountryCode")
+                        .HasMaxLength(13)
+                        .HasColumnType("nvarchar(13)");
+
+                    b.Property<long>("CountryId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("CreatedUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("DeletedUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<long>("LogicalRef")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("ModifiedUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code");
+
+                    b.HasIndex("CreatedDate");
+
+                    b.HasIndex("IsActive");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.ToTable("Cities");
+                });
+
+            modelBuilder.Entity("WinBeyazEsya.Domain.Entities.Definitions.Country", b =>
+                {
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("CreatedUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("DeletedUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<long>("LogicalRef")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("ModifiedUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code");
+
+                    b.HasIndex("CreatedDate");
+
+                    b.HasIndex("IsActive");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.ToTable("Countries");
+                });
+
+            modelBuilder.Entity("WinBeyazEsya.Domain.Entities.Definitions.CurrentAccount", b =>
+                {
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("Active")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Addr1")
+                        .HasMaxLength(51)
+                        .HasColumnType("nvarchar(51)");
+
+                    b.Property<string>("Addr2")
+                        .HasMaxLength(51)
+                        .HasColumnType("nvarchar(51)");
+
+                    b.Property<string>("BankAccounts1")
+                        .HasMaxLength(17)
+                        .HasColumnType("nvarchar(17)");
+
+                    b.Property<string>("BankAccounts2")
+                        .HasMaxLength(17)
+                        .HasColumnType("nvarchar(17)");
+
+                    b.Property<string>("BankAccounts3")
+                        .HasMaxLength(17)
+                        .HasColumnType("nvarchar(17)");
+
+                    b.Property<string>("BankAccounts4")
+                        .HasMaxLength(17)
+                        .HasColumnType("nvarchar(17)");
+
+                    b.Property<string>("BankAccounts5")
+                        .HasMaxLength(17)
+                        .HasColumnType("nvarchar(17)");
+
+                    b.Property<string>("BankAccounts6")
+                        .HasMaxLength(17)
+                        .HasColumnType("nvarchar(17)");
+
+                    b.Property<string>("BankAccounts7")
+                        .HasMaxLength(17)
+                        .HasColumnType("nvarchar(17)");
+
+                    b.Property<string>("BankBranchs1")
+                        .HasMaxLength(17)
+                        .HasColumnType("nvarchar(17)");
+
+                    b.Property<string>("BankBranchs2")
+                        .HasMaxLength(17)
+                        .HasColumnType("nvarchar(17)");
+
+                    b.Property<string>("BankBranchs3")
+                        .HasMaxLength(17)
+                        .HasColumnType("nvarchar(17)");
+
+                    b.Property<string>("BankBranchs4")
+                        .HasMaxLength(17)
+                        .HasColumnType("nvarchar(17)");
+
+                    b.Property<string>("BankBranchs5")
+                        .HasMaxLength(17)
+                        .HasColumnType("nvarchar(17)");
+
+                    b.Property<string>("BankBranchs6")
+                        .HasMaxLength(17)
+                        .HasColumnType("nvarchar(17)");
+
+                    b.Property<string>("BankBranchs7")
+                        .HasMaxLength(17)
+                        .HasColumnType("nvarchar(17)");
+
+                    b.Property<int>("CCurrency")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CardType")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CellPhone")
+                        .HasMaxLength(18)
+                        .HasColumnType("nvarchar(18)");
+
+                    b.Property<string>("City")
+                        .HasMaxLength(21)
+                        .HasColumnType("nvarchar(21)");
+
+                    b.Property<string>("CityCode")
+                        .HasMaxLength(13)
+                        .HasColumnType("nvarchar(13)");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Country")
+                        .HasMaxLength(21)
+                        .HasColumnType("nvarchar(21)");
+
+                    b.Property<string>("CountryCode")
+                        .HasMaxLength(13)
+                        .HasColumnType("nvarchar(13)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("CreatedUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("CyphCode")
+                        .HasMaxLength(11)
+                        .HasColumnType("nvarchar(11)");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("DeletedUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("DeliveryFirm")
+                        .HasMaxLength(13)
+                        .HasColumnType("nvarchar(13)");
+
+                    b.Property<string>("DeliveryMethod")
+                        .HasMaxLength(13)
+                        .HasColumnType("nvarchar(13)");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<double>("DiscRate")
+                        .HasColumnType("float");
+
+                    b.Property<string>("District")
+                        .HasMaxLength(51)
+                        .HasColumnType("nvarchar(51)");
+
+                    b.Property<string>("DistrictCode")
+                        .HasMaxLength(13)
+                        .HasColumnType("nvarchar(13)");
+
+                    b.Property<string>("EmailAddr")
+                        .HasMaxLength(31)
+                        .HasColumnType("nvarchar(31)");
+
+                    b.Property<string>("FaxNr")
+                        .HasMaxLength(16)
+                        .HasColumnType("nvarchar(16)");
+
+                    b.Property<string>("InCharge")
+                        .HasMaxLength(21)
+                        .HasColumnType("nvarchar(21)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsEDispatchUser")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsEInvoiceUser")
+                        .HasColumnType("bit");
+
+                    b.Property<long>("LogicalRef")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("MailboxAlias")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<int>("MaturityDays")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("ModifiedUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("PaymentRef")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("PostCode")
+                        .HasMaxLength(11)
+                        .HasColumnType("nvarchar(11)");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
+                    b.Property<string>("ShortCode")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("SpeCode")
+                        .HasMaxLength(11)
+                        .HasColumnType("nvarchar(11)");
+
+                    b.Property<string>("TaxNr")
+                        .HasMaxLength(16)
+                        .HasColumnType("nvarchar(16)");
+
+                    b.Property<string>("TaxOffCode")
+                        .HasMaxLength(17)
+                        .HasColumnType("nvarchar(17)");
+
+                    b.Property<string>("TaxOffice")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("TelNrs1")
+                        .HasMaxLength(16)
+                        .HasColumnType("nvarchar(16)");
+
+                    b.Property<string>("TelNrs2")
+                        .HasMaxLength(16)
+                        .HasColumnType("nvarchar(16)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("TownCode")
+                        .HasMaxLength(13)
+                        .HasColumnType("nvarchar(13)");
+
+                    b.Property<string>("TownName")
+                        .HasMaxLength(51)
+                        .HasColumnType("nvarchar(51)");
+
+                    b.Property<string>("VatNr")
+                        .HasMaxLength(33)
+                        .HasColumnType("nvarchar(33)");
+
+                    b.Property<string>("WebAddr")
+                        .HasMaxLength(41)
+                        .HasColumnType("nvarchar(41)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code");
+
+                    b.HasIndex("CreatedDate");
+
+                    b.HasIndex("IsActive");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.ToTable("CurrentAccounts");
+                });
+
             modelBuilder.Entity("WinBeyazEsya.Domain.Entities.Definitions.ElectricalElectronicGroup", b =>
                 {
                     b.Property<long>("Id")
@@ -1035,13 +1421,17 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
 
                     b.Property<string>("Code")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<long>("CreatedUserId")
                         .HasColumnType("bigint");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("DeletedDate")
                         .HasColumnType("datetime2");
@@ -1050,7 +1440,11 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                         .HasColumnType("bigint");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<decimal>("ExchangeRate")
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<long>("FinishedGoodId")
                         .HasColumnType("bigint");
@@ -1069,7 +1463,12 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<decimal>("NetMaterialCost")
+                        .HasPrecision(18, 4)
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<string>("RevisionNumber")
                         .IsRequired()
@@ -1080,6 +1479,9 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                         .IsRequired()
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("rowversion");
+
+                    b.Property<decimal>("TotalCost")
+                        .HasColumnType("decimal(18,4)");
 
                     b.HasKey("Id");
 
@@ -1101,11 +1503,21 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                     b.Property<long>("Id")
                         .HasColumnType("bigint");
 
+                    b.Property<decimal>("CoatingAmount")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<long?>("CoatingMaterialId")
+                        .HasColumnType("bigint");
+
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<long>("CreatedUserId")
                         .HasColumnType("bigint");
+
+                    b.Property<string>("CurrencyCode")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("DeletedDate")
                         .HasColumnType("datetime2");
@@ -1113,8 +1525,15 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                     b.Property<long?>("DeletedUserId")
                         .HasColumnType("bigint");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
+
+                    b.Property<decimal>("ManualCoatingCost")
+                        .HasPrecision(18, 4)
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<long>("MaterialId")
                         .HasColumnType("bigint");
@@ -1132,7 +1551,8 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                         .HasColumnType("bigint");
 
                     b.Property<decimal>("Quantity")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(18, 4)
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<byte[]>("RowVersion")
                         .IsConcurrencyToken()
@@ -1140,11 +1560,30 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("rowversion");
 
+                    b.Property<long?>("SupplierId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("SurfaceCoatingType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("TotalMaterialCost")
+                        .HasPrecision(18, 4)
+                        .HasColumnType("decimal(18,4)");
+
                     b.Property<long>("UnitId")
                         .HasColumnType("bigint");
 
+                    b.Property<decimal>("UnitPrice")
+                        .HasPrecision(18, 4)
+                        .HasColumnType("decimal(18,4)");
+
                     b.Property<decimal>("WasteRate")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(18, 4)
+                        .HasColumnType("decimal(18,4)");
+
+                    b.Property<decimal>("WeightKg")
+                        .HasPrecision(18, 6)
+                        .HasColumnType("decimal(18,6)");
 
                     b.HasKey("Id");
 
@@ -1157,6 +1596,78 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                     b.HasIndex("UnitId");
 
                     b.ToTable("ProductRecipeLines");
+                });
+
+            modelBuilder.Entity("WinBeyazEsya.Domain.Entities.Definitions.Town", b =>
+                {
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("CityCode")
+                        .HasMaxLength(13)
+                        .HasColumnType("nvarchar(13)");
+
+                    b.Property<long>("CityId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("CreatedUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("DeletedUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<long>("LogicalRef")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("ModifiedUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("TownCode")
+                        .HasMaxLength(13)
+                        .HasColumnType("nvarchar(13)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code");
+
+                    b.HasIndex("CreatedDate");
+
+                    b.HasIndex("IsActive");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.ToTable("Towns");
                 });
 
             modelBuilder.Entity("WinBeyazEsya.Domain.Entities.Definitions.Unit", b =>
@@ -1226,7 +1737,7 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 1L,
                             Code = "AD",
-                            CreatedDate = new DateTime(2026, 8, 12, 20, 38, 51, 300, DateTimeKind.Local).AddTicks(9510),
+                            CreatedDate = new DateTime(2026, 8, 16, 22, 28, 16, 102, DateTimeKind.Local).AddTicks(7518),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -1236,7 +1747,7 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 2L,
                             Code = "KG",
-                            CreatedDate = new DateTime(2026, 8, 12, 20, 38, 51, 300, DateTimeKind.Local).AddTicks(9534),
+                            CreatedDate = new DateTime(2026, 8, 16, 22, 28, 16, 102, DateTimeKind.Local).AddTicks(7539),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -1246,7 +1757,7 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 3L,
                             Code = "GR",
-                            CreatedDate = new DateTime(2026, 8, 12, 20, 38, 51, 300, DateTimeKind.Local).AddTicks(9535),
+                            CreatedDate = new DateTime(2026, 8, 16, 22, 28, 16, 102, DateTimeKind.Local).AddTicks(7540),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -1256,7 +1767,7 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 10L,
                             Code = "TON",
-                            CreatedDate = new DateTime(2026, 8, 12, 20, 38, 51, 300, DateTimeKind.Local).AddTicks(9536),
+                            CreatedDate = new DateTime(2026, 8, 16, 22, 28, 16, 102, DateTimeKind.Local).AddTicks(7542),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -1266,7 +1777,7 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 4L,
                             Code = "LT",
-                            CreatedDate = new DateTime(2026, 8, 12, 20, 38, 51, 300, DateTimeKind.Local).AddTicks(9537),
+                            CreatedDate = new DateTime(2026, 8, 16, 22, 28, 16, 102, DateTimeKind.Local).AddTicks(7543),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -1276,7 +1787,7 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 5L,
                             Code = "MT",
-                            CreatedDate = new DateTime(2026, 8, 12, 20, 38, 51, 300, DateTimeKind.Local).AddTicks(9538),
+                            CreatedDate = new DateTime(2026, 8, 16, 22, 28, 16, 102, DateTimeKind.Local).AddTicks(7544),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -1286,7 +1797,7 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 6L,
                             Code = "CM",
-                            CreatedDate = new DateTime(2026, 8, 12, 20, 38, 51, 300, DateTimeKind.Local).AddTicks(9539),
+                            CreatedDate = new DateTime(2026, 8, 16, 22, 28, 16, 102, DateTimeKind.Local).AddTicks(7545),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -1296,7 +1807,7 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 7L,
                             Code = "MM",
-                            CreatedDate = new DateTime(2026, 8, 12, 20, 38, 51, 300, DateTimeKind.Local).AddTicks(9540),
+                            CreatedDate = new DateTime(2026, 8, 16, 22, 28, 16, 102, DateTimeKind.Local).AddTicks(7546),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -1306,7 +1817,7 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 13L,
                             Code = "KM",
-                            CreatedDate = new DateTime(2026, 8, 12, 20, 38, 51, 300, DateTimeKind.Local).AddTicks(9541),
+                            CreatedDate = new DateTime(2026, 8, 16, 22, 28, 16, 102, DateTimeKind.Local).AddTicks(7546),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -1316,7 +1827,7 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 14L,
                             Code = "M2",
-                            CreatedDate = new DateTime(2026, 8, 12, 20, 38, 51, 300, DateTimeKind.Local).AddTicks(9542),
+                            CreatedDate = new DateTime(2026, 8, 16, 22, 28, 16, 102, DateTimeKind.Local).AddTicks(7547),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -1326,7 +1837,7 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 15L,
                             Code = "CM2",
-                            CreatedDate = new DateTime(2026, 8, 12, 20, 38, 51, 300, DateTimeKind.Local).AddTicks(9543),
+                            CreatedDate = new DateTime(2026, 8, 16, 22, 28, 16, 102, DateTimeKind.Local).AddTicks(7548),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -1336,7 +1847,7 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 16L,
                             Code = "M3",
-                            CreatedDate = new DateTime(2026, 8, 12, 20, 38, 51, 300, DateTimeKind.Local).AddTicks(9544),
+                            CreatedDate = new DateTime(2026, 8, 16, 22, 28, 16, 102, DateTimeKind.Local).AddTicks(7549),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -1346,7 +1857,7 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 17L,
                             Code = "MIC",
-                            CreatedDate = new DateTime(2026, 8, 12, 20, 38, 51, 300, DateTimeKind.Local).AddTicks(9545),
+                            CreatedDate = new DateTime(2026, 8, 16, 22, 28, 16, 102, DateTimeKind.Local).AddTicks(7550),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -1356,7 +1867,7 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 18L,
                             Code = "GR/M2",
-                            CreatedDate = new DateTime(2026, 8, 12, 20, 38, 51, 300, DateTimeKind.Local).AddTicks(9546),
+                            CreatedDate = new DateTime(2026, 8, 16, 22, 28, 16, 102, DateTimeKind.Local).AddTicks(7551),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -1366,7 +1877,7 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 19L,
                             Code = "KG/M2",
-                            CreatedDate = new DateTime(2026, 8, 12, 20, 38, 51, 300, DateTimeKind.Local).AddTicks(9547),
+                            CreatedDate = new DateTime(2026, 8, 16, 22, 28, 16, 102, DateTimeKind.Local).AddTicks(7552),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -1376,7 +1887,7 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 8L,
                             Code = "PK",
-                            CreatedDate = new DateTime(2026, 8, 12, 20, 38, 51, 300, DateTimeKind.Local).AddTicks(9548),
+                            CreatedDate = new DateTime(2026, 8, 16, 22, 28, 16, 102, DateTimeKind.Local).AddTicks(7553),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -1386,7 +1897,7 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 9L,
                             Code = "KL",
-                            CreatedDate = new DateTime(2026, 8, 12, 20, 38, 51, 300, DateTimeKind.Local).AddTicks(9549),
+                            CreatedDate = new DateTime(2026, 8, 16, 22, 28, 16, 102, DateTimeKind.Local).AddTicks(7554),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -1396,7 +1907,7 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 20L,
                             Code = "KUT",
-                            CreatedDate = new DateTime(2026, 8, 12, 20, 38, 51, 300, DateTimeKind.Local).AddTicks(9550),
+                            CreatedDate = new DateTime(2026, 8, 16, 22, 28, 16, 102, DateTimeKind.Local).AddTicks(7555),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -1406,7 +1917,7 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 11L,
                             Code = "TK",
-                            CreatedDate = new DateTime(2026, 8, 12, 20, 38, 51, 300, DateTimeKind.Local).AddTicks(9551),
+                            CreatedDate = new DateTime(2026, 8, 16, 22, 28, 16, 102, DateTimeKind.Local).AddTicks(7556),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -1416,7 +1927,7 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 21L,
                             Code = "TBK",
-                            CreatedDate = new DateTime(2026, 8, 12, 20, 38, 51, 300, DateTimeKind.Local).AddTicks(9552),
+                            CreatedDate = new DateTime(2026, 8, 16, 22, 28, 16, 102, DateTimeKind.Local).AddTicks(7557),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -1426,7 +1937,7 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 12L,
                             Code = "CU",
-                            CreatedDate = new DateTime(2026, 8, 12, 20, 38, 51, 300, DateTimeKind.Local).AddTicks(9553),
+                            CreatedDate = new DateTime(2026, 8, 16, 22, 28, 16, 102, DateTimeKind.Local).AddTicks(7558),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -1436,7 +1947,7 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 22L,
                             Code = "BDN",
-                            CreatedDate = new DateTime(2026, 8, 12, 20, 38, 51, 300, DateTimeKind.Local).AddTicks(9554),
+                            CreatedDate = new DateTime(2026, 8, 16, 22, 28, 16, 102, DateTimeKind.Local).AddTicks(7559),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -1446,7 +1957,7 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 23L,
                             Code = "TNK",
-                            CreatedDate = new DateTime(2026, 8, 12, 20, 38, 51, 300, DateTimeKind.Local).AddTicks(9555),
+                            CreatedDate = new DateTime(2026, 8, 16, 22, 28, 16, 102, DateTimeKind.Local).AddTicks(7560),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -1456,7 +1967,7 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 24L,
                             Code = "KOV",
-                            CreatedDate = new DateTime(2026, 8, 12, 20, 38, 51, 300, DateTimeKind.Local).AddTicks(9556),
+                            CreatedDate = new DateTime(2026, 8, 16, 22, 28, 16, 102, DateTimeKind.Local).AddTicks(7561),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -1466,7 +1977,7 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 25L,
                             Code = "DZ",
-                            CreatedDate = new DateTime(2026, 8, 12, 20, 38, 51, 300, DateTimeKind.Local).AddTicks(9556),
+                            CreatedDate = new DateTime(2026, 8, 16, 22, 28, 16, 102, DateTimeKind.Local).AddTicks(7562),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -1476,7 +1987,7 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 26L,
                             Code = "DST",
-                            CreatedDate = new DateTime(2026, 8, 12, 20, 38, 51, 300, DateTimeKind.Local).AddTicks(9557),
+                            CreatedDate = new DateTime(2026, 8, 16, 22, 28, 16, 102, DateTimeKind.Local).AddTicks(7562),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -1486,7 +1997,7 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 27L,
                             Code = "OHM",
-                            CreatedDate = new DateTime(2026, 8, 12, 20, 38, 51, 300, DateTimeKind.Local).AddTicks(9558),
+                            CreatedDate = new DateTime(2026, 8, 16, 22, 28, 16, 102, DateTimeKind.Local).AddTicks(7563),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -1496,7 +2007,7 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 28L,
                             Code = "KW",
-                            CreatedDate = new DateTime(2026, 8, 12, 20, 38, 51, 300, DateTimeKind.Local).AddTicks(9559),
+                            CreatedDate = new DateTime(2026, 8, 16, 22, 28, 16, 102, DateTimeKind.Local).AddTicks(7564),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -1506,7 +2017,7 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 29L,
                             Code = "W",
-                            CreatedDate = new DateTime(2026, 8, 12, 20, 38, 51, 300, DateTimeKind.Local).AddTicks(9560),
+                            CreatedDate = new DateTime(2026, 8, 16, 22, 28, 16, 102, DateTimeKind.Local).AddTicks(7565),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -1516,7 +2027,7 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 30L,
                             Code = "SN",
-                            CreatedDate = new DateTime(2026, 8, 12, 20, 38, 51, 300, DateTimeKind.Local).AddTicks(9568),
+                            CreatedDate = new DateTime(2026, 8, 16, 22, 28, 16, 102, DateTimeKind.Local).AddTicks(7566),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -1526,7 +2037,7 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 31L,
                             Code = "DK",
-                            CreatedDate = new DateTime(2026, 8, 12, 20, 38, 51, 300, DateTimeKind.Local).AddTicks(9569),
+                            CreatedDate = new DateTime(2026, 8, 16, 22, 28, 16, 102, DateTimeKind.Local).AddTicks(7571),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -1536,7 +2047,7 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 32L,
                             Code = "SA",
-                            CreatedDate = new DateTime(2026, 8, 12, 20, 38, 51, 300, DateTimeKind.Local).AddTicks(9570),
+                            CreatedDate = new DateTime(2026, 8, 16, 22, 28, 16, 102, DateTimeKind.Local).AddTicks(7572),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -1546,7 +2057,7 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                         {
                             Id = 33L,
                             Code = "GUN",
-                            CreatedDate = new DateTime(2026, 8, 12, 20, 38, 51, 300, DateTimeKind.Local).AddTicks(9571),
+                            CreatedDate = new DateTime(2026, 8, 16, 22, 28, 16, 102, DateTimeKind.Local).AddTicks(7573),
                             CreatedUserId = 1L,
                             IsActive = true,
                             IsDeleted = false,
@@ -2211,7 +2722,7 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                     b.HasOne("WinBeyazEsya.Domain.Entities.Definitions.FinishedGood", "FinishedGood")
                         .WithMany()
                         .HasForeignKey("FinishedGoodId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("FinishedGood");
@@ -2228,7 +2739,7 @@ namespace WinBeyazEsya.Infrastructure.Persistence.Migrations.TenantDb
                     b.HasOne("WinBeyazEsya.Domain.Entities.Definitions.Unit", "Unit")
                         .WithMany()
                         .HasForeignKey("UnitId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("ProductRecipe");

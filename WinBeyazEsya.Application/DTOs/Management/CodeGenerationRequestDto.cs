@@ -1,4 +1,4 @@
-﻿using WinBeyazEsya.Domain.Enums;
+using WinBeyazEsya.Domain.Enums;
 
 namespace WinBeyazEsya.Application.DTOs.Management;
 
@@ -9,5 +9,6 @@ public class CodeGenerationRequestDto
     public bool FirmaKisaKodKullanilsin { get; set; } = false;
     public bool TestModu { get; set; } = false;
     public long? BranchId { get; set; }
+    public string? ShortCode { get; set; }
 }
 

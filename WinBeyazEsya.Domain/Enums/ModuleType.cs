@@ -164,6 +164,25 @@ public enum ModuleType
     [RequiresCodeTemplate]
     ProductRecipe = 37,
 
+    [Description("Ülke Tanımları")]
+    [ParentModule(TemelTanimlar)]
+    [RequiresCodeTemplate]
+    Country = 38,
+
+    [Description("İl Tanımları")]
+    [ParentModule(TemelTanimlar)]
+    City = 39,
+
+    [Description("İlçe Tanımları")]
+    [ParentModule(TemelTanimlar)]
+    [RequiresCodeTemplate]
+    Town = 40,
+
+    [Description("Cari Tanımları")]
+    [ParentModule(TemelTanimlar)]
+    [RequiresCodeTemplate]
+    CurrentAccount = 41,
+
     // MODÜLLER (Ekranlar) - MALİYETLER
     [Description("Genel Giderler")]
     [ParentModule(Maliyetler)]

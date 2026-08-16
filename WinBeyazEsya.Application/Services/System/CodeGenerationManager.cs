@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -48,13 +48,20 @@ public class CodeGenerationManager : ICodeGenerationService
         string tarihStr = "";
         string tarihKey = "GENEL";
 
-        if (kodKural.IsCompanyShortCodeUsed && request.FirmaKisaKodKullanilsin && request.FirmaId > 0)
+        if (kodKural.IsCompanyShortCodeUsed && request.FirmaKisaKodKullanilsin)
         {
-            // TODO: İleride Cari Kartlar eklendiğinde, `FirmaId` aslında CariKart Id'si olarak kullanılacak
-            // ve Cari'nin Kısa Kodu (CompanyCode vb.) veritabanından çekilerek buraya eklenecektir.
-            // Şimdilik boş bırakıyoruz.
-            // var cariKart = _cariKartService.GetById(request.FirmaId);
-            // if (cariKart != null) firmaKodu = cariKart.KisaKod;
+            if (!string.IsNullOrEmpty(request.ShortCode))
+            {
+                firmaKodu = request.ShortCode;
+            }
+            else if (request.FirmaId > 0)
+            {
+                // TODO: İleride Cari Kartlar eklendiğinde, `FirmaId` aslında CariKart Id'si olarak kullanılacak
+                // ve Cari'nin Kısa Kodu (CompanyCode vb.) veritabanından çekilerek buraya eklenecektir.
+                // Şimdilik boş bırakıyoruz.
+                // var cariKart = _cariKartService.GetById(request.FirmaId);
+                // if (cariKart != null) firmaKodu = cariKart.KisaKod;
+            }
         }
 
         if (kodKural.IsDateBasedCodeGenerationEnabled)

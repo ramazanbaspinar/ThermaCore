@@ -23,7 +23,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.PlastikVeGorselA
 
         public PlastikVeGorselAksamGrubuMListForms(
             IPlasticAndVisualPartsGroupService plasticAndVisualPartsGroupService,
-            IServiceProvider serviceProvider)
+            IServiceProvider serviceProvider, WinBeyazEsya.Application.Interfaces.Production.IMaterialCostService materialCostService) : base(serviceProvider, materialCostService)
         {
             InitializeComponent();
             BaseKartTuru = ModuleType.PlastikVeGorselAksamGrubuMaliyetleri;
@@ -63,5 +63,3 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.PlastikVeGorselA
         }
     }
 }
-
-

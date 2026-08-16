@@ -160,6 +160,12 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             if (miGenelParametreler != null)
                 miGenelParametreler.Click += miGenelParametreler_Click;
 
+            if (aceUlkeTanimlari != null)
+                aceUlkeTanimlari.Click += (s, e) => FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.UlkeTanimForm.UlkeTanimListForm>();
+
+            if (aceCariTanimlari != null)
+                aceCariTanimlari.Click += (s, e) => FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.CariTanimForms.CariTanimListForm>();
+
             if (miSirketTanimlari != null)
                 miSirketTanimlari.Click += miSirketTanimlari_Click;
 
@@ -424,6 +430,9 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             aceTemelTanimlar.Tag = WinBeyazEsya.Domain.Enums.ModuleType.TemelTanimlar;
 
             aceSirketTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.SirketTanimlari;
+            
+            if (aceUlkeTanimlari != null) aceUlkeTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.Country;
+            if (aceCariTanimlari != null) aceCariTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.CurrentAccount;
 
             aceYetkiGruplariRoller.Tag = WinBeyazEsya.Domain.Enums.ModuleType.YetkiGruplari;
             aceKullaniciTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.User;

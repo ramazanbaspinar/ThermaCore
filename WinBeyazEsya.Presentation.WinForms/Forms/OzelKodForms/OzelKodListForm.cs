@@ -1,4 +1,4 @@
-﻿using DevExpress.XtraEditors;
+using DevExpress.XtraEditors;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -42,6 +42,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.OzelKodForms
             
             string entityNameTr = _entityType switch
             {
+                "CurrentAccount" => "Cari Tanımlar",
                 "MetalSheetGroup" => "Metal ve Sac Grubu",
                 "Screw" => "Vida",
                 "GasValve" => "Gaz Musluğu",

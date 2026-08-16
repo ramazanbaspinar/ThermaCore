@@ -19,6 +19,7 @@ public class ProductRecipeLineDto : BaseHareketDto
     public string? UnitName { get; set; }
     
     // Reçete gridindeki diğer UI readonly sütunları
+    public decimal WasteRate { get; set; }
     public decimal WeightKg { get; set; }
     public string? SurfaceCoatingType { get; set; }
     public decimal CoatingAmount { get; set; }

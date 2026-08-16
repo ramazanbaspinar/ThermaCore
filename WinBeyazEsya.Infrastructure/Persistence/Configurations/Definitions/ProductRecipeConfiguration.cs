@@ -4,7 +4,7 @@ using WinBeyazEsya.Domain.Entities.Definitions;
 
 namespace WinBeyazEsya.Infrastructure.Persistence.Configurations.Definitions;
 
-public class ProductRecipeConfiguration : IEntityTypeConfiguration<ProductRecipe>
+public class ProductRecipeConfiguration : IEntityTypeConfiguration<ProductRecipe>, ITenantEntityConfiguration
 {
     public void Configure(EntityTypeBuilder<ProductRecipe> builder)
     {
@@ -12,6 +12,10 @@ public class ProductRecipeConfiguration : IEntityTypeConfiguration<ProductRecipe
         builder.Property(x => x.Code).HasMaxLength(50).IsRequired();
         builder.Property(x => x.Name).HasMaxLength(100).IsRequired();
         builder.Property(x => x.Description).HasMaxLength(500);
+        
+        builder.Property(x => x.TotalCost).HasColumnType("decimal(18,4)");
+        builder.Property(x => x.ExchangeRate).HasColumnType("decimal(18,4)");
+        builder.Property(x => x.NetMaterialCost).HasPrecision(18, 4);
 
         builder.HasOne(x => x.FinishedGood)
             .WithMany()

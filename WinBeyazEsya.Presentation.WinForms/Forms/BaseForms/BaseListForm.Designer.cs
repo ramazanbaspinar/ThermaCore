@@ -1,4 +1,4 @@
-﻿namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
+namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
 {
     partial class BaseListForm
     {
@@ -459,7 +459,7 @@
         private DevExpress.XtraBars.BarStaticItem bsiKapat;
         private DevExpress.XtraBars.BarStaticItem bsiKapatAciklama;
         protected internal DevExpress.XtraBars.BarButtonItem btnBagliKayitlar;
-        private DevExpress.XtraBars.BarButtonItem btnFavorilereEkle;
+        protected DevExpress.XtraBars.BarButtonItem btnFavorilereEkle;
     }
 }
 

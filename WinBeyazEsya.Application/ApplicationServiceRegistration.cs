@@ -109,6 +109,16 @@ public static class ApplicationServiceRegistration
         services.AddScoped<WinBeyazEsya.Application.Interfaces.Management.ISystemParameterService, WinBeyazEsya.Application.Services.Management.SystemParameterManager>();
         services.AddScoped<WinBeyazEsya.Application.Interfaces.Updater.IAutoUpdateService, WinBeyazEsya.Application.Services.Updater.AutoUpdateManager>();
         services.AddScoped<WinBeyazEsya.Application.Interfaces.Definitions.IProductRecipeService, WinBeyazEsya.Application.Services.Definitions.ProductRecipeManager>();
+        services.AddTransient<IValidator<WinBeyazEsya.Application.DTOs.Definitions.ProductRecipeDto>, WinBeyazEsya.Application.Validators.Definitions.ProductRecipeValidator>();
+
+        services.AddScoped<IValidator<WinBeyazEsya.Application.DTOs.Definitions.CountryDto>, WinBeyazEsya.Application.Validators.Definitions.CountryValidator>();
+        services.AddScoped<WinBeyazEsya.Application.Interfaces.Definitions.ICountryService, WinBeyazEsya.Application.Services.Definitions.CountryManager>();
+        services.AddScoped<IValidator<WinBeyazEsya.Application.DTOs.Definitions.CityDto>, WinBeyazEsya.Application.Validators.Definitions.CityValidator>();
+        services.AddScoped<WinBeyazEsya.Application.Interfaces.Definitions.ICityService, WinBeyazEsya.Application.Services.Definitions.CityManager>();
+        services.AddScoped<IValidator<WinBeyazEsya.Application.DTOs.Definitions.TownDto>, WinBeyazEsya.Application.Validators.Definitions.TownValidator>();
+        services.AddScoped<WinBeyazEsya.Application.Interfaces.Definitions.ITownService, WinBeyazEsya.Application.Services.Definitions.TownManager>();
+        services.AddScoped<IValidator<WinBeyazEsya.Application.DTOs.Definitions.CurrentAccountDto>, WinBeyazEsya.Application.Validators.Definitions.CurrentAccountValidator>();
+        services.AddScoped<WinBeyazEsya.Application.Interfaces.Definitions.ICurrentAccountService, WinBeyazEsya.Application.Services.Definitions.CurrentAccountManager>();
         
         return services;
     }

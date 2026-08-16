@@ -34,10 +34,12 @@
             myGridView1 = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridView();
             colId = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colKod = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
-            colUrunAdi = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
+            colReceteAdi = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
+            colMamul = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colRevizyonNo = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colTarih = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
-            colToplamMaliyet = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
+            colNetMalzemeTutari = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
+            colToplamReceteMaliyeti = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colAciklama = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             ((System.ComponentModel.ISupportInitialize)ribbon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)myGridControl1).BeginInit();
@@ -76,7 +78,7 @@
             // 
             // myGridView1
             // 
-            myGridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colId, colKod, colUrunAdi, colRevizyonNo, colTarih, colToplamMaliyet, colAciklama });
+            myGridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colId, colKod, colReceteAdi, colMamul, colRevizyonNo, colTarih, colNetMalzemeTutari, colToplamReceteMaliyeti, colAciklama });
             myGridView1.GridControl = myGridControl1;
             myGridView1.Name = "myGridView1";
             myGridView1.OptionsMenu.EnableColumnMenu = false;
@@ -113,7 +115,7 @@
             colKod.AppearanceCell.Options.UseTextOptions = true;
             colKod.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             colKod.Caption = "Kod";
-            colKod.FieldName = "Kod";
+            colKod.FieldName = "Code";
             colKod.Name = "colKod";
             colKod.OptionsColumn.AllowEdit = false;
             colKod.StatusBarAciklama = null;
@@ -123,18 +125,31 @@
             colKod.VisibleIndex = 0;
             colKod.Width = 120;
             // 
-            // colUrunAdi
+            // colReceteAdi
             // 
-            colUrunAdi.Caption = "Ürün Adı";
-            colUrunAdi.FieldName = "ProductName";
-            colUrunAdi.Name = "colUrunAdi";
-            colUrunAdi.OptionsColumn.AllowEdit = false;
-            colUrunAdi.StatusBarAciklama = null;
-            colUrunAdi.StatusBarKisaYol = null;
-            colUrunAdi.StatusBarKisaYolAciklama = null;
-            colUrunAdi.Visible = true;
-            colUrunAdi.VisibleIndex = 1;
-            colUrunAdi.Width = 150;
+            colReceteAdi.Caption = "Reçete Adı";
+            colReceteAdi.FieldName = "Name";
+            colReceteAdi.Name = "colReceteAdi";
+            colReceteAdi.OptionsColumn.AllowEdit = false;
+            colReceteAdi.StatusBarAciklama = null;
+            colReceteAdi.StatusBarKisaYol = null;
+            colReceteAdi.StatusBarKisaYolAciklama = null;
+            colReceteAdi.Visible = true;
+            colReceteAdi.VisibleIndex = 1;
+            colReceteAdi.Width = 150;
+            // 
+            // colMamul
+            // 
+            colMamul.Caption = "Mamül";
+            colMamul.FieldName = "FinishedGoodName";
+            colMamul.Name = "colMamul";
+            colMamul.OptionsColumn.AllowEdit = false;
+            colMamul.StatusBarAciklama = null;
+            colMamul.StatusBarKisaYol = null;
+            colMamul.StatusBarKisaYolAciklama = null;
+            colMamul.Visible = true;
+            colMamul.VisibleIndex = 2;
+            colMamul.Width = 150;
             // 
             // colRevizyonNo
             // 
@@ -146,7 +161,7 @@
             colRevizyonNo.StatusBarKisaYol = null;
             colRevizyonNo.StatusBarKisaYolAciklama = null;
             colRevizyonNo.Visible = true;
-            colRevizyonNo.VisibleIndex = 2;
+            colRevizyonNo.VisibleIndex = 3;
             colRevizyonNo.Width = 150;
             // 
             // colTarih
@@ -159,21 +174,34 @@
             colTarih.StatusBarKisaYol = null;
             colTarih.StatusBarKisaYolAciklama = null;
             colTarih.Visible = true;
-            colTarih.VisibleIndex = 3;
+            colTarih.VisibleIndex = 4;
             colTarih.Width = 150;
             // 
-            // colToplamMaliyet
+            // colNetMalzemeTutari
             // 
-            colToplamMaliyet.Caption = "Toplam Maliyet";
-            colToplamMaliyet.FieldName = "TotalCost";
-            colToplamMaliyet.Name = "colToplamMaliyet";
-            colToplamMaliyet.OptionsColumn.AllowEdit = false;
-            colToplamMaliyet.StatusBarAciklama = null;
-            colToplamMaliyet.StatusBarKisaYol = null;
-            colToplamMaliyet.StatusBarKisaYolAciklama = null;
-            colToplamMaliyet.Visible = true;
-            colToplamMaliyet.VisibleIndex = 4;
-            colToplamMaliyet.Width = 150;
+            colNetMalzemeTutari.Caption = "Net Malzeme Tutarı";
+            colNetMalzemeTutari.FieldName = "NetMaterialCost";
+            colNetMalzemeTutari.Name = "colNetMalzemeTutari";
+            colNetMalzemeTutari.OptionsColumn.AllowEdit = false;
+            colNetMalzemeTutari.StatusBarAciklama = null;
+            colNetMalzemeTutari.StatusBarKisaYol = null;
+            colNetMalzemeTutari.StatusBarKisaYolAciklama = null;
+            colNetMalzemeTutari.Visible = true;
+            colNetMalzemeTutari.VisibleIndex = 5;
+            colNetMalzemeTutari.Width = 150;
+            // 
+            // colToplamReceteMaliyeti
+            // 
+            colToplamReceteMaliyeti.Caption = "Toplam Reçete Maliyeti";
+            colToplamReceteMaliyeti.FieldName = "TotalCost";
+            colToplamReceteMaliyeti.Name = "colToplamReceteMaliyeti";
+            colToplamReceteMaliyeti.OptionsColumn.AllowEdit = false;
+            colToplamReceteMaliyeti.StatusBarAciklama = null;
+            colToplamReceteMaliyeti.StatusBarKisaYol = null;
+            colToplamReceteMaliyeti.StatusBarKisaYolAciklama = null;
+            colToplamReceteMaliyeti.Visible = true;
+            colToplamReceteMaliyeti.VisibleIndex = 6;
+            colToplamReceteMaliyeti.Width = 150;
             // 
             // colAciklama
             // 
@@ -185,7 +213,7 @@
             colAciklama.StatusBarKisaYol = null;
             colAciklama.StatusBarKisaYolAciklama = null;
             colAciklama.Visible = true;
-            colAciklama.VisibleIndex = 5;
+            colAciklama.VisibleIndex = 7;
             colAciklama.Width = 150;
             // 
             // UrunReceteListForm
@@ -195,6 +223,7 @@
             ClientSize = new Size(806, 425);
             Controls.Add(myGridControl1);
             Controls.Add(longNavigator1);
+            Font = new Font("Segoe UI", 8.25F);
             IconOptions.ShowIcon = false;
             Name = "UrunReceteListForm";
             Text = "Ürün Reçeteleri";
@@ -215,10 +244,12 @@
         private UserControls.Grid.MyGridView myGridView1;
         private UserControls.Grid.MyGridColumn colId;
         private UserControls.Grid.MyGridColumn colKod;
-        private UserControls.Grid.MyGridColumn colUrunAdi;
+        private UserControls.Grid.MyGridColumn colReceteAdi;
         private UserControls.Grid.MyGridColumn colRevizyonNo;
         private UserControls.Grid.MyGridColumn colTarih;
-        private UserControls.Grid.MyGridColumn colToplamMaliyet;
+        private UserControls.Grid.MyGridColumn colNetMalzemeTutari;
         private UserControls.Grid.MyGridColumn colAciklama;
+        private UserControls.Grid.MyGridColumn colMamul;
+        private UserControls.Grid.MyGridColumn colToplamReceteMaliyeti;
     }
 }

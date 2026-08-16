@@ -38,6 +38,12 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MaliyetParametre
             DevExpress.XtraLayout.RowDefinition rowDefinition6 = new DevExpress.XtraLayout.RowDefinition();
             DevExpress.XtraLayout.RowDefinition rowDefinition7 = new DevExpress.XtraLayout.RowDefinition();
             myDataLayoutControl1 = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyDataLayoutControl();
+            txtDigerOrtalamaUretimDegeri = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MySpinEdit();
+            txtTamboyOrtalamaUretimDegeri = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MySpinEdit();
+            txtAnkastreOrtalamaUretimDegeri = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MySpinEdit();
+            txtOcakOrtalamaUretimDegeri = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MySpinEdit();
+            chkFireOranliMaliyetHesapla = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyCheckEdit();
+            chkVadeFarkliMaliyetHesapla = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyCheckEdit();
             txtFirinOrtalamaUretimDegeri = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MySpinEdit();
             txtFireOrani = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyCalcEdit();
             txtVadeFarkiOrani = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyCalcEdit();
@@ -45,21 +51,21 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MaliyetParametre
             layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
-            chkVadeFarkliMaliyetHesapla = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyCheckEdit();
             layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
-            chkFireOranliMaliyetHesapla = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyCheckEdit();
             layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
-            txtOcakOrtalamaUretimDegeri = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MySpinEdit();
             layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
-            txtAnkastreOrtalamaUretimDegeri = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MySpinEdit();
             layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
-            txtTamboyOrtalamaUretimDegeri = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MySpinEdit();
             layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
-            txtDigerOrtalamaUretimDegeri = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MySpinEdit();
             layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)ribbon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)myDataLayoutControl1).BeginInit();
             myDataLayoutControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)txtDigerOrtalamaUretimDegeri.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtTamboyOrtalamaUretimDegeri.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtAnkastreOrtalamaUretimDegeri.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtOcakOrtalamaUretimDegeri.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)chkFireOranliMaliyetHesapla.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)chkVadeFarkliMaliyetHesapla.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtFirinOrtalamaUretimDegeri.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtFireOrani.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtVadeFarkiOrani.Properties).BeginInit();
@@ -67,17 +73,11 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MaliyetParametre
             ((System.ComponentModel.ISupportInitialize)layoutControlItem1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem3).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)chkVadeFarkliMaliyetHesapla.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem4).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)chkFireOranliMaliyetHesapla.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem5).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)txtOcakOrtalamaUretimDegeri.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem6).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)txtAnkastreOrtalamaUretimDegeri.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem7).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)txtTamboyOrtalamaUretimDegeri.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem8).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)txtDigerOrtalamaUretimDegeri.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem9).BeginInit();
             SuspendLayout();
             // 
@@ -107,6 +107,112 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MaliyetParametre
             myDataLayoutControl1.Size = new Size(573, 238);
             myDataLayoutControl1.TabIndex = 0;
             myDataLayoutControl1.Text = "myDataLayoutControl1";
+            // 
+            // txtDigerOrtalamaUretimDegeri
+            // 
+            txtDigerOrtalamaUretimDegeri.EditValue = new decimal(new int[] { 0, 0, 0, 0 });
+            txtDigerOrtalamaUretimDegeri.EnterMoveNextControl = true;
+            txtDigerOrtalamaUretimDegeri.Location = new Point(253, 198);
+            txtDigerOrtalamaUretimDegeri.MenuManager = ribbon;
+            txtDigerOrtalamaUretimDegeri.Name = "txtDigerOrtalamaUretimDegeri";
+            txtDigerOrtalamaUretimDegeri.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
+            txtDigerOrtalamaUretimDegeri.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
+            txtDigerOrtalamaUretimDegeri.Properties.DisplayFormat.FormatString = "n0";
+            txtDigerOrtalamaUretimDegeri.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            txtDigerOrtalamaUretimDegeri.Properties.EditFormat.FormatString = "n0";
+            txtDigerOrtalamaUretimDegeri.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            txtDigerOrtalamaUretimDegeri.Properties.MaskSettings.Set("mask", "n0");
+            txtDigerOrtalamaUretimDegeri.Size = new Size(308, 22);
+            txtDigerOrtalamaUretimDegeri.StatusBarAciklama = "";
+            txtDigerOrtalamaUretimDegeri.StyleController = myDataLayoutControl1;
+            txtDigerOrtalamaUretimDegeri.TabIndex = 8;
+            txtDigerOrtalamaUretimDegeri.Tag = "OtherAvgMonthlyProduction";
+            // 
+            // txtTamboyOrtalamaUretimDegeri
+            // 
+            txtTamboyOrtalamaUretimDegeri.EditValue = new decimal(new int[] { 0, 0, 0, 0 });
+            txtTamboyOrtalamaUretimDegeri.EnterMoveNextControl = true;
+            txtTamboyOrtalamaUretimDegeri.Location = new Point(253, 167);
+            txtTamboyOrtalamaUretimDegeri.MenuManager = ribbon;
+            txtTamboyOrtalamaUretimDegeri.Name = "txtTamboyOrtalamaUretimDegeri";
+            txtTamboyOrtalamaUretimDegeri.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
+            txtTamboyOrtalamaUretimDegeri.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
+            txtTamboyOrtalamaUretimDegeri.Properties.DisplayFormat.FormatString = "n0";
+            txtTamboyOrtalamaUretimDegeri.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            txtTamboyOrtalamaUretimDegeri.Properties.EditFormat.FormatString = "n0";
+            txtTamboyOrtalamaUretimDegeri.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            txtTamboyOrtalamaUretimDegeri.Properties.MaskSettings.Set("mask", "n0");
+            txtTamboyOrtalamaUretimDegeri.Size = new Size(308, 22);
+            txtTamboyOrtalamaUretimDegeri.StatusBarAciklama = "";
+            txtTamboyOrtalamaUretimDegeri.StyleController = myDataLayoutControl1;
+            txtTamboyOrtalamaUretimDegeri.TabIndex = 7;
+            txtTamboyOrtalamaUretimDegeri.Tag = "FreestandingAvgMonthlyProduction";
+            // 
+            // txtAnkastreOrtalamaUretimDegeri
+            // 
+            txtAnkastreOrtalamaUretimDegeri.EditValue = new decimal(new int[] { 0, 0, 0, 0 });
+            txtAnkastreOrtalamaUretimDegeri.EnterMoveNextControl = true;
+            txtAnkastreOrtalamaUretimDegeri.Location = new Point(253, 136);
+            txtAnkastreOrtalamaUretimDegeri.MenuManager = ribbon;
+            txtAnkastreOrtalamaUretimDegeri.Name = "txtAnkastreOrtalamaUretimDegeri";
+            txtAnkastreOrtalamaUretimDegeri.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
+            txtAnkastreOrtalamaUretimDegeri.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
+            txtAnkastreOrtalamaUretimDegeri.Properties.DisplayFormat.FormatString = "n0";
+            txtAnkastreOrtalamaUretimDegeri.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            txtAnkastreOrtalamaUretimDegeri.Properties.EditFormat.FormatString = "n0";
+            txtAnkastreOrtalamaUretimDegeri.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            txtAnkastreOrtalamaUretimDegeri.Properties.MaskSettings.Set("mask", "n0");
+            txtAnkastreOrtalamaUretimDegeri.Size = new Size(308, 22);
+            txtAnkastreOrtalamaUretimDegeri.StatusBarAciklama = "";
+            txtAnkastreOrtalamaUretimDegeri.StyleController = myDataLayoutControl1;
+            txtAnkastreOrtalamaUretimDegeri.TabIndex = 6;
+            txtAnkastreOrtalamaUretimDegeri.Tag = "BuiltInAvgMonthlyProduction";
+            // 
+            // txtOcakOrtalamaUretimDegeri
+            // 
+            txtOcakOrtalamaUretimDegeri.EditValue = new decimal(new int[] { 0, 0, 0, 0 });
+            txtOcakOrtalamaUretimDegeri.EnterMoveNextControl = true;
+            txtOcakOrtalamaUretimDegeri.Location = new Point(253, 105);
+            txtOcakOrtalamaUretimDegeri.MenuManager = ribbon;
+            txtOcakOrtalamaUretimDegeri.Name = "txtOcakOrtalamaUretimDegeri";
+            txtOcakOrtalamaUretimDegeri.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
+            txtOcakOrtalamaUretimDegeri.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
+            txtOcakOrtalamaUretimDegeri.Properties.DisplayFormat.FormatString = "n0";
+            txtOcakOrtalamaUretimDegeri.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            txtOcakOrtalamaUretimDegeri.Properties.EditFormat.FormatString = "n0";
+            txtOcakOrtalamaUretimDegeri.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            txtOcakOrtalamaUretimDegeri.Properties.MaskSettings.Set("mask", "n0");
+            txtOcakOrtalamaUretimDegeri.Size = new Size(308, 22);
+            txtOcakOrtalamaUretimDegeri.StatusBarAciklama = "";
+            txtOcakOrtalamaUretimDegeri.StyleController = myDataLayoutControl1;
+            txtOcakOrtalamaUretimDegeri.TabIndex = 5;
+            txtOcakOrtalamaUretimDegeri.Tag = "CookerAvgMonthlyProduction";
+            // 
+            // chkFireOranliMaliyetHesapla
+            // 
+            chkFireOranliMaliyetHesapla.EnterMoveNextControl = true;
+            chkFireOranliMaliyetHesapla.Location = new Point(288, 43);
+            chkFireOranliMaliyetHesapla.MenuManager = ribbon;
+            chkFireOranliMaliyetHesapla.Name = "chkFireOranliMaliyetHesapla";
+            chkFireOranliMaliyetHesapla.Properties.Caption = "Fire Oranlý Maliyet Hesapla";
+            chkFireOranliMaliyetHesapla.Size = new Size(273, 20);
+            chkFireOranliMaliyetHesapla.StatusBarAciklama = "";
+            chkFireOranliMaliyetHesapla.StyleController = myDataLayoutControl1;
+            chkFireOranliMaliyetHesapla.TabIndex = 3;
+            chkFireOranliMaliyetHesapla.Tag = "UseWasteRate";
+            // 
+            // chkVadeFarkliMaliyetHesapla
+            // 
+            chkVadeFarkliMaliyetHesapla.EnterMoveNextControl = true;
+            chkVadeFarkliMaliyetHesapla.Location = new Point(288, 12);
+            chkVadeFarkliMaliyetHesapla.MenuManager = ribbon;
+            chkVadeFarkliMaliyetHesapla.Name = "chkVadeFarkliMaliyetHesapla";
+            chkVadeFarkliMaliyetHesapla.Properties.Caption = "Vade Farklý Maliyet Hesapla";
+            chkVadeFarkliMaliyetHesapla.Size = new Size(273, 20);
+            chkVadeFarkliMaliyetHesapla.StatusBarAciklama = "";
+            chkVadeFarkliMaliyetHesapla.StyleController = myDataLayoutControl1;
+            chkVadeFarkliMaliyetHesapla.TabIndex = 1;
+            chkVadeFarkliMaliyetHesapla.Tag = "UseMaturityDifference";
             // 
             // txtFirinOrtalamaUretimDegeri
             // 
@@ -236,19 +342,6 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MaliyetParametre
             layoutControlItem3.Text = "Fýrýn Aylýk Ortalama Üretim Deðeri (Adet)";
             layoutControlItem3.TextSize = new Size(229, 13);
             // 
-            // chkVadeFarkliMaliyetHesapla
-            // 
-            chkVadeFarkliMaliyetHesapla.EnterMoveNextControl = true;
-            chkVadeFarkliMaliyetHesapla.Location = new Point(288, 12);
-            chkVadeFarkliMaliyetHesapla.MenuManager = ribbon;
-            chkVadeFarkliMaliyetHesapla.Name = "chkVadeFarkliMaliyetHesapla";
-            chkVadeFarkliMaliyetHesapla.Properties.Caption = "Vade Farklý Maliyet Hesapla";
-            chkVadeFarkliMaliyetHesapla.Size = new Size(273, 20);
-            chkVadeFarkliMaliyetHesapla.StatusBarAciklama = "";
-            chkVadeFarkliMaliyetHesapla.StyleController = myDataLayoutControl1;
-            chkVadeFarkliMaliyetHesapla.TabIndex = 1;
-            chkVadeFarkliMaliyetHesapla.Tag = "UseMaturityDifference";
-            // 
             // layoutControlItem4
             // 
             layoutControlItem4.Control = chkVadeFarkliMaliyetHesapla;
@@ -257,19 +350,6 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MaliyetParametre
             layoutControlItem4.OptionsTableLayoutItem.ColumnIndex = 1;
             layoutControlItem4.Size = new Size(277, 31);
             layoutControlItem4.TextVisible = false;
-            // 
-            // chkFireOranliMaliyetHesapla
-            // 
-            chkFireOranliMaliyetHesapla.EnterMoveNextControl = true;
-            chkFireOranliMaliyetHesapla.Location = new Point(288, 43);
-            chkFireOranliMaliyetHesapla.MenuManager = ribbon;
-            chkFireOranliMaliyetHesapla.Name = "chkFireOranliMaliyetHesapla";
-            chkFireOranliMaliyetHesapla.Properties.Caption = "Fire Oranlý Maliyet Hesapla";
-            chkFireOranliMaliyetHesapla.Size = new Size(273, 20);
-            chkFireOranliMaliyetHesapla.StatusBarAciklama = "";
-            chkFireOranliMaliyetHesapla.StyleController = myDataLayoutControl1;
-            chkFireOranliMaliyetHesapla.TabIndex = 3;
-            chkFireOranliMaliyetHesapla.Tag = "UseWasteRate";
             // 
             // layoutControlItem5
             // 
@@ -280,22 +360,6 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MaliyetParametre
             layoutControlItem5.OptionsTableLayoutItem.RowIndex = 1;
             layoutControlItem5.Size = new Size(277, 31);
             layoutControlItem5.TextVisible = false;
-            // 
-            // txtOcakOrtalamaUretimDegeri
-            // 
-            txtOcakOrtalamaUretimDegeri.EditValue = new decimal(new int[] { 0, 0, 0, 0 });
-            txtOcakOrtalamaUretimDegeri.EnterMoveNextControl = true;
-            txtOcakOrtalamaUretimDegeri.Location = new Point(253, 105);
-            txtOcakOrtalamaUretimDegeri.MenuManager = ribbon;
-            txtOcakOrtalamaUretimDegeri.Name = "txtOcakOrtalamaUretimDegeri";
-            txtOcakOrtalamaUretimDegeri.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
-            txtOcakOrtalamaUretimDegeri.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
-            txtOcakOrtalamaUretimDegeri.Properties.MaskSettings.Set("mask", "n0");
-            txtOcakOrtalamaUretimDegeri.Size = new Size(308, 22);
-            txtOcakOrtalamaUretimDegeri.StatusBarAciklama = "";
-            txtOcakOrtalamaUretimDegeri.StyleController = myDataLayoutControl1;
-            txtOcakOrtalamaUretimDegeri.TabIndex = 5;
-            txtOcakOrtalamaUretimDegeri.Tag = "CookerAvgMonthlyProduction";
             // 
             // layoutControlItem6
             // 
@@ -308,22 +372,6 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MaliyetParametre
             layoutControlItem6.Text = "Ocak Aylýk Ortalama Üretim Deðeri (Adet)";
             layoutControlItem6.TextSize = new Size(229, 13);
             // 
-            // txtAnkastreOrtalamaUretimDegeri
-            // 
-            txtAnkastreOrtalamaUretimDegeri.EditValue = new decimal(new int[] { 0, 0, 0, 0 });
-            txtAnkastreOrtalamaUretimDegeri.EnterMoveNextControl = true;
-            txtAnkastreOrtalamaUretimDegeri.Location = new Point(253, 136);
-            txtAnkastreOrtalamaUretimDegeri.MenuManager = ribbon;
-            txtAnkastreOrtalamaUretimDegeri.Name = "txtAnkastreOrtalamaUretimDegeri";
-            txtAnkastreOrtalamaUretimDegeri.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
-            txtAnkastreOrtalamaUretimDegeri.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
-            txtAnkastreOrtalamaUretimDegeri.Properties.MaskSettings.Set("mask", "n0");
-            txtAnkastreOrtalamaUretimDegeri.Size = new Size(308, 22);
-            txtAnkastreOrtalamaUretimDegeri.StatusBarAciklama = "";
-            txtAnkastreOrtalamaUretimDegeri.StyleController = myDataLayoutControl1;
-            txtAnkastreOrtalamaUretimDegeri.TabIndex = 6;
-            txtAnkastreOrtalamaUretimDegeri.Tag = "BuiltInAvgMonthlyProduction";
-            // 
             // layoutControlItem7
             // 
             layoutControlItem7.Control = txtAnkastreOrtalamaUretimDegeri;
@@ -335,22 +383,6 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MaliyetParametre
             layoutControlItem7.Text = "Ankastre Aylýk Ortalama Üretim Deðeri (Adet)";
             layoutControlItem7.TextSize = new Size(229, 13);
             // 
-            // txtTamboyOrtalamaUretimDegeri
-            // 
-            txtTamboyOrtalamaUretimDegeri.EditValue = new decimal(new int[] { 0, 0, 0, 0 });
-            txtTamboyOrtalamaUretimDegeri.EnterMoveNextControl = true;
-            txtTamboyOrtalamaUretimDegeri.Location = new Point(253, 167);
-            txtTamboyOrtalamaUretimDegeri.MenuManager = ribbon;
-            txtTamboyOrtalamaUretimDegeri.Name = "txtTamboyOrtalamaUretimDegeri";
-            txtTamboyOrtalamaUretimDegeri.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
-            txtTamboyOrtalamaUretimDegeri.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
-            txtTamboyOrtalamaUretimDegeri.Properties.MaskSettings.Set("mask", "n0");
-            txtTamboyOrtalamaUretimDegeri.Size = new Size(308, 22);
-            txtTamboyOrtalamaUretimDegeri.StatusBarAciklama = "";
-            txtTamboyOrtalamaUretimDegeri.StyleController = myDataLayoutControl1;
-            txtTamboyOrtalamaUretimDegeri.TabIndex = 7;
-            txtTamboyOrtalamaUretimDegeri.Tag = "FreestandingAvgMonthlyProduction";
-            // 
             // layoutControlItem8
             // 
             layoutControlItem8.Control = txtTamboyOrtalamaUretimDegeri;
@@ -361,22 +393,6 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MaliyetParametre
             layoutControlItem8.Size = new Size(553, 31);
             layoutControlItem8.Text = "Tamboy Aylýk Ortalama Üretim Deðeri (Adet)";
             layoutControlItem8.TextSize = new Size(229, 13);
-            // 
-            // txtDigerOrtalamaUretimDegeri
-            // 
-            txtDigerOrtalamaUretimDegeri.EditValue = new decimal(new int[] { 0, 0, 0, 0 });
-            txtDigerOrtalamaUretimDegeri.EnterMoveNextControl = true;
-            txtDigerOrtalamaUretimDegeri.Location = new Point(253, 198);
-            txtDigerOrtalamaUretimDegeri.MenuManager = ribbon;
-            txtDigerOrtalamaUretimDegeri.Name = "txtDigerOrtalamaUretimDegeri";
-            txtDigerOrtalamaUretimDegeri.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
-            txtDigerOrtalamaUretimDegeri.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
-            txtDigerOrtalamaUretimDegeri.Properties.MaskSettings.Set("mask", "n0");
-            txtDigerOrtalamaUretimDegeri.Size = new Size(308, 22);
-            txtDigerOrtalamaUretimDegeri.StatusBarAciklama = "";
-            txtDigerOrtalamaUretimDegeri.StyleController = myDataLayoutControl1;
-            txtDigerOrtalamaUretimDegeri.TabIndex = 8;
-            txtDigerOrtalamaUretimDegeri.Tag = "OtherAvgMonthlyProduction";
             // 
             // layoutControlItem9
             // 
@@ -391,6 +407,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MaliyetParametre
             // 
             // MaliyetParametreEditForm
             // 
+            Appearance.Options.UseFont = true;
             AutoScaleDimensions = new SizeF(6F, 13F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(573, 424);
@@ -405,6 +422,12 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MaliyetParametre
             ((System.ComponentModel.ISupportInitialize)ribbon).EndInit();
             ((System.ComponentModel.ISupportInitialize)myDataLayoutControl1).EndInit();
             myDataLayoutControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)txtDigerOrtalamaUretimDegeri.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtTamboyOrtalamaUretimDegeri.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtAnkastreOrtalamaUretimDegeri.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtOcakOrtalamaUretimDegeri.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)chkFireOranliMaliyetHesapla.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)chkVadeFarkliMaliyetHesapla.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtFirinOrtalamaUretimDegeri.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtFireOrani.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtVadeFarkiOrani.Properties).EndInit();
@@ -412,17 +435,11 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MaliyetParametre
             ((System.ComponentModel.ISupportInitialize)layoutControlItem1).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem2).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem3).EndInit();
-            ((System.ComponentModel.ISupportInitialize)chkVadeFarkliMaliyetHesapla.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem4).EndInit();
-            ((System.ComponentModel.ISupportInitialize)chkFireOranliMaliyetHesapla.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem5).EndInit();
-            ((System.ComponentModel.ISupportInitialize)txtOcakOrtalamaUretimDegeri.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem6).EndInit();
-            ((System.ComponentModel.ISupportInitialize)txtAnkastreOrtalamaUretimDegeri.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem7).EndInit();
-            ((System.ComponentModel.ISupportInitialize)txtTamboyOrtalamaUretimDegeri.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem8).EndInit();
-            ((System.ComponentModel.ISupportInitialize)txtDigerOrtalamaUretimDegeri.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem9).EndInit();
             ResumeLayout(false);
             PerformLayout();

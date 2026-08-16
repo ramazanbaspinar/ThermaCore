@@ -27,23 +27,34 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
         private readonly IServiceProvider? _serviceProvider;
         private readonly IUnitRepository? _unitRepository;
         private readonly IGeneralExpenseService? _generalExpenseService;
+        private readonly ICurrentAccountService? _currentAccountService;
         private ProductRecipeDto _currentDto = new ProductRecipeDto();
         private BindingList<ProductRecipeLineDto> _lines = new BindingList<ProductRecipeLineDto>();
         private string _defaultCurrency = "TL";
         private decimal _totalOverhead = 0;
+        private decimal _totalRecipeCost = 0;
+        private decimal _netMaterialCost = 0;
+        private string _costBreakdownText = "";
+        private bool _isGridModified = false;
 
-        public UrunReceteEditForm(IProductRecipeService? productRecipeService = null, IServiceProvider? serviceProvider = null, IUnitRepository? unitRepository = null, IGeneralExpenseService? generalExpenseService = null)
+        public UrunReceteEditForm(IProductRecipeService? productRecipeService = null, IServiceProvider? serviceProvider = null, IUnitRepository? unitRepository = null, IGeneralExpenseService? generalExpenseService = null, ICurrentAccountService? currentAccountService = null)
         {
             InitializeComponent();
+            txtToplamReceteMaliyeti.Properties.ReadOnly = true;
+            txtKur.Properties.ReadOnly = true;
             BaseKartTuru = WinBeyazEsya.Domain.Enums.ModuleType.ProductRecipe;
             _productRecipeService = productRecipeService;
             _serviceProvider = serviceProvider;
             _unitRepository = unitRepository;
             _generalExpenseService = generalExpenseService;
+            _currentAccountService = currentAccountService;
 
             DataLayoutControl = myDataLayoutControl1;
             DataLayoutControls = new object[] { myDataLayoutControl2 };
             Bll = _productRecipeService;
+            
+            if (glufMamul != null)
+                glufMamul.EditValueChanged += GlufMamul_EditValueChanged;
         }
 
         protected override void OnLoad(EventArgs e)
@@ -80,8 +91,6 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                 }
 
                 TreeListDoldur();
-
-                tglDurum.IsOn = true;
                 
                 myGridControl1.DataSource = _lines;
                 
@@ -108,7 +117,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                         string kurText = "Kur: ";
                         if (usd != null) kurText += $"USD {usd.EffectiveSellingRate:n4} - ";
                         if (eur != null) kurText += $"EUR {eur.EffectiveSellingRate:n4}";
-                        lblKur.Text = kurText.TrimEnd('-', ' ');
+                        //lblKur.Text = kurText.TrimEnd('-', ' ');
                     }
                 }
 
@@ -116,6 +125,8 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                 
                 // Yükleme sonrası grid düzenini geri yükle
                 Helpers.LayoutHelper.YukleGrid(myGridView1);
+                
+                _ = MaliyetiHesaplaAsync();
             }
         }
 
@@ -123,10 +134,17 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
         {
             base.EventsLoad();
             
-            if (glufMamul != null) glufMamul.SearchButtonClicked += glufMamul_SearchButtonClicked;
+            if (glufMamul != null) 
+            {
+                glufMamul.SearchButtonClicked += glufMamul_SearchButtonClicked;
+                glufMamul.EditValueChanged += GlufMamul_EditValueChanged;
+            }
 
             if (!DesignMode)
             {
+                if (btnMaliyetiGuncelle != null) btnMaliyetiGuncelle.Click -= BtnMaliyetiGuncelle_Click;
+                if (btnMaliyetKirilimi != null) btnMaliyetKirilimi.Click -= BtnMaliyetKirilimi_Click;
+
                 treeList1.MouseDown -= TreeList1_MouseDown;
                 treeList1.MouseMove -= TreeList1_MouseMove;
                 myGridControl1.DragOver -= MyGridControl1_DragOver;
@@ -147,6 +165,10 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                 myGridView1.ShowingEditor += MyGridView1_ShowingEditor;
                 myGridView1.CustomColumnDisplayText += MyGridView1_CustomColumnDisplayText;
                 myGridView1.CellValueChanged += MyGridView1_CellValueChanged;
+                myGridView1.RowDeleted += MyGridView1_RowDeleted;
+                
+                if (btnMaliyetiGuncelle != null) btnMaliyetiGuncelle.Click += BtnMaliyetiGuncelle_Click;
+                if (btnMaliyetKirilimi != null) btnMaliyetKirilimi.Click += BtnMaliyetKirilimi_Click;
             }
         }
 
@@ -181,6 +203,26 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                     
                     myGridControl1.RepositoryItems.Add(repoCoating);
                     myGridView1.Columns["CoatingMaterialId"].ColumnEdit = repoCoating;
+                }
+            }
+
+            if (_currentAccountService != null)
+            {
+                var repoSupplier = new DevExpress.XtraEditors.Repository.RepositoryItemSearchLookUpEdit();
+                repoSupplier.DataSource = _currentAccountService.GetAll()
+                    .Where(x => x.Active == 1 && (x.CardType == (int)CardType.Tedarikci || x.CardType == (int)CardType.MusteriVeTedarikci)).ToList();
+                repoSupplier.ValueMember = "Id";
+                repoSupplier.DisplayMember = "Title";
+                repoSupplier.NullText = "";
+
+                var viewSupplier = new DevExpress.XtraGrid.Views.Grid.GridView();
+                viewSupplier.Columns.AddVisible("Title", "Cari Ünvanı");
+                repoSupplier.PopupView = viewSupplier;
+
+                myGridControl1.RepositoryItems.Add(repoSupplier);
+                if (myGridView1.Columns["SupplierId"] != null)
+                {
+                    myGridView1.Columns["SupplierId"].ColumnEdit = repoSupplier;
                 }
             }
 
@@ -268,6 +310,35 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                     col.RealColumnEdit.EditFormat.FormatString = "n2";
                     col.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
                 }
+            }
+            
+            // Sadece Miktar Kolonu İçin Özel Formatlama (Display, Group ve Focus/EditMask)
+            var miktarRepo = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
+            miktarRepo.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
+            miktarRepo.Mask.EditMask = "n2";
+            miktarRepo.Mask.UseMaskAsDisplayFormat = true;
+            myGridControl1.RepositoryItems.Add(miktarRepo);
+            
+            colMiktar.ColumnEdit = miktarRepo;
+            colMiktar.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            colMiktar.DisplayFormat.FormatString = "n2";
+            colMiktar.GroupFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            colMiktar.GroupFormat.FormatString = "n2";
+            
+            // Sadece Kaplama (gr) Kolonu İçin Özel Formatlama
+            if (colKaplamaGr != null)
+            {
+                var kaplamaGrRepo = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
+                kaplamaGrRepo.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
+                kaplamaGrRepo.Mask.EditMask = "n2";
+                kaplamaGrRepo.Mask.UseMaskAsDisplayFormat = true;
+                myGridControl1.RepositoryItems.Add(kaplamaGrRepo);
+                
+                colKaplamaGr.ColumnEdit = kaplamaGrRepo;
+                colKaplamaGr.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+                colKaplamaGr.DisplayFormat.FormatString = "n2";
+                colKaplamaGr.GroupFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+                colKaplamaGr.GroupFormat.FormatString = "n2";
             }
         }
 
@@ -368,10 +439,10 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
         {
             var view = sender as DevExpress.XtraGrid.Views.Grid.GridView;
             if (view == null || e.ListSourceRowIndex < 0) return;
-            var row = view.GetRow(e.ListSourceRowIndex) as ProductRecipeLineDto;
+            var row = view.GetRow(view.GetRowHandle(e.ListSourceRowIndex)) as ProductRecipeLineDto;
             if (row == null) return;
 
-            if (e.Column.FieldName == "CoatingAmount" || e.Column.FieldName == "ManualCoatingCost")
+            if (e.Column.FieldName == "CoatingAmount" || e.Column.FieldName == "ManualCoatingCost" || e.Column.FieldName == "WeightKg")
             {
                 if (row.MaterialType != MaterialType.MetalAndSheet)
                     e.DisplayText = string.Empty;
@@ -387,12 +458,15 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
 
         private void MyGridView1_CellValueChanged(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)
         {
+            if (_isBinding) return;
+            
+            _isGridModified = true;
             var view = sender as DevExpress.XtraGrid.Views.Grid.GridView;
             if (view == null) return;
             var row = view.GetRow(e.RowHandle) as ProductRecipeLineDto;
             if (row == null) return;
 
-            if (e.Column.FieldName == "Quantity" || e.Column.FieldName == "UnitPrice" || e.Column.FieldName == "CoatingAmount" || e.Column.FieldName == "CoatingMaterialId" || e.Column.FieldName == "ManualCoatingCost")
+            if (e.Column.FieldName == "Quantity" || e.Column.FieldName == "UnitPrice" || e.Column.FieldName == "CoatingAmount" || e.Column.FieldName == "CoatingMaterialId" || e.Column.FieldName == "ManualCoatingCost" || e.Column.FieldName == "WasteRate" || e.Column.FieldName == "WeightKg")
             {
                 decimal totalCost = 0;
                 
@@ -424,11 +498,23 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                             }
                         }
                     }
-                    totalCost = (row.WeightKg * row.UnitPrice * row.Quantity) + coatingCost;
+                    
+                    decimal materialCost = (row.WeightKg * row.UnitPrice * row.Quantity);
+                    if (row.WasteRate > 0)
+                    {
+                        materialCost = materialCost + (materialCost * row.WasteRate / 100);
+                    }
+                    
+                    totalCost = materialCost + coatingCost;
                 }
                 else
                 {
-                    totalCost = row.Quantity * row.UnitPrice;
+                    decimal materialCost = row.Quantity * row.UnitPrice;
+                    if (row.WasteRate > 0)
+                    {
+                        materialCost = materialCost + (materialCost * row.WasteRate / 100);
+                    }
+                    totalCost = materialCost;
                 }
 
                 row.TotalMaterialCost = totalCost;
@@ -438,6 +524,19 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             myGridView1.PostEditor();
             myGridView1.UpdateCurrentRow();
             myGridView1.UpdateTotalSummary();
+            _ = MaliyetiHesaplaAsync(false);
+            
+            GuncelNesneOlustur();
+            ButonEnabledDurumu();
+        }
+
+        private void MyGridView1_RowDeleted(object sender, DevExpress.Data.RowDeletedEventArgs e)
+        {
+            if (_isBinding) return;
+            
+            _isGridModified = true;
+            GuncelNesneOlustur();
+            ButonEnabledDurumu();
         }
 
         private string GetEnumDescription(Enum value)
@@ -606,9 +705,40 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             }
         }
 
+        private void GlufMamul_EditValueChanged(object? sender, EventArgs e)
+        {
+            bool hasMamul = glufMamul?.EditValue != null && Convert.ToInt64(glufMamul.EditValue) > 0;
+            if (treeList1 != null) treeList1.Enabled = hasMamul;
+            if (myGridControl1 != null) myGridControl1.Enabled = hasMamul;
+        }
+
+        public override void Yukle()
+        {
+            if (BaseIslemTuru == ActionType.EntityInsert)
+            {
+                OldEntity = new ProductRecipeDto();
+                Id = BaseIslemTuru.IdOlustur(OldEntity);
+            }
+            else
+            {
+                OldEntity = _productRecipeService?.GetById(Id);
+                if (OldEntity == null)
+                {
+                    Messages.HataMesaji("Kayıt bulunamadı!");
+                    return;
+                }
+            }
+
+            CurrentEntity = CloneEntity(OldEntity);
+            _currentDto = (ProductRecipeDto)CurrentEntity;
+
+            NesneyiKontrollereBagla();
+        }
+
         protected override void NesneyiKontrollereBagla()
         {
             CurrentEntity = _currentDto;
+            _isGridModified = false;
             
             if (_currentDto == null) return;
             
@@ -621,17 +751,33 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             txtReceteAdi.Text = _currentDto.Name;
             glufMamul.EditValue = _currentDto.FinishedGoodId > 0 ? _currentDto.FinishedGoodId : null;
             txtAciklama.Text = _currentDto.Description;
-            tglDurum.IsOn = _currentDto.IsActive;
+            txtTarih.EditValue = _currentDto.Date;
             
             if (int.TryParse(_currentDto.RevisionNumber, out int revNo))
             {
-                txtRevizyonNo.Value = revNo;
+                txtRevizyonNo.EditValue = revNo;
             }
             else
             {
                 txtRevizyonNo.Text = _currentDto.RevisionNumber;
             }
             
+            var exchangeService = _serviceProvider?.GetService<WinBeyazEsya.Application.Interfaces.System.IExchangeRateService>();
+            if (exchangeService != null)
+            {
+                var rates = exchangeService.GetAllRates();
+                var usd = rates.Where(x => x.CurrencyCode == "USD").OrderByDescending(x => x.RateDate).FirstOrDefault();
+                var eur = rates.Where(x => x.CurrencyCode == "EUR").OrderByDescending(x => x.RateDate).FirstOrDefault();
+                string kurText = "";
+                if (usd != null) kurText += $"USD {usd.EffectiveSellingRate:n4} - ";
+                if (eur != null) kurText += $"EUR {eur.EffectiveSellingRate:n4}";
+                txtKur.Text = kurText.TrimEnd('-', ' ');
+            }
+            
+            _totalRecipeCost = _currentDto.TotalCost;
+            _netMaterialCost = _currentDto.NetMaterialCost;
+            
+            txtToplamReceteMaliyeti.EditValue = _currentDto.TotalCost;
             txtRevizyonNo.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             txtRevizyonNo.Properties.DisplayFormat.FormatString = "00";
 
@@ -643,6 +789,20 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                     _lines.Add(line);
                 }
             }
+            myGridControl1.DataSource = _lines;
+
+            if (this.Id <= 0 || BaseIslemTuru == ActionType.EntityInsert)
+            {
+                txtRevizyonNo.EditValue = 1;
+            }
+            
+            tglDurum.IsOn = _currentDto.IsActive;
+            tglDurum.EditValueChanged -= Control_EditValueChanged;
+            tglDurum.EditValueChanged += Control_EditValueChanged;
+            
+            bool hasMamul = _currentDto.FinishedGoodId > 0;
+            if (treeList1 != null) treeList1.Enabled = hasMamul;
+            if (myGridControl1 != null) myGridControl1.Enabled = hasMamul;
         }
 
         protected override void GuncelNesneOlustur()
@@ -653,7 +813,19 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             _currentDto.Name = txtReceteAdi.Text;
             _currentDto.FinishedGoodId = Convert.ToInt64(glufMamul.EditValue);
             _currentDto.Description = txtAciklama.Text;
+            if (txtTarih.EditValue != null && txtTarih.EditValue != DBNull.Value)
+            {
+                _currentDto.Date = Convert.ToDateTime(txtTarih.EditValue);
+            }
             _currentDto.IsActive = tglDurum.IsOn;
+            
+            if (decimal.TryParse(txtKur.Text, out decimal rate))
+            {
+                // Kullanıcının txtKur içeriğinde sadece text göstermek istediği durumda bu parse başarısız olur
+                // Ancak yine de önceki davranışı korumak adına parse etmeyi deniyoruz.
+            }
+            _currentDto.TotalCost = _totalRecipeCost;
+            _currentDto.NetMaterialCost = _netMaterialCost;
             
             _currentDto.RevisionNumber = Convert.ToInt32(txtRevizyonNo.Value).ToString("00");
             
@@ -767,6 +939,30 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             }
         }
 
+        protected override void EntityDelete()
+        {
+            if (Id <= 0) return;
+
+            if (Helpers.Messages.SilMesaj("Ürün Reçetesi") == DialogResult.Yes)
+            {
+                try
+                {
+                    Cursor.Current = Cursors.WaitCursor;
+                    _productRecipeService.Delete(Id);
+                    RefreshYapilacak = true;
+                    Close();
+                }
+                catch (Exception ex)
+                {
+                    Helpers.Messages.HataMesaji(ex.Message);
+                }
+                finally
+                {
+                    Cursor.Current = Cursors.Default;
+                }
+            }
+        }
+
         private void MiDelete_Click(object? sender, EventArgs e)
         {
             var row = myGridView1.GetFocusedRow() as ProductRecipeLineDto;
@@ -775,6 +971,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                 _lines.Remove(row);
                 myGridView1.RefreshData();
                 myGridView1.UpdateTotalSummary();
+                _ = MaliyetiHesaplaAsync(false);
             }
         }
 
@@ -798,6 +995,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                 }
                 myGridView1.RefreshData();
                 myGridView1.UpdateTotalSummary();
+                _ = MaliyetiHesaplaAsync(false);
             }
         }
 
@@ -896,6 +1094,17 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             myGridView1.MakeRowVisible(newRowHandle);
             myGridView1.FocusedRowHandle = newRowHandle;
             myGridView1.UpdateTotalSummary();
+            _ = MaliyetiHesaplaAsync(false);
+            
+            _isGridModified = true;
+            GuncelNesneOlustur();
+            ButonEnabledDurumu();
+        }
+
+        protected override bool FarklilikVarMi(Control.ControlCollection controls)
+        {
+            if (_isGridModified) return true;
+            return base.FarklilikVarMi(controls);
         }
 
         protected override void BaseEditForm_FormClosing(object? sender, FormClosingEventArgs e)
@@ -909,6 +1118,12 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
 
         protected override bool EntityInsert()
         {
+            if (glufMamul.EditValue == null || Convert.ToInt64(glufMamul.EditValue) <= 0)
+            {
+                XtraMessageBox.Show("Lütfen öncelikle bir Mamül seçiniz!", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+            if (!ValidateCoatingRules()) return false;
             if (!ValidateZeroCost()) return false;
             if (_productRecipeService == null) return false;
 
@@ -929,6 +1144,12 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
 
         protected override bool EntityUpdate()
         {
+            if (glufMamul.EditValue == null || Convert.ToInt64(glufMamul.EditValue) <= 0)
+            {
+                XtraMessageBox.Show("Lütfen öncelikle bir Mamül seçiniz!", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+            if (!ValidateCoatingRules()) return false;
             if (!ValidateZeroCost()) return false;
             if (_productRecipeService == null) return false;
 
@@ -963,6 +1184,169 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                 return false;
             }
             return true;
+        }
+
+        private bool ValidateCoatingRules()
+        {
+            for (int i = 0; i < myGridView1.RowCount; i++)
+            {
+                var row = myGridView1.GetRow(i) as ProductRecipeLineDto;
+                if (row == null) continue;
+
+                if (row.MaterialType == MaterialType.MetalAndSheet)
+                {
+                    if (row.SurfaceCoatingType == "Boya" || row.SurfaceCoatingType == "Emaye")
+                    {
+                        if (row.CoatingMaterialId == null || row.CoatingMaterialId <= 0 || row.CoatingAmount <= 0)
+                        {
+                            XtraMessageBox.Show("Metal ve sac grubu için kaplama malzemesi ve kaplama(gr) alanları zorunludur.", "Eksik Veri", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            myGridView1.FocusedRowHandle = i;
+                            myGridView1.FocusedColumn = myGridView1.Columns["CoatingMaterialId"] ?? myGridView1.Columns["CoatingAmount"];
+                            return false;
+                        }
+                    }
+                    else if (row.SurfaceCoatingType == "Diger")
+                    {
+                        if (row.ManualCoatingCost <= 0)
+                        {
+                            XtraMessageBox.Show("Metal ve Sac grubu için 'Diğer' kaplama türü seçildiğinde Manuel Kaplama Maliyeti 0'dan büyük olmalıdır!", "Eksik Veri", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            myGridView1.FocusedRowHandle = i;
+                            myGridView1.FocusedColumn = myGridView1.Columns["ManualCoatingCost"];
+                            return false;
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+
+        private async void BtnMaliyetiGuncelle_Click(object? sender, EventArgs e)
+        {
+            if (!ValidateCoatingRules()) return;
+            await MaliyetiHesaplaAsync(true);
+        }
+
+        private void BtnMaliyetKirilimi_Click(object? sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(_costBreakdownText))
+            {
+                XtraMessageBox.Show("Önce maliyeti güncelleyiniz.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            XtraMessageBox.Show(_costBreakdownText, "Maliyet Kırılımı", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private async Task MaliyetiHesaplaAsync(bool isManualClick = false)
+        {
+            if (glufMamul.EditValue == null || Convert.ToInt64(glufMamul.EditValue) <= 0)
+            {
+                if (isManualClick)
+                    XtraMessageBox.Show("Lütfen maliyet hesaplaması için öncelikle bir Mamül seçiniz!", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                
+                txtToplamReceteMaliyeti.EditValue = 0m;
+                return;
+            }
+
+            if (_serviceProvider == null) return;
+            
+            var finishedGoodService = _serviceProvider.GetService<IFinishedGoodService>();
+            var maliyetParametreService = _serviceProvider.GetService<WinBeyazEsya.Application.Interfaces.Management.IMaliyetParametreService>();
+            
+            if (finishedGoodService == null || maliyetParametreService == null) return;
+
+            long finishedGoodId = Convert.ToInt64(glufMamul.EditValue);
+
+            var finishedGood = finishedGoodService.GetById(finishedGoodId);
+            if (finishedGood == null) return;
+
+            var parametre = await maliyetParametreService.GetMaliyetParametreAsync();
+            if (parametre == null) return;
+
+            int aylikUretimAdedi = 1;
+            string grupAdi = finishedGood.GroupType.ToString();
+            
+            switch (finishedGood.GroupType)
+            {
+                case FinishedGoodGroupType.Firin:
+                    aylikUretimAdedi = parametre.OvenAvgMonthlyProduction > 0 ? parametre.OvenAvgMonthlyProduction : 1;
+                    grupAdi = "Fırın";
+                    break;
+                case FinishedGoodGroupType.Ocak:
+                    aylikUretimAdedi = parametre.CookerAvgMonthlyProduction > 0 ? parametre.CookerAvgMonthlyProduction : 1;
+                    grupAdi = "Ocak";
+                    break;
+                case FinishedGoodGroupType.Ankastre:
+                    aylikUretimAdedi = parametre.BuiltInAvgMonthlyProduction > 0 ? parametre.BuiltInAvgMonthlyProduction : 1;
+                    grupAdi = "Ankastre";
+                    break;
+                case FinishedGoodGroupType.Tamboy:
+                    aylikUretimAdedi = parametre.FreestandingAvgMonthlyProduction > 0 ? parametre.FreestandingAvgMonthlyProduction : 1;
+                    grupAdi = "Tamboy";
+                    break;
+                case FinishedGoodGroupType.Diger:
+                    aylikUretimAdedi = parametre.OtherAvgMonthlyProduction > 0 ? parametre.OtherAvgMonthlyProduction : 1;
+                    grupAdi = "Diğer";
+                    break;
+            }
+
+            decimal birimBasinaGug = _totalOverhead / aylikUretimAdedi;
+
+            decimal netMalzemeTutari = 0;
+            if (myGridView1.Columns["TotalMaterialCost"] != null && myGridView1.Columns["TotalMaterialCost"].SummaryItem.SummaryValue != null)
+            {
+                netMalzemeTutari = Convert.ToDecimal(myGridView1.Columns["TotalMaterialCost"].SummaryItem.SummaryValue);
+            }
+            else
+            {
+                netMalzemeTutari = _lines.Sum(x => x.TotalMaterialCost);
+            }
+
+            decimal fireMaliyeti = 0;
+            if (parametre.UseWasteRate)
+            {
+                fireMaliyeti = netMalzemeTutari * (parametre.WastageRate / 100m);
+            }
+
+            
+            _netMaterialCost = netMalzemeTutari;
+            _totalRecipeCost = netMalzemeTutari + birimBasinaGug + fireMaliyeti;
+
+            string kurText = "";
+            var exchangeService = _serviceProvider.GetService<WinBeyazEsya.Application.Interfaces.System.IExchangeRateService>();
+            if (exchangeService != null)
+            {
+                var rates = exchangeService.GetAllRates();
+                var usd = rates.Where(x => x.CurrencyCode == "USD").OrderByDescending(x => x.RateDate).FirstOrDefault();
+                var eur = rates.Where(x => x.CurrencyCode == "EUR").OrderByDescending(x => x.RateDate).FirstOrDefault();
+                if (usd != null) kurText += $"USD {usd.EffectiveSellingRate:n4} - ";
+                if (eur != null) kurText += $"EUR {eur.EffectiveSellingRate:n4}";
+                kurText = kurText.TrimEnd('-', ' ');
+                
+                txtKur.Text = kurText;
+            }
+            
+            txtToplamReceteMaliyeti.EditValue = _totalRecipeCost;
+
+            var sb = new StringBuilder();
+            sb.AppendLine($"Ürün Grubu: {grupAdi} (Aylık Üretim: {aylikUretimAdedi} Adet)");
+            sb.AppendLine($"Net Malzeme Tutarı: {netMalzemeTutari:n2} {_defaultCurrency}");
+            sb.AppendLine($"Birim Başına GÜG Payı: {birimBasinaGug:n2} {_defaultCurrency} (Toplam Gider / {aylikUretimAdedi})");
+            sb.AppendLine($"Fire Maliyeti (%{parametre.WastageRate:n2}): {fireMaliyeti:n2} {_defaultCurrency}");
+            
+            if (parametre.UseMaturityDifference)
+            {
+                sb.AppendLine("Vade Farkı: (İleride Cari Tanımlar Modülü devreye girdiğinde gün bazlı hesaplanacaktır)");
+            }
+            
+            sb.AppendLine(new string('-', 50));
+            sb.AppendLine($"TOPLAM REÇETE MALİYETİ: {_totalRecipeCost:n2} {_defaultCurrency}");
+
+            _costBreakdownText = sb.ToString();
+
+            if (isManualClick)
+            {
+                XtraMessageBox.Show("Maliyetler güncel parametrelere göre başarıyla hesaplandı.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
     }
 }

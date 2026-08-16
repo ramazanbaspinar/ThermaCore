@@ -12,7 +12,12 @@ public class ProductRecipe : FullAuditableEntity, IMustHaveBranch
     public virtual FinishedGood FinishedGood { get; set; } = null!;
 
     public string? Description { get; set; }
+    public DateTime Date { get; set; } = DateTime.Today;
     public string RevisionNumber { get; set; } = "01";
+
+    public decimal TotalCost { get; set; }
+    public decimal ExchangeRate { get; set; }
+    public decimal NetMaterialCost { get; set; }
 
     public long BranchId { get; set; }
     public bool IsActive { get; set; } = true;

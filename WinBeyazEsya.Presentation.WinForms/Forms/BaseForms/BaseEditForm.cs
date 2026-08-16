@@ -198,6 +198,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
                     switch (item)
                     {
                         case BarItem button:
+                            button.ItemClick -= Button_ItemClick;
                             button.ItemClick += Button_ItemClick;
                             break;
                     }
@@ -205,10 +206,19 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
             }
 
             //Form Events
+            LocationChanged -= BaseEditForm_LocationChanged;
             LocationChanged += BaseEditForm_LocationChanged;
+
+            SizeChanged -= BaseEditForm_SizeChanged;
             SizeChanged += BaseEditForm_SizeChanged;
+
+            Load -= BaseEditForm_Load;
             Load += BaseEditForm_Load;
+
+            FormClosing -= BaseEditForm_FormClosing;
             FormClosing += BaseEditForm_FormClosing;
+
+            Shown -= BaseEditForm_Shown;
             Shown += BaseEditForm_Shown;
 
             InitializeResimMenu();
