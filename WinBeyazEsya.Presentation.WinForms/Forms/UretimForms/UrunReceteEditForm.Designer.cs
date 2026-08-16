@@ -63,6 +63,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             colBirimFiyat = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colMalzemeMaliyeti = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colTedarikci = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
+            colFireOrani = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colAciklama = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             layoutControlGroup2 = new DevExpress.XtraLayout.LayoutControlGroup();
             layoutControlItem14 = new DevExpress.XtraLayout.LayoutControlItem();
@@ -237,7 +238,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             // 
             // myGridView1
             // 
-            myGridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colId, colHammaddeGrubu, colMalzemeAdi, colMiktar, colBirim, colAgirlik, colKaplamaTipi, colCoatingMaterialId, colKaplamaGr, colManualCoatingCost, colBirimFiyat, colMalzemeMaliyeti, colTedarikci, colAciklama });
+            myGridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colId, colHammaddeGrubu, colMalzemeAdi, colMiktar, colBirim, colAgirlik, colKaplamaTipi, colCoatingMaterialId, colKaplamaGr, colManualCoatingCost, colBirimFiyat, colMalzemeMaliyeti, colTedarikci, colFireOrani, colAciklama });
             myGridView1.GridControl = myGridControl1;
             myGridView1.GroupCount = 1;
             myGridView1.Name = "myGridView1";
@@ -427,6 +428,19 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             colTedarikci.VisibleIndex = 10;
             colTedarikci.Width = 125;
             // 
+            // colFireOrani
+            // 
+            colFireOrani.Caption = "Fire Oranı";
+            colFireOrani.FieldName = "WasteRate";
+            colFireOrani.Name = "colFireOrani";
+            colFireOrani.OptionsColumn.AllowEdit = false;
+            colFireOrani.StatusBarAciklama = null;
+            colFireOrani.StatusBarKisaYol = null;
+            colFireOrani.StatusBarKisaYolAciklama = null;
+            colFireOrani.Visible = true;
+            colFireOrani.VisibleIndex = 11;
+            colFireOrani.Width = 150;
+            // 
             // colAciklama
             // 
             colAciklama.Caption = "Açıklama";
@@ -436,7 +450,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             colAciklama.StatusBarKisaYol = null;
             colAciklama.StatusBarKisaYolAciklama = null;
             colAciklama.Visible = true;
-            colAciklama.VisibleIndex = 11;
+            colAciklama.VisibleIndex = 12;
             colAciklama.Width = 125;
             // 
             // layoutControlGroup2
@@ -882,7 +896,6 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(914, 612);
             Controls.Add(xtraTabControl1);
-            Font = new Font("Segoe UI", 8.25F);
             IconOptions.ShowIcon = false;
             Name = "UrunReceteEditForm";
             Text = "Ürün Reçete Tanımı";
@@ -994,5 +1007,6 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
         private UserControls.Controls.MyCalcEdit txtToplamReceteMaliyeti;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem11;
+        private UserControls.Grid.MyGridColumn colFireOrani;
     }
 }

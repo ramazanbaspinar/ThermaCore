@@ -78,7 +78,7 @@
             // 
             // myGridView1
             // 
-            myGridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colId, colKod, colReceteAdi, colMamul, colRevizyonNo, colTarih, colNetMalzemeTutari, colToplamReceteMaliyeti, colAciklama });
+            myGridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colId, colKod, colReceteAdi, colMamul, colTarih, colNetMalzemeTutari, colToplamReceteMaliyeti, colAciklama, colRevizyonNo });
             myGridView1.GridControl = myGridControl1;
             myGridView1.Name = "myGridView1";
             myGridView1.OptionsMenu.EnableColumnMenu = false;
@@ -161,8 +161,7 @@
             colRevizyonNo.StatusBarKisaYol = null;
             colRevizyonNo.StatusBarKisaYolAciklama = null;
             colRevizyonNo.Visible = true;
-            colRevizyonNo.VisibleIndex = 3;
-            colRevizyonNo.Width = 150;
+            colRevizyonNo.VisibleIndex = 7;
             // 
             // colTarih
             // 
@@ -174,33 +173,41 @@
             colTarih.StatusBarKisaYol = null;
             colTarih.StatusBarKisaYolAciklama = null;
             colTarih.Visible = true;
-            colTarih.VisibleIndex = 4;
+            colTarih.VisibleIndex = 3;
             colTarih.Width = 150;
             // 
             // colNetMalzemeTutari
             // 
             colNetMalzemeTutari.Caption = "Net Malzeme Tutarı";
+            colNetMalzemeTutari.DisplayFormat.FormatString = "n4";
+            colNetMalzemeTutari.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             colNetMalzemeTutari.FieldName = "NetMaterialCost";
+            colNetMalzemeTutari.GroupFormat.FormatString = "n4";
+            colNetMalzemeTutari.GroupFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             colNetMalzemeTutari.Name = "colNetMalzemeTutari";
             colNetMalzemeTutari.OptionsColumn.AllowEdit = false;
             colNetMalzemeTutari.StatusBarAciklama = null;
             colNetMalzemeTutari.StatusBarKisaYol = null;
             colNetMalzemeTutari.StatusBarKisaYolAciklama = null;
             colNetMalzemeTutari.Visible = true;
-            colNetMalzemeTutari.VisibleIndex = 5;
+            colNetMalzemeTutari.VisibleIndex = 4;
             colNetMalzemeTutari.Width = 150;
             // 
             // colToplamReceteMaliyeti
             // 
             colToplamReceteMaliyeti.Caption = "Toplam Reçete Maliyeti";
+            colToplamReceteMaliyeti.DisplayFormat.FormatString = "n4";
+            colToplamReceteMaliyeti.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             colToplamReceteMaliyeti.FieldName = "TotalCost";
+            colToplamReceteMaliyeti.GroupFormat.FormatString = "n4";
+            colToplamReceteMaliyeti.GroupFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             colToplamReceteMaliyeti.Name = "colToplamReceteMaliyeti";
             colToplamReceteMaliyeti.OptionsColumn.AllowEdit = false;
             colToplamReceteMaliyeti.StatusBarAciklama = null;
             colToplamReceteMaliyeti.StatusBarKisaYol = null;
             colToplamReceteMaliyeti.StatusBarKisaYolAciklama = null;
             colToplamReceteMaliyeti.Visible = true;
-            colToplamReceteMaliyeti.VisibleIndex = 6;
+            colToplamReceteMaliyeti.VisibleIndex = 5;
             colToplamReceteMaliyeti.Width = 150;
             // 
             // colAciklama
@@ -213,7 +220,7 @@
             colAciklama.StatusBarKisaYol = null;
             colAciklama.StatusBarKisaYolAciklama = null;
             colAciklama.Visible = true;
-            colAciklama.VisibleIndex = 7;
+            colAciklama.VisibleIndex = 6;
             colAciklama.Width = 150;
             // 
             // UrunReceteListForm

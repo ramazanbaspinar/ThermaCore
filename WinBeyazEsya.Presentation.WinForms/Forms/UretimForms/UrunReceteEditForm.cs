@@ -174,9 +174,6 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
 
         private void GridAyarlariniYap()
         {
-            if (myGridView1.Columns["WasteRate"] != null)
-                myGridView1.Columns["WasteRate"].Visible = false;
-            
             if (myGridView1.Columns["MaterialCode"] != null)
                 myGridView1.Columns["MaterialCode"].Visible = false;
 
@@ -226,7 +223,39 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                 }
             }
 
-            string[] lockedColumns = { "MaterialGroupName", "MaterialName", "UnitId", "SurfaceCoatingType", "TotalMaterialCost", "WeightKg", "UnitPrice" };
+            if (myGridView1.Columns["WasteRate"] != null)
+            {
+                var repoWasteRate = new DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit();
+                repoWasteRate.MinValue = 0;
+                repoWasteRate.MaxValue = 100;
+                repoWasteRate.IsFloatValue = true;
+                repoWasteRate.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+                repoWasteRate.DisplayFormat.FormatString = "n2";
+                repoWasteRate.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+                repoWasteRate.EditFormat.FormatString = "n2";
+                repoWasteRate.EditMask = "n2";
+                repoWasteRate.UseMaskAsDisplayFormat = true;
+                
+                myGridControl1.RepositoryItems.Add(repoWasteRate);
+                myGridView1.Columns["WasteRate"].ColumnEdit = repoWasteRate;
+            }
+
+            var maliyetParametreService = _serviceProvider?.GetService<WinBeyazEsya.Application.Interfaces.Management.IMaliyetParametreService>();
+            bool useWasteRate = true;
+            if (maliyetParametreService != null)
+            {
+                var parametre = maliyetParametreService.GetMaliyetParametreAsync().GetAwaiter().GetResult();
+                if (parametre != null)
+                {
+                    useWasteRate = parametre.UseWasteRate;
+                }
+            }
+
+            var lockedColumns = new List<string> { "MaterialGroupName", "MaterialName", "UnitId", "SurfaceCoatingType", "TotalMaterialCost", "WeightKg", "UnitPrice" };
+            if (!useWasteRate)
+            {
+                lockedColumns.Add("WasteRate");
+            }
             // Note: CoatingAmount, CoatingMaterialId, ManualCoatingCost are controlled via ShowingEditor based on MaterialType.
             string[] n6Columns = { "WeightKg" };
             string[] n4Columns = { "UnitPrice", "TotalMaterialCost", "ManualCoatingCost" };
@@ -1070,7 +1099,22 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                 }
             }
 
+            var maliyetParametreService = _serviceProvider?.GetService<WinBeyazEsya.Application.Interfaces.Management.IMaliyetParametreService>();
+            decimal wasteRate = 0;
+            if (maliyetParametreService != null)
+            {
+                var parametre = maliyetParametreService.GetMaliyetParametreAsync().GetAwaiter().GetResult();
+                if (parametre != null && parametre.UseWasteRate)
+                {
+                    wasteRate = parametre.WastageRate;
+                }
+            }
+
             decimal totalCostInitial = dragData.MaterialType == MaterialType.MetalAndSheet ? (weightKg * unitCost * 1) : (unitCost * 1);
+            if (wasteRate > 0)
+            {
+                totalCostInitial = totalCostInitial + (totalCostInitial * wasteRate / 100);
+            }
 
             var newLine = new ProductRecipeLineDto
             {
@@ -1082,6 +1126,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                 MaterialType = dragData.MaterialType,
                 Quantity = 1,
                 WeightKg = weightKg,
+                WasteRate = wasteRate,
                 SurfaceCoatingType = surfaceCoatingType,
                 UnitPrice = unitCost,
                 CurrencyCode = currencyCode,
@@ -1300,16 +1345,9 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             {
                 netMalzemeTutari = _lines.Sum(x => x.TotalMaterialCost);
             }
-
-            decimal fireMaliyeti = 0;
-            if (parametre.UseWasteRate)
-            {
-                fireMaliyeti = netMalzemeTutari * (parametre.WastageRate / 100m);
-            }
-
             
             _netMaterialCost = netMalzemeTutari;
-            _totalRecipeCost = netMalzemeTutari + birimBasinaGug + fireMaliyeti;
+            _totalRecipeCost = netMalzemeTutari + birimBasinaGug;
 
             string kurText = "";
             var exchangeService = _serviceProvider.GetService<WinBeyazEsya.Application.Interfaces.System.IExchangeRateService>();
@@ -1331,7 +1369,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             sb.AppendLine($"Ürün Grubu: {grupAdi} (Aylık Üretim: {aylikUretimAdedi} Adet)");
             sb.AppendLine($"Net Malzeme Tutarı: {netMalzemeTutari:n2} {_defaultCurrency}");
             sb.AppendLine($"Birim Başına GÜG Payı: {birimBasinaGug:n2} {_defaultCurrency} (Toplam Gider / {aylikUretimAdedi})");
-            sb.AppendLine($"Fire Maliyeti (%{parametre.WastageRate:n2}): {fireMaliyeti:n2} {_defaultCurrency}");
+            sb.AppendLine($"Fire Maliyeti: Satır bazlı (ürün detayında) hesaplanmaktadır.");
             
             if (parametre.UseMaturityDifference)
             {
