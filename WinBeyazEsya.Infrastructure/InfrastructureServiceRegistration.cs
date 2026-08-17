@@ -58,6 +58,9 @@ public static class InfrastructureServiceRegistration
         services.AddScoped<WinBeyazEsya.Application.Interfaces.Repositories.ICodeLogRepository, WinBeyazEsya.Infrastructure.Persistence.Repositories.CodeLogRepository>();
         
         services.AddScoped<WinBeyazEsya.Application.Interfaces.Repositories.Definitions.IUnitRepository, WinBeyazEsya.Infrastructure.Persistence.Repositories.Definitions.UnitRepository>();
+        
+        services.AddScoped<WinBeyazEsya.Application.Interfaces.Integration.IIntegrationService, WinBeyazEsya.Infrastructure.Services.Integration.IntegrationManager>();
+        
         return services;
     }
 }

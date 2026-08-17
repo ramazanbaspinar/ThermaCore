@@ -103,7 +103,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.CariTanimForms
             if (glufCountry != null)
             {
                 glufCountry.Properties.DataSource = _countryService.GetAll().ToList();
-                glufCountry.Properties.ValueMember = "Title"; 
+                glufCountry.Properties.ValueMember = "Id"; 
                 glufCountry.Properties.DisplayMember = "Title";
                 
                 glufCountry.EditValueChanged += (s, e) =>
@@ -119,10 +119,9 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.CariTanimForms
                         glufTown.Properties.Buttons[1].Enabled = false;
                     }
 
-                    var selectedCountryStr = glufCountry.EditValue?.ToString();
-                    if (!string.IsNullOrEmpty(selectedCountryStr))
+                    if (long.TryParse(glufCountry.EditValue?.ToString(), out long selectedCountryId))
                     {
-                        var selectedCountry = _countryService.GetAll().FirstOrDefault(x => x.Title == selectedCountryStr);
+                        var selectedCountry = _countryService.GetById(selectedCountryId);
                         if (selectedCountry != null && glufCity != null)
                         {
                             glufCity.Properties.DataSource = _cityService.GetAll().Where(x => x.CountryId == selectedCountry.Id).ToList();
@@ -142,7 +141,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.CariTanimForms
                         var selectedItem = form.SelectedEntities[0] as WinBeyazEsya.Application.DTOs.Definitions.CountryDto;
                         if (selectedItem != null)
                         {
-                            glufCountry.EditValue = selectedItem.Title;
+                            glufCountry.EditValue = selectedItem.Id;
                         }
                     }
                 };
@@ -150,7 +149,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.CariTanimForms
 
             if (glufCity != null)
             {
-                glufCity.Properties.ValueMember = "Title";
+                glufCity.Properties.ValueMember = "Id";
                 glufCity.Properties.DisplayMember = "Title";
                 glufCity.Properties.Buttons[1].Enabled = false; // Initially disabled
                 
@@ -162,10 +161,9 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.CariTanimForms
                         glufTown.Properties.Buttons[1].Enabled = false;
                     }
 
-                    var selectedCityStr = glufCity.EditValue?.ToString();
-                    if (!string.IsNullOrEmpty(selectedCityStr))
+                    if (long.TryParse(glufCity.EditValue?.ToString(), out long selectedCityId))
                     {
-                        var selectedCity = _cityService.GetAll().FirstOrDefault(x => x.Title == selectedCityStr);
+                        var selectedCity = _cityService.GetById(selectedCityId);
                         if (selectedCity != null && glufTown != null)
                         {
                             glufTown.Properties.DataSource = _townService.GetAll().Where(x => x.CityId == selectedCity.Id).ToList();
@@ -176,10 +174,10 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.CariTanimForms
 
                 glufCity.SearchButtonClicked += (s, e) =>
                 {
-                    var selectedCountryStr = glufCountry?.EditValue?.ToString();
-                    if (string.IsNullOrEmpty(selectedCountryStr)) return;
+                    if (glufCountry?.EditValue == null) return;
+                    if (!long.TryParse(glufCountry.EditValue.ToString(), out long selectedCountryId)) return;
 
-                    var selectedCountry = _countryService.GetAll().FirstOrDefault(x => x.Title == selectedCountryStr);
+                    var selectedCountry = _countryService.GetById(selectedCountryId);
                     if (selectedCountry == null) return;
 
                     var form = Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.IlTanimForms.IlTanimListForm>(Program.ServiceProvider);
@@ -192,7 +190,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.CariTanimForms
                         var selectedItem = form.SelectedEntities[0] as WinBeyazEsya.Application.DTOs.Definitions.CityDto;
                         if (selectedItem != null)
                         {
-                            glufCity.EditValue = selectedItem.Title;
+                            glufCity.EditValue = selectedItem.Id;
                         }
                     }
                 };
@@ -200,16 +198,16 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.CariTanimForms
 
             if (glufTown != null)
             {
-                glufTown.Properties.ValueMember = "Title";
+                glufTown.Properties.ValueMember = "Id";
                 glufTown.Properties.DisplayMember = "Title";
                 glufTown.Properties.Buttons[1].Enabled = false; // Initially disabled
 
                 glufTown.SearchButtonClicked += (s, e) =>
                 {
-                    var selectedCityStr = glufCity?.EditValue?.ToString();
-                    if (string.IsNullOrEmpty(selectedCityStr)) return;
+                    if (glufCity?.EditValue == null) return;
+                    if (!long.TryParse(glufCity.EditValue.ToString(), out long selectedCityId)) return;
 
-                    var selectedCity = _cityService.GetAll().FirstOrDefault(x => x.Title == selectedCityStr);
+                    var selectedCity = _cityService.GetById(selectedCityId);
                     if (selectedCity == null) return;
 
                     var form = Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.IlceTanimForms.IlceTanimListForm>(Program.ServiceProvider);
@@ -222,7 +220,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.CariTanimForms
                         var selectedItem = form.SelectedEntities[0] as WinBeyazEsya.Application.DTOs.Definitions.TownDto;
                         if (selectedItem != null)
                         {
-                            glufTown.EditValue = selectedItem.Title;
+                            glufTown.EditValue = selectedItem.Id;
                         }
                     }
                 };
@@ -274,12 +272,10 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.CariTanimForms
             var txtWebAddress = this.Controls.Find("txtWebAddress", true).FirstOrDefault() as DevExpress.XtraEditors.TextEdit;
             var txtTaxOffice = this.Controls.Find("txtTaxOffice", true).FirstOrDefault() as DevExpress.XtraEditors.TextEdit;
             var txtTaxNumber = this.Controls.Find("txtTaxNumber", true).FirstOrDefault() as DevExpress.XtraEditors.TextEdit;
-            var txtAuthorizationCode = this.Controls.Find("txtAuthorizationCode", true).FirstOrDefault() as DevExpress.XtraEditors.TextEdit;
 
             var cmbCurrencyId = this.Controls.Find("cmbCurrencyId", true).FirstOrDefault() as DevExpress.XtraEditors.ComboBoxEdit;
             var cmbPaymentType = this.Controls.Find("cmbPaymentType", true).FirstOrDefault() as DevExpress.XtraEditors.ComboBoxEdit;
             var spnMaturityDays = this.Controls.Find("spnMaturityDays", true).FirstOrDefault() as DevExpress.XtraEditors.SpinEdit;
-            var spnDiscountRate = this.Controls.Find("spnDiscountRate", true).FirstOrDefault() as DevExpress.XtraEditors.SpinEdit;
             var chkIsEInvoiceUser = this.Controls.Find("chkIsEInvoiceUser", true).FirstOrDefault() as DevExpress.XtraEditors.CheckEdit;
             var chkIsEDispatchUser = this.Controls.Find("chkIsEDispatchUser", true).FirstOrDefault() as DevExpress.XtraEditors.CheckEdit;
             var txtMailboxAlias = this.Controls.Find("txtMailboxAlias", true).FirstOrDefault() as DevExpress.XtraEditors.TextEdit;
@@ -301,20 +297,18 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.CariTanimForms
             if (txtWebAddress != null) txtWebAddress.Text = entity.WebAddr;
             if (txtTaxOffice != null) txtTaxOffice.Text = entity.TaxOffice;
             if (txtTaxNumber != null) txtTaxNumber.Text = entity.TaxNr;
-            if (txtAuthorizationCode != null) txtAuthorizationCode.Text = entity.CyphCode;
 
             if (cmbCurrencyId != null) cmbCurrencyId.SelectedItem = WinBeyazEsya.Domain.Helpers.EnumFunctions.GetDescription((WinBeyazEsya.Domain.Enums.CurrencyType)(entity.CCurrency > 0 ? entity.CCurrency : 160));
             if (cmbPaymentType != null) cmbPaymentType.SelectedItem = WinBeyazEsya.Domain.Helpers.EnumFunctions.GetDescription((WinBeyazEsya.Domain.Enums.PaymentType)(entity.PaymentType > 0 ? entity.PaymentType : 1));
             if (spnMaturityDays != null) spnMaturityDays.Value = entity.MaturityDays;
-            if (spnDiscountRate != null) spnDiscountRate.Value = (decimal)entity.DiscRate;
             if (chkIsEInvoiceUser != null) chkIsEInvoiceUser.Checked = entity.IsEInvoiceUser;
             if (chkIsEDispatchUser != null) chkIsEDispatchUser.Checked = entity.IsEDispatchUser;
             if (txtMailboxAlias != null) txtMailboxAlias.Text = entity.MailboxAlias;
             if (memDescription != null) memDescription.Text = entity.Description;
 
-            if (glufCountry != null) glufCountry.EditValue = entity.Country;
-            if (glufCity != null) glufCity.EditValue = entity.City;
-            if (glufTown != null) glufTown.EditValue = entity.TownName;
+            if (glufCountry != null && entity.CountryId.HasValue) glufCountry.EditValue = entity.CountryId;
+            if (glufCity != null && entity.CityId.HasValue) glufCity.EditValue = entity.CityId;
+            if (glufTown != null && entity.TownId.HasValue) glufTown.EditValue = entity.TownId;
 
             if (BaseIslemTuru == ActionType.EntityInsert && txtCode != null)
             {
@@ -342,12 +336,10 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.CariTanimForms
             var txtWebAddress = this.Controls.Find("txtWebAddress", true).FirstOrDefault() as DevExpress.XtraEditors.TextEdit;
             var txtTaxOffice = this.Controls.Find("txtTaxOffice", true).FirstOrDefault() as DevExpress.XtraEditors.TextEdit;
             var txtTaxNumber = this.Controls.Find("txtTaxNumber", true).FirstOrDefault() as DevExpress.XtraEditors.TextEdit;
-            var txtAuthorizationCode = this.Controls.Find("txtAuthorizationCode", true).FirstOrDefault() as DevExpress.XtraEditors.TextEdit;
 
             var cmbCurrencyId = this.Controls.Find("cmbCurrencyId", true).FirstOrDefault() as DevExpress.XtraEditors.ComboBoxEdit;
             var cmbPaymentType = this.Controls.Find("cmbPaymentType", true).FirstOrDefault() as DevExpress.XtraEditors.ComboBoxEdit;
             var spnMaturityDays = this.Controls.Find("spnMaturityDays", true).FirstOrDefault() as DevExpress.XtraEditors.SpinEdit;
-            var spnDiscountRate = this.Controls.Find("spnDiscountRate", true).FirstOrDefault() as DevExpress.XtraEditors.SpinEdit;
             var chkIsEInvoiceUser = this.Controls.Find("chkIsEInvoiceUser", true).FirstOrDefault() as DevExpress.XtraEditors.CheckEdit;
             var chkIsEDispatchUser = this.Controls.Find("chkIsEDispatchUser", true).FirstOrDefault() as DevExpress.XtraEditors.CheckEdit;
             var txtMailboxAlias = this.Controls.Find("txtMailboxAlias", true).FirstOrDefault() as DevExpress.XtraEditors.TextEdit;
@@ -364,9 +356,9 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.CariTanimForms
                 CardType = cmbCardType?.SelectedItem != null ? (int)WinBeyazEsya.Domain.Helpers.EnumFunctions.GetEnum<CardType>(cmbCardType.SelectedItem.ToString()) : 0,
                 SpeCode = glufSpecialCode?.EditValue?.ToString(),
                 InCharge = txtAuthorizedPerson?.Text,
-                Country = glufCountry?.EditValue?.ToString(),
-                City = glufCity?.EditValue?.ToString(),
-                TownName = glufTown?.EditValue?.ToString(),
+                CountryId = glufCountry?.EditValue != null && long.TryParse(glufCountry.EditValue.ToString(), out long cid) ? cid : null,
+                CityId = glufCity?.EditValue != null && long.TryParse(glufCity.EditValue.ToString(), out long ctyid) ? ctyid : null,
+                TownId = glufTown?.EditValue != null && long.TryParse(glufTown.EditValue.ToString(), out long twnid) ? twnid : null,
                 Addr1 = memAddress?.Text,
                 TelNrs1 = txtPhone1?.Text,
                 TelNrs2 = txtPhone2?.Text,
@@ -375,11 +367,9 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.CariTanimForms
                 WebAddr = txtWebAddress?.Text,
                 TaxOffice = txtTaxOffice?.Text,
                 TaxNr = txtTaxNumber?.Text,
-                CyphCode = txtAuthorizationCode?.Text,
                 CCurrency = cmbCurrencyId?.SelectedItem != null ? (int)WinBeyazEsya.Domain.Helpers.EnumFunctions.GetEnum<WinBeyazEsya.Domain.Enums.CurrencyType>(cmbCurrencyId.SelectedItem.ToString()) : 0,
                 PaymentType = cmbPaymentType?.SelectedItem != null ? (int)WinBeyazEsya.Domain.Helpers.EnumFunctions.GetEnum<WinBeyazEsya.Domain.Enums.PaymentType>(cmbPaymentType.SelectedItem.ToString()) : 0,
                 MaturityDays = spnMaturityDays != null ? Convert.ToInt32(spnMaturityDays.Value) : 0,
-                DiscRate = spnDiscountRate != null ? Convert.ToDouble(spnDiscountRate.Value) : 0,
                 IsEInvoiceUser = chkIsEInvoiceUser?.Checked ?? false,
                 IsEDispatchUser = chkIsEDispatchUser?.Checked ?? false,
                 MailboxAlias = txtMailboxAlias?.Text,

@@ -17,13 +17,13 @@ public class CurrentAccountValidator : AbstractValidator<CurrentAccountDto>
         RuleFor(x => x.CardType)
             .NotEmpty().WithMessage("Cari Tipi seçimi zorunludur.");
 
-        RuleFor(x => x.Country)
+        RuleFor(x => x.CountryId)
             .NotEmpty().WithMessage("Ülke seçimi zorunludur.");
 
-        RuleFor(x => x.City)
+        RuleFor(x => x.CityId)
             .NotEmpty().WithMessage("İl seçimi zorunludur.");
 
-        RuleFor(x => x.TownName)
+        RuleFor(x => x.TownId)
             .NotEmpty().WithMessage("İlçe seçimi zorunludur.");
     }
 }

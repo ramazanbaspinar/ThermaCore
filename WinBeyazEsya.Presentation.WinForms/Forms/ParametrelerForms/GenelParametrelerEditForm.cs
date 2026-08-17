@@ -9,6 +9,8 @@ using WinBeyazEsya.Presentation.WinForms.Forms.BaseForms;
 using WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.VergiForms;
 using WinBeyazEsya.Presentation.WinForms.Helpers;
 using System.Drawing;
+using WinBeyazEsya.Application.Interfaces.Integration;
+using WinBeyazEsya.Presentation.WinForms.Forms.GenelForms;
 
 namespace WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms
 {
@@ -16,17 +18,20 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms
     {
         private readonly ISystemParameterService _systemParameterService;
         private readonly ITaxRateService _taxRateService;
+        private readonly IIntegrationService _integrationService;
         private SystemParameterDto _currentDto;
 
         // DI Constructor
         public GenelParametrelerEditForm(
             ISystemParameterService systemParameterService,
-            ITaxRateService taxRateService)
+            ITaxRateService taxRateService,
+            IIntegrationService integrationService)
         {
             InitializeComponent();
             BaseKartTuru = WinBeyazEsya.Domain.Enums.ModuleType.GenelParametreler;
             _systemParameterService = systemParameterService;
             _taxRateService = taxRateService;
+            _integrationService = integrationService;
             
             BaseIslemTuru = ActionType.EntityUpdate;
             DataLayoutControls = new object[] { myDataLayoutControl1, myDataLayoutControl2, myDataLayoutControl3,myDataLayoutControl4 };
@@ -46,6 +51,8 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms
             if (glfAlisKdv != null) glfAlisKdv.ButtonClick += GlfAlisKdv_ButtonClick;
             if (glfSatisKdv != null) glfSatisKdv.ButtonClick += GlfSatisKdv_ButtonClick;
             if (glfOtv != null) glfOtv.ButtonClick += GlfOtv_ButtonClick;
+
+            if (btnDisSistemEntegrasyonu != null) btnDisSistemEntegrasyonu.Click += BtnDisSistemEntegrasyonu_Click;
         }
 
         public override void Yukle()
@@ -234,6 +241,12 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms
                     glfOtv.EditValue = form.SelectedEntities[0].Id;
                 }
             }
+        }
+
+        private void BtnDisSistemEntegrasyonu_Click(object sender, EventArgs e)
+        {
+            using var form = new DisSistemEntegrasyonEditForm(_integrationService);
+            form.ShowDialog();
         }
     }
 }
