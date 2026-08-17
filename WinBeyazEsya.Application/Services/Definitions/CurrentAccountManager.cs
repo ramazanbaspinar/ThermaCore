@@ -1,4 +1,5 @@
-﻿using System.Linq;
+using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using WinBeyazEsya.Application.DTOs.Definitions;
 using WinBeyazEsya.Application.DTOs.Management;
@@ -54,6 +55,17 @@ public class CurrentAccountManager : BaseManager<CurrentAccountDto, CurrentAccou
     {
         GenerateCodeIfRequired(dto);
         base.Update(dto);
+    }
+
+    public override IEnumerable<CurrentAccountDto> GetAll()
+    {
+        var entities = _repository.GetAll(
+            x => x.Country,
+            x => x.City,
+            x => x.Town
+        ).ToList();
+            
+        return _mapper.Map<IEnumerable<CurrentAccountDto>>(entities);
     }
 }
 

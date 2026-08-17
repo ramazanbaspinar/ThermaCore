@@ -10,10 +10,12 @@ public class CurrentAccountDto : BaseDto
     public string Title { get; set; } = string.Empty;
     public string? SpeCode { get; set; }
     public string? Addr1 { get; set; }
-    public string? Addr2 { get; set; }
     public long? CountryId { get; set; }
+    public string? CountryName { get; set; }
     public long? CityId { get; set; }
+    public string? CityName { get; set; }
     public long? TownId { get; set; }
+    public string? TownName { get; set; }
     public string? TelNrs1 { get; set; }
     public string? TelNrs2 { get; set; }
     public string? TaxNr { get; set; }

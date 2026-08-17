@@ -8,6 +8,11 @@ public class CurrentAccountProfile : Profile
 {
     public CurrentAccountProfile()
     {
-        CreateMap<CurrentAccountDto, CurrentAccount>().ReverseMap();
+        CreateMap<CurrentAccount, CurrentAccountDto>()
+            .ForMember(dest => dest.CountryName, opt => opt.MapFrom(src => src.Country != null ? src.Country.Title : null))
+            .ForMember(dest => dest.CityName, opt => opt.MapFrom(src => src.City != null ? src.City.Title : null))
+            .ForMember(dest => dest.TownName, opt => opt.MapFrom(src => src.Town != null ? src.Town.Title : null));
+            
+        CreateMap<CurrentAccountDto, CurrentAccount>();
     }
 }

@@ -35,28 +35,28 @@
             DevExpress.XtraLayout.RowDefinition rowDefinition2 = new DevExpress.XtraLayout.RowDefinition();
             DevExpress.XtraLayout.RowDefinition rowDefinition3 = new DevExpress.XtraLayout.RowDefinition();
             DevExpress.XtraLayout.RowDefinition rowDefinition4 = new DevExpress.XtraLayout.RowDefinition();
+            DevExpress.XtraLayout.RowDefinition rowDefinition5 = new DevExpress.XtraLayout.RowDefinition();
             DevExpress.XtraLayout.ColumnDefinition columnDefinition4 = new DevExpress.XtraLayout.ColumnDefinition();
             DevExpress.XtraLayout.ColumnDefinition columnDefinition5 = new DevExpress.XtraLayout.ColumnDefinition();
-            DevExpress.XtraLayout.RowDefinition rowDefinition5 = new DevExpress.XtraLayout.RowDefinition();
             DevExpress.XtraLayout.RowDefinition rowDefinition6 = new DevExpress.XtraLayout.RowDefinition();
             DevExpress.XtraLayout.RowDefinition rowDefinition7 = new DevExpress.XtraLayout.RowDefinition();
             DevExpress.XtraLayout.RowDefinition rowDefinition8 = new DevExpress.XtraLayout.RowDefinition();
             DevExpress.XtraLayout.RowDefinition rowDefinition9 = new DevExpress.XtraLayout.RowDefinition();
             DevExpress.XtraLayout.RowDefinition rowDefinition10 = new DevExpress.XtraLayout.RowDefinition();
+            DevExpress.XtraLayout.RowDefinition rowDefinition11 = new DevExpress.XtraLayout.RowDefinition();
             DevExpress.XtraLayout.ColumnDefinition columnDefinition6 = new DevExpress.XtraLayout.ColumnDefinition();
             DevExpress.XtraLayout.ColumnDefinition columnDefinition7 = new DevExpress.XtraLayout.ColumnDefinition();
-            DevExpress.XtraLayout.RowDefinition rowDefinition11 = new DevExpress.XtraLayout.RowDefinition();
             DevExpress.XtraLayout.RowDefinition rowDefinition12 = new DevExpress.XtraLayout.RowDefinition();
             DevExpress.XtraLayout.RowDefinition rowDefinition13 = new DevExpress.XtraLayout.RowDefinition();
-            DevExpress.XtraLayout.ColumnDefinition columnDefinition8 = new DevExpress.XtraLayout.ColumnDefinition();
             DevExpress.XtraLayout.RowDefinition rowDefinition14 = new DevExpress.XtraLayout.RowDefinition();
+            DevExpress.XtraLayout.ColumnDefinition columnDefinition8 = new DevExpress.XtraLayout.ColumnDefinition();
             DevExpress.XtraLayout.RowDefinition rowDefinition15 = new DevExpress.XtraLayout.RowDefinition();
             DevExpress.XtraLayout.RowDefinition rowDefinition16 = new DevExpress.XtraLayout.RowDefinition();
             DevExpress.XtraLayout.RowDefinition rowDefinition17 = new DevExpress.XtraLayout.RowDefinition();
+            DevExpress.XtraLayout.RowDefinition rowDefinition18 = new DevExpress.XtraLayout.RowDefinition();
             xtraTabControl1 = new DevExpress.XtraTab.XtraTabControl();
             tpGenelBilgiler = new DevExpress.XtraTab.XtraTabPage();
             myDataLayoutControl1 = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyDataLayoutControl();
-            txtAuthorizationCode = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyTextEdit();
             txtShortCode = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyTextEdit();
             cmbCardType = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyComboBoxEdit();
             glufSpecialCode = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyGridLookUpFind();
@@ -69,10 +69,8 @@
             layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
-            layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
-            layoutControlItem27 = new DevExpress.XtraLayout.LayoutControlItem();
             tpIletisimVeAdres = new DevExpress.XtraTab.XtraTabPage();
             myDataLayoutControl2 = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyDataLayoutControl();
             glufCountry = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyGridLookUpFind();
@@ -104,7 +102,6 @@
             layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
             tpTicariVeFinansalBilgiler = new DevExpress.XtraTab.XtraTabPage();
             myDataLayoutControl3 = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyDataLayoutControl();
-            spnDiscountRate = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MySpinEdit();
             spnMaturityDays = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MySpinEdit();
             cmbPaymentType = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyComboBoxEdit();
             cmbCurrencyId = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyComboBoxEdit();
@@ -116,7 +113,6 @@
             layoutControlItem19 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem20 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem21 = new DevExpress.XtraLayout.LayoutControlItem();
-            layoutControlItem22 = new DevExpress.XtraLayout.LayoutControlItem();
             tpEDevletVeNotlar = new DevExpress.XtraTab.XtraTabPage();
             myDataLayoutControl4 = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyDataLayoutControl();
             chkIsEDispatchUser = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyCheckEdit();
@@ -128,13 +124,13 @@
             layoutControlItem24 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem25 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem26 = new DevExpress.XtraLayout.LayoutControlItem();
+            layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)ribbon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)xtraTabControl1).BeginInit();
             xtraTabControl1.SuspendLayout();
             tpGenelBilgiler.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)myDataLayoutControl1).BeginInit();
             myDataLayoutControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)txtAuthorizationCode.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtShortCode.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)cmbCardType.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)glufSpecialCode.Properties).BeginInit();
@@ -146,10 +142,8 @@
             ((System.ComponentModel.ISupportInitialize)layoutControlItem1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem3).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)layoutControlItem4).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem5).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem6).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)layoutControlItem27).BeginInit();
             tpIletisimVeAdres.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)myDataLayoutControl2).BeginInit();
             myDataLayoutControl2.SuspendLayout();
@@ -180,7 +174,6 @@
             tpTicariVeFinansalBilgiler.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)myDataLayoutControl3).BeginInit();
             myDataLayoutControl3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)spnDiscountRate.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)spnMaturityDays.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)cmbPaymentType.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)cmbCurrencyId.Properties).BeginInit();
@@ -192,7 +185,6 @@
             ((System.ComponentModel.ISupportInitialize)layoutControlItem19).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem20).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem21).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)layoutControlItem22).BeginInit();
             tpEDevletVeNotlar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)myDataLayoutControl4).BeginInit();
             myDataLayoutControl4.SuspendLayout();
@@ -205,6 +197,7 @@
             ((System.ComponentModel.ISupportInitialize)layoutControlItem24).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem25).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem26).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem4).BeginInit();
             SuspendLayout();
             // 
             // ribbon
@@ -233,7 +226,6 @@
             // myDataLayoutControl1
             // 
             myDataLayoutControl1.AllowCustomization = false;
-            myDataLayoutControl1.Controls.Add(txtAuthorizationCode);
             myDataLayoutControl1.Controls.Add(txtShortCode);
             myDataLayoutControl1.Controls.Add(cmbCardType);
             myDataLayoutControl1.Controls.Add(glufSpecialCode);
@@ -249,41 +241,28 @@
             myDataLayoutControl1.TabIndex = 0;
             myDataLayoutControl1.Text = "myDataLayoutControl1";
             // 
-            // txtAuthorizationCode
-            // 
-            txtAuthorizationCode.EnterMoveNextControl = true;
-            txtAuthorizationCode.Location = new Point(131, 74);
-            txtAuthorizationCode.MenuManager = ribbon;
-            txtAuthorizationCode.Name = "txtAuthorizationCode";
-            txtAuthorizationCode.Properties.MaxLength = 100;
-            txtAuthorizationCode.Size = new Size(130, 22);
-            txtAuthorizationCode.StatusBarAciklama = "";
-            txtAuthorizationCode.StyleController = myDataLayoutControl1;
-            txtAuthorizationCode.TabIndex = 2;
-            txtAuthorizationCode.Tag = "AuthorizationCode";
-            // 
             // txtShortCode
             // 
             txtShortCode.EnterMoveNextControl = true;
-            txtShortCode.Location = new Point(384, 74);
+            txtShortCode.Location = new Point(131, 136);
             txtShortCode.MenuManager = ribbon;
             txtShortCode.Name = "txtShortCode";
             txtShortCode.Properties.MaxLength = 100;
-            txtShortCode.Size = new Size(131, 22);
+            txtShortCode.Size = new Size(483, 22);
             txtShortCode.StatusBarAciklama = "";
             txtShortCode.StyleController = myDataLayoutControl1;
-            txtShortCode.TabIndex = 3;
+            txtShortCode.TabIndex = 2;
             txtShortCode.Tag = "ShortCode";
             // 
             // cmbCardType
             // 
             cmbCardType.EnterMoveNextControl = true;
-            cmbCardType.Location = new Point(384, 43);
+            cmbCardType.Location = new Point(131, 105);
             cmbCardType.MenuManager = ribbon;
             cmbCardType.Name = "cmbCardType";
             cmbCardType.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
             cmbCardType.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            cmbCardType.Size = new Size(131, 22);
+            cmbCardType.Size = new Size(483, 22);
             cmbCardType.StatusBarAciklama = "";
             cmbCardType.StatusBarKisaYol = "F4 :";
             cmbCardType.StatusBarKisaYolAciklama = "";
@@ -294,18 +273,18 @@
             // glufSpecialCode
             // 
             glufSpecialCode.EnterMoveNextControl = true;
-            glufSpecialCode.Location = new Point(384, 12);
+            glufSpecialCode.Location = new Point(131, 43);
             glufSpecialCode.MenuManager = ribbon;
             glufSpecialCode.Name = "glufSpecialCode";
             glufSpecialCode.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo), new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Search), new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Delete) });
             glufSpecialCode.Properties.NullText = "";
             glufSpecialCode.Properties.PopupView = myGridLookUpFind1View;
-            glufSpecialCode.Size = new Size(131, 22);
+            glufSpecialCode.Size = new Size(483, 22);
             glufSpecialCode.StatusBarAciklama = "Kayıt Seçiniz";
             glufSpecialCode.StatusBarKisaYol = "F4 :";
             glufSpecialCode.StatusBarKisaYolAciklama = "Seçim Yap";
             glufSpecialCode.StyleController = myDataLayoutControl1;
-            glufSpecialCode.TabIndex = 5;
+            glufSpecialCode.TabIndex = 4;
             glufSpecialCode.Tag = "SpecialCode";
             // 
             // myGridLookUpFind1View
@@ -327,11 +306,11 @@
             // txtTitle
             // 
             txtTitle.EnterMoveNextControl = true;
-            txtTitle.Location = new Point(131, 43);
+            txtTitle.Location = new Point(131, 74);
             txtTitle.MenuManager = ribbon;
             txtTitle.Name = "txtTitle";
             txtTitle.Properties.MaxLength = 100;
-            txtTitle.Size = new Size(130, 22);
+            txtTitle.Size = new Size(483, 22);
             txtTitle.StatusBarAciklama = "";
             txtTitle.StyleController = myDataLayoutControl1;
             txtTitle.TabIndex = 0;
@@ -346,10 +325,10 @@
             txtCode.Properties.Appearance.Options.UseTextOptions = true;
             txtCode.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             txtCode.Properties.MaxLength = 100;
-            txtCode.Size = new Size(130, 22);
+            txtCode.Size = new Size(384, 22);
             txtCode.StatusBarAciklama = "Kod Giriniz.";
             txtCode.StyleController = myDataLayoutControl1;
-            txtCode.TabIndex = 6;
+            txtCode.TabIndex = 5;
             txtCode.Tag = "Code";
             // 
             // tgsIsActive
@@ -366,14 +345,14 @@
             tgsIsActive.Size = new Size(81, 27);
             tgsIsActive.StatusBarAciklama = "Kayıtın Kullanım Durumunu Seçiniz.";
             tgsIsActive.StyleController = myDataLayoutControl1;
-            tgsIsActive.TabIndex = 4;
+            tgsIsActive.TabIndex = 3;
             tgsIsActive.Tag = "IsActive";
             // 
             // Root
             // 
             Root.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
             Root.GroupBordersVisible = false;
-            Root.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] { layoutControlItem1, layoutControlItem2, layoutControlItem3, layoutControlItem4, layoutControlItem5, layoutControlItem6, layoutControlItem27 });
+            Root.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] { layoutControlItem1, layoutControlItem2, layoutControlItem3, layoutControlItem5, layoutControlItem6, layoutControlItem4 });
             Root.LayoutMode = DevExpress.XtraLayout.Utils.LayoutMode.Table;
             Root.Name = "Root";
             columnDefinition1.SizeType = SizeType.Percent;
@@ -389,9 +368,11 @@
             rowDefinition2.SizeType = SizeType.Absolute;
             rowDefinition3.Height = 31D;
             rowDefinition3.SizeType = SizeType.Absolute;
-            rowDefinition4.Height = 100D;
-            rowDefinition4.SizeType = SizeType.Percent;
-            Root.OptionsTableLayoutGroup.RowDefinitions.AddRange(new DevExpress.XtraLayout.RowDefinition[] { rowDefinition1, rowDefinition2, rowDefinition3, rowDefinition4 });
+            rowDefinition4.Height = 31D;
+            rowDefinition4.SizeType = SizeType.Absolute;
+            rowDefinition5.Height = 31D;
+            rowDefinition5.SizeType = SizeType.Absolute;
+            Root.OptionsTableLayoutGroup.RowDefinitions.AddRange(new DevExpress.XtraLayout.RowDefinition[] { rowDefinition1, rowDefinition2, rowDefinition3, rowDefinition4, rowDefinition5 });
             Root.Size = new Size(626, 219);
             Root.TextVisible = false;
             // 
@@ -409,67 +390,49 @@
             layoutControlItem2.Control = txtCode;
             layoutControlItem2.Location = new Point(0, 0);
             layoutControlItem2.Name = "layoutControlItem2";
-            layoutControlItem2.Size = new Size(253, 31);
+            layoutControlItem2.OptionsTableLayoutItem.ColumnSpan = 2;
+            layoutControlItem2.Size = new Size(507, 31);
             layoutControlItem2.Text = "Kod";
             layoutControlItem2.TextSize = new Size(107, 13);
             // 
             // layoutControlItem3
             // 
             layoutControlItem3.Control = txtTitle;
-            layoutControlItem3.Location = new Point(0, 31);
+            layoutControlItem3.Location = new Point(0, 62);
             layoutControlItem3.Name = "layoutControlItem3";
-            layoutControlItem3.OptionsTableLayoutItem.RowIndex = 1;
-            layoutControlItem3.Size = new Size(253, 31);
+            layoutControlItem3.OptionsTableLayoutItem.ColumnSpan = 3;
+            layoutControlItem3.OptionsTableLayoutItem.RowIndex = 2;
+            layoutControlItem3.Size = new Size(606, 31);
             layoutControlItem3.Text = "Cari Ünvanı";
             layoutControlItem3.TextSize = new Size(107, 13);
-            // 
-            // layoutControlItem4
-            // 
-            layoutControlItem4.Control = glufSpecialCode;
-            layoutControlItem4.Location = new Point(253, 0);
-            layoutControlItem4.Name = "layoutControlItem4";
-            layoutControlItem4.OptionsTableLayoutItem.ColumnIndex = 1;
-            layoutControlItem4.Size = new Size(254, 31);
-            layoutControlItem4.Text = "Özel Kod (Opsiyonel)";
-            layoutControlItem4.TextSize = new Size(107, 13);
             // 
             // layoutControlItem5
             // 
             layoutControlItem5.Control = cmbCardType;
-            layoutControlItem5.Location = new Point(253, 31);
+            layoutControlItem5.Location = new Point(0, 93);
             layoutControlItem5.Name = "layoutControlItem5";
-            layoutControlItem5.OptionsTableLayoutItem.ColumnIndex = 1;
-            layoutControlItem5.OptionsTableLayoutItem.RowIndex = 1;
-            layoutControlItem5.Size = new Size(254, 31);
+            layoutControlItem5.OptionsTableLayoutItem.ColumnSpan = 3;
+            layoutControlItem5.OptionsTableLayoutItem.RowIndex = 3;
+            layoutControlItem5.Size = new Size(606, 31);
             layoutControlItem5.Text = "Cari Tipi";
             layoutControlItem5.TextSize = new Size(107, 13);
             // 
             // layoutControlItem6
             // 
             layoutControlItem6.Control = txtShortCode;
-            layoutControlItem6.Location = new Point(253, 62);
+            layoutControlItem6.Location = new Point(0, 124);
             layoutControlItem6.Name = "layoutControlItem6";
-            layoutControlItem6.OptionsTableLayoutItem.ColumnIndex = 1;
-            layoutControlItem6.OptionsTableLayoutItem.RowIndex = 2;
-            layoutControlItem6.Size = new Size(254, 31);
+            layoutControlItem6.OptionsTableLayoutItem.ColumnSpan = 3;
+            layoutControlItem6.OptionsTableLayoutItem.RowIndex = 4;
+            layoutControlItem6.Size = new Size(606, 75);
             layoutControlItem6.Text = "Cari Kısa Kodu";
             layoutControlItem6.TextSize = new Size(107, 13);
-            // 
-            // layoutControlItem27
-            // 
-            layoutControlItem27.Control = txtAuthorizationCode;
-            layoutControlItem27.Location = new Point(0, 62);
-            layoutControlItem27.Name = "layoutControlItem27";
-            layoutControlItem27.OptionsTableLayoutItem.RowIndex = 2;
-            layoutControlItem27.Size = new Size(253, 31);
-            layoutControlItem27.Text = "Yetki Kodu";
-            layoutControlItem27.TextSize = new Size(107, 13);
             // 
             // tpIletisimVeAdres
             // 
             tpIletisimVeAdres.Controls.Add(myDataLayoutControl2);
             tpIletisimVeAdres.Name = "tpIletisimVeAdres";
-            tpIletisimVeAdres.Size = new Size(626, 219);
+            tpIletisimVeAdres.Size = new Size(626, 218);
             tpIletisimVeAdres.Text = "İletişim ve Adres";
             // 
             // myDataLayoutControl2
@@ -490,7 +453,7 @@
             myDataLayoutControl2.Name = "myDataLayoutControl2";
             myDataLayoutControl2.OptionsFocus.EnableAutoTabOrder = false;
             myDataLayoutControl2.Root = layoutControlGroup1;
-            myDataLayoutControl2.Size = new Size(626, 219);
+            myDataLayoutControl2.Size = new Size(626, 218);
             myDataLayoutControl2.TabIndex = 0;
             myDataLayoutControl2.Text = "myDataLayoutControl2";
             // 
@@ -530,7 +493,7 @@
             // txtWebAddress
             // 
             txtWebAddress.EnterMoveNextControl = true;
-            txtWebAddress.Location = new Point(83, 180);
+            txtWebAddress.Location = new Point(83, 179);
             txtWebAddress.MenuManager = ribbon;
             txtWebAddress.Name = "txtWebAddress";
             txtWebAddress.Properties.MaxLength = 100;
@@ -543,12 +506,9 @@
             // txtEmail
             // 
             txtEmail.EnterMoveNextControl = true;
-            txtEmail.Location = new Point(386, 149);
+            txtEmail.Location = new Point(386, 148);
             txtEmail.MenuManager = ribbon;
             txtEmail.Name = "txtEmail";
-            txtEmail.Properties.Mask.AutoComplete = DevExpress.XtraEditors.Mask.AutoCompleteType.Strong;
-            txtEmail.Properties.Mask.EditMask = "((([0-9a-zA-Z_%-])+[.])+|([0-9a-zA-Z_%-])+)+@((([0-9a-zA-Z_-])+[.])+|([0-9a-zA-Z_-])+)+";
-            txtEmail.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.RegEx;
             txtEmail.Properties.MaskSettings.Set("MaskManagerType", typeof(DevExpress.Data.Mask.RegExpMaskManager));
             txtEmail.Properties.MaskSettings.Set("allowBlankInput", true);
             txtEmail.Properties.MaskSettings.Set("mask", "((([0-9a-zA-Z_%-])+[.])+|([0-9a-zA-Z_%-])+)+@((([0-9a-zA-Z_-])+[.])+|([0-9a-zA-Z_-])+)+");
@@ -564,12 +524,9 @@
             // txtMobilePhone
             // 
             txtMobilePhone.EnterMoveNextControl = true;
-            txtMobilePhone.Location = new Point(83, 149);
+            txtMobilePhone.Location = new Point(83, 148);
             txtMobilePhone.MenuManager = ribbon;
             txtMobilePhone.Name = "txtMobilePhone";
-            txtMobilePhone.Properties.Mask.AutoComplete = DevExpress.XtraEditors.Mask.AutoCompleteType.None;
-            txtMobilePhone.Properties.Mask.EditMask = "(\\d?\\d?\\d?) \\d?\\d?\\d? \\d?\\d? \\d?\\d?";
-            txtMobilePhone.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Regular;
             txtMobilePhone.Properties.MaskSettings.Set("MaskManagerType", typeof(DevExpress.Data.Mask.RegularMaskManager));
             txtMobilePhone.Properties.MaskSettings.Set("mask", "(\\d?\\d?\\d?) \\d?\\d?\\d? \\d?\\d? \\d?\\d?");
             txtMobilePhone.Properties.MaskSettings.Set("isAutoComplete", false);
@@ -584,12 +541,9 @@
             // txtPhone2
             // 
             txtPhone2.EnterMoveNextControl = true;
-            txtPhone2.Location = new Point(386, 118);
+            txtPhone2.Location = new Point(386, 117);
             txtPhone2.MenuManager = ribbon;
             txtPhone2.Name = "txtPhone2";
-            txtPhone2.Properties.Mask.AutoComplete = DevExpress.XtraEditors.Mask.AutoCompleteType.None;
-            txtPhone2.Properties.Mask.EditMask = "(\\d?\\d?\\d?) \\d?\\d?\\d? \\d?\\d? \\d?\\d?";
-            txtPhone2.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Regular;
             txtPhone2.Properties.MaskSettings.Set("MaskManagerType", typeof(DevExpress.Data.Mask.RegularMaskManager));
             txtPhone2.Properties.MaskSettings.Set("mask", "(\\d?\\d?\\d?) \\d?\\d?\\d? \\d?\\d? \\d?\\d?");
             txtPhone2.Properties.MaskSettings.Set("isAutoComplete", false);
@@ -604,12 +558,9 @@
             // txtPhone1
             // 
             txtPhone1.EnterMoveNextControl = true;
-            txtPhone1.Location = new Point(83, 118);
+            txtPhone1.Location = new Point(83, 117);
             txtPhone1.MenuManager = ribbon;
             txtPhone1.Name = "txtPhone1";
-            txtPhone1.Properties.Mask.AutoComplete = DevExpress.XtraEditors.Mask.AutoCompleteType.None;
-            txtPhone1.Properties.Mask.EditMask = "(\\d?\\d?\\d?) \\d?\\d?\\d? \\d?\\d? \\d?\\d?";
-            txtPhone1.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Regular;
             txtPhone1.Properties.MaskSettings.Set("MaskManagerType", typeof(DevExpress.Data.Mask.RegularMaskManager));
             txtPhone1.Properties.MaskSettings.Set("mask", "(\\d?\\d?\\d?) \\d?\\d?\\d? \\d?\\d? \\d?\\d?");
             txtPhone1.Properties.MaskSettings.Set("isAutoComplete", false);
@@ -628,7 +579,7 @@
             memAddress.MenuManager = ribbon;
             memAddress.Name = "memAddress";
             memAddress.Properties.MaxLength = 500;
-            memAddress.Size = new Size(531, 40);
+            memAddress.Size = new Size(531, 39);
             memAddress.StatusBarAciklama = "Açıklama Giriniz.";
             memAddress.StyleController = myDataLayoutControl2;
             memAddress.TabIndex = 4;
@@ -725,20 +676,20 @@
             columnDefinition5.SizeType = SizeType.Percent;
             columnDefinition5.Width = 100D;
             layoutControlGroup1.OptionsTableLayoutGroup.ColumnDefinitions.AddRange(new DevExpress.XtraLayout.ColumnDefinition[] { columnDefinition4, columnDefinition5 });
-            rowDefinition5.Height = 31D;
-            rowDefinition5.SizeType = SizeType.Absolute;
             rowDefinition6.Height = 31D;
             rowDefinition6.SizeType = SizeType.Absolute;
-            rowDefinition7.Height = 100D;
-            rowDefinition7.SizeType = SizeType.Percent;
-            rowDefinition8.Height = 31D;
-            rowDefinition8.SizeType = SizeType.Absolute;
+            rowDefinition7.Height = 31D;
+            rowDefinition7.SizeType = SizeType.Absolute;
+            rowDefinition8.Height = 100D;
+            rowDefinition8.SizeType = SizeType.Percent;
             rowDefinition9.Height = 31D;
             rowDefinition9.SizeType = SizeType.Absolute;
             rowDefinition10.Height = 31D;
             rowDefinition10.SizeType = SizeType.Absolute;
-            layoutControlGroup1.OptionsTableLayoutGroup.RowDefinitions.AddRange(new DevExpress.XtraLayout.RowDefinition[] { rowDefinition5, rowDefinition6, rowDefinition7, rowDefinition8, rowDefinition9, rowDefinition10 });
-            layoutControlGroup1.Size = new Size(626, 219);
+            rowDefinition11.Height = 31D;
+            rowDefinition11.SizeType = SizeType.Absolute;
+            layoutControlGroup1.OptionsTableLayoutGroup.RowDefinitions.AddRange(new DevExpress.XtraLayout.RowDefinition[] { rowDefinition6, rowDefinition7, rowDefinition8, rowDefinition9, rowDefinition10, rowDefinition11 });
+            layoutControlGroup1.Size = new Size(626, 218);
             layoutControlGroup1.TextVisible = false;
             // 
             // layoutControlItem7
@@ -778,14 +729,14 @@
             layoutControlItem11.Name = "layoutControlItem11";
             layoutControlItem11.OptionsTableLayoutItem.ColumnSpan = 2;
             layoutControlItem11.OptionsTableLayoutItem.RowIndex = 2;
-            layoutControlItem11.Size = new Size(606, 44);
+            layoutControlItem11.Size = new Size(606, 43);
             layoutControlItem11.Text = "Açık Adres";
             layoutControlItem11.TextSize = new Size(59, 13);
             // 
             // layoutControlItem12
             // 
             layoutControlItem12.Control = txtPhone1;
-            layoutControlItem12.Location = new Point(0, 106);
+            layoutControlItem12.Location = new Point(0, 105);
             layoutControlItem12.Name = "layoutControlItem12";
             layoutControlItem12.OptionsTableLayoutItem.RowIndex = 3;
             layoutControlItem12.Size = new Size(303, 31);
@@ -795,7 +746,7 @@
             // layoutControlItem13
             // 
             layoutControlItem13.Control = txtPhone2;
-            layoutControlItem13.Location = new Point(303, 106);
+            layoutControlItem13.Location = new Point(303, 105);
             layoutControlItem13.Name = "layoutControlItem13";
             layoutControlItem13.OptionsTableLayoutItem.ColumnIndex = 1;
             layoutControlItem13.OptionsTableLayoutItem.RowIndex = 3;
@@ -806,7 +757,7 @@
             // layoutControlItem14
             // 
             layoutControlItem14.Control = txtMobilePhone;
-            layoutControlItem14.Location = new Point(0, 137);
+            layoutControlItem14.Location = new Point(0, 136);
             layoutControlItem14.Name = "layoutControlItem14";
             layoutControlItem14.OptionsTableLayoutItem.RowIndex = 4;
             layoutControlItem14.Size = new Size(303, 31);
@@ -816,7 +767,7 @@
             // layoutControlItem15
             // 
             layoutControlItem15.Control = txtEmail;
-            layoutControlItem15.Location = new Point(303, 137);
+            layoutControlItem15.Location = new Point(303, 136);
             layoutControlItem15.Name = "layoutControlItem15";
             layoutControlItem15.OptionsTableLayoutItem.ColumnIndex = 1;
             layoutControlItem15.OptionsTableLayoutItem.RowIndex = 4;
@@ -827,7 +778,7 @@
             // layoutControlItem16
             // 
             layoutControlItem16.Control = txtWebAddress;
-            layoutControlItem16.Location = new Point(0, 168);
+            layoutControlItem16.Location = new Point(0, 167);
             layoutControlItem16.Name = "layoutControlItem16";
             layoutControlItem16.OptionsTableLayoutItem.RowIndex = 5;
             layoutControlItem16.Size = new Size(303, 31);
@@ -848,13 +799,12 @@
             // 
             tpTicariVeFinansalBilgiler.Controls.Add(myDataLayoutControl3);
             tpTicariVeFinansalBilgiler.Name = "tpTicariVeFinansalBilgiler";
-            tpTicariVeFinansalBilgiler.Size = new Size(626, 246);
+            tpTicariVeFinansalBilgiler.Size = new Size(626, 218);
             tpTicariVeFinansalBilgiler.Text = "Ticari ve Finansal Bilgiler";
             // 
             // myDataLayoutControl3
             // 
             myDataLayoutControl3.AllowCustomization = false;
-            myDataLayoutControl3.Controls.Add(spnDiscountRate);
             myDataLayoutControl3.Controls.Add(spnMaturityDays);
             myDataLayoutControl3.Controls.Add(cmbPaymentType);
             myDataLayoutControl3.Controls.Add(cmbCurrencyId);
@@ -865,25 +815,9 @@
             myDataLayoutControl3.Name = "myDataLayoutControl3";
             myDataLayoutControl3.OptionsFocus.EnableAutoTabOrder = false;
             myDataLayoutControl3.Root = layoutControlGroup2;
-            myDataLayoutControl3.Size = new Size(626, 246);
+            myDataLayoutControl3.Size = new Size(626, 218);
             myDataLayoutControl3.TabIndex = 0;
             myDataLayoutControl3.Text = "myDataLayoutControl3";
-            // 
-            // spnDiscountRate
-            // 
-            spnDiscountRate.EditValue = new decimal(new int[] { 0, 0, 0, 0 });
-            spnDiscountRate.EnterMoveNextControl = true;
-            spnDiscountRate.Location = new Point(427, 74);
-            spnDiscountRate.MenuManager = ribbon;
-            spnDiscountRate.Name = "spnDiscountRate";
-            spnDiscountRate.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
-            spnDiscountRate.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
-            spnDiscountRate.Properties.MaskSettings.Set("mask", "n0");
-            spnDiscountRate.Size = new Size(187, 22);
-            spnDiscountRate.StatusBarAciklama = "";
-            spnDiscountRate.StyleController = myDataLayoutControl3;
-            spnDiscountRate.TabIndex = 5;
-            spnDiscountRate.Tag = "DiscountRate";
             // 
             // spnMaturityDays
             // 
@@ -963,7 +897,7 @@
             // 
             layoutControlGroup2.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
             layoutControlGroup2.GroupBordersVisible = false;
-            layoutControlGroup2.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] { layoutControlItem17, layoutControlItem18, layoutControlItem19, layoutControlItem20, layoutControlItem21, layoutControlItem22 });
+            layoutControlGroup2.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] { layoutControlItem17, layoutControlItem18, layoutControlItem19, layoutControlItem20, layoutControlItem21 });
             layoutControlGroup2.LayoutMode = DevExpress.XtraLayout.Utils.LayoutMode.Table;
             layoutControlGroup2.Name = "layoutControlGroup2";
             columnDefinition6.SizeType = SizeType.Percent;
@@ -971,14 +905,14 @@
             columnDefinition7.SizeType = SizeType.Percent;
             columnDefinition7.Width = 100D;
             layoutControlGroup2.OptionsTableLayoutGroup.ColumnDefinitions.AddRange(new DevExpress.XtraLayout.ColumnDefinition[] { columnDefinition6, columnDefinition7 });
-            rowDefinition11.Height = 31D;
-            rowDefinition11.SizeType = SizeType.Absolute;
             rowDefinition12.Height = 31D;
             rowDefinition12.SizeType = SizeType.Absolute;
             rowDefinition13.Height = 31D;
             rowDefinition13.SizeType = SizeType.Absolute;
-            layoutControlGroup2.OptionsTableLayoutGroup.RowDefinitions.AddRange(new DevExpress.XtraLayout.RowDefinition[] { rowDefinition11, rowDefinition12, rowDefinition13 });
-            layoutControlGroup2.Size = new Size(626, 246);
+            rowDefinition14.Height = 31D;
+            rowDefinition14.SizeType = SizeType.Absolute;
+            layoutControlGroup2.OptionsTableLayoutGroup.RowDefinitions.AddRange(new DevExpress.XtraLayout.RowDefinition[] { rowDefinition12, rowDefinition13, rowDefinition14 });
+            layoutControlGroup2.Size = new Size(626, 218);
             layoutControlGroup2.TextVisible = false;
             // 
             // layoutControlItem17
@@ -1027,26 +961,15 @@
             layoutControlItem21.Location = new Point(0, 62);
             layoutControlItem21.Name = "layoutControlItem21";
             layoutControlItem21.OptionsTableLayoutItem.RowIndex = 2;
-            layoutControlItem21.Size = new Size(303, 164);
+            layoutControlItem21.Size = new Size(303, 136);
             layoutControlItem21.Text = "Vade Süresi (Gün)";
             layoutControlItem21.TextSize = new Size(100, 13);
-            // 
-            // layoutControlItem22
-            // 
-            layoutControlItem22.Control = spnDiscountRate;
-            layoutControlItem22.Location = new Point(303, 62);
-            layoutControlItem22.Name = "layoutControlItem22";
-            layoutControlItem22.OptionsTableLayoutItem.ColumnIndex = 1;
-            layoutControlItem22.OptionsTableLayoutItem.RowIndex = 2;
-            layoutControlItem22.Size = new Size(303, 164);
-            layoutControlItem22.Text = "İndirim Oranı (%)";
-            layoutControlItem22.TextSize = new Size(100, 13);
             // 
             // tpEDevletVeNotlar
             // 
             tpEDevletVeNotlar.Controls.Add(myDataLayoutControl4);
             tpEDevletVeNotlar.Name = "tpEDevletVeNotlar";
-            tpEDevletVeNotlar.Size = new Size(626, 246);
+            tpEDevletVeNotlar.Size = new Size(626, 218);
             tpEDevletVeNotlar.Text = "E-Devlet ve Notlar";
             // 
             // myDataLayoutControl4
@@ -1061,7 +984,7 @@
             myDataLayoutControl4.Name = "myDataLayoutControl4";
             myDataLayoutControl4.OptionsFocus.EnableAutoTabOrder = false;
             myDataLayoutControl4.Root = layoutControlGroup3;
-            myDataLayoutControl4.Size = new Size(626, 246);
+            myDataLayoutControl4.Size = new Size(626, 218);
             myDataLayoutControl4.TabIndex = 0;
             myDataLayoutControl4.Text = "myDataLayoutControl4";
             // 
@@ -1098,7 +1021,7 @@
             memDescription.MenuManager = ribbon;
             memDescription.Name = "memDescription";
             memDescription.Properties.MaxLength = 500;
-            memDescription.Size = new Size(490, 129);
+            memDescription.Size = new Size(490, 101);
             memDescription.StatusBarAciklama = "Açıklama Giriniz.";
             memDescription.StyleController = myDataLayoutControl4;
             memDescription.TabIndex = 3;
@@ -1127,16 +1050,16 @@
             columnDefinition8.SizeType = SizeType.Percent;
             columnDefinition8.Width = 100D;
             layoutControlGroup3.OptionsTableLayoutGroup.ColumnDefinitions.AddRange(new DevExpress.XtraLayout.ColumnDefinition[] { columnDefinition8 });
-            rowDefinition14.Height = 31D;
-            rowDefinition14.SizeType = SizeType.Absolute;
             rowDefinition15.Height = 31D;
             rowDefinition15.SizeType = SizeType.Absolute;
             rowDefinition16.Height = 31D;
             rowDefinition16.SizeType = SizeType.Absolute;
-            rowDefinition17.Height = 100D;
-            rowDefinition17.SizeType = SizeType.Percent;
-            layoutControlGroup3.OptionsTableLayoutGroup.RowDefinitions.AddRange(new DevExpress.XtraLayout.RowDefinition[] { rowDefinition14, rowDefinition15, rowDefinition16, rowDefinition17 });
-            layoutControlGroup3.Size = new Size(626, 246);
+            rowDefinition17.Height = 31D;
+            rowDefinition17.SizeType = SizeType.Absolute;
+            rowDefinition18.Height = 100D;
+            rowDefinition18.SizeType = SizeType.Percent;
+            layoutControlGroup3.OptionsTableLayoutGroup.RowDefinitions.AddRange(new DevExpress.XtraLayout.RowDefinition[] { rowDefinition15, rowDefinition16, rowDefinition17, rowDefinition18 });
+            layoutControlGroup3.Size = new Size(626, 218);
             layoutControlGroup3.TextVisible = false;
             // 
             // layoutControlItem23
@@ -1145,7 +1068,7 @@
             layoutControlItem23.Location = new Point(0, 93);
             layoutControlItem23.Name = "layoutControlItem23";
             layoutControlItem23.OptionsTableLayoutItem.RowIndex = 3;
-            layoutControlItem23.Size = new Size(606, 133);
+            layoutControlItem23.Size = new Size(606, 105);
             layoutControlItem23.Text = "Açıklama";
             layoutControlItem23.TextSize = new Size(100, 13);
             // 
@@ -1176,6 +1099,17 @@
             layoutControlItem26.Size = new Size(606, 31);
             layoutControlItem26.TextVisible = false;
             // 
+            // layoutControlItem4
+            // 
+            layoutControlItem4.Control = glufSpecialCode;
+            layoutControlItem4.Location = new Point(0, 31);
+            layoutControlItem4.Name = "layoutControlItem4";
+            layoutControlItem4.OptionsTableLayoutItem.ColumnSpan = 3;
+            layoutControlItem4.OptionsTableLayoutItem.RowIndex = 1;
+            layoutControlItem4.Size = new Size(606, 31);
+            layoutControlItem4.Text = "Özel Kod (Opsiyonel)";
+            layoutControlItem4.TextSize = new Size(107, 13);
+            // 
             // CariTanimEditForm
             // 
             Appearance.Options.UseFont = true;
@@ -1183,6 +1117,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(628, 429);
             Controls.Add(xtraTabControl1);
+            Font = new Font("Segoe UI", 8.25F);
             IconOptions.ShowIcon = false;
             MinimumSize = new Size(630, 430);
             Name = "CariTanimEditForm";
@@ -1195,7 +1130,6 @@
             tpGenelBilgiler.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)myDataLayoutControl1).EndInit();
             myDataLayoutControl1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)txtAuthorizationCode.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtShortCode.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)cmbCardType.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)glufSpecialCode.Properties).EndInit();
@@ -1207,10 +1141,8 @@
             ((System.ComponentModel.ISupportInitialize)layoutControlItem1).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem2).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem3).EndInit();
-            ((System.ComponentModel.ISupportInitialize)layoutControlItem4).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem5).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem6).EndInit();
-            ((System.ComponentModel.ISupportInitialize)layoutControlItem27).EndInit();
             tpIletisimVeAdres.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)myDataLayoutControl2).EndInit();
             myDataLayoutControl2.ResumeLayout(false);
@@ -1241,7 +1173,6 @@
             tpTicariVeFinansalBilgiler.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)myDataLayoutControl3).EndInit();
             myDataLayoutControl3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)spnDiscountRate.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)spnMaturityDays.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)cmbPaymentType.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)cmbCurrencyId.Properties).EndInit();
@@ -1253,7 +1184,6 @@
             ((System.ComponentModel.ISupportInitialize)layoutControlItem19).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem20).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem21).EndInit();
-            ((System.ComponentModel.ISupportInitialize)layoutControlItem22).EndInit();
             tpEDevletVeNotlar.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)myDataLayoutControl4).EndInit();
             myDataLayoutControl4.ResumeLayout(false);
@@ -1266,6 +1196,7 @@
             ((System.ComponentModel.ISupportInitialize)layoutControlItem24).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem25).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem26).EndInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem4).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -1287,11 +1218,8 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
         private UserControls.Controls.MyComboBoxEdit cmbCardType;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;
         private UserControls.Controls.MyTextEdit txtShortCode;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem6;
         private UserControls.Controls.MyDataLayoutControl myDataLayoutControl2;
         private UserControls.Controls.MyTextEdit txtAuthorizedPerson;
         private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup1;
@@ -1315,7 +1243,6 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem15;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem16;
         private UserControls.Controls.MyDataLayoutControl myDataLayoutControl3;
-        private UserControls.Controls.MySpinEdit spnDiscountRate;
         private UserControls.Controls.MySpinEdit spnMaturityDays;
         private UserControls.Controls.MyComboBoxEdit cmbPaymentType;
         private UserControls.Controls.MyComboBoxEdit cmbCurrencyId;
@@ -1327,7 +1254,6 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem19;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem20;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem21;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem22;
         private UserControls.Controls.MyDataLayoutControl myDataLayoutControl4;
         private UserControls.Controls.MyMemoEdit memDescription;
         private UserControls.Controls.MyTextEdit txtMailboxAlias;
@@ -1338,8 +1264,6 @@
         private UserControls.Controls.MyCheckEdit chkIsEInvoiceUser;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem25;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem26;
-        private UserControls.Controls.MyTextEdit txtAuthorizationCode;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem27;
         private UserControls.Controls.MyGridLookUpFind glufCountry;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView2;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem8;
@@ -1347,5 +1271,8 @@
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn1;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn2;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn4;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem6;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
     }
 }

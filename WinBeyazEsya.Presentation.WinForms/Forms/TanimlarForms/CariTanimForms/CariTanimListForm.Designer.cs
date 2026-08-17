@@ -1,4 +1,4 @@
-﻿namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.CariTanimForms
+namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.CariTanimForms
 {
     partial class CariTanimListForm
     {
@@ -36,17 +36,17 @@
             colKod = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colCariTipi = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colCariUnvani = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
-            colOzelKod = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colYetkiliKisi = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colUlke = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colIl = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colIlce = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colTelefon1 = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
+            colTelefon2 = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
+            colGSM = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colVergiDairesi = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colVergiTcKimlikNo = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colEPosta = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
-            colTelefon2 = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
-            colGSM = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
+            colOzelKod = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             ((System.ComponentModel.ISupportInitialize)ribbon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)myGridControl1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)myGridView1).BeginInit();
@@ -86,6 +86,7 @@
             // 
             myGridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colId, colKod, colCariTipi, colCariUnvani, colYetkiliKisi, colUlke, colIl, colIlce, colTelefon1, colTelefon2, colGSM, colVergiDairesi, colVergiTcKimlikNo, colEPosta, colOzelKod });
             myGridView1.GridControl = myGridControl1;
+            myGridView1.GroupCount = 1;
             myGridView1.Name = "myGridView1";
             myGridView1.OptionsMenu.EnableColumnMenu = false;
             myGridView1.OptionsMenu.EnableFooterMenu = false;
@@ -100,6 +101,7 @@
             myGridView1.OptionsView.ShowAutoFilterRow = true;
             myGridView1.OptionsView.ShowGroupPanel = false;
             myGridView1.OptionsView.ShowViewCaption = true;
+            myGridView1.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] { new DevExpress.XtraGrid.Columns.GridColumnSortInfo(colCariTipi, DevExpress.Data.ColumnSortOrder.Ascending) });
             myGridView1.StatusBarAciklama = null;
             myGridView1.StatusBarKisaYol = null;
             myGridView1.StatusBarKisaYolAciklama = null;
@@ -154,21 +156,8 @@
             colCariUnvani.StatusBarKisaYol = null;
             colCariUnvani.StatusBarKisaYolAciklama = null;
             colCariUnvani.Visible = true;
-            colCariUnvani.VisibleIndex = 2;
+            colCariUnvani.VisibleIndex = 1;
             colCariUnvani.Width = 125;
-            // 
-            // colOzelKod
-            // 
-            colOzelKod.Caption = "Özel Kod";
-            colOzelKod.FieldName = "SpeCode";
-            colOzelKod.Name = "colOzelKod";
-            colOzelKod.OptionsColumn.AllowEdit = false;
-            colOzelKod.StatusBarAciklama = null;
-            colOzelKod.StatusBarKisaYol = null;
-            colOzelKod.StatusBarKisaYolAciklama = null;
-            colOzelKod.Visible = true;
-            colOzelKod.VisibleIndex = 13;
-            colOzelKod.Width = 125;
             // 
             // colYetkiliKisi
             // 
@@ -180,33 +169,33 @@
             colYetkiliKisi.StatusBarKisaYol = null;
             colYetkiliKisi.StatusBarKisaYolAciklama = null;
             colYetkiliKisi.Visible = true;
-            colYetkiliKisi.VisibleIndex = 3;
+            colYetkiliKisi.VisibleIndex = 2;
             colYetkiliKisi.Width = 125;
             // 
             // colUlke
             // 
             colUlke.Caption = "Ülke";
-            colUlke.FieldName = "Country";
+            colUlke.FieldName = "CountryName";
             colUlke.Name = "colUlke";
             colUlke.OptionsColumn.AllowEdit = false;
             colUlke.StatusBarAciklama = null;
             colUlke.StatusBarKisaYol = null;
             colUlke.StatusBarKisaYolAciklama = null;
             colUlke.Visible = true;
-            colUlke.VisibleIndex = 4;
+            colUlke.VisibleIndex = 3;
             colUlke.Width = 125;
             // 
             // colIl
             // 
             colIl.Caption = "İl";
-            colIl.FieldName = "City";
+            colIl.FieldName = "CityName";
             colIl.Name = "colIl";
             colIl.OptionsColumn.AllowEdit = false;
             colIl.StatusBarAciklama = null;
             colIl.StatusBarKisaYol = null;
             colIl.StatusBarKisaYolAciklama = null;
             colIl.Visible = true;
-            colIl.VisibleIndex = 5;
+            colIl.VisibleIndex = 4;
             colIl.Width = 125;
             // 
             // colIlce
@@ -219,7 +208,7 @@
             colIlce.StatusBarKisaYol = null;
             colIlce.StatusBarKisaYolAciklama = null;
             colIlce.Visible = true;
-            colIlce.VisibleIndex = 6;
+            colIlce.VisibleIndex = 5;
             colIlce.Width = 125;
             // 
             // colTelefon1
@@ -232,47 +221,8 @@
             colTelefon1.StatusBarKisaYol = null;
             colTelefon1.StatusBarKisaYolAciklama = null;
             colTelefon1.Visible = true;
-            colTelefon1.VisibleIndex = 7;
+            colTelefon1.VisibleIndex = 6;
             colTelefon1.Width = 125;
-            // 
-            // colVergiDairesi
-            // 
-            colVergiDairesi.Caption = "Vergi Dairesi";
-            colVergiDairesi.FieldName = "TaxOffice";
-            colVergiDairesi.Name = "colVergiDairesi";
-            colVergiDairesi.OptionsColumn.AllowEdit = false;
-            colVergiDairesi.StatusBarAciklama = null;
-            colVergiDairesi.StatusBarKisaYol = null;
-            colVergiDairesi.StatusBarKisaYolAciklama = null;
-            colVergiDairesi.Visible = true;
-            colVergiDairesi.VisibleIndex = 10;
-            colVergiDairesi.Width = 125;
-            // 
-            // colVergiTcKimlikNo
-            // 
-            colVergiTcKimlikNo.Caption = "Vergi/TC Kimlik No";
-            colVergiTcKimlikNo.FieldName = "TaxNr";
-            colVergiTcKimlikNo.Name = "colVergiTcKimlikNo";
-            colVergiTcKimlikNo.OptionsColumn.AllowEdit = false;
-            colVergiTcKimlikNo.StatusBarAciklama = null;
-            colVergiTcKimlikNo.StatusBarKisaYol = null;
-            colVergiTcKimlikNo.StatusBarKisaYolAciklama = null;
-            colVergiTcKimlikNo.Visible = true;
-            colVergiTcKimlikNo.VisibleIndex = 11;
-            colVergiTcKimlikNo.Width = 125;
-            // 
-            // colEPosta
-            // 
-            colEPosta.Caption = "E-Posta";
-            colEPosta.FieldName = "EmailAddr";
-            colEPosta.Name = "colEPosta";
-            colEPosta.OptionsColumn.AllowEdit = false;
-            colEPosta.StatusBarAciklama = null;
-            colEPosta.StatusBarKisaYol = null;
-            colEPosta.StatusBarKisaYolAciklama = null;
-            colEPosta.Visible = true;
-            colEPosta.VisibleIndex = 12;
-            colEPosta.Width = 125;
             // 
             // colTelefon2
             // 
@@ -284,7 +234,7 @@
             colTelefon2.StatusBarKisaYol = null;
             colTelefon2.StatusBarKisaYolAciklama = null;
             colTelefon2.Visible = true;
-            colTelefon2.VisibleIndex = 8;
+            colTelefon2.VisibleIndex = 7;
             colTelefon2.Width = 125;
             // 
             // colGSM
@@ -297,8 +247,60 @@
             colGSM.StatusBarKisaYol = null;
             colGSM.StatusBarKisaYolAciklama = null;
             colGSM.Visible = true;
-            colGSM.VisibleIndex = 9;
+            colGSM.VisibleIndex = 8;
             colGSM.Width = 125;
+            // 
+            // colVergiDairesi
+            // 
+            colVergiDairesi.Caption = "Vergi Dairesi";
+            colVergiDairesi.FieldName = "TaxOffice";
+            colVergiDairesi.Name = "colVergiDairesi";
+            colVergiDairesi.OptionsColumn.AllowEdit = false;
+            colVergiDairesi.StatusBarAciklama = null;
+            colVergiDairesi.StatusBarKisaYol = null;
+            colVergiDairesi.StatusBarKisaYolAciklama = null;
+            colVergiDairesi.Visible = true;
+            colVergiDairesi.VisibleIndex = 9;
+            colVergiDairesi.Width = 125;
+            // 
+            // colVergiTcKimlikNo
+            // 
+            colVergiTcKimlikNo.Caption = "Vergi/TC Kimlik No";
+            colVergiTcKimlikNo.FieldName = "TaxNr";
+            colVergiTcKimlikNo.Name = "colVergiTcKimlikNo";
+            colVergiTcKimlikNo.OptionsColumn.AllowEdit = false;
+            colVergiTcKimlikNo.StatusBarAciklama = null;
+            colVergiTcKimlikNo.StatusBarKisaYol = null;
+            colVergiTcKimlikNo.StatusBarKisaYolAciklama = null;
+            colVergiTcKimlikNo.Visible = true;
+            colVergiTcKimlikNo.VisibleIndex = 10;
+            colVergiTcKimlikNo.Width = 125;
+            // 
+            // colEPosta
+            // 
+            colEPosta.Caption = "E-Posta";
+            colEPosta.FieldName = "EmailAddr";
+            colEPosta.Name = "colEPosta";
+            colEPosta.OptionsColumn.AllowEdit = false;
+            colEPosta.StatusBarAciklama = null;
+            colEPosta.StatusBarKisaYol = null;
+            colEPosta.StatusBarKisaYolAciklama = null;
+            colEPosta.Visible = true;
+            colEPosta.VisibleIndex = 11;
+            colEPosta.Width = 125;
+            // 
+            // colOzelKod
+            // 
+            colOzelKod.Caption = "Özel Kod";
+            colOzelKod.FieldName = "SpeCode";
+            colOzelKod.Name = "colOzelKod";
+            colOzelKod.OptionsColumn.AllowEdit = false;
+            colOzelKod.StatusBarAciklama = null;
+            colOzelKod.StatusBarKisaYol = null;
+            colOzelKod.StatusBarKisaYolAciklama = null;
+            colOzelKod.Visible = true;
+            colOzelKod.VisibleIndex = 12;
+            colOzelKod.Width = 125;
             // 
             // CariTanimListForm
             // 
@@ -307,7 +309,6 @@
             ClientSize = new Size(711, 441);
             Controls.Add(myGridControl1);
             Controls.Add(longNavigator1);
-            Font = new Font("Segoe UI", 8.25F);
             IconOptions.ShowIcon = false;
             Name = "CariTanimListForm";
             Text = "Cari Tanımlar";

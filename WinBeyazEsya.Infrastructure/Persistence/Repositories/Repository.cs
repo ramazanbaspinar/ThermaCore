@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
@@ -33,6 +33,18 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
     public IQueryable<TEntity> GetAll()
     {
         return _dbSet.AsNoTracking();
+    }
+
+    public IQueryable<TEntity> GetAll(params Expression<Func<TEntity, object>>[] includes)
+    {
+        IQueryable<TEntity> query = _dbSet.AsNoTracking();
+        
+        foreach (var include in includes)
+        {
+            query = query.Include(include);
+        }
+        
+        return query;
     }
 
     public IQueryable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)

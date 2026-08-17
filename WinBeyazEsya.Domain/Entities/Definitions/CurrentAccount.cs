@@ -18,7 +18,7 @@ public class CurrentAccount : FullAuditableEntity
 
     public string? Addr1 { get; set; }
 
-    public string? Addr2 { get; set; }
+    public int CCurrency { get; set; }
 
     public long? CountryId { get; set; }
     public Country? Country { get; set; }

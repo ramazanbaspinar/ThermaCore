@@ -12,7 +12,6 @@ public class CurrentAccountConfiguration : IEntityTypeConfiguration<CurrentAccou
         builder.Property(x => x.Title).IsRequired().HasMaxLength(250);
         builder.Property(x => x.SpeCode).HasMaxLength(11);
         builder.Property(x => x.Addr1).HasMaxLength(250);
-        builder.Property(x => x.Addr2).HasMaxLength(250);
         builder.Property(x => x.TelNrs1).HasMaxLength(60);
         builder.Property(x => x.TelNrs2).HasMaxLength(60);
         builder.Property(x => x.TaxNr).HasMaxLength(16);

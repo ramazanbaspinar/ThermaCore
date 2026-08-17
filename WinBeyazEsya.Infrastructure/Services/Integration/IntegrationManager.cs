@@ -228,7 +228,7 @@ public class IntegrationManager : IIntegrationService
         string paddedFirmaNo = (firmaNo ?? "001").PadLeft(3, '0');
         // Country bilgisi için L_COUNTRY join de eklenebilir veya LOGICALREF vs, ama genelde Logo'da COUNTRY, CITY, TOWN metin olarak kart üzerindedir (veya CODE olarak).
         // Örnekte metin kolonlarını okuyacağız (CITY, TOWN, COUNTRY)
-        string query = entType == 0 ? $"SELECT LOGICALREF, CODE, DEFINITION_ as TITLE, ACTIVE, TAXNR, TAXOFFICE, COUNTRY, TOWN, CITY, TELNRS1, TELNRS2, CELLPHONE FROM LG_{paddedFirmaNo}_CLCARD WHERE CARDTYPE = 3" : customQuery;
+        string query = entType == 0 ? $"SELECT LOGICALREF, CODE, DEFINITION_ as TITLE, ACTIVE, TAXNR, TAXOFFICE, COUNTRY, TOWN, CITY, TELNRS1, TELNRS2, CELLPHONE, ADDR1 FROM LG_{paddedFirmaNo}_CLCARD WHERE CARDTYPE = 3" : customQuery;
         string connStr = GetConnectionString(ip, db, user, pass);
 
         using var conn = new SqlConnection(connStr);
@@ -314,6 +314,7 @@ public class IntegrationManager : IIntegrationService
             existingAccount.IsActive = Convert.ToInt32(reader["ACTIVE"]) == 0;
             existingAccount.TaxNr = GetString(reader, "TAXNR").SafeSubstring(16);
             existingAccount.TaxOffice = GetString(reader, "TAXOFFICE").SafeSubstring(50);
+            existingAccount.Addr1 = GetString(reader, "ADDR1").SafeSubstring(250);
             
             existingAccount.CountryId = matchCountryId;
             existingAccount.CityId = matchCityId;
