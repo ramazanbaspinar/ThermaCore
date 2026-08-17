@@ -22,5 +22,7 @@ public class ProductRecipeConfiguration : IEntityTypeConfiguration<ProductRecipe
             .WithMany()
             .HasForeignKey(x => x.FinishedGoodId)
             .OnDelete(DeleteBehavior.Restrict);
+            
+        builder.HasIndex(x => x.IsActive);
     }
 }

@@ -28,6 +28,10 @@ public class FinishedGoodConfiguration : IEntityTypeConfiguration<FinishedGood>,
             .HasForeignKey(x => x.SpecialCodeId)
             .OnDelete(DeleteBehavior.SetNull);
 
+        builder.HasIndex(x => x.Code).IsUnique();
+        builder.HasIndex(x => x.IsActive);
+        builder.HasIndex(x => x.GroupType);
+
         builder.ToTable("FinishedGoods");
     }
 }

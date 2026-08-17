@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using WinBeyazEsya.Domain.Entities.Definitions;
 
@@ -14,6 +14,8 @@ public class GeneralExpenseConfiguration : IEntityTypeConfiguration<GeneralExpen
         builder.Property(x => x.Name).IsRequired().HasMaxLength(100);
         builder.Property(x => x.CurrencyCode).HasMaxLength(5);
         builder.Property(x => x.Cost).HasColumnType("decimal(18,4)");
+
+        builder.HasIndex(x => x.Code).IsUnique();
 
         builder.ToTable("GeneralExpenses");
     }

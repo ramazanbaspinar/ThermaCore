@@ -26,6 +26,8 @@ public class MechanicalAndHardwareGroupConfiguration : IEntityTypeConfiguration<
                .WithMany()
                .HasForeignKey(x => x.SpecialCodeId)
                .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasIndex(x => x.Code).IsUnique();
     }
 }
 

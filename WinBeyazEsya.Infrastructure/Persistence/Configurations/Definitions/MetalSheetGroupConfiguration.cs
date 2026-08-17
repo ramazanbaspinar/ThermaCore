@@ -35,7 +35,7 @@ public class MetalSheetGroupConfiguration : IEntityTypeConfiguration<MetalSheetG
             .HasForeignKey(x => x.SpecialCodeId)
             .OnDelete(DeleteBehavior.Restrict);
             
-        builder.HasIndex(x => x.Code);
+        builder.HasIndex(x => x.Code).IsUnique();
         builder.HasIndex(x => x.BranchId);
     }
 }

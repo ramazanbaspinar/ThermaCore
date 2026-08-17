@@ -27,5 +27,10 @@ public class CurrentAccountConfiguration : IEntityTypeConfiguration<CurrentAccou
         builder.HasOne(x => x.Country).WithMany().HasForeignKey(x => x.CountryId);
         builder.HasOne(x => x.City).WithMany().HasForeignKey(x => x.CityId);
         builder.HasOne(x => x.Town).WithMany().HasForeignKey(x => x.TownId);
+
+        builder.HasIndex(x => x.Code).IsUnique();
+        builder.HasIndex(x => x.LogicalRef).IsUnique().HasFilter("[LogicalRef] > 0");
+        builder.HasIndex(x => x.IsActive);
+        builder.HasIndex(x => x.CardType);
     }
 }

@@ -10,5 +10,8 @@ public class CountryConfiguration : IEntityTypeConfiguration<Country>, ITenantEn
     {
         builder.Property(x => x.Code).IsRequired().HasMaxLength(50);
         builder.Property(x => x.Title).IsRequired().HasMaxLength(150);
+
+        builder.HasIndex(x => x.Code).IsUnique();
+        builder.HasIndex(x => x.LogicalRef).IsUnique().HasFilter("[LogicalRef] > 0");
     }
 }
