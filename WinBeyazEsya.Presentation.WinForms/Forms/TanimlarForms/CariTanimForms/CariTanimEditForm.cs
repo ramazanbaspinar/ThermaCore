@@ -48,7 +48,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.CariTanimForms
         {
             if (BaseIslemTuru == ActionType.EntityInsert)
             {
-                CurrentEntity = new CurrentAccountDto { Active = 1, ShortCode = "" };
+                CurrentEntity = new CurrentAccountDto { ShortCode = "" };
                 Id = BaseIslemTuru.IdOlustur(OldEntity);
             }
             else
@@ -352,7 +352,6 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.CariTanimForms
                 Title = txtTitle?.Text,
                 ShortCode = txtShortCode?.Text,
                 IsActive = tglActive?.IsOn ?? true,
-                Active = (tglActive?.IsOn ?? true) ? 1 : 0,
                 CardType = cmbCardType?.SelectedItem != null ? (int)WinBeyazEsya.Domain.Helpers.EnumFunctions.GetEnum<CardType>(cmbCardType.SelectedItem.ToString()) : 0,
                 SpeCode = glufSpecialCode?.EditValue?.ToString(),
                 InCharge = txtAuthorizedPerson?.Text,

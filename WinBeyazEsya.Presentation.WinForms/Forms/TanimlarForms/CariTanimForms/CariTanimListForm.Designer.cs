@@ -84,9 +84,8 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.CariTanimForms
             // 
             // myGridView1
             // 
-            myGridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colId, colKod, colCariTipi, colCariUnvani, colYetkiliKisi, colUlke, colIl, colIlce, colTelefon1, colTelefon2, colGSM, colVergiDairesi, colVergiTcKimlikNo, colEPosta, colOzelKod });
+            myGridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colId, colKod, colCariUnvani, colYetkiliKisi, colUlke, colIl, colIlce, colTelefon1, colTelefon2, colGSM, colVergiDairesi, colVergiTcKimlikNo, colEPosta, colOzelKod, colCariTipi });
             myGridView1.GridControl = myGridControl1;
-            myGridView1.GroupCount = 1;
             myGridView1.Name = "myGridView1";
             myGridView1.OptionsMenu.EnableColumnMenu = false;
             myGridView1.OptionsMenu.EnableFooterMenu = false;
@@ -101,7 +100,6 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.CariTanimForms
             myGridView1.OptionsView.ShowAutoFilterRow = true;
             myGridView1.OptionsView.ShowGroupPanel = false;
             myGridView1.OptionsView.ShowViewCaption = true;
-            myGridView1.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] { new DevExpress.XtraGrid.Columns.GridColumnSortInfo(colCariTipi, DevExpress.Data.ColumnSortOrder.Ascending) });
             myGridView1.StatusBarAciklama = null;
             myGridView1.StatusBarKisaYol = null;
             myGridView1.StatusBarKisaYolAciklama = null;
@@ -143,7 +141,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.CariTanimForms
             colCariTipi.StatusBarKisaYol = null;
             colCariTipi.StatusBarKisaYolAciklama = null;
             colCariTipi.Visible = true;
-            colCariTipi.VisibleIndex = 1;
+            colCariTipi.VisibleIndex = 13;
             colCariTipi.Width = 125;
             // 
             // colCariUnvani
@@ -304,11 +302,13 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.CariTanimForms
             // 
             // CariTanimListForm
             // 
+            Appearance.Options.UseFont = true;
             AutoScaleDimensions = new SizeF(6F, 13F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(711, 441);
             Controls.Add(myGridControl1);
             Controls.Add(longNavigator1);
+            Font = new Font("Segoe UI", 8.25F);
             IconOptions.ShowIcon = false;
             Name = "CariTanimListForm";
             Text = "Cari Tanımlar";

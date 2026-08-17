@@ -5,7 +5,6 @@ namespace WinBeyazEsya.Application.DTOs.Definitions;
 public class CurrentAccountDto : BaseDto
 {
     public long LogicalRef { get; set; }
-    public int Active { get; set; }
     public int CardType { get; set; }
     public string Title { get; set; } = string.Empty;
     public string? SpeCode { get; set; }

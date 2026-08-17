@@ -310,7 +310,6 @@ public class IntegrationManager : IIntegrationService
             }
             
             existingAccount.Title = (reader["TITLE"]?.ToString() ?? "").SafeSubstring(250)!;
-            existingAccount.Active = Convert.ToInt32(reader["ACTIVE"]);
             existingAccount.IsActive = Convert.ToInt32(reader["ACTIVE"]) == 0;
             existingAccount.TaxNr = GetString(reader, "TAXNR").SafeSubstring(16);
             existingAccount.TaxOffice = GetString(reader, "TAXOFFICE").SafeSubstring(50);

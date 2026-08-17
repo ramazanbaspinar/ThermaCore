@@ -68,8 +68,8 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             layoutControlGroup2 = new DevExpress.XtraLayout.LayoutControlGroup();
             layoutControlItem14 = new DevExpress.XtraLayout.LayoutControlItem();
             myDataLayoutControl2 = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyDataLayoutControl();
+            txtToplamReceteMaliyeti = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyTextEdit();
             txtKur = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyTextEdit();
-            txtToplamReceteMaliyeti = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyCalcEdit();
             btnMaliyetKirilimi = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MySimpleButton();
             btnMaliyetiGuncelle = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MySimpleButton();
             txtTarih = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyDateEdit();
@@ -90,12 +90,16 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem13 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
-            layoutControlItem10 = new DevExpress.XtraLayout.LayoutControlItem();
-            layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem11 = new DevExpress.XtraLayout.LayoutControlItem();
+            layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             Root = new DevExpress.XtraLayout.LayoutControlGroup();
             layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
+            btnRevizeEt = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MySimpleButton();
+            layoutControlItem15 = new DevExpress.XtraLayout.LayoutControlItem();
+            layoutControlItem10 = new DevExpress.XtraLayout.LayoutControlItem();
+            btnKopyala = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MySimpleButton();
+            layoutControlItem16 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)ribbon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)xtraTabControl1).BeginInit();
             xtraTabControl1.SuspendLayout();
@@ -117,8 +121,8 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             ((System.ComponentModel.ISupportInitialize)layoutControlItem14).BeginInit();
             ((System.ComponentModel.ISupportInitialize)myDataLayoutControl2).BeginInit();
             myDataLayoutControl2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)txtKur.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtToplamReceteMaliyeti.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtKur.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtTarih.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtTarih.Properties.CalendarTimeProperties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)tglDurum.Properties).BeginInit();
@@ -137,12 +141,14 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             ((System.ComponentModel.ISupportInitialize)layoutControlItem5).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem13).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem7).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)layoutControlItem10).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)layoutControlItem4).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem11).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem4).BeginInit();
             ((System.ComponentModel.ISupportInitialize)Root).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem15).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem10).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem16).BeginInit();
             SuspendLayout();
             // 
             // ribbon
@@ -483,8 +489,10 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             // myDataLayoutControl2
             // 
             myDataLayoutControl2.AllowCustomization = false;
-            myDataLayoutControl2.Controls.Add(txtKur);
+            myDataLayoutControl2.Controls.Add(btnKopyala);
+            myDataLayoutControl2.Controls.Add(btnRevizeEt);
             myDataLayoutControl2.Controls.Add(txtToplamReceteMaliyeti);
+            myDataLayoutControl2.Controls.Add(txtKur);
             myDataLayoutControl2.Controls.Add(btnMaliyetKirilimi);
             myDataLayoutControl2.Controls.Add(btnMaliyetiGuncelle);
             myDataLayoutControl2.Controls.Add(txtTarih);
@@ -503,56 +511,46 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             myDataLayoutControl2.TabIndex = 4;
             myDataLayoutControl2.Text = "myDataLayoutControl2";
             // 
-            // txtKur
-            // 
-            txtKur.EnterMoveNextControl = true;
-            txtKur.Location = new Point(331, 12);
-            txtKur.MenuManager = ribbon;
-            txtKur.Name = "txtKur";
-            txtKur.Properties.Appearance.BackColor = Color.FromArgb(236, 246, 255);
-            txtKur.Properties.Appearance.Font = new Font("Tahoma", 8.25F, FontStyle.Bold);
-            txtKur.Properties.Appearance.Options.UseBackColor = true;
-            txtKur.Properties.Appearance.Options.UseFont = true;
-            txtKur.Properties.Appearance.Options.UseTextOptions = true;
-            txtKur.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            txtKur.Properties.MaxLength = 100;
-            txtKur.Properties.ReadOnly = true;
-            txtKur.Size = new Size(245, 22);
-            txtKur.StatusBarAciklama = "";
-            txtKur.StyleController = myDataLayoutControl2;
-            txtKur.TabIndex = 20;
-            // 
             // txtToplamReceteMaliyeti
             // 
             txtToplamReceteMaliyeti.EnterMoveNextControl = true;
             txtToplamReceteMaliyeti.Location = new Point(134, 12);
             txtToplamReceteMaliyeti.MenuManager = ribbon;
             txtToplamReceteMaliyeti.Name = "txtToplamReceteMaliyeti";
-            txtToplamReceteMaliyeti.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
             txtToplamReceteMaliyeti.Properties.Appearance.BackColor = Color.FromArgb(236, 246, 255);
-            txtToplamReceteMaliyeti.Properties.Appearance.Font = new Font("Tahoma", 8.25F, FontStyle.Bold);
+            txtToplamReceteMaliyeti.Properties.Appearance.Font = new Font("Segoe UI", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
             txtToplamReceteMaliyeti.Properties.Appearance.Options.UseBackColor = true;
             txtToplamReceteMaliyeti.Properties.Appearance.Options.UseFont = true;
             txtToplamReceteMaliyeti.Properties.Appearance.Options.UseTextOptions = true;
             txtToplamReceteMaliyeti.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            txtToplamReceteMaliyeti.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
-            txtToplamReceteMaliyeti.Properties.DisplayFormat.FormatString = "n2";
-            txtToplamReceteMaliyeti.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            txtToplamReceteMaliyeti.Properties.EditFormat.FormatString = "n2";
-            txtToplamReceteMaliyeti.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            txtToplamReceteMaliyeti.Properties.Mask.UseMaskAsDisplayFormat = true;
-            txtToplamReceteMaliyeti.Properties.MaskSettings.Set("mask", "n2");
-            txtToplamReceteMaliyeti.Properties.ReadOnly = true;
+            txtToplamReceteMaliyeti.Properties.MaxLength = 100;
             txtToplamReceteMaliyeti.Size = new Size(158, 22);
-            txtToplamReceteMaliyeti.StatusBarAciklama = null;
-            txtToplamReceteMaliyeti.StatusBarKisaYol = "F4 :";
-            txtToplamReceteMaliyeti.StatusBarKisaYolAciklama = "Hesap Makinesi";
+            txtToplamReceteMaliyeti.StatusBarAciklama = "";
             txtToplamReceteMaliyeti.StyleController = myDataLayoutControl2;
-            txtToplamReceteMaliyeti.TabIndex = 19;
+            txtToplamReceteMaliyeti.TabIndex = 21;
+            // 
+            // txtKur
+            // 
+            txtKur.EnterMoveNextControl = true;
+            txtKur.Location = new Point(336, 12);
+            txtKur.MenuManager = ribbon;
+            txtKur.Name = "txtKur";
+            txtKur.Properties.Appearance.BackColor = Color.FromArgb(236, 246, 255);
+            txtKur.Properties.Appearance.Font = new Font("Segoe UI", 8.25F, FontStyle.Bold);
+            txtKur.Properties.Appearance.Options.UseBackColor = true;
+            txtKur.Properties.Appearance.Options.UseFont = true;
+            txtKur.Properties.Appearance.Options.UseTextOptions = true;
+            txtKur.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            txtKur.Properties.MaxLength = 100;
+            txtKur.Properties.ReadOnly = true;
+            txtKur.Size = new Size(240, 22);
+            txtKur.StatusBarAciklama = "";
+            txtKur.StyleController = myDataLayoutControl2;
+            txtKur.TabIndex = 20;
             // 
             // btnMaliyetKirilimi
             // 
-            btnMaliyetKirilimi.Location = new Point(730, 43);
+            btnMaliyetKirilimi.Location = new Point(730, 74);
             btnMaliyetKirilimi.Name = "btnMaliyetKirilimi";
             btnMaliyetKirilimi.Size = new Size(146, 22);
             btnMaliyetKirilimi.StatusBarAciklama = "";
@@ -574,7 +572,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             // 
             txtTarih.EditValue = null;
             txtTarih.EnterMoveNextControl = true;
-            txtTarih.Location = new Point(333, 43);
+            txtTarih.Location = new Point(336, 43);
             txtTarih.MenuManager = ribbon;
             txtTarih.Name = "txtTarih";
             txtTarih.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
@@ -582,10 +580,9 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             txtTarih.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             txtTarih.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
             txtTarih.Properties.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
-            txtTarih.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.DateTimeAdvancingCaret;
             txtTarih.Properties.MaskSettings.Set("MaskManagerType", typeof(DevExpress.Data.Mask.DateTimeMaskManager));
             txtTarih.Properties.MaskSettings.Set("useAdvancingCaret", true);
-            txtTarih.Size = new Size(243, 22);
+            txtTarih.Size = new Size(240, 22);
             txtTarih.StatusBarAciklama = "";
             txtTarih.StatusBarKisaYol = "F4 :";
             txtTarih.StatusBarKisaYolAciklama = "Tarih Seç";
@@ -704,7 +701,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             // 
             layoutControlGroup1.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
             layoutControlGroup1.GroupBordersVisible = false;
-            layoutControlGroup1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] { layoutControlItem3, layoutControlItem9, layoutControlItem12, layoutControlItem6, layoutControlItem8, layoutControlItem5, layoutControlItem13, layoutControlItem7, layoutControlItem10, layoutControlItem4, layoutControlItem11 });
+            layoutControlGroup1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] { layoutControlItem3, layoutControlItem9, layoutControlItem12, layoutControlItem6, layoutControlItem8, layoutControlItem5, layoutControlItem13, layoutControlItem7, layoutControlItem11, layoutControlItem4, layoutControlItem15, layoutControlItem10, layoutControlItem16 });
             layoutControlGroup1.LayoutMode = DevExpress.XtraLayout.Utils.LayoutMode.Table;
             layoutControlGroup1.Name = "Root";
             columnDefinition3.SizeType = SizeType.Percent;
@@ -774,7 +771,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             layoutControlItem6.OptionsTableLayoutItem.RowIndex = 2;
             layoutControlItem6.Size = new Size(284, 31);
             layoutControlItem6.Text = "Mamül";
-            layoutControlItem6.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.AutoSize;
+            layoutControlItem6.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.CustomSize;
             layoutControlItem6.TextSize = new Size(35, 13);
             layoutControlItem6.TextToControlDistance = 5;
             // 
@@ -787,7 +784,9 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             layoutControlItem8.OptionsTableLayoutItem.RowIndex = 1;
             layoutControlItem8.Size = new Size(284, 31);
             layoutControlItem8.Text = "Tarih";
-            layoutControlItem8.TextSize = new Size(25, 13);
+            layoutControlItem8.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.CustomSize;
+            layoutControlItem8.TextSize = new Size(35, 13);
+            layoutControlItem8.TextToControlDistance = 5;
             // 
             // layoutControlItem5
             // 
@@ -821,15 +820,17 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             layoutControlItem7.TextSize = new Size(63, 13);
             layoutControlItem7.TextToControlDistance = 5;
             // 
-            // layoutControlItem10
+            // layoutControlItem11
             // 
-            layoutControlItem10.Control = btnMaliyetKirilimi;
-            layoutControlItem10.Location = new Point(718, 31);
-            layoutControlItem10.Name = "layoutControlItem10";
-            layoutControlItem10.OptionsTableLayoutItem.ColumnIndex = 3;
-            layoutControlItem10.OptionsTableLayoutItem.RowIndex = 1;
-            layoutControlItem10.Size = new Size(150, 31);
-            layoutControlItem10.TextVisible = false;
+            layoutControlItem11.Control = txtKur;
+            layoutControlItem11.Location = new Point(284, 0);
+            layoutControlItem11.Name = "layoutControlItem11";
+            layoutControlItem11.OptionsTableLayoutItem.ColumnIndex = 1;
+            layoutControlItem11.Size = new Size(284, 31);
+            layoutControlItem11.Text = "Kur";
+            layoutControlItem11.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.CustomSize;
+            layoutControlItem11.TextSize = new Size(35, 13);
+            layoutControlItem11.TextToControlDistance = 5;
             // 
             // layoutControlItem4
             // 
@@ -841,18 +842,6 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             layoutControlItem4.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.AutoSize;
             layoutControlItem4.TextSize = new Size(117, 13);
             layoutControlItem4.TextToControlDistance = 5;
-            // 
-            // layoutControlItem11
-            // 
-            layoutControlItem11.Control = txtKur;
-            layoutControlItem11.Location = new Point(284, 0);
-            layoutControlItem11.Name = "layoutControlItem11";
-            layoutControlItem11.OptionsTableLayoutItem.ColumnIndex = 1;
-            layoutControlItem11.Size = new Size(284, 31);
-            layoutControlItem11.Text = "Kur";
-            layoutControlItem11.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.CustomSize;
-            layoutControlItem11.TextSize = new Size(30, 13);
-            layoutControlItem11.TextToControlDistance = 5;
             // 
             // Root
             // 
@@ -889,6 +878,55 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             layoutControlItem2.Size = new Size(892, 197);
             layoutControlItem2.TextVisible = false;
             // 
+            // btnRevizeEt
+            // 
+            btnRevizeEt.Location = new Point(580, 12);
+            btnRevizeEt.Name = "btnRevizeEt";
+            btnRevizeEt.Size = new Size(146, 22);
+            btnRevizeEt.StatusBarAciklama = "";
+            btnRevizeEt.StyleController = myDataLayoutControl2;
+            btnRevizeEt.TabIndex = 22;
+            btnRevizeEt.Text = "Revizyon Oluştur";
+            // 
+            // layoutControlItem15
+            // 
+            layoutControlItem15.Control = btnRevizeEt;
+            layoutControlItem15.Location = new Point(568, 0);
+            layoutControlItem15.Name = "layoutControlItem15";
+            layoutControlItem15.OptionsTableLayoutItem.ColumnIndex = 2;
+            layoutControlItem15.Size = new Size(150, 31);
+            layoutControlItem15.TextVisible = false;
+            // 
+            // layoutControlItem10
+            // 
+            layoutControlItem10.Control = btnMaliyetKirilimi;
+            layoutControlItem10.Location = new Point(718, 62);
+            layoutControlItem10.Name = "layoutControlItem10";
+            layoutControlItem10.OptionsTableLayoutItem.ColumnIndex = 3;
+            layoutControlItem10.OptionsTableLayoutItem.RowIndex = 2;
+            layoutControlItem10.Size = new Size(150, 31);
+            layoutControlItem10.TextVisible = false;
+            // 
+            // btnKopyala
+            // 
+            btnKopyala.Location = new Point(730, 43);
+            btnKopyala.Name = "btnKopyala";
+            btnKopyala.Size = new Size(146, 22);
+            btnKopyala.StatusBarAciklama = "";
+            btnKopyala.StyleController = myDataLayoutControl2;
+            btnKopyala.TabIndex = 23;
+            btnKopyala.Text = "Reçeteyi Kopyala";
+            // 
+            // layoutControlItem16
+            // 
+            layoutControlItem16.Control = btnKopyala;
+            layoutControlItem16.Location = new Point(718, 31);
+            layoutControlItem16.Name = "layoutControlItem16";
+            layoutControlItem16.OptionsTableLayoutItem.ColumnIndex = 3;
+            layoutControlItem16.OptionsTableLayoutItem.RowIndex = 1;
+            layoutControlItem16.Size = new Size(150, 31);
+            layoutControlItem16.TextVisible = false;
+            // 
             // UrunReceteEditForm
             // 
             Appearance.Options.UseFont = true;
@@ -896,6 +934,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(914, 612);
             Controls.Add(xtraTabControl1);
+            Font = new Font("Segoe UI", 8.25F);
             IconOptions.ShowIcon = false;
             Name = "UrunReceteEditForm";
             Text = "Ürün Reçete Tanımı";
@@ -922,8 +961,8 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             ((System.ComponentModel.ISupportInitialize)layoutControlItem14).EndInit();
             ((System.ComponentModel.ISupportInitialize)myDataLayoutControl2).EndInit();
             myDataLayoutControl2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)txtKur.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtToplamReceteMaliyeti.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtKur.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtTarih.Properties.CalendarTimeProperties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtTarih.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)tglDurum.Properties).EndInit();
@@ -942,12 +981,14 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             ((System.ComponentModel.ISupportInitialize)layoutControlItem5).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem13).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem7).EndInit();
-            ((System.ComponentModel.ISupportInitialize)layoutControlItem10).EndInit();
-            ((System.ComponentModel.ISupportInitialize)layoutControlItem4).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem11).EndInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem4).EndInit();
             ((System.ComponentModel.ISupportInitialize)Root).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem1).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem15).EndInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem10).EndInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem16).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -1002,11 +1043,15 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem13;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem7;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem10;
         private UserControls.Controls.MyTextEdit txtKur;
-        private UserControls.Controls.MyCalcEdit txtToplamReceteMaliyeti;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem11;
         private UserControls.Grid.MyGridColumn colFireOrani;
+        private UserControls.Controls.MyTextEdit txtToplamReceteMaliyeti;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
+        private UserControls.Controls.MySimpleButton btnKopyala;
+        private UserControls.Controls.MySimpleButton btnRevizeEt;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem15;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem10;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem16;
     }
 }

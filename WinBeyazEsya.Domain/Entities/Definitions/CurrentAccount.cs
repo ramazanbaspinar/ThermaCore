@@ -6,7 +6,6 @@ namespace WinBeyazEsya.Domain.Entities.Definitions;
 public class CurrentAccount : FullAuditableEntity
 {
     public long LogicalRef { get; set; }
-    public int Active { get; set; } = 0;
     public int CardType { get; set; }
     public string Code { get; set; } = string.Empty;
 

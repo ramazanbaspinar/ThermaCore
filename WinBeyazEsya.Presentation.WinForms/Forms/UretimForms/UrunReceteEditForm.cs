@@ -207,7 +207,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             {
                 var repoSupplier = new DevExpress.XtraEditors.Repository.RepositoryItemSearchLookUpEdit();
                 repoSupplier.DataSource = _currentAccountService.GetAll()
-                    .Where(x => x.Active == 1 && (x.CardType == (int)CardType.Tedarikci || x.CardType == (int)CardType.MusteriVeTedarikci)).ToList();
+                    .Where(x => x.IsActive && (x.CardType == (int)CardType.Tedarikci || x.CardType == (int)CardType.MusteriVeTedarikci)).ToList();
                 repoSupplier.ValueMember = "Id";
                 repoSupplier.DisplayMember = "Title";
                 repoSupplier.NullText = "";
@@ -806,7 +806,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             _totalRecipeCost = _currentDto.TotalCost;
             _netMaterialCost = _currentDto.NetMaterialCost;
             
-            txtToplamReceteMaliyeti.EditValue = _currentDto.TotalCost;
+            txtToplamReceteMaliyeti.Text = $"{_currentDto.TotalCost:n2} {_defaultCurrency}";
             txtRevizyonNo.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             txtRevizyonNo.Properties.DisplayFormat.FormatString = "00";
 
@@ -1288,7 +1288,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                 if (isManualClick)
                     XtraMessageBox.Show("Lütfen maliyet hesaplaması için öncelikle bir Mamül seçiniz!", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 
-                txtToplamReceteMaliyeti.EditValue = 0m;
+                txtToplamReceteMaliyeti.Text = $"0.00 {_defaultCurrency}";
                 return;
             }
 
@@ -1363,7 +1363,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                 txtKur.Text = kurText;
             }
             
-            txtToplamReceteMaliyeti.EditValue = _totalRecipeCost;
+            txtToplamReceteMaliyeti.Text = $"{_totalRecipeCost:n2} {_defaultCurrency}";
 
             var sb = new StringBuilder();
             sb.AppendLine($"Ürün Grubu: {grupAdi} (Aylık Üretim: {aylikUretimAdedi} Adet)");

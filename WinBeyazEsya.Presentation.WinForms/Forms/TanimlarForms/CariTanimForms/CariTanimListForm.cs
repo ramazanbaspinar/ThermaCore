@@ -58,7 +58,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.CariTanimForms
 
         protected override void Listele()
         {
-            var liste = _currentAccountService.GetAll().Where(x => x.Active == (AktifKartlariGoster ? 1 : 0));
+            var liste = _currentAccountService.GetAll().Where(x => x.IsActive == AktifKartlariGoster);
             Tablo.GridControl.DataSource = liste.ToList();
         }
 

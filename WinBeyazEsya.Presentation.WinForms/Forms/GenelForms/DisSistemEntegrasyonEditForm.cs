@@ -60,15 +60,15 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             if (entType == 0) // Logo
             {
                 memoGonderilecekSorgu.Text = 
-$"-- CARİ KARTLAR SORGUSU --\r\n" +
-$"SELECT LOGICALREF, CODE, DEFINITION_ as TITLE, ACTIVE, TAXNR, TAXOFFICE, COUNTRY, TOWN, CITY, TELNRS1, TELNRS2, CELLPHONE\r\n" +
-$"FROM LG_{paddedFirmaNo}_CLCARD WHERE CARDTYPE = 3\r\n\r\n" +
-$"-- ÜLKELER SORGUSU --\r\n" +
-$"SELECT LOGICALREF, CODE, NAME FROM L_COUNTRY\r\n\r\n" +
-$"-- İLLER SORGUSU --\r\n" +
-$"SELECT LOGICALREF, CODE, NAME FROM L_CITY\r\n\r\n" +
-$"-- İLÇELER SORGUSU --\r\n" +
-$"SELECT LOGICALREF, CODE, NAME FROM L_TOWN";
+                        $"-- CARİ KARTLAR SORGUSU --\r\n" +
+                        $"SELECT LOGICALREF, CODE, DEFINITION_ as TITLE, ACTIVE, TAXNR, TAXOFFICE, COUNTRY, TOWN, CITY, TELNRS1, TELNRS2, CELLPHONE\r\n" +
+                        $"FROM LG_{paddedFirmaNo}_CLCARD WHERE CARDTYPE = 3\r\n\r\n" +
+                        $"-- ÜLKELER SORGUSU --\r\n" +
+                        $"SELECT LOGICALREF, CODE, NAME FROM L_COUNTRY\r\n\r\n" +
+                        $"-- İLLER SORGUSU --\r\n" +
+                        $"SELECT LOGICALREF, CODE, NAME FROM L_CITY\r\n\r\n" +
+                        $"-- İLÇELER SORGUSU --\r\n" +
+                        $"SELECT LOGICALREF, CODE, NAME FROM L_TOWN";
             }
             else // Özel
             {
