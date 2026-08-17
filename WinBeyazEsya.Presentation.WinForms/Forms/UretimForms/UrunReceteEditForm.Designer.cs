@@ -28,20 +28,20 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.XtraLayout.ColumnDefinition columnDefinition1 = new DevExpress.XtraLayout.ColumnDefinition();
-            DevExpress.XtraLayout.ColumnDefinition columnDefinition2 = new DevExpress.XtraLayout.ColumnDefinition();
-            DevExpress.XtraLayout.RowDefinition rowDefinition1 = new DevExpress.XtraLayout.RowDefinition();
-            DevExpress.XtraLayout.ColumnDefinition columnDefinition3 = new DevExpress.XtraLayout.ColumnDefinition();
-            DevExpress.XtraLayout.ColumnDefinition columnDefinition4 = new DevExpress.XtraLayout.ColumnDefinition();
-            DevExpress.XtraLayout.ColumnDefinition columnDefinition5 = new DevExpress.XtraLayout.ColumnDefinition();
-            DevExpress.XtraLayout.ColumnDefinition columnDefinition6 = new DevExpress.XtraLayout.ColumnDefinition();
-            DevExpress.XtraLayout.RowDefinition rowDefinition2 = new DevExpress.XtraLayout.RowDefinition();
-            DevExpress.XtraLayout.RowDefinition rowDefinition3 = new DevExpress.XtraLayout.RowDefinition();
-            DevExpress.XtraLayout.RowDefinition rowDefinition4 = new DevExpress.XtraLayout.RowDefinition();
-            DevExpress.XtraLayout.RowDefinition rowDefinition5 = new DevExpress.XtraLayout.RowDefinition();
-            DevExpress.XtraLayout.ColumnDefinition columnDefinition7 = new DevExpress.XtraLayout.ColumnDefinition();
-            DevExpress.XtraLayout.RowDefinition rowDefinition6 = new DevExpress.XtraLayout.RowDefinition();
-            DevExpress.XtraLayout.RowDefinition rowDefinition7 = new DevExpress.XtraLayout.RowDefinition();
+            DevExpress.XtraLayout.ColumnDefinition columnDefinition8 = new DevExpress.XtraLayout.ColumnDefinition();
+            DevExpress.XtraLayout.ColumnDefinition columnDefinition9 = new DevExpress.XtraLayout.ColumnDefinition();
+            DevExpress.XtraLayout.RowDefinition rowDefinition8 = new DevExpress.XtraLayout.RowDefinition();
+            DevExpress.XtraLayout.ColumnDefinition columnDefinition10 = new DevExpress.XtraLayout.ColumnDefinition();
+            DevExpress.XtraLayout.ColumnDefinition columnDefinition11 = new DevExpress.XtraLayout.ColumnDefinition();
+            DevExpress.XtraLayout.ColumnDefinition columnDefinition12 = new DevExpress.XtraLayout.ColumnDefinition();
+            DevExpress.XtraLayout.ColumnDefinition columnDefinition13 = new DevExpress.XtraLayout.ColumnDefinition();
+            DevExpress.XtraLayout.RowDefinition rowDefinition9 = new DevExpress.XtraLayout.RowDefinition();
+            DevExpress.XtraLayout.RowDefinition rowDefinition10 = new DevExpress.XtraLayout.RowDefinition();
+            DevExpress.XtraLayout.RowDefinition rowDefinition11 = new DevExpress.XtraLayout.RowDefinition();
+            DevExpress.XtraLayout.RowDefinition rowDefinition12 = new DevExpress.XtraLayout.RowDefinition();
+            DevExpress.XtraLayout.ColumnDefinition columnDefinition14 = new DevExpress.XtraLayout.ColumnDefinition();
+            DevExpress.XtraLayout.RowDefinition rowDefinition13 = new DevExpress.XtraLayout.RowDefinition();
+            DevExpress.XtraLayout.RowDefinition rowDefinition14 = new DevExpress.XtraLayout.RowDefinition();
             xtraTabControl1 = new DevExpress.XtraTab.XtraTabControl();
             tpReceteTanimi = new DevExpress.XtraTab.XtraTabPage();
             myDataLayoutControl1 = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyDataLayoutControl();
@@ -68,9 +68,11 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             layoutControlGroup2 = new DevExpress.XtraLayout.LayoutControlGroup();
             layoutControlItem14 = new DevExpress.XtraLayout.LayoutControlItem();
             myDataLayoutControl2 = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyDataLayoutControl();
+            btnKopyala = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MySimpleButton();
+            btnRevizeEt = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MySimpleButton();
             txtToplamReceteMaliyeti = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyTextEdit();
             txtKur = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyTextEdit();
-            btnMaliyetKirilimi = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MySimpleButton();
+            btnMaliyetDetaylari = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MySimpleButton();
             btnMaliyetiGuncelle = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MySimpleButton();
             txtTarih = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyDateEdit();
             tglDurum = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyToggleSwitch();
@@ -92,14 +94,12 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem11 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
+            layoutControlItem15 = new DevExpress.XtraLayout.LayoutControlItem();
+            layoutControlItem10 = new DevExpress.XtraLayout.LayoutControlItem();
+            layoutControlItem16 = new DevExpress.XtraLayout.LayoutControlItem();
             Root = new DevExpress.XtraLayout.LayoutControlGroup();
             layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
-            btnRevizeEt = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MySimpleButton();
-            layoutControlItem15 = new DevExpress.XtraLayout.LayoutControlItem();
-            layoutControlItem10 = new DevExpress.XtraLayout.LayoutControlItem();
-            btnKopyala = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MySimpleButton();
-            layoutControlItem16 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)ribbon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)xtraTabControl1).BeginInit();
             xtraTabControl1.SuspendLayout();
@@ -143,12 +143,12 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             ((System.ComponentModel.ISupportInitialize)layoutControlItem7).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem11).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem4).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)Root).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)layoutControlItem1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)layoutControlItem2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem15).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem10).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem16).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)Root).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem2).BeginInit();
             SuspendLayout();
             // 
             // ribbon
@@ -466,14 +466,14 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             layoutControlGroup2.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] { layoutControlItem14 });
             layoutControlGroup2.LayoutMode = DevExpress.XtraLayout.Utils.LayoutMode.Table;
             layoutControlGroup2.Name = "Root";
-            columnDefinition1.SizeType = SizeType.Percent;
-            columnDefinition1.Width = 100D;
-            columnDefinition2.SizeType = SizeType.Percent;
-            columnDefinition2.Width = 100D;
-            layoutControlGroup2.OptionsTableLayoutGroup.ColumnDefinitions.AddRange(new DevExpress.XtraLayout.ColumnDefinition[] { columnDefinition1, columnDefinition2 });
-            rowDefinition1.Height = 100D;
-            rowDefinition1.SizeType = SizeType.Percent;
-            layoutControlGroup2.OptionsTableLayoutGroup.RowDefinitions.AddRange(new DevExpress.XtraLayout.RowDefinition[] { rowDefinition1 });
+            columnDefinition8.SizeType = SizeType.Percent;
+            columnDefinition8.Width = 100D;
+            columnDefinition9.SizeType = SizeType.Percent;
+            columnDefinition9.Width = 100D;
+            layoutControlGroup2.OptionsTableLayoutGroup.ColumnDefinitions.AddRange(new DevExpress.XtraLayout.ColumnDefinition[] { columnDefinition8, columnDefinition9 });
+            rowDefinition8.Height = 100D;
+            rowDefinition8.SizeType = SizeType.Percent;
+            layoutControlGroup2.OptionsTableLayoutGroup.RowDefinitions.AddRange(new DevExpress.XtraLayout.RowDefinition[] { rowDefinition8 });
             layoutControlGroup2.Size = new Size(888, 193);
             layoutControlGroup2.TextVisible = false;
             // 
@@ -493,7 +493,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             myDataLayoutControl2.Controls.Add(btnRevizeEt);
             myDataLayoutControl2.Controls.Add(txtToplamReceteMaliyeti);
             myDataLayoutControl2.Controls.Add(txtKur);
-            myDataLayoutControl2.Controls.Add(btnMaliyetKirilimi);
+            myDataLayoutControl2.Controls.Add(btnMaliyetDetaylari);
             myDataLayoutControl2.Controls.Add(btnMaliyetiGuncelle);
             myDataLayoutControl2.Controls.Add(txtTarih);
             myDataLayoutControl2.Controls.Add(tglDurum);
@@ -510,6 +510,26 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             myDataLayoutControl2.Size = new Size(888, 181);
             myDataLayoutControl2.TabIndex = 4;
             myDataLayoutControl2.Text = "myDataLayoutControl2";
+            // 
+            // btnKopyala
+            // 
+            btnKopyala.Location = new Point(730, 43);
+            btnKopyala.Name = "btnKopyala";
+            btnKopyala.Size = new Size(146, 22);
+            btnKopyala.StatusBarAciklama = "";
+            btnKopyala.StyleController = myDataLayoutControl2;
+            btnKopyala.TabIndex = 23;
+            btnKopyala.Text = "Reçeteyi Kopyala";
+            // 
+            // btnRevizeEt
+            // 
+            btnRevizeEt.Location = new Point(580, 12);
+            btnRevizeEt.Name = "btnRevizeEt";
+            btnRevizeEt.Size = new Size(146, 22);
+            btnRevizeEt.StatusBarAciklama = "";
+            btnRevizeEt.StyleController = myDataLayoutControl2;
+            btnRevizeEt.TabIndex = 22;
+            btnRevizeEt.Text = "Revizyon Oluştur";
             // 
             // txtToplamReceteMaliyeti
             // 
@@ -548,15 +568,15 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             txtKur.StyleController = myDataLayoutControl2;
             txtKur.TabIndex = 20;
             // 
-            // btnMaliyetKirilimi
+            // btnMaliyetDetaylari
             // 
-            btnMaliyetKirilimi.Location = new Point(730, 74);
-            btnMaliyetKirilimi.Name = "btnMaliyetKirilimi";
-            btnMaliyetKirilimi.Size = new Size(146, 22);
-            btnMaliyetKirilimi.StatusBarAciklama = "";
-            btnMaliyetKirilimi.StyleController = myDataLayoutControl2;
-            btnMaliyetKirilimi.TabIndex = 18;
-            btnMaliyetKirilimi.Text = "Maliyet Kırılımı";
+            btnMaliyetDetaylari.Location = new Point(730, 74);
+            btnMaliyetDetaylari.Name = "btnMaliyetDetaylari";
+            btnMaliyetDetaylari.Size = new Size(146, 22);
+            btnMaliyetDetaylari.StatusBarAciklama = "";
+            btnMaliyetDetaylari.StyleController = myDataLayoutControl2;
+            btnMaliyetDetaylari.TabIndex = 18;
+            btnMaliyetDetaylari.Text = "Ürün Maliyet Detayları ve Analizi";
             // 
             // btnMaliyetiGuncelle
             // 
@@ -704,24 +724,24 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             layoutControlGroup1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] { layoutControlItem3, layoutControlItem9, layoutControlItem12, layoutControlItem6, layoutControlItem8, layoutControlItem5, layoutControlItem13, layoutControlItem7, layoutControlItem11, layoutControlItem4, layoutControlItem15, layoutControlItem10, layoutControlItem16 });
             layoutControlGroup1.LayoutMode = DevExpress.XtraLayout.Utils.LayoutMode.Table;
             layoutControlGroup1.Name = "Root";
-            columnDefinition3.SizeType = SizeType.Percent;
-            columnDefinition3.Width = 100D;
-            columnDefinition4.SizeType = SizeType.Percent;
-            columnDefinition4.Width = 100D;
-            columnDefinition5.SizeType = SizeType.Absolute;
-            columnDefinition5.Width = 150D;
-            columnDefinition6.SizeType = SizeType.Absolute;
-            columnDefinition6.Width = 150D;
-            layoutControlGroup1.OptionsTableLayoutGroup.ColumnDefinitions.AddRange(new DevExpress.XtraLayout.ColumnDefinition[] { columnDefinition3, columnDefinition4, columnDefinition5, columnDefinition6 });
-            rowDefinition2.Height = 31D;
-            rowDefinition2.SizeType = SizeType.Absolute;
-            rowDefinition3.Height = 31D;
-            rowDefinition3.SizeType = SizeType.Absolute;
-            rowDefinition4.Height = 31D;
-            rowDefinition4.SizeType = SizeType.Absolute;
-            rowDefinition5.Height = 62D;
-            rowDefinition5.SizeType = SizeType.Absolute;
-            layoutControlGroup1.OptionsTableLayoutGroup.RowDefinitions.AddRange(new DevExpress.XtraLayout.RowDefinition[] { rowDefinition2, rowDefinition3, rowDefinition4, rowDefinition5 });
+            columnDefinition10.SizeType = SizeType.Percent;
+            columnDefinition10.Width = 100D;
+            columnDefinition11.SizeType = SizeType.Percent;
+            columnDefinition11.Width = 100D;
+            columnDefinition12.SizeType = SizeType.Absolute;
+            columnDefinition12.Width = 150D;
+            columnDefinition13.SizeType = SizeType.Absolute;
+            columnDefinition13.Width = 150D;
+            layoutControlGroup1.OptionsTableLayoutGroup.ColumnDefinitions.AddRange(new DevExpress.XtraLayout.ColumnDefinition[] { columnDefinition10, columnDefinition11, columnDefinition12, columnDefinition13 });
+            rowDefinition9.Height = 31D;
+            rowDefinition9.SizeType = SizeType.Absolute;
+            rowDefinition10.Height = 31D;
+            rowDefinition10.SizeType = SizeType.Absolute;
+            rowDefinition11.Height = 31D;
+            rowDefinition11.SizeType = SizeType.Absolute;
+            rowDefinition12.Height = 62D;
+            rowDefinition12.SizeType = SizeType.Absolute;
+            layoutControlGroup1.OptionsTableLayoutGroup.RowDefinitions.AddRange(new DevExpress.XtraLayout.RowDefinition[] { rowDefinition9, rowDefinition10, rowDefinition11, rowDefinition12 });
             layoutControlGroup1.Size = new Size(888, 181);
             layoutControlGroup1.TextVisible = false;
             // 
@@ -843,6 +863,35 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             layoutControlItem4.TextSize = new Size(117, 13);
             layoutControlItem4.TextToControlDistance = 5;
             // 
+            // layoutControlItem15
+            // 
+            layoutControlItem15.Control = btnRevizeEt;
+            layoutControlItem15.Location = new Point(568, 0);
+            layoutControlItem15.Name = "layoutControlItem15";
+            layoutControlItem15.OptionsTableLayoutItem.ColumnIndex = 2;
+            layoutControlItem15.Size = new Size(150, 31);
+            layoutControlItem15.TextVisible = false;
+            // 
+            // layoutControlItem10
+            // 
+            layoutControlItem10.Control = btnMaliyetDetaylari;
+            layoutControlItem10.Location = new Point(718, 62);
+            layoutControlItem10.Name = "layoutControlItem10";
+            layoutControlItem10.OptionsTableLayoutItem.ColumnIndex = 3;
+            layoutControlItem10.OptionsTableLayoutItem.RowIndex = 2;
+            layoutControlItem10.Size = new Size(150, 31);
+            layoutControlItem10.TextVisible = false;
+            // 
+            // layoutControlItem16
+            // 
+            layoutControlItem16.Control = btnKopyala;
+            layoutControlItem16.Location = new Point(718, 31);
+            layoutControlItem16.Name = "layoutControlItem16";
+            layoutControlItem16.OptionsTableLayoutItem.ColumnIndex = 3;
+            layoutControlItem16.OptionsTableLayoutItem.RowIndex = 1;
+            layoutControlItem16.Size = new Size(150, 31);
+            layoutControlItem16.TextVisible = false;
+            // 
             // Root
             // 
             Root.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
@@ -850,14 +899,14 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             Root.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] { layoutControlItem1, layoutControlItem2 });
             Root.LayoutMode = DevExpress.XtraLayout.Utils.LayoutMode.Table;
             Root.Name = "Root";
-            columnDefinition7.SizeType = SizeType.Percent;
-            columnDefinition7.Width = 100D;
-            Root.OptionsTableLayoutGroup.ColumnDefinitions.AddRange(new DevExpress.XtraLayout.ColumnDefinition[] { columnDefinition7 });
-            rowDefinition6.Height = 185D;
-            rowDefinition6.SizeType = SizeType.Absolute;
-            rowDefinition7.Height = 100D;
-            rowDefinition7.SizeType = SizeType.Percent;
-            Root.OptionsTableLayoutGroup.RowDefinitions.AddRange(new DevExpress.XtraLayout.RowDefinition[] { rowDefinition6, rowDefinition7 });
+            columnDefinition14.SizeType = SizeType.Percent;
+            columnDefinition14.Width = 100D;
+            Root.OptionsTableLayoutGroup.ColumnDefinitions.AddRange(new DevExpress.XtraLayout.ColumnDefinition[] { columnDefinition14 });
+            rowDefinition13.Height = 185D;
+            rowDefinition13.SizeType = SizeType.Absolute;
+            rowDefinition14.Height = 100D;
+            rowDefinition14.SizeType = SizeType.Percent;
+            Root.OptionsTableLayoutGroup.RowDefinitions.AddRange(new DevExpress.XtraLayout.RowDefinition[] { rowDefinition13, rowDefinition14 });
             Root.Size = new Size(912, 402);
             Root.TextVisible = false;
             // 
@@ -877,55 +926,6 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             layoutControlItem2.OptionsTableLayoutItem.RowIndex = 1;
             layoutControlItem2.Size = new Size(892, 197);
             layoutControlItem2.TextVisible = false;
-            // 
-            // btnRevizeEt
-            // 
-            btnRevizeEt.Location = new Point(580, 12);
-            btnRevizeEt.Name = "btnRevizeEt";
-            btnRevizeEt.Size = new Size(146, 22);
-            btnRevizeEt.StatusBarAciklama = "";
-            btnRevizeEt.StyleController = myDataLayoutControl2;
-            btnRevizeEt.TabIndex = 22;
-            btnRevizeEt.Text = "Revizyon Oluştur";
-            // 
-            // layoutControlItem15
-            // 
-            layoutControlItem15.Control = btnRevizeEt;
-            layoutControlItem15.Location = new Point(568, 0);
-            layoutControlItem15.Name = "layoutControlItem15";
-            layoutControlItem15.OptionsTableLayoutItem.ColumnIndex = 2;
-            layoutControlItem15.Size = new Size(150, 31);
-            layoutControlItem15.TextVisible = false;
-            // 
-            // layoutControlItem10
-            // 
-            layoutControlItem10.Control = btnMaliyetKirilimi;
-            layoutControlItem10.Location = new Point(718, 62);
-            layoutControlItem10.Name = "layoutControlItem10";
-            layoutControlItem10.OptionsTableLayoutItem.ColumnIndex = 3;
-            layoutControlItem10.OptionsTableLayoutItem.RowIndex = 2;
-            layoutControlItem10.Size = new Size(150, 31);
-            layoutControlItem10.TextVisible = false;
-            // 
-            // btnKopyala
-            // 
-            btnKopyala.Location = new Point(730, 43);
-            btnKopyala.Name = "btnKopyala";
-            btnKopyala.Size = new Size(146, 22);
-            btnKopyala.StatusBarAciklama = "";
-            btnKopyala.StyleController = myDataLayoutControl2;
-            btnKopyala.TabIndex = 23;
-            btnKopyala.Text = "Reçeteyi Kopyala";
-            // 
-            // layoutControlItem16
-            // 
-            layoutControlItem16.Control = btnKopyala;
-            layoutControlItem16.Location = new Point(718, 31);
-            layoutControlItem16.Name = "layoutControlItem16";
-            layoutControlItem16.OptionsTableLayoutItem.ColumnIndex = 3;
-            layoutControlItem16.OptionsTableLayoutItem.RowIndex = 1;
-            layoutControlItem16.Size = new Size(150, 31);
-            layoutControlItem16.TextVisible = false;
             // 
             // UrunReceteEditForm
             // 
@@ -983,12 +983,12 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             ((System.ComponentModel.ISupportInitialize)layoutControlItem7).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem11).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem4).EndInit();
-            ((System.ComponentModel.ISupportInitialize)Root).EndInit();
-            ((System.ComponentModel.ISupportInitialize)layoutControlItem1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)layoutControlItem2).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem15).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem10).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem16).EndInit();
+            ((System.ComponentModel.ISupportInitialize)Root).EndInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem2).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -1039,7 +1039,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
         private UserControls.Controls.MyDateEdit txtTarih;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem8;
         private UserControls.Controls.MySimpleButton btnMaliyetiGuncelle;
-        private UserControls.Controls.MySimpleButton btnMaliyetKirilimi;
+        private UserControls.Controls.MySimpleButton btnMaliyetDetaylari;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem13;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem7;

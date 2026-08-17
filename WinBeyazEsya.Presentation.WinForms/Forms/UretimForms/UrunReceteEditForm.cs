@@ -145,7 +145,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                 if (btnRevizeEt != null) btnRevizeEt.Click -= BtnRevizeEt_Click;
                 if (btnKopyala != null) btnKopyala.Click -= BtnKopyala_Click;
                 if (btnMaliyetiGuncelle != null) btnMaliyetiGuncelle.Click -= BtnMaliyetiGuncelle_Click;
-                if (btnMaliyetKirilimi != null) btnMaliyetKirilimi.Click -= BtnMaliyetKirilimi_Click;
+                if (btnMaliyetDetaylari != null) btnMaliyetDetaylari.Click -= BtnMaliyetKirilimi_Click;
 
                 treeList1.MouseDown -= TreeList1_MouseDown;
                 treeList1.MouseMove -= TreeList1_MouseMove;
@@ -173,7 +173,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                 myGridView1.RowDeleted += MyGridView1_RowDeleted;
                 
                 if (btnMaliyetiGuncelle != null) btnMaliyetiGuncelle.Click += BtnMaliyetiGuncelle_Click;
-                if (btnMaliyetKirilimi != null) btnMaliyetKirilimi.Click += BtnMaliyetKirilimi_Click;
+                if (btnMaliyetDetaylari != null) btnMaliyetDetaylari.Click += BtnMaliyetKirilimi_Click;
             }
         }
 
@@ -1286,13 +1286,80 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
 
         private void BtnMaliyetKirilimi_Click(object? sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(_costBreakdownText))
+            if (_lines == null || _lines.Count == 0)
             {
-                XtraMessageBox.Show("Önce maliyeti güncelleyiniz.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                XtraMessageBox.Show("Reçetede hiç hammadde satırı bulunmamaktadır.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            XtraMessageBox.Show(_costBreakdownText, "Maliyet Kırılımı", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            // Fire tutarını hesapla: Her satırda (TotalMaterialCost - net maliyet) farkının toplamı
+            decimal toplamFireTutari = 0;
+            foreach (var line in _lines)
+            {
+                decimal netCost;
+                if (line.MaterialType == Domain.Enums.MaterialType.MetalAndSheet)
+                    netCost = line.WeightKg * line.UnitPrice * line.Quantity;
+                else
+                    netCost = line.Quantity * line.UnitPrice;
+
+                decimal fireFarki = line.TotalMaterialCost - netCost;
+                if (fireFarki < 0) fireFarki = 0; // kaplama maliyetlerini dahil etme
+                toplamFireTutari += fireFarki;
+            }
+
+            // GÜG birim başına payı hesapla
+            decimal gugBirimPay = 0;
+            if (_serviceProvider != null)
+            {
+                var finishedGoodService = _serviceProvider.GetService<IFinishedGoodService>();
+                var maliyetParametreService = _serviceProvider.GetService<WinBeyazEsya.Application.Interfaces.Management.IMaliyetParametreService>();
+                if (finishedGoodService != null && maliyetParametreService != null && glufMamul.EditValue != null)
+                {
+                    long fgId = Convert.ToInt64(glufMamul.EditValue);
+                    var fg = finishedGoodService.GetById(fgId);
+                    var param = maliyetParametreService.GetMaliyetParametreAsync().GetAwaiter().GetResult();
+                    if (fg != null && param != null)
+                    {
+                        int aylikUretim = 1;
+                        switch (fg.GroupType)
+                        {
+                            case Domain.Enums.FinishedGoodGroupType.Firin: aylikUretim = param.OvenAvgMonthlyProduction > 0 ? param.OvenAvgMonthlyProduction : 1; break;
+                            case Domain.Enums.FinishedGoodGroupType.Ocak: aylikUretim = param.CookerAvgMonthlyProduction > 0 ? param.CookerAvgMonthlyProduction : 1; break;
+                            case Domain.Enums.FinishedGoodGroupType.Ankastre: aylikUretim = param.BuiltInAvgMonthlyProduction > 0 ? param.BuiltInAvgMonthlyProduction : 1; break;
+                            case Domain.Enums.FinishedGoodGroupType.Tamboy: aylikUretim = param.FreestandingAvgMonthlyProduction > 0 ? param.FreestandingAvgMonthlyProduction : 1; break;
+                            case Domain.Enums.FinishedGoodGroupType.Diger: aylikUretim = param.OtherAvgMonthlyProduction > 0 ? param.OtherAvgMonthlyProduction : 1; break;
+                        }
+                        gugBirimPay = _totalOverhead / aylikUretim;
+                    }
+                }
+            }
+
+            // Ürün adını bul
+            string urunAdi = "";
+            if (_serviceProvider != null && glufMamul.EditValue != null)
+            {
+                var fgService = _serviceProvider.GetService<IFinishedGoodService>();
+                if (fgService != null)
+                {
+                    var fg = fgService.GetById(Convert.ToInt64(glufMamul.EditValue));
+                    if (fg != null) urunAdi = fg.Name;
+                }
+            }
+
+            decimal genelToplam = _netMaterialCost + gugBirimPay;
+
+            var detayForm = new UrunMaliyetDetaylariForm(
+                _currentDto,
+                urunAdi,
+                _netMaterialCost,
+                toplamFireTutari,
+                gugBirimPay,
+                genelToplam,
+                _defaultCurrency);
+
+            detayForm.ShowDialog();
         }
+
 
         private async Task MaliyetiHesaplaAsync(bool isManualClick = false)
         {
