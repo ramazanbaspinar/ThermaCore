@@ -47,6 +47,16 @@
             DevExpress.XtraLayout.RowDefinition rowDefinition12 = new DevExpress.XtraLayout.RowDefinition();
             DevExpress.XtraLayout.ColumnDefinition columnDefinition6 = new DevExpress.XtraLayout.ColumnDefinition();
             DevExpress.XtraLayout.RowDefinition rowDefinition13 = new DevExpress.XtraLayout.RowDefinition();
+            DevExpress.XtraLayout.ColumnDefinition columnDefinition7 = new DevExpress.XtraLayout.ColumnDefinition();
+            DevExpress.XtraLayout.ColumnDefinition columnDefinition8 = new DevExpress.XtraLayout.ColumnDefinition();
+            DevExpress.XtraLayout.RowDefinition rowDefinition14 = new DevExpress.XtraLayout.RowDefinition();
+            DevExpress.XtraLayout.RowDefinition rowDefinition15 = new DevExpress.XtraLayout.RowDefinition();
+            DevExpress.XtraLayout.RowDefinition rowDefinition16 = new DevExpress.XtraLayout.RowDefinition();
+            DevExpress.XtraLayout.RowDefinition rowDefinition17 = new DevExpress.XtraLayout.RowDefinition();
+            DevExpress.XtraLayout.RowDefinition rowDefinition18 = new DevExpress.XtraLayout.RowDefinition();
+            DevExpress.XtraLayout.RowDefinition rowDefinition19 = new DevExpress.XtraLayout.RowDefinition();
+            DevExpress.XtraLayout.RowDefinition rowDefinition20 = new DevExpress.XtraLayout.RowDefinition();
+            DevExpress.XtraLayout.RowDefinition rowDefinition21 = new DevExpress.XtraLayout.RowDefinition();
             xtraTabControl1 = new DevExpress.XtraTab.XtraTabControl();
             tpFirmaBilgileri = new DevExpress.XtraTab.XtraTabPage();
             myDataLayoutControl1 = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyDataLayoutControl();
@@ -94,6 +104,35 @@
             txtUpdatePath = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyTextEdit();
             layoutControlGroup3 = new DevExpress.XtraLayout.LayoutControlGroup();
             layoutControlItem14 = new DevExpress.XtraLayout.LayoutControlItem();
+            tpDisSistemEntegrasyonu = new DevExpress.XtraTab.XtraTabPage();
+            myDataLayoutControl5 = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyDataLayoutControl();
+            layoutControlGroup4 = new DevExpress.XtraLayout.LayoutControlGroup();
+            txtKaynakSunucuIp = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyTextEdit();
+            layoutControlItem15 = new DevExpress.XtraLayout.LayoutControlItem();
+            txtKaynakVeritabani = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyTextEdit();
+            layoutControlItem16 = new DevExpress.XtraLayout.LayoutControlItem();
+            txtKullaniciAdi = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyTextEdit();
+            layoutControlItem17 = new DevExpress.XtraLayout.LayoutControlItem();
+            txtSifre = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyTextEdit();
+            layoutControlItem18 = new DevExpress.XtraLayout.LayoutControlItem();
+            txtFirmaNo = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyTextEdit();
+            layoutControlItem19 = new DevExpress.XtraLayout.LayoutControlItem();
+            btnBaglantiTestEt = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MySimpleButton();
+            layoutControlItem20 = new DevExpress.XtraLayout.LayoutControlItem();
+            cmbEntegrasyonTipi = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyComboBoxEdit();
+            layoutControlItem21 = new DevExpress.XtraLayout.LayoutControlItem();
+            memoOzelSorgu = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyMemoEdit();
+            layoutControlItem22 = new DevExpress.XtraLayout.LayoutControlItem();
+            btnUlkeleriAktar = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MySimpleButton();
+            layoutControlItem23 = new DevExpress.XtraLayout.LayoutControlItem();
+            btnIlleriAktar = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MySimpleButton();
+            layoutControlItem24 = new DevExpress.XtraLayout.LayoutControlItem();
+            btnIlceleriAktar = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MySimpleButton();
+            layoutControlItem25 = new DevExpress.XtraLayout.LayoutControlItem();
+            btnCarileriAktar = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MySimpleButton();
+            layoutControlItem26 = new DevExpress.XtraLayout.LayoutControlItem();
+            btnTamaminiAktar = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MySimpleButton();
+            layoutControlItem27 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)ribbon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)xtraTabControl1).BeginInit();
             xtraTabControl1.SuspendLayout();
@@ -144,12 +183,36 @@
             ((System.ComponentModel.ISupportInitialize)txtUpdatePath.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlGroup3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem14).BeginInit();
+            tpDisSistemEntegrasyonu.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)myDataLayoutControl5).BeginInit();
+            myDataLayoutControl5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)layoutControlGroup4).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtKaynakSunucuIp.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem15).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtKaynakVeritabani.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem16).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtKullaniciAdi.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem17).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtSifre.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem18).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtFirmaNo.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem19).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem20).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)cmbEntegrasyonTipi.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem21).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)memoOzelSorgu.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem22).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem23).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem24).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem25).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem26).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem27).BeginInit();
             SuspendLayout();
             // 
             // ribbon
             // 
             ribbon.ExpandCollapseItem.Id = 0;
-            ribbon.Size = new Size(598, 155);
+            ribbon.Size = new Size(701, 155);
             ribbon.Toolbar.ShowCustomizeItem = false;
             // 
             // xtraTabControl1
@@ -158,9 +221,9 @@
             xtraTabControl1.Location = new Point(0, 155);
             xtraTabControl1.Name = "xtraTabControl1";
             xtraTabControl1.SelectedTabPage = tpFirmaBilgileri;
-            xtraTabControl1.Size = new Size(598, 213);
+            xtraTabControl1.Size = new Size(701, 365);
             xtraTabControl1.TabIndex = 0;
-            xtraTabControl1.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] { tpFirmaBilgileri, tpTicariAyarlar, tpUretimAyarlari, tpProgramAyarlari });
+            xtraTabControl1.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] { tpFirmaBilgileri, tpTicariAyarlar, tpUretimAyarlari, tpProgramAyarlari, tpDisSistemEntegrasyonu });
             // 
             // tpFirmaBilgileri
             // 
@@ -194,9 +257,6 @@
             txtEmail.Location = new Point(113, 136);
             txtEmail.MenuManager = ribbon;
             txtEmail.Name = "txtEmail";
-            txtEmail.Properties.Mask.AutoComplete = DevExpress.XtraEditors.Mask.AutoCompleteType.Strong;
-            txtEmail.Properties.Mask.EditMask = "((([0-9a-zA-Z_%-])+[.])+|([0-9a-zA-Z_%-])+)+@((([0-9a-zA-Z_-])+[.])+|([0-9a-zA-Z_-])+)+";
-            txtEmail.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.RegEx;
             txtEmail.Properties.MaskSettings.Set("MaskManagerType", typeof(DevExpress.Data.Mask.RegExpMaskManager));
             txtEmail.Properties.MaskSettings.Set("allowBlankInput", true);
             txtEmail.Properties.MaskSettings.Set("mask", "((([0-9a-zA-Z_%-])+[.])+|([0-9a-zA-Z_%-])+)+@((([0-9a-zA-Z_-])+[.])+|([0-9a-zA-Z_-])+)+");
@@ -215,9 +275,6 @@
             txtTelefon.Location = new Point(113, 105);
             txtTelefon.MenuManager = ribbon;
             txtTelefon.Name = "txtTelefon";
-            txtTelefon.Properties.Mask.AutoComplete = DevExpress.XtraEditors.Mask.AutoCompleteType.None;
-            txtTelefon.Properties.Mask.EditMask = "(\\d?\\d?\\d?) \\d?\\d?\\d? \\d?\\d? \\d?\\d?";
-            txtTelefon.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Regular;
             txtTelefon.Properties.MaskSettings.Set("MaskManagerType", typeof(DevExpress.Data.Mask.RegularMaskManager));
             txtTelefon.Properties.MaskSettings.Set("mask", "(\\d?\\d?\\d?) \\d?\\d?\\d? \\d?\\d? \\d?\\d?");
             txtTelefon.Properties.MaskSettings.Set("isAutoComplete", false);
@@ -698,7 +755,7 @@
             // 
             tpProgramAyarlari.Controls.Add(myDataLayoutControl4);
             tpProgramAyarlari.Name = "tpProgramAyarlari";
-            tpProgramAyarlari.Size = new Size(596, 216);
+            tpProgramAyarlari.Size = new Size(596, 189);
             tpProgramAyarlari.Tag = "ProgramAyarlari";
             tpProgramAyarlari.Text = "Program Ayarları";
             // 
@@ -711,7 +768,7 @@
             myDataLayoutControl4.Name = "myDataLayoutControl4";
             myDataLayoutControl4.OptionsFocus.EnableAutoTabOrder = false;
             myDataLayoutControl4.Root = layoutControlGroup3;
-            myDataLayoutControl4.Size = new Size(596, 216);
+            myDataLayoutControl4.Size = new Size(596, 189);
             myDataLayoutControl4.TabIndex = 0;
             myDataLayoutControl4.Text = "myDataLayoutControl4";
             // 
@@ -741,7 +798,7 @@
             rowDefinition13.Height = 31D;
             rowDefinition13.SizeType = SizeType.Absolute;
             layoutControlGroup3.OptionsTableLayoutGroup.RowDefinitions.AddRange(new DevExpress.XtraLayout.RowDefinition[] { rowDefinition13 });
-            layoutControlGroup3.Size = new Size(596, 216);
+            layoutControlGroup3.Size = new Size(596, 189);
             layoutControlGroup3.TextVisible = false;
             // 
             // layoutControlItem14
@@ -749,15 +806,355 @@
             layoutControlItem14.Control = txtUpdatePath;
             layoutControlItem14.Location = new Point(0, 0);
             layoutControlItem14.Name = "layoutControlItem14";
-            layoutControlItem14.Size = new Size(576, 196);
+            layoutControlItem14.Size = new Size(576, 169);
             layoutControlItem14.Text = "Güncelleme Yolu";
             layoutControlItem14.TextSize = new Size(85, 13);
+            // 
+            // tpDisSistemEntegrasyonu
+            // 
+            tpDisSistemEntegrasyonu.Controls.Add(myDataLayoutControl5);
+            tpDisSistemEntegrasyonu.Name = "tpDisSistemEntegrasyonu";
+            tpDisSistemEntegrasyonu.Size = new Size(699, 341);
+            tpDisSistemEntegrasyonu.Text = "Dış Sistem Entegrasyonu";
+            // 
+            // myDataLayoutControl5
+            // 
+            myDataLayoutControl5.AllowCustomization = false;
+            myDataLayoutControl5.Controls.Add(btnTamaminiAktar);
+            myDataLayoutControl5.Controls.Add(btnCarileriAktar);
+            myDataLayoutControl5.Controls.Add(btnIlceleriAktar);
+            myDataLayoutControl5.Controls.Add(btnIlleriAktar);
+            myDataLayoutControl5.Controls.Add(btnUlkeleriAktar);
+            myDataLayoutControl5.Controls.Add(memoOzelSorgu);
+            myDataLayoutControl5.Controls.Add(cmbEntegrasyonTipi);
+            myDataLayoutControl5.Controls.Add(btnBaglantiTestEt);
+            myDataLayoutControl5.Controls.Add(txtFirmaNo);
+            myDataLayoutControl5.Controls.Add(txtSifre);
+            myDataLayoutControl5.Controls.Add(txtKullaniciAdi);
+            myDataLayoutControl5.Controls.Add(txtKaynakVeritabani);
+            myDataLayoutControl5.Controls.Add(txtKaynakSunucuIp);
+            myDataLayoutControl5.Dock = DockStyle.Fill;
+            myDataLayoutControl5.Location = new Point(0, 0);
+            myDataLayoutControl5.Name = "myDataLayoutControl5";
+            myDataLayoutControl5.OptionsFocus.EnableAutoTabOrder = false;
+            myDataLayoutControl5.Root = layoutControlGroup4;
+            myDataLayoutControl5.Size = new Size(699, 341);
+            myDataLayoutControl5.TabIndex = 0;
+            myDataLayoutControl5.Text = "myDataLayoutControl5";
+            // 
+            // layoutControlGroup4
+            // 
+            layoutControlGroup4.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
+            layoutControlGroup4.GroupBordersVisible = false;
+            layoutControlGroup4.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] { layoutControlItem15, layoutControlItem16, layoutControlItem17, layoutControlItem18, layoutControlItem19, layoutControlItem20, layoutControlItem21, layoutControlItem22, layoutControlItem23, layoutControlItem24, layoutControlItem25, layoutControlItem26, layoutControlItem27 });
+            layoutControlGroup4.LayoutMode = DevExpress.XtraLayout.Utils.LayoutMode.Table;
+            layoutControlGroup4.Name = "layoutControlGroup4";
+            columnDefinition7.SizeType = SizeType.Percent;
+            columnDefinition7.Width = 100D;
+            columnDefinition8.SizeType = SizeType.Percent;
+            columnDefinition8.Width = 100D;
+            layoutControlGroup4.OptionsTableLayoutGroup.ColumnDefinitions.AddRange(new DevExpress.XtraLayout.ColumnDefinition[] { columnDefinition7, columnDefinition8 });
+            rowDefinition14.Height = 31D;
+            rowDefinition14.SizeType = SizeType.Absolute;
+            rowDefinition15.Height = 31D;
+            rowDefinition15.SizeType = SizeType.Absolute;
+            rowDefinition16.Height = 31D;
+            rowDefinition16.SizeType = SizeType.Absolute;
+            rowDefinition17.Height = 31D;
+            rowDefinition17.SizeType = SizeType.Absolute;
+            rowDefinition18.Height = 100D;
+            rowDefinition18.SizeType = SizeType.Percent;
+            rowDefinition19.Height = 31D;
+            rowDefinition19.SizeType = SizeType.Absolute;
+            rowDefinition20.Height = 31D;
+            rowDefinition20.SizeType = SizeType.Absolute;
+            rowDefinition21.Height = 31D;
+            rowDefinition21.SizeType = SizeType.Absolute;
+            layoutControlGroup4.OptionsTableLayoutGroup.RowDefinitions.AddRange(new DevExpress.XtraLayout.RowDefinition[] { rowDefinition14, rowDefinition15, rowDefinition16, rowDefinition17, rowDefinition18, rowDefinition19, rowDefinition20, rowDefinition21 });
+            layoutControlGroup4.Size = new Size(699, 341);
+            layoutControlGroup4.TextVisible = false;
+            // 
+            // txtKaynakSunucuIp
+            // 
+            txtKaynakSunucuIp.EnterMoveNextControl = true;
+            txtKaynakSunucuIp.Location = new Point(116, 12);
+            txtKaynakSunucuIp.MenuManager = ribbon;
+            txtKaynakSunucuIp.Name = "txtKaynakSunucuIp";
+            txtKaynakSunucuIp.Properties.MaxLength = 100;
+            txtKaynakSunucuIp.Size = new Size(231, 22);
+            txtKaynakSunucuIp.StatusBarAciklama = "";
+            txtKaynakSunucuIp.StyleController = myDataLayoutControl5;
+            txtKaynakSunucuIp.TabIndex = 4;
+            // 
+            // layoutControlItem15
+            // 
+            layoutControlItem15.Control = txtKaynakSunucuIp;
+            layoutControlItem15.Location = new Point(0, 0);
+            layoutControlItem15.Name = "layoutControlItem15";
+            layoutControlItem15.Size = new Size(339, 31);
+            layoutControlItem15.Text = "Kaynak Sunucu IP";
+            layoutControlItem15.TextSize = new Size(92, 13);
+            // 
+            // txtKaynakVeritabani
+            // 
+            txtKaynakVeritabani.EnterMoveNextControl = true;
+            txtKaynakVeritabani.Location = new Point(455, 12);
+            txtKaynakVeritabani.MenuManager = ribbon;
+            txtKaynakVeritabani.Name = "txtKaynakVeritabani";
+            txtKaynakVeritabani.Properties.MaxLength = 100;
+            txtKaynakVeritabani.Size = new Size(232, 22);
+            txtKaynakVeritabani.StatusBarAciklama = "";
+            txtKaynakVeritabani.StyleController = myDataLayoutControl5;
+            txtKaynakVeritabani.TabIndex = 5;
+            // 
+            // layoutControlItem16
+            // 
+            layoutControlItem16.Control = txtKaynakVeritabani;
+            layoutControlItem16.Location = new Point(339, 0);
+            layoutControlItem16.Name = "layoutControlItem16";
+            layoutControlItem16.OptionsTableLayoutItem.ColumnIndex = 1;
+            layoutControlItem16.Size = new Size(340, 31);
+            layoutControlItem16.Text = "Kaynak Veritabanı";
+            layoutControlItem16.TextSize = new Size(92, 13);
+            // 
+            // txtKullaniciAdi
+            // 
+            txtKullaniciAdi.EnterMoveNextControl = true;
+            txtKullaniciAdi.Location = new Point(116, 43);
+            txtKullaniciAdi.MenuManager = ribbon;
+            txtKullaniciAdi.Name = "txtKullaniciAdi";
+            txtKullaniciAdi.Properties.MaxLength = 100;
+            txtKullaniciAdi.Size = new Size(231, 22);
+            txtKullaniciAdi.StatusBarAciklama = "";
+            txtKullaniciAdi.StyleController = myDataLayoutControl5;
+            txtKullaniciAdi.TabIndex = 6;
+            // 
+            // layoutControlItem17
+            // 
+            layoutControlItem17.Control = txtKullaniciAdi;
+            layoutControlItem17.Location = new Point(0, 31);
+            layoutControlItem17.Name = "layoutControlItem17";
+            layoutControlItem17.OptionsTableLayoutItem.RowIndex = 1;
+            layoutControlItem17.Size = new Size(339, 31);
+            layoutControlItem17.Text = "Kullanıcı Adı";
+            layoutControlItem17.TextSize = new Size(92, 13);
+            // 
+            // txtSifre
+            // 
+            txtSifre.EnterMoveNextControl = true;
+            txtSifre.Location = new Point(455, 43);
+            txtSifre.MenuManager = ribbon;
+            txtSifre.Name = "txtSifre";
+            txtSifre.Properties.MaxLength = 100;
+            txtSifre.Size = new Size(232, 22);
+            txtSifre.StatusBarAciklama = "";
+            txtSifre.StyleController = myDataLayoutControl5;
+            txtSifre.TabIndex = 7;
+            // 
+            // layoutControlItem18
+            // 
+            layoutControlItem18.Control = txtSifre;
+            layoutControlItem18.Location = new Point(339, 31);
+            layoutControlItem18.Name = "layoutControlItem18";
+            layoutControlItem18.OptionsTableLayoutItem.ColumnIndex = 1;
+            layoutControlItem18.OptionsTableLayoutItem.RowIndex = 1;
+            layoutControlItem18.Size = new Size(340, 31);
+            layoutControlItem18.Text = "Şifre";
+            layoutControlItem18.TextSize = new Size(92, 13);
+            // 
+            // txtFirmaNo
+            // 
+            txtFirmaNo.EnterMoveNextControl = true;
+            txtFirmaNo.Location = new Point(455, 105);
+            txtFirmaNo.MenuManager = ribbon;
+            txtFirmaNo.Name = "txtFirmaNo";
+            txtFirmaNo.Properties.MaxLength = 100;
+            txtFirmaNo.Size = new Size(232, 22);
+            txtFirmaNo.StatusBarAciklama = "";
+            txtFirmaNo.StyleController = myDataLayoutControl5;
+            txtFirmaNo.TabIndex = 8;
+            // 
+            // layoutControlItem19
+            // 
+            layoutControlItem19.Control = txtFirmaNo;
+            layoutControlItem19.Location = new Point(339, 93);
+            layoutControlItem19.Name = "layoutControlItem19";
+            layoutControlItem19.OptionsTableLayoutItem.ColumnIndex = 1;
+            layoutControlItem19.OptionsTableLayoutItem.RowIndex = 3;
+            layoutControlItem19.Size = new Size(340, 31);
+            layoutControlItem19.Text = "Firma No";
+            layoutControlItem19.TextSize = new Size(92, 13);
+            // 
+            // btnBaglantiTestEt
+            // 
+            btnBaglantiTestEt.Location = new Point(12, 74);
+            btnBaglantiTestEt.Name = "btnBaglantiTestEt";
+            btnBaglantiTestEt.Size = new Size(675, 22);
+            btnBaglantiTestEt.StatusBarAciklama = "";
+            btnBaglantiTestEt.StyleController = myDataLayoutControl5;
+            btnBaglantiTestEt.TabIndex = 9;
+            btnBaglantiTestEt.Text = "Bağlantıyı Test Et";
+            // 
+            // layoutControlItem20
+            // 
+            layoutControlItem20.Control = btnBaglantiTestEt;
+            layoutControlItem20.Location = new Point(0, 62);
+            layoutControlItem20.Name = "layoutControlItem20";
+            layoutControlItem20.OptionsTableLayoutItem.ColumnSpan = 2;
+            layoutControlItem20.OptionsTableLayoutItem.RowIndex = 2;
+            layoutControlItem20.Size = new Size(679, 31);
+            layoutControlItem20.TextVisible = false;
+            // 
+            // cmbEntegrasyonTipi
+            // 
+            cmbEntegrasyonTipi.EnterMoveNextControl = true;
+            cmbEntegrasyonTipi.Location = new Point(116, 105);
+            cmbEntegrasyonTipi.MenuManager = ribbon;
+            cmbEntegrasyonTipi.Name = "cmbEntegrasyonTipi";
+            cmbEntegrasyonTipi.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
+            cmbEntegrasyonTipi.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            cmbEntegrasyonTipi.Size = new Size(231, 22);
+            cmbEntegrasyonTipi.StatusBarAciklama = "";
+            cmbEntegrasyonTipi.StatusBarKisaYol = "F4 :";
+            cmbEntegrasyonTipi.StatusBarKisaYolAciklama = "";
+            cmbEntegrasyonTipi.StyleController = myDataLayoutControl5;
+            cmbEntegrasyonTipi.TabIndex = 10;
+            // 
+            // layoutControlItem21
+            // 
+            layoutControlItem21.Control = cmbEntegrasyonTipi;
+            layoutControlItem21.Location = new Point(0, 93);
+            layoutControlItem21.Name = "layoutControlItem21";
+            layoutControlItem21.OptionsTableLayoutItem.RowIndex = 3;
+            layoutControlItem21.Size = new Size(339, 31);
+            layoutControlItem21.Text = "Entegrasyon Tipi";
+            layoutControlItem21.TextSize = new Size(92, 13);
+            // 
+            // memoOzelSorgu
+            // 
+            memoOzelSorgu.EnterMoveNextControl = true;
+            memoOzelSorgu.Location = new Point(116, 136);
+            memoOzelSorgu.MenuManager = ribbon;
+            memoOzelSorgu.Name = "memoOzelSorgu";
+            memoOzelSorgu.Properties.MaxLength = 500;
+            memoOzelSorgu.Size = new Size(571, 100);
+            memoOzelSorgu.StatusBarAciklama = "Açıklama Giriniz.";
+            memoOzelSorgu.StyleController = myDataLayoutControl5;
+            memoOzelSorgu.TabIndex = 11;
+            // 
+            // layoutControlItem22
+            // 
+            layoutControlItem22.Control = memoOzelSorgu;
+            layoutControlItem22.Location = new Point(0, 124);
+            layoutControlItem22.Name = "layoutControlItem22";
+            layoutControlItem22.OptionsTableLayoutItem.ColumnSpan = 2;
+            layoutControlItem22.OptionsTableLayoutItem.RowIndex = 4;
+            layoutControlItem22.Size = new Size(679, 104);
+            layoutControlItem22.Text = "Özel Sorgu";
+            layoutControlItem22.TextSize = new Size(92, 13);
+            // 
+            // btnUlkeleriAktar
+            // 
+            btnUlkeleriAktar.Location = new Point(12, 240);
+            btnUlkeleriAktar.Name = "btnUlkeleriAktar";
+            btnUlkeleriAktar.Size = new Size(335, 22);
+            btnUlkeleriAktar.StatusBarAciklama = "";
+            btnUlkeleriAktar.StyleController = myDataLayoutControl5;
+            btnUlkeleriAktar.TabIndex = 12;
+            btnUlkeleriAktar.Text = "Ülkeleri Aktar";
+            // 
+            // layoutControlItem23
+            // 
+            layoutControlItem23.Control = btnUlkeleriAktar;
+            layoutControlItem23.Location = new Point(0, 228);
+            layoutControlItem23.Name = "layoutControlItem23";
+            layoutControlItem23.OptionsTableLayoutItem.RowIndex = 5;
+            layoutControlItem23.Size = new Size(339, 31);
+            layoutControlItem23.TextVisible = false;
+            // 
+            // btnIlleriAktar
+            // 
+            btnIlleriAktar.Location = new Point(351, 240);
+            btnIlleriAktar.Name = "btnIlleriAktar";
+            btnIlleriAktar.Size = new Size(336, 22);
+            btnIlleriAktar.StatusBarAciklama = "";
+            btnIlleriAktar.StyleController = myDataLayoutControl5;
+            btnIlleriAktar.TabIndex = 13;
+            btnIlleriAktar.Text = "İlleri Aktar";
+            // 
+            // layoutControlItem24
+            // 
+            layoutControlItem24.Control = btnIlleriAktar;
+            layoutControlItem24.Location = new Point(339, 228);
+            layoutControlItem24.Name = "layoutControlItem24";
+            layoutControlItem24.OptionsTableLayoutItem.ColumnIndex = 1;
+            layoutControlItem24.OptionsTableLayoutItem.RowIndex = 5;
+            layoutControlItem24.Size = new Size(340, 31);
+            layoutControlItem24.TextVisible = false;
+            // 
+            // btnIlceleriAktar
+            // 
+            btnIlceleriAktar.Location = new Point(12, 271);
+            btnIlceleriAktar.Name = "btnIlceleriAktar";
+            btnIlceleriAktar.Size = new Size(335, 22);
+            btnIlceleriAktar.StatusBarAciklama = "";
+            btnIlceleriAktar.StyleController = myDataLayoutControl5;
+            btnIlceleriAktar.TabIndex = 14;
+            btnIlceleriAktar.Text = "İlçeleri Aktar";
+            // 
+            // layoutControlItem25
+            // 
+            layoutControlItem25.Control = btnIlceleriAktar;
+            layoutControlItem25.Location = new Point(0, 259);
+            layoutControlItem25.Name = "layoutControlItem25";
+            layoutControlItem25.OptionsTableLayoutItem.RowIndex = 6;
+            layoutControlItem25.Size = new Size(339, 31);
+            layoutControlItem25.TextVisible = false;
+            // 
+            // btnCarileriAktar
+            // 
+            btnCarileriAktar.Location = new Point(351, 271);
+            btnCarileriAktar.Name = "btnCarileriAktar";
+            btnCarileriAktar.Size = new Size(336, 22);
+            btnCarileriAktar.StatusBarAciklama = "";
+            btnCarileriAktar.StyleController = myDataLayoutControl5;
+            btnCarileriAktar.TabIndex = 15;
+            btnCarileriAktar.Text = "Carileri Aktar";
+            // 
+            // layoutControlItem26
+            // 
+            layoutControlItem26.Control = btnCarileriAktar;
+            layoutControlItem26.Location = new Point(339, 259);
+            layoutControlItem26.Name = "layoutControlItem26";
+            layoutControlItem26.OptionsTableLayoutItem.ColumnIndex = 1;
+            layoutControlItem26.OptionsTableLayoutItem.RowIndex = 6;
+            layoutControlItem26.Size = new Size(340, 31);
+            layoutControlItem26.TextVisible = false;
+            // 
+            // btnTamaminiAktar
+            // 
+            btnTamaminiAktar.Location = new Point(12, 302);
+            btnTamaminiAktar.Name = "btnTamaminiAktar";
+            btnTamaminiAktar.Size = new Size(335, 22);
+            btnTamaminiAktar.StatusBarAciklama = "";
+            btnTamaminiAktar.StyleController = myDataLayoutControl5;
+            btnTamaminiAktar.TabIndex = 16;
+            btnTamaminiAktar.Text = "Tamamını Aktar";
+            // 
+            // layoutControlItem27
+            // 
+            layoutControlItem27.Control = btnTamaminiAktar;
+            layoutControlItem27.Location = new Point(0, 290);
+            layoutControlItem27.Name = "layoutControlItem27";
+            layoutControlItem27.OptionsTableLayoutItem.RowIndex = 7;
+            layoutControlItem27.Size = new Size(339, 31);
+            layoutControlItem27.TextVisible = false;
             // 
             // GenelParametrelerEditForm
             // 
             AutoScaleDimensions = new SizeF(6F, 13F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(598, 399);
+            ClientSize = new Size(701, 551);
             Controls.Add(xtraTabControl1);
             IconOptions.ShowIcon = false;
             MinimumSize = new Size(600, 400);
@@ -815,6 +1212,30 @@
             ((System.ComponentModel.ISupportInitialize)txtUpdatePath.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlGroup3).EndInit();
             ((System.ComponentModel.ISupportInitialize)layoutControlItem14).EndInit();
+            tpDisSistemEntegrasyonu.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)myDataLayoutControl5).EndInit();
+            myDataLayoutControl5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)layoutControlGroup4).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtKaynakSunucuIp.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem15).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtKaynakVeritabani.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem16).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtKullaniciAdi.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem17).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtSifre.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem18).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtFirmaNo.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem19).EndInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem20).EndInit();
+            ((System.ComponentModel.ISupportInitialize)cmbEntegrasyonTipi.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem21).EndInit();
+            ((System.ComponentModel.ISupportInitialize)memoOzelSorgu.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem22).EndInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem23).EndInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem24).EndInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem25).EndInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem26).EndInit();
+            ((System.ComponentModel.ISupportInitialize)layoutControlItem27).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -868,6 +1289,35 @@
         private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup3;
         private UserControls.Controls.MyTextEdit txtUpdatePath;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem14;
+        private DevExpress.XtraTab.XtraTabPage tpDisSistemEntegrasyonu;
+        private UserControls.Controls.MyDataLayoutControl myDataLayoutControl5;
+        private UserControls.Controls.MySimpleButton btnTamaminiAktar;
+        private UserControls.Controls.MySimpleButton btnCarileriAktar;
+        private UserControls.Controls.MySimpleButton btnIlceleriAktar;
+        private UserControls.Controls.MySimpleButton btnIlleriAktar;
+        private UserControls.Controls.MySimpleButton btnUlkeleriAktar;
+        private UserControls.Controls.MyMemoEdit memoOzelSorgu;
+        private UserControls.Controls.MyComboBoxEdit cmbEntegrasyonTipi;
+        private UserControls.Controls.MySimpleButton btnBaglantiTestEt;
+        private UserControls.Controls.MyTextEdit txtFirmaNo;
+        private UserControls.Controls.MyTextEdit txtSifre;
+        private UserControls.Controls.MyTextEdit txtKullaniciAdi;
+        private UserControls.Controls.MyTextEdit txtKaynakVeritabani;
+        private UserControls.Controls.MyTextEdit txtKaynakSunucuIp;
+        private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup4;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem15;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem16;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem17;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem18;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem19;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem20;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem21;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem22;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem23;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem24;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem25;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem26;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem27;
     }
 }
 
