@@ -142,6 +142,8 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
 
             if (!DesignMode)
             {
+                if (btnRevizeEt != null) btnRevizeEt.Click -= BtnRevizeEt_Click;
+                if (btnKopyala != null) btnKopyala.Click -= BtnKopyala_Click;
                 if (btnMaliyetiGuncelle != null) btnMaliyetiGuncelle.Click -= BtnMaliyetiGuncelle_Click;
                 if (btnMaliyetKirilimi != null) btnMaliyetKirilimi.Click -= BtnMaliyetKirilimi_Click;
 
@@ -163,6 +165,9 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                 myGridView1.PopupMenuShowing += MyGridView1_PopupMenuShowing;
                 myGridView1.RowCellStyle += MyGridView1_RowCellStyle;
                 myGridView1.ShowingEditor += MyGridView1_ShowingEditor;
+
+                if (btnRevizeEt != null) btnRevizeEt.Click += BtnRevizeEt_Click;
+                if (btnKopyala != null) btnKopyala.Click += BtnKopyala_Click;
                 myGridView1.CustomColumnDisplayText += MyGridView1_CustomColumnDisplayText;
                 myGridView1.CellValueChanged += MyGridView1_CellValueChanged;
                 myGridView1.RowDeleted += MyGridView1_RowDeleted;
@@ -773,7 +778,8 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             
             if (this.Id <= 0 || BaseIslemTuru == ActionType.EntityInsert)
             {
-                _currentDto.RevisionNumber = "01";
+                if (string.IsNullOrEmpty(_currentDto.RevisionNumber))
+                    _currentDto.RevisionNumber = "01";
             }
 
             txtKod.Text = _currentDto.Code;
@@ -820,7 +826,11 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             }
             myGridControl1.DataSource = _lines;
 
-            if (this.Id <= 0 || BaseIslemTuru == ActionType.EntityInsert)
+            if (!string.IsNullOrEmpty(_currentDto.RevisionNumber) && int.TryParse(_currentDto.RevisionNumber, out int parsedRevNo))
+            {
+                txtRevizyonNo.EditValue = parsedRevNo;
+            }
+            else
             {
                 txtRevizyonNo.EditValue = 1;
             }
@@ -832,6 +842,9 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             bool hasMamul = _currentDto.FinishedGoodId > 0;
             if (treeList1 != null) treeList1.Enabled = hasMamul;
             if (myGridControl1 != null) myGridControl1.Enabled = hasMamul;
+
+            if (btnRevizeEt != null) btnRevizeEt.Enabled = _currentDto.Id > 0;
+            if (btnKopyala != null) btnKopyala.Enabled = _currentDto.Id > 0;
         }
 
         protected override void GuncelNesneOlustur()
@@ -1384,6 +1397,91 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             if (isManualClick)
             {
                 XtraMessageBox.Show("Maliyetler güncel parametrelere göre başarıyla hesaplandı.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void BtnKopyala_Click(object? sender, EventArgs e)
+        {
+            if (_currentDto == null || _currentDto.Id <= 0) return;
+
+            var serialized = System.Text.Json.JsonSerializer.Serialize(_currentDto);
+            var clone = System.Text.Json.JsonSerializer.Deserialize<WinBeyazEsya.Application.DTOs.Definitions.ProductRecipeDto>(serialized);
+
+            if (clone != null)
+            {
+                clone.Id = 0;
+                clone.Code = "< Otomatik Üretilecek >";
+                clone.RevisionNumber = "01";
+                clone.IsActive = true;
+                if (clone.Lines != null)
+                {
+                    foreach (var line in clone.Lines)
+                    {
+                        line.Id = 0;
+                        line.ProductRecipeId = 0;
+                    }
+                }
+
+                _currentDto = clone;
+                CurrentEntity = clone;
+                BaseIslemTuru = ActionType.EntityInsert;
+                this.Id = 0;
+                
+                NesneyiKontrollereBagla();
+                ButonEnabledDurumu();
+                Helpers.Messages.BilgiMesaji("Reçete başarıyla kopyalandı. Yeni kayıt olarak kaydedebilirsiniz.");
+            }
+        }
+
+        private void BtnRevizeEt_Click(object? sender, EventArgs e)
+        {
+            if (_currentDto == null || _currentDto.Id <= 0) return;
+
+            if (Helpers.Messages.HayirSeciliEvetHayir("Mevcut reçete pasife alınacak ve yeni revizyon oluşturulacaktır. Onaylıyor musunuz?", "Revizyon Onayı") != DialogResult.Yes)
+                return;
+
+            _currentDto.IsActive = false;
+            
+            if (_productRecipeService != null)
+            {
+                _productRecipeService.Update(_currentDto);
+            }
+
+            var serialized = System.Text.Json.JsonSerializer.Serialize(_currentDto);
+            var clone = System.Text.Json.JsonSerializer.Deserialize<WinBeyazEsya.Application.DTOs.Definitions.ProductRecipeDto>(serialized);
+
+            if (clone != null)
+            {
+                clone.Id = 0;
+                
+                if (int.TryParse(clone.RevisionNumber, out int revNo))
+                {
+                    clone.RevisionNumber = (revNo + 1).ToString("D2");
+                }
+                else
+                {
+                    clone.RevisionNumber = "02";
+                }
+                
+                clone.IsActive = true;
+                
+                if (clone.Lines != null)
+                {
+                    foreach (var line in clone.Lines)
+                    {
+                        line.Id = 0;
+                        line.ProductRecipeId = 0;
+                    }
+                }
+
+                _currentDto = clone;
+                CurrentEntity = clone;
+                BaseIslemTuru = ActionType.EntityInsert;
+                this.Id = 0;
+                
+                NesneyiKontrollereBagla();
+                ButonEnabledDurumu();
+                Helpers.Messages.BilgiMesaji($"Yeni revizyon ({clone.RevisionNumber}) oluşturuldu. Değişikliklerinizi yapıp kaydedebilirsiniz.");
             }
         }
     }
