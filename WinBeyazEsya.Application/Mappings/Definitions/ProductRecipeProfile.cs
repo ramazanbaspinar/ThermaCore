@@ -9,8 +9,12 @@ public class ProductRecipeProfile : Profile
     public ProductRecipeProfile()
     {
         CreateMap<ProductRecipe, ProductRecipeDto>()
+            .ForMember(dest => dest.EntryWarehouseName, opt => opt.MapFrom(src => src.EntryWarehouse != null ? src.EntryWarehouse.Name : null))
+            .ForMember(dest => dest.ConsumeWarehouseName, opt => opt.MapFrom(src => src.ConsumeWarehouse != null ? src.ConsumeWarehouse.Name : null))
             .ReverseMap()
-            .ForMember(dest => dest.Lines, opt => opt.Ignore());
+            .ForMember(dest => dest.Lines, opt => opt.Ignore())
+            .ForMember(dest => dest.EntryWarehouse, opt => opt.Ignore())
+            .ForMember(dest => dest.ConsumeWarehouse, opt => opt.Ignore());
 
         CreateMap<ProductRecipe, ProductRecipeListDto>()
             .ForMember(dest => dest.FinishedGoodName, opt => opt.MapFrom(src => src.FinishedGood.Name));

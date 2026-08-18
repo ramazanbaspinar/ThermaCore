@@ -23,6 +23,16 @@ public class ProductRecipeConfiguration : IEntityTypeConfiguration<ProductRecipe
             .HasForeignKey(x => x.FinishedGoodId)
             .OnDelete(DeleteBehavior.Restrict);
 
+        builder.HasOne(x => x.EntryWarehouse)
+            .WithMany()
+            .HasForeignKey(x => x.EntryWarehouseId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne(x => x.ConsumeWarehouse)
+            .WithMany()
+            .HasForeignKey(x => x.ConsumeWarehouseId)
+            .OnDelete(DeleteBehavior.Restrict);
+
         builder.HasIndex(x => x.IsActive);
     }
 }

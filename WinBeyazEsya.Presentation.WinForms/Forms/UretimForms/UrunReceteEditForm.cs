@@ -67,6 +67,24 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                         glufMamul.Properties.ValueMember = "Id";
                         glufMamul.Properties.DisplayMember = "Name";
                     }
+
+                    var warehouseService = _serviceProvider.GetService<IWarehouseService>();
+                    if (warehouseService != null)
+                    {
+                        var activeWarehouses = warehouseService.GetAll().Where(x => x.IsActive).ToList();
+                        if (glufMamulDepo != null)
+                        {
+                            glufMamulDepo.Properties.DataSource = activeWarehouses;
+                            glufMamulDepo.Properties.ValueMember = "Id";
+                            glufMamulDepo.Properties.DisplayMember = "Name";
+                        }
+                        if (glufSarfDepo != null)
+                        {
+                            glufSarfDepo.Properties.DataSource = activeWarehouses;
+                            glufSarfDepo.Properties.ValueMember = "Id";
+                            glufSarfDepo.Properties.DisplayMember = "Name";
+                        }
+                    }
                 }
 
                 if (_unitRepository != null)
@@ -131,6 +149,16 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             {
                 glufMamul.SearchButtonClicked += glufMamul_SearchButtonClicked;
                 glufMamul.EditValueChanged += GlufMamul_EditValueChanged;
+            }
+
+            if (glufMamulDepo != null)
+            {
+                glufMamulDepo.SearchButtonClicked += glufMamulDepo_SearchButtonClicked;
+            }
+
+            if (glufSarfDepo != null)
+            {
+                glufSarfDepo.SearchButtonClicked += glufSarfDepo_SearchButtonClicked;
             }
 
             if (!DesignMode)
@@ -732,6 +760,56 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             }
         }
 
+        private void glufMamulDepo_SearchButtonClicked(object? sender, EventArgs e)
+        {
+            if (_serviceProvider != null)
+            {
+                var form = _serviceProvider.GetRequiredService<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.DepoTanimForms.DepoTanimListForm>();
+                if (form != null)
+                {
+                    form.FormAcilisTuru = WinBeyazEsya.Presentation.WinForms.Enums.FormAcilisTuru.Secim;
+                    form.ShowDialog();
+
+                    var warehouseService = _serviceProvider.GetService<IWarehouseService>();
+                    if (warehouseService != null && glufMamulDepo != null)
+                    {
+                        glufMamulDepo.Properties.DataSource = warehouseService.GetAll().Where(x => x.IsActive).ToList();
+                    }
+
+                    if (form.DialogResult == DialogResult.OK && form.SelectedEntities?.Count > 0 && glufMamulDepo != null)
+                    {
+                        var secilenId = form.SelectedEntities[0].Id;
+                        glufMamulDepo.EditValue = secilenId;
+                    }
+                }
+            }
+        }
+
+        private void glufSarfDepo_SearchButtonClicked(object? sender, EventArgs e)
+        {
+            if (_serviceProvider != null)
+            {
+                var form = _serviceProvider.GetRequiredService<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.DepoTanimForms.DepoTanimListForm>();
+                if (form != null)
+                {
+                    form.FormAcilisTuru = WinBeyazEsya.Presentation.WinForms.Enums.FormAcilisTuru.Secim;
+                    form.ShowDialog();
+
+                    var warehouseService = _serviceProvider.GetService<IWarehouseService>();
+                    if (warehouseService != null && glufSarfDepo != null)
+                    {
+                        glufSarfDepo.Properties.DataSource = warehouseService.GetAll().Where(x => x.IsActive).ToList();
+                    }
+
+                    if (form.DialogResult == DialogResult.OK && form.SelectedEntities?.Count > 0 && glufSarfDepo != null)
+                    {
+                        var secilenId = form.SelectedEntities[0].Id;
+                        glufSarfDepo.EditValue = secilenId;
+                    }
+                }
+            }
+        }
+
         private void GlufMamul_EditValueChanged(object? sender, EventArgs e)
         {
             bool hasMamul = glufMamul?.EditValue != null && Convert.ToInt64(glufMamul.EditValue) > 0;
@@ -778,6 +856,8 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             txtKod.Text = _currentDto.Code;
             txtReceteAdi.Text = _currentDto.Name;
             glufMamul.EditValue = _currentDto.FinishedGoodId > 0 ? _currentDto.FinishedGoodId : null;
+            glufMamulDepo.EditValue = _currentDto.EntryWarehouseId > 0 ? _currentDto.EntryWarehouseId : null;
+            glufSarfDepo.EditValue = _currentDto.ConsumeWarehouseId > 0 ? _currentDto.ConsumeWarehouseId : null;
             txtAciklama.Text = _currentDto.Description;
             txtTarih.EditValue = _currentDto.Date;
 
@@ -847,6 +927,8 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             _currentDto.Code = txtKod.Text;
             _currentDto.Name = txtReceteAdi.Text;
             _currentDto.FinishedGoodId = Convert.ToInt64(glufMamul.EditValue);
+            _currentDto.EntryWarehouseId = glufMamulDepo.EditValue != null && Convert.ToInt64(glufMamulDepo.EditValue) > 0 ? Convert.ToInt64(glufMamulDepo.EditValue) : null;
+            _currentDto.ConsumeWarehouseId = glufSarfDepo.EditValue != null && Convert.ToInt64(glufSarfDepo.EditValue) > 0 ? Convert.ToInt64(glufSarfDepo.EditValue) : null;
             _currentDto.Description = txtAciklama.Text;
             if (txtTarih.EditValue != null && txtTarih.EditValue != DBNull.Value)
             {

@@ -7,6 +7,12 @@ public class ProductRecipeDto : BaseDto
     public string Name { get; set; } = string.Empty;
     public long FinishedGoodId { get; set; }
 
+    public long? EntryWarehouseId { get; set; }
+    public string? EntryWarehouseName { get; set; }
+
+    public long? ConsumeWarehouseId { get; set; }
+    public string? ConsumeWarehouseName { get; set; }
+
     public string? Description { get; set; }
     public System.DateTime Date { get; set; } = System.DateTime.Today;
     public string RevisionNumber { get; set; } = "01";

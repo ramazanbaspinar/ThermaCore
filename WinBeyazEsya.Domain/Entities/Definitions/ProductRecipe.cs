@@ -10,6 +10,12 @@ public class ProductRecipe : FullAuditableEntity, IMustHaveBranch
     public long FinishedGoodId { get; set; }
     public virtual FinishedGood FinishedGood { get; set; } = null!;
 
+    public long? EntryWarehouseId { get; set; }
+    public virtual Warehouse? EntryWarehouse { get; set; }
+
+    public long? ConsumeWarehouseId { get; set; }
+    public virtual Warehouse? ConsumeWarehouse { get; set; }
+
     public string? Description { get; set; }
     public DateTime Date { get; set; } = DateTime.Today;
     public string RevisionNumber { get; set; } = "01";
