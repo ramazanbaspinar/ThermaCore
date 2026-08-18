@@ -2,7 +2,6 @@
 using DevExpress.XtraLayout;
 using DevExpress.XtraLayout.Utils;
 using System.ComponentModel;
-using System.Windows.Forms;
 
 namespace WinBeyazEsya.Presentation.WinForms.UserControls.Controls
 {

@@ -1,16 +1,11 @@
-using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using WinBeyazEsya.Application.DTOs.Management;
 using WinBeyazEsya.Application.Interfaces.Repositories;
 using WinBeyazEsya.Application.Interfaces.System;
 using WinBeyazEsya.Application.Services.Management;
-using WinBeyazEsya.Domain.Entities.Management;
 using WinBeyazEsya.Domain.Enums;
-using WinBeyazEsya.Domain.Extensions;
 using WinBeyazEsya.Presentation.WinForms.Forms.BaseForms;
 using WinBeyazEsya.Presentation.WinForms.Helpers;
-using System;
-using System.Windows.Forms;
 
 namespace WinBeyazEsya.Presentation.WinForms.Forms.KodYonetimForms
 {

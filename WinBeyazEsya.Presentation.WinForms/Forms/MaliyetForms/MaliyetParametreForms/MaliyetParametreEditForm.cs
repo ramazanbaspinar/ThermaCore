@@ -1,14 +1,9 @@
-using DevExpress.XtraBars;
-using DevExpress.XtraEditors;
-using System;
-using System.Linq;
-using System.Windows.Forms;
+using Microsoft.Extensions.DependencyInjection;
 using WinBeyazEsya.Application.DTOs.Management;
 using WinBeyazEsya.Application.Interfaces.Management;
 using WinBeyazEsya.Domain.Enums;
 using WinBeyazEsya.Presentation.WinForms.Forms.BaseForms;
 using WinBeyazEsya.Presentation.WinForms.Helpers;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MaliyetParametreForms
 {
@@ -33,7 +28,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MaliyetParametre
         {
             InitializeComponent();
             BaseKartTuru = WinBeyazEsya.Domain.Enums.ModuleType.MaliyetParametreleri;
-            
+
             if (Program.ServiceProvider != null)
             {
                 _maliyetParametreService = Program.ServiceProvider.GetService<IMaliyetParametreService>();
@@ -48,7 +43,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MaliyetParametre
             try
             {
                 _currentDto = _maliyetParametreService?.GetMaliyetParametreAsync().GetAwaiter().GetResult();
-                
+
                 if (_currentDto == null || _currentDto.Id == 0)
                 {
                     _currentDto = new MaliyetParametreDto { Id = 0 };
@@ -75,10 +70,10 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MaliyetParametre
         protected override void NesneyiKontrollereBagla()
         {
             if (_currentDto == null) return;
-            
+
             if (txtVadeFarkiOrani != null) txtVadeFarkiOrani.Value = _currentDto.MaturityDifferenceRate;
             if (txtFireOrani != null) txtFireOrani.Value = _currentDto.WastageRate;
-            
+
             if (chkVadeFarkliMaliyetHesapla != null) chkVadeFarkliMaliyetHesapla.Checked = _currentDto.UseMaturityDifference;
             if (chkFireOranliMaliyetHesapla != null) chkFireOranliMaliyetHesapla.Checked = _currentDto.UseWasteRate;
             if (txtFirinOrtalamaUretimDegeri != null) txtFirinOrtalamaUretimDegeri.Value = _currentDto.OvenAvgMonthlyProduction;
@@ -90,7 +85,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MaliyetParametre
 
         protected override void GuncelNesneOlustur()
         {
-            var dto = new MaliyetParametreDto 
+            var dto = new MaliyetParametreDto
             {
                 Id = _currentDto?.Id ?? 0,
                 BranchId = _currentDto?.BranchId ?? 0, // KORUMA: UI tarafında da BranchId taşınsın
@@ -104,7 +99,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MaliyetParametre
                 FreestandingAvgMonthlyProduction = txtTamboyOrtalamaUretimDegeri != null ? Convert.ToInt32(txtTamboyOrtalamaUretimDegeri.Value) : 0,
                 OtherAvgMonthlyProduction = txtDigerOrtalamaUretimDegeri != null ? Convert.ToInt32(txtDigerOrtalamaUretimDegeri.Value) : 0
             };
-            
+
             CurrentEntity = dto;
         }
 

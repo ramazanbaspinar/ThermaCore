@@ -10,7 +10,7 @@ public class UserPermissionConfiguration : IEntityTypeConfiguration<UserPermissi
     {
         builder.ToTable("UserPermissions");
         builder.HasKey(x => x.Id);
-        
+
         builder.Property(x => x.ModuleName)
             .IsRequired()
             .HasMaxLength(250);

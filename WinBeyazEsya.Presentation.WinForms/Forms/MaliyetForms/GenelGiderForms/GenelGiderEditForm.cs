@@ -1,13 +1,10 @@
 using DevExpress.XtraEditors;
-using System;
-using System.Linq;
-using System.Windows.Forms;
+using WinBeyazEsya.Application.DTOs.Definitions;
+using WinBeyazEsya.Application.Interfaces.Definitions;
+using WinBeyazEsya.Application.Interfaces.System;
 using WinBeyazEsya.Domain.Enums;
 using WinBeyazEsya.Presentation.WinForms.Forms.BaseForms;
 using WinBeyazEsya.Presentation.WinForms.Helpers;
-using WinBeyazEsya.Application.Interfaces.Definitions;
-using WinBeyazEsya.Application.DTOs.Definitions;
-using WinBeyazEsya.Application.Interfaces.System;
 
 namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.GenelGiderForms
 {
@@ -26,7 +23,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.GenelGiderForms
             InitializeComponent();
             _genelGiderService = genelGiderService;
             _exchangeRateService = exchangeRateService;
-            
+
             BaseKartTuru = ModuleType.GenelGiderler;
         }
 
@@ -34,14 +31,14 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.GenelGiderForms
         {
             // Populate cmbParaBirimi with distinct CurrencyCodes or fallback to defaults
             cmbParaBirimi.Properties.Items.Clear();
-            try 
+            try
             {
                 var currencies = _exchangeRateService.GetAllRates()
                     .Where(x => !string.IsNullOrEmpty(x.CurrencyCode))
                     .Select(x => x.CurrencyCode)
                     .Distinct()
                     .ToList();
-                
+
                 if (currencies.Count > 0)
                 {
                     foreach (var c in currencies)
@@ -49,12 +46,12 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.GenelGiderForms
                         cmbParaBirimi.Properties.Items.Add(c);
                     }
                 }
-                else 
+                else
                 {
                     cmbParaBirimi.Properties.Items.AddRange(new string[] { "TRY", "USD", "EUR" });
                 }
             }
-            catch 
+            catch
             {
                 cmbParaBirimi.Properties.Items.AddRange(new string[] { "TRY", "USD", "EUR" });
             }
@@ -79,7 +76,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.GenelGiderForms
             txtKod.Text = dto.Code;
             txtGenelGider.Text = dto.Name;
             txtGenelGiderMaliyeti.Value = dto.Cost;
-            
+
             cmbParaBirimi.EditValue = dto.CurrencyCode;
         }
 

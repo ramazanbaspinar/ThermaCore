@@ -1,16 +1,10 @@
-using System;
-using System.Windows.Forms;
-using DevExpress.XtraEditors;
 using WinBeyazEsya.Application.DTOs.Management;
 using WinBeyazEsya.Application.Interfaces.Repositories;
 using WinBeyazEsya.Application.Interfaces.Security;
 using WinBeyazEsya.Application.Interfaces.System;
-using FluentValidation;
-using WinBeyazEsya.Domain.Entities.Management;
 using WinBeyazEsya.Domain.Enums;
 using WinBeyazEsya.Presentation.WinForms.Forms.BaseForms;
 using WinBeyazEsya.Presentation.WinForms.Helpers;
-using System.Linq;
 
 namespace WinBeyazEsya.Presentation.WinForms.Forms.SirketForms
 {
@@ -52,7 +46,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SirketForms
             txtSqlKullaniciAdi.EditValueChanged += Control_EditValueChanged;
             txtSqlSifre.EditValueChanged += Control_EditValueChanged;
             myToggleSwitch1.EditValueChanged += Control_EditValueChanged;
-            
+
             txtAuthType.SelectedIndexChanged += TxtAuthType_SelectedIndexChanged;
         }
 
@@ -70,7 +64,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SirketForms
                 txtSqlKullaniciAdi.Enabled = true;
                 txtSqlSifre.Enabled = true;
             }
-            
+
             Control_EditValueChanged(sender, e);
         }
 
@@ -138,19 +132,19 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SirketForms
             {
                 // UI donmasın diye bekleme imleci çıkar
                 Cursor.Current = Cursors.WaitCursor;
-                
+
                 var dto = (TenantDatabaseDto)CurrentEntity;
                 dto.Id = BaseIslemTuru.IdOlustur(dto);
                 this.Id = dto.Id;
 
                 // Asenkron servisi Task.Run içerisinde bekleyerek (UI deadlock önlemek için) çalıştır.
-                System.Threading.Tasks.Task.Run(async () => 
+                System.Threading.Tasks.Task.Run(async () =>
                 {
                     await _tenantDatabaseSetupService.CreateTenantDatabaseAsync(dto);
                 }).GetAwaiter().GetResult();
 
                 Messages.BilgiBasligi("Şirket bilgileri Master veritabanına kaydedildi ve şirkete özel yepyeni fiziksel veritabanı (Tenant DB) başarıyla ayağa kaldırıldı!", "Kurulum Başarılı");
-                    
+
                 return true;
             }
             catch (FluentValidation.ValidationException)
@@ -191,7 +185,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SirketForms
             {
                 Cursor.Current = Cursors.WaitCursor;
                 var dto = (TenantDatabaseDto)CurrentEntity;
-                
+
                 var existingDto = _tenantDatabaseCrudService.GetById(dto.Id);
                 if (existingDto != null)
                 {

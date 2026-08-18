@@ -1,7 +1,7 @@
 ﻿using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
-using WinBeyazEsya.Presentation.WinForms.Interfaces;
 using System.ComponentModel;
+using WinBeyazEsya.Presentation.WinForms.Interfaces;
 
 namespace WinBeyazEsya.Presentation.WinForms.UserControls.Controls
 {

@@ -1,5 +1,3 @@
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using WinBeyazEsya.Application.Interfaces.Repositories;
 using WinBeyazEsya.Domain.Entities.Management;

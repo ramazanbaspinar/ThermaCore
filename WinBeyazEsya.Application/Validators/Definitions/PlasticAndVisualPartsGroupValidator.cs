@@ -17,7 +17,7 @@ public class PlasticAndVisualPartsGroupValidator : AbstractValidator<PlasticAndV
 
         RuleFor(x => x.Description)
             .MaximumLength(500).WithMessage("Açıklama alanı en fazla 500 karakter olabilir.");
-            
+
         RuleFor(x => x.BaseUnitId)
             .GreaterThan(0).WithMessage("Temel birim seçilmelidir.");
     }

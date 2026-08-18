@@ -19,7 +19,7 @@ public class CodeTemplateValidator : AbstractValidator<CodeTemplateDto>
 
         RuleFor(x => x.StartNumber)
             .GreaterThanOrEqualTo(0).WithMessage("Başlangıç Numarası 0 veya daha büyük olmalıdır.");
-            
+
         RuleFor(x => x.Module)
             .IsInEnum().WithMessage("Geçerli bir modül seçiniz.");
     }

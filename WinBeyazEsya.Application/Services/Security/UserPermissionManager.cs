@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using System.Collections.Generic;
-using System.Linq;
 using WinBeyazEsya.Application.DTOs.Security;
 using WinBeyazEsya.Application.Interfaces.Repositories;
 using WinBeyazEsya.Application.Interfaces.Security;

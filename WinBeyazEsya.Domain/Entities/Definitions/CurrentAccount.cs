@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations;
 using WinBeyazEsya.Domain.Entities.Base;
 
 namespace WinBeyazEsya.Domain.Entities.Definitions;
@@ -9,8 +8,8 @@ public class CurrentAccount : FullAuditableEntity
     public int CardType { get; set; }
     public string Code { get; set; } = string.Empty;
 
-    
-     // KESİNLİKLE 250
+
+    // KESİNLİKLE 250
     public string Title { get; set; } = string.Empty;
 
     public string? SpeCode { get; set; }
@@ -32,10 +31,10 @@ public class CurrentAccount : FullAuditableEntity
 
     public string? TelNrs2 { get; set; }
 
-    
+
     public string? TaxNr { get; set; }
 
-    
+
     public string? TaxOffice { get; set; }
 
     public string? InCharge { get; set; }

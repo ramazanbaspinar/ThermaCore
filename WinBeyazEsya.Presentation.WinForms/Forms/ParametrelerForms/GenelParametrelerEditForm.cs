@@ -1,16 +1,11 @@
-using DevExpress.XtraEditors;
-using System;
-using System.Linq;
-using System.Windows.Forms;
 using WinBeyazEsya.Application.DTOs.Management;
+using WinBeyazEsya.Application.Interfaces.Integration;
 using WinBeyazEsya.Application.Interfaces.Management;
 using WinBeyazEsya.Domain.Enums;
 using WinBeyazEsya.Presentation.WinForms.Forms.BaseForms;
+using WinBeyazEsya.Presentation.WinForms.Forms.GenelForms;
 using WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.VergiForms;
 using WinBeyazEsya.Presentation.WinForms.Helpers;
-using System.Drawing;
-using WinBeyazEsya.Application.Interfaces.Integration;
-using WinBeyazEsya.Presentation.WinForms.Forms.GenelForms;
 
 namespace WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms
 {
@@ -32,9 +27,9 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms
             _systemParameterService = systemParameterService;
             _taxRateService = taxRateService;
             _integrationService = integrationService;
-            
+
             BaseIslemTuru = ActionType.EntityUpdate;
-            DataLayoutControls = new object[] { myDataLayoutControl1, myDataLayoutControl2, myDataLayoutControl3,myDataLayoutControl4 };
+            DataLayoutControls = new object[] { myDataLayoutControl1, myDataLayoutControl2, myDataLayoutControl3, myDataLayoutControl4 };
         }
 
         // Tasarımcı veya boş parametreler için varsayılan (olmaması hata verdirebilir diye ekliyoruz)
@@ -47,7 +42,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms
         protected override void EventsLoad()
         {
             base.EventsLoad();
-            
+
             if (glfAlisKdv != null) glfAlisKdv.ButtonClick += GlfAlisKdv_ButtonClick;
             if (glfSatisKdv != null) glfSatisKdv.ButtonClick += GlfSatisKdv_ButtonClick;
             if (glfOtv != null) glfOtv.ButtonClick += GlfOtv_ButtonClick;
@@ -109,7 +104,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms
                 Messages.HataBasligi(ex.Message, "Hata");
                 _currentDto = new SystemParameterDto { Id = 0 };
             }
-            
+
             CurrentEntity = _currentDto;
             OldEntity = CloneEntity(CurrentEntity);
 
@@ -119,7 +114,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms
         protected override void NesneyiKontrollereBagla()
         {
             if (_currentDto == null) return;
-            
+
             if (txtFirmaUnvani != null) txtFirmaUnvani.Text = _currentDto.CompanyName;
             if (txtVergiDairesi != null) txtVergiDairesi.Text = _currentDto.TaxOffice;
             if (txtVergiNo != null) txtVergiNo.Text = _currentDto.TaxNumber;
@@ -135,7 +130,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms
 
             if (txtFireOrani != null) txtFireOrani.Value = _currentDto.DefaultWastageRate;
             if (txtFirmaBarkodOneki != null) txtFirmaBarkodOneki.Text = _currentDto.CompanyBarcodePrefix;
-            
+
             if (txtUpdatePath != null) txtUpdatePath.Text = _currentDto.UpdatePath;
         }
 

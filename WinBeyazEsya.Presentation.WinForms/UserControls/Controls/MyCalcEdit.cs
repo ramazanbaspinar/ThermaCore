@@ -1,8 +1,8 @@
 ﻿#pragma warning disable CS8618
 using DevExpress.Utils;
 using DevExpress.XtraEditors;
-using WinBeyazEsya.Presentation.WinForms.Interfaces;
 using System.ComponentModel;
+using WinBeyazEsya.Presentation.WinForms.Interfaces;
 
 namespace WinBeyazEsya.Presentation.WinForms.UserControls.Controls
 {

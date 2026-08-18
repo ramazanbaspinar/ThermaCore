@@ -1,11 +1,9 @@
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
+using FluentValidation;
 using WinBeyazEsya.Application.DTOs.Management;
 using WinBeyazEsya.Application.Interfaces.Management;
 using WinBeyazEsya.Application.Interfaces.Repositories;
 using WinBeyazEsya.Domain.Entities.Management;
-using FluentValidation;
 
 namespace WinBeyazEsya.Application.Services.Management;
 
@@ -18,8 +16,8 @@ public class SystemParameterManager : ISystemParameterService
     private readonly IValidator<SystemParameterDto> _validator;
 
     public SystemParameterManager(
-        IUnitOfWork unitOfWork, 
-        IRepository<SystemParameter> repository, 
+        IUnitOfWork unitOfWork,
+        IRepository<SystemParameter> repository,
         IRepository<MaliyetParametre> maliyetRepo,
         IMapper mapper,
         IValidator<SystemParameterDto> validator)
@@ -50,7 +48,7 @@ public class SystemParameterManager : ISystemParameterService
         }
 
         var existing = _repository.Find(x => true).FirstOrDefault();
-        
+
         if (existing == null)
         {
             // Insert
@@ -65,7 +63,7 @@ public class SystemParameterManager : ISystemParameterService
             _mapper.Map(dto, existing);
             _repository.Update(existing);
         }
-        
+
         // Sadece mevcut aktif fabrikanın (branch) Maliyet Parametresini senkronize eder.
         // Diğer fabrikalara erişim Global Query Filter tarafından engellenmiştir. (Isolated Architecture)
         var maliyetExisting = _maliyetRepo.Find(x => true).FirstOrDefault();

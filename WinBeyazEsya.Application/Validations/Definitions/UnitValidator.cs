@@ -1,7 +1,6 @@
 ﻿using FluentValidation;
 using WinBeyazEsya.Application.DTOs.Definitions;
 using WinBeyazEsya.Application.Interfaces.Repositories.Definitions;
-using System.Linq;
 
 namespace WinBeyazEsya.Application.Validations.Definitions;
 

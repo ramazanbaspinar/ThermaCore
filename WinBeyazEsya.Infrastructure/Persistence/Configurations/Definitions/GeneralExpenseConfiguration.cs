@@ -9,7 +9,7 @@ public class GeneralExpenseConfiguration : IEntityTypeConfiguration<GeneralExpen
     public void Configure(EntityTypeBuilder<GeneralExpense> builder)
     {
         builder.HasKey(x => x.Id);
-        
+
         builder.Property(x => x.Code).IsRequired().HasMaxLength(50);
         builder.Property(x => x.Name).IsRequired().HasMaxLength(100);
         builder.Property(x => x.CurrencyCode).HasMaxLength(5);

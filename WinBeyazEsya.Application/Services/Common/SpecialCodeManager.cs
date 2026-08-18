@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using FluentValidation;
+﻿using FluentValidation;
 using WinBeyazEsya.Application.DTOs.Common;
 using WinBeyazEsya.Application.Interfaces.Common;
 using WinBeyazEsya.Application.Interfaces.Repositories;
@@ -58,9 +56,9 @@ public class SpecialCodeManager : ISpecialCodeService
 
         if (!IsCodeUnique(dto.Id, dto.CodeType, dto.EntityType, dto.Code))
         {
-            throw new ValidationException(new List<FluentValidation.Results.ValidationFailure> 
-            { 
-                new FluentValidation.Results.ValidationFailure("Code", "Girilen kod zaten kullanılıyor.") 
+            throw new ValidationException(new List<FluentValidation.Results.ValidationFailure>
+            {
+                new FluentValidation.Results.ValidationFailure("Code", "Girilen kod zaten kullanılıyor.")
             });
         }
 
@@ -86,9 +84,9 @@ public class SpecialCodeManager : ISpecialCodeService
 
         if (!IsCodeUnique(dto.Id, dto.CodeType, dto.EntityType, dto.Code))
         {
-            throw new ValidationException(new List<FluentValidation.Results.ValidationFailure> 
-            { 
-                new FluentValidation.Results.ValidationFailure("Code", "Girilen kod zaten kullanılıyor.") 
+            throw new ValidationException(new List<FluentValidation.Results.ValidationFailure>
+            {
+                new FluentValidation.Results.ValidationFailure("Code", "Girilen kod zaten kullanılıyor.")
             });
         }
 

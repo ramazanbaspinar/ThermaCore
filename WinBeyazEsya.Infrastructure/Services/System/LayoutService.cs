@@ -1,7 +1,5 @@
-﻿using System;
-using System.Linq;
+﻿using Microsoft.Extensions.DependencyInjection;
 using System.Text;
-using Microsoft.Extensions.DependencyInjection;
 using WinBeyazEsya.Application.Interfaces.Repositories;
 using WinBeyazEsya.Application.Interfaces.System;
 using WinBeyazEsya.Domain.Entities.System;

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace WinBeyazEsya.Domain.Entities.Base;
+﻿namespace WinBeyazEsya.Domain.Entities.Base;
 
 public abstract class AuditableEntity : Entity
 {

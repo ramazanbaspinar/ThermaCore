@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
-using System.Xml;
+﻿using System.Xml;
 using WinBeyazEsya.Application.DTOs.Management;
 using WinBeyazEsya.Application.Interfaces.Repositories;
 using WinBeyazEsya.Application.Interfaces.System;
@@ -71,7 +66,7 @@ public class ExchangeRateManager : IExchangeRateService
 
                         decimal.TryParse(buyingNode?.InnerText?.Replace(".", ","), out decimal tcmbBuying);
                         decimal.TryParse(sellingNode?.InnerText?.Replace(".", ","), out decimal tcmbSelling);
-                        
+
                         // İlgili gün için BİREBİR TCMB kurlarını "Geçerli Kur" olarak varsayılan atıyoruz
                         decimal effBuying = tcmbBuying;
                         decimal effSelling = tcmbSelling;

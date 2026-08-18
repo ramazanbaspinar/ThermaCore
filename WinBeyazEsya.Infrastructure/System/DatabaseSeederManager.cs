@@ -1,6 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using System.Threading.Tasks;
 using WinBeyazEsya.Application.Interfaces.Security;
 using WinBeyazEsya.Application.Interfaces.System;
 using WinBeyazEsya.Domain.Entities.Management;
@@ -22,7 +20,7 @@ public class DatabaseSeederManager : IDatabaseSeederService
     public async Task SeedAsync(bool ilIlceYuklensin)
     {
         var pendingMigrations = await _context.Database.GetPendingMigrationsAsync();
-        
+
         if (pendingMigrations.Any())
         {
             throw new global::System.Exception("Veritabanı güncel değil. Uygulamanın çalışabilmesi için sistem yöneticisi tarafından veritabanı güncellemesi yapılması gerekmektedir.");
@@ -37,7 +35,7 @@ public class DatabaseSeederManager : IDatabaseSeederService
 
         long adminRolId = 0;
         var existingRole = await _context.Roles.FirstOrDefaultAsync(r => r.RoleName == "System Administrator");
-        
+
         WinBeyazEsya.Domain.Entities.Security.Role? selectedRole = existingRole;
 
         if (existingRole == null)
@@ -50,7 +48,7 @@ public class DatabaseSeederManager : IDatabaseSeederService
                 Description = "",
                 IsActive = true
             };
-            
+
             _context.Roles.Add(adminRol);
             await _context.SaveChangesAsync();
             adminRolId = adminRol.Id;
@@ -79,7 +77,7 @@ public class DatabaseSeederManager : IDatabaseSeederService
                     Role = selectedRole,
                     IsActive = true
                 };
-                
+
                 _context.Users.Add(adminKullanici);
                 await _context.SaveChangesAsync();
             }

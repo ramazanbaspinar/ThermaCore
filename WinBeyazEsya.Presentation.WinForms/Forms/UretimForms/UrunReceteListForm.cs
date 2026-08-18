@@ -1,15 +1,6 @@
-using DevExpress.XtraEditors;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using WinBeyazEsya.Presentation.WinForms.Forms.BaseForms;
 using WinBeyazEsya.Application.Interfaces.Definitions;
+using WinBeyazEsya.Presentation.WinForms.Forms.BaseForms;
 
 namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
 {
@@ -49,12 +40,12 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
         protected override void Listele()
         {
             var liste = _productRecipeService.GetAll().Where(x => x.IsActive == AktifKartlariGoster);
-            
+
             if (ListeDisiTutulacakKayitlar != null && ListeDisiTutulacakKayitlar.Any())
             {
                 liste = liste.Where(x => !ListeDisiTutulacakKayitlar.Contains(x.Id));
             }
-            
+
             Tablo.GridControl.DataSource = liste.ToList();
         }
 
@@ -81,7 +72,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
 
             long entityId = 0;
             long.TryParse(Tablo.GetFocusedRowCellValue("Id")?.ToString(), out entityId);
-            
+
             if (entityId <= 0) return;
 
             var result = WinBeyazEsya.Presentation.WinForms.Helpers.Messages.SilMesaj(Tablo.GetRowCellValue(Tablo.FocusedRowHandle, "Name")?.ToString() ?? "");

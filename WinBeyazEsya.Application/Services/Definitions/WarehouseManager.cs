@@ -1,5 +1,3 @@
-using System;
-using System.Linq;
 using AutoMapper;
 using FluentValidation;
 using WinBeyazEsya.Application.DTOs.Definitions;
@@ -13,10 +11,10 @@ namespace WinBeyazEsya.Application.Services.Definitions;
 public class WarehouseManager : BaseManager<WarehouseListDto, WarehouseDto, Warehouse>, IWarehouseService
 {
     public WarehouseManager(
-        IMapper mapper, 
-        IRepository<Warehouse> repository, 
+        IMapper mapper,
+        IRepository<Warehouse> repository,
         IUnitOfWork unitOfWork,
-        IValidator<WarehouseDto>? validator = null) 
+        IValidator<WarehouseDto>? validator = null)
         : base(mapper, repository, unitOfWork, validator)
     {
     }

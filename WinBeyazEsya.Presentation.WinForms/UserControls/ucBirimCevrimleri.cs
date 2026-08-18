@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using DevExpress.Utils.Menu;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using DevExpress.Utils.Menu;
-using DevExpress.XtraGrid.Views.Grid.ViewInfo;
 using WinBeyazEsya.Application.DTOs.Definitions;
 using WinBeyazEsya.Application.Interfaces.Definitions;
 using WinBeyazEsya.Application.Interfaces.Repositories;
@@ -36,11 +28,11 @@ namespace WinBeyazEsya.Presentation.WinForms.UserControls
             txtCevrimMiktari.Properties.Mask.EditMask = "n5";
             txtCevrimMiktari.Properties.Mask.UseMaskAsDisplayFormat = true;
             txtCevrimMiktari.EditValue = 1m;
-            
+
             txtAnaBirimMiktari.Properties.Mask.EditMask = "n5";
             txtAnaBirimMiktari.Properties.Mask.UseMaskAsDisplayFormat = true;
             txtAnaBirimMiktari.EditValue = 1m;
-            
+
             txtAnaBirimAd.Properties.ReadOnly = true;
         }
 
@@ -108,7 +100,7 @@ namespace WinBeyazEsya.Presentation.WinForms.UserControls
             glufCevrilecekBirim.Properties.DisplayMember = "Name";
 
             var conversions = _unitConversionService.GetByEntityId(entityId).ToList();
-            
+
             foreach (var c in conversions)
             {
                 c.UnitName = birimler.FirstOrDefault(b => b.Id == c.UnitId)?.Name ?? string.Empty;
@@ -164,7 +156,7 @@ namespace WinBeyazEsya.Presentation.WinForms.UserControls
                 txtCevrimMiktari.EditValue = 1m;
                 txtAnaBirimMiktari.EditValue = 1m;
                 glufCevrilecekBirim.EditValue = null;
-                
+
                 gvBirimCevrimleri.MoveLast();
             }
         }

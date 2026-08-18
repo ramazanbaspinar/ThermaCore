@@ -1,21 +1,13 @@
-using DevExpress.Utils.Extensions;
 using DevExpress.XtraBars;
 using DevExpress.XtraBars.Navigation;
 using DevExpress.XtraBars.Ribbon;
-using DevExpress.XtraEditors;
-using DevExpress.XtraEditors.Controls;
-using DevExpress.XtraVerticalGrid;
-using Microsoft.Extensions.DependencyInjection;
-using System;
 using System.ComponentModel;
-using System.Windows.Forms;
 using WinBeyazEsya.Application.DTOs.Base;
-using WinBeyazEsya.Domain.Enums;
-using WinBeyazEsya.Presentation.WinForms.Helpers;
-using WinBeyazEsya.Application.Interfaces.System;
-using System.Linq;
-using WinBeyazEsya.Presentation.WinForms.Functions;
 using WinBeyazEsya.Application.Interfaces.Management;
+using WinBeyazEsya.Application.Interfaces.System;
+using WinBeyazEsya.Domain.Enums;
+using WinBeyazEsya.Presentation.WinForms.Functions;
+using WinBeyazEsya.Presentation.WinForms.Helpers;
 
 namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
 {
@@ -110,7 +102,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
                 if (btnSil != null) btnSil.Enabled = false;
 
                 LockFormControls(this.Controls);
-                
+
                 if (resimMenu != null)
                 {
                     foreach (DevExpress.XtraBars.BarItemLink link in resimMenu.ItemLinks)
@@ -237,7 +229,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
             if (IsDesignMode) return;
 
             var manager = (this.ribbon != null) ? this.ribbon.Manager : new DevExpress.XtraBars.BarManager { Form = this };
-            
+
             resimMenu = new DevExpress.XtraBars.PopupMenu(manager);
 
             var btnResimSec = new DevExpress.XtraBars.BarButtonItem(manager, "Resim Seç");
@@ -291,7 +283,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
                     checkedListBox.ItemCheck -= CheckedListBox_ItemCheck;
                     checkedListBox.ItemCheck += CheckedListBox_ItemCheck;
                 }
-                
+
                 if (control.Controls.Count > 0)
                 {
                     BindControlEvents(control.Controls);
@@ -308,7 +300,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
                 {
                     baseEdit.IsModified = false;
                 }
-                
+
                 if (control.Controls.Count > 0)
                 {
                     ResetControlIsModified(control.Controls);
@@ -323,7 +315,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
             if (entity == null) return null!;
             var type = entity.GetType();
             var cloned = (BaseDto)Activator.CreateInstance(type)!;
-            
+
             var properties = type.GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance)
                                  .Where(p => p.CanRead && p.CanWrite);
             foreach (var prop in properties)
@@ -366,7 +358,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
                 Yukle();
                 CurrentEntityGuncelle();
                 _isBinding = false;
-                
+
                 OldEntity = CloneEntity(CurrentEntity);
                 ResetControlIsModified(this.Controls);
                 ButonEnabledDurumu();
@@ -399,7 +391,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
                                 if (Program.ServiceProvider != null && CurrentEntity != null)
                                 {
                                     bool hasTempCode = false;
-                                    if (string.IsNullOrWhiteSpace(CurrentEntity.Code) || CurrentEntity.Code == "Yeni Kod" || CurrentEntity.Code == "< Otomatik Üretilecek >") 
+                                    if (string.IsNullOrWhiteSpace(CurrentEntity.Code) || CurrentEntity.Code == "Yeni Kod" || CurrentEntity.Code == "< Otomatik Üretilecek >")
                                     {
                                         CurrentEntity.Code = "TEMP_VALIDATION_CODE";
                                         hasTempCode = true;
@@ -412,7 +404,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
                                         var contextType = typeof(FluentValidation.ValidationContext<>).MakeGenericType(CurrentEntity.GetType());
                                         var context = (FluentValidation.IValidationContext)Activator.CreateInstance(contextType, CurrentEntity)!;
                                         var valResult = validator.Validate(context);
-                                        
+
                                         if (hasTempCode) CurrentEntity.Code = string.Empty;
 
                                         if (!valResult.IsValid)
@@ -463,7 +455,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
                 {
                     OldEntity = CloneEntity(CurrentEntity);
                     RefreshYapilacak = true;
-                    
+
                     KodKullanildiKaydet();
 
                     if (KayitSonrasiYeniKayit)
@@ -485,14 +477,14 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
 
                     if (KayitSonrasiFormuKapat && kapanis)
                         Close();
-                      else
-                      {
-                          _isBinding = true;
-                          Yukle();
-                          _isBinding = false;
-                          ResetControlIsModified(this.Controls);
-                          ButonEnabledDurumu();
-                      }
+                    else
+                    {
+                        _isBinding = true;
+                        Yukle();
+                        _isBinding = false;
+                        ResetControlIsModified(this.Controls);
+                        ButonEnabledDurumu();
+                    }
 
                     return true;
                 }
@@ -537,7 +529,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
             CurrentEntityGuncelle();
             _isBinding = false;
             ResetControlIsModified(this.Controls);
-            
+
             OldEntity = CloneEntity(CurrentEntity);
             ButonEnabledDurumu();
 
@@ -592,7 +584,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
         protected virtual void UretilecekKoduHazirla()
         {
             var kodControl = this.Controls.Find(CodeControlName, true).FirstOrDefault() as DevExpress.XtraEditors.TextEdit;
-            
+
             if (kodControl != null && !string.IsNullOrWhiteSpace(kodControl.Text) && kodControl.Text != "< Otomatik Üretilecek >" && kodControl.Text != "Yeni Kod")
             {
                 if (CurrentEntity != null)
@@ -607,11 +599,11 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
                 for (int i = 0; i < 20; i++)
                 {
                     code = System.Threading.Tasks.Task.Run(async () => await codeService.GetNewCodeAsync(BaseKartTuru, FirmaId)).GetAwaiter().GetResult();
-                    
-                    if (string.IsNullOrEmpty(code)) 
+
+                    if (string.IsNullOrEmpty(code))
                         break;
-                    
-                    if (IsCodeUnique(code)) 
+
+                    if (IsCodeUnique(code))
                         break;
                 }
 
@@ -678,7 +670,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
         {
             var ctrl = FindControlByPropertyName(this.Controls, propertyName);
 
-            if (ctrl != null) 
+            if (ctrl != null)
             {
                 ctrl.Select(); // DevExpress bileşenlerinde Focus öncesi Select garanti eder
                 ctrl.Focus();
@@ -691,7 +683,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
             {
                 if (c.Name.EndsWith(propertyName, StringComparison.InvariantCultureIgnoreCase)) return c;
                 if (c.Tag != null && c.Tag.ToString() == propertyName) return c;
-                
+
                 var child = FindControlByPropertyName(c.Controls, propertyName);
                 if (child != null) return child;
             }
@@ -807,7 +799,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
             CurrentEntityGuncelle();
             _isBinding = false;
             ResetControlIsModified(this.Controls);
-            
+
             OldEntity = CloneEntity(CurrentEntity);
             IsLoaded = true;
             ButonEnabledDurumu();
@@ -976,7 +968,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
         protected virtual void Control_EditValueChanged(object? sender, EventArgs e)
         {
             if (_isBinding || !IsLoaded) return;
-            
+
             // Eğer hiçbir UI kontrolü (TextBox vb.) kullanıcı tarafından değiştirilmediyse (IsModified = false), 
             // asenkron yüklemeler yüzünden gereksiz yere Butonları aktif etmesini (Bug) engelle:
             if (!FarklilikVarMi(this.Controls)) return;
@@ -1000,7 +992,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
             {
                 if (control is DevExpress.XtraEditors.BaseEdit baseEdit && baseEdit.IsModified)
                     return true;
-                
+
                 if (control is WinBeyazEsya.Presentation.WinForms.UserControls.ucEntityPicture pic && pic.IsDirty())
                     return true;
 

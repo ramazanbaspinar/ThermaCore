@@ -1,10 +1,6 @@
 ﻿using WinBeyazEsya.Presentation.WinForms.UserControls.Base;
 #pragma warning disable CS8618
 using DevExpress.XtraBars;
-using WinBeyazEsya.Presentation.WinForms.Helpers;
-using System;
-using System.Data;
-using System.Linq;
 
 namespace WinBeyazEsya.Presentation.WinForms.UserControls.Table
 {

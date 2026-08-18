@@ -1,5 +1,3 @@
-using System;
-using System.Linq;
 using AutoMapper;
 using FluentValidation;
 using WinBeyazEsya.Application.DTOs.Definitions;
@@ -13,10 +11,10 @@ namespace WinBeyazEsya.Application.Services.Definitions;
 public class PackagingAndPrintingGroupManager : BaseManager<PackagingAndPrintingGroupListDto, PackagingAndPrintingGroupDto, PackagingAndPrintingGroup>, IPackagingAndPrintingGroupService
 {
     public PackagingAndPrintingGroupManager(
-        IMapper mapper, 
-        IRepository<PackagingAndPrintingGroup> repository, 
+        IMapper mapper,
+        IRepository<PackagingAndPrintingGroup> repository,
         IUnitOfWork unitOfWork,
-        IValidator<PackagingAndPrintingGroupDto>? validator = null) 
+        IValidator<PackagingAndPrintingGroupDto>? validator = null)
         : base(mapper, repository, unitOfWork, validator)
     {
     }

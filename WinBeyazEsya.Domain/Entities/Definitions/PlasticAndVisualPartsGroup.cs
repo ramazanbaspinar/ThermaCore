@@ -7,7 +7,7 @@ public class PlasticAndVisualPartsGroup : FullAuditableEntity, IMustHaveBranch
 {
     public string Code { get; set; } = null!;
     public string Name { get; set; } = null!;
-    
+
     public long BaseUnitId { get; set; }
     public virtual Unit BaseUnit { get; set; } = null!;
 

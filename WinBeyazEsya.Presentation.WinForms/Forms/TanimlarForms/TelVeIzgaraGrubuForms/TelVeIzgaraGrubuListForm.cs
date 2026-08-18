@@ -1,15 +1,5 @@
-using DevExpress.XtraEditors;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using WinBeyazEsya.Presentation.WinForms.Forms.BaseForms;
-using WinBeyazEsya.Domain.Enums;
 using WinBeyazEsya.Presentation.WinForms.Helpers;
 
 namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.TelVeIzgaraForms
@@ -51,12 +41,12 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.TelVeIzgaraForm
         protected override void Listele()
         {
             var liste = _wireAndGridGroupService.GetAll().Where(x => x.IsActive == AktifKartlariGoster);
-            
+
             if (ListeDisiTutulacakKayitlar != null && ListeDisiTutulacakKayitlar.Any())
             {
                 liste = liste.Where(x => !ListeDisiTutulacakKayitlar.Contains(x.Id));
             }
-            
+
             Tablo.GridControl.DataSource = liste.ToList();
         }
 
@@ -83,7 +73,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.TelVeIzgaraForm
 
             long entityId = 0;
             long.TryParse(Tablo.GetFocusedRowCellValue("Id")?.ToString(), out entityId);
-            
+
             if (entityId <= 0) return;
 
             var result = Helpers.Messages.SilMesaj(Tablo.GetRowCellValue(Tablo.FocusedRowHandle, "Name")?.ToString() ?? "");

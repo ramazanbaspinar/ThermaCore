@@ -1,13 +1,10 @@
 using DevExpress.XtraEditors;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 using System.Configuration;
-using System.Windows.Forms;
-using System.Threading.Tasks;
+using WinBeyazEsya.Application.Interfaces.Configuration;
 using WinBeyazEsya.Application.Interfaces.Security;
 using WinBeyazEsya.Application.Interfaces.System;
-using WinBeyazEsya.Application.Services.Management; 
-using WinBeyazEsya.Application.Interfaces.Configuration;
+using WinBeyazEsya.Application.Services.Management;
 using WinBeyazEsya.Presentation.WinForms.Helpers;
 
 namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
@@ -71,12 +68,12 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
 
                 var manifest = await _autoUpdateService.CheckForUpdatesAsync();
                 string currentVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "1.0.0.0";
-                
+
                 if (manifest != null && manifest.Version != currentVersion)
                 {
                     Serilog.Log.Information("Yeni versiyon bulundu. Mevcut: {CurrentVersion}, Yeni: {NewVersion}", currentVersion, manifest.Version);
                     this.Enabled = false; // Kullanıcının giriş yapmasını engelle
-                    
+
                     using (var bildirimForm = new GuncellemeBildirimForm(currentVersion, manifest.Version, manifest.IsCritical))
                     {
                         var dialogResult = bildirimForm.ShowDialog(this);
@@ -96,10 +93,10 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
                             }
                         }
                     }
-                    
+
                     string appPath = AppDomain.CurrentDomain.BaseDirectory;
                     bool isReady = _autoUpdateService.IsUpdateReady(appPath, out var cachedManifest);
-                    
+
                     bool downloaded = false;
                     if (isReady && cachedManifest != null && cachedManifest.Version == manifest.Version)
                     {
@@ -109,7 +106,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
                     {
                         downloaded = await _autoUpdateService.DownloadUpdatesAsync(manifest, appPath);
                     }
-                    
+
                     if (downloaded)
                     {
                         string serverUrl = await _autoUpdateService.GetUpdateServerUrlAsync();
@@ -134,17 +131,17 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
                     {
                         DevExpress.XtraEditors.XtraMessageBox.Show("Güncelleme indirilemedi, lütfen sistem yöneticinize başvurun.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
-                    
+
                     System.Windows.Forms.Application.Exit();
                     Environment.Exit(0);
                     return; // Kodun devamının çalışmaması için
                 }
             }
             catch (Exception ex)
-            { 
+            {
                 Serilog.Log.Warning(ex, "Güncelleme kontrolü sırasında bir hata oluştu veya atlandı.");
             }
-            SkipUpdate:
+        SkipUpdate:
             // --- Kritik Güncelleme Kontrolü Bitiş ---
 
             // 1. Temiz Versiyon Formatlaması (.NET 8 Source Link Commit Hash'ini temizle)

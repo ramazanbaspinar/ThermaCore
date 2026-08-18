@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using AutoMapper;
 using FluentValidation;
 using WinBeyazEsya.Application.DTOs.Common;
@@ -22,7 +19,7 @@ public class ItemBarcodeManager : BaseManager<ItemBarcodeListDto, ItemBarcodeDto
         IRepository<ItemBarcode> repository,
         IUnitOfWork unitOfWork,
         IValidator<ItemBarcodeDto> validator,
-        ISystemParameterService systemParameterService) 
+        ISystemParameterService systemParameterService)
         : base(mapper, repository, unitOfWork, validator)
     {
         _systemParameterService = systemParameterService;
@@ -50,16 +47,16 @@ public class ItemBarcodeManager : BaseManager<ItemBarcodeListDto, ItemBarcodeDto
                 prefix = param.CompanyBarcodePrefix;
             }
         }
-        catch 
-        { 
+        catch
+        {
             // Fallback to "869" if service fails
         }
-        
+
         int seqLength = 12 - prefix.Length;
-        if(seqLength <= 0) seqLength = 5; // fallback
-        
+        if (seqLength <= 0) seqLength = 5; // fallback
+
         var existingBarcodes = _repository.Find(x => x.ModuleType == moduleType && x.BarcodeValue.StartsWith(prefix)).ToList();
-        
+
         long maxSeq = 0;
         foreach (var barcode in existingBarcodes)
         {
@@ -72,11 +69,11 @@ public class ItemBarcodeManager : BaseManager<ItemBarcodeListDto, ItemBarcodeDto
                 }
             }
         }
-        
+
         maxSeq++;
         string newSeqStr = maxSeq.ToString().PadLeft(seqLength, '0');
         string coreBarcode = prefix + newSeqStr;
-        
+
         // EAN-13 Checksum calculation
         int sum = 0;
         for (int i = 0; i < 12; i++)
@@ -85,7 +82,7 @@ public class ItemBarcodeManager : BaseManager<ItemBarcodeListDto, ItemBarcodeDto
             sum += digit * (i % 2 == 0 ? 1 : 3);
         }
         int checksum = (10 - (sum % 10)) % 10;
-        
+
         return coreBarcode + checksum.ToString();
     }
 
@@ -130,7 +127,7 @@ public class ItemBarcodeManager : BaseManager<ItemBarcodeListDto, ItemBarcodeDto
         {
             _repository.Add(entity);
         }
-        
+
         _unitOfWork.SaveChanges();
     }
 
@@ -151,7 +148,7 @@ public class ItemBarcodeManager : BaseManager<ItemBarcodeListDto, ItemBarcodeDto
                 _repository.Update(existingEntity);
             }
         }
-        
+
         _unitOfWork.SaveChanges();
     }
 
@@ -167,7 +164,7 @@ public class ItemBarcodeManager : BaseManager<ItemBarcodeListDto, ItemBarcodeDto
                 _repository.Remove(entity);
             }
         }
-        
+
         _unitOfWork.SaveChanges();
     }
 }

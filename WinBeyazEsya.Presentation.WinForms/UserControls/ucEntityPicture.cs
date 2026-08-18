@@ -1,12 +1,7 @@
-﻿using System;
-using System.ComponentModel;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using DevExpress.XtraEditors;
+﻿using DevExpress.XtraEditors;
 using Microsoft.Extensions.DependencyInjection;
+using System.ComponentModel;
+using System.IO;
 using WinBeyazEsya.Application.DTOs.Common;
 using WinBeyazEsya.Application.Interfaces.Common;
 using WinBeyazEsya.Presentation.WinForms.Functions;
@@ -56,7 +51,7 @@ namespace WinBeyazEsya.Presentation.WinForms.UserControls
             {
                 _isLoading = false;
             }
-            
+
             _isDirty = false;
             pictureEdit1.IsModified = false;
         }
@@ -153,7 +148,7 @@ namespace WinBeyazEsya.Presentation.WinForms.UserControls
             {
                 _isLoading = false;
             }
-            
+
             _isDirty = false;
             pictureEdit1.IsModified = false;
         }
@@ -218,7 +213,7 @@ namespace WinBeyazEsya.Presentation.WinForms.UserControls
         {
             _isDirty = true;
             OnDirtyChanged?.Invoke(this, EventArgs.Empty);
-            
+
             if (!_isLoading)
             {
                 pictureEdit1.IsModified = true;

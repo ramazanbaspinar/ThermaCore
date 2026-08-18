@@ -1,7 +1,4 @@
-﻿using System;
-using System.Windows.Forms;
-using DevExpress.XtraEditors;
-using WinBeyazEsya.Application.DTOs.Management;
+﻿using WinBeyazEsya.Application.DTOs.Management;
 using WinBeyazEsya.Application.Interfaces.Repositories;
 using WinBeyazEsya.Domain.Entities.Management;
 using WinBeyazEsya.Domain.Enums;
@@ -48,7 +45,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.CodeTemplateForms
             txtTarihKullan.EditValueChanged += Control_EditValueChanged;
             txtTarihKullan.CheckedChanged += TxtTarihKullan_CheckedChanged;
             txtTarihBazliKodSifirlama.EditValueChanged += Control_EditValueChanged;
-            
+
             btnKoduTestEt.Click += BtnKoduTestEt_Click;
         }
 
@@ -80,7 +77,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.CodeTemplateForms
 
             var sablonUretilebilenModuller = Enum.GetValues(typeof(ModuleType))
                 .Cast<ModuleType>()
-                .Where(m => 
+                .Where(m =>
                 {
                     var field = typeof(ModuleType).GetField(m.ToString());
                     return field != null && Attribute.IsDefined(field, typeof(WinBeyazEsya.Domain.Attributes.RequiresCodeTemplateAttribute));
@@ -95,7 +92,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.CodeTemplateForms
                     tanimliModuller.Remove(entity.Module); // Kendi modülünü listeden çıkar ki dropdown'da görünsün
                 }
             }
-            
+
             var gosterilecekModuller = sablonUretilebilenModuller.Where(x => !tanimliModuller.Contains(x)).ToArray();
 
             txtModul.Properties.Items.Clear();
@@ -309,7 +306,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.CodeTemplateForms
             // Şimdilik "FirmaKisaKodKullanimDurumu" seçiliyse cari kısa kod yerine boş bırakıyoruz veya opsiyonel bir şey eklemiyoruz.
             string firmaKodu = "";
             string tarihStr = "";
-            
+
             if (dto.IsDateBasedCodeGenerationEnabled)
             {
                 tarihStr = dto.DateFormat switch

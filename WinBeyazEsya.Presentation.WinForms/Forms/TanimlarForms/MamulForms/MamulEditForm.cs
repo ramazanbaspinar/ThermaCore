@@ -1,12 +1,7 @@
-using DevExpress.XtraEditors;
-using System;
-using System.Linq;
-using System.Windows.Forms;
 using WinBeyazEsya.Application.Interfaces.Common;
 using WinBeyazEsya.Application.Interfaces.Definitions;
 using WinBeyazEsya.Application.Interfaces.Repositories;
 using WinBeyazEsya.Domain.Entities.Definitions;
-using WinBeyazEsya.Domain.Entities.Management;
 using WinBeyazEsya.Domain.Enums;
 using WinBeyazEsya.Presentation.WinForms.Forms.BaseForms;
 using WinBeyazEsya.Presentation.WinForms.Helpers;
@@ -50,18 +45,18 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.MamulForms
             }
 
             BaseKartTuru = ModuleType.FinishedGood;
-            
+
             if (!DesignMode)
             {
                 picResim.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
-                if (ucBarkodlar1 != null) 
+                if (ucBarkodlar1 != null)
                 {
                     ucBarkodlar1.InitializeService(_itemBarcodeService);
                     ucBarkodlar1.OnDirtyChanged += (s, e) => ButonEnabledDurumu();
                 }
             }
-            
-            if (glufTemelBirim != null) 
+
+            if (glufTemelBirim != null)
             {
                 glufTemelBirim.Properties.ReadOnly = true;
                 foreach (DevExpress.XtraEditors.Controls.EditorButton btn in glufTemelBirim.Properties.Buttons)
@@ -70,7 +65,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.MamulForms
                 }
             }
         }
-        
+
         protected override void EventsLoad()
         {
             base.EventsLoad();
@@ -89,12 +84,12 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.MamulForms
                 {
                     form.FormAcilisTuru = WinBeyazEsya.Presentation.WinForms.Enums.FormAcilisTuru.Secim;
                     form.ShowDialog();
-                    
+
                     if (_unitRepository != null && glufTemelBirim != null)
                     {
                         glufTemelBirim.Properties.DataSource = _unitRepository.Find(x => x.IsActive).ToList();
                     }
-                    
+
                     if (form.DialogResult == DialogResult.OK && form.SelectedEntities?.Count > 0 && glufTemelBirim != null)
                     {
                         var secilenId = form.SelectedEntities[0].Id;
@@ -131,7 +126,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.MamulForms
                 {
                     form.FormAcilisTuru = WinBeyazEsya.Presentation.WinForms.Enums.FormAcilisTuru.Secim;
                     form.ShowDialog();
-                    
+
                     if (glufKdv != null)
                     {
                         var taxRepo = Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetService<WinBeyazEsya.Application.Interfaces.Repositories.IRepository<WinBeyazEsya.Domain.Entities.Management.TaxRate>>(_serviceProvider);
@@ -140,7 +135,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.MamulForms
                             glufKdv.Properties.DataSource = taxRepo.Find(x => x.IsActive && x.TaxType == Domain.Enums.TaxType.Kdv).ToList();
                         }
                     }
-                    
+
                     if (form.DialogResult == DialogResult.OK && form.SelectedEntities?.Count > 0 && glufKdv != null)
                     {
                         var secilenValue = ((WinBeyazEsya.Application.DTOs.Management.TaxRateListDto)form.SelectedEntities[0]).Rate;
@@ -156,11 +151,11 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.MamulForms
 
             if (BaseIslemTuru == ActionType.EntityInsert)
             {
-                var newEntity = new Application.DTOs.Definitions.FinishedGoodDto 
-                { 
+                var newEntity = new Application.DTOs.Definitions.FinishedGoodDto
+                {
                     IsActive = true
                 };
-                
+
                 if (_unitRepository != null)
                 {
                     var adetUnit = _unitRepository.Find(x => x.Code == "AD" || x.Name == "Adet" || x.Name == "ADET" || x.Name == "Ad.").FirstOrDefault();
@@ -186,7 +181,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.MamulForms
                         }
                     }
                 }
-                
+
                 CurrentEntity = newEntity;
             }
             else
@@ -299,13 +294,13 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.MamulForms
         protected override bool EntityInsert()
         {
             if (ucBarkodlar1 != null) ucBarkodlar1.PostGridChanges();
-            
+
             try
             {
                 var dto = (Application.DTOs.Definitions.FinishedGoodDto)CurrentEntity;
                 dto.Id = BaseIslemTuru.IdOlustur(OldEntity);
                 Id = _finishedGoodService.Insert(dto);
-                
+
                 if (Id > 0)
                 {
                     picResim?.SavePicture("FinishedGood", Id);
@@ -325,11 +320,11 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.MamulForms
         protected override bool EntityUpdate()
         {
             if (ucBarkodlar1 != null) ucBarkodlar1.PostGridChanges();
-            
+
             try
             {
                 _finishedGoodService.Update((Application.DTOs.Definitions.FinishedGoodDto)CurrentEntity);
-                
+
                 picResim?.SavePicture("FinishedGood", Id);
                 ucBarkodlar1?.Kaydet(Id);
 

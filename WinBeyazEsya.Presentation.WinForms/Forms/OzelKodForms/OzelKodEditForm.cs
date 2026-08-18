@@ -1,14 +1,6 @@
 ﻿using DevExpress.XtraEditors;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using WinBeyazEsya.Application.DTOs.Common;
 using WinBeyazEsya.Application.Interfaces.Common;
 using WinBeyazEsya.Domain.Enums;
@@ -42,7 +34,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.OzelKodForms
             DataLayoutControl = myDataLayoutControl1;
 
             string titlePrefix = _codeType == SpecialCodeType.SpecialCode ? "Özel Kod Kaydı" : "Grup Kodu Kaydı";
-            
+
             string entityNameTr = _entityType switch
             {
                 "MetalSheetGroup" => "Metal ve Sac Grubu",
@@ -67,7 +59,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.OzelKodForms
                 "SparkPlug" => "Çakmak (Buji) Tanımları",
                 "IgnitionTransformer" => "Ateşleme Trafosu Tanımları",
                 "GasPipe" => "Gaz Borusu Tanımları",
-                                "FinishedGood" => "Ürün (Mamül)",
+                "FinishedGood" => "Ürün (Mamül)",
                 "ChemicalAndInsulationGroup" => "Kimya ve Yalıtım Grubu",
                 "ElectricalElectronicGroup" => "Elektrik ve Elektronik Grubu",
                 "GasAndIgnitionGroup" => "Gaz ve Ateşleme Grubu",
@@ -78,7 +70,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.OzelKodForms
                 "WireAndGridGroup" => "Tel ve Izgara Grubu",
                 _ => _entityType
             };
-            
+
             this.Text = $"{titlePrefix} ({entityNameTr})";
             layoutControlItem2.Text = _codeType == SpecialCodeType.SpecialCode ? "Özel Kod Adı" : "Grup Kodu Adı";
         }
@@ -91,11 +83,11 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.OzelKodForms
             }
             else
             {
-                CurrentEntity = new SpecialCodeDto 
-                { 
+                CurrentEntity = new SpecialCodeDto
+                {
                     CodeType = _codeType,
                     EntityType = _entityType,
-                    IsActive = true 
+                    IsActive = true
                 };
             }
 
@@ -108,7 +100,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.OzelKodForms
 
             txtKod.Text = dto.Code;
             txtOzelKodAdi.Text = dto.Name;
-            txtAciklama.Text = dto.Description; 
+            txtAciklama.Text = dto.Description;
         }
 
         protected override void GuncelNesneOlustur()
@@ -123,7 +115,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.OzelKodForms
                 Description = txtAciklama.Text,
                 IsActive = true
             };
-            
+
             CurrentEntity = dto;
             ButonEnabledDurumu();
         }
@@ -132,7 +124,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.OzelKodForms
         {
             var dto = (SpecialCodeDto)CurrentEntity;
             dto.Id = BaseIslemTuru.IdOlustur(OldEntity);
-            
+
             try
             {
                 Id = _specialCodeService.Insert(dto);
@@ -154,7 +146,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.OzelKodForms
         protected override bool EntityUpdate()
         {
             var dto = (SpecialCodeDto)CurrentEntity;
-            
+
             try
             {
                 _specialCodeService.Update(dto);

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Net.NetworkInformation;
+﻿using System.Net.NetworkInformation;
 
 namespace WinBeyazEsya.Domain.Helpers;
 
@@ -9,7 +7,7 @@ public class TerminalHardwareInfo
     public List<string> EthernetMacs { get; set; } = new();
     public List<string> WifiMacs { get; set; } = new();
     public List<string> VpnMacs { get; set; } = new();
-    
+
     public List<string> AllMacs => EthernetMacs.Concat(WifiMacs).Concat(VpnMacs).ToList();
 }
 

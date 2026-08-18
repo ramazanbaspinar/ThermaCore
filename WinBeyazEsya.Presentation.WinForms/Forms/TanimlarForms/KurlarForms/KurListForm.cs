@@ -1,8 +1,5 @@
 ﻿using DevExpress.XtraEditors;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Linq;
-using System.Windows.Forms;
 using WinBeyazEsya.Application.Interfaces.Repositories;
 using WinBeyazEsya.Domain.Entities.Management;
 using WinBeyazEsya.Domain.Enums;
@@ -34,7 +31,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.KurlarForms
             BaseKartTuru = ModuleType.KurTanimlari;
             Navigator = longNavigator1.Navigator;
             AktifPasifButonGoster = false;
-            
+
             HideItems = new DevExpress.XtraBars.BarItem[] { btnYeni, btnSil };
         }
 
@@ -77,7 +74,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.KurlarForms
                     {
                         var currentTenantService = Program.ServiceProvider.GetRequiredService<WinBeyazEsya.Application.Interfaces.System.ICurrentTenantService>();
                         using var scope = Program.ServiceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope();
-                        
+
                         var scopedTenantService = scope.ServiceProvider.GetRequiredService<WinBeyazEsya.Application.Interfaces.System.ICurrentTenantService>();
                         scopedTenantService.ConnectionString = currentTenantService.ConnectionString;
                         scopedTenantService.TenantId = currentTenantService.TenantId;
@@ -86,7 +83,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.KurlarForms
 
                         var manager = scope.ServiceProvider.GetRequiredService<WinBeyazEsya.Application.Interfaces.System.IExchangeRateService>();
                         bool isNewDataAdded = await manager.SyncTcmbRatesAsync();
-                        
+
                         if (isNewDataAdded)
                         {
                             XtraMessageBox.Show("Kurlar başarıyla senkronize edildi.", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -95,7 +92,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.KurlarForms
                         {
                             XtraMessageBox.Show("TCMB tarafından yayınlanan en güncel kur verileri sistemde zaten kayıtlıdır.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
-                        
+
                         Listele();
                     }
                     catch (Exception ex)

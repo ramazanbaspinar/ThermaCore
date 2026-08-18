@@ -8,9 +8,8 @@ using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Registrator;
 using DevExpress.XtraGrid.Views.BandedGrid;
 using DevExpress.XtraGrid.Views.Base;
-using WinBeyazEsya.Presentation.WinForms.Interfaces;
 using System.ComponentModel;
-using System.Drawing;
+using WinBeyazEsya.Presentation.WinForms.Interfaces;
 
 namespace WinBeyazEsya.Presentation.WinForms.UserControls.Grid
 {

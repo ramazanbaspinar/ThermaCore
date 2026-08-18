@@ -1,11 +1,10 @@
-using System.Reflection;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
-using WinBeyazEsya.Application.Services.Management;
-using WinBeyazEsya.Application.Interfaces.Management;
+using System.Reflection;
 using WinBeyazEsya.Application.Interfaces.Definitions;
+using WinBeyazEsya.Application.Interfaces.Management;
 using WinBeyazEsya.Application.Services.Definitions;
-using WinBeyazEsya.Application.DTOs.Definitions;
+using WinBeyazEsya.Application.Services.Management;
 
 namespace WinBeyazEsya.Application;
 
@@ -40,15 +39,15 @@ public static class ApplicationServiceRegistration
 
         services.AddScoped<IValidator<WinBeyazEsya.Application.DTOs.Common.ItemBarcodeDto>, WinBeyazEsya.Application.Validations.Common.ItemBarcodeValidator>();
         services.AddScoped<IValidator<WinBeyazEsya.Application.DTOs.Common.SpecialCodeDto>, WinBeyazEsya.Application.Validations.Common.SpecialCodeValidator>();
-        
-        
-
-        
 
 
 
-        
-        
+
+
+
+
+
+
         services.AddScoped<IValidator<WinBeyazEsya.Application.DTOs.Production.MaterialCostDto>, WinBeyazEsya.Application.Validations.Production.MaterialCostValidator>();
         services.AddScoped<WinBeyazEsya.Application.Interfaces.Production.IMaterialCostService, WinBeyazEsya.Application.Services.Production.MaterialCostManager>();
 
@@ -64,21 +63,21 @@ public static class ApplicationServiceRegistration
         services.AddScoped<WinBeyazEsya.Application.Interfaces.System.ITenantDatabaseSetupService, WinBeyazEsya.Application.Services.System.TenantDatabaseSetupManager>();
         services.AddSingleton<WinBeyazEsya.Application.Interfaces.System.ICurrentTenantService, WinBeyazEsya.Application.Services.System.CurrentTenantService>();
 
-        
-        
-        
 
-        
-        
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
+
+
+
+
+
         services.AddScoped<IValidator<WinBeyazEsya.Application.DTOs.Definitions.GeneralExpenseDto>, WinBeyazEsya.Application.Validations.Definitions.GeneralExpenseValidator>();
         services.AddScoped<WinBeyazEsya.Application.Interfaces.Definitions.IGeneralExpenseService, WinBeyazEsya.Application.Services.Definitions.GeneralExpenseManager>();
-        
+
         services.AddScoped<IValidator<WinBeyazEsya.Application.DTOs.Definitions.MetalSheetGroupDto>, WinBeyazEsya.Application.Validators.Definitions.MetalSheetGroupValidator>();
         services.AddScoped<WinBeyazEsya.Application.Interfaces.Definitions.IMetalSheetGroupService, WinBeyazEsya.Application.Services.Definitions.MetalSheetGroupManager>();
         services.AddTransient<IValidator<WinBeyazEsya.Application.DTOs.Definitions.FinishedGoodDto>, WinBeyazEsya.Application.Validators.Definitions.FinishedGoodValidator>();
@@ -86,7 +85,7 @@ public static class ApplicationServiceRegistration
 
         services.AddScoped<IValidator<WinBeyazEsya.Application.DTOs.Definitions.ElectricalElectronicGroupDto>, WinBeyazEsya.Application.Validators.Definitions.ElectricalElectronicGroupValidator>();
         services.AddScoped<WinBeyazEsya.Application.Interfaces.Definitions.IElectricalElectronicGroupService, WinBeyazEsya.Application.Services.Definitions.ElectricalElectronicGroupManager>();
-        
+
         services.AddScoped<IValidator<WinBeyazEsya.Application.DTOs.Definitions.GasAndIgnitionGroupDto>, WinBeyazEsya.Application.Validators.Definitions.GasAndIgnitionGroupValidator>();
         services.AddScoped<WinBeyazEsya.Application.Interfaces.Definitions.IGasAndIgnitionGroupService, WinBeyazEsya.Application.Services.Definitions.GasAndIgnitionGroupManager>();
 
@@ -121,7 +120,7 @@ public static class ApplicationServiceRegistration
         services.AddScoped<WinBeyazEsya.Application.Interfaces.Definitions.ITownService, WinBeyazEsya.Application.Services.Definitions.TownManager>();
         services.AddScoped<IValidator<WinBeyazEsya.Application.DTOs.Definitions.CurrentAccountDto>, WinBeyazEsya.Application.Validators.Definitions.CurrentAccountValidator>();
         services.AddScoped<WinBeyazEsya.Application.Interfaces.Definitions.ICurrentAccountService, WinBeyazEsya.Application.Services.Definitions.CurrentAccountManager>();
-        
+
         return services;
     }
 }

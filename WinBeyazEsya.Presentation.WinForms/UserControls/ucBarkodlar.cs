@@ -1,9 +1,6 @@
-using System;
-using System.ComponentModel;
-using System.Drawing;
-using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using Microsoft.Extensions.DependencyInjection;
+using System.ComponentModel;
 using WinBeyazEsya.Application.DTOs.Common;
 using WinBeyazEsya.Application.Interfaces.Common;
 using WinBeyazEsya.Domain.Enums;
@@ -37,10 +34,10 @@ namespace WinBeyazEsya.Presentation.WinForms.UserControls
             if (!DesignMode && LicenseManager.UsageMode != LicenseUsageMode.Designtime)
             {
                 gridControlBarcodes.DataSource = _barcodes;
-                
+
                 gridViewBarcodes.ShowingEditor += GridViewBarcodes_ShowingEditor;
                 gridViewBarcodes.CellValueChanged += GridViewBarcodes_CellValueChanged;
-                
+
                 _barcodes.ListChanged += (s, e) => SetDirty(true);
 
                 // Add btnManuelBarkodEkle programmatically
@@ -49,11 +46,11 @@ namespace WinBeyazEsya.Presentation.WinForms.UserControls
                 btnManuelBarkodEkle.Size = new Size(130, 23);
                 btnManuelBarkodEkle.Location = new Point(btnTedarikciBarkoduOku.Right + 6, btnTedarikciBarkoduOku.Top);
                 btnManuelBarkodEkle.Click += btnManuelBarkodEkle_Click;
-                
+
                 // Shift others
                 btnEtiketYazdir.Left = btnManuelBarkodEkle.Right + 6;
                 btnSil.Left = btnEtiketYazdir.Right + 6;
-                
+
                 panelControl1.Controls.Add(btnManuelBarkodEkle);
 
                 // Add "Manuel / Legacy" to repository item types if not present
@@ -62,7 +59,7 @@ namespace WinBeyazEsya.Presentation.WinForms.UserControls
                 {
                     rep.Items.Add("Manuel / Legacy");
                 }
-                
+
                 if (!rep.Items.Contains("Sistem (EAN-13)"))
                 {
                     rep.Items.Add("Sistem (EAN-13)");
@@ -120,7 +117,7 @@ namespace WinBeyazEsya.Presentation.WinForms.UserControls
             CurrentRecordId = recordId;
             CurrentRecordCode = recordCode;
             CurrentModuleType = moduleType;
-            
+
             if (DesignMode || LicenseManager.UsageMode == LicenseUsageMode.Designtime) return;
 
             if (_itemBarcodeService != null && CurrentRecordId > 0)
@@ -146,9 +143,9 @@ namespace WinBeyazEsya.Presentation.WinForms.UserControls
         {
             if (DesignMode) return;
             if (_itemBarcodeService == null) return;
-            
+
             string generatedBarcode = _itemBarcodeService.GenerateInternalBarcode(CurrentModuleType);
-            
+
             // Eğer zaten varsa ekleme
             foreach (var b in _barcodes)
             {
@@ -158,13 +155,13 @@ namespace WinBeyazEsya.Presentation.WinForms.UserControls
                     return;
                 }
             }
-            
+
             // Diğerlerini false yap
             foreach (var b in _barcodes) b.IsPrimary = false;
-            
-            var newBarcode = new ItemBarcodeListDto 
-            { 
-                RecordId = CurrentRecordId, 
+
+            var newBarcode = new ItemBarcodeListDto
+            {
+                RecordId = CurrentRecordId,
                 ModuleType = CurrentModuleType,
                 BarcodeValue = generatedBarcode,
                 BarcodeType = "Sistem (EAN-13)",
@@ -173,16 +170,16 @@ namespace WinBeyazEsya.Presentation.WinForms.UserControls
                 WeightPerUnit = 0,
                 IsPrimary = true
             };
-            
+
             _barcodes.Add(newBarcode);
             gridViewBarcodes.RefreshData();
         }
 
         private void btnManuelBarkodEkle_Click(object sender, EventArgs e)
         {
-            var newBarcode = new ItemBarcodeListDto 
-            { 
-                RecordId = CurrentRecordId, 
+            var newBarcode = new ItemBarcodeListDto
+            {
+                RecordId = CurrentRecordId,
                 ModuleType = CurrentModuleType,
                 BarcodeType = "Manuel / Legacy",
                 Unit = "Adet",
@@ -190,13 +187,13 @@ namespace WinBeyazEsya.Presentation.WinForms.UserControls
                 WeightPerUnit = 0,
                 IsPrimary = true
             };
-            
+
             // Diğerlerini false yap
             foreach (var b in _barcodes) b.IsPrimary = false;
-            
+
             _barcodes.Add(newBarcode);
             gridViewBarcodes.RefreshData();
-            
+
             // Odaklan
             gridViewBarcodes.FocusedRowHandle = gridViewBarcodes.RowCount - 1;
             gridViewBarcodes.FocusedColumn = gridViewBarcodes.Columns["BarcodeValue"];
@@ -205,9 +202,9 @@ namespace WinBeyazEsya.Presentation.WinForms.UserControls
 
         private void btnTedarikciBarkoduOku_Click(object sender, EventArgs e)
         {
-            var newBarcode = new ItemBarcodeListDto 
-            { 
-                RecordId = CurrentRecordId, 
+            var newBarcode = new ItemBarcodeListDto
+            {
+                RecordId = CurrentRecordId,
                 ModuleType = CurrentModuleType,
                 BarcodeType = "Tedarikçi (EAN-13)",
                 Unit = "Adet",
@@ -215,10 +212,10 @@ namespace WinBeyazEsya.Presentation.WinForms.UserControls
                 WeightPerUnit = 0,
                 IsPrimary = false
             };
-            
+
             _barcodes.Add(newBarcode);
             gridViewBarcodes.RefreshData();
-            
+
             // Odaklan
             gridViewBarcodes.FocusedRowHandle = gridViewBarcodes.RowCount - 1;
             gridViewBarcodes.FocusedColumn = gridViewBarcodes.Columns["BarcodeValue"];
@@ -258,7 +255,7 @@ namespace WinBeyazEsya.Presentation.WinForms.UserControls
                 }
             }
         }
-        
+
         private bool _isDirty = false;
         public event EventHandler OnDirtyChanged;
 
@@ -302,13 +299,13 @@ namespace WinBeyazEsya.Presentation.WinForms.UserControls
                         break;
                     }
                 }
-                
+
                 if (!stillExists)
                 {
                     idsToDelete.Add(existing.Id);
                 }
             }
-            
+
             if (idsToDelete.Any())
             {
                 _itemBarcodeService.BulkDelete(idsToDelete);
@@ -350,8 +347,8 @@ namespace WinBeyazEsya.Presentation.WinForms.UserControls
             // 3. Refresh UI from DB to get generated IDs properly
             var data = _itemBarcodeService.GetBarcodes(recordId, CurrentModuleType);
             _barcodes.Clear();
-            foreach(var d in data) _barcodes.Add(d);
-            
+            foreach (var d in data) _barcodes.Add(d);
+
             SetDirty(false);
         }
     }

@@ -10,7 +10,7 @@ public class EmailParameterConfiguration : IEntityTypeConfiguration<EmailParamet
     {
         builder.ToTable("EmailParameters");
         builder.HasKey(x => x.Id);
-        
+
         builder.Property(x => x.SmtpServer).HasMaxLength(200).IsRequired();
         builder.Property(x => x.SenderName).HasMaxLength(200).IsRequired();
         builder.Property(x => x.SenderEmail).HasMaxLength(200).IsRequired();

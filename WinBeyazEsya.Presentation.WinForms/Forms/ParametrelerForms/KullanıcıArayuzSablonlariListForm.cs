@@ -1,14 +1,4 @@
-﻿using DevExpress.XtraEditors;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using WinBeyazEsya.Presentation.WinForms.Forms.BaseForms;
+﻿using WinBeyazEsya.Presentation.WinForms.Forms.BaseForms;
 
 namespace WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms
 {
@@ -26,8 +16,8 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms
             _uow = uow;
 
             BaseKartTuru = WinBeyazEsya.Domain.Enums.ModuleType.UserInterfaceTemplate;
-            Tablo = myGridView1; 
-            
+            Tablo = myGridView1;
+
             // Sadece Sil ve Yenile butonları aktif olacak
             HideItems = new DevExpress.XtraBars.BarItem[] { btnYeni, btnDuzelt };
         }
@@ -35,9 +25,9 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms
         protected override void Listele()
         {
             // TODO: İleride SessionManager.CurrentUser.Id kullanılacak. Şimdilik mock olarak 1.
-            long currentUserId = 1; 
+            long currentUserId = 1;
             var list = _templateRepository.Find(x => x.UserId == currentUserId).ToList();
-            myGridControl1.DataSource = list; 
+            myGridControl1.DataSource = list;
         }
 
         protected override void EntityDelete()

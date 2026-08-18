@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 
@@ -56,7 +54,7 @@ namespace WinBeyazEsya.Keygen
                     case "6":
                         Console.Write("\nBitiş Tarihini giriniz (GÜN.AY.YIL formatında, Örn: 25.06.2026): ");
                         string customDate = Console.ReadLine()?.Trim() ?? "";
-                        
+
                         string[] formats = { "dd.MM.yyyy", "dd/MM/yyyy", "dd-MM-yyyy" };
                         if (DateTime.TryParseExact(customDate, formats, new System.Globalization.CultureInfo("tr-TR"), System.Globalization.DateTimeStyles.None, out DateTime parsedDate))
                         {
@@ -80,7 +78,7 @@ namespace WinBeyazEsya.Keygen
             // Adım 2: Sabit RSA Anahtarı İle İmzalama
             Console.WriteLine("\n[+] Lisans verileri şifreleniyor ve imzalanıyor...");
             string privateKey = @"<RSAKeyValue><Modulus>1KdTdgfVtbluGQk10dBYsO5rfaz53V6hfT7RVU3kGnxo6wmSl2jI6cL5eGA2XHV0j0FM6osUfNGoNq6C+ct2nFKteIo2YkMHs9YLGSWUCR77VqHSq+Lofg3m58D+WI1632L3f4piX/Te2FfOrEyP8O/ZC2o8p4kwq7G0wlqUXn1LrAlEhmQn54iQiBQ6gObwthgZr1Autd4TFl9eOs2srP+BZNlx1k1aMEsAjNNHLJLypVwKhlLoPlbWS1uEjhsMrD8YWBeS9ZceTt5H+/7bPLu8Cr3fjFcpoXnshwHoh+Rgfm8DfR6HfNjZvg6haH6AM7BELCXzWznrBEFhgFbAxQ==</Modulus><Exponent>AQAB</Exponent><P>3HprmcbbC3C3Wfe1tT2VPU/5JIOck/xiUb7+27lossbIt5hDfTcpYDb6GaLftEQ+JKrkuFR6nbVaEG4aU02ngbG8vmhksaPfdfaIqbZGkenET+2N4w5CFpIihCO+b5T7fJIN9uZUALb784IjnpzBDKcJ9XrUjAci8omYaA4Io9M=</P><Q>9uouonNktqeRqiwpKHXqHNjIcpLnSHrpsM2JAvaNP6Syizo9OJ/WtgzQ9tSQv1lB/UAsS6nqRZ0x02BXpqu8ZNSCNg8Db37kvLsTe2iQWkRPknxDsr2tjE2XpXj7bQQ0v9UuYzvt5yJtNWGwLN++86airO8vHoIWDqe8aZJe4gc=</Q><DP>S++uF6yxzOLpg4cZgm7Pc+qTeMwLpbyLcHRD+xGEye5FO1aqB/pzubu1sBa0zbWjYaWqWQJfqOnJN1d0obRhOP4qb7os1DIIyOw8bZdl/uNwxcaf09AZWwTB9pkJAg1iAKmdPahezlA3vsrX0c1TgDQX7gB8LC5ZDwftAgmzWBk=</DP><DQ>ldzDG0RQb3A7P/73qCARTRriZm/1Qo+fgPju3MaKKoOq/kgF2nVhGzOiLP4NMKZbH/uwJuhlUYU8NaA28ukvOj+lHGx2WFi7OjWNeIyZeMAXT8BuUnE/gXWiwgMxDxTLc1dPhVldZrkFca3uAP54ZmfQOogdoDWyb4itGaKGRkc=</DQ><InverseQ>Q84ltGS2/8r20w7JCzqQrUgKAY2Avmk5aRCz7u7BSR9UMs25yS4SolrvnP+sP0oby3F/fUyNvDBpJjQVvT9qlDZn2qBWNjIvhofykr1Zd4aEr0gipc0F4nz8FYaHP+GxpdkwdNvdvL48J482NXS60cC1iXWkO1qO9bZwVYS12Pc=</InverseQ><D>Ie1wS2yElDG5dxUZGRh8jf37+FkYpFDswua6zzlWI0OmGZm1YaK+K02IL8Rp5+Z1akWo1+LIqgFpLRA6pU/o5JfsRUcH1jWLjQ2hR6nPLIVc5D19Nx9EqJffNyp7afVonStVAWw6tcSDqVCZELRGYtJhdojElJY2xa3cgQWillBsqDj2we8srxwccgBxhfP4+SPMQkSW+pSjPtq65pP0i29l7ENr+xeAtsLSsxbJWhJOaup9aEJ5VoVSmstH6OIvm/B5yOc06cXtAXIDzfUJFvWAq0QHoELkJRVLK8XC4ZqsB2d1zaFVduXi+W5ZowU/sprxu99sbtTmeVh0u+2XIQ==</D></RSAKeyValue>";
-            
+
             using var rsa = new RSACryptoServiceProvider(2048);
             rsa.FromXmlString(privateKey);
 
@@ -132,7 +130,7 @@ namespace WinBeyazEsya.Keygen
             {
                 Console.WriteLine($"\n[HATA] Lisans dosyası masaüstüne kaydedilemedi: {ex.Message}");
             }
-            
+
             Console.WriteLine("\nÇıkmak için herhangi bir tuşa basınız...");
             Console.ReadKey();
         }

@@ -10,9 +10,9 @@ namespace WinBeyazEsya.Application.Services.Definitions;
 public class CountryManager : BaseManager<CountryDto, CountryDto, Country>, ICountryService
 {
     public CountryManager(
-        IMapper mapper, 
-        IRepository<Country> repository, 
-        IUnitOfWork unitOfWork) 
+        IMapper mapper,
+        IRepository<Country> repository,
+        IUnitOfWork unitOfWork)
         : base(mapper, repository, unitOfWork, null)
     {
     }

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace WinBeyazEsya.Application.DTOs.Security
+﻿namespace WinBeyazEsya.Application.DTOs.Security
 {
     public class LicenseDataDto
     {

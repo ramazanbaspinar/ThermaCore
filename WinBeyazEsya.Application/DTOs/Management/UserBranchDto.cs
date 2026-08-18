@@ -6,7 +6,7 @@ public class UserBranchDto : BaseDto
 {
     public long UserId { get; set; }
     public long BranchId { get; set; }
-    
+
     public bool IsDefault { get; set; }
 }
 

@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using AutoMapper;
+﻿using AutoMapper;
 using FluentValidation;
 using WinBeyazEsya.Application.DTOs.Management;
 using WinBeyazEsya.Application.Interfaces.Management;
 using WinBeyazEsya.Application.Interfaces.Repositories;
-using WinBeyazEsya.Application.Services.Base;
 using WinBeyazEsya.Application.Interfaces.Security;
+using WinBeyazEsya.Application.Services.Base;
 using WinBeyazEsya.Domain.Entities.Management;
 using WinBeyazEsya.Domain.Helpers;
 
@@ -21,14 +18,14 @@ public class UserManager : BaseMasterManager<UserDto, UserDto, User>, IUserServi
     private readonly IMasterRepository<UserBranch> _userBranchRepository;
 
     public UserManager(
-        IMapper mapper, 
-        IMasterRepository<User> repository, 
-        IMasterUnitOfWork unitOfWork, 
+        IMapper mapper,
+        IMasterRepository<User> repository,
+        IMasterUnitOfWork unitOfWork,
         IRoleService roleService,
         ITerminalService terminalService,
         IMasterRepository<UserTenant> userTenantRepository,
         IMasterRepository<UserBranch> userBranchRepository,
-        IValidator<UserDto>? validator = null) 
+        IValidator<UserDto>? validator = null)
         : base(mapper, repository, unitOfWork, validator)
     {
         _roleService = roleService;
@@ -51,9 +48,10 @@ public class UserManager : BaseMasterManager<UserDto, UserDto, User>, IUserServi
         {
             foreach (var tenantDto in dto.UserTenants)
             {
-                entity.UserTenants.Add(new UserTenant { 
+                entity.UserTenants.Add(new UserTenant
+                {
                     Id = WinBeyazEsya.Domain.Helpers.IdGenerator.GenerateId(),
-                    TenantDatabaseId = tenantDto.TenantDatabaseId 
+                    TenantDatabaseId = tenantDto.TenantDatabaseId
                 });
             }
         }
@@ -62,9 +60,10 @@ public class UserManager : BaseMasterManager<UserDto, UserDto, User>, IUserServi
         {
             foreach (var branchDto in dto.UserBranches)
             {
-                entity.UserBranches.Add(new UserBranch { 
+                entity.UserBranches.Add(new UserBranch
+                {
                     Id = WinBeyazEsya.Domain.Helpers.IdGenerator.GenerateId(),
-                    BranchId = branchDto.BranchId 
+                    BranchId = branchDto.BranchId
                 });
             }
         }
@@ -118,13 +117,13 @@ public class UserManager : BaseMasterManager<UserDto, UserDto, User>, IUserServi
 
         // Remove old relationships
         var existingTenants = _userTenantRepository.Find(x => x.UserId == entity.Id).ToList();
-        foreach(var t in existingTenants)
+        foreach (var t in existingTenants)
         {
             _userTenantRepository.Remove(t);
         }
 
         var existingBranches = _userBranchRepository.Find(x => x.UserId == entity.Id).ToList();
-        foreach(var b in existingBranches)
+        foreach (var b in existingBranches)
         {
             _userBranchRepository.Remove(b);
         }
@@ -132,21 +131,21 @@ public class UserManager : BaseMasterManager<UserDto, UserDto, User>, IUserServi
         // Add new relationships
         foreach (var tenantDto in dto.UserTenants)
         {
-            _userTenantRepository.Add(new UserTenant 
-            { 
+            _userTenantRepository.Add(new UserTenant
+            {
                 Id = WinBeyazEsya.Domain.Helpers.IdGenerator.GenerateId(),
-                TenantDatabaseId = tenantDto.TenantDatabaseId, 
-                UserId = entity.Id 
+                TenantDatabaseId = tenantDto.TenantDatabaseId,
+                UserId = entity.Id
             });
         }
 
         foreach (var branchDto in dto.UserBranches)
         {
-            _userBranchRepository.Add(new UserBranch 
-            { 
+            _userBranchRepository.Add(new UserBranch
+            {
                 Id = WinBeyazEsya.Domain.Helpers.IdGenerator.GenerateId(),
-                BranchId = branchDto.BranchId, 
-                UserId = entity.Id 
+                BranchId = branchDto.BranchId,
+                UserId = entity.Id
             });
         }
 
@@ -186,7 +185,7 @@ public class UserManager : BaseMasterManager<UserDto, UserDto, User>, IUserServi
     {
         var entities = _repository.Find(x => !x.IsDeleted && x.IsActive).ToList();
         var dtos = _mapper.Map<IEnumerable<UserListDto>>(entities).ToList();
-        
+
         var rolesDict = _roleService.GetActiveRoles().ToDictionary(x => x.Id, x => x.RoleName);
         foreach (var dto in dtos)
         {
@@ -195,14 +194,14 @@ public class UserManager : BaseMasterManager<UserDto, UserDto, User>, IUserServi
                 dto.RoleName = roleName;
             }
         }
-        
+
         return dtos;
     }
 
     private void MapRolesInMemory(List<UserDto> dtos)
     {
         if (!dtos.Any()) return;
-        
+
         // Fetch all roles instead of active only, in case old users have inactive roles
         var rolesDict = _roleService.GetAll().ToDictionary(x => x.Id, x => x.RoleName);
         foreach (var dto in dtos)

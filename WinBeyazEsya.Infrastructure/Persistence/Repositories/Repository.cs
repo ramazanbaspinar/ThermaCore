@@ -1,7 +1,5 @@
-using System;
-using System.Linq;
-using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 using WinBeyazEsya.Application.Interfaces.Repositories;
 using WinBeyazEsya.Domain.Entities.Base;
 
@@ -38,12 +36,12 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
     public IQueryable<TEntity> GetAll(params Expression<Func<TEntity, object>>[] includes)
     {
         IQueryable<TEntity> query = _dbSet.AsNoTracking();
-        
+
         foreach (var include in includes)
         {
             query = query.Include(include);
         }
-        
+
         return query;
     }
 
@@ -95,7 +93,7 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
             if (fk.DeleteBehavior == DeleteBehavior.Cascade) continue;
 
             var dependentType = fk.DeclaringEntityType.ClrType;
-            var fkProperty = fk.Properties[0].PropertyInfo; 
+            var fkProperty = fk.Properties[0].PropertyInfo;
 
             if (fkProperty == null) continue;
 
@@ -110,7 +108,7 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
 
             var param = Expression.Parameter(dependentType, "x");
             var propAccess = Expression.Property(param, fkProperty);
-            
+
             Expression idValue = Expression.Constant(entity.Id, typeof(long));
             Expression left = propAccess;
             Expression right = idValue;
@@ -126,14 +124,14 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
                     left = Expression.Convert(left, right.Type);
                 }
             }
-            
+
             var equalExp = Expression.Equal(left, right);
             var lambda = Expression.Lambda(equalExp, param);
 
             var anyMethod = typeof(Queryable).GetMethods()
                 .First(m => m.Name == "Any" && m.GetParameters().Length == 2)
                 .MakeGenericMethod(dependentType);
-            
+
             bool isUsed = (bool)anyMethod.Invoke(null, new object[] { dbSet, lambda });
             if (isUsed) return true;
         }

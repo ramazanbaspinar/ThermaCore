@@ -1,5 +1,4 @@
-﻿using System;
-using WinBeyazEsya.Domain.Enums;
+﻿using WinBeyazEsya.Domain.Enums;
 
 namespace WinBeyazEsya.Domain.Attributes;
 

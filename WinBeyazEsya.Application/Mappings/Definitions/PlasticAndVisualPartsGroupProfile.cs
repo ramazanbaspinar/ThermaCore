@@ -13,7 +13,7 @@ public class PlasticAndVisualPartsGroupProfile : Profile
             .ReverseMap()
             .ForMember(dest => dest.BaseUnit, opt => opt.Ignore())
             .ForMember(dest => dest.SpecialCode, opt => opt.Ignore());
-            
+
         CreateMap<PlasticAndVisualPartsGroup, PlasticAndVisualPartsGroupListDto>()
             .ForMember(dest => dest.BaseUnitName, opt => opt.MapFrom(src => src.BaseUnit != null ? src.BaseUnit.Name : string.Empty));
     }

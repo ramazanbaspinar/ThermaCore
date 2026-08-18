@@ -1,16 +1,6 @@
-using DevExpress.XtraEditors;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using System.Text.Json;
 using WinBeyazEsya.Application.Registries;
 using WinBeyazEsya.Domain.Enums;
-using System.Text.Json;
 
 namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
 {
@@ -26,7 +16,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
             InitializeComponent();
             _module = module;
             SpecialPermissionsJson = currentJson ?? string.Empty;
-            
+
             this.Load += OzelYetkiEditForm_Load;
             btnTamam.Click += BtnTamam_Click;
             btnIptal.Click += BtnIptal_Click;
@@ -35,7 +25,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
         private void OzelYetkiEditForm_Load(object? sender, EventArgs e)
         {
             var registryList = SpecialPermissionRegistry.GetPermissions(_module);
-            
+
             Dictionary<string, bool> parsedDict = new();
             if (!string.IsNullOrWhiteSpace(SpecialPermissionsJson))
             {
@@ -52,7 +42,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
             foreach (var def in registryList)
             {
                 bool isChecked = parsedDict.TryGetValue(def.Key, out bool val) && val;
-                
+
                 _rows.Add(new OzelYetkiRowDto
                 {
                     Key = def.Key,

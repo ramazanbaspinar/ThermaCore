@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
 using AutoMapper;
 using FluentValidation;
 using WinBeyazEsya.Application.DTOs.Production;
@@ -51,7 +49,7 @@ public class MaterialCostManager : BaseManager<MaterialCostListDto, MaterialCost
             {
                 throw new FluentValidation.ValidationException("Seçilen kaydın işlem görmüş hareketi var, silinemez!");
             }
-            
+
             if (ex.InnerException != null && (ex.InnerException.Message.Contains("REFERENCE constraint") || ex.InnerException.Message.Contains("FOREIGN KEY")))
             {
                 throw new FluentValidation.ValidationException("Seçilen kaydın işlem görmüş hareketi var, silinemez!");

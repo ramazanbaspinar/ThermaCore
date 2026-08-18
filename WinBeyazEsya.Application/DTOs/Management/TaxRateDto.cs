@@ -1,5 +1,5 @@
-﻿using WinBeyazEsya.Domain.Enums;
-using WinBeyazEsya.Application.DTOs.Base;
+﻿using WinBeyazEsya.Application.DTOs.Base;
+using WinBeyazEsya.Domain.Enums;
 
 namespace WinBeyazEsya.Application.DTOs.Management;
 

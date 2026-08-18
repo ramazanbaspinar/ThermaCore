@@ -1,14 +1,7 @@
-﻿using DevExpress.XtraEditors;
-using System;
-using System.Linq;
-using System.Windows.Forms;
-using Microsoft.Extensions.DependencyInjection;
-using WinBeyazEsya.Application.DTOs.Management;
-using WinBeyazEsya.Application.Interfaces.Repositories;
+﻿using Microsoft.Extensions.DependencyInjection;
 using WinBeyazEsya.Application.Interfaces.System;
-using WinBeyazEsya.Domain.Entities.Management;
-using WinBeyazEsya.Domain.Enums;
 using WinBeyazEsya.Application.Services.Management;
+using WinBeyazEsya.Domain.Enums;
 using WinBeyazEsya.Presentation.WinForms.Forms.BaseForms;
 using WinBeyazEsya.Presentation.WinForms.Helpers;
 
@@ -45,7 +38,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.FabrikaForms
             Tablo = myGridView1;
             BaseKartTuru = ModuleType.Factory;
             Navigator = longNavigator1.Navigator;
-            
+
             Text = $"Fabrikalar ({_sirketAdi})";
             Tablo.ViewCaption = Text;
         }
@@ -82,7 +75,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.FabrikaForms
         protected override void EntityDelete()
         {
             if (Tablo == null || Tablo.FocusedRowHandle < 0) return;
-            
+
             var idObj = Tablo.GetRowCellValue(Tablo.FocusedRowHandle, "Id");
             if (idObj != null && long.TryParse(idObj.ToString(), out long id))
             {

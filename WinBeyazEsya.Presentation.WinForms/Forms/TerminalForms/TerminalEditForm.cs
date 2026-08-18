@@ -1,6 +1,3 @@
-using System;
-using System.Linq;
-using System.Windows.Forms;
 using WinBeyazEsya.Application.DTOs.Management;
 using WinBeyazEsya.Application.Services.Management;
 using WinBeyazEsya.Domain.Enums;

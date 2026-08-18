@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using WinBeyazEsya.Application.Interfaces.Repositories;
 
 namespace WinBeyazEsya.Infrastructure.Persistence.Repositories;

@@ -1,4 +1,3 @@
-using System;
 using WinBeyazEsya.Domain.Entities.Base;
 using WinBeyazEsya.Domain.Enums;
 
@@ -12,7 +11,7 @@ public class RawMaterial : FullAuditableEntity
     public long? BaseUnitId { get; set; } // BirimTanimlari tablosuna FK
     public string? Image { get; set; }
     public string? Description { get; set; }
-    
+
     // --- Discriminator (TPH için) ---
     public MaterialGroup MaterialGroup { get; set; }
 

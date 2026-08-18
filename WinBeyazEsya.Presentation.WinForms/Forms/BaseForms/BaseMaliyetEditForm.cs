@@ -1,17 +1,8 @@
 using DevExpress.XtraEditors;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using WinBeyazEsya.Application.DTOs.Production;
 using WinBeyazEsya.Application.Interfaces.Production;
 using WinBeyazEsya.Application.Interfaces.System;
-using Microsoft.Extensions.DependencyInjection;
-using WinBeyazEsya.Application.DTOs.Production;
 using WinBeyazEsya.Presentation.WinForms.Helpers;
 
 namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
@@ -52,7 +43,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
 
             MalzemeListesiniDoldur();
             ParaBirimleriniDoldur();
-            
+
             NesneyiKontrollereBagla();
             base.Yukle();
         }
@@ -91,22 +82,22 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
             if (CurrentEntity is MaterialCostDto dto)
             {
                 if (txtKod != null) dto.Code = txtKod.Text;
-                
-                if (glfMalzemeSecimi != null && glfMalzemeSecimi.EditValue != null) 
+
+                if (glfMalzemeSecimi != null && glfMalzemeSecimi.EditValue != null)
                     dto.MaterialId = Convert.ToInt64(glfMalzemeSecimi.EditValue);
                 else
                     dto.MaterialId = 0;
 
-                if (txtMaliyet != null && txtMaliyet.EditValue != null) 
+                if (txtMaliyet != null && txtMaliyet.EditValue != null)
                     dto.Cost = Convert.ToDecimal(txtMaliyet.EditValue);
                 else
                     dto.Cost = 0;
 
-                if (cmbParaBirimi != null && cmbParaBirimi.EditValue != null) 
+                if (cmbParaBirimi != null && cmbParaBirimi.EditValue != null)
                     dto.CurrencyCode = cmbParaBirimi.EditValue.ToString();
                 else
                     dto.CurrencyCode = string.Empty;
-                
+
                 dto.MaterialType = BaseKartTuru;
             }
         }
@@ -117,7 +108,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
             {
                 var dto = (MaterialCostDto)CurrentEntity;
                 dto.Id = BaseIslemTuru.IdOlustur(OldEntity);
-                
+
                 if (_materialCostService != null)
                 {
                     Id = _materialCostService.Insert(dto);

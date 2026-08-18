@@ -10,10 +10,10 @@ namespace WinBeyazEsya.Application.Services.Management;
 public class BranchManager : BaseMasterManager<BranchDto, BranchDto, Branch>, IBranchService
 {
     public BranchManager(
-        IMapper mapper, 
-        IMasterRepository<Branch> repository, 
-        IMasterUnitOfWork unitOfWork, 
-        IValidator<BranchDto> validator) 
+        IMapper mapper,
+        IMasterRepository<Branch> repository,
+        IMasterUnitOfWork unitOfWork,
+        IValidator<BranchDto> validator)
         : base(mapper, repository, unitOfWork, validator)
     {
     }

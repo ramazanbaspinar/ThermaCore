@@ -1,13 +1,3 @@
-using DevExpress.XtraEditors;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using WinBeyazEsya.Presentation.WinForms.Forms.BaseForms;
 using WinBeyazEsya.Presentation.WinForms.Helpers;
 
@@ -26,7 +16,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.DepoTanimForms
             _warehouseService = warehouseService;
             Bll = _warehouseService;
             DataLayoutControl = myDataLayoutControl1;
-            
+
             EventsLoad();
         }
 
@@ -68,7 +58,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.DepoTanimForms
                 Description = txtAciklama.Text,
                 IsActive = tglDurum.IsOn
             };
-            
+
             CurrentEntity = dto;
             ButonEnabledDurumu();
         }
@@ -107,7 +97,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.DepoTanimForms
                 return false;
             }
         }
-        
+
         protected override void EntityDelete()
         {
             if (Id <= 0 || _warehouseService == null) return;

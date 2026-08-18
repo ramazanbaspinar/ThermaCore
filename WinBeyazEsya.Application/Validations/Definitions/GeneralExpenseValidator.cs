@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using WinBeyazEsya.Application.DTOs.Definitions;
-using WinBeyazEsya.Application.Interfaces.Definitions;
 
 namespace WinBeyazEsya.Application.Validations.Definitions
 {

@@ -1,23 +1,16 @@
+using DevExpress.Utils.Menu;
 using DevExpress.XtraEditors;
-using System;
-using System.Collections.Generic;
+using DevExpress.XtraGrid.Menu;
+using Microsoft.Extensions.DependencyInjection;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using WinBeyazEsya.Presentation.WinForms.Forms.BaseForms;
-
 using WinBeyazEsya.Application.DTOs.Definitions;
 using WinBeyazEsya.Application.Interfaces.Definitions;
-using WinBeyazEsya.Presentation.WinForms.Helpers;
-using WinBeyazEsya.Domain.Enums;
-using Microsoft.Extensions.DependencyInjection;
-using DevExpress.XtraGrid.Menu;
-using DevExpress.Utils.Menu;
 using WinBeyazEsya.Application.Interfaces.Repositories.Definitions;
+using WinBeyazEsya.Domain.Enums;
+using WinBeyazEsya.Presentation.WinForms.Forms.BaseForms;
+using WinBeyazEsya.Presentation.WinForms.Helpers;
 
 namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
 {
@@ -52,7 +45,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             DataLayoutControl = myDataLayoutControl1;
             DataLayoutControls = new object[] { myDataLayoutControl2 };
             Bll = _productRecipeService;
-            
+
             if (glufMamul != null)
                 glufMamul.EditValueChanged += GlufMamul_EditValueChanged;
         }
@@ -60,7 +53,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            
+
             if (!DesignMode)
             {
                 txtRevizyonNo.Properties.ReadOnly = true;
@@ -85,15 +78,15 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                     repoUnit.Columns.Clear();
                     repoUnit.Columns.Add(new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Name", "Birim"));
                     repoUnit.ShowHeader = true;
-                    
+
                     myGridControl1.RepositoryItems.Add(repoUnit);
                     myGridView1.Columns["UnitId"].ColumnEdit = repoUnit;
                 }
 
                 TreeListDoldur();
-                
+
                 myGridControl1.DataSource = _lines;
-                
+
                 // Allow drag-drop setup
                 treeList1.OptionsBehavior.DragNodes = true;
                 myGridControl1.AllowDrop = true;
@@ -122,10 +115,10 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                 }
 
                 GridAyarlariniYap();
-                
+
                 // Yükleme sonrası grid düzenini geri yükle
                 Helpers.LayoutHelper.YukleGrid(myGridView1);
-                
+
                 _ = MaliyetiHesaplaAsync();
             }
         }
@@ -133,8 +126,8 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
         protected override void EventsLoad()
         {
             base.EventsLoad();
-            
-            if (glufMamul != null) 
+
+            if (glufMamul != null)
             {
                 glufMamul.SearchButtonClicked += glufMamul_SearchButtonClicked;
                 glufMamul.EditValueChanged += GlufMamul_EditValueChanged;
@@ -171,7 +164,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                 myGridView1.CustomColumnDisplayText += MyGridView1_CustomColumnDisplayText;
                 myGridView1.CellValueChanged += MyGridView1_CellValueChanged;
                 myGridView1.RowDeleted += MyGridView1_RowDeleted;
-                
+
                 if (btnMaliyetiGuncelle != null) btnMaliyetiGuncelle.Click += BtnMaliyetiGuncelle_Click;
                 if (btnMaliyetDetaylari != null) btnMaliyetDetaylari.Click += BtnMaliyetKirilimi_Click;
             }
@@ -198,11 +191,11 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                     repoCoating.ValueMember = "Id";
                     repoCoating.DisplayMember = "Name";
                     repoCoating.NullText = "";
-                    
+
                     var view = new DevExpress.XtraGrid.Views.Grid.GridView();
                     view.Columns.AddVisible("Name", "Kaplama Malzemesi");
                     repoCoating.PopupView = view;
-                    
+
                     myGridControl1.RepositoryItems.Add(repoCoating);
                     myGridView1.Columns["CoatingMaterialId"].ColumnEdit = repoCoating;
                 }
@@ -240,7 +233,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                 repoWasteRate.EditFormat.FormatString = "n2";
                 repoWasteRate.EditMask = "n2";
                 repoWasteRate.UseMaskAsDisplayFormat = true;
-                
+
                 myGridControl1.RepositoryItems.Add(repoWasteRate);
                 myGridView1.Columns["WasteRate"].ColumnEdit = repoWasteRate;
             }
@@ -279,7 +272,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                 var expenses = _generalExpenseService.GetAll().Where(x => x.IsActive).ToList();
                 var exchangeService = _serviceProvider?.GetService<WinBeyazEsya.Application.Interfaces.System.IExchangeRateService>();
                 var rates = exchangeService?.GetAllRates().ToList();
-                foreach(var exp in expenses)
+                foreach (var exp in expenses)
                 {
                     decimal amount = exp.Cost;
                     if (!string.IsNullOrEmpty(exp.CurrencyCode) && exp.CurrencyCode != _defaultCurrency && rates != null)
@@ -301,7 +294,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                 myGridView1.CustomSummaryCalculate -= MyGridView1_CustomSummaryCalculate;
                 myGridView1.CustomSummaryCalculate += MyGridView1_CustomSummaryCalculate;
             }
-            
+
             if (myGridView1.Columns["MaterialName"] != null)
             {
                 myGridView1.Columns["MaterialName"].Summary.Clear();
@@ -345,20 +338,20 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                     col.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
                 }
             }
-            
+
             // Sadece Miktar Kolonu İçin Özel Formatlama (Display, Group ve Focus/EditMask)
             var miktarRepo = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
             miktarRepo.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
             miktarRepo.Mask.EditMask = "n2";
             miktarRepo.Mask.UseMaskAsDisplayFormat = true;
             myGridControl1.RepositoryItems.Add(miktarRepo);
-            
+
             colMiktar.ColumnEdit = miktarRepo;
             colMiktar.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             colMiktar.DisplayFormat.FormatString = "n2";
             colMiktar.GroupFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             colMiktar.GroupFormat.FormatString = "n2";
-            
+
             // Sadece Kaplama (gr) Kolonu İçin Özel Formatlama
             if (colKaplamaGr != null)
             {
@@ -367,7 +360,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                 kaplamaGrRepo.Mask.EditMask = "n2";
                 kaplamaGrRepo.Mask.UseMaskAsDisplayFormat = true;
                 myGridControl1.RepositoryItems.Add(kaplamaGrRepo);
-                
+
                 colKaplamaGr.ColumnEdit = kaplamaGrRepo;
                 colKaplamaGr.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
                 colKaplamaGr.DisplayFormat.FormatString = "n2";
@@ -379,11 +372,11 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
         private void MyGridView1_RowCellStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowCellStyleEventArgs e)
         {
             if (e.RowHandle < 0) return;
-            
+
             if (myGridView1.IsCellSelected(e.RowHandle, e.Column)) return;
 
             var row = myGridView1.GetRow(e.RowHandle) as ProductRecipeLineDto;
-            
+
             if (e.Column.FieldName == "TotalMaterialCost")
             {
                 e.Appearance.BackColor = Color.FromArgb(225, 222, 235);
@@ -411,7 +404,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                     {
                         if (row.SurfaceCoatingType == "Diger") isOpen = true;
                     }
-                    
+
                     if (isOpen)
                     {
                         if (!myGridView1.IsCellSelected(e.RowHandle, e.Column)) e.Appearance.BackColor = Color.FromArgb(236, 246, 255);
@@ -493,7 +486,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
         private void MyGridView1_CellValueChanged(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)
         {
             if (_isBinding) return;
-            
+
             _isGridModified = true;
             var view = sender as DevExpress.XtraGrid.Views.Grid.GridView;
             if (view == null) return;
@@ -503,7 +496,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             if (e.Column.FieldName == "Quantity" || e.Column.FieldName == "UnitPrice" || e.Column.FieldName == "CoatingAmount" || e.Column.FieldName == "CoatingMaterialId" || e.Column.FieldName == "ManualCoatingCost" || e.Column.FieldName == "WasteRate" || e.Column.FieldName == "WeightKg")
             {
                 decimal totalCost = 0;
-                
+
                 if (row.MaterialType == MaterialType.MetalAndSheet)
                 {
                     decimal coatingCost = 0;
@@ -532,13 +525,13 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                             }
                         }
                     }
-                    
+
                     decimal materialCost = (row.WeightKg * row.UnitPrice * row.Quantity);
                     if (row.WasteRate > 0)
                     {
                         materialCost = materialCost + (materialCost * row.WasteRate / 100);
                     }
-                    
+
                     totalCost = materialCost + coatingCost;
                 }
                 else
@@ -559,7 +552,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             myGridView1.UpdateCurrentRow();
             myGridView1.UpdateTotalSummary();
             _ = MaliyetiHesaplaAsync(false);
-            
+
             GuncelNesneOlustur();
             ButonEnabledDurumu();
         }
@@ -567,7 +560,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
         private void MyGridView1_RowDeleted(object sender, DevExpress.Data.RowDeletedEventArgs e)
         {
             if (_isBinding) return;
-            
+
             _isGridModified = true;
             GuncelNesneOlustur();
             ButonEnabledDurumu();
@@ -607,7 +600,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             {
                 var parent = treeList1.AppendNode(new object[] { GetEnumDescription(MaterialType.MetalAndSheet) }, null);
                 parent.Tag = MaterialType.MetalAndSheet;
-                foreach(var item in metalService.GetAll().Where(x => x.IsActive))
+                foreach (var item in metalService.GetAll().Where(x => x.IsActive))
                 {
                     var child = treeList1.AppendNode(new object[] { item.Name }, parent);
                     child.Tag = new MaterialDragDropBox { MaterialId = item.Id, MaterialCode = item.Code, MaterialName = item.Name, UnitId = item.BaseUnitId, UnitName = item.BaseUnitName, MaterialType = MaterialType.MetalAndSheet };
@@ -619,19 +612,19 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             {
                 var parent = treeList1.AppendNode(new object[] { GetEnumDescription(MaterialType.ElectricalElectronic) }, null);
                 parent.Tag = MaterialType.ElectricalElectronic;
-                foreach(var item in elecService.GetAll().Where(x => x.IsActive))
+                foreach (var item in elecService.GetAll().Where(x => x.IsActive))
                 {
                     var child = treeList1.AppendNode(new object[] { item.Name }, parent);
                     child.Tag = new MaterialDragDropBox { MaterialId = item.Id, MaterialCode = item.Code, MaterialName = item.Name, UnitId = item.BaseUnitId, UnitName = item.BaseUnitName, MaterialType = MaterialType.ElectricalElectronic };
                 }
             }
-            
+
             var gasService = _serviceProvider.GetService<IGasAndIgnitionGroupService>();
             if (gasService != null)
             {
                 var parent = treeList1.AppendNode(new object[] { GetEnumDescription(MaterialType.GasAndIgnition) }, null);
                 parent.Tag = MaterialType.GasAndIgnition;
-                foreach(var item in gasService.GetAll().Where(x => x.IsActive))
+                foreach (var item in gasService.GetAll().Where(x => x.IsActive))
                 {
                     var child = treeList1.AppendNode(new object[] { item.Name }, parent);
                     child.Tag = new MaterialDragDropBox { MaterialId = item.Id, MaterialCode = item.Code, MaterialName = item.Name, UnitId = item.BaseUnitId, UnitName = item.BaseUnitName, MaterialType = MaterialType.GasAndIgnition };
@@ -643,7 +636,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             {
                 var parent = treeList1.AppendNode(new object[] { GetEnumDescription(MaterialType.PlasticAndVisualParts) }, null);
                 parent.Tag = MaterialType.PlasticAndVisualParts;
-                foreach(var item in plasticService.GetAll().Where(x => x.IsActive))
+                foreach (var item in plasticService.GetAll().Where(x => x.IsActive))
                 {
                     var child = treeList1.AppendNode(new object[] { item.Name }, parent);
                     child.Tag = new MaterialDragDropBox { MaterialId = item.Id, MaterialCode = item.Code, MaterialName = item.Name, UnitId = item.BaseUnitId, UnitName = item.BaseUnitName, MaterialType = MaterialType.PlasticAndVisualParts };
@@ -655,7 +648,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             {
                 var parent = treeList1.AppendNode(new object[] { GetEnumDescription(MaterialType.ChemicalAndInsulation) }, null);
                 parent.Tag = MaterialType.ChemicalAndInsulation;
-                foreach(var item in chemicalService.GetAll().Where(x => x.IsActive))
+                foreach (var item in chemicalService.GetAll().Where(x => x.IsActive))
                 {
                     var child = treeList1.AppendNode(new object[] { item.Name }, parent);
                     child.Tag = new MaterialDragDropBox { MaterialId = item.Id, MaterialCode = item.Code, MaterialName = item.Name, UnitId = item.BaseUnitId, UnitName = item.BaseUnitName, MaterialType = MaterialType.ChemicalAndInsulation };
@@ -667,7 +660,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             {
                 var parent = treeList1.AppendNode(new object[] { GetEnumDescription(MaterialType.MechanicalAndHardware) }, null);
                 parent.Tag = MaterialType.MechanicalAndHardware;
-                foreach(var item in mechService.GetAll().Where(x => x.IsActive))
+                foreach (var item in mechService.GetAll().Where(x => x.IsActive))
                 {
                     var child = treeList1.AppendNode(new object[] { item.Name }, parent);
                     child.Tag = new MaterialDragDropBox { MaterialId = item.Id, MaterialCode = item.Code, MaterialName = item.Name, UnitId = item.BaseUnitId, UnitName = item.BaseUnitName, MaterialType = MaterialType.MechanicalAndHardware };
@@ -679,7 +672,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             {
                 var parent = treeList1.AppendNode(new object[] { GetEnumDescription(MaterialType.PackagingAndPrinting) }, null);
                 parent.Tag = MaterialType.PackagingAndPrinting;
-                foreach(var item in packService.GetAll().Where(x => x.IsActive))
+                foreach (var item in packService.GetAll().Where(x => x.IsActive))
                 {
                     var child = treeList1.AppendNode(new object[] { item.Name }, parent);
                     child.Tag = new MaterialDragDropBox { MaterialId = item.Id, MaterialCode = item.Code, MaterialName = item.Name, UnitId = item.BaseUnitId, UnitName = item.BaseUnitName, MaterialType = MaterialType.PackagingAndPrinting };
@@ -691,7 +684,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             {
                 var parent = treeList1.AppendNode(new object[] { GetEnumDescription(MaterialType.WireAndGrid) }, null);
                 parent.Tag = MaterialType.WireAndGrid;
-                foreach(var item in wireService.GetAll().Where(x => x.IsActive))
+                foreach (var item in wireService.GetAll().Where(x => x.IsActive))
                 {
                     var child = treeList1.AppendNode(new object[] { item.Name }, parent);
                     child.Tag = new MaterialDragDropBox { MaterialId = item.Id, MaterialCode = item.Code, MaterialName = item.Name, UnitId = item.BaseUnitId, UnitName = item.BaseUnitName, MaterialType = MaterialType.WireAndGrid };
@@ -703,13 +696,13 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             {
                 var parent = treeList1.AppendNode(new object[] { GetEnumDescription(MaterialType.OtherMaterial) }, null);
                 parent.Tag = MaterialType.OtherMaterial;
-                foreach(var item in otherService.GetAll().Where(x => x.IsActive))
+                foreach (var item in otherService.GetAll().Where(x => x.IsActive))
                 {
                     var child = treeList1.AppendNode(new object[] { item.Name }, parent);
                     child.Tag = new MaterialDragDropBox { MaterialId = item.Id, MaterialCode = item.Code, MaterialName = item.Name, UnitId = item.BaseUnitId, UnitName = item.BaseUnitName, MaterialType = MaterialType.OtherMaterial };
                 }
             }
-            
+
             treeList1.ExpandAll();
         }
 
@@ -722,13 +715,13 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                 {
                     form.FormAcilisTuru = WinBeyazEsya.Presentation.WinForms.Enums.FormAcilisTuru.Secim;
                     form.ShowDialog();
-                    
+
                     var finishedGoodService = _serviceProvider.GetService<IFinishedGoodService>();
                     if (finishedGoodService != null && glufMamul != null)
                     {
                         glufMamul.Properties.DataSource = finishedGoodService.GetAll().Where(x => x.IsActive).ToList();
                     }
-                    
+
                     if (form.DialogResult == DialogResult.OK && form.SelectedEntities?.Count > 0 && glufMamul != null)
                     {
                         var secilenId = form.SelectedEntities[0].Id;
@@ -773,9 +766,9 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
         {
             CurrentEntity = _currentDto;
             _isGridModified = false;
-            
+
             if (_currentDto == null) return;
-            
+
             if (this.Id <= 0 || BaseIslemTuru == ActionType.EntityInsert)
             {
                 if (string.IsNullOrEmpty(_currentDto.RevisionNumber))
@@ -787,7 +780,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             glufMamul.EditValue = _currentDto.FinishedGoodId > 0 ? _currentDto.FinishedGoodId : null;
             txtAciklama.Text = _currentDto.Description;
             txtTarih.EditValue = _currentDto.Date;
-            
+
             if (int.TryParse(_currentDto.RevisionNumber, out int revNo))
             {
                 txtRevizyonNo.EditValue = revNo;
@@ -796,7 +789,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             {
                 txtRevizyonNo.Text = _currentDto.RevisionNumber;
             }
-            
+
             var exchangeService = _serviceProvider?.GetService<WinBeyazEsya.Application.Interfaces.System.IExchangeRateService>();
             if (exchangeService != null)
             {
@@ -808,10 +801,10 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                 if (eur != null) kurText += $"EUR {eur.EffectiveSellingRate:n4}";
                 txtKur.Text = kurText.TrimEnd('-', ' ');
             }
-            
+
             _totalRecipeCost = _currentDto.TotalCost;
             _netMaterialCost = _currentDto.NetMaterialCost;
-            
+
             txtToplamReceteMaliyeti.Text = $"{_currentDto.TotalCost:n2} {_defaultCurrency}";
             txtRevizyonNo.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             txtRevizyonNo.Properties.DisplayFormat.FormatString = "00";
@@ -819,7 +812,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             _lines.Clear();
             if (_currentDto.Lines != null)
             {
-                foreach(var line in _currentDto.Lines)
+                foreach (var line in _currentDto.Lines)
                 {
                     _lines.Add(line);
                 }
@@ -834,11 +827,11 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             {
                 txtRevizyonNo.EditValue = 1;
             }
-            
+
             tglDurum.IsOn = _currentDto.IsActive;
             tglDurum.EditValueChanged -= Control_EditValueChanged;
             tglDurum.EditValueChanged += Control_EditValueChanged;
-            
+
             bool hasMamul = _currentDto.FinishedGoodId > 0;
             if (treeList1 != null) treeList1.Enabled = hasMamul;
             if (myGridControl1 != null) myGridControl1.Enabled = hasMamul;
@@ -860,7 +853,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                 _currentDto.Date = Convert.ToDateTime(txtTarih.EditValue);
             }
             _currentDto.IsActive = tglDurum.IsOn;
-            
+
             if (decimal.TryParse(txtKur.Text, out decimal rate))
             {
                 // Kullanıcının txtKur içeriğinde sadece text göstermek istediği durumda bu parse başarısız olur
@@ -868,9 +861,9 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             }
             _currentDto.TotalCost = _totalRecipeCost;
             _currentDto.NetMaterialCost = _netMaterialCost;
-            
+
             _currentDto.RevisionNumber = Convert.ToInt32(txtRevizyonNo.Value).ToString("00");
-            
+
             _currentDto.Lines = _lines.ToList();
             CurrentEntity = _currentDto;
         }
@@ -957,7 +950,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                     return;
                 }
             }
-            
+
             e.Effect = DragDropEffects.None;
         }
 
@@ -1030,8 +1023,8 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                     if (row != null)
                         rowsToDelete.Add(row);
                 }
-                
-                foreach(var row in rowsToDelete)
+
+                foreach (var row in rowsToDelete)
                 {
                     _lines.Remove(row);
                 }
@@ -1044,7 +1037,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
         private void EkleHammadde(MaterialDragDropBox dragData)
         {
             if (dragData == null) return;
-            
+
             if (_lines.Any(x => x.MaterialId == dragData.MaterialId && x.MaterialType == dragData.MaterialType))
             {
                 if (XtraMessageBox.Show("Bu hammadde reçetede zaten ekli. Yine de eklemek istiyor musunuz?", "Uyarı", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
@@ -1052,7 +1045,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                     return;
                 }
             }
-            
+
             decimal unitCost = 0;
             string currencyCode = "";
             string surfaceCoatingType = "";
@@ -1074,7 +1067,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                     case MaterialType.WireAndGrid: modType = WinBeyazEsya.Domain.Enums.ModuleType.TelVeIzgaraGrubuMaliyetleri; break;
                     case MaterialType.OtherMaterial: modType = WinBeyazEsya.Domain.Enums.ModuleType.DigerMalzemeGrubuMaliyetleri; break;
                 }
-                
+
                 if (modType.HasValue)
                 {
                     var allCosts = costService.GetAllByMaterialType(modType.Value);
@@ -1145,7 +1138,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                 CurrencyCode = currencyCode,
                 TotalMaterialCost = totalCostInitial
             };
-            
+
             _lines.Add(newLine);
             myGridView1.RefreshData();
             int newRowHandle = myGridView1.GetRowHandle(_lines.Count - 1);
@@ -1153,7 +1146,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             myGridView1.FocusedRowHandle = newRowHandle;
             myGridView1.UpdateTotalSummary();
             _ = MaliyetiHesaplaAsync(false);
-            
+
             _isGridModified = true;
             GuncelNesneOlustur();
             ButonEnabledDurumu();
@@ -1281,7 +1274,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
         private async void BtnMaliyetiGuncelle_Click(object? sender, EventArgs e)
         {
             if (!ValidateCoatingRules()) return;
-            
+
             if (_lines == null || _lines.Count == 0)
             {
                 XtraMessageBox.Show("Reçetede hiç hammadde satırı bulunmamaktadır.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -1298,13 +1291,13 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             var costService = _serviceProvider?.GetService<WinBeyazEsya.Application.Interfaces.Production.IMaterialCostService>();
             var exchangeService = _serviceProvider?.GetService<WinBeyazEsya.Application.Interfaces.System.IExchangeRateService>();
             var maliyetParametreService = _serviceProvider?.GetService<WinBeyazEsya.Application.Interfaces.Management.IMaliyetParametreService>();
-            
+
             if (costService != null)
             {
                 // Tek sorguda malzemeleri çek (Döngü içi DB sorgusu atılmaz)
                 var guncelMaliyetler = costService.GetAllByMaterialIds(idList);
                 var maliyetDict = guncelMaliyetler.GroupBy(x => x.MaterialId).ToDictionary(g => g.Key, g => g.FirstOrDefault());
-                
+
                 var rates = exchangeService?.GetAllRates().ToList();
 
                 decimal wasteRate = 0;
@@ -1337,10 +1330,10 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                         line.UnitPrice = unitCost;
                         line.CurrencyCode = currencyCode;
                     }
-                    
+
                     // Güncel parametrelere göre Fire oranını güncelle
                     line.WasteRate = wasteRate;
-                    
+
                     // Satırın toplam maliyetini yeniden hesapla
                     decimal totalCost = 0;
                     if (line.MaterialType == MaterialType.MetalAndSheet)
@@ -1369,7 +1362,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                         {
                             materialCost = materialCost + (materialCost * line.WasteRate / 100);
                         }
-                        
+
                         totalCost = materialCost + coatingCost;
                     }
                     else
@@ -1396,7 +1389,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
 
             // Mevcut Hesapla metoduyla Fire, GÜG ve Genel Toplamın yeniden hesaplanmasını sağla
             await MaliyetiHesaplaAsync(false);
-            
+
             // Bilgi mesajı
             WinBeyazEsya.Presentation.WinForms.Helpers.Messages.BilgiMesaji("Tüm hammadde fiyatları güncel kartlardan çekilmiş ve reçete maliyeti yeniden hesaplanmıştır.");
         }
@@ -1484,16 +1477,16 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             {
                 if (isManualClick)
                     XtraMessageBox.Show("Lütfen maliyet hesaplaması için öncelikle bir Mamül seçiniz!", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                
+
                 txtToplamReceteMaliyeti.Text = $"0.00 {_defaultCurrency}";
                 return;
             }
 
             if (_serviceProvider == null) return;
-            
+
             var finishedGoodService = _serviceProvider.GetService<IFinishedGoodService>();
             var maliyetParametreService = _serviceProvider.GetService<WinBeyazEsya.Application.Interfaces.Management.IMaliyetParametreService>();
-            
+
             if (finishedGoodService == null || maliyetParametreService == null) return;
 
             long finishedGoodId = Convert.ToInt64(glufMamul.EditValue);
@@ -1506,7 +1499,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
 
             int aylikUretimAdedi = 1;
             string grupAdi = finishedGood.GroupType.ToString();
-            
+
             switch (finishedGood.GroupType)
             {
                 case FinishedGoodGroupType.Firin:
@@ -1542,7 +1535,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             {
                 netMalzemeTutari = _lines.Sum(x => x.TotalMaterialCost);
             }
-            
+
             _netMaterialCost = netMalzemeTutari;
             _totalRecipeCost = netMalzemeTutari + birimBasinaGug;
 
@@ -1556,10 +1549,10 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                 if (usd != null) kurText += $"USD {usd.EffectiveSellingRate:n4} - ";
                 if (eur != null) kurText += $"EUR {eur.EffectiveSellingRate:n4}";
                 kurText = kurText.TrimEnd('-', ' ');
-                
+
                 txtKur.Text = kurText;
             }
-            
+
             txtToplamReceteMaliyeti.Text = $"{_totalRecipeCost:n2} {_defaultCurrency}";
 
             var sb = new StringBuilder();
@@ -1567,12 +1560,12 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             sb.AppendLine($"Net Malzeme Tutarı: {netMalzemeTutari:n2} {_defaultCurrency}");
             sb.AppendLine($"Birim Başına GÜG Payı: {birimBasinaGug:n2} {_defaultCurrency} (Toplam Gider / {aylikUretimAdedi})");
             sb.AppendLine($"Fire Maliyeti: Satır bazlı (ürün detayında) hesaplanmaktadır.");
-            
+
             if (parametre.UseMaturityDifference)
             {
                 sb.AppendLine("Vade Farkı: (İleride Cari Tanımlar Modülü devreye girdiğinde gün bazlı hesaplanacaktır)");
             }
-            
+
             sb.AppendLine(new string('-', 50));
             sb.AppendLine($"TOPLAM REÇETE MALİYETİ: {_totalRecipeCost:n2} {_defaultCurrency}");
 
@@ -1610,7 +1603,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                 CurrentEntity = clone;
                 BaseIslemTuru = ActionType.EntityInsert;
                 this.Id = 0;
-                
+
                 NesneyiKontrollereBagla();
                 ButonEnabledDurumu();
                 Helpers.Messages.BilgiMesaji("Reçete başarıyla kopyalandı. Yeni kayıt olarak kaydedebilirsiniz.");
@@ -1625,7 +1618,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                 return;
 
             _currentDto.IsActive = false;
-            
+
             if (_productRecipeService != null)
             {
                 _productRecipeService.Update(_currentDto);
@@ -1637,7 +1630,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             if (clone != null)
             {
                 clone.Id = 0;
-                
+
                 if (int.TryParse(clone.RevisionNumber, out int revNo))
                 {
                     clone.RevisionNumber = (revNo + 1).ToString("D2");
@@ -1646,9 +1639,9 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                 {
                     clone.RevisionNumber = "02";
                 }
-                
+
                 clone.IsActive = true;
-                
+
                 if (clone.Lines != null)
                 {
                     foreach (var line in clone.Lines)
@@ -1662,7 +1655,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                 CurrentEntity = clone;
                 BaseIslemTuru = ActionType.EntityInsert;
                 this.Id = 0;
-                
+
                 NesneyiKontrollereBagla();
                 ButonEnabledDurumu();
                 Helpers.Messages.BilgiMesaji($"Yeni revizyon ({clone.RevisionNumber}) oluşturuldu. Değişikliklerinizi yapıp kaydedebilirsiniz.");

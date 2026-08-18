@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using AutoMapper;
 using FluentValidation;
 using WinBeyazEsya.Application.DTOs.Base;
@@ -9,9 +6,9 @@ using WinBeyazEsya.Domain.Entities.Base;
 
 namespace WinBeyazEsya.Application.Services.Base;
 
-public abstract class BaseMasterManager<TListDto, TDto, TEntity> 
+public abstract class BaseMasterManager<TListDto, TDto, TEntity>
     where TListDto : class
-    where TDto : BaseDto 
+    where TDto : BaseDto
     where TEntity : Entity
 {
     protected readonly IMapper _mapper;

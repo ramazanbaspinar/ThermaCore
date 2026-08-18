@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using WinBeyazEsya.Domain.Entities.Base;
 
 namespace WinBeyazEsya.Domain.Entities.Management;
@@ -34,7 +33,7 @@ public class SystemParameter : FullAuditableEntity
     public long? DefaultOtvId { get; set; }
 
     public decimal DefaultWastageRate { get; set; }
-    
+
     [MaxLength(20)]
     public string? CompanyBarcodePrefix { get; set; }
 

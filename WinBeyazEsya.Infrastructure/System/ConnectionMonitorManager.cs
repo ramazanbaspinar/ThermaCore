@@ -1,5 +1,3 @@
-using System;
-using System.Threading.Tasks;
 using WinBeyazEsya.Application.Interfaces.System;
 using WinBeyazEsya.Infrastructure.Persistence;
 

@@ -9,7 +9,7 @@ public class MaterialCostConfiguration : ITenantEntityConfiguration, IEntityType
     public void Configure(EntityTypeBuilder<MaterialCost> builder)
     {
         builder.HasKey(x => x.Id);
-        
+
         builder.Property(x => x.Code)
             .IsRequired()
             .HasMaxLength(100);

@@ -1,5 +1,4 @@
-﻿using System.Drawing;
-using System.Drawing.Imaging;
+﻿using System.Drawing.Imaging;
 using System.IO;
 
 namespace WinBeyazEsya.Presentation.WinForms.Helpers
@@ -17,13 +16,13 @@ namespace WinBeyazEsya.Presentation.WinForms.Helpers
         {
             if (image == null) return null;
             using var ms = new MemoryStream();
-            
+
             ImageFormat format = ImageFormat.Png; // Default to PNG for transparency and lossless
             if (image.RawFormat != null && !image.RawFormat.Guid.Equals(ImageFormat.MemoryBmp.Guid))
             {
                 format = image.RawFormat;
             }
-            
+
             image.Save(ms, format);
             return ms.ToArray();
         }

@@ -17,7 +17,7 @@ public class GeneralExpense : FullAuditableEntity, IMustHaveBranch
 
     [MaxLength(5)]
     public string CurrencyCode { get; set; } = string.Empty;
-    
+
     public long BranchId { get; set; }
 }
 

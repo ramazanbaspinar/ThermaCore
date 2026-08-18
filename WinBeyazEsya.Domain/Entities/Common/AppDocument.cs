@@ -1,4 +1,3 @@
-using System;
 using WinBeyazEsya.Domain.Entities.Base;
 
 namespace WinBeyazEsya.Domain.Entities.Common;
@@ -12,7 +11,7 @@ public class AppDocument : AuditableEntity, IMustHaveBranch
     public string ContentType { get; set; } = null!;
     public long FileSize { get; set; }
     public byte[] FileData { get; set; } = null!;
-    
+
     public long BranchId { get; set; }
 }
 

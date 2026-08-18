@@ -12,7 +12,7 @@ public class SystemParameterDto : BaseDto
     public string? Address { get; set; }
     public string? LocalCurrency { get; set; }
     public byte[]? Logo { get; set; }
-    
+
     public long? DefaultPurchaseKdvId { get; set; }
     public long? DefaultSalesKdvId { get; set; }
     public long? DefaultOtvId { get; set; }

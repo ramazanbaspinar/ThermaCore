@@ -10,16 +10,16 @@ public class MetalSheetGroupConfiguration : IEntityTypeConfiguration<MetalSheetG
     {
         builder.ToTable("MetalSheetGroups");
         builder.HasKey(x => x.Id);
-        
+
         builder.Property(x => x.Code).IsRequired().HasMaxLength(50);
         builder.Property(x => x.Name).IsRequired().HasMaxLength(100);
-        
+
         builder.Property(x => x.Width).HasColumnType("decimal(18,2)");
         builder.Property(x => x.Length).HasColumnType("decimal(18,2)");
         builder.Property(x => x.Thickness).HasColumnType("decimal(18,2)");
         builder.Property(x => x.Density).HasColumnType("decimal(18,6)");
         builder.Property(x => x.Weight).HasColumnType("decimal(18,6)");
-        
+
         builder.Property(x => x.SurfaceType).HasMaxLength(100);
         builder.Property(x => x.QualityCode).HasMaxLength(100);
         builder.Property(x => x.SurfaceCoatingType).IsRequired();
@@ -34,7 +34,7 @@ public class MetalSheetGroupConfiguration : IEntityTypeConfiguration<MetalSheetG
             .WithMany()
             .HasForeignKey(x => x.SpecialCodeId)
             .OnDelete(DeleteBehavior.Restrict);
-            
+
         builder.HasIndex(x => x.Code).IsUnique();
         builder.HasIndex(x => x.BranchId);
     }

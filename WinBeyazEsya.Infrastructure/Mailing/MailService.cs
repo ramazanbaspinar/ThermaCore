@@ -1,6 +1,4 @@
-﻿using System;
-using System.Net.Mail;
-using WinBeyazEsya.Application.Interfaces.Mailing;
+﻿using WinBeyazEsya.Application.Interfaces.Mailing;
 
 namespace WinBeyazEsya.Infrastructure.Mailing;
 

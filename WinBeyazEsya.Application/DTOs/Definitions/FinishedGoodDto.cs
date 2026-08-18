@@ -5,9 +5,9 @@ namespace WinBeyazEsya.Application.DTOs.Definitions;
 public class FinishedGoodDto : BaseDto
 {
     public string Name { get; set; } = null!;
-    
+
     public WinBeyazEsya.Domain.Enums.FinishedGoodGroupType GroupType { get; set; }
-    
+
     public long UnitId { get; set; }
     public string? UnitName { get; set; }
 

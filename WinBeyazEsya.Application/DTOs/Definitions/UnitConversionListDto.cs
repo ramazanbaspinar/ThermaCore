@@ -1,5 +1,4 @@
-﻿using System;
-using WinBeyazEsya.Application.DTOs.Base;
+﻿using WinBeyazEsya.Application.DTOs.Base;
 
 namespace WinBeyazEsya.Application.DTOs.Definitions;
 

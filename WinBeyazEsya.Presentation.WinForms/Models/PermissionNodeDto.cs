@@ -9,7 +9,7 @@
 
         public int ModuleId { get; set; }
         public PermissionType? PermissionType { get; set; }
-        
+
         public string? SpecialPermissions { get; set; }
     }
 

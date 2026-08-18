@@ -1,11 +1,7 @@
-using DevExpress.XtraEditors;
-using WinBeyazEsya.Presentation.WinForms.Helpers;
-using System;
-using System.Linq;
-using System.Windows.Forms;
-using WinBeyazEsya.Presentation.WinForms.Forms.BaseForms;
-using WinBeyazEsya.Application.Interfaces.Definitions;
 using Microsoft.Extensions.DependencyInjection;
+using WinBeyazEsya.Application.Interfaces.Definitions;
+using WinBeyazEsya.Presentation.WinForms.Forms.BaseForms;
+using WinBeyazEsya.Presentation.WinForms.Helpers;
 
 namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.CariTanimForms
 {
@@ -38,7 +34,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.CariTanimForms
             BaseKartTuru = Domain.Enums.ModuleType.CurrentAccount;
             Navigator = longNavigator1.Navigator;
             AktifPasifButonGoster = true;
-            
+
             if (Tablo != null)
             {
                 Tablo.CustomColumnDisplayText += Tablo_CustomColumnDisplayText;
@@ -85,7 +81,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.CariTanimForms
 
             long entityId = 0;
             long.TryParse(Tablo.GetFocusedRowCellValue("Id")?.ToString(), out entityId);
-            
+
             if (entityId <= 0) return;
 
             if (Helpers.Messages.SilMesaj(Tablo.GetRowCellValue(Tablo.FocusedRowHandle, "Title")?.ToString() ?? "") == DialogResult.Yes)

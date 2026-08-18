@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using WinBeyazEsya.Domain.Entities.Base;
 
 namespace WinBeyazEsya.Domain.Entities.Definitions;
@@ -7,7 +6,7 @@ public class ProductRecipe : FullAuditableEntity, IMustHaveBranch
 {
     public string Code { get; set; } = null!;
     public string Name { get; set; } = null!;
-    
+
     public long FinishedGoodId { get; set; }
     public virtual FinishedGood FinishedGood { get; set; } = null!;
 

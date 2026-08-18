@@ -1,5 +1,3 @@
-using System;
-using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using WinBeyazEsya.Application.Interfaces.Security;
@@ -10,8 +8,8 @@ public class CryptoService : ICryptoService
 {
     // Kötü niyetli okumalara karşı Base64 olarak gizlenmiş (Obfuscated) Master Secret ve Salt
     // Düz metin: "WinBeyazEsya_Ultimate_Corporate_Secret_2026!#"
-    private static readonly byte[] MasterSecretBytes = Convert.FromBase64String("V2luQmV5YXpFc3lhX1VsdGltYXRlX0NvcnBvcmF0ZV9TZWNyZXRfMjAyNiEj"); 
-    
+    private static readonly byte[] MasterSecretBytes = Convert.FromBase64String("V2luQmV5YXpFc3lhX1VsdGltYXRlX0NvcnBvcmF0ZV9TZWNyZXRfMjAyNiEj");
+
     // Düz metin: "WinBeyazEsya_Corporate_Salt_2026_Secure"
     private static readonly byte[] SaltBytes = Convert.FromBase64String("V2luQmV5YXpFc3lhX0NvcnBvcmF0ZV9TYWx0XzIwMjZfU2VjdXJl");
 
@@ -22,7 +20,7 @@ public class CryptoService : ICryptoService
     {
         // PBKDF2 (Rfc2898DeriveBytes) ile HMAC-SHA256 kullanarak Master Secret'tan güvenli Key ve IV türetimi (100.000 iterasyon)
         using var rfc2898 = new Rfc2898DeriveBytes(MasterSecretBytes, SaltBytes, 100000, HashAlgorithmName.SHA256);
-        
+
         _aesKey = rfc2898.GetBytes(32); // AES-256 için tam 32 byte Key
         _aesIV = rfc2898.GetBytes(16);  // AES için tam 16 byte IV
     }

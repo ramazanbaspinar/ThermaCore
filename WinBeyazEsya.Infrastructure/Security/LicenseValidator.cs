@@ -1,12 +1,10 @@
-﻿using System;
-using System.Linq;
+﻿using System.Security.Cryptography;
+using System.Text;
+using System.Text.Json;
 using WinBeyazEsya.Application.DTOs.Security;
 using WinBeyazEsya.Application.Interfaces.Repositories;
 using WinBeyazEsya.Application.Interfaces.Security;
 using WinBeyazEsya.Domain.Entities.System;
-using System.Text.Json;
-using System.Security.Cryptography;
-using System.Text;
 
 namespace WinBeyazEsya.Infrastructure.Security
 {
@@ -17,7 +15,7 @@ namespace WinBeyazEsya.Infrastructure.Security
         private readonly IMasterUnitOfWork _uow;
 
         public LicenseValidator(
-            IMasterRepository<UserSession> userSessionRepository, 
+            IMasterRepository<UserSession> userSessionRepository,
             IMasterRepository<WinBeyazEsya.Domain.Entities.Management.SystemLicense> licenseRepository,
             IMasterUnitOfWork uow)
         {
@@ -78,7 +76,7 @@ namespace WinBeyazEsya.Infrastructure.Security
                 {
                     // Sınıfın içine geçici bir Public Key (XML String) sabiti kondu.
                     rsa.FromXmlString(DummyPublicKey);
-                    
+
                     bool isVerified = false;
                     try
                     {
@@ -220,7 +218,7 @@ namespace WinBeyazEsya.Infrastructure.Security
                 byte[] encryptedData = global::System.IO.File.ReadAllBytes(lkgtFile);
                 byte[] decryptedData = ProtectedData.Unprotect(encryptedData, null, DataProtectionScope.LocalMachine);
                 string jsonStr = Encoding.UTF8.GetString(decryptedData);
-                
+
                 var lkgtDto = JsonSerializer.Deserialize<LkgtPayloadDto>(jsonStr);
                 if (lkgtDto != null)
                 {
@@ -250,7 +248,7 @@ namespace WinBeyazEsya.Infrastructure.Security
             }
             catch
             {
-                return true; 
+                return true;
             }
         }
 
@@ -274,7 +272,7 @@ namespace WinBeyazEsya.Infrastructure.Security
                 {
                     global::System.IO.File.Delete(lkgtFile);
                 }
-                
+
                 var lastSession = _userSessionRepository.GetAll()
                     .OrderByDescending(x => x.Id)
                     .FirstOrDefault();
@@ -305,17 +303,17 @@ namespace WinBeyazEsya.Infrastructure.Security
             try
             {
                 // A) Veritabanındaki hatalı/gelecek zamanlı kayıtları temizle (HARD DELETE)
-                var futuristicSessions = _userSessionRepository.Find(x => 
-                    x.CreatedDate > DateTime.Now || 
-                    x.LoginTime > DateTime.Now || 
+                var futuristicSessions = _userSessionRepository.Find(x =>
+                    x.CreatedDate > DateTime.Now ||
+                    x.LoginTime > DateTime.Now ||
                     (x.ModifiedDate.HasValue && x.ModifiedDate.Value > DateTime.Now)
                 ).ToList();
-                
+
                 foreach (var session in futuristicSessions)
                 {
                     _userSessionRepository.Remove(session);
                 }
-                
+
                 // NOT: _uow.SaveChanges() burada ÇAĞRILMIYOR.
                 // Çift katmanlı commit (transaction) güvenliği için LicenseActivationForm içerisinde çağrılacaktır.
 

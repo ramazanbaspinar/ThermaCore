@@ -5,8 +5,6 @@ using WinBeyazEsya.Application.Interfaces.Definitions;
 using WinBeyazEsya.Application.Interfaces.Repositories;
 using WinBeyazEsya.Application.Services.Base;
 using WinBeyazEsya.Domain.Entities.Definitions;
-using System.Linq;
-using System.Collections.Generic;
 
 namespace WinBeyazEsya.Application.Services.Definitions
 {

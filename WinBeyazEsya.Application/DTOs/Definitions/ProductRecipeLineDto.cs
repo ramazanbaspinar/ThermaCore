@@ -8,16 +8,16 @@ public class ProductRecipeLineDto : BaseHareketDto
     public long ProductRecipeId { get; set; }
     public long MaterialId { get; set; }
     public MaterialType MaterialType { get; set; }
-    
+
     // UI için ekstra alanlar
     public string? MaterialGroupName { get; set; }
-    
+
     public string? MaterialName { get; set; }
-    
+
     public decimal Quantity { get; set; }
     public long UnitId { get; set; }
     public string? UnitName { get; set; }
-    
+
     // Reçete gridindeki diğer UI readonly sütunları
     public decimal WasteRate { get; set; }
     public decimal WeightKg { get; set; }

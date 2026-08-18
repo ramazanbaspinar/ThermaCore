@@ -1,4 +1,3 @@
-using System.Linq;
 using AutoMapper;
 using WinBeyazEsya.Application.DTOs.Definitions;
 using WinBeyazEsya.Domain.Entities.Definitions;
@@ -12,10 +11,10 @@ public class ProductRecipeProfile : Profile
         CreateMap<ProductRecipe, ProductRecipeDto>()
             .ReverseMap()
             .ForMember(dest => dest.Lines, opt => opt.Ignore());
-        
+
         CreateMap<ProductRecipe, ProductRecipeListDto>()
             .ForMember(dest => dest.FinishedGoodName, opt => opt.MapFrom(src => src.FinishedGood.Name));
-            
+
         CreateMap<ProductRecipeLine, ProductRecipeLineDto>()
             .ForMember(dest => dest.UnitName, opt => opt.MapFrom(src => src.Unit.Name))
             .ReverseMap()

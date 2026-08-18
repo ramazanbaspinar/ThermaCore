@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace WinBeyazEsya.Application.Interfaces.Common;
+﻿namespace WinBeyazEsya.Application.Interfaces.Common;
 
 public interface IBarcodePrintService
 {

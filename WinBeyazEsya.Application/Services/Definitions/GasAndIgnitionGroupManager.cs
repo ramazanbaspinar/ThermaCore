@@ -1,5 +1,3 @@
-using System;
-using System.Linq;
 using AutoMapper;
 using FluentValidation;
 using WinBeyazEsya.Application.DTOs.Definitions;
@@ -13,10 +11,10 @@ namespace WinBeyazEsya.Application.Services.Definitions;
 public class GasAndIgnitionGroupManager : BaseManager<GasAndIgnitionGroupListDto, GasAndIgnitionGroupDto, GasAndIgnitionGroup>, IGasAndIgnitionGroupService
 {
     public GasAndIgnitionGroupManager(
-        IMapper mapper, 
-        IRepository<GasAndIgnitionGroup> repository, 
+        IMapper mapper,
+        IRepository<GasAndIgnitionGroup> repository,
         IUnitOfWork unitOfWork,
-        IValidator<GasAndIgnitionGroupDto>? validator = null) 
+        IValidator<GasAndIgnitionGroupDto>? validator = null)
         : base(mapper, repository, unitOfWork, validator)
     {
     }

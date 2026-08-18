@@ -1,18 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
 using AutoMapper;
 using FluentValidation;
+using System.Linq.Expressions;
 using WinBeyazEsya.Application.DTOs.Base;
 using WinBeyazEsya.Application.Interfaces.Repositories;
 using WinBeyazEsya.Domain.Entities.Base;
 
 namespace WinBeyazEsya.Application.Services.Base;
 
-public abstract class BaseManager<TListDto, TDto, TEntity> 
+public abstract class BaseManager<TListDto, TDto, TEntity>
     where TListDto : class
-    where TDto : BaseDto 
+    where TDto : BaseDto
     where TEntity : Entity
 {
     protected readonly IMapper _mapper;
@@ -47,11 +44,11 @@ public abstract class BaseManager<TListDto, TDto, TEntity>
 
         var entityType = typeof(TEntity);
         var codeProp = entityType.GetProperty("Code");
-        
+
         if (codeProp != null)
         {
             var parameter = Expression.Parameter(entityType, "x");
-            
+
             var codeProperty = Expression.Property(parameter, "Code");
             var codeValue = Expression.Constant(dto.Code);
             var codeEquals = Expression.Equal(codeProperty, codeValue);
@@ -65,8 +62,8 @@ public abstract class BaseManager<TListDto, TDto, TEntity>
 
             if (_repository.Find(lambda).Any())
             {
-                throw new ValidationException(new[] { 
-                    new FluentValidation.Results.ValidationFailure("Code", "Girdiğiniz benzersiz kod (Code) sistemde zaten kullanılmaktadır. Lütfen farklı bir kod giriniz.") 
+                throw new ValidationException(new[] {
+                    new FluentValidation.Results.ValidationFailure("Code", "Girdiğiniz benzersiz kod (Code) sistemde zaten kullanılmaktadır. Lütfen farklı bir kod giriniz.")
                 });
             }
         }
@@ -76,11 +73,11 @@ public abstract class BaseManager<TListDto, TDto, TEntity>
     {
         var entityType = typeof(TEntity);
         var codeProp = entityType.GetProperty("Code");
-        
+
         if (codeProp != null)
         {
             var parameter = Expression.Parameter(entityType, "x");
-            
+
             var codeProperty = Expression.Property(parameter, "Code");
             var codeValue = Expression.Constant(code);
             var codeEquals = Expression.Equal(codeProperty, codeValue);

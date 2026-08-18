@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using WinBeyazEsya.Application.DTOs.Management;
 using WinBeyazEsya.Application.Interfaces.Repositories;
 using WinBeyazEsya.Application.Interfaces.Security;
@@ -78,7 +75,7 @@ public class AuthManager : IAuthService
 
         // Kullanıcının yetkili olduğu şirketleri getir
         var userTenantIds = _userTenantRepository.Find(ut => ut.UserId == user.Id && ut.IsActive).Select(ut => ut.TenantDatabaseId).ToList();
-        
+
         var tenants = _tenantRepository.Find(t => t.IsActive && userTenantIds.Contains(t.Id)).ToList();
         return Task.FromResult(_mapper.Map<List<TenantDatabaseDto>>(tenants));
     }
@@ -124,10 +121,10 @@ public class AuthManager : IAuthService
 
         result.IsSuccess = true;
         result.UserId = user.Id;
-        
+
         // TenantDatabase nesnesinden dinamik ConnectionString oluşturulması
         string decryptedPassword = string.IsNullOrEmpty(tenant.Password) ? "" : _cryptoService.Decrypt(tenant.Password);
-        
+
         string connectionString = $"Server={tenant.Server};Database={tenant.DatabaseName};TrustServerCertificate=True;Encrypt=False;";
         if (tenant.AuthType == WinBeyazEsya.Domain.Enums.AuthenticationType.Windows)
         {
@@ -137,7 +134,7 @@ public class AuthManager : IAuthService
         {
             connectionString += $"User Id={tenant.Username};Password={decryptedPassword};Integrated Security=False;";
         }
-        
+
         result.TenantConnectionString = connectionString;
 
         // Update Terminal IP/Mac is replaced with HWID validation. Terminal IP/Mac tracking is removed.
@@ -215,7 +212,7 @@ public class AuthManager : IAuthService
                 IsActive = false,
                 Description = "Sistem tarafından otomatik keşfedildi. Onay bekleniyor."
             };
-            
+
             _terminalRepository.Add(newTerminal);
             _uow.SaveChanges();
 
@@ -287,8 +284,8 @@ public class AuthManager : IAuthService
         // Aşama 2: Kullanıcı özel yetkisi yoksa, rol (grup) bazlı yetki kontrolü
         long roleId = user.UserRoleId;
 
-        var rolePermission = _rolePermissionRepository.Find(rp => 
-            rp.RoleId == roleId && 
+        var rolePermission = _rolePermissionRepository.Find(rp =>
+            rp.RoleId == roleId &&
             rp.ModuleId == moduleId).FirstOrDefault();
 
         if (rolePermission == null)
@@ -311,7 +308,7 @@ public class AuthManager : IAuthService
         {
             tenant = _tenantRepository.Find(t => t.IsActive && t.Id == preferredTenantId.Value).FirstOrDefault();
         }
-        
+
         if (tenant == null)
         {
             tenant = _tenantRepository.Find(t => t.IsActive).FirstOrDefault();
@@ -333,7 +330,7 @@ public class AuthManager : IAuthService
                 decryptedPassword = tenant.Password;
             }
         }
-        
+
         string connectionString = $"Server={tenant.Server};Database={tenant.DatabaseName};TrustServerCertificate=True;Encrypt=False;";
         if (tenant.AuthType == WinBeyazEsya.Domain.Enums.AuthenticationType.Windows)
         {

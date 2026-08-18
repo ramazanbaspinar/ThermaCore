@@ -1,5 +1,3 @@
-using System;
-using System.Linq;
 using AutoMapper;
 using FluentValidation;
 using WinBeyazEsya.Application.DTOs.Definitions;
@@ -13,10 +11,10 @@ namespace WinBeyazEsya.Application.Services.Definitions;
 public class OtherMaterialGroupManager : BaseManager<OtherMaterialGroupListDto, OtherMaterialGroupDto, OtherMaterialGroup>, IOtherMaterialGroupService
 {
     public OtherMaterialGroupManager(
-        IMapper mapper, 
-        IRepository<OtherMaterialGroup> repository, 
+        IMapper mapper,
+        IRepository<OtherMaterialGroup> repository,
         IUnitOfWork unitOfWork,
-        IValidator<OtherMaterialGroupDto>? validator = null) 
+        IValidator<OtherMaterialGroupDto>? validator = null)
         : base(mapper, repository, unitOfWork, validator)
     {
     }

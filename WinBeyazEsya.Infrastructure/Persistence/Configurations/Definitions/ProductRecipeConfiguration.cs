@@ -13,7 +13,7 @@ public class ProductRecipeConfiguration : IEntityTypeConfiguration<ProductRecipe
         builder.HasIndex(x => new { x.Code, x.RevisionNumber }).IsUnique();
         builder.Property(x => x.Name).HasMaxLength(100).IsRequired();
         builder.Property(x => x.Description).HasMaxLength(500);
-        
+
         builder.Property(x => x.TotalCost).HasColumnType("decimal(18,4)");
         builder.Property(x => x.ExchangeRate).HasColumnType("decimal(18,4)");
         builder.Property(x => x.NetMaterialCost).HasPrecision(18, 4);
@@ -22,7 +22,7 @@ public class ProductRecipeConfiguration : IEntityTypeConfiguration<ProductRecipe
             .WithMany()
             .HasForeignKey(x => x.FinishedGoodId)
             .OnDelete(DeleteBehavior.Restrict);
-            
+
         builder.HasIndex(x => x.IsActive);
     }
 }

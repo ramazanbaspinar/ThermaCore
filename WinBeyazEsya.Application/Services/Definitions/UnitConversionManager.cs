@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using AutoMapper;
 using WinBeyazEsya.Application.DTOs.Definitions;
 using WinBeyazEsya.Application.Interfaces.Definitions;
@@ -37,12 +34,12 @@ public class UnitConversionManager : IUnitConversionService
     public void SaveChanges(long entityId, IEnumerable<UnitConversionDto> conversions)
     {
         var existingConversions = _repository.Find(x => x.EntityId == entityId).ToList();
-        
+
         // Remove deleted conversions
         var toDeleteIds = existingConversions.Select(x => x.Id)
             .Except(conversions.Where(x => x.Id > 0).Select(x => x.Id))
             .ToList();
-            
+
         foreach (var id in toDeleteIds)
         {
             var entityToDelete = existingConversions.First(e => e.Id == id);
@@ -70,7 +67,7 @@ public class UnitConversionManager : IUnitConversionService
                 _repository.Add(newEntity);
             }
         }
-        
+
         _unitOfWork.SaveChanges();
     }
 }

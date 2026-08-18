@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using WinBeyazEsya.Application.Interfaces.System;
+﻿using WinBeyazEsya.Application.Interfaces.System;
 
 namespace WinBeyazEsya.Application.Services.System;
 

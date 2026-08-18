@@ -1,15 +1,5 @@
-using DevExpress.XtraEditors;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using WinBeyazEsya.Presentation.WinForms.Forms.BaseForms;
 using WinBeyazEsya.Domain.Enums;
+using WinBeyazEsya.Presentation.WinForms.Forms.BaseForms;
 using WinBeyazEsya.Presentation.WinForms.Helpers;
 
 namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.TelVeIzgaraForms
@@ -105,7 +95,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.TelVeIzgaraForm
             txtMalzemeAdi.Text = entity.Name;
             glufTemelBirim.EditValue = entity.BaseUnitId == 0 ? (long?)null : entity.BaseUnitId;
             glufOzelKod.EditValue = entity.SpecialCodeId;
-            
+
             txtAciklama.Text = entity.Description;
             if (txtKaplamaTipi != null) txtKaplamaTipi.Text = entity.CoatingType;
             if (txtMalzemeTipi != null) txtMalzemeTipi.Text = entity.MaterialType;
@@ -149,7 +139,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.TelVeIzgaraForm
 
             if (txtKaplamaTipi != null) dto.CoatingType = txtKaplamaTipi.Text;
             if (txtMalzemeTipi != null) dto.MaterialType = txtMalzemeTipi.Text;
-            
+
             CurrentEntity = dto;
             ButonEnabledDurumu();
         }
@@ -158,13 +148,13 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.TelVeIzgaraForm
         {
             ucBirimCevrimleri1.PostGridChanges();
             ucBarkodlar1.PostGridChanges();
-            
+
             try
             {
                 var dto = (Application.DTOs.Definitions.WireAndGridGroupDto)CurrentEntity;
                 dto.Id = BaseIslemTuru.IdOlustur(OldEntity);
                 Id = _wireAndGridGroupService.Insert(dto);
-                
+
                 if (Id > 0)
                 {
                     picResim.SavePicture("TelVeIzgaraGrubu", Id);
@@ -186,11 +176,11 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.TelVeIzgaraForm
         {
             ucBirimCevrimleri1.PostGridChanges();
             ucBarkodlar1.PostGridChanges();
-            
+
             try
             {
                 _wireAndGridGroupService.Update((Application.DTOs.Definitions.WireAndGridGroupDto)CurrentEntity);
-                
+
                 picResim.SavePicture("TelVeIzgaraGrubu", Id);
                 ucBirimCevrimleri1.Kaydet(Id);
                 ucBarkodlar1.Kaydet(Id);
@@ -247,12 +237,12 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.TelVeIzgaraForm
                 {
                     form.FormAcilisTuru = WinBeyazEsya.Presentation.WinForms.Enums.FormAcilisTuru.Secim;
                     form.ShowDialog();
-                    
+
                     if (_unitRepository != null)
                     {
                         glufTemelBirim.Properties.DataSource = _unitRepository.Find(x => x.IsActive).ToList();
                     }
-                    
+
                     if (form.DialogResult == DialogResult.OK && form.SelectedEntities?.Count > 0)
                     {
                         var secilenId = form.SelectedEntities[0].Id;

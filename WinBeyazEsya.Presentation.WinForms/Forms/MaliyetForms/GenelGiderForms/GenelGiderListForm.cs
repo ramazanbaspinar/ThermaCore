@@ -1,13 +1,6 @@
-using DevExpress.XtraEditors;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
 using WinBeyazEsya.Application.Interfaces.Definitions;
 using WinBeyazEsya.Application.Interfaces.System;
-using WinBeyazEsya.Application.DTOs.Definitions;
-using WinBeyazEsya.Domain.Enums;
 using WinBeyazEsya.Presentation.WinForms.Forms.BaseForms;
 using WinBeyazEsya.Presentation.WinForms.Helpers;
 
@@ -18,12 +11,12 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.GenelGiderForms
         private readonly IGeneralExpenseService _service;
         private readonly IServiceProvider _serviceProvider;
         private readonly IExchangeRateService _exchangeRateService;
-        
+
         private Dictionary<string, decimal> _guncelKurlar = new Dictionary<string, decimal>();
         private decimal _dipToplamTL = 0;
 
         public GenelGiderListForm(
-            IGeneralExpenseService service, 
+            IGeneralExpenseService service,
             IServiceProvider serviceProvider,
             IExchangeRateService exchangeRateService)
         {
@@ -41,7 +34,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.GenelGiderForms
             AktifPasifButonGoster = false;
 
             Tablo.OptionsView.ShowFooter = true;
-            
+
             var colCost = Tablo.Columns["Cost"];
             if (colCost != null)
             {
@@ -129,7 +122,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.GenelGiderForms
 
             long entityId = 0;
             long.TryParse(Tablo.GetFocusedRowCellValue("Id")?.ToString(), out entityId);
-            
+
             if (entityId <= 0) return;
 
             var result = Messages.SilMesaj(Tablo.GetRowCellValue(Tablo.FocusedRowHandle, "Name")?.ToString() ?? "");

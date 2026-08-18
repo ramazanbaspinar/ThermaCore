@@ -1,36 +1,22 @@
 ﻿using DevExpress.Utils.Extensions;
 using DevExpress.XtraBars;
 using DevExpress.XtraGrid.Columns;
-using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraLayout;
 using DevExpress.XtraPrinting.Native;
 using DevExpress.XtraReports.UI;
 using DevExpress.XtraSplashScreen;
-using DevExpress.XtraVerticalGrid;
 using Microsoft.Win32;
-using WinBeyazEsya.Domain.Enums;
-using WinBeyazEsya.Application.DTOs.Base;
-using WinBeyazEsya.Presentation.WinForms.Enums;
-using WinBeyazEsya.Presentation.WinForms.Forms.BaseForms;
-using WinBeyazEsya.Presentation.WinForms.Helpers;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Configuration;
 using System.Data;
-using System.Drawing;
 using System.Drawing.Imaging;
 using System.Drawing.Printing;
 using System.IO;
-using System.Linq;
-using System.Net;
-using System.Net.Mail;
-using System.Net.Sockets;
-using System.Security;
 using System.Security.Cryptography;
 using System.Text;
-using System.Windows.Forms;
+using WinBeyazEsya.Application.DTOs.Base;
+using WinBeyazEsya.Domain.Enums;
+using WinBeyazEsya.Presentation.WinForms.Enums;
 
 namespace WinBeyazEsya.Presentation.WinForms.Helpers
 {
@@ -338,7 +324,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Helpers
             popupMenu.ItemLinks.AddRange(buttonItems);
             baseButton.DropDownControl = popupMenu;
         }
-        
+
         public static MemoryStream ByteToStream(this byte[] report)
         {
             return new MemoryStream(report);
@@ -366,7 +352,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Helpers
             var byteDiziBuffer = Encoding.UTF8.GetBytes(value);
             byteDiziBuffer = md5.ComputeHash(byteDiziBuffer);
 
-            var md5Sifre = BitConverter.ToString(byteDiziBuffer).Replace("-", ""); 
+            var md5Sifre = BitConverter.ToString(byteDiziBuffer).Replace("-", "");
 
             return md5Sifre;
         }
@@ -393,15 +379,15 @@ namespace WinBeyazEsya.Presentation.WinForms.Helpers
             return string.Empty;
         }
 
-        private static readonly string encryptionKey = "S3cureK3y"; 
+        private static readonly string encryptionKey = "S3cureK3y";
 
         public static string Encrypt(string plainText)
         {
             byte[] plainBytes = Encoding.UTF8.GetBytes(plainText);
             using (Aes aes = Aes.Create())
             {
-                aes.Key = Encoding.UTF8.GetBytes(encryptionKey.PadRight(32)); 
-                aes.IV = new byte[16]; 
+                aes.Key = Encoding.UTF8.GetBytes(encryptionKey.PadRight(32));
+                aes.IV = new byte[16];
                 using (MemoryStream ms = new MemoryStream())
                 {
                     using (CryptoStream cs = new CryptoStream(ms, aes.CreateEncryptor(), CryptoStreamMode.Write))

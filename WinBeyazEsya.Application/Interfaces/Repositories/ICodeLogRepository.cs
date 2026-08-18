@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using WinBeyazEsya.Domain.Entities.Management;
+﻿using WinBeyazEsya.Domain.Entities.Management;
 using WinBeyazEsya.Domain.Enums;
 
 namespace WinBeyazEsya.Application.Interfaces.Repositories;

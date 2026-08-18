@@ -15,10 +15,10 @@ public class CodeLogValidator : AbstractValidator<CodeLogDto>
 
         RuleFor(x => x.DateKey)
             .MaximumLength(100).WithMessage("Tarih Anahtarı en fazla 100 karakter olabilir.");
-            
+
         RuleFor(x => x.LastCodeValue)
             .GreaterThanOrEqualTo(0).WithMessage("Son Kod Değeri 0 veya daha büyük olmalıdır.");
-            
+
         RuleFor(x => x.BranchName)
             .MaximumLength(100).WithMessage("Şube Adı en fazla 100 karakter olabilir.");
     }

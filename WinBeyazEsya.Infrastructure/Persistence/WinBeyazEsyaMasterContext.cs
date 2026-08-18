@@ -1,9 +1,5 @@
-using System;
-using System.Linq;
-using System.Reflection;
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 using WinBeyazEsya.Domain.Entities.Base;
 using WinBeyazEsya.Domain.Entities.Management;
 using WinBeyazEsya.Domain.Entities.System;
@@ -76,7 +72,7 @@ public class WinBeyazEsyaMasterContext : DbContext
                     indexBuilder.HasFilter("[IsDeleted] = 0");
                 }
             }
-            
+
             var method = typeof(WinBeyazEsyaMasterContext).GetMethod(nameof(SetGlobalQueryFilters), BindingFlags.NonPublic | BindingFlags.Instance);
             method?.MakeGenericMethod(entityType.ClrType).Invoke(this, new object[] { modelBuilder });
         }
@@ -121,7 +117,7 @@ public class WinBeyazEsyaMasterContext : DbContext
         {
             if (entry.Entity is AuditableEntity auditableEntity)
             {
-                long currentUserId = _currentTenantService != null && _currentTenantService.UserId > 0 ? _currentTenantService.UserId : 1; 
+                long currentUserId = _currentTenantService != null && _currentTenantService.UserId > 0 ? _currentTenantService.UserId : 1;
 
                 if (entry.State == EntityState.Added)
                 {
@@ -132,12 +128,12 @@ public class WinBeyazEsyaMasterContext : DbContext
                 {
                     auditableEntity.ModifiedDate = DateTime.Now;
                     auditableEntity.ModifiedUserId = currentUserId;
-                    
+
                     entry.Property(nameof(AuditableEntity.CreatedDate)).IsModified = false;
                     entry.Property(nameof(AuditableEntity.CreatedUserId)).IsModified = false;
                 }
             }
-            
+
             if (entry.Entity is IMustHaveBranch mustHaveBranch)
             {
                 if (entry.State == EntityState.Added && mustHaveBranch.BranchId == 0)
@@ -148,7 +144,7 @@ public class WinBeyazEsyaMasterContext : DbContext
 
             if (entry.Entity is FullAuditableEntity softDeleteEntity && entry.State == EntityState.Deleted)
             {
-                long currentUserId = _currentTenantService != null && _currentTenantService.UserId > 0 ? _currentTenantService.UserId : 1; 
+                long currentUserId = _currentTenantService != null && _currentTenantService.UserId > 0 ? _currentTenantService.UserId : 1;
 
                 entry.State = EntityState.Modified;
                 softDeleteEntity.IsDeleted = true;

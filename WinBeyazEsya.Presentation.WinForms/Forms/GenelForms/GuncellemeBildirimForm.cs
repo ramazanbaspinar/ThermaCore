@@ -1,6 +1,3 @@
-using System;
-using System.Windows.Forms;
-
 namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
 {
     public partial class GuncellemeBildirimForm : DevExpress.XtraEditors.XtraForm

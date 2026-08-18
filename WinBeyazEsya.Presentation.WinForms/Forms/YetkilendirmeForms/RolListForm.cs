@@ -1,14 +1,5 @@
-﻿using DevExpress.XtraEditors;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using Microsoft.Extensions.DependencyInjection;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using WinBeyazEsya.Application.Interfaces.Security;
 using WinBeyazEsya.Presentation.WinForms.Forms.BaseForms;
 
@@ -56,7 +47,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
             if (Tablo.FocusedRowHandle < 0) return;
             long id = 0;
             long.TryParse(Tablo.GetFocusedRowCellValue("Id")?.ToString(), out id);
-            
+
             if (id > 0 && WinBeyazEsya.Presentation.WinForms.Helpers.Messages.SilMesaj("Rol") == DialogResult.Yes)
             {
                 _roleService.Delete(id);

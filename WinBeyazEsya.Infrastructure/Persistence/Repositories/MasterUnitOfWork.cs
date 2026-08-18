@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using WinBeyazEsya.Application.Interfaces.Repositories;
 
@@ -54,7 +53,7 @@ public class MasterUnitOfWork : IMasterUnitOfWork
         Serilog.Log.Error(ex, "Master veritabanı kayıt işlemi (DbUpdateException) sırasında hata oluştu.");
         _context.ChangeTracker.Clear();
 
-        var sqlEx = ex.InnerException as Microsoft.Data.SqlClient.SqlException ?? 
+        var sqlEx = ex.InnerException as Microsoft.Data.SqlClient.SqlException ??
                     ex.InnerException?.InnerException as Microsoft.Data.SqlClient.SqlException;
 
         if (sqlEx != null)

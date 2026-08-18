@@ -1,13 +1,9 @@
-﻿using System;
-using System.Linq;
-using System.Windows.Forms;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using WinBeyazEsya.Application.DTOs.Management;
 using WinBeyazEsya.Application.Interfaces.Repositories;
 using WinBeyazEsya.Domain.Entities.Management;
 using WinBeyazEsya.Presentation.WinForms.Forms.BaseForms;
 using WinBeyazEsya.Presentation.WinForms.Helpers;
-using DevExpress.XtraEditors;
 
 namespace WinBeyazEsya.Presentation.WinForms.Forms.SirketForms
 {
@@ -31,14 +27,14 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SirketForms
             // bu formdaki gridView'ı bağlıyoruz ki base metodlar çalışabilsin.
             Tablo = myGridView1;
             Navigator = longNavigator1.Navigator;
-            
+
             btnBagliKayitlar.Caption = "Fabrikalar";
         }
 
         protected override void DegiskenleriDoldur()
         {
             BaseKartTuru = WinBeyazEsya.Domain.Enums.ModuleType.SirketTanimlari;
-            
+
             if (IsMdiChild)
                 ShowItems = new DevExpress.XtraBars.BarItem[] { btnBagliKayitlar };
         }
@@ -80,12 +76,12 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SirketForms
         {
             // İlgili edit formunu DI üzerinden çözümlüyoruz (Tüm bağımlılıklarıyla birlikte gelir)
             var editForm = Program.ServiceProvider?.GetRequiredService<SirketEditForm>();
-            
+
             if (editForm != null)
             {
                 // Formu Id ile aç (Ekleme için -1 veya 0, düzenleme için id > 0)
                 editForm.IdAtaVeAc(id);
-                
+
                 // Form kapandıktan sonra güncel listeyi tekrar çek
                 Listele();
 

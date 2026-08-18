@@ -1,5 +1,3 @@
-using DevExpress.XtraEditors;
-using System;
 using WinBeyazEsya.Application.DTOs.Management;
 using WinBeyazEsya.Application.Interfaces.Management;
 using WinBeyazEsya.Domain.Enums;
@@ -32,7 +30,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.VergiForms
         public override void Yukle()
         {
             this.Text = _taxType.ToName() + " Oraný Kartý";
-            
+
             // ComboBox'ý ayarla
             cmbVergiTuru.Properties.Items.Clear();
             cmbVergiTuru.Properties.Items.Add(_taxType.ToName());
@@ -46,10 +44,10 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.VergiForms
             }
             else
             {
-                CurrentEntity = new TaxRateDto 
-                { 
+                CurrentEntity = new TaxRateDto
+                {
                     TaxType = _taxType,
-                    IsActive = true 
+                    IsActive = true
                 };
             }
 

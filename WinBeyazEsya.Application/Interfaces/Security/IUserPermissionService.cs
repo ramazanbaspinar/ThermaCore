@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using WinBeyazEsya.Application.DTOs.Security;
+﻿using WinBeyazEsya.Application.DTOs.Security;
 
 namespace WinBeyazEsya.Application.Interfaces.Security;
 

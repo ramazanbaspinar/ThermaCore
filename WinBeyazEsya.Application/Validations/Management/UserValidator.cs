@@ -10,7 +10,7 @@ public class UserValidator : AbstractValidator<UserDto>
         RuleFor(x => x.Code).NotEmpty().WithMessage("Kullanıcı adı (Kod) boş bırakılamaz!");
         RuleFor(x => x.FirstName).NotEmpty().WithMessage("Ad alanı boş geçilemez.");
         RuleFor(x => x.LastName).NotEmpty().WithMessage("Soyad alanı boş geçilemez.");
-        
+
         RuleFor(x => x.Email)
             .NotEmpty().WithMessage("Email adresi boş geçilemez.")
             .EmailAddress().WithMessage("Geçerli bir email adresi giriniz.");

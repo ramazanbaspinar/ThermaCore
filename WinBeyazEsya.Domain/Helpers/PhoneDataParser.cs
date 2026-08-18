@@ -1,4 +1,3 @@
-using System;
 using System.Text.RegularExpressions;
 
 namespace WinBeyazEsya.Domain.Helpers;
@@ -17,7 +16,7 @@ public static class PhoneDataParser
         // Find the first valid 10 or 11 digit number
         // We will look for 11 digits starting with 0, or 10 digits
         var phoneMatch = Regex.Match(digitsOnly, @"(05\d{9}|0\d{10}|5\d{9}|\d{10})");
-        
+
         string? cleanPhone = null;
         if (phoneMatch.Success)
         {
@@ -30,7 +29,7 @@ public static class PhoneDataParser
         }
         else if (digitsOnly.Length > 0)
         {
-             cleanPhone = digitsOnly; // Even if it's less than 10 digits, we extracted digits.
+            cleanPhone = digitsOnly; // Even if it's less than 10 digits, we extracted digits.
         }
 
         // Check if there's any extra data. 

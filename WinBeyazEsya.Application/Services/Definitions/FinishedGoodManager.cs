@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
 using AutoMapper;
 using FluentValidation;
 using WinBeyazEsya.Application.DTOs.Definitions;
@@ -17,11 +15,11 @@ public class FinishedGoodManager : BaseManager<FinishedGoodListDto, FinishedGood
     private readonly IRepository<ItemBarcode> _barcodeRepository;
 
     public FinishedGoodManager(
-        IMapper mapper, 
-        IRepository<FinishedGood> repository, 
+        IMapper mapper,
+        IRepository<FinishedGood> repository,
         IRepository<ItemBarcode> barcodeRepository,
         IUnitOfWork unitOfWork,
-        IValidator<FinishedGoodDto>? validator = null) 
+        IValidator<FinishedGoodDto>? validator = null)
         : base(mapper, repository, unitOfWork, validator)
     {
         _barcodeRepository = barcodeRepository;
@@ -35,10 +33,10 @@ public class FinishedGoodManager : BaseManager<FinishedGoodListDto, FinishedGood
         if (dtos.Any())
         {
             var recordIds = dtos.Select(d => d.Id).ToList();
-            
-            var primaryBarcodes = _barcodeRepository.Find(b => 
-                b.ModuleType == ModuleType.FinishedGood && 
-                b.IsPrimary && 
+
+            var primaryBarcodes = _barcodeRepository.Find(b =>
+                b.ModuleType == ModuleType.FinishedGood &&
+                b.IsPrimary &&
                 recordIds.Contains(b.RecordId))
                 .ToList();
 

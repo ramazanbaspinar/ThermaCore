@@ -1,9 +1,6 @@
 ﻿using DevExpress.Data;
 using DevExpress.XtraGrid.Views.Grid;
 using WinBeyazEsya.Application.DTOs.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace WinBeyazEsya.Presentation.WinForms.Helpers
 {

@@ -1,11 +1,7 @@
 using DevExpress.XtraEditors;
-using System;
-using System.Linq;
-using System.Windows.Forms;
 using WinBeyazEsya.Application.DTOs.Definitions;
-using WinBeyazEsya.Application.Interfaces.Repositories.Definitions;
 using WinBeyazEsya.Application.Interfaces.Repositories;
-using WinBeyazEsya.Application.Validations.Definitions;
+using WinBeyazEsya.Application.Interfaces.Repositories.Definitions;
 using WinBeyazEsya.Domain.Entities.Definitions;
 using WinBeyazEsya.Domain.Enums;
 using WinBeyazEsya.Presentation.WinForms.Forms.BaseForms;
@@ -30,7 +26,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.BirimForms
             _unitRepository = unitRepository;
             _uow = uow;
             _validator = validator;
-            
+
             BaseKartTuru = WinBeyazEsya.Domain.Enums.ModuleType.BirimTanimlari;
             DataLayoutControl = myDataLayoutControlPro1;
             RequiresCodeTemplate = false;

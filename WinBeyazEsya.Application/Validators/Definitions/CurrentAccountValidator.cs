@@ -10,7 +10,7 @@ public class CurrentAccountValidator : AbstractValidator<CurrentAccountDto>
         RuleFor(x => x.Code)
             .NotEmpty().WithMessage("Kod alanı boş bırakılamaz.")
             .MaximumLength(50).WithMessage("Kod alanı en fazla 50 karakter olabilir.");
-            
+
         RuleFor(x => x.Title)
             .NotEmpty().WithMessage("Ad alanı boş bırakılamaz.")
             .MaximumLength(150).WithMessage("Ad alanı en fazla 150 karakter olabilir.");

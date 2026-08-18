@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using WinBeyazEsya.Domain.Entities.Base;
-using WinBeyazEsya.Domain.Entities.System;
 
 namespace WinBeyazEsya.Domain.Entities.Management;
 
@@ -8,7 +7,7 @@ public class UserTenant : FullAuditableEntity
 {
     public long UserId { get; set; }
     public long TenantDatabaseId { get; set; }
-    
+
     public bool IsDefault { get; set; }
     public bool IsActive { get; set; } = true;
 

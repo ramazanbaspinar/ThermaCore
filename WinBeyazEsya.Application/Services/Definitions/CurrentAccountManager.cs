@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
 using AutoMapper;
 using WinBeyazEsya.Application.DTOs.Definitions;
 using WinBeyazEsya.Application.DTOs.Management;
@@ -16,10 +14,10 @@ public class CurrentAccountManager : BaseManager<CurrentAccountDto, CurrentAccou
     private readonly ICodeGenerationService _codeGenerationService;
 
     public CurrentAccountManager(
-        IMapper mapper, 
-        IRepository<CurrentAccount> repository, 
+        IMapper mapper,
+        IRepository<CurrentAccount> repository,
         IUnitOfWork unitOfWork,
-        ICodeGenerationService codeGenerationService) 
+        ICodeGenerationService codeGenerationService)
         : base(mapper, repository, unitOfWork, null)
     {
         _codeGenerationService = codeGenerationService;
@@ -36,7 +34,7 @@ public class CurrentAccountManager : BaseManager<CurrentAccountDto, CurrentAccou
                 FirmaKisaKodKullanilsin = true,
                 ShortCode = dto.ShortCode
             };
-            
+
             var generatedCodeResponse = _codeGenerationService.GetNewCodeAsync(req).GetAwaiter().GetResult();
             if (generatedCodeResponse != null && !string.IsNullOrEmpty(generatedCodeResponse.Code))
             {
@@ -64,7 +62,7 @@ public class CurrentAccountManager : BaseManager<CurrentAccountDto, CurrentAccou
             x => x.City,
             x => x.Town
         ).ToList();
-            
+
         return _mapper.Map<IEnumerable<CurrentAccountDto>>(entities);
     }
 }

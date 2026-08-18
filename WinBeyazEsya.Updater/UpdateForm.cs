@@ -1,14 +1,6 @@
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text.Json;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace WinBeyazEsya.Updater
 {
@@ -19,7 +11,7 @@ namespace WinBeyazEsya.Updater
         private string _tempFolder;
         private string _backupFolder;
         private List<string> _addedFiles = new List<string>();
-        
+
         private readonly HashSet<string> _exclusionExactMatches = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
         {
             "license.lic",
@@ -41,7 +33,7 @@ namespace WinBeyazEsya.Updater
         protected override async void OnShown(EventArgs e)
         {
             base.OnShown(e);
-            
+
             if (string.IsNullOrWhiteSpace(_serverUrl))
             {
                 MessageBox.Show("Güncelleme sunucu adresi (URL) belirtilmemiş!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -92,7 +84,7 @@ namespace WinBeyazEsya.Updater
 
                 string manifestTempPath = Path.Combine(_tempFolder, "update_manifest.json");
 
-                bool isCloud = _serverUrl.StartsWith("http://", StringComparison.OrdinalIgnoreCase) || 
+                bool isCloud = _serverUrl.StartsWith("http://", StringComparison.OrdinalIgnoreCase) ||
                                _serverUrl.StartsWith("https://", StringComparison.OrdinalIgnoreCase);
 
                 if (isCloud)
@@ -118,7 +110,7 @@ namespace WinBeyazEsya.Updater
                 string json = File.ReadAllText(manifestTempPath);
                 var options = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
                 var manifest = JsonSerializer.Deserialize<UpdateManifestDto>(json, options);
-                
+
                 if (manifest == null || manifest.Files == null || manifest.Files.Count == 0)
                 {
                     throw new Exception("Güncelleme manifest dosyası geçersiz veya boş!");
@@ -216,7 +208,7 @@ namespace WinBeyazEsya.Updater
 
                     bool fileExistedBefore = File.Exists(localPath);
                     Directory.CreateDirectory(Path.GetDirectoryName(localPath)!);
-                    
+
                     bool copied = false;
                     for (int i = 0; i < 5; i++)
                     {
@@ -239,12 +231,12 @@ namespace WinBeyazEsya.Updater
                             await GracefulKillAppAsync("WinBeyazEsya.Presentation.WinForms", true);
                         }
                     }
-                    
+
                     if (!copied)
                     {
                         throw new Exception($"'{relativePath}' dosyası kilitli olduğu için kopyalanamadı.");
                     }
-                    
+
                     count++;
                     UpdateStatus($"⚙️ Entegre ediliyor... ({count}/{filesToUpdate.Count})", 55 + (35 * count / filesToUpdate.Count));
                 }
@@ -267,9 +259,9 @@ namespace WinBeyazEsya.Updater
             {
                 // Her durumda ERP'yi yeniden başlat ve Updater'ı kapat
                 await Task.Delay(1500);
-                
+
                 string exePath = Path.Combine(_appPath, "WinBeyazEsya.exe");
-                
+
                 // 1) DEBUG LOGGING: Yolları kontrol etmek için geçici log
                 try
                 {
@@ -278,7 +270,7 @@ namespace WinBeyazEsya.Updater
                     {
                         Directory.CreateDirectory(logsDir);
                     }
-                    File.AppendAllText(Path.Combine(logsDir, "updater_debug.log"), 
+                    File.AppendAllText(Path.Combine(logsDir, "updater_debug.log"),
                         $"[{DateTime.Now}] _appPath: {_appPath}\r\nexePath: {exePath}\r\nFile.Exists: {File.Exists(exePath)}\r\n");
                 }
                 catch { }
@@ -292,11 +284,11 @@ namespace WinBeyazEsya.Updater
                         {
                             FileName = exePath,
                             WorkingDirectory = _appPath,
-                            UseShellExecute = false 
+                            UseShellExecute = false
                         });
-                        
+
                         // 3) RACE CONDITION ÖNLEMİ: Uygulamanın ayağa kalkması için kısa bir bekleme
-                        await Task.Delay(1000); 
+                        await Task.Delay(1000);
                     }
                     catch (Exception ex)
                     {
@@ -334,7 +326,7 @@ namespace WinBeyazEsya.Updater
             try
             {
                 UpdateStatus("🔄 Geri alma (Rollback) işlemi başlatıldı...", 0);
-                
+
                 foreach (var addedFile in _addedFiles)
                 {
                     if (File.Exists(addedFile))

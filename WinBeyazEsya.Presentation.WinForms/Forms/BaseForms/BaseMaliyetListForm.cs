@@ -1,15 +1,5 @@
 using DevExpress.XtraEditors;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using WinBeyazEsya.Application.Interfaces.Production;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
 {
@@ -58,7 +48,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
         protected override void EntityDelete()
         {
             if (Tablo == null) return;
-            
+
             var entity = Tablo.GetRow(Tablo.FocusedRowHandle) as WinBeyazEsya.Application.DTOs.Production.MaterialCostListDto;
             if (entity == null) return;
 

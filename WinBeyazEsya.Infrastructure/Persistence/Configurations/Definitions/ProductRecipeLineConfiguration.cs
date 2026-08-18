@@ -9,10 +9,10 @@ public class ProductRecipeLineConfiguration : IEntityTypeConfiguration<ProductRe
     public void Configure(EntityTypeBuilder<ProductRecipeLine> builder)
     {
         builder.HasKey(x => x.Id);
-        
+
         builder.Property(x => x.Quantity).HasPrecision(18, 4);
         builder.Property(x => x.WasteRate).HasPrecision(18, 4);
-        
+
         builder.Property(x => x.WeightKg).HasPrecision(18, 6);
         builder.Property(x => x.CoatingAmount).HasPrecision(18, 2);
         builder.Property(x => x.UnitPrice).HasPrecision(18, 4);

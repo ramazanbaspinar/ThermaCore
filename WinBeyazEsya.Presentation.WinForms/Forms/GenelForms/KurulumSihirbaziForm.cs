@@ -1,11 +1,9 @@
 using DevExpress.XtraEditors;
-using System;
-using System.Windows.Forms;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using WinBeyazEsya.Application.DTOs.Management;
 using WinBeyazEsya.Application.Interfaces.Configuration;
 using WinBeyazEsya.Application.Interfaces.System;
-using WinBeyazEsya.Application.DTOs.Management;
 using WinBeyazEsya.Domain.Enums;
 using WinBeyazEsya.Domain.Extensions;
 
@@ -21,7 +19,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             _configService = configService;
             _sistemVeritabaniService = sistemVeritabaniService;
             InitializeComponent();
-            
+
             // Olay bağlantıları
             this.Load += KurulumSihirbaziForm_Load;
             this.cmbYetkilendirme.SelectedIndexChanged += cmbYetkilendirme_SelectedIndexChanged;
@@ -44,7 +42,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             // txtMasterVeritabani varsayılan değer ata
             txtMasterVeritabani.Text = "WinBeyazEsyaYonetimDB";
             txtSunucuAdresi.Text = "localhost"; // Varsayılan sunucu
-            
+
             // İlk durumda kullanıcı ve şifreyi pasifleştir (Windows Auth varsayılan olduğu için)
             txtDbKullanici.Enabled = false;
             txtDbSifre.Enabled = false;
@@ -205,7 +203,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             editor.Properties.PasswordChar = '*';
             inputArgs.Editor = editor;
             inputArgs.DefaultResponse = "";
-            
+
             var resultObj = DevExpress.XtraEditors.XtraInputBox.Show(inputArgs);
             string inputPwd = resultObj?.ToString() ?? "";
 
@@ -249,7 +247,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
                         btnKurulumuTamamla.Enabled = true;
                         return;
                     }
-                    
+
                     if (overWriteResult == DialogResult.No)
                     {
                         // Hayır derse, ezerek kurmaya devam et.
@@ -293,7 +291,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
                 // 2.5 Migrate işlemi bittikten hemen sonra DatabaseSeederManager'ın tetiklendiğinden emin ol (Auto-Migration and Seed)
                 var optionsMaster = new Microsoft.EntityFrameworkCore.DbContextOptionsBuilder<WinBeyazEsya.Infrastructure.Persistence.WinBeyazEsyaMasterContext>();
                 optionsMaster.UseSqlServer(connectionString, b => b.MigrationsAssembly("WinBeyazEsya.Infrastructure"));
-                
+
                 var optionsTenant = new Microsoft.EntityFrameworkCore.DbContextOptionsBuilder<WinBeyazEsya.Infrastructure.Persistence.WinBeyazEsyaTenantContext>();
                 optionsTenant.UseSqlServer(connectionString, b => b.MigrationsAssembly("WinBeyazEsya.Infrastructure"));
 

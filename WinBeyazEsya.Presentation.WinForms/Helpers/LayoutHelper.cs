@@ -1,12 +1,8 @@
 ﻿using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Grid;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Windows.Forms;
 using System.Xml.Linq;
 using WinBeyazEsya.Application.Interfaces.System;
 

@@ -6,16 +6,11 @@ using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
-using WinBeyazEsya.Application.Interfaces.Base;
 using WinBeyazEsya.Application.DTOs.Base;
-using WinBeyazEsya.Domain.Entities.Base;
+using WinBeyazEsya.Application.Interfaces.Base;
 using WinBeyazEsya.Presentation.WinForms.Forms.BaseForms;
-using WinBeyazEsya.Presentation.WinForms.Interfaces;
 using WinBeyazEsya.Presentation.WinForms.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
+using WinBeyazEsya.Presentation.WinForms.Interfaces;
 
 namespace WinBeyazEsya.Presentation.WinForms.UserControls.Base
 {

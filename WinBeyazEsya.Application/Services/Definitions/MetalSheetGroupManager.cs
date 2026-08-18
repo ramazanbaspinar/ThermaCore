@@ -1,5 +1,3 @@
-using System;
-using System.Linq;
 using AutoMapper;
 using FluentValidation;
 using WinBeyazEsya.Application.DTOs.Definitions;
@@ -13,10 +11,10 @@ namespace WinBeyazEsya.Application.Services.Definitions;
 public class MetalSheetGroupManager : BaseManager<MetalSheetGroupListDto, MetalSheetGroupDto, MetalSheetGroup>, IMetalSheetGroupService
 {
     public MetalSheetGroupManager(
-        IMapper mapper, 
-        IRepository<MetalSheetGroup> repository, 
+        IMapper mapper,
+        IRepository<MetalSheetGroup> repository,
         IUnitOfWork unitOfWork,
-        IValidator<MetalSheetGroupDto>? validator = null) 
+        IValidator<MetalSheetGroupDto>? validator = null)
         : base(mapper, repository, unitOfWork, validator)
     {
     }

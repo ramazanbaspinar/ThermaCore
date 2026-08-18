@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace WinBeyazEsya.Application.Interfaces.Repositories;
+﻿namespace WinBeyazEsya.Application.Interfaces.Repositories;
 
 public interface IUnitOfWork
 {

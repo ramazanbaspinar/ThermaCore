@@ -1,8 +1,5 @@
 ﻿using DevExpress.XtraEditors;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Linq;
-using System.Windows.Forms;
 using WinBeyazEsya.Application.DTOs.Definitions;
 using WinBeyazEsya.Application.Interfaces.Repositories;
 using WinBeyazEsya.Application.Interfaces.Repositories.Definitions;
@@ -71,7 +68,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.BirimForms
 
             long entityId = 0;
             long.TryParse(Tablo.GetFocusedRowCellValue("Id")?.ToString(), out entityId);
-            
+
             if (entityId <= 0) return;
 
             if (XtraMessageBox.Show("Seçili birimi silmek istediğinize emin misiniz?", "Onay", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)

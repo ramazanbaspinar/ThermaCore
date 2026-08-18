@@ -1,10 +1,7 @@
-using System;
-using System.Linq;
-using System.Windows.Forms;
-using WinBeyazEsya.Domain.Enums;
 using WinBeyazEsya.Application.DTOs.Definitions;
-using WinBeyazEsya.Application.Interfaces.Definitions;
 using WinBeyazEsya.Application.Interfaces.Common;
+using WinBeyazEsya.Application.Interfaces.Definitions;
+using WinBeyazEsya.Domain.Enums;
 using WinBeyazEsya.Presentation.WinForms.Forms.BaseForms;
 using WinBeyazEsya.Presentation.WinForms.Helpers;
 
@@ -18,7 +15,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.CariTanimForms
         private readonly ITownService _townService = default!;
         private readonly ISpecialCodeService _specialCodeService = default!;
 
-        protected override string CodeControlName => "txtCode"; 
+        protected override string CodeControlName => "txtCode";
 
         public CariTanimEditForm() { InitializeComponent(); }
 
@@ -103,17 +100,17 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.CariTanimForms
             if (glufCountry != null)
             {
                 glufCountry.Properties.DataSource = _countryService.GetAll().ToList();
-                glufCountry.Properties.ValueMember = "Id"; 
+                glufCountry.Properties.ValueMember = "Id";
                 glufCountry.Properties.DisplayMember = "Title";
-                
+
                 glufCountry.EditValueChanged += (s, e) =>
                 {
-                    if (glufCity != null) 
+                    if (glufCity != null)
                     {
                         glufCity.EditValue = null;
                         glufCity.Properties.Buttons[1].Enabled = false;
                     }
-                    if (glufTown != null) 
+                    if (glufTown != null)
                     {
                         glufTown.EditValue = null;
                         glufTown.Properties.Buttons[1].Enabled = false;
@@ -152,7 +149,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.CariTanimForms
                 glufCity.Properties.ValueMember = "Id";
                 glufCity.Properties.DisplayMember = "Title";
                 glufCity.Properties.Buttons[1].Enabled = false; // Initially disabled
-                
+
                 glufCity.EditValueChanged += (s, e) =>
                 {
                     if (glufTown != null)
@@ -257,7 +254,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.CariTanimForms
             var txtTitle = this.Controls.Find("txtTitle", true).FirstOrDefault() as DevExpress.XtraEditors.TextEdit;
             var txtShortCode = this.Controls.Find("txtShortCode", true).FirstOrDefault() as DevExpress.XtraEditors.TextEdit;
             var tglActive = this.Controls.Find("tgsIsActive", true).FirstOrDefault() as DevExpress.XtraEditors.ToggleSwitch;
-            
+
             var cmbCardType = this.Controls.Find("cmbCardType", true).FirstOrDefault() as DevExpress.XtraEditors.ComboBoxEdit;
             var glufSpecialCode = this.Controls.Find("glufSpecialCode", true).FirstOrDefault() as DevExpress.XtraEditors.GridLookUpEdit;
             var txtAuthorizedPerson = this.Controls.Find("txtAuthorizedPerson", true).FirstOrDefault() as DevExpress.XtraEditors.TextEdit;

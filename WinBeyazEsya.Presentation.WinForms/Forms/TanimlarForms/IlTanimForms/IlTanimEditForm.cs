@@ -1,9 +1,6 @@
-using System;
-using System.Linq;
-using System.Windows.Forms;
-using WinBeyazEsya.Domain.Enums;
 using WinBeyazEsya.Application.DTOs.Definitions;
 using WinBeyazEsya.Application.Interfaces.Definitions;
+using WinBeyazEsya.Domain.Enums;
 using WinBeyazEsya.Presentation.WinForms.Forms.BaseForms;
 using WinBeyazEsya.Presentation.WinForms.Helpers;
 
@@ -14,7 +11,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.IlTanimForms
         private readonly ICityService _cityService = default!;
         private long _countryId = 0;
 
-        protected override string CodeControlName => "txtCode"; 
+        protected override string CodeControlName => "txtCode";
 
         public IlTanimEditForm() { InitializeComponent(); }
 

@@ -1,5 +1,4 @@
 ﻿using WinBeyazEsya.Domain.Entities.Base;
-using WinBeyazEsya.Domain.Enums;
 
 namespace WinBeyazEsya.Domain.Entities.Security;
 

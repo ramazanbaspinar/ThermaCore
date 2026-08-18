@@ -1,11 +1,7 @@
-using DevExpress.XtraEditors;
-using WinBeyazEsya.Presentation.WinForms.Helpers;
-using System;
-using System.Linq;
-using System.Windows.Forms;
-using WinBeyazEsya.Presentation.WinForms.Forms.BaseForms;
-using WinBeyazEsya.Application.Interfaces.Definitions;
 using Microsoft.Extensions.DependencyInjection;
+using WinBeyazEsya.Application.Interfaces.Definitions;
+using WinBeyazEsya.Presentation.WinForms.Forms.BaseForms;
+using WinBeyazEsya.Presentation.WinForms.Helpers;
 
 namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.IlTanimForms
 {
@@ -84,7 +80,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.IlTanimForms
         protected override void BagliKayitAc()
         {
             if (Tablo.FocusedRowHandle < 0) return;
-            
+
             long entityId = 0;
             long.TryParse(Tablo.GetFocusedRowCellValue("Id")?.ToString(), out entityId);
             string title = Tablo.GetFocusedRowCellValue("Title")?.ToString() ?? "";
@@ -105,7 +101,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.IlTanimForms
 
             long entityId = 0;
             long.TryParse(Tablo.GetFocusedRowCellValue("Id")?.ToString(), out entityId);
-            
+
             if (entityId <= 0) return;
 
             if (Helpers.Messages.SilMesaj(Tablo.GetRowCellValue(Tablo.FocusedRowHandle, "Title")?.ToString() ?? "") == DialogResult.Yes)

@@ -1,7 +1,4 @@
-using DevExpress.XtraEditors;
-using System;
 using System.Data.SqlClient;
-using System.Windows.Forms;
 using WinBeyazEsya.Application.Interfaces.Integration;
 using WinBeyazEsya.Presentation.WinForms.Forms.BaseForms;
 using WinBeyazEsya.Presentation.WinForms.Helpers;
@@ -36,7 +33,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
 
             txtFirmaNo.EditValueChanged += TxtFirmaNo_EditValueChanged;
             cmbEntegrasyonTipi.SelectedIndexChanged += CmbEntegrasyonTipi_SelectedIndexChanged;
-            
+
             // Set default view
             GuncelleSorguOnizleme();
         }
@@ -56,10 +53,10 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             string firmaNo = txtFirmaNo.Text;
             string paddedFirmaNo = (string.IsNullOrWhiteSpace(firmaNo) ? "001" : firmaNo).PadLeft(3, '0');
             int entType = cmbEntegrasyonTipi.SelectedIndex;
-            
+
             if (entType == 0) // Logo
             {
-                memoGonderilecekSorgu.Text = 
+                memoGonderilecekSorgu.Text =
                         $"-- CARİ KARTLAR SORGUSU --\r\n" +
                         $"SELECT LOGICALREF, CODE, DEFINITION_ as TITLE, ACTIVE, TAXNR, TAXOFFICE, COUNTRY, TOWN, CITY, TELNRS1, TELNRS2, CELLPHONE\r\n" +
                         $"FROM LG_{paddedFirmaNo}_CLCARD WHERE CARDTYPE = 3\r\n\r\n" +
@@ -93,7 +90,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
 
                 using var conn = new SqlConnection(builder.ConnectionString);
                 await conn.OpenAsync();
-                
+
                 Messages.BilgiMesaji("Bağlantı Başarılı!");
             }
             catch (Exception ex)
@@ -117,17 +114,17 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
                 Cursor.Current = Cursors.WaitCursor;
 
                 var res1 = await _integrationService.SyncCountriesAsync(
-                    txtKaynakSunucuIp.Text, txtKaynakVeritabani.Text, txtKullaniciAdi.Text, txtSifre.Text, 
+                    txtKaynakSunucuIp.Text, txtKaynakVeritabani.Text, txtKullaniciAdi.Text, txtSifre.Text,
                     cmbEntegrasyonTipi.SelectedIndex, memoOzelSorgu.Text);
-                
+
                 var res2 = await _integrationService.SyncCitiesAsync(
-                    txtKaynakSunucuIp.Text, txtKaynakVeritabani.Text, txtKullaniciAdi.Text, txtSifre.Text, 
+                    txtKaynakSunucuIp.Text, txtKaynakVeritabani.Text, txtKullaniciAdi.Text, txtSifre.Text,
                     cmbEntegrasyonTipi.SelectedIndex, memoOzelSorgu.Text);
-                    
+
                 var res3 = await _integrationService.SyncTownsAsync(
-                    txtKaynakSunucuIp.Text, txtKaynakVeritabani.Text, txtKullaniciAdi.Text, txtSifre.Text, 
+                    txtKaynakSunucuIp.Text, txtKaynakVeritabani.Text, txtKullaniciAdi.Text, txtSifre.Text,
                     cmbEntegrasyonTipi.SelectedIndex, memoOzelSorgu.Text);
-                    
+
                 var res4 = await _integrationService.SyncCurrentAccountsAsync(
                     txtKaynakSunucuIp.Text, txtKaynakVeritabani.Text, txtKullaniciAdi.Text, txtSifre.Text, txtFirmaNo.Text,
                     cmbEntegrasyonTipi.SelectedIndex, memoOzelSorgu.Text);
@@ -138,7 +135,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
                 int totalMissing = res1.MissingReferenceCount + res2.MissingReferenceCount + res3.MissingReferenceCount + res4.MissingReferenceCount;
                 int totalError = res1.ErrorCount + res2.ErrorCount + res3.ErrorCount + res4.ErrorCount;
                 int totalProcessed = totalAdded + totalUpdated + totalSkipped + totalMissing + totalError;
-                
+
                 string resultMsg = $"Aktarım İşlemi Tamamlandı!\n\n" +
                                    $"• Toplam Değerlendirilen Kayıt: {totalProcessed}\n" +
                                    $"• Yeni Eklenen: {totalAdded}\n" +

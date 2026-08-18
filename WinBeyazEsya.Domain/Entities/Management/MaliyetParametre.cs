@@ -1,6 +1,5 @@
-using WinBeyazEsya.Domain.Entities.Base;
-
 using System.ComponentModel.DataAnnotations.Schema;
+using WinBeyazEsya.Domain.Entities.Base;
 
 namespace WinBeyazEsya.Domain.Entities.Management;
 

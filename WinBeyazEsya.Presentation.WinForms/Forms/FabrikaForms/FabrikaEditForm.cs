@@ -1,14 +1,9 @@
-using System;
-using System.Windows.Forms;
 using WinBeyazEsya.Application.DTOs.Management;
-using WinBeyazEsya.Application.Interfaces.Repositories;
 using WinBeyazEsya.Application.Interfaces.System;
-using WinBeyazEsya.Domain.Entities.Management;
-using WinBeyazEsya.Domain.Enums;
 using WinBeyazEsya.Application.Services.Management;
+using WinBeyazEsya.Domain.Enums;
 using WinBeyazEsya.Presentation.WinForms.Forms.BaseForms;
 using WinBeyazEsya.Presentation.WinForms.Helpers;
-using System.Linq;
 
 namespace WinBeyazEsya.Presentation.WinForms.Forms.FabrikaForms
 {

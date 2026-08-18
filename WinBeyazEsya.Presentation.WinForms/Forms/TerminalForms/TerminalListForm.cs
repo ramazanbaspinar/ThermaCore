@@ -1,9 +1,6 @@
-﻿using System;
-using System.Linq;
-using WinBeyazEsya.Application.DTOs.Management;
+﻿using Microsoft.Extensions.DependencyInjection;
 using WinBeyazEsya.Application.Services.Management;
 using WinBeyazEsya.Presentation.WinForms.Forms.BaseForms;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace WinBeyazEsya.Presentation.WinForms.Forms.TerminalForms
 {
@@ -69,9 +66,9 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TerminalForms
                             catch (FluentValidation.ValidationException ex)
                             {
                                 DevExpress.XtraEditors.XtraMessageBox.Show(
-                                    string.Join("\n", ex.Errors.Select(e => e.ErrorMessage)), 
-                                    "Lisans Uyarısı", 
-                                    System.Windows.Forms.MessageBoxButtons.OK, 
+                                    string.Join("\n", ex.Errors.Select(e => e.ErrorMessage)),
+                                    "Lisans Uyarısı",
+                                    System.Windows.Forms.MessageBoxButtons.OK,
                                     System.Windows.Forms.MessageBoxIcon.Warning);
                             }
                             catch (Exception ex)
@@ -109,7 +106,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TerminalForms
 
             long entityId = 0;
             long.TryParse(Tablo.GetFocusedRowCellValue("Id")?.ToString(), out entityId);
-            
+
             if (entityId <= 0) return;
 
             if (DevExpress.XtraEditors.XtraMessageBox.Show("Seçili terminal kaydını silmek istediğinize emin misiniz?", "Onay", System.Windows.Forms.MessageBoxButtons.YesNo, System.Windows.Forms.MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)

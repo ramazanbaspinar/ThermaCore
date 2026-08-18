@@ -1,7 +1,4 @@
-using System;
 using System.Diagnostics;
-using System.IO;
-using System.Windows.Forms;
 
 namespace WinBeyazEsya.Updater;
 
@@ -15,7 +12,7 @@ static class Program
         // Self-Update & File-Lock Çözümü
         // Updater doğrudan ana klasörden çalıştırılırsa, kendi kendini ezemez (File-Lock).
         // Bu yüzden kendini %TEMP% klasörüne kopyalar ve oradan çalıştırır.
-        
+
         bool runFromTemp = false;
         string targetAppPath = AppDomain.CurrentDomain.BaseDirectory;
         string serverUrl = "";
@@ -46,7 +43,7 @@ static class Program
                 {
                     Directory.CreateDirectory(tempDir);
                 }
-                
+
                 // Eski temp dosyasını temizle (varsa)
                 if (File.Exists(tempExePath))
                 {
@@ -61,7 +58,7 @@ static class Program
                     string destFile = Path.Combine(tempDir, Path.GetFileName(file));
                     File.Copy(file, destFile, true);
                 }
-                
+
                 // Kopyalanan exe'yi çalıştır
                 ProcessStartInfo psi = new ProcessStartInfo
                 {
@@ -70,7 +67,7 @@ static class Program
                     UseShellExecute = true
                 };
                 Process.Start(psi);
-                
+
                 // Orijinal updater kapansın ki üzerine yazılabilsin
                 Application.Exit();
                 return;
@@ -83,5 +80,5 @@ static class Program
         }
 
         Application.Run(new UpdateForm(targetAppPath, serverUrl));
-    }    
+    }
 }

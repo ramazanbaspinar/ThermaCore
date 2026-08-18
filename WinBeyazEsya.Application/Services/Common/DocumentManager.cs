@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using WinBeyazEsya.Application.DTOs.Common;
+﻿using WinBeyazEsya.Application.DTOs.Common;
 using WinBeyazEsya.Application.Interfaces.Common;
 using WinBeyazEsya.Application.Interfaces.Repositories;
 using WinBeyazEsya.Domain.Entities.Common;
@@ -43,7 +40,7 @@ public class DocumentManager : IDocumentService
     public Task<List<AppDocumentDto>> GetDocumentsByEntityAsync(string entityName, long entityId)
     {
         var documents = _repository.Find(x => x.EntityName == entityName && x.EntityId == entityId).ToList();
-        
+
         var result = documents.Select(x => new AppDocumentDto
         {
             Id = x.Id,

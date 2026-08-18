@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-using System;
 
 namespace WinBeyazEsya.Infrastructure.Persistence
 {
@@ -9,7 +8,7 @@ namespace WinBeyazEsya.Infrastructure.Persistence
         public WinBeyazEsyaTenantContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<WinBeyazEsyaTenantContext>();
-            
+
             // Varsayılan bir connection string
             //string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=WinBeyazEsyaTenantDb;Integrated Security=True";
             string connectionString = "Server=192.168.2.10;Database=WinBeyazEsyaTenantDb;User Id=sa;Password=Retel3834.;Encrypt=True;TrustServerCertificate=True;";

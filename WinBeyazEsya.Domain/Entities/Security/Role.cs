@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using WinBeyazEsya.Domain.Entities.Base;
+﻿using WinBeyazEsya.Domain.Entities.Base;
 
 namespace WinBeyazEsya.Domain.Entities.Security;
 

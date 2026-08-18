@@ -2,9 +2,9 @@ using AutoMapper;
 using WinBeyazEsya.Application.DTOs.Definitions;
 using WinBeyazEsya.Application.Interfaces.Definitions;
 using WinBeyazEsya.Application.Interfaces.Repositories;
+using WinBeyazEsya.Application.Interfaces.System;
 using WinBeyazEsya.Application.Services.Base;
 using WinBeyazEsya.Domain.Entities.Definitions;
-using WinBeyazEsya.Application.Interfaces.System;
 
 namespace WinBeyazEsya.Application.Services.Definitions;
 
@@ -13,10 +13,10 @@ public class TownManager : BaseManager<TownDto, TownDto, Town>, ITownService
     private readonly ICodeGenerationService _codeGenerationService;
 
     public TownManager(
-        IMapper mapper, 
-        IRepository<Town> repository, 
+        IMapper mapper,
+        IRepository<Town> repository,
         IUnitOfWork unitOfWork,
-        ICodeGenerationService codeGenerationService) 
+        ICodeGenerationService codeGenerationService)
         : base(mapper, repository, unitOfWork, null)
     {
         _codeGenerationService = codeGenerationService;
@@ -33,7 +33,7 @@ public class TownManager : BaseManager<TownDto, TownDto, Town>, ITownService
                 FirmaKisaKodKullanilsin = false,
                 ShortCode = ""
             };
-            
+
             var generatedCodeResponse = _codeGenerationService.GetNewCodeAsync(req).GetAwaiter().GetResult();
             if (generatedCodeResponse != null && !string.IsNullOrEmpty(generatedCodeResponse.Code))
             {

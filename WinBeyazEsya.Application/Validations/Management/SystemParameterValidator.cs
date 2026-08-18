@@ -9,10 +9,10 @@ public class SystemParameterValidator : AbstractValidator<SystemParameterDto>
     {
         RuleFor(x => x.CompanyName)
             .MaximumLength(100).WithMessage("Firma ünvanı en fazla 100 karakter olabilir.");
-            
+
         RuleFor(x => x.DefaultWastageRate)
             .GreaterThanOrEqualTo(0).WithMessage("Fire oranı 0'dan küçük olamaz.");
-            
+
         RuleFor(x => x.CompanyBarcodePrefix)
             .Matches("^[0-9]*$").WithMessage("Şirket Barkod Öneki sadece rakamlardan oluşmalıdır.");
     }

@@ -1,13 +1,4 @@
-﻿using DevExpress.XtraEditors;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Text;
 
 namespace WinBeyazEsya.Presentation.WinForms.Forms.LisansForms
 {
@@ -31,10 +22,10 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.LisansForms
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            
+
             string hwid = WinBeyazEsya.Domain.Helpers.HardwareInfoHelper.GetHWID();
             txtMakineId.Text = string.IsNullOrEmpty(hwid) ? "HWID-BULUNAMADI" : hwid;
-            
+
             btnKopyala.Click += BtnKopyala_Click;
             btnYapistir.Click += BtnYapistir_Click;
             btnDosyadanAktar.Click += BtnDosyadanAktar_Click;
@@ -77,7 +68,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.LisansForms
             }
 
             var licenseData = _licenseValidator.ValidateLicense(txtAciklama.Text, true);
-            
+
             if (!licenseData.IsValid)
             {
                 WinBeyazEsya.Presentation.WinForms.Helpers.Messages.UyariMesaji(licenseData.ErrorMessage);

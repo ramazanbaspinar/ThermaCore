@@ -1,5 +1,4 @@
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using WinBeyazEsya.Application.DTOs.Base;
 
 namespace WinBeyazEsya.Application.DTOs.Management;
@@ -23,7 +22,7 @@ public class MaliyetParametreDto : BaseDto
     public int BuiltInAvgMonthlyProduction { get; set; }
     public int FreestandingAvgMonthlyProduction { get; set; }
     public int OtherAvgMonthlyProduction { get; set; }
-    
+
     [Browsable(false)]
     public long BranchId { get; set; }
 }

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using WinBeyazEsya.Application.DTOs.Management;
+﻿using WinBeyazEsya.Application.DTOs.Management;
 
 namespace WinBeyazEsya.Application.Services.Management;
 

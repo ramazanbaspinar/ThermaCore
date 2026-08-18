@@ -1,6 +1,3 @@
-using System;
-using System.Linq;
-using System.Windows.Forms;
 using Microsoft.Extensions.DependencyInjection;
 using WinBeyazEsya.Application.DTOs.Management;
 using WinBeyazEsya.Application.Interfaces.Repositories;
@@ -71,7 +68,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.CodeTemplateForms
         protected override void ShowEditForm(long id)
         {
             var editForm = Program.ServiceProvider?.GetRequiredService<KodSablonlariEditForm>();
-            
+
             if (editForm != null)
             {
                 editForm.IdAtaVeAc(id);

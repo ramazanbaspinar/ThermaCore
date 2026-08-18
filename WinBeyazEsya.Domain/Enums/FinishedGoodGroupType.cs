@@ -6,16 +6,16 @@ public enum FinishedGoodGroupType
 {
     [Description("Fırın")]
     Firin = 1,
-    
+
     [Description("Ocak")]
     Ocak = 2,
-    
+
     [Description("Ankastre")]
     Ankastre = 3,
-    
+
     [Description("Tamboy")]
     Tamboy = 4,
-    
+
     [Description("Diğer")]
     Diger = 5
 }

@@ -1,5 +1,3 @@
-using System;
-using System.Linq;
 using AutoMapper;
 using FluentValidation;
 using WinBeyazEsya.Application.DTOs.Definitions;
@@ -13,10 +11,10 @@ namespace WinBeyazEsya.Application.Services.Definitions;
 public class WireAndGridGroupManager : BaseManager<WireAndGridGroupListDto, WireAndGridGroupDto, WireAndGridGroup>, IWireAndGridGroupService
 {
     public WireAndGridGroupManager(
-        IMapper mapper, 
-        IRepository<WireAndGridGroup> repository, 
+        IMapper mapper,
+        IRepository<WireAndGridGroup> repository,
         IUnitOfWork unitOfWork,
-        IValidator<WireAndGridGroupDto>? validator = null) 
+        IValidator<WireAndGridGroupDto>? validator = null)
         : base(mapper, repository, unitOfWork, validator)
     {
     }

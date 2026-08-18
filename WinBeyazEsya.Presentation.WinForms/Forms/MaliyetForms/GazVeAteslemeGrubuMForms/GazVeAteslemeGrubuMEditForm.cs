@@ -1,17 +1,7 @@
-using DevExpress.XtraEditors;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using WinBeyazEsya.Presentation.WinForms.Forms.BaseForms;
-using WinBeyazEsya.Domain.Enums;
 using WinBeyazEsya.Application.Interfaces.Definitions;
-using Microsoft.Extensions.DependencyInjection;
+using WinBeyazEsya.Domain.Enums;
+using WinBeyazEsya.Presentation.WinForms.Forms.BaseForms;
 
 namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.GazVeAteslemeGrubuMForms
 {
@@ -20,10 +10,10 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.GazVeAteslemeGru
         private readonly IGasAndIgnitionGroupService _gasAndIgnitionGroupService;
 
         public GazVeAteslemeGrubuMEditForm(
-            IServiceProvider serviceProvider, 
-            WinBeyazEsya.Application.Interfaces.Production.IMaterialCostService materialCostService, 
-            WinBeyazEsya.Application.Interfaces.System.IExchangeRateService exchangeRateService, 
-            IGasAndIgnitionGroupService gasAndIgnitionGroupService) 
+            IServiceProvider serviceProvider,
+            WinBeyazEsya.Application.Interfaces.Production.IMaterialCostService materialCostService,
+            WinBeyazEsya.Application.Interfaces.System.IExchangeRateService exchangeRateService,
+            IGasAndIgnitionGroupService gasAndIgnitionGroupService)
             : base(serviceProvider, materialCostService, exchangeRateService)
         {
             InitializeComponent();
@@ -46,7 +36,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.GazVeAteslemeGru
             if (_gasAndIgnitionGroupService != null && _materialCostService != null)
             {
                 var butunMalzemeler = _gasAndIgnitionGroupService.GetAll().AsQueryable();
-                
+
                 var girilmisMaliyetler = _materialCostService.GetAllByMaterialType(ModuleType.GazVeAteslemeGrubuMaliyetleri);
                 var girilmisIdler = girilmisMaliyetler.Select(x => x.MaterialId).ToList();
 
@@ -93,33 +83,33 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.GazVeAteslemeGru
                 {
                     if (form != null)
                     {
-                form.FormAcilisTuru = WinBeyazEsya.Presentation.WinForms.Enums.FormAcilisTuru.Secim;
-                
-                if (_materialCostService != null)
-                {
-                    var girilmisMaliyetler = _materialCostService.GetAllByMaterialType(ModuleType.GazVeAteslemeGrubuMaliyetleri);
-                    var girilmisIdler = girilmisMaliyetler.Select(x => x.MaterialId).ToList();
-                    
-                    if (Id > 0)
-                    {
-                        long currentMaterialId = 0;
-                        if (CurrentEntity is WinBeyazEsya.Application.DTOs.Production.MaterialCostDto dto)
-                            currentMaterialId = dto.MaterialId;
-                        girilmisIdler.Remove(currentMaterialId);
-                    }
-                    
-                    form.ListeDisiTutulacakKayitlar = girilmisIdler;
-                }
+                        form.FormAcilisTuru = WinBeyazEsya.Presentation.WinForms.Enums.FormAcilisTuru.Secim;
 
-                form.ShowDialog();
-                
-                MalzemeListesiniDoldur();
-                if (form.DialogResult == DialogResult.OK && form.SelectedEntities?.Count > 0)
-                {
-                    var secilenId = form.SelectedEntities[0].Id;
-                    glfMalzemeSecimi.EditValue = secilenId;
-                }
-            }
+                        if (_materialCostService != null)
+                        {
+                            var girilmisMaliyetler = _materialCostService.GetAllByMaterialType(ModuleType.GazVeAteslemeGrubuMaliyetleri);
+                            var girilmisIdler = girilmisMaliyetler.Select(x => x.MaterialId).ToList();
+
+                            if (Id > 0)
+                            {
+                                long currentMaterialId = 0;
+                                if (CurrentEntity is WinBeyazEsya.Application.DTOs.Production.MaterialCostDto dto)
+                                    currentMaterialId = dto.MaterialId;
+                                girilmisIdler.Remove(currentMaterialId);
+                            }
+
+                            form.ListeDisiTutulacakKayitlar = girilmisIdler;
+                        }
+
+                        form.ShowDialog();
+
+                        MalzemeListesiniDoldur();
+                        if (form.DialogResult == DialogResult.OK && form.SelectedEntities?.Count > 0)
+                        {
+                            var secilenId = form.SelectedEntities[0].Id;
+                            glfMalzemeSecimi.EditValue = secilenId;
+                        }
+                    }
                 }
             }
         }

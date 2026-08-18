@@ -1,5 +1,3 @@
-using System;
-using System.IO;
 using System.Text.Json;
 using WinBeyazEsya.Application.Interfaces.Configuration;
 using WinBeyazEsya.Application.Interfaces.Security;
@@ -32,7 +30,7 @@ public class AppConfigService : IAppConfigService
     {
         if (!File.Exists(_settingsPath))
             return new SettingsModel();
-        
+
         string json = File.ReadAllText(_settingsPath);
         return JsonSerializer.Deserialize<SettingsModel>(json) ?? new SettingsModel();
     }

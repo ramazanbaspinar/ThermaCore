@@ -1,6 +1,3 @@
-using WinBeyazEsya.Application.Interfaces.Base;
-using System;
-using System.Collections.Generic;
 using WinBeyazEsya.Application.DTOs.Definitions;
 
 namespace WinBeyazEsya.Application.Interfaces.Definitions;

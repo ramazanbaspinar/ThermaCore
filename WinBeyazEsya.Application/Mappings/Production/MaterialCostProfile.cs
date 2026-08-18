@@ -9,7 +9,7 @@ public class MaterialCostProfile : Profile
     public MaterialCostProfile()
     {
         CreateMap<MaterialCost, MaterialCostDto>().ReverseMap();
-        
+
         CreateMap<MaterialCost, MaterialCostListDto>()
             .ForMember(dest => dest.MaterialName, opt => opt.Ignore())
             .ForMember(dest => dest.IsActive, opt => opt.Ignore());

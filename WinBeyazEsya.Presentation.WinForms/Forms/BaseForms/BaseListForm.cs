@@ -1,20 +1,14 @@
-using DevExpress.Utils.Extensions;
 using DevExpress.XtraBars;
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Grid;
-using DevExpress.XtraPrinting.Native;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Windows.Forms;
 using WinBeyazEsya.Application.DTOs.Base;
+using WinBeyazEsya.Application.Interfaces.Management;
+using WinBeyazEsya.Application.Interfaces.System;
 using WinBeyazEsya.Domain.Enums;
 using WinBeyazEsya.Presentation.WinForms.Enums;
 using WinBeyazEsya.Presentation.WinForms.Helpers;
-using WinBeyazEsya.Application.Interfaces.System;
-using WinBeyazEsya.Application.Interfaces.Management;
 
 namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
 {
@@ -40,7 +34,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
         protected internal BaseDto SelectedEntity = default!;
         protected internal long? SeciliGelecekId;
         protected internal IList<long> ListeDisiTutulacakKayitlar = default!;
-        protected internal SelectRowFunctions RowSelect = default!; 
+        protected internal SelectRowFunctions RowSelect = default!;
         protected internal IList<BaseDto> SelectedEntities = default!;
         protected internal bool EklenebilecekEntityVar = false;
         protected internal FormAcilisTuru FormAcilisTuru;
@@ -80,7 +74,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
         private void EventsLoad()
         {
             if (IsDesignMode) return;
-            
+
             //Button Events
             if (ribbon != null)
             {
@@ -117,7 +111,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
 
             if (ShowItems != null)
                 foreach (var x in ShowItems) x.Visibility = BarItemVisibility.Always;
-            
+
             if (HideItems != null)
                 foreach (var x in HideItems) x.Visibility = BarItemVisibility.Never;
 
@@ -188,7 +182,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
             if (MultiSelect)
             {
                 SelectedEntities = new List<BaseDto>();
-                
+
                 if (RowSelect != null)
                 {
                     if (RowSelect.SelectedRowCount == 0)
@@ -198,7 +192,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
                     }
                     SelectedEntities = RowSelect.GetSelectedRows().ToList();
                 }
-                 
+
             }
             else
             {
@@ -330,7 +324,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
             {
                 Tablo.OptionsSelection.MultiSelect = MultiSelect;
                 if (Navigator != null) Navigator.NavigatableControl = Tablo.GridControl;
-                
+
                 // Tablo eventlerini ancak tablo değişkene atandıktan sonra bağlayabiliriz
                 Tablo.DoubleClick -= Tablo_DoubleClick;
                 Tablo.KeyDown -= Tablo_KeyDown;
@@ -647,14 +641,14 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
         {
             if (IsDesignMode) return;
             Yukle();
-            
+
             if (Tablo != null)
             {
                 _defaultLayoutStream = new System.IO.MemoryStream();
                 Tablo.SaveLayoutToStream(_defaultLayoutStream);
                 _defaultLayoutStream.Position = 0;
             }
-            
+
             SablonYukle();
             FormCaptionAyarla();
             FavoriDurumunuKontrolEt();
@@ -666,12 +660,12 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
             if (Program.ServiceProvider == null) return;
             var currentTenantService = (ICurrentTenantService?)Program.ServiceProvider.GetService(typeof(ICurrentTenantService));
             var favoriteService = (WinBeyazEsya.Application.Interfaces.Management.IUserFavoriteService?)Program.ServiceProvider.GetService(typeof(WinBeyazEsya.Application.Interfaces.Management.IUserFavoriteService));
-            
+
             if (currentTenantService != null && favoriteService != null)
             {
                 favoriteService.ToggleFavorite(currentTenantService.UserId, this.Text, this.GetType().FullName!);
-                FavoriDurumunuKontrolEt(); 
-                
+                FavoriDurumunuKontrolEt();
+
                 if (this.MdiParent is WinBeyazEsya.Presentation.WinForms.Forms.GenelForms.AnaForm anaForm)
                 {
                     anaForm.LoadFavorites();
@@ -684,14 +678,14 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
             if (Program.ServiceProvider == null || btnFavorilereEkle == null) return;
             var currentTenantService = (ICurrentTenantService?)Program.ServiceProvider.GetService(typeof(ICurrentTenantService));
             var favoriteService = (WinBeyazEsya.Application.Interfaces.Management.IUserFavoriteService?)Program.ServiceProvider.GetService(typeof(WinBeyazEsya.Application.Interfaces.Management.IUserFavoriteService));
-            
+
             if (currentTenantService != null && favoriteService != null)
             {
                 bool isFavorite = favoriteService.IsFavorite(currentTenantService.UserId, this.GetType().FullName!);
                 if (isFavorite)
                 {
                     btnFavorilereEkle.Caption = "Favorilerden Çıkar";
-                    btnFavorilereEkle.ImageOptions.Image = Properties.Resources.deletelist_16x16; 
+                    btnFavorilereEkle.ImageOptions.Image = Properties.Resources.deletelist_16x16;
                 }
                 else
                 {

@@ -10,10 +10,10 @@ public class ElectricalElectronicGroupConfiguration : IEntityTypeConfiguration<E
     {
         builder.ToTable("ElectricalElectronicGroups");
         builder.HasKey(x => x.Id);
-        
+
         builder.Property(x => x.Code).IsRequired().HasMaxLength(50);
         builder.Property(x => x.Name).IsRequired().HasMaxLength(100);
-        
+
         builder.Property(x => x.Description).HasMaxLength(500);
 
         builder.HasOne(x => x.BaseUnit)
@@ -25,7 +25,7 @@ public class ElectricalElectronicGroupConfiguration : IEntityTypeConfiguration<E
             .WithMany()
             .HasForeignKey(x => x.SpecialCodeId)
             .OnDelete(DeleteBehavior.Restrict);
-            
+
         builder.HasIndex(x => x.Code).IsUnique();
         builder.HasIndex(x => x.BranchId);
     }

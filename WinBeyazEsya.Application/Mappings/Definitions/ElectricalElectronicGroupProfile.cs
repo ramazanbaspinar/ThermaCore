@@ -13,7 +13,7 @@ public class ElectricalElectronicGroupProfile : Profile
             .ReverseMap()
             .ForMember(dest => dest.BaseUnit, opt => opt.Ignore())
             .ForMember(dest => dest.SpecialCode, opt => opt.Ignore());
-            
+
         CreateMap<ElectricalElectronicGroup, ElectricalElectronicGroupListDto>()
             .ForMember(dest => dest.BaseUnitName, opt => opt.MapFrom(src => src.BaseUnit != null ? src.BaseUnit.Name : string.Empty));
     }

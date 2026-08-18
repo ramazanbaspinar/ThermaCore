@@ -1,9 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
-using WinBeyazEsya.Application.DTOs.Management;
 using DevExpress.XtraEditors;
+using WinBeyazEsya.Application.DTOs.Management;
 
 namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
 {
@@ -20,15 +16,15 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
         {
             InitializeComponent();
             _branches = branches;
-            
+
             chkVarsayilanYap.Checked = lastBranchId > 0;
             chkAcilistaSor.Checked = askAtStartup;
-            
+
             foreach (var branch in _branches)
             {
                 cmbSubeler.Properties.Items.Add(new DevExpress.XtraEditors.Controls.ImageComboBoxItem(branch.BranchName, branch.Id, -1));
             }
-            
+
             if (cmbSubeler.Properties.Items.Count > 0)
             {
                 if (lastBranchId > 0 && _branches.Any(b => b.Id == lastBranchId))
@@ -56,7 +52,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
 
             long selectedId = (long)cmbSubeler.EditValue;
             var selectedBranch = _branches.FirstOrDefault(x => x.Id == selectedId);
-            
+
             if (selectedBranch != null)
             {
                 SeciliSubeId = selectedBranch.Id;

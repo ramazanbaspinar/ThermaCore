@@ -14,7 +14,7 @@ public class UnitConversionValidator : AbstractValidator<UnitConversionDto>
         RuleFor(x => x.Divisor)
             .GreaterThan(0)
             .WithMessage("Bölen değeri 0'dan büyük olmalıdır.");
-            
+
         RuleFor(x => x.UnitId)
             .NotEmpty()
             .WithMessage("Birim seçilmelidir.");

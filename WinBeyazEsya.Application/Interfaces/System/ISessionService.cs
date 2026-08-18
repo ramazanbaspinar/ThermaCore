@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace WinBeyazEsya.Application.Interfaces.System;
+﻿namespace WinBeyazEsya.Application.Interfaces.System;
 
 public interface ISessionService
 {

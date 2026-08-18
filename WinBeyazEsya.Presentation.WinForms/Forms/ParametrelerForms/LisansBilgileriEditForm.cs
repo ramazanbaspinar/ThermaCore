@@ -1,5 +1,3 @@
-using System;
-using System.Linq;
 using WinBeyazEsya.Application.DTOs.Management;
 using WinBeyazEsya.Application.Interfaces.Repositories;
 using WinBeyazEsya.Domain.Entities.Management;
@@ -19,10 +17,10 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms
             InitializeComponent();
             _systemLicenseRepository = systemLicenseRepository;
             _uow = uow;
-            
+
             BaseKartTuru = ModuleType.SystemLicense;
             DataLayoutControl = myDataLayoutControl1;
-            RequiresCodeTemplate = false; 
+            RequiresCodeTemplate = false;
 
             HideItems = new DevExpress.XtraBars.BarItem[] { btnYeni, btnSil, btnKaydet, btnGerial };
 
@@ -51,19 +49,19 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms
                 txtLicenseKey.Text = entity.LicenseKey;
                 dtExpirationDate.DateTime = entity.ExpirationDate;
                 txtMaxTerminal.EditValue = entity.MaxTerminalCount;
-                
+
                 this.Id = entity.Id;
                 BaseIslemTuru = ActionType.EntityUpdate;
             }
             else
             {
                 CurrentEntity = new SystemLicenseDto();
-                
+
                 txtHardwareId.Text = "";
                 txtLicenseKey.Text = "";
                 dtExpirationDate.DateTime = DateTime.Now.AddDays(30); // Default trial
                 txtMaxTerminal.EditValue = 5; // Varsayýlan deneme sürümü terminal sayýsý
-                
+
                 BaseIslemTuru = ActionType.EntityInsert;
             }
         }

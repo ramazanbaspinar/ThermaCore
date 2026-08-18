@@ -1,18 +1,8 @@
-using DevExpress.XtraEditors;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using WinBeyazEsya.Application.DTOs.Security;
-using WinBeyazEsya.Domain.Enums;
 using WinBeyazEsya.Application.Interfaces.Security;
-using WinBeyazEsya.Presentation.WinForms.Enums;
+using WinBeyazEsya.Domain.Enums;
 using WinBeyazEsya.Presentation.WinForms.Forms.BaseForms;
 using WinBeyazEsya.Presentation.WinForms.Helpers;
 
@@ -53,7 +43,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                 OldEntity = _roleService.GetById(Id);
                 permissionDtos = _roleService.GetRolePermissions(Id).ToList();
             }
-            
+
             var permissionNodes = ConvertToPermissionNodes(permissionDtos);
             _originalPermissionsJson = System.Text.Json.JsonSerializer.Serialize(permissionNodes);
             treeList1.DataSource = permissionNodes;
@@ -68,7 +58,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
             treeList1.BeforeCheckNode += TreeList1_BeforeCheckNode;
             treeList1.ShowingEditor += TreeList1_ShowingEditor;
             repositoryItemButtonEdit1.ButtonClick += RepositoryItemButtonEdit1_ButtonClick;
-            
+
             // TextEditStyle'ý düzenlenemez yapýyoruz, sadece butona týklanabilsin.
             repositoryItemButtonEdit1.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
 
@@ -137,9 +127,10 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
             txtRolAdi.EditValueChanged += Control_EditValueChanged;
             txtAciklama.EditValueChanged += Control_EditValueChanged;
             tglDurum.EditValueChanged += Control_EditValueChanged;
-            
+
             // TreeList hücre veya check deðiþikliklerinde Kaydet butonunu tetikle
-            treeList1.CellValueChanged += (s, e) => {
+            treeList1.CellValueChanged += (s, e) =>
+            {
                 GuncelNesneOlustur();
                 ButonEnabledDurumu();
             };
@@ -160,7 +151,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                     var modType = (ModuleType)Convert.ToInt32(modObj);
                     if (modType == ModuleType.EmailParameter || modType == ModuleType.KodLog || modType == ModuleType.TerminalYonetimi || modType == ModuleType.GenelParametreler)
                     {
-                        if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" || 
+                        if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" ||
                             pTypeObj.ToString() == "Delete" || pTypeObj.ToString() == "3")
                         {
                             continue; // Bu yetkiler yok sayýlýr
@@ -168,7 +159,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                     }
                     else if (modType == ModuleType.SystemLicense)
                     {
-                        if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" || 
+                        if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" ||
                             pTypeObj.ToString() == "Update" || pTypeObj.ToString() == "2" ||
                             pTypeObj.ToString() == "Delete" || pTypeObj.ToString() == "3")
                         {
@@ -184,10 +175,10 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                         }
                     }
                 }
-                
+
                 child.Checked = isChecked;
                 child.SetValue("IsChecked", isChecked);
-                
+
                 if (child.HasChildren)
                     SetChildrenChecked(child, isChecked);
             }
@@ -211,7 +202,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                         var modType = (ModuleType)Convert.ToInt32(modObj);
                         if (modType == ModuleType.EmailParameter || modType == ModuleType.KodLog || modType == ModuleType.TerminalYonetimi || modType == ModuleType.GenelParametreler)
                         {
-                            if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" || 
+                            if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" ||
                                 pTypeObj.ToString() == "Delete" || pTypeObj.ToString() == "3")
                             {
                                 continue; // Sayýma katma!
@@ -219,7 +210,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                         }
                         else if (modType == ModuleType.SystemLicense)
                         {
-                            if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" || 
+                            if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" ||
                                 pTypeObj.ToString() == "Update" || pTypeObj.ToString() == "2" ||
                                 pTypeObj.ToString() == "Delete" || pTypeObj.ToString() == "3")
                             {
@@ -235,7 +226,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                             }
                         }
                     }
-                    
+
                     validCount++;
                     if (child.Checked) checkedCount++;
                 }
@@ -243,7 +234,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                 bool parentChecked = (checkedCount == validCount && validCount > 0);
                 node.ParentNode.CheckState = parentChecked ? CheckState.Checked : CheckState.Unchecked;
                 node.ParentNode.SetValue("IsChecked", parentChecked);
-                
+
                 UpdateParentChecked(node.ParentNode);
             }
         }
@@ -260,7 +251,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                 {
                     SetChildrenChecked(e.Node, isChecked);
                 }
-                
+
                 UpdateParentChecked(e.Node);
             }
             finally
@@ -342,7 +333,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                 var modType = (ModuleType)Convert.ToInt32(modObj);
                 if (modType == ModuleType.EmailParameter || modType == ModuleType.KodLog || modType == ModuleType.TerminalYonetimi || modType == ModuleType.KurTanimlari || modType == ModuleType.GenelParametreler)
                 {
-                    if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" || 
+                    if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" ||
                         pTypeObj.ToString() == "Delete" || pTypeObj.ToString() == "3")
                     {
                         e.CanCheck = false; // Prevent checking
@@ -350,7 +341,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                 }
                 else if (modType == ModuleType.SystemLicense)
                 {
-                    if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" || 
+                    if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" ||
                         pTypeObj.ToString() == "Update" || pTypeObj.ToString() == "2" ||
                         pTypeObj.ToString() == "Delete" || pTypeObj.ToString() == "3")
                     {
@@ -382,7 +373,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                 var modType = (ModuleType)Convert.ToInt32(modObj);
                 if (modType == ModuleType.EmailParameter || modType == ModuleType.KodLog || modType == ModuleType.TerminalYonetimi || modType == ModuleType.KurTanimlari || modType == ModuleType.GenelParametreler)
                 {
-                    if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" || 
+                    if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" ||
                         pTypeObj.ToString() == "Delete" || pTypeObj.ToString() == "3")
                     {
                         e.Handled = true; // Boþ/Kare çizme (Checkbox gizlenir, anlamsýz olur)
@@ -390,7 +381,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                 }
                 else if (modType == ModuleType.SystemLicense)
                 {
-                    if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" || 
+                    if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" ||
                         pTypeObj.ToString() == "Update" || pTypeObj.ToString() == "2" ||
                         pTypeObj.ToString() == "Delete" || pTypeObj.ToString() == "3")
                     {
@@ -471,7 +462,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                             var modType = (ModuleType)Convert.ToInt32(modObj);
                             if (modType == ModuleType.EmailParameter || modType == ModuleType.KodLog || modType == ModuleType.TerminalYonetimi || modType == ModuleType.GenelParametreler || modType == ModuleType.KurTanimlari)
                             {
-                                if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" || 
+                                if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" ||
                                     pTypeObj.ToString() == "Delete" || pTypeObj.ToString() == "3")
                                 {
                                     continue; // Sayýma katma
@@ -479,7 +470,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                             }
                             else if (modType == ModuleType.SystemLicense)
                             {
-                                if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" || 
+                                if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" ||
                                     pTypeObj.ToString() == "Update" || pTypeObj.ToString() == "2" ||
                                     pTypeObj.ToString() == "Delete" || pTypeObj.ToString() == "3")
                                 {
@@ -548,7 +539,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
             foreach (var dto in dtoList)
             {
                 int moduleNodeId = dto.ModuleId;
-                
+
                 // Klasörler için (Görebilir vb. yetkiler yok, sadece baþlýk)
                 bool isFolder = dtoList.Any(x => x.ParentId == moduleNodeId);
 
@@ -624,7 +615,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
         {
             var dtos = new List<RolePermissionDto>();
             var moduleGroups = nodes.GroupBy(x => x.ModuleId);
-            
+
             foreach (var group in moduleGroups)
             {
                 var moduleNode = group.FirstOrDefault(x => x.PermissionType == null);
@@ -656,7 +647,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
         protected override void NesneyiKontrollereBagla()
         {
             var entity = (RoleDto)OldEntity;
-            
+
             txtRolKodu.Text = entity.Code;
             txtRolAdi.Text = entity.RoleName;
             txtAciklama.Text = entity.Description;
@@ -673,7 +664,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                 Description = txtAciklama.Text,
                 IsActive = tglDurum.IsOn
             };
-            
+
             ButonEnabledDurumu();
         }
 
@@ -704,7 +695,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                 treeList1.PostEditor();
                 var currentNodes = (List<WinBeyazEsya.Presentation.WinForms.Models.PermissionNodeDto>)treeList1.DataSource;
                 var currentJson = System.Text.Json.JsonSerializer.Serialize(currentNodes);
-                
+
                 if (currentJson != _originalPermissionsJson)
                 {
                     isChanged = true;
@@ -742,7 +733,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                 Messages.UyariMesaji("Sistem Yöneticisi (WINBEYAZESYA_ROLE) silinemez!");
                 return;
             }
-            
+
             if (Id <= 0) return;
             if (Messages.SilMesaj("Rol") == DialogResult.Yes)
             {
@@ -762,20 +753,20 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
         private bool SaveRole()
         {
             GuncelNesneOlustur();
-            
+
             treeList1.CloseEditor();
             var roleDto = (RoleDto)CurrentEntity;
             var nodes = (List<WinBeyazEsya.Presentation.WinForms.Models.PermissionNodeDto>)treeList1.DataSource;
             var permissions = ConvertToRolePermissions(nodes);
-            
+
             try
             {
                 Id = _roleService.SaveRoleWithPermissions(roleDto, permissions);
-                
+
                 // Baþarýlý kayýttan sonra mevcut durumu "orijinal" olarak güncelle,
                 // böylece ButonEnabledDurumu formun kapanýþý sýrasýnda tekrar Kaydet sormaz.
                 _originalPermissionsJson = System.Text.Json.JsonSerializer.Serialize(nodes);
-                
+
                 return true;
             }
             catch (FluentValidation.ValidationException ex)

@@ -27,7 +27,7 @@ public class ItemBarcode : FullAuditableEntity, IMustHaveBranch
     public decimal QuantityPerUnit { get; set; } = 1;
 
     public decimal WeightPerUnit { get; set; }
-    
+
     public long BranchId { get; set; }
 }
 

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using WinBeyazEsya.Application.DTOs.Common;
+﻿using WinBeyazEsya.Application.DTOs.Common;
 
 namespace WinBeyazEsya.Application.Interfaces.Common;
 

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace WinBeyazEsya.Domain.Helpers;
+﻿namespace WinBeyazEsya.Domain.Helpers;
 
 public static class IdGenerator
 {
@@ -14,7 +12,7 @@ public static class IdGenerator
             var now = DateTime.Now;
             // yyyyMMddHHmmssfff + 00 (toplam 19 hane, long sınırları içerisinde)
             long baseId = long.Parse(now.ToString("yyyyMMddHHmmssfff") + "00");
-            
+
             if (baseId <= _lastId)
             {
                 _lastId++;
@@ -23,7 +21,7 @@ public static class IdGenerator
             {
                 _lastId = baseId;
             }
-            
+
             return _lastId;
         }
     }

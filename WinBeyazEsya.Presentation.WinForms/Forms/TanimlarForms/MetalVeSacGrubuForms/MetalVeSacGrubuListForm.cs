@@ -1,15 +1,6 @@
-using DevExpress.XtraEditors;
-using WinBeyazEsya.Presentation.WinForms.Helpers;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using WinBeyazEsya.Presentation.WinForms.Forms.BaseForms;
+using WinBeyazEsya.Presentation.WinForms.Helpers;
 
 namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.MetalVeSacGrubuForms
 {
@@ -50,12 +41,12 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.MetalVeSacGrubu
         protected override void Listele()
         {
             var liste = _metalSheetGroupService.GetAll().Where(x => x.IsActive == AktifKartlariGoster);
-            
+
             if (ListeDisiTutulacakKayitlar != null && ListeDisiTutulacakKayitlar.Any())
             {
                 liste = liste.Where(x => !ListeDisiTutulacakKayitlar.Contains(x.Id));
             }
-            
+
             Tablo.GridControl.DataSource = liste.ToList();
         }
 
@@ -82,7 +73,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.MetalVeSacGrubu
 
             long entityId = 0;
             long.TryParse(Tablo.GetFocusedRowCellValue("Id")?.ToString(), out entityId);
-            
+
             if (entityId <= 0) return;
 
             var result = Helpers.Messages.SilMesaj(Tablo.GetRowCellValue(Tablo.FocusedRowHandle, "Name")?.ToString() ?? "");

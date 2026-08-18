@@ -1,5 +1,3 @@
-using System;
-using System.Linq;
 using AutoMapper;
 using FluentValidation;
 using WinBeyazEsya.Application.DTOs.Definitions;
@@ -13,10 +11,10 @@ namespace WinBeyazEsya.Application.Services.Definitions;
 public class PlasticAndVisualPartsGroupManager : BaseManager<PlasticAndVisualPartsGroupListDto, PlasticAndVisualPartsGroupDto, PlasticAndVisualPartsGroup>, IPlasticAndVisualPartsGroupService
 {
     public PlasticAndVisualPartsGroupManager(
-        IMapper mapper, 
-        IRepository<PlasticAndVisualPartsGroup> repository, 
+        IMapper mapper,
+        IRepository<PlasticAndVisualPartsGroup> repository,
         IUnitOfWork unitOfWork,
-        IValidator<PlasticAndVisualPartsGroupDto>? validator = null) 
+        IValidator<PlasticAndVisualPartsGroupDto>? validator = null)
         : base(mapper, repository, unitOfWork, validator)
     {
     }

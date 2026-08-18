@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using WinBeyazEsya.Domain.Entities.Management;
 using WinBeyazEsya.Application.DTOs.Management;
+using WinBeyazEsya.Domain.Entities.Management;
 
 namespace WinBeyazEsya.Application.Mappings;
 
@@ -20,7 +20,7 @@ public class ManagementProfile : Profile
 
         CreateMap<UserTenant, UserTenantDto>().ReverseMap();
         CreateMap<UserBranch, UserBranchDto>().ReverseMap();
-        
+
         CreateMap<Terminal, TerminalDto>().ReverseMap();
         CreateMap<Terminal, TerminalListDto>();
 

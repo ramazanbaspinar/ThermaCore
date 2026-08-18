@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using WinBeyazEsya.Application.DTOs.Definitions;
 using WinBeyazEsya.Application.Interfaces.Base;
 

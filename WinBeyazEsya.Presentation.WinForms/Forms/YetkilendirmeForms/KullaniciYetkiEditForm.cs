@@ -1,23 +1,14 @@
-using DevExpress.XtraEditors;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using WinBeyazEsya.Application.DTOs.Security;
 using WinBeyazEsya.Application.DTOs.Management;
-using WinBeyazEsya.Domain.Enums;
-using WinBeyazEsya.Application.Interfaces.Security;
+using WinBeyazEsya.Application.DTOs.Security;
 using WinBeyazEsya.Application.Interfaces.Management;
-using WinBeyazEsya.Presentation.WinForms.Enums;
+using WinBeyazEsya.Application.Interfaces.Security;
+using WinBeyazEsya.Domain.Enums;
+using WinBeyazEsya.Domain.Helpers;
 using WinBeyazEsya.Presentation.WinForms.Forms.BaseForms;
 using WinBeyazEsya.Presentation.WinForms.Helpers;
-using WinBeyazEsya.Domain.Helpers;
 
 namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
 {
@@ -51,19 +42,19 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                 Close();
                 return;
             }
-            
+
             OldEntity = _userService.GetById(Id);
-            
+
             // Sadece veritabanında olan istisnai yetkileri yükle (yoksa boş gelir)
             var permissionDtos = _userPermissionService.GetUserPermissions(Id).ToList();
-            
+
             var permissionNodes = ConvertToPermissionNodes(permissionDtos);
             _originalPermissionsJson = System.Text.Json.JsonSerializer.Serialize(permissionNodes);
             treeList1.DataSource = permissionNodes;
 
             treeList1.OptionsView.ShowCheckBoxes = true;
             treeList1.CheckBoxFieldName = "IsChecked";
-            treeList1.OptionsBehavior.AllowRecursiveNodeChecking = false; 
+            treeList1.OptionsBehavior.AllowRecursiveNodeChecking = false;
             treeList1.OptionsView.ShowAutoFilterRow = true;
             treeList1.NodeCellStyle += TreeList1_NodeCellStyle;
             treeList1.CustomNodeCellEdit += TreeList1_CustomNodeCellEdit;
@@ -110,13 +101,14 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
             txtKod.EditValueChanged += Control_EditValueChanged;
             txtAdSoyad.EditValueChanged += Control_EditValueChanged;
             tglDurum.EditValueChanged += Control_EditValueChanged;
-            
-            treeList1.CellValueChanged += (s, e) => {
+
+            treeList1.CellValueChanged += (s, e) =>
+            {
                 GuncelNesneOlustur();
                 ButonEnabledDurumu();
             };
             treeList1.AfterCheckNode += TreeList1_AfterCheckNode;
-            
+
             // Buton Eventleri
             btnModulEkle.Click += BtnModulEkle_Click;
             btnTumModulleriEkle.Click += BtnTumModulleriEkle_Click;
@@ -129,9 +121,9 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
             var currentNodes = (List<WinBeyazEsya.Presentation.WinForms.Models.PermissionNodeDto>)treeList1.DataSource;
             var existingModuleIds = currentNodes.Select(x => x.ModuleId).Distinct().ToList();
             var allModules = Enum.GetValues(typeof(ModuleType)).Cast<ModuleType>().ToList();
-            
+
             var availableModules = allModules.Where(m => (int)m != 0 && !existingModuleIds.Contains((int)m)).ToList();
-            
+
             if (!availableModules.Any())
             {
                 DevExpress.XtraEditors.XtraMessageBox.Show("Eklenebilecek yeni bir modül bulunmamaktadır.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -142,9 +134,9 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
             args.Caption = "Modül Ekle";
             args.Prompt = "İstisna eklenecek modülü seçiniz:";
             args.DefaultButtonIndex = 0;
-            
+
             var editor = new DevExpress.XtraEditors.ImageComboBoxEdit();
-            foreach(var mod in availableModules)
+            foreach (var mod in availableModules)
             {
                 editor.Properties.Items.Add(new DevExpress.XtraEditors.Controls.ImageComboBoxItem(mod.GetDescription(), mod, -1));
             }
@@ -165,7 +157,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                 var currentNodes = (List<WinBeyazEsya.Presentation.WinForms.Models.PermissionNodeDto>)treeList1.DataSource;
                 var existingModuleIds = currentNodes.Select(x => x.ModuleId).Distinct().ToList();
                 var allModules = Enum.GetValues(typeof(ModuleType)).Cast<ModuleType>().ToList();
-                
+
                 foreach (var mod in allModules)
                 {
                     if ((int)mod != 0 && !existingModuleIds.Contains((int)mod))
@@ -200,7 +192,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                 Control_EditValueChanged(this, EventArgs.Empty);
             }
         }
-        
+
         private bool IsModuleFolder(ModuleType mod)
         {
             var allModules = Enum.GetValues(typeof(ModuleType)).Cast<ModuleType>().ToList();
@@ -211,7 +203,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
         {
             var currentNodes = (List<WinBeyazEsya.Presentation.WinForms.Models.PermissionNodeDto>)treeList1.DataSource;
             int moduleId = (int)mod;
-            
+
             if (currentNodes.Any(x => x.ModuleId == moduleId)) return;
 
             var parent = mod.GetParentModule();
@@ -225,19 +217,19 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
 
             bool isFolder = IsModuleFolder(mod);
 
-            
+
             // Eğer eklenecek modül özel kısıtlamalara sahipse parent/child ilişkilerini ona göre kurmalıyız.
             // RolEditForm'daki standart yapıyı ekleyelim
             currentNodes.Add(new WinBeyazEsya.Presentation.WinForms.Models.PermissionNodeDto
             {
                 Id = moduleId,
-                ParentId = mod.GetParentModule() != null ? (int)mod.GetParentModule()! : 0, 
+                ParentId = mod.GetParentModule() != null ? (int)mod.GetParentModule()! : 0,
                 ModuleId = moduleId,
-                Name = mod.GetDescription(), 
+                Name = mod.GetDescription(),
                 PermissionType = null,
                 IsChecked = false
             });
-            
+
             if (!isFolder)
             {
                 currentNodes.Add(new WinBeyazEsya.Presentation.WinForms.Models.PermissionNodeDto { Id = moduleId * 10000 + 1, ParentId = moduleId, ModuleId = moduleId, Name = "Görebilir", PermissionType = WinBeyazEsya.Presentation.WinForms.Models.PermissionType.Read, IsChecked = false });
@@ -274,7 +266,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                     var modType = (ModuleType)Convert.ToInt32(modObj);
                     if (modType == ModuleType.EmailParameter || modType == ModuleType.KodLog || modType == ModuleType.TerminalYonetimi || modType == ModuleType.GenelParametreler)
                     {
-                        if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" || 
+                        if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" ||
                             pTypeObj.ToString() == "Delete" || pTypeObj.ToString() == "3")
                         {
                             continue;
@@ -282,7 +274,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                     }
                     else if (modType == ModuleType.SystemLicense)
                     {
-                        if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" || 
+                        if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" ||
                             pTypeObj.ToString() == "Update" || pTypeObj.ToString() == "2" ||
                             pTypeObj.ToString() == "Delete" || pTypeObj.ToString() == "3")
                         {
@@ -298,10 +290,10 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                         }
                     }
                 }
-                
+
                 child.Checked = isChecked;
                 child.SetValue("IsChecked", isChecked);
-                
+
                 if (child.HasChildren)
                     SetChildrenChecked(child, isChecked);
             }
@@ -325,7 +317,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                         var modType = (ModuleType)Convert.ToInt32(modObj);
                         if (modType == ModuleType.EmailParameter || modType == ModuleType.KodLog || modType == ModuleType.TerminalYonetimi || modType == ModuleType.GenelParametreler)
                         {
-                            if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" || 
+                            if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" ||
                                 pTypeObj.ToString() == "Delete" || pTypeObj.ToString() == "3")
                             {
                                 continue;
@@ -333,7 +325,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                         }
                         else if (modType == ModuleType.SystemLicense)
                         {
-                            if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" || 
+                            if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" ||
                                 pTypeObj.ToString() == "Update" || pTypeObj.ToString() == "2" ||
                                 pTypeObj.ToString() == "Delete" || pTypeObj.ToString() == "3")
                             {
@@ -349,7 +341,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                             }
                         }
                     }
-                    
+
                     validCount++;
                     if (child.Checked) checkedCount++;
                 }
@@ -357,7 +349,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                 bool parentChecked = (checkedCount == validCount && validCount > 0);
                 node.ParentNode.CheckState = parentChecked ? CheckState.Checked : CheckState.Unchecked;
                 node.ParentNode.SetValue("IsChecked", parentChecked);
-                
+
                 UpdateParentChecked(node.ParentNode);
             }
         }
@@ -374,7 +366,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                 {
                     SetChildrenChecked(e.Node, isChecked);
                 }
-                
+
                 UpdateParentChecked(e.Node);
             }
             finally
@@ -429,7 +421,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                 var modType = (ModuleType)Convert.ToInt32(modObj);
                 if (modType == ModuleType.EmailParameter || modType == ModuleType.KodLog || modType == ModuleType.TerminalYonetimi || modType == ModuleType.KurTanimlari || modType == ModuleType.GenelParametreler)
                 {
-                    if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" || 
+                    if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" ||
                         pTypeObj.ToString() == "Delete" || pTypeObj.ToString() == "3")
                     {
                         e.CanCheck = false;
@@ -437,7 +429,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                 }
                 else if (modType == ModuleType.SystemLicense)
                 {
-                    if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" || 
+                    if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" ||
                         pTypeObj.ToString() == "Update" || pTypeObj.ToString() == "2" ||
                         pTypeObj.ToString() == "Delete" || pTypeObj.ToString() == "3")
                     {
@@ -469,7 +461,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                 var modType = (ModuleType)Convert.ToInt32(modObj);
                 if (modType == ModuleType.EmailParameter || modType == ModuleType.KodLog || modType == ModuleType.TerminalYonetimi || modType == ModuleType.KurTanimlari || modType == ModuleType.GenelParametreler)
                 {
-                    if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" || 
+                    if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" ||
                         pTypeObj.ToString() == "Delete" || pTypeObj.ToString() == "3")
                     {
                         e.Handled = true;
@@ -477,7 +469,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                 }
                 else if (modType == ModuleType.SystemLicense)
                 {
-                    if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" || 
+                    if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" ||
                         pTypeObj.ToString() == "Update" || pTypeObj.ToString() == "2" ||
                         pTypeObj.ToString() == "Delete" || pTypeObj.ToString() == "3")
                     {
@@ -558,7 +550,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                             var modType = (ModuleType)Convert.ToInt32(modObj);
                             if (modType == ModuleType.EmailParameter || modType == ModuleType.KodLog || modType == ModuleType.TerminalYonetimi || modType == ModuleType.GenelParametreler || modType == ModuleType.KurTanimlari)
                             {
-                                if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" || 
+                                if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" ||
                                     pTypeObj.ToString() == "Delete" || pTypeObj.ToString() == "3")
                                 {
                                     continue; // Sayıma katma
@@ -566,7 +558,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                             }
                             else if (modType == ModuleType.SystemLicense)
                             {
-                                if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" || 
+                                if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" ||
                                     pTypeObj.ToString() == "Update" || pTypeObj.ToString() == "2" ||
                                     pTypeObj.ToString() == "Delete" || pTypeObj.ToString() == "3")
                                 {
@@ -635,7 +627,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
             foreach (var dto in dtoList)
             {
                 int moduleNodeId = dto.ModuleId;
-                
+
                 bool isFolder = IsModuleFolder((ModuleType)moduleNodeId);
 
                 nodes.Add(new WinBeyazEsya.Presentation.WinForms.Models.PermissionNodeDto
@@ -710,7 +702,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
         {
             var dtos = new List<UserPermissionDto>();
             var moduleGroups = nodes.GroupBy(x => x.ModuleId);
-            
+
             foreach (var group in moduleGroups)
             {
                 var moduleNode = group.FirstOrDefault(x => x.PermissionType == null);
@@ -767,7 +759,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                     IsActive = tglDurum.IsOn
                 };
             }
-            
+
             ButonEnabledDurumu();
         }
 
@@ -788,7 +780,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                 treeList1.PostEditor();
                 var currentNodes = (List<WinBeyazEsya.Presentation.WinForms.Models.PermissionNodeDto>)treeList1.DataSource;
                 var currentJson = System.Text.Json.JsonSerializer.Serialize(currentNodes);
-                
+
                 if (currentJson != _originalPermissionsJson)
                 {
                     isChanged = true;
@@ -808,15 +800,15 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                 Messages.UyariMesaji("Sistem Yöneticisi (winbeyazesya) kullanıcıları üzerinde yetki kısıtlaması/istisnası yapılamaz!");
                 return false;
             }
-            
+
             return SaveUserPermissions();
         }
-        
+
         protected override bool EntityInsert()
         {
             return false; // Not allowed
         }
-        
+
         protected override void EntityDelete()
         {
             // Not allowed
@@ -825,11 +817,11 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
         private bool SaveUserPermissions()
         {
             GuncelNesneOlustur();
-            
+
             treeList1.CloseEditor();
             var nodes = (List<WinBeyazEsya.Presentation.WinForms.Models.PermissionNodeDto>)treeList1.DataSource;
             var permissions = ConvertToUserPermissions(nodes);
-            
+
             try
             {
                 // Sadece yetkileri kaydet, kullanıcı kartını güncellemeye gerek yoksa (örneğin sadece yetkiler değiştiyse)
@@ -840,9 +832,9 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                 }
 
                 _userPermissionService.SaveUserPermissions(this.Id, permissions);
-                
+
                 _originalPermissionsJson = System.Text.Json.JsonSerializer.Serialize(nodes);
-                
+
                 return true;
             }
             catch (FluentValidation.ValidationException ex)

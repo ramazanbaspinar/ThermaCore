@@ -1,11 +1,9 @@
-﻿using DevExpress.XtraEditors;
-using System.Drawing;
+﻿using DevExpress.XtraBars.Docking2010.Customization;
+using DevExpress.XtraBars.Docking2010.Views.WindowsUI;
+using DevExpress.XtraEditors;
 using System.IO;
-using System.Windows.Forms;
 using WinBeyazEsya.Presentation.WinForms.Helpers;
 using WinBeyazEsya.Presentation.WinForms.UserControls.Controls;
-using DevExpress.XtraBars.Docking2010.Views.WindowsUI;
-using DevExpress.XtraBars.Docking2010.Customization;
 
 namespace WinBeyazEsya.Presentation.WinForms.Functions
 {
@@ -19,7 +17,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Functions
                 {
                     // Set the active picture edit as the tag of the menu
                     menu.Tag = pictureEdit;
-                    
+
                     if (menu.Manager != null)
                         menu.ShowPopup(Control.MousePosition);
                 }
@@ -90,7 +88,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Functions
         public static void ResimBuyut(this MyPictureEdit pictureEdit)
         {
             if (pictureEdit.EditValue == null) return;
-            
+
             Image? img = null;
             if (pictureEdit.EditValue is byte[] bytes)
             {
@@ -108,7 +106,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Functions
 
             // Ana formu (MDI Parent veya AnaForm) bularak Flyout'un tüm uygulamayı kaplamasını sağlıyoruz.
             var mainForm = System.Windows.Forms.Application.OpenForms.Cast<Form>().FirstOrDefault(f => f.Name == "AnaForm") ?? form;
-            
+
             // Tüm ana ekranı (formu) kaplaması için ana formun ClientSize'ını baz alıyoruz.
             // Kapat butonunun biraz daha yukarıda (sıkışmadan) durması için buton payını artırıyoruz (160px).
             var targetWidth = mainForm.ClientSize.Width - 20;
@@ -117,7 +115,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Functions
             var picViewer = new PictureEdit
             {
                 Image = img,
-                Properties = 
+                Properties =
                 {
                     SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Zoom,
                     ShowMenu = false,

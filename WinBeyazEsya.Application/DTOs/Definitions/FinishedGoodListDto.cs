@@ -5,7 +5,7 @@ namespace WinBeyazEsya.Application.DTOs.Definitions;
 public class FinishedGoodListDto : BaseDto
 {
     public string Name { get; set; } = null!;
-    
+
     public WinBeyazEsya.Domain.Enums.FinishedGoodGroupType GroupType { get; set; }
     public string? GroupName { get; set; }
     public string? UnitName { get; set; }
@@ -14,6 +14,6 @@ public class FinishedGoodListDto : BaseDto
     public decimal SalesVatRate { get; set; }
 
     public string? Description { get; set; }
-    
+
     public string? PrimaryBarcode { get; set; }
 }

@@ -1,21 +1,15 @@
-using System;
-using System.Globalization;
-using System.IO;
-using System.Threading;
-using System.Windows.Forms;
-using DevExpress.XtraEditors;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Serilog;
+using System.Globalization;
+using System.IO;
 using WinBeyazEsya.Application;
 using WinBeyazEsya.Application.Interfaces.Configuration;
-using WinBeyazEsya.Application.Interfaces.Security;
 using WinBeyazEsya.Application.Interfaces.System;
-using WinBeyazEsya.Domain.Enums;
 using WinBeyazEsya.Infrastructure;
 using WinBeyazEsya.Infrastructure.Configuration;
 using WinBeyazEsya.Presentation.WinForms.Forms.GenelForms;
-using Serilog;
 
 namespace WinBeyazEsya.Presentation.WinForms;
 
@@ -64,7 +58,7 @@ internal static class Program
                     var cultureInfo = new CultureInfo("tr-TR");
                     Thread.CurrentThread.CurrentCulture = cultureInfo;
                     Thread.CurrentThread.CurrentUICulture = cultureInfo;
-                    
+
                     CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
                     CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
 
@@ -167,11 +161,11 @@ internal static class Program
                         services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms.GenelParametrelerEditForm>();
                         services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms.KullanıcıArayuzSablonlariListForm>();
                         services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.LisansForms.LisansAktivasyonForm>();
-                        
+
                         // Definitions
                         services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.GenelGiderForms.GenelGiderListForm>();
                         services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.GenelGiderForms.GenelGiderEditForm>();
-                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MaliyetParametreForms.MaliyetParametreEditForm>();                
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MaliyetParametreForms.MaliyetParametreEditForm>();
                         services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.ElektrikVeElektronikGrubuMForms.ElektrikVeElektronikGrubuMListForm>();
                         services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.ElektrikVeElektronikGrubuMForms.ElektrikVeElektronikGrubuMEditForm>();
                         services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.MetalVeSacGrubuMForms.MetalVeSacGrubuMaliyetListForm>();
@@ -192,7 +186,7 @@ internal static class Program
                         services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.DigerMalzemeGrubuMForms.DigerMalzemeGrubuMEditForm>();
                         services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.BirimForms.BirimListForm>();
                         services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.BirimForms.BirimEditForm>();
-                        
+
                         services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.KurlarForms.KurListForm>();
                         services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.KurlarForms.KurEditForm>();
 
@@ -253,7 +247,7 @@ internal static class Program
                     {
                         var licenseRepo = services.GetRequiredService<WinBeyazEsya.Application.Interfaces.Repositories.IMasterRepository<WinBeyazEsya.Domain.Entities.Management.SystemLicense>>();
                         var activeLicense = licenseRepo.Find(x => true).FirstOrDefault();
-                        
+
                         var licenseValidator = services.GetRequiredService<WinBeyazEsya.Application.Interfaces.Security.ILicenseValidator>();
 
                         string key = activeLicense != null ? activeLicense.LicenseKey : "";
@@ -268,7 +262,7 @@ internal static class Program
                             {
                                 return;
                             }
-                            
+
                             // Aktivasyon başarılı olduysa lisansı tekrar doğrula
                             activeLicense = licenseRepo.Find(x => true).FirstOrDefault();
                             string updatedKey = activeLicense != null ? activeLicense.LicenseKey : "";
@@ -352,7 +346,7 @@ internal static class Program
 
         while (currentEx != null)
         {
-            if (currentEx is Microsoft.Data.SqlClient.SqlException || 
+            if (currentEx is Microsoft.Data.SqlClient.SqlException ||
                 (currentEx.GetType().Name.Contains("DbUpdateException") && currentEx.InnerException is Microsoft.Data.SqlClient.SqlException) ||
                 (currentEx is System.InvalidOperationException invEx && invEx.Message.Contains("connection")))
             {

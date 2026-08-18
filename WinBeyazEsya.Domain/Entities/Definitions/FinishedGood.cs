@@ -7,7 +7,7 @@ public class FinishedGood : FullAuditableEntity, IMustHaveBranch
 {
     public string Code { get; set; } = null!;
     public string Name { get; set; } = null!;
-    
+
     public WinBeyazEsya.Domain.Enums.FinishedGoodGroupType GroupType { get; set; }
 
     public long UnitId { get; set; }

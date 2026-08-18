@@ -1,15 +1,5 @@
-using DevExpress.XtraEditors;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using WinBeyazEsya.Presentation.WinForms.Forms.BaseForms;
 using WinBeyazEsya.Domain.Enums;
+using WinBeyazEsya.Presentation.WinForms.Forms.BaseForms;
 using WinBeyazEsya.Presentation.WinForms.Helpers;
 
 namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.PlastikVeGorselAksamGrubuForms
@@ -105,7 +95,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.PlastikVeGorsel
             txtMalzemeAdi.Text = entity.Name;
             glufTemelBirim.EditValue = entity.BaseUnitId == 0 ? (long?)null : entity.BaseUnitId;
             glufOzelKod.EditValue = entity.SpecialCodeId;
-            
+
             txtAciklama.Text = entity.Description;
             if (txtMalzemeTipi != null) txtMalzemeTipi.Text = entity.MaterialType;
 
@@ -147,7 +137,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.PlastikVeGorsel
             };
 
             if (txtMalzemeTipi != null) dto.MaterialType = txtMalzemeTipi.Text;
-            
+
             CurrentEntity = dto;
             ButonEnabledDurumu();
         }
@@ -156,13 +146,13 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.PlastikVeGorsel
         {
             ucBirimCevrimleri1.PostGridChanges();
             ucBarkodlar1.PostGridChanges();
-            
+
             try
             {
                 var dto = (Application.DTOs.Definitions.PlasticAndVisualPartsGroupDto)CurrentEntity;
                 dto.Id = BaseIslemTuru.IdOlustur(OldEntity);
                 Id = _plasticAndVisualPartsGroupService.Insert(dto);
-                
+
                 if (Id > 0)
                 {
                     picResim.SavePicture("PlastikVeGorselAksamGrubu", Id);
@@ -184,11 +174,11 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.PlastikVeGorsel
         {
             ucBirimCevrimleri1.PostGridChanges();
             ucBarkodlar1.PostGridChanges();
-            
+
             try
             {
                 _plasticAndVisualPartsGroupService.Update((Application.DTOs.Definitions.PlasticAndVisualPartsGroupDto)CurrentEntity);
-                
+
                 picResim.SavePicture("PlastikVeGorselAksamGrubu", Id);
                 ucBirimCevrimleri1.Kaydet(Id);
                 ucBarkodlar1.Kaydet(Id);
@@ -245,12 +235,12 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.PlastikVeGorsel
                 {
                     form.FormAcilisTuru = WinBeyazEsya.Presentation.WinForms.Enums.FormAcilisTuru.Secim;
                     form.ShowDialog();
-                    
+
                     if (_unitRepository != null)
                     {
                         glufTemelBirim.Properties.DataSource = _unitRepository.Find(x => x.IsActive).ToList();
                     }
-                    
+
                     if (form.DialogResult == DialogResult.OK && form.SelectedEntities?.Count > 0)
                     {
                         var secilenId = form.SelectedEntities[0].Id;

@@ -11,10 +11,10 @@ namespace WinBeyazEsya.Application.Services.System;
 public class TenantDatabaseCrudManager : BaseMasterManager<TenantDatabaseDto, TenantDatabaseDto, TenantDatabase>, ITenantDatabaseCrudService
 {
     public TenantDatabaseCrudManager(
-        IMapper mapper, 
-        IMasterRepository<TenantDatabase> repository, 
-        IMasterUnitOfWork unitOfWork, 
-        IValidator<TenantDatabaseDto> validator) 
+        IMapper mapper,
+        IMasterRepository<TenantDatabase> repository,
+        IMasterUnitOfWork unitOfWork,
+        IValidator<TenantDatabaseDto> validator)
         : base(mapper, repository, unitOfWork, validator)
     {
     }

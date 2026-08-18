@@ -1,6 +1,3 @@
-using DevExpress.XtraEditors;
-using System;
-using System.Linq;
 using WinBeyazEsya.Application.DTOs.Management;
 using WinBeyazEsya.Application.DTOs.Security;
 using WinBeyazEsya.Application.Interfaces.Management;
@@ -48,7 +45,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.KullaniciForms
         {
             if (_isBinding) return;
 
-            this.BeginInvoke(new Action(() => 
+            this.BeginInvoke(new Action(() =>
             {
                 _isCheckedListBoxModified = true;
                 ButonEnabledDurumu();
@@ -59,7 +56,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.KullaniciForms
         {
             if (_isBinding) return; // Yukle metodu sýrasýnda tetiklenmemesi için
 
-            this.BeginInvoke(new Action(() => 
+            this.BeginInvoke(new Action(() =>
             {
                 _isCheckedListBoxModified = true;
                 FabrikalariDoldur();
@@ -144,7 +141,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.KullaniciForms
         protected override void NesneyiKontrollereBagla()
         {
             var entity = (UserDto)OldEntity;
-            
+
             txtKullaniciAdi.Text = entity.Code;
             txtAd.Text = entity.FirstName;
             txtSoyad.Text = entity.LastName;
@@ -234,7 +231,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.KullaniciForms
                     currentDto.UserBranches.Add(new UserBranchDto { BranchId = fabrikaId });
                 }
             }
-            
+
             ButonEnabledDurumu();
         }
 

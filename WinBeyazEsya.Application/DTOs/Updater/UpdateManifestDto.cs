@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace WinBeyazEsya.Application.DTOs.Updater
+﻿namespace WinBeyazEsya.Application.DTOs.Updater
 {
     public class UpdateManifestDto
     {

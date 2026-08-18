@@ -3,7 +3,6 @@ using WinBeyazEsya.Application.DTOs.Management;
 using WinBeyazEsya.Application.Interfaces.Repositories;
 using WinBeyazEsya.Domain.Entities.Management;
 using WinBeyazEsya.Domain.Enums;
-using System.Linq;
 
 namespace WinBeyazEsya.Application.Validations.Management;
 

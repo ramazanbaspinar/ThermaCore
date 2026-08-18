@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using WinBeyazEsya.Application.DTOs.Common;
+﻿using WinBeyazEsya.Application.DTOs.Common;
 using WinBeyazEsya.Domain.Enums;
 
 namespace WinBeyazEsya.Application.Interfaces.Common;

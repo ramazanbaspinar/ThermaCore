@@ -1,10 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text.Json;
-using System.Text.RegularExpressions;
 
 namespace WinBeyazEsya.ManifestBuilder
 {
@@ -36,7 +31,7 @@ namespace WinBeyazEsya.ManifestBuilder
             try
             {
                 Console.WriteLine("=== WinBeyazEsya.ManifestBuilder (Paketleyici) ===");
-                
+
                 string sourceDir = null;
                 string version = null;
                 string outputDir = null;
@@ -74,7 +69,7 @@ namespace WinBeyazEsya.ManifestBuilder
                     Console.WriteLine("\nBu zorunlu/kritik bir güncelleme mi? (E/H):");
                     string criticalInput = Console.ReadLine()?.Trim().ToUpper();
                     isCritical = criticalInput == "E";
-                    
+
                     Console.WriteLine("\nSürüm Notları (İsteğe bağlı, her notu | ile ayırın):");
                     string notesRaw = Console.ReadLine()?.Trim();
                     if (!string.IsNullOrWhiteSpace(notesRaw))
@@ -185,7 +180,7 @@ namespace WinBeyazEsya.ManifestBuilder
         {
             string input = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(input)) return "";
-            
+
             // Kullanıcının kopyaladığı yoldaki tırnakları (") temizle
             input = input.Trim().Trim('\"', '\'');
             return input;

@@ -9,7 +9,7 @@ public class ExchangeRateConfiguration : IEntityTypeConfiguration<ExchangeRate>,
     public void Configure(EntityTypeBuilder<ExchangeRate> builder)
     {
         builder.HasKey(e => e.Id);
-        
+
         builder.Property(e => e.CurrencyCode)
             .IsRequired()
             .HasMaxLength(10);

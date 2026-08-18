@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using WinBeyazEsya.Application.DTOs.Integration;
 
 namespace WinBeyazEsya.Application.Interfaces.Integration;

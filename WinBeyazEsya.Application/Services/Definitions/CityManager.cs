@@ -10,9 +10,9 @@ namespace WinBeyazEsya.Application.Services.Definitions;
 public class CityManager : BaseManager<CityDto, CityDto, City>, ICityService
 {
     public CityManager(
-        IMapper mapper, 
-        IRepository<City> repository, 
-        IUnitOfWork unitOfWork) 
+        IMapper mapper,
+        IRepository<City> repository,
+        IUnitOfWork unitOfWork)
         : base(mapper, repository, unitOfWork, null)
     {
     }

@@ -1,6 +1,5 @@
-﻿using WinBeyazEsya.Domain.Enums;
-using WinBeyazEsya.Application.DTOs.Management;
-using System.Threading.Tasks;
+﻿using WinBeyazEsya.Application.DTOs.Management;
+using WinBeyazEsya.Domain.Enums;
 
 namespace WinBeyazEsya.Application.Interfaces.System;
 

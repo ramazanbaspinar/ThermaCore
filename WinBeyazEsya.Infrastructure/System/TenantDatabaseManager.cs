@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using WinBeyazEsya.Application.Interfaces.System;
 using WinBeyazEsya.Infrastructure.Persistence;
 

@@ -18,7 +18,7 @@ public static class InfrastructureServiceRegistration
     {
         // DbContext
         services.AddDbContext<WinBeyazEsyaMasterContext>(options =>
-            options.UseSqlServer(connectionString, b => 
+            options.UseSqlServer(connectionString, b =>
             {
                 b.MigrationsAssembly("WinBeyazEsya.Infrastructure");
                 b.EnableRetryOnFailure(maxRetryCount: 3, maxRetryDelay: TimeSpan.FromSeconds(2), errorNumbersToAdd: null);
@@ -27,8 +27,9 @@ public static class InfrastructureServiceRegistration
 
         services.AddSingleton<WinBeyazEsya.Infrastructure.System.TenantConnectionStringInterceptor>();
 
-        services.AddDbContext<WinBeyazEsyaTenantContext>((sp, options) => {
-            options.UseSqlServer(connectionString, b => 
+        services.AddDbContext<WinBeyazEsyaTenantContext>((sp, options) =>
+        {
+            options.UseSqlServer(connectionString, b =>
             {
                 b.MigrationsAssembly("WinBeyazEsya.Infrastructure");
                 b.EnableRetryOnFailure(maxRetryCount: 3, maxRetryDelay: TimeSpan.FromSeconds(2), errorNumbersToAdd: null);
@@ -56,11 +57,11 @@ public static class InfrastructureServiceRegistration
         services.AddScoped<ILicenseValidator, LicenseValidator>();
         services.AddSingleton<WinBeyazEsya.Application.Interfaces.System.ILayoutService, WinBeyazEsya.Infrastructure.Services.System.LayoutService>();
         services.AddScoped<WinBeyazEsya.Application.Interfaces.Repositories.ICodeLogRepository, WinBeyazEsya.Infrastructure.Persistence.Repositories.CodeLogRepository>();
-        
+
         services.AddScoped<WinBeyazEsya.Application.Interfaces.Repositories.Definitions.IUnitRepository, WinBeyazEsya.Infrastructure.Persistence.Repositories.Definitions.UnitRepository>();
-        
+
         services.AddScoped<WinBeyazEsya.Application.Interfaces.Integration.IIntegrationService, WinBeyazEsya.Infrastructure.Services.Integration.IntegrationManager>();
-        
+
         return services;
     }
 }

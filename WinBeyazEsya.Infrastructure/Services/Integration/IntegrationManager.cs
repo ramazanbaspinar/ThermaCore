@@ -1,6 +1,3 @@
-using System;
-using System.Data;
-using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using WinBeyazEsya.Application.DTOs.Integration;
@@ -246,7 +243,7 @@ public class IntegrationManager : IIntegrationService
         while (await reader.ReadAsync())
         {
             long logicalRef = Convert.ToInt64(reader["LOGICALREF"]);
-            
+
             string logoCountry = GetString(reader, "COUNTRY");
             string logoCity = GetString(reader, "CITY");
             string logoTown = GetString(reader, "TOWN");
@@ -291,7 +288,7 @@ public class IntegrationManager : IIntegrationService
             }
 
             string code = reader["CODE"]?.ToString() ?? "";
-            
+
             var existingAccount = await _context.CurrentAccounts.FirstOrDefaultAsync(x => x.LogicalRef == logicalRef);
             bool isNew = false;
             if (existingAccount == null)
@@ -308,13 +305,13 @@ public class IntegrationManager : IIntegrationService
                 };
                 isNew = true;
             }
-            
+
             existingAccount.Title = (reader["TITLE"]?.ToString() ?? "").SafeSubstring(250)!;
             existingAccount.IsActive = Convert.ToInt32(reader["ACTIVE"]) == 0;
             existingAccount.TaxNr = GetString(reader, "TAXNR").SafeSubstring(16);
             existingAccount.TaxOffice = GetString(reader, "TAXOFFICE").SafeSubstring(50);
             existingAccount.Addr1 = GetString(reader, "ADDR1").SafeSubstring(250);
-            
+
             existingAccount.CountryId = matchCountryId;
             existingAccount.CityId = matchCityId;
             existingAccount.TownId = matchTownId;

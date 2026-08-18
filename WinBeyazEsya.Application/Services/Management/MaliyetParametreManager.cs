@@ -1,5 +1,3 @@
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using WinBeyazEsya.Application.DTOs.Management;
 using WinBeyazEsya.Application.Interfaces.Management;
@@ -16,8 +14,8 @@ public class MaliyetParametreManager : IMaliyetParametreService
     private readonly IMapper _mapper;
 
     public MaliyetParametreManager(
-        IUnitOfWork unitOfWork, 
-        IRepository<MaliyetParametre> repository, 
+        IUnitOfWork unitOfWork,
+        IRepository<MaliyetParametre> repository,
         IRepository<SystemParameter> systemRepo,
         IMapper mapper)
     {
@@ -40,7 +38,7 @@ public class MaliyetParametreManager : IMaliyetParametreService
     public Task SaveParametreAsync(MaliyetParametreDto dto)
     {
         var existing = _repository.Find(x => true).FirstOrDefault();
-        
+
         if (existing == null)
         {
             // Insert
@@ -56,7 +54,7 @@ public class MaliyetParametreManager : IMaliyetParametreService
             _mapper.Map(dto, existing);
             _repository.Update(existing);
         }
-        
+
         // Sistem Parametreleri (Genel Parametreler) Senkronizasyonu
         // Maliyet ekranından Fire Oranı değiştirildiğinde, genel parametrelerdeki varsayılan fire oranı da eşzamanlı değişecek.
         var systemParam = _systemRepo.Find(x => true).FirstOrDefault();

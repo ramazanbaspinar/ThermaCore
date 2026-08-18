@@ -1,13 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text.Json;
-using System.Threading.Tasks;
 using WinBeyazEsya.Application.DTOs.Updater;
-using WinBeyazEsya.Application.Interfaces.Updater;
 using WinBeyazEsya.Application.Interfaces.Management;
+using WinBeyazEsya.Application.Interfaces.Updater;
 
 namespace WinBeyazEsya.Application.Services.Updater
 {
@@ -52,24 +47,24 @@ namespace WinBeyazEsya.Application.Services.Updater
 
                 if (string.IsNullOrWhiteSpace(manifestJson)) return null;
 
-                var options = new JsonSerializerOptions 
-                { 
+                var options = new JsonSerializerOptions
+                {
                     PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
                     PropertyNameCaseInsensitive = true
                 };
-                
+
                 var manifest = JsonSerializer.Deserialize<UpdateManifestDto>(manifestJson, options);
-                
+
                 if (manifest == null)
                 {
                     Serilog.Log.Warning("Güncelleme kontrolü: Manifest deserialization sonucu null döndü.");
                     return null;
                 }
-                
+
                 Serilog.Log.Information("Güncelleme kontrolü başarılı. Sunucudaki versiyon: {Version}", manifest.Version);
                 return manifest;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Serilog.Log.Error(ex, "CheckForUpdatesAsync işleminde hata oluştu.");
                 return null;

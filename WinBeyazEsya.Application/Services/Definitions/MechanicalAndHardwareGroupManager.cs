@@ -1,5 +1,3 @@
-using System;
-using System.Linq;
 using AutoMapper;
 using FluentValidation;
 using WinBeyazEsya.Application.DTOs.Definitions;
@@ -13,10 +11,10 @@ namespace WinBeyazEsya.Application.Services.Definitions;
 public class MechanicalAndHardwareGroupManager : BaseManager<MechanicalAndHardwareGroupListDto, MechanicalAndHardwareGroupDto, MechanicalAndHardwareGroup>, IMechanicalAndHardwareGroupService
 {
     public MechanicalAndHardwareGroupManager(
-        IMapper mapper, 
-        IRepository<MechanicalAndHardwareGroup> repository, 
+        IMapper mapper,
+        IRepository<MechanicalAndHardwareGroup> repository,
         IUnitOfWork unitOfWork,
-        IValidator<MechanicalAndHardwareGroupDto>? validator = null) 
+        IValidator<MechanicalAndHardwareGroupDto>? validator = null)
         : base(mapper, repository, unitOfWork, validator)
     {
     }

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using WinBeyazEsya.Application.DTOs.Management;
+﻿using WinBeyazEsya.Application.DTOs.Management;
 
 namespace WinBeyazEsya.Application.Interfaces.System;
 

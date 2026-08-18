@@ -1,5 +1,3 @@
-using System;
-
 namespace WinBeyazEsya.Application.DTOs.Base;
 
 public abstract class BaseDto

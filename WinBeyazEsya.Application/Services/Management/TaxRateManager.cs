@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using AutoMapper;
+﻿using AutoMapper;
 using FluentValidation;
 using WinBeyazEsya.Application.DTOs.Management;
 using WinBeyazEsya.Application.Interfaces.Management;
@@ -14,10 +12,10 @@ namespace WinBeyazEsya.Application.Services.Management;
 public class TaxRateManager : BaseManager<TaxRateListDto, TaxRateDto, TaxRate>, ITaxRateService
 {
     public TaxRateManager(
-        IMapper mapper, 
-        IRepository<TaxRate> repository, 
-        IUnitOfWork unitOfWork, 
-        IValidator<TaxRateDto> validator) 
+        IMapper mapper,
+        IRepository<TaxRate> repository,
+        IUnitOfWork unitOfWork,
+        IValidator<TaxRateDto> validator)
         : base(mapper, repository, unitOfWork, validator)
     {
     }

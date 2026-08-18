@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Linq.Expressions;
-using WinBeyazEsya.Domain.Entities.Base;
+﻿using WinBeyazEsya.Domain.Entities.Base;
 
 namespace WinBeyazEsya.Application.Interfaces.Repositories;
 

@@ -1,10 +1,6 @@
-using DevExpress.XtraEditors;
-using System;
-using System.Linq;
-using System.Windows.Forms;
-using WinBeyazEsya.Domain.Enums;
 using WinBeyazEsya.Application.DTOs.Definitions;
 using WinBeyazEsya.Application.Interfaces.Definitions;
+using WinBeyazEsya.Domain.Enums;
 using WinBeyazEsya.Presentation.WinForms.Forms.BaseForms;
 using WinBeyazEsya.Presentation.WinForms.Helpers;
 

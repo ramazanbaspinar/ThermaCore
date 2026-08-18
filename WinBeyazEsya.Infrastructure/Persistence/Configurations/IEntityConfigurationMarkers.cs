@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace WinBeyazEsya.Infrastructure.Persistence.Configurations;
+﻿namespace WinBeyazEsya.Infrastructure.Persistence.Configurations;
 
 public interface IMasterEntityConfiguration
 {

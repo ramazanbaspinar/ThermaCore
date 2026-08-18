@@ -1,5 +1,3 @@
-using System;
-using System.Linq;
 using WinBeyazEsya.Application.DTOs.Management;
 using WinBeyazEsya.Application.Interfaces.Repositories;
 using WinBeyazEsya.Domain.Entities.Management;
@@ -21,10 +19,10 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms
             _emailParameterRepository = emailParameterRepository;
             _uow = uow;
             _cryptoService = cryptoService;
-            
+
             BaseKartTuru = ModuleType.EmailParameter;
             DataLayoutControl = myDataLayoutControl1;
-            RequiresCodeTemplate = false; 
+            RequiresCodeTemplate = false;
 
             HideItems = new DevExpress.XtraBars.BarItem[] { btnYeni, btnSil };
 
@@ -94,7 +92,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms
                 txtSenderEmail.Text = entity.SenderEmail;
                 txtPassword.Text = string.IsNullOrEmpty(entity.Password) ? "" : _cryptoService.Decrypt(entity.Password);
                 chkEnableSsl.Checked = entity.EnableSsl;
-                
+
                 this.Id = entity.Id;
                 BaseIslemTuru = ActionType.EntityUpdate;
             }

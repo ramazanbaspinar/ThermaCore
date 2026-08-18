@@ -9,23 +9,23 @@ public class OtherMaterialGroupConfiguration : IEntityTypeConfiguration<OtherMat
     public void Configure(EntityTypeBuilder<OtherMaterialGroup> builder)
     {
         builder.HasKey(x => x.Id);
-        
+
         builder.Property(x => x.Code)
             .IsRequired()
             .HasMaxLength(50);
-            
+
         builder.Property(x => x.Name)
             .IsRequired()
             .HasMaxLength(100);
-            
+
         builder.HasIndex(x => x.Code)
             .IsUnique();
-            
+
         builder.HasOne(x => x.BaseUnit)
             .WithMany()
             .HasForeignKey(x => x.BaseUnitId)
             .OnDelete(DeleteBehavior.Restrict);
-            
+
         builder.HasOne(x => x.SpecialCode)
             .WithMany()
             .HasForeignKey(x => x.SpecialCodeId)

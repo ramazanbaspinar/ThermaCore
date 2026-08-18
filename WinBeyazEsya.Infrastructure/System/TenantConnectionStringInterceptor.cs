@@ -1,7 +1,5 @@
-﻿using System.Data.Common;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Diagnostics;
+﻿using Microsoft.EntityFrameworkCore.Diagnostics;
+using System.Data.Common;
 using WinBeyazEsya.Application.Interfaces.System;
 
 namespace WinBeyazEsya.Infrastructure.System;

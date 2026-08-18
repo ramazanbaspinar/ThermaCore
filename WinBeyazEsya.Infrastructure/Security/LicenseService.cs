@@ -1,7 +1,5 @@
-﻿using System;
-using System.Linq;
+﻿using WinBeyazEsya.Application.Interfaces.Repositories;
 using WinBeyazEsya.Application.Interfaces.Security;
-using WinBeyazEsya.Application.Interfaces.Repositories;
 using WinBeyazEsya.Domain.Entities.Management;
 using WinBeyazEsya.Domain.Enums;
 
@@ -37,7 +35,7 @@ public class LicenseService : ILicenseService
             message = days.ToString();
             return LicenseStatus.Valid;
         }
-        
+
         message = result.ErrorMessage;
         return LicenseStatus.Expired;
     }

@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using AutoMapper;
+﻿using AutoMapper;
 using FluentValidation;
 using WinBeyazEsya.Application.DTOs.Management;
 using WinBeyazEsya.Application.Interfaces.Repositories;
@@ -13,11 +12,11 @@ public class TerminalManager : BaseMasterManager<TerminalListDto, TerminalDto, T
     private readonly IMasterRepository<SystemLicense> _licenseRepository;
 
     public TerminalManager(
-        IMapper mapper, 
-        IMasterRepository<Terminal> repository, 
-        IMasterUnitOfWork unitOfWork, 
+        IMapper mapper,
+        IMasterRepository<Terminal> repository,
+        IMasterUnitOfWork unitOfWork,
         IMasterRepository<SystemLicense> licenseRepository,
-        IValidator<TerminalDto>? validator = null) 
+        IValidator<TerminalDto>? validator = null)
         : base(mapper, repository, unitOfWork, validator)
     {
         _licenseRepository = licenseRepository;
@@ -38,7 +37,7 @@ public class TerminalManager : BaseMasterManager<TerminalListDto, TerminalDto, T
             {
                 var license = _licenseRepository.Find(x => true).FirstOrDefault();
                 int maxTerminalCount = license?.MaxTerminalCount ?? 0;
-                
+
                 // Zaten aktif olanların sayısı
                 var activeTerminalsCount = _repository.Find(t => t.IsActive).Count();
 
@@ -51,7 +50,7 @@ Daha fazla terminal (cihaz) lisansı satın almak için lütfen iletişime geçi
 Ramazan BAŞPINAR
 ramazanbaspinar2@gmail.com
 0530 785 3103";
-                    
+
                     var failure = new FluentValidation.Results.ValidationFailure("Lisans", errorMessage);
                     throw new FluentValidation.ValidationException(new global::System.Collections.Generic.List<FluentValidation.Results.ValidationFailure> { failure });
                 }

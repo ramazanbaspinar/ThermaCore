@@ -2,7 +2,6 @@
 using WinBeyazEsya.Application.DTOs.Common;
 using WinBeyazEsya.Application.Interfaces.Repositories;
 using WinBeyazEsya.Domain.Entities.Common;
-using System.Linq;
 
 namespace WinBeyazEsya.Application.Validations.Common;
 

@@ -1,13 +1,4 @@
-using DevExpress.XtraEditors;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using WinBeyazEsya.Presentation.WinForms.Forms.BaseForms;
 using WinBeyazEsya.Presentation.WinForms.Helpers;
 
@@ -29,7 +20,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.DepoTanimForms
         {
             InitializeComponent();
             BaseKartTuru = WinBeyazEsya.Domain.Enums.ModuleType.Warehouse;
-            
+
             if (!DesignMode && Program.ServiceProvider != null)
             {
                 _warehouseService = warehouseService;
@@ -46,7 +37,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.DepoTanimForms
             colDepoAdi.FieldName = "Name";
             colYetkiliKisi.FieldName = "AuthorizedPerson";
             colAciklama.FieldName = "Description";
-            
+
             ShowItems = new DevExpress.XtraBars.BarItem[] { btnYeni, btnSil, btnYenile };
         }
 
@@ -55,12 +46,12 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.DepoTanimForms
             if (_warehouseService != null)
             {
                 var liste = _warehouseService.GetAll().Where(x => x.IsActive == AktifKartlariGoster);
-                
+
                 if (ListeDisiTutulacakKayitlar != null && ListeDisiTutulacakKayitlar.Any())
                 {
                     liste = liste.Where(x => !ListeDisiTutulacakKayitlar.Contains(x.Id));
                 }
-                
+
                 Tablo.GridControl.DataSource = liste.ToList();
             }
         }
@@ -81,14 +72,14 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.DepoTanimForms
                 }
             }
         }
-        
+
         protected override void EntityDelete()
         {
             if (Tablo.FocusedRowHandle < 0 || _warehouseService == null) return;
 
             long entityId = 0;
             long.TryParse(Tablo.GetFocusedRowCellValue("Id")?.ToString(), out entityId);
-            
+
             if (entityId <= 0) return;
 
             var result = Helpers.Messages.SilMesaj(Tablo.GetRowCellValue(Tablo.FocusedRowHandle, "Name")?.ToString() ?? "");

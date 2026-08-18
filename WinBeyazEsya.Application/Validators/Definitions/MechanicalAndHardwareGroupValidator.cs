@@ -9,7 +9,7 @@ public class MechanicalAndHardwareGroupValidator : AbstractValidator<MechanicalA
     {
         RuleFor(x => x.Code).NotEmpty().WithMessage("Kod alanı boş geçilemez.");
         RuleFor(x => x.Code).MaximumLength(50).WithMessage("Kod alanı 50 karakterden uzun olamaz.");
-        
+
         RuleFor(x => x.Name).NotEmpty().WithMessage("Ad alanı boş geçilemez.");
         RuleFor(x => x.Name).MaximumLength(150).WithMessage("Ad alanı 150 karakterden uzun olamaz.");
 

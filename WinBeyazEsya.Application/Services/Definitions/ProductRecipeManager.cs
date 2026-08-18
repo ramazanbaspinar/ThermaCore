@@ -1,7 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using WinBeyazEsya.Application.DTOs.Definitions;
@@ -11,7 +9,6 @@ using WinBeyazEsya.Application.Services.Base;
 using WinBeyazEsya.Domain.Entities.Definitions;
 using WinBeyazEsya.Domain.Enums;
 using WinBeyazEsya.Domain.Helpers;
-using AutoMapper.QueryableExtensions;
 
 namespace WinBeyazEsya.Application.Services.Definitions;
 
@@ -41,16 +38,16 @@ public class ProductRecipeManager : BaseManager<ProductRecipeListDto, ProductRec
     public override long Insert(ProductRecipeDto dto)
     {
         _validator?.ValidateAndThrow(dto);
-        
+
         if (dto.Id == 0) dto.Id = WinBeyazEsya.Domain.Helpers.IdGenerator.GenerateId();
-        
+
         foreach (var line in dto.Lines)
         {
             if (line.Id == 0) line.Id = WinBeyazEsya.Domain.Helpers.IdGenerator.GenerateId();
         }
-        
+
         var entity = _mapper.Map<ProductRecipe>(dto);
-        
+
         if (dto.Lines != null && dto.Lines.Any())
         {
             entity.Lines = _mapper.Map<List<ProductRecipeLine>>(dto.Lines);
@@ -59,10 +56,10 @@ public class ProductRecipeManager : BaseManager<ProductRecipeListDto, ProductRec
                 line.ProductRecipeId = entity.Id;
             }
         }
-        
+
         _repository.Add(entity);
         _unitOfWork.SaveChanges(); // Transaction commits both master and details (because of EF Core nav property mapping)
-        
+
         return entity.Id;
     }
 
@@ -74,16 +71,16 @@ public class ProductRecipeManager : BaseManager<ProductRecipeListDto, ProductRec
         if (entity != null)
         {
             _mapper.Map(dto, entity);
-            
+
             var existingLines = _lineRepository.Find(x => x.ProductRecipeId == dto.Id).ToList();
-            
+
             var deletedLines = existingLines.Where(x => !dto.Lines.Any(d => d.Id == x.Id)).ToList();
-            foreach(var line in deletedLines)
+            foreach (var line in deletedLines)
             {
                 _lineRepository.Remove(line);
             }
 
-            foreach(var lineDto in dto.Lines)
+            foreach (var lineDto in dto.Lines)
             {
                 if (lineDto.Id == 0)
                 {
@@ -107,17 +104,17 @@ public class ProductRecipeManager : BaseManager<ProductRecipeListDto, ProductRec
             _unitOfWork.SaveChanges();
         }
     }
-    
+
     public override ProductRecipeDto GetById(long id)
     {
         var entity = _repository.Find(x => x.Id == id).FirstOrDefault();
         if (entity == null) return null;
 
         var dto = _mapper.Map<ProductRecipeDto>(entity);
-        
+
         var lines = _lineRepository.Find(x => x.ProductRecipeId == id).ToList();
         dto.Lines = _mapper.Map<List<ProductRecipeLineDto>>(lines);
-        
+
         foreach (var lineDto in dto.Lines)
         {
             lineDto.MaterialGroupName = lineDto.MaterialType.GetDescription();
@@ -153,7 +150,7 @@ public class ProductRecipeManager : BaseManager<ProductRecipeListDto, ProductRec
                     break;
             }
         }
-        
+
         return dto;
     }
 }

@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using WinBeyazEsya.Application.DTOs.Updater;
 
 namespace WinBeyazEsya.Application.Interfaces.Updater

@@ -1,14 +1,4 @@
-using DevExpress.XtraEditors;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using WinBeyazEsya.Application.Interfaces.Common;
 using WinBeyazEsya.Domain.Enums;
 using WinBeyazEsya.Presentation.WinForms.Forms.BaseForms;
@@ -39,7 +29,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.OzelKodForms
 
             // Form Title (Text) and GridView Caption update dynamically
             string titlePrefix = _codeType == SpecialCodeType.SpecialCode ? "Özel Kod Kayıtları" : "Grup Kodu Kayıtları";
-            
+
             string entityNameTr = _entityType switch
             {
                 "CurrentAccount" => "Cari Tanımlar",
@@ -76,7 +66,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.OzelKodForms
                 "Fastener" => "Bağlantı Elemanı Tanımları",
                 "PackagingMaterial" => "Ambalaj Malzemesi Tanımları",
                 "ProductLabel" => "Etiket Tanımları",
-                                "FinishedGood" => "Ürün (Mamül)",
+                "FinishedGood" => "Ürün (Mamül)",
                 "ChemicalAndInsulationGroup" => "Kimya ve Yalıtım Grubu",
                 "ElectricalElectronicGroup" => "Elektrik ve Elektronik Grubu",
                 "GasAndIgnitionGroup" => "Gaz ve Ateşleme Grubu",
@@ -89,7 +79,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.OzelKodForms
             };
 
             this.Text = $"{titlePrefix} ({entityNameTr})";
-            
+
             if (myGridView1 != null)
                 myGridView1.ViewCaption = this.Text;
         }
@@ -118,14 +108,14 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.OzelKodForms
                 Tablo.RowFocus("Id", form.Id);
             }
         }
-        
+
         protected override void EntityDelete()
         {
             if (Tablo.FocusedRowHandle < 0) return;
 
             long entityId = 0;
             long.TryParse(Tablo.GetFocusedRowCellValue("Id")?.ToString(), out entityId);
-            
+
             if (entityId <= 0) return;
 
             string msgName = _codeType == SpecialCodeType.SpecialCode ? "Özel Kod" : "Grup Kodu";

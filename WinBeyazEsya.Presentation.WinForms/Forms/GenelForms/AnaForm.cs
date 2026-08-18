@@ -1,13 +1,6 @@
 using DevExpress.XtraEditors;
 using DevExpress.XtraTabbedMdi;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Diagnostics;
-using System.IO;
-using System.Reflection;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Linq;
 using WinBeyazEsya.Application.Interfaces.System; // ICurrentTenantService ve ISessionService için
 using WinBeyazEsya.Presentation.WinForms.Helpers;
 
@@ -47,7 +40,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
 
             _clockTimer = new System.Windows.Forms.Timer();
             _clockTimer.Interval = 1000;
-            _clockTimer.Tick += (s, e) => 
+            _clockTimer.Tick += (s, e) =>
             {
                 // Bağlantı koptuğunda (overlay aktifken) saat güncellemesini durdur
                 // yoksa "Bağlantı Koptu" yazısını her saniye ezer
@@ -75,8 +68,8 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             if (aceTelVeIzgaraGrubuTanimlari != null) aceTelVeIzgaraGrubuTanimlari.Click += miTelVeIzgaraGrubuTanimlari_Click;
             if (aceDigerMalzemeGrubuTanimlari != null) aceDigerMalzemeGrubuTanimlari.Click += miDigerMalzemeGrubuTanimlari_Click;
             if (aceSirketTanimlari != null) aceSirketTanimlari.Click += miSirketTanimlari_Click;
-            if (aceUrunMamulTanimlari != null) 
-                aceUrunMamulTanimlari.Click += (s, e) => 
+            if (aceUrunMamulTanimlari != null)
+                aceUrunMamulTanimlari.Click += (s, e) =>
                 {
                     FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.MamulForms.MamulListForm>();
                 };
@@ -96,13 +89,13 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             if (btnFabrikaDegistir != null) btnFabrikaDegistir.ItemClick += btnFabrikaDegistir_ItemClick;
             if (aceKodSablonlari != null) aceKodSablonlari.Click += miCodeTemplatelari_Click;
             if (aceGenelParametreler != null) aceGenelParametreler.Click += miGenelParametreler_Click;
-            
+
             if (aceKullaniciArayuzSablonlari != null)
                 aceKullaniciArayuzSablonlari.Click += (s, e) =>
                 {
                     FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.ParametrelerForms.KullanıcıArayuzSablonlariListForm>();
                 };
-                
+
             if (aceGenelGiderler != null)
                 aceGenelGiderler.Click += (s, e) =>
                 {
@@ -265,7 +258,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
                     // Hata yutulsun, kapanmaya engel olmasın.
                 }
             }
-            
+
             // Eğer Updater hazırsa çalıştır
             string appPath = AppDomain.CurrentDomain.BaseDirectory;
             string updaterPath = System.IO.Path.Combine(appPath, "WinBeyazEsya.Updater.exe");
@@ -300,7 +293,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
                 long currentTenantId = _currentTenantService.TenantId;
                 string currentTenantName = _currentTenantService.TenantName;
                 long currentUserId = _currentTenantService.UserId;
-                
+
                 var userService = _serviceProvider.GetRequiredService<WinBeyazEsya.Application.Interfaces.Management.IUserService>();
                 var currentUser = userService.GetById(currentUserId);
                 string userFullName = currentUser != null ? $"{currentUser.FirstName} {currentUser.LastName}" : "Bilinmeyen Kullanıcı";
@@ -324,7 +317,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
 
                             var manifest = await updateService.CheckForUpdatesAsync();
                             string currentVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "1.0.0.0";
-                            
+
                             if (manifest != null && manifest.Version != currentVersion)
                             {
                                 if (!manifest.IsCritical)
@@ -354,12 +347,12 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
                                         {
                                             notesForm.ShowDialog(this);
                                         }
-                                        
+
                                         // Kullanıcı ayarına mevcut versiyonu kaydet
-                                        try 
-                                        { 
+                                        try
+                                        {
                                             appConfigService?.SetLastSeenVersion(currentVersion);
-                                        } 
+                                        }
                                         catch { }
                                     });
                                 }
@@ -435,7 +428,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             aceTemelTanimlar.Tag = WinBeyazEsya.Domain.Enums.ModuleType.TemelTanimlar;
 
             aceSirketTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.SirketTanimlari;
-            
+
             if (aceUlkeTanimlari != null) aceUlkeTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.Country;
             if (aceCariTanimlari != null) aceCariTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.CurrentAccount;
             if (aceDepoTanimlari != null) aceDepoTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.Warehouse;
@@ -449,12 +442,12 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             aceEmailParametreleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.EmailParameter;
             aceLisansBilgileri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.SystemLicense;
             aceGenelParametreler.Tag = WinBeyazEsya.Domain.Enums.ModuleType.GenelParametreler;
-            
+
             aceBirimTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.BirimTanimlari;
             aceKurTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.KurTanimlari;
             aceKdvOranlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.KdvOranlari;
             aceOtvOranlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.OtvOranlari;
-            
+
             if (aceUrunMamulTanimlari != null) aceUrunMamulTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.FinishedGood;
             if (aceUrunMamulReceteleri != null) aceUrunMamulReceteleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.ProductRecipe;
             aceMetalVeSacGrubuTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.MetalVeSacGrubu;
@@ -681,7 +674,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
                             {
                                 appConfigService.SetLastBranchId(0);
                             }
-                            
+
                             appConfigService.SetAskBranchAtStartup(frm.AcilistaSor);
                         }
                         else
@@ -839,18 +832,18 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
                 }
             }
 
-                        // Açıksa öne getirir, değilse yeni bir IServiceScope oluşturup formu oradan çözer (Scoped DI isolation)
+            // Açıksa öne getirir, değilse yeni bir IServiceScope oluşturup formu oradan çözer (Scoped DI isolation)
             try
             {
                 var scopeFactory = _serviceProvider.GetRequiredService<Microsoft.Extensions.DependencyInjection.IServiceScopeFactory>();
                 var scope = scopeFactory.CreateScope();
-                
+
                 var newForm = scope.ServiceProvider.GetRequiredService<T>();
                 newForm.MdiParent = this;
-                
+
                 // Form kapandığında scope'u dispose et ki DbContext'ler bellekten temizlensin
                 newForm.FormClosed += (s, e) => scope.Dispose();
-                
+
                 newForm.Show();
             }
             catch (Exception ex)
@@ -900,7 +893,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
         public void LoadFavorites()
         {
             if (_serviceProvider == null || aceFavoriler == null) return;
-            
+
             var favoriteService = _serviceProvider.GetService<WinBeyazEsya.Application.Interfaces.Management.IUserFavoriteService>();
             if (favoriteService == null) return;
 
@@ -913,7 +906,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
                 el.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
                 el.Text = fav.FormCaption;
                 el.Tag = fav.FormTypeFullName;
-                
+
                 el.Click += (s, e) =>
                 {
                     Type? type = Type.GetType(fav.FormTypeFullName);
@@ -925,7 +918,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
                             var genericMethod = method.MakeGenericMethod(type);
                             genericMethod.Invoke(this, null);
                         }
-                        else 
+                        else
                         {
                             method = this.GetType().GetMethod("FormYukle", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
                             if (method != null)
@@ -1355,7 +1348,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
         {
             // context.Handled = true; YAZMIYORUZ! DevExpress varsayılan animasyonu (spinner) kendisi çizsin.
             // Biz sadece üzerine sade ve kurumsal metnimizi ekliyoruz.
-            
+
             var g = context.DrawArgs.Cache.Graphics;
             var bounds = context.DrawArgs.Bounds;
 

@@ -16,7 +16,7 @@ public class CodeLog : Entity
     public string DateKey { get; set; } = string.Empty;
 
     public int LastCodeValue { get; set; }
-    
+
     public long? BranchId { get; set; }
 }
 

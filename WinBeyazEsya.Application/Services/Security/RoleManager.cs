@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using AutoMapper;
+﻿using AutoMapper;
 using FluentValidation;
 using WinBeyazEsya.Application.DTOs.Security;
 using WinBeyazEsya.Application.Interfaces.Repositories;
@@ -17,11 +14,11 @@ public class RoleManager : BaseMasterManager<RoleDto, RoleDto, Role>, IRoleServi
     private readonly IMasterRepository<RolePermission> _permissionRepository;
 
     public RoleManager(
-        IMapper mapper, 
-        IMasterRepository<Role> repository, 
+        IMapper mapper,
+        IMasterRepository<Role> repository,
         IMasterRepository<RolePermission> permissionRepository,
-        IMasterUnitOfWork unitOfWork, 
-        IValidator<RoleDto>? validator = null) 
+        IMasterUnitOfWork unitOfWork,
+        IValidator<RoleDto>? validator = null)
         : base(mapper, repository, unitOfWork, validator)
     {
         _permissionRepository = permissionRepository;
@@ -56,7 +53,7 @@ public class RoleManager : BaseMasterManager<RoleDto, RoleDto, Role>, IRoleServi
                 result.Add(emptyPerm);
             }
         }
-        
+
         return result;
     }
 
@@ -102,13 +99,13 @@ public class RoleManager : BaseMasterManager<RoleDto, RoleDto, Role>, IRoleServi
 
         // Handle permissions
         var existingPermissions = _permissionRepository.Find(x => x.RoleId == entity.Id).ToList();
-        
+
         // Remove old permissions
         foreach (var p in existingPermissions)
         {
             _permissionRepository.Remove(p);
         }
-        
+
         // Add new permissions
         foreach (var pDto in permissionsDto)
         {

@@ -7,7 +7,7 @@ public class UserBranch : FullAuditableEntity
 {
     public long UserId { get; set; }
     public long BranchId { get; set; }
-    
+
     public bool IsDefault { get; set; }
     public bool IsActive { get; set; } = true;
 

@@ -1,8 +1,5 @@
-using System.Windows.Forms;
 using WinBeyazEsya.Application.DTOs.Management;
 using WinBeyazEsya.Application.Interfaces.Repositories;
-using WinBeyazEsya.Domain.Entities.Management;
-using WinBeyazEsya.Domain.Extensions;
 using WinBeyazEsya.Presentation.WinForms.Forms.BaseForms;
 using WinBeyazEsya.Presentation.WinForms.Helpers;
 

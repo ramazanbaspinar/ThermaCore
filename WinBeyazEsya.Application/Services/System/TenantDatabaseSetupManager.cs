@@ -1,12 +1,11 @@
-﻿using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
+using FluentValidation;
 using WinBeyazEsya.Application.DTOs.Management;
 using WinBeyazEsya.Application.Interfaces.Repositories;
 using WinBeyazEsya.Application.Interfaces.Security;
 using WinBeyazEsya.Application.Interfaces.System;
 using WinBeyazEsya.Domain.Entities.Management;
 using WinBeyazEsya.Domain.Enums;
-using FluentValidation;
 
 namespace WinBeyazEsya.Application.Services.System;
 
@@ -85,7 +84,7 @@ public class TenantDatabaseSetupManager : ITenantDatabaseSetupService
             // Şifreyi veritabanına düz metin yazmamak için şifreliyoruz
             var entity = _mapper.Map<TenantDatabase>(tenant);
             entity.Password = string.IsNullOrEmpty(tenant.Password) ? "" : _cryptoService.Encrypt(tenant.Password);
-            
+
             _repository.Add(entity);
             await _uow.SaveChangesAsync();
         }

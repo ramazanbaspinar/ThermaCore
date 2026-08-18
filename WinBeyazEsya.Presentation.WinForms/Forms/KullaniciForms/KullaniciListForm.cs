@@ -1,8 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Windows.Forms;
-using WinBeyazEsya.Application.DTOs.Management;
-using WinBeyazEsya.Application.Interfaces.Management;
+﻿using WinBeyazEsya.Application.Interfaces.Management;
 using WinBeyazEsya.Application.Interfaces.Security;
 using WinBeyazEsya.Application.Services.Management;
 using WinBeyazEsya.Presentation.WinForms.Forms.BaseForms;
@@ -17,7 +13,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.KullaniciForms
         private readonly IBranchService _branchService;
 
         public KullaniciListForm(
-            IUserService userService, 
+            IUserService userService,
             IRoleService roleService,
             WinBeyazEsya.Application.Interfaces.System.ITenantDatabaseCrudService tenantService,
             IBranchService branchService)
@@ -55,9 +51,9 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.KullaniciForms
             using (var form = new KullaniciEditForm(_userService, _roleService, _tenantService, _branchService))
             {
                 form.IdAtaVeAc(id);
-                
+
                 // Eğer Modal ise kapatılınca listeyi yenile
-                if (form.RefreshYapilacak && !EklenebilecekEntityVar) 
+                if (form.RefreshYapilacak && !EklenebilecekEntityVar)
                     Listele();
             }
         }
@@ -67,7 +63,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.KullaniciForms
             if (Tablo.FocusedRowHandle < 0) return;
             long id = 0;
             long.TryParse(Tablo.GetFocusedRowCellValue("Id")?.ToString(), out id);
-            
+
             if (id > 0 && WinBeyazEsya.Presentation.WinForms.Helpers.Messages.SilMesaj("Kullanıcı") == DialogResult.Yes)
             {
                 _userService.Delete(id);
@@ -80,7 +76,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.KullaniciForms
             if (Tablo.FocusedRowHandle < 0) return;
             long id = 0;
             long.TryParse(Tablo.GetFocusedRowCellValue("Id")?.ToString(), out id);
-            
+
             if (id > 0)
             {
                 var userCode = Tablo.GetFocusedRowCellValue("Code")?.ToString();
