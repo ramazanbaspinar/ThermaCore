@@ -1281,7 +1281,124 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
         private async void BtnMaliyetiGuncelle_Click(object? sender, EventArgs e)
         {
             if (!ValidateCoatingRules()) return;
-            await MaliyetiHesaplaAsync(true);
+            
+            if (_lines == null || _lines.Count == 0)
+            {
+                XtraMessageBox.Show("Reçetede hiç hammadde satırı bulunmamaktadır.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // N+1 problemini çözmek için ID listesi çıkar (Hem MaterialId hem de CoatingMaterialId)
+            var idList = _lines.Select(x => x.MaterialId).ToList();
+            idList.AddRange(_lines.Where(x => x.CoatingMaterialId.HasValue).Select(x => x.CoatingMaterialId.Value));
+            idList = idList.Distinct().ToList();
+
+            if (idList.Count == 0) return;
+
+            var costService = _serviceProvider?.GetService<WinBeyazEsya.Application.Interfaces.Production.IMaterialCostService>();
+            var exchangeService = _serviceProvider?.GetService<WinBeyazEsya.Application.Interfaces.System.IExchangeRateService>();
+            var maliyetParametreService = _serviceProvider?.GetService<WinBeyazEsya.Application.Interfaces.Management.IMaliyetParametreService>();
+            
+            if (costService != null)
+            {
+                // Tek sorguda malzemeleri çek (Döngü içi DB sorgusu atılmaz)
+                var guncelMaliyetler = costService.GetAllByMaterialIds(idList);
+                var maliyetDict = guncelMaliyetler.GroupBy(x => x.MaterialId).ToDictionary(g => g.Key, g => g.FirstOrDefault());
+                
+                var rates = exchangeService?.GetAllRates().ToList();
+
+                decimal wasteRate = 0;
+                if (maliyetParametreService != null)
+                {
+                    var parametre = await maliyetParametreService.GetMaliyetParametreAsync();
+                    if (parametre != null && parametre.UseWasteRate)
+                        wasteRate = parametre.WastageRate;
+                }
+
+                foreach (var line in _lines)
+                {
+                    // Temel malzeme maliyeti güncellemesi
+                    if (maliyetDict.TryGetValue(line.MaterialId, out var costObj) && costObj != null)
+                    {
+                        decimal unitCost = costObj.Cost;
+                        string currencyCode = costObj.CurrencyCode;
+
+                        if (!string.IsNullOrEmpty(currencyCode) && currencyCode != _defaultCurrency && rates != null)
+                        {
+                            var rate = rates.Where(x => x.CurrencyCode == currencyCode).OrderByDescending(x => x.RateDate).FirstOrDefault();
+                            if (rate != null)
+                            {
+                                unitCost *= rate.EffectiveSellingRate;
+                                currencyCode = _defaultCurrency;
+                            }
+                        }
+
+                        // Güncel fiyatla ez
+                        line.UnitPrice = unitCost;
+                        line.CurrencyCode = currencyCode;
+                    }
+                    
+                    // Güncel parametrelere göre Fire oranını güncelle
+                    line.WasteRate = wasteRate;
+                    
+                    // Satırın toplam maliyetini yeniden hesapla
+                    decimal totalCost = 0;
+                    if (line.MaterialType == MaterialType.MetalAndSheet)
+                    {
+                        decimal coatingCost = 0;
+                        if (line.SurfaceCoatingType == "Diger")
+                        {
+                            coatingCost = line.ManualCoatingCost;
+                        }
+                        else if (line.CoatingMaterialId.HasValue && line.CoatingAmount > 0)
+                        {
+                            if (maliyetDict.TryGetValue(line.CoatingMaterialId.Value, out var coatCostObj) && coatCostObj != null)
+                            {
+                                decimal bFiyat = coatCostObj.Cost;
+                                if (!string.IsNullOrEmpty(coatCostObj.CurrencyCode) && coatCostObj.CurrencyCode != _defaultCurrency && rates != null)
+                                {
+                                    var bRate = rates.Where(x => x.CurrencyCode == coatCostObj.CurrencyCode).OrderByDescending(x => x.RateDate).FirstOrDefault();
+                                    if (bRate != null) bFiyat *= bRate.EffectiveSellingRate;
+                                }
+                                coatingCost = (line.CoatingAmount / 1000m) * bFiyat;
+                            }
+                        }
+
+                        decimal materialCost = (line.WeightKg * line.UnitPrice * line.Quantity);
+                        if (line.WasteRate > 0)
+                        {
+                            materialCost = materialCost + (materialCost * line.WasteRate / 100);
+                        }
+                        
+                        totalCost = materialCost + coatingCost;
+                    }
+                    else
+                    {
+                        decimal materialCost = line.Quantity * line.UnitPrice;
+                        if (line.WasteRate > 0)
+                        {
+                            materialCost = materialCost + (materialCost * line.WasteRate / 100);
+                        }
+                        totalCost = materialCost;
+                    }
+
+                    line.TotalMaterialCost = totalCost;
+                }
+            }
+
+            // Arayüzü tazele (Fiyatlar gride yansısın)
+            myGridView1.RefreshData();
+            myGridView1.UpdateTotalSummary();
+
+            _isGridModified = true;
+            GuncelNesneOlustur();
+            ButonEnabledDurumu();
+
+            // Mevcut Hesapla metoduyla Fire, GÜG ve Genel Toplamın yeniden hesaplanmasını sağla
+            await MaliyetiHesaplaAsync(false);
+            
+            // Bilgi mesajı
+            WinBeyazEsya.Presentation.WinForms.Helpers.Messages.BilgiMesaji("Tüm hammadde fiyatları güncel kartlardan çekilmiş ve reçete maliyeti yeniden hesaplanmıştır.");
         }
 
         private void BtnMaliyetKirilimi_Click(object? sender, EventArgs e)

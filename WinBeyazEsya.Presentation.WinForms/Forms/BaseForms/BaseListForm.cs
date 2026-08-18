@@ -14,6 +14,7 @@ using WinBeyazEsya.Domain.Enums;
 using WinBeyazEsya.Presentation.WinForms.Enums;
 using WinBeyazEsya.Presentation.WinForms.Helpers;
 using WinBeyazEsya.Application.Interfaces.System;
+using WinBeyazEsya.Application.Interfaces.Management;
 
 namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
 {
@@ -43,6 +44,10 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
         protected internal IList<BaseDto> SelectedEntities = default!;
         protected internal bool EklenebilecekEntityVar = false;
         protected internal FormAcilisTuru FormAcilisTuru;
+
+        // Sağ tık menüsü
+        private PopupMenu _sagTikMenu = default!;
+        private BarButtonItem _btnKayitBilgileri = default!;
 
         private bool? _hasInsertPermission;
         private bool? _hasUpdatePermission;
@@ -90,7 +95,8 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
                 }
             }
 
-
+            // Sağ tık (PopupMenu) oluştur
+            SagTikMenuOlustur();
 
             //Form Events
             Shown += BaseListForm_Shown;
@@ -334,6 +340,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
                 Tablo.EndSorting -= Tablo_EndSorting;
                 Tablo.FilterEditorCreated -= Tablo_FilterEditorCreated;
                 Tablo.ColumnFilterChanged -= Tablo_ColumnFilterChanged;
+                Tablo.PopupMenuShowing -= Tablo_PopupMenuShowing;
 
                 Tablo.DoubleClick += Tablo_DoubleClick;
                 Tablo.KeyDown += Tablo_KeyDown;
@@ -343,6 +350,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
                 Tablo.EndSorting += Tablo_EndSorting;
                 Tablo.FilterEditorCreated += Tablo_FilterEditorCreated;
                 Tablo.ColumnFilterChanged += Tablo_ColumnFilterChanged;
+                Tablo.PopupMenuShowing += Tablo_PopupMenuShowing;
             }
 
             Cursor.Current = Cursors.WaitCursor;
@@ -505,6 +513,97 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
 
         private void Tablo_MouseUp(object? sender, MouseEventArgs e)
         {
+        }
+
+        private void Tablo_PopupMenuShowing(object? sender, PopupMenuShowingEventArgs e)
+        {
+            // Sadece satır alanında ve dolu satırda sağ tık menüsü göster
+            if (e.MenuType == GridMenuType.Row && Tablo != null && Tablo.FocusedRowHandle >= 0)
+            {
+                e.Allow = false; // DevExpress varsayılan menüsünü kapat
+                _sagTikMenu?.ShowPopup(ribbon.Manager, Control.MousePosition);
+            }
+        }
+
+        private void SagTikMenuOlustur()
+        {
+            if (ribbon == null) return;
+
+            var manager = ribbon.Manager;
+            _sagTikMenu = new PopupMenu(manager);
+
+            // Mevcut ribbon butonlarını PopupMenu'ye bağla (yetki kısıtlamaları otomatik yansır)
+            if (btnYeni != null) _sagTikMenu.ItemLinks.Add(btnYeni);
+            if (btnDuzelt != null) _sagTikMenu.ItemLinks.Add(btnDuzelt);
+            if (btnSil != null) _sagTikMenu.ItemLinks.Add(btnSil);
+            if (btnYenile != null) _sagTikMenu.ItemLinks.Add(btnYenile);
+            if (btnKolonlar != null) _sagTikMenu.ItemLinks.Add(btnKolonlar);
+
+            // Ayırıcı (separator) ekle
+            if (_sagTikMenu.ItemLinks.Count > 0)
+                _sagTikMenu.ItemLinks[_sagTikMenu.ItemLinks.Count - 1].BeginGroup = false;
+
+            // Kayıt Bilgileri butonu — SADECE sağ tık menüsüne eklenir, Ribbon'a KESİNLİKLE EKLENMEZ
+            _btnKayitBilgileri = new BarButtonItem(manager, "Kayıt Bilgileri")
+            {
+                Name = "btnKayitBilgileri"
+            };
+            _btnKayitBilgileri.ItemClick += BtnKayitBilgileri_ItemClick;
+
+            // Separator ile ayırarak ekle
+            var link = _sagTikMenu.ItemLinks.Add(_btnKayitBilgileri);
+            link.BeginGroup = true;
+
+            // Kapat butonunu en sona ekle
+            if (btnKapat != null)
+            {
+                var kapatLink = _sagTikMenu.ItemLinks.Add(btnKapat);
+                kapatLink.BeginGroup = true;
+            }
+        }
+
+        private void BtnKayitBilgileri_ItemClick(object? sender, ItemClickEventArgs e)
+        {
+            if (Tablo == null || Tablo.FocusedRowHandle < 0) return;
+
+            var row = Tablo.GetRow(Tablo.FocusedRowHandle) as BaseDto;
+            if (row == null) return;
+
+            string ekleyenUser = row.CreatedUserId?.ToString() ?? "";
+            string degistirenUser = row.ModifiedUserId?.ToString() ?? "";
+
+            // Kullanıcı adlarını çözümle
+            if (Program.ServiceProvider != null)
+            {
+                var userService = Program.ServiceProvider.GetService(typeof(IUserService)) as IUserService;
+                if (userService != null)
+                {
+                    if (row.CreatedUserId.HasValue && row.CreatedUserId.Value > 0)
+                    {
+                        try
+                        {
+                            var user = userService.GetById(row.CreatedUserId.Value);
+                            if (user != null) ekleyenUser = $"{user.FirstName} {user.LastName}".Trim();
+                        }
+                        catch { /* Kullanıcı bulunamazsa ID ile devam et */ }
+                    }
+
+                    if (row.ModifiedUserId.HasValue && row.ModifiedUserId.Value > 0)
+                    {
+                        try
+                        {
+                            var user = userService.GetById(row.ModifiedUserId.Value);
+                            if (user != null) degistirenUser = $"{user.FirstName} {user.LastName}".Trim();
+                        }
+                        catch { /* Kullanıcı bulunamazsa ID ile devam et */ }
+                    }
+                }
+            }
+
+            using (var form = new GenelForms.KayitBilgileriForm(ekleyenUser, row.CreatedDate, degistirenUser, row.ModifiedDate))
+            {
+                form.ShowDialog(this);
+            }
         }
 
         private void Tablo_ColumnWidthChanged(object? sender, DevExpress.XtraGrid.Views.Base.ColumnEventArgs e)

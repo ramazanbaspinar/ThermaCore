@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using WinBeyazEsya.Application.DTOs.Production;
 using WinBeyazEsya.Domain.Enums;
 
@@ -12,5 +12,6 @@ public interface IMaterialCostService
     long Insert(MaterialCostDto dto);
     void Update(MaterialCostDto dto);
     void Delete(long id);
+    IEnumerable<MaterialCostListDto> GetAllByMaterialIds(IEnumerable<long> materialIds);
 }
 

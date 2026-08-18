@@ -15,6 +15,7 @@ using WinBeyazEsya.Presentation.WinForms.Helpers;
 using WinBeyazEsya.Application.Interfaces.System;
 using System.Linq;
 using WinBeyazEsya.Presentation.WinForms.Functions;
+using WinBeyazEsya.Application.Interfaces.Management;
 
 namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
 {
@@ -58,6 +59,10 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
 
         protected DevExpress.XtraBars.BarButtonItem btnYazdir2 = null!;
         protected DevExpress.XtraBars.PopupMenu resimMenu = null!;
+
+        // Sağ tık menüsü
+        private PopupMenu _sagTikMenu = default!;
+        private BarButtonItem _btnKayitBilgileri = default!;
 
         private bool? _hasInsertPermission;
         private bool? _hasUpdatePermission;
@@ -222,6 +227,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
             Shown += BaseEditForm_Shown;
 
             InitializeResimMenu();
+            SagTikMenuOlustur();
             BindControlEvents(this.Controls);
             BindPictureEditControls(this.Controls);
         }
@@ -860,6 +866,92 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
         }
 
         protected virtual void BaseEditForm_Shown(object? sender, EventArgs e) { }
+
+        private void SagTikMenuOlustur()
+        {
+            if (ribbon == null) return;
+
+            var manager = ribbon.Manager;
+            _sagTikMenu = new PopupMenu(manager);
+
+            // Mevcut ribbon butonlarını PopupMenu'ye bağla (yetki kısıtlamaları otomatik yansır)
+            if (btnYeni != null) _sagTikMenu.ItemLinks.Add(btnYeni);
+            if (btnKaydet != null) _sagTikMenu.ItemLinks.Add(btnKaydet);
+            if (btnGerial != null) _sagTikMenu.ItemLinks.Add(btnGerial);
+            if (btnSil != null) _sagTikMenu.ItemLinks.Add(btnSil);
+            if (btnYenile != null) _sagTikMenu.ItemLinks.Add(btnYenile);
+
+            // Kayıt Bilgileri butonu — SADECE sağ tık menüsüne eklenir, Ribbon'a KESİNLİKLE EKLENMEZ
+            _btnKayitBilgileri = new BarButtonItem(manager, "Kayıt Bilgileri")
+            {
+                Name = "btnKayitBilgileri"
+            };
+            _btnKayitBilgileri.ItemClick += BtnKayitBilgileri_ItemClick;
+
+            // Separator ile ayırarak ekle
+            var link = _sagTikMenu.ItemLinks.Add(_btnKayitBilgileri);
+            link.BeginGroup = true;
+
+            // Kapat butonunu en sona ekle
+            if (btnKapat != null)
+            {
+                var kapatLink = _sagTikMenu.ItemLinks.Add(btnKapat);
+                kapatLink.BeginGroup = true;
+            }
+
+            // Formun MouseUp event'ine sağ tık menüsünü bağla
+            this.MouseUp -= BaseEditForm_SagTikMouseUp;
+            this.MouseUp += BaseEditForm_SagTikMouseUp;
+        }
+
+        private void BaseEditForm_SagTikMouseUp(object? sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                _sagTikMenu?.ShowPopup(ribbon.Manager, Control.MousePosition);
+            }
+        }
+
+        private void BtnKayitBilgileri_ItemClick(object? sender, ItemClickEventArgs e)
+        {
+            if (CurrentEntity == null) return;
+
+            string ekleyenUser = CurrentEntity.CreatedUserId?.ToString() ?? "";
+            string degistirenUser = CurrentEntity.ModifiedUserId?.ToString() ?? "";
+
+            // Kullanıcı adlarını çözümle
+            if (Program.ServiceProvider != null)
+            {
+                var userService = Program.ServiceProvider.GetService(typeof(IUserService)) as IUserService;
+                if (userService != null)
+                {
+                    if (CurrentEntity.CreatedUserId.HasValue && CurrentEntity.CreatedUserId.Value > 0)
+                    {
+                        try
+                        {
+                            var user = userService.GetById(CurrentEntity.CreatedUserId.Value);
+                            if (user != null) ekleyenUser = $"{user.FirstName} {user.LastName}".Trim();
+                        }
+                        catch { /* Kullanıcı bulunamazsa ID ile devam et */ }
+                    }
+
+                    if (CurrentEntity.ModifiedUserId.HasValue && CurrentEntity.ModifiedUserId.Value > 0)
+                    {
+                        try
+                        {
+                            var user = userService.GetById(CurrentEntity.ModifiedUserId.Value);
+                            if (user != null) degistirenUser = $"{user.FirstName} {user.LastName}".Trim();
+                        }
+                        catch { /* Kullanıcı bulunamazsa ID ile devam et */ }
+                    }
+                }
+            }
+
+            using (var form = new GenelForms.KayitBilgileriForm(ekleyenUser, CurrentEntity.CreatedDate, degistirenUser, CurrentEntity.ModifiedDate))
+            {
+                form.ShowDialog(this);
+            }
+        }
 
         protected virtual void Control_KeyDown(object? sender, KeyEventArgs e)
         {

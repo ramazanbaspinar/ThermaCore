@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using FluentValidation;
@@ -30,6 +30,12 @@ public class MaterialCostManager : BaseManager<MaterialCostListDto, MaterialCost
     public IEnumerable<MaterialCostListDto> GetAllByMaterialType(ModuleType type)
     {
         var query = _repository.Find(x => x.MaterialType == type);
+        return AutoMapper.QueryableExtensions.Extensions.ProjectTo<MaterialCostListDto>(query, _mapper.ConfigurationProvider).ToList();
+    }
+
+    public IEnumerable<MaterialCostListDto> GetAllByMaterialIds(IEnumerable<long> materialIds)
+    {
+        var query = _repository.Find(x => materialIds.Contains(x.MaterialId));
         return AutoMapper.QueryableExtensions.Extensions.ProjectTo<MaterialCostListDto>(query, _mapper.ConfigurationProvider).ToList();
     }
 
