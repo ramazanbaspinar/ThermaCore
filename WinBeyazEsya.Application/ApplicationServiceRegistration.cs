@@ -24,6 +24,8 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IAuthService, AuthManager>();
         services.AddScoped<IUserService, UserManager>();
         services.AddScoped<IUserFavoriteService, UserFavoriteManager>();
+        services.AddScoped<IWarehouseService, WarehouseManager>();
+        services.AddScoped<FluentValidation.IValidator<WinBeyazEsya.Application.DTOs.Definitions.WarehouseDto>, WinBeyazEsya.Application.Validators.Definitions.WarehouseValidator>();
         services.AddScoped<ITerminalService, TerminalManager>();
         services.AddScoped<IBranchService, BranchManager>();
         services.AddScoped<WinBeyazEsya.Application.Interfaces.Security.IRoleService, WinBeyazEsya.Application.Services.Security.RoleManager>();

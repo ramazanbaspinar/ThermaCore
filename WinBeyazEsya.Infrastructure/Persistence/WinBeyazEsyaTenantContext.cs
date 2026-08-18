@@ -38,6 +38,7 @@ public class WinBeyazEsyaTenantContext : DbContext
     public DbSet<WinBeyazEsya.Domain.Entities.Definitions.City> Cities { get; set; }
     public DbSet<WinBeyazEsya.Domain.Entities.Definitions.Town> Towns { get; set; }
     public DbSet<WinBeyazEsya.Domain.Entities.Definitions.CurrentAccount> CurrentAccounts { get; set; }
+    public DbSet<WinBeyazEsya.Domain.Entities.Definitions.Warehouse> Warehouses { get; set; }
 
     public DbSet<WinBeyazEsya.Domain.Entities.Management.ExchangeRate> ExchangeRates { get; set; }
     public DbSet<WinBeyazEsya.Domain.Entities.Management.TaxRate> TaxRates { get; set; }

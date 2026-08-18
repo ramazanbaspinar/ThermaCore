@@ -183,6 +183,11 @@ public enum ModuleType
     [RequiresCodeTemplate]
     CurrentAccount = 41,
 
+    [Description("Depo Tanımları")]
+    [ParentModule(TemelTanimlar)]
+    [RequiresCodeTemplate]
+    Warehouse = 42,
+
     // MODÜLLER (Ekranlar) - MALİYETLER
     [Description("Genel Giderler")]
     [ParentModule(Maliyetler)]

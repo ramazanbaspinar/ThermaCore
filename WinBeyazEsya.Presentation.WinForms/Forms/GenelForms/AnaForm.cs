@@ -85,6 +85,11 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
                 {
                     FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.UretimForms.UrunReceteListForm>();
                 };
+            if (aceDepoTanimlari != null)
+                aceDepoTanimlari.Click += (s, e) =>
+                {
+                    FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.DepoTanimForms.DepoTanimListForm>();
+                };
             if (aceKullaniciTanimlari != null) aceKullaniciTanimlari.Click += KullaniciTanimlari_Click;
             if (aceYetkiGruplariRoller != null) aceYetkiGruplariRoller.Click += miYetkiGruplariRoller_Click;
             if (aceTerminalCihazYonetimi != null) aceTerminalCihazYonetimi.Click += miTerminalYonetim_Click;
@@ -433,6 +438,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             
             if (aceUlkeTanimlari != null) aceUlkeTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.Country;
             if (aceCariTanimlari != null) aceCariTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.CurrentAccount;
+            if (aceDepoTanimlari != null) aceDepoTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.Warehouse;
 
             aceYetkiGruplariRoller.Tag = WinBeyazEsya.Domain.Enums.ModuleType.YetkiGruplari;
             aceKullaniciTanimlari.Tag = WinBeyazEsya.Domain.Enums.ModuleType.User;
