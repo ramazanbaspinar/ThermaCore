@@ -1,0 +1,59 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  
+  <Package Name="WinBeyazEsya" 
+           Manufacturer="Ramazan BAŞPINAR" 
+           Version="26.08.19.0" 
+           UpgradeCode="d55d21c2-3e2b-42fa-90f7-5f72cfceb205"
+           Scope="perMachine">
+           
+    <!-- Eski sürümleri kaldırır, downgrade yapılmasını engeller -->
+    <MajorUpgrade DowngradeErrorMessage="WinBeyazEsya'nın daha yeni bir sürümü sisteminizde zaten yüklü." />
+    
+    <MediaTemplate EmbedCab="yes" />
+
+    <Feature Id="MainFeature" Title="WinBeyazEsya Ana Kurulumu">
+      <ComponentGroupRef Id="MainComponents" />
+      <ComponentRef Id="DesktopShortcutComp" />
+      <ComponentRef Id="StartMenuShortcutComp" />
+    </Feature>
+
+    <!-- 1. DİZİN OYUNU -->
+    <StandardDirectory Id="ProgramFiles6432Folder">
+      <Directory Id="INSTALLFOLDER" Name="WinBeyazEsya" />
+    </StandardDirectory>
+
+    <!-- 2. ROTA DEĞİŞTİRİCİ (C:\WinBeyazEsya Klasörüne Kurar) -->
+    <SetDirectory Id="INSTALLFOLDER" Value="[WindowsVolume]WinBeyazEsya" />
+
+    <!-- 3. TÜM DOSYALARI ÇEKME -->
+    <ComponentGroup Id="MainComponents" Directory="INSTALLFOLDER">
+      <Files Include="WinBeyazEsya.Presentation.WinForms\bin\Release\net8.0-windows\**" />
+    </ComponentGroup>
+
+    <!-- 4. MASAÜSTÜ KISAYOLU -->
+    <StandardDirectory Id="DesktopFolder">
+      <Component Id="DesktopShortcutComp" Guid="b4b5d6f1-a1b2-c3d4-e5f6-a7b8c9d0e1f2">
+        <Shortcut Id="DesktopShortcut"
+                  Name="WinBeyazEsya"
+                  Target="[INSTALLFOLDER]WinBeyazEsya.exe"
+                  WorkingDirectory="INSTALLFOLDER" />
+        <RegistryValue Root="HKCU" Key="Software\RamazanBaspinar\WinBeyazEsya" Name="DesktopShortcut" Type="integer" Value="1" KeyPath="yes"/>
+      </Component>
+    </StandardDirectory>
+
+    <!-- 5. BAŞLAT MENÜSÜ KISAYOLU -->
+    <StandardDirectory Id="ProgramMenuFolder">
+      <Directory Id="StartMenuAppFolder" Name="WinBeyazEsya">
+        <Component Id="StartMenuShortcutComp" Guid="c4b5d6f1-a1b2-c3d4-e5f6-a7b8c9d0e1f3">
+          <Shortcut Id="StartMenuShortcut"
+                    Name="WinBeyazEsya"
+                    Target="[INSTALLFOLDER]WinBeyazEsya.exe"
+                    WorkingDirectory="INSTALLFOLDER" />
+          <RemoveFolder Id="CleanUpStartMenu" On="uninstall" />
+          <RegistryValue Root="HKCU" Key="Software\RamazanBaspinar\WinBeyazEsya" Name="StartMenuShortcut" Type="integer" Value="1" KeyPath="yes"/>
+        </Component>
+      </Directory>
+    </StandardDirectory>
+
+  </Package>
+</Wix>

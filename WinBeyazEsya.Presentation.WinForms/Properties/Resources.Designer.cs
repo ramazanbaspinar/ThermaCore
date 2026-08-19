@@ -373,6 +373,16 @@ namespace WinBeyazEsya.Presentation.WinForms.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap winbeyazesya_arkaplan {
+            get {
+                object obj = ResourceManager.GetObject("winbeyazesya_arkaplan", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap winbeyazesyaarkaplan {
             get {
                 object obj = ResourceManager.GetObject("winbeyazesyaarkaplan", resourceCulture);

@@ -16,6 +16,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
         private readonly IServiceProvider _serviceProvider;
         private readonly ICurrentTenantService _currentTenantService;
         private readonly ISessionService _sessionService;
+        private UserControls.MasaustuUserControl _masaustuControl;
 
         public AnaForm(
             IServiceProvider serviceProvider,
@@ -29,6 +30,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             _sessionService = sessionService;
 
             EventsLoad();
+            InitializeMasaustuControl();
         }
 
         private void EventsLoad()
@@ -207,6 +209,37 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
 
             foreach (Control control in Controls)
                 control.KeyDown += Control_KeyDown;
+        }
+
+        /// <summary>
+        /// Masaüstü Dashboard kontrolünü oluşturur ve AnaForm'a ekler.
+        /// btnAnaFormResim'in üzerinde, Dock=Fill olarak konumlanır.
+        /// Tile tıklamaları mevcut FormYukle&lt;T&gt;() reflection mekanizmasını kullanır.
+        /// </summary>
+        private void InitializeMasaustuControl()
+        {
+            _masaustuControl = new UserControls.MasaustuUserControl();
+            _masaustuControl.Dock = DockStyle.Fill;
+
+            // Tile tıklandığında formu aç — LoadFavorites'daki reflection pattern ile aynı
+            _masaustuControl.OnFavoriteClicked = (formTypeFullName) =>
+            {
+                Type? type = Type.GetType(formTypeFullName);
+                if (type != null)
+                {
+                    var method = this.GetType().GetMethod("FormYukle",
+                        System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+                    if (method != null)
+                    {
+                        var genericMethod = method.MakeGenericMethod(type);
+                        genericMethod.Invoke(this, null);
+                    }
+                }
+            };
+
+            // Controls'a ekle ve Z-order'da btnAnaFormResim'in önüne getir
+            this.Controls.Add(_masaustuControl);
+            _masaustuControl.BringToFront();
         }
 
         private void Control_KeyDown(object? sender, KeyEventArgs e)
@@ -857,14 +890,23 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
         {
             if (((XtraTabbedMdiManager)sender).Pages.Count == 0)
             {
-                // MDI sekmesi kalmadığında arka plandaki resim/logo gösterilebilir
+                // MDI sekmesi kalmadığında arka plan ve masaüstü ekranını göster
                 if (btnAnaFormResim != null) btnAnaFormResim.Visible = true;
+
+                if (_masaustuControl != null)
+                {
+                    _masaustuControl.Visible = true;
+                    _masaustuControl.BringToFront();
+                    // Formlar açıkken değişmiş olabilecek favorileri yenile
+                    LoadFavorites();
+                }
             }
         }
 
         private void XtraTabbedMdiManager_PageAdded(object? sender, MdiTabPageEventArgs e)
         {
             if (btnAnaFormResim != null) btnAnaFormResim.Visible = false;
+            if (_masaustuControl != null) _masaustuControl.Visible = false;
         }
 
         #endregion
@@ -932,6 +974,9 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
                 };
                 aceFavoriler.Elements.Add(el);
             }
+
+            // Masaüstü TileControl'ünü de güncelle (accordion ile senkron)
+            _masaustuControl?.LoadFavorites(favorites);
         }
 
         private void miBirimTanimlari_Click(object? sender, EventArgs e)

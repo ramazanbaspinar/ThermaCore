@@ -94,6 +94,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             aceKullaniciTanimlari = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             aceYetkiGruplariRoller = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             aceTerminalCihazYonetimi = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            aceParolaDegistir = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             aceParametreler = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             aceKullaniciArayuzSablonlari = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             aceKodSablonlari = new DevExpress.XtraBars.Navigation.AccordionControlElement();
@@ -109,7 +110,6 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
             barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
             barDockControlRight = new DevExpress.XtraBars.BarDockControl();
-            aceParolaDegistir = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             ((System.ComponentModel.ISupportInitialize)xtraTabbedMdiManager).BeginInit();
             ((System.ComponentModel.ISupportInitialize)btnAnaFormResim.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)accordionControl1).BeginInit();
@@ -259,7 +259,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             // btnAnaFormResim
             // 
             btnAnaFormResim.Dock = DockStyle.Fill;
-            btnAnaFormResim.EditValue = Properties.Resources.winbeyazesyaarkaplan;
+            btnAnaFormResim.EditValue = Properties.Resources.winbeyazesya_arkaplan;
             btnAnaFormResim.EnterMoveNextControl = true;
             btnAnaFormResim.Location = new Point(260, 33);
             btnAnaFormResim.Name = "btnAnaFormResim";
@@ -277,7 +277,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             btnAnaFormResim.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
             btnAnaFormResim.Properties.ShowMenu = false;
             btnAnaFormResim.Properties.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Stretch;
-            btnAnaFormResim.Size = new Size(696, 673);
+            btnAnaFormResim.Size = new Size(696, 675);
             btnAnaFormResim.StatusBarAciklama = null;
             btnAnaFormResim.StatusBarKisaYol = "F4 :";
             btnAnaFormResim.StatusBarKisaYolAciklama = null;
@@ -291,7 +291,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             accordionControl1.Name = "accordionControl1";
             accordionControl1.ScrollBarMode = DevExpress.XtraBars.Navigation.ScrollBarMode.Auto;
             accordionControl1.ShowFilterControl = DevExpress.XtraBars.Navigation.ShowFilterControl.Always;
-            accordionControl1.Size = new Size(260, 673);
+            accordionControl1.Size = new Size(260, 675);
             accordionControl1.TabIndex = 4;
             accordionControl1.ViewType = DevExpress.XtraBars.Navigation.AccordionControlViewType.HamburgerMenu;
             // 
@@ -546,6 +546,12 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             aceTerminalCihazYonetimi.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
             aceTerminalCihazYonetimi.Text = "Terminal (Cihaz) Yönetimi";
             // 
+            // aceParolaDegistir
+            // 
+            aceParolaDegistir.Name = "aceParolaDegistir";
+            aceParolaDegistir.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            aceParolaDegistir.Text = "Parola Değiştir";
+            // 
             // aceParametreler
             // 
             aceParametreler.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] { aceKullaniciArayuzSablonlari, aceKodSablonlari, aceEmailParametreleri, aceLisansBilgileri, aceGenelParametreler });
@@ -643,7 +649,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             // 
             barDockControlBottom.CausesValidation = false;
             barDockControlBottom.Dock = DockStyle.Bottom;
-            barDockControlBottom.Location = new Point(0, 706);
+            barDockControlBottom.Location = new Point(0, 708);
             barDockControlBottom.Manager = barManager1;
             barDockControlBottom.Size = new Size(956, 0);
             // 
@@ -653,7 +659,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             barDockControlLeft.Dock = DockStyle.Left;
             barDockControlLeft.Location = new Point(0, 33);
             barDockControlLeft.Manager = barManager1;
-            barDockControlLeft.Size = new Size(0, 673);
+            barDockControlLeft.Size = new Size(0, 675);
             // 
             // barDockControlRight
             // 
@@ -661,13 +667,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             barDockControlRight.Dock = DockStyle.Right;
             barDockControlRight.Location = new Point(956, 33);
             barDockControlRight.Manager = barManager1;
-            barDockControlRight.Size = new Size(0, 673);
-            // 
-            // aceParolaDegistir
-            // 
-            aceParolaDegistir.Name = "aceParolaDegistir";
-            aceParolaDegistir.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            aceParolaDegistir.Text = "Parola Değiştir";
+            barDockControlRight.Size = new Size(0, 675);
             // 
             // AnaForm
             // 
@@ -676,7 +676,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             Appearance.Options.UseFont = true;
             AutoScaleDimensions = new SizeF(7F, 16F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(956, 706);
+            ClientSize = new Size(956, 708);
             Controls.Add(btnAnaFormResim);
             Controls.Add(accordionControl1);
             Controls.Add(barDockControlLeft);
