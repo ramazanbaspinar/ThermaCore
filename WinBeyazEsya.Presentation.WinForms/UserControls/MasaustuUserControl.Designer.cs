@@ -18,6 +18,7 @@ namespace WinBeyazEsya.Presentation.WinForms.UserControls
         private void InitializeComponent()
         {
             this.searchControl = new DevExpress.XtraEditors.SearchControl();
+            this.lblTitle = new DevExpress.XtraEditors.LabelControl();
             this.tileControl = new DevExpress.XtraEditors.TileControl();
             this.grpFavoriler = new DevExpress.XtraEditors.TileGroup();
             ((System.ComponentModel.ISupportInitialize)(this.searchControl.Properties)).BeginInit();
@@ -28,13 +29,31 @@ namespace WinBeyazEsya.Presentation.WinForms.UserControls
             this.searchControl.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.searchControl.Location = new System.Drawing.Point(260, 40);
             this.searchControl.Name = "searchControl";
-            this.searchControl.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 11F);
+            this.searchControl.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 14F);
             this.searchControl.Properties.Appearance.Options.UseFont = true;
             this.searchControl.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(86)))), ((int)(((byte)(156)))), ((int)(((byte)(227)))));
             this.searchControl.Properties.AppearanceFocused.Options.UseBorderColor = true;
-            this.searchControl.Properties.NullValuePrompt = "Hızlı arama yapın...";
-            this.searchControl.Size = new System.Drawing.Size(480, 38);
+            this.searchControl.Properties.AutoHeight = false;
+            this.searchControl.Properties.ShowClearButton = true;
+            this.searchControl.Properties.ShowSearchButton = true;
+            this.searchControl.Properties.NullValuePrompt = "Tüm sistemde arama yapın... (Menüler ve Tanımlar)";
+            this.searchControl.Size = new System.Drawing.Size(600, 45);
             this.searchControl.TabIndex = 0;
+            // 
+            // lblTitle
+            // 
+            this.lblTitle.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lblTitle.Appearance.BackColor = System.Drawing.Color.Transparent;
+            this.lblTitle.Appearance.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblTitle.Appearance.ForeColor = System.Drawing.Color.White;
+            this.lblTitle.Appearance.Options.UseBackColor = true;
+            this.lblTitle.Appearance.Options.UseFont = true;
+            this.lblTitle.Appearance.Options.UseForeColor = true;
+            this.lblTitle.Location = new System.Drawing.Point(260, 85); // Arama çubuğunun biraz altında
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(200, 25);
+            this.lblTitle.TabIndex = 2;
+            this.lblTitle.Text = "Hızlı Erişim (Favoriler)";
             // 
             // tileControl
             // 
@@ -48,14 +67,21 @@ namespace WinBeyazEsya.Presentation.WinForms.UserControls
             this.tileControl.LookAndFeel.Style = DevExpress.LookAndFeel.LookAndFeelStyle.Flat;
             this.tileControl.BackColor = System.Drawing.Color.Transparent;
             
-            // 🚨 İKİNCİ GÜVENLİK KATMANI: Arka plan resmini doğrudan TileControl'e de atıyoruz!
+            // 🚨 UCUZ İMLEÇ İPTALİ: Kurumsal default fare oku
+            this.tileControl.Cursor = System.Windows.Forms.Cursors.Default;
+            this.tileControl.BackColor = System.Drawing.Color.Transparent;
+            
+            // 🚨 TILECONTROL SCROLL GARANTİSİ
+            this.tileControl.ScrollMode = DevExpress.XtraEditors.TileControlScrollMode.ScrollBar;
+            
+            // 🚨 İKİNCİ GÜVENLİK KATMANI
             this.tileControl.BackgroundImage = global::WinBeyazEsya.Presentation.WinForms.Properties.Resources.winbeyazesya_arkaplan;
             this.tileControl.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             
             this.tileControl.IndentBetweenItems = 20;
             this.tileControl.IndentBetweenGroups = 20;
             
-            // 🚨 TILEITEM GERÇEK GLASSMORPHISM (Sadece kutucuklarda saydam siyah)
+            // 🚨 TILEITEM GERÇEK GLASSMORPHISM
             this.tileControl.AppearanceItem.Normal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.tileControl.AppearanceItem.Normal.BorderColor = System.Drawing.Color.Transparent;
             this.tileControl.AppearanceItem.Normal.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
@@ -96,22 +122,24 @@ namespace WinBeyazEsya.Presentation.WinForms.UserControls
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             
-            // 🚨 Ana arka plan resmi (Birinci Güvenlik Katmanı)
             this.BackgroundImage = global::WinBeyazEsya.Presentation.WinForms.Properties.Resources.winbeyazesya_arkaplan;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.BackColor = System.Drawing.Color.Transparent;
             
+            this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.searchControl);
             this.Controls.Add(this.tileControl);
             this.Name = "MasaustuUserControl";
             this.Size = new System.Drawing.Size(1000, 600);
             ((System.ComponentModel.ISupportInitialize)(this.searchControl.Properties)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
         }
 
         #endregion
 
         private DevExpress.XtraEditors.SearchControl searchControl;
+        private DevExpress.XtraEditors.LabelControl lblTitle;
         private DevExpress.XtraEditors.TileControl tileControl;
         private DevExpress.XtraEditors.TileGroup grpFavoriler;
     }

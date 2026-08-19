@@ -237,6 +237,18 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
                 }
             };
 
+            // 🚨 Global Arama (Accordion) Entegrasyonu
+            DevExpress.XtraEditors.SearchControl _dummyAccordionSearch = new DevExpress.XtraEditors.SearchControl();
+            _dummyAccordionSearch.Client = accordionControl1;
+
+            _masaustuControl.SearchTextChanged += (s, text) =>
+            {
+                if (accordionControl1 != null)
+                {
+                    _dummyAccordionSearch.Text = text;
+                }
+            };
+
             // Controls'a ekle ve Z-order'da btnAnaFormResim'in önüne getir
             this.Controls.Add(_masaustuControl);
             _masaustuControl.BringToFront();
