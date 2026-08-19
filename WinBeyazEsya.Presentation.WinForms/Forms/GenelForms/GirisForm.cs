@@ -70,7 +70,15 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
                 var manifest = await _autoUpdateService.CheckForUpdatesAsync();
                 string currentVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "1.0.0.0";
 
-                if (manifest != null && manifest.Version != currentVersion)
+                bool shouldUpdate = false;
+                if (manifest != null && 
+                    Version.TryParse(manifest.Version, out Version serverVersion) &&
+                    Version.TryParse(currentVersion, out Version localVersion))
+                {
+                    shouldUpdate = serverVersion > localVersion;
+                }
+
+                if (shouldUpdate)
                 {
                     Serilog.Log.Information("Yeni versiyon bulundu. Mevcut: {CurrentVersion}, Yeni: {NewVersion}", currentVersion, manifest.Version);
                     this.Enabled = false; // Kullanıcının giriş yapmasını engelle
@@ -156,8 +164,33 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
                 lblVersiyon.Text = "Versiyon: 1.0.0.0";
             }
 
-            // 2. Lisans Formatlaması (Karmaşık hash'i UI'da gösterme)
-            WinBeyazEsya.Domain.Enums.LicenseStatus status = _licenseService.CheckLicense(out string message);
+            // 2. Lisans Formatlaması ve Transient Fault Handling (Retry)
+            WinBeyazEsya.Domain.Enums.LicenseStatus status = WinBeyazEsya.Domain.Enums.LicenseStatus.Invalid;
+            string message = "";
+            
+            for (int i = 1; i <= 3; i++)
+            {
+                try
+                {
+                    this.Text = $"WinBeyazEsya - Sunucuya bağlanılıyor... (Deneme {i}/3)";
+                    status = await Task.Run(() => _licenseService.CheckLicense(out message));
+                    this.Text = "WinBeyazEsya - Giriş Yap"; // Bağlantı başarılıysa düzelt
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    if (i == 3)
+                    {
+                        this.Text = "WinBeyazEsya - Bağlantı Hatası";
+                        DevExpress.XtraEditors.XtraMessageBox.Show("Veritabanı bağlantısı kurulamadı, lütfen ağınızı kontrol edin.\nHata: " + ex.Message, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        message = "Bağlantı Hatası";
+                    }
+                    else
+                    {
+                        await Task.Delay(3000);
+                    }
+                }
+            }
 
             if (status == WinBeyazEsya.Domain.Enums.LicenseStatus.Valid)
             {
@@ -253,81 +286,93 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
 
             long tenantId = Convert.ToInt64(gluSirket.EditValue);
 
-            try
+            for (int i = 1; i <= 3; i++)
             {
-                // Şifre doğrulama ve giriş denemesi (Master DB üzerinden)
-                var loginResult = await _authService.LoginAsync(username, password, tenantId);
-
-                if (loginResult != null && loginResult.IsSuccess)
+                try
                 {
-                    Serilog.Log.Information("Giriş başarılı. Kullanıcı: {Username}, Şirket ID: {TenantId}", username, tenantId);
-                    // Tenant Routing: Seçili şirketin veritabanı bağlantı cümlesini aktif (Scoped) Context'e ayarla
-                    // _tenantService.SetCurrentTenantConnectionString(loginResult.TenantConnectionString);
+                    this.Text = $"WinBeyazEsya - Sunucuya bağlanılıyor... (Deneme {i}/3)";
+                    
+                    // Şifre doğrulama ve giriş denemesi (Master DB üzerinden)
+                    var loginResult = await _authService.LoginAsync(username, password, tenantId);
 
-                    // Donanım bilgisi alarak Terminal / Cihaz yetki kontrolü (Hardware Fingerprint)
-                    string fingerprint = _hardwareService.GetMachineFingerprint();
-                    bool isTerminalValid = await _authService.CheckTerminalAccessAsync(username, fingerprint, tenantId);
-
-                    if (!isTerminalValid)
+                    if (loginResult != null && loginResult.IsSuccess)
                     {
-                        Messages.HataBasligi("Bu bilgisayardan/cihazdan (Terminal) bu şirkete giriş yapma yetkiniz bulunmamaktadır.", "Erişim Engellendi");
-                        return;
-                    }
+                        Serilog.Log.Information("Giriş başarılı. Kullanıcı: {Username}, Şirket ID: {TenantId}", username, tenantId);
 
-                    // Oturum (Session) bilgilerini Master DB'ye kaydet
-                    string ipAddress = WinBeyazEsya.Domain.Helpers.NetworkHelper.GetLocalIpAddress();
-                    string pcName = Environment.MachineName;
-                    await _sessionService.StartSessionAsync(loginResult.UserId, ipAddress, pcName);
+                        // Donanım bilgisi alarak Terminal / Cihaz yetki kontrolü (Hardware Fingerprint)
+                        string fingerprint = _hardwareService.GetMachineFingerprint();
+                        bool isTerminalValid = await _authService.CheckTerminalAccessAsync(username, fingerprint, tenantId);
 
-                    if (loginResult.SessionId.HasValue)
-                    {
-                        Program.CurrentSessionId = loginResult.SessionId.Value;
-                    }
+                        if (!isTerminalValid)
+                        {
+                            this.Text = "WinBeyazEsya - Giriş Yap";
+                            Messages.HataBasligi("Bu bilgisayardan/cihazdan (Terminal) bu şirkete giriş yapma yetkiniz bulunmamaktadır.", "Erişim Engellendi");
+                            return;
+                        }
 
-                    // Başarılı Girişte Hafızaya Yazma (Settings Cache)
-                    if (chcBeniHatirla.Checked)
-                    {
-                        _appConfigService.SetLastLoginUser(username);
-                        _appConfigService.SetLastTenantId(tenantId);
+                        // Oturum (Session) bilgilerini Master DB'ye kaydet
+                        string ipAddress = WinBeyazEsya.Domain.Helpers.NetworkHelper.GetLocalIpAddress();
+                        string pcName = Environment.MachineName;
+                        await _sessionService.StartSessionAsync(loginResult.UserId, ipAddress, pcName);
+
+                        if (loginResult.SessionId.HasValue)
+                        {
+                            Program.CurrentSessionId = loginResult.SessionId.Value;
+                        }
+
+                        // Başarılı Girişte Hafızaya Yazma (Settings Cache)
+                        if (chcBeniHatirla.Checked)
+                        {
+                            _appConfigService.SetLastLoginUser(username);
+                            _appConfigService.SetLastTenantId(tenantId);
+                        }
+                        else
+                        {
+                            _appConfigService.SetLastLoginUser(string.Empty);
+                            _appConfigService.SetLastTenantId(0);
+                        }
+
+                        var currentTenantService = Program.ServiceProvider.GetRequiredService<ICurrentTenantService>();
+                        currentTenantService.TenantId = tenantId;
+                        currentTenantService.UserId = loginResult.UserId;
+                        currentTenantService.TenantName = gluSirket.Text;
+
+                        this.Text = "WinBeyazEsya - Giriş Yap";
+                        this.Hide();
+
+                        var anaForm = Program.ServiceProvider.GetRequiredService<WinBeyazEsya.Presentation.WinForms.Forms.GenelForms.AnaForm>();
+                        anaForm.Show();
                     }
                     else
                     {
-                        _appConfigService.SetLastLoginUser(string.Empty);
-                        _appConfigService.SetLastTenantId(0);
-                    }
-
-                    var currentTenantService = Program.ServiceProvider.GetRequiredService<ICurrentTenantService>();
-                    currentTenantService.TenantId = tenantId;
-                    currentTenantService.UserId = loginResult.UserId;
-                    currentTenantService.TenantName = gluSirket.Text;
-                    currentTenantService.ConnectionString = loginResult.TenantConnectionString;
-
-                    this.Hide();
-
-                    var anaForm = Program.ServiceProvider.GetRequiredService<WinBeyazEsya.Presentation.WinForms.Forms.GenelForms.AnaForm>();
-                    anaForm.Show();
-                }
-                else
-                {
-                    if (loginResult != null && !string.IsNullOrEmpty(loginResult.ErrorMessage))
-                    {
-                        Serilog.Log.Warning("Giriş başarısız. Kullanıcı: {Username}, Neden: {ErrorMessage}", username, loginResult.ErrorMessage);
-                        Messages.UyariBasligi(loginResult.ErrorMessage, "Uyarı");
-                    }
-                    else
-                    {
+                        this.Text = "WinBeyazEsya - Giriş Yap";
                         Serilog.Log.Warning("Giriş başarısız. Kullanıcı adı veya şifre hatalı. Kullanıcı: {Username}", username);
                         Messages.HataBasligi("Kullanıcı adı veya şifre hatalı.", "Hata");
                     }
+                    
+                    break; // Başarılı veya validation hatası durumunda döngüden çık
                 }
-            }
-            catch (Exception ex)
-            {
-                Serilog.Log.Error(ex, "Giriş işlemi sırasında beklenmeyen bir hata oluştu. Kullanıcı: {Username}", username);
-                if (ex.Message.StartsWith("Güvenlik İhlali"))
-                    Messages.HataBasligi(ex.Message, "Erişim Engellendi");
-                else
-                    Messages.HataBasligi("Giriş yapılırken beklenmeyen bir hata oluştu: " + ex.Message, "Hata");
+                catch (Exception ex)
+                {
+                    if (i == 3 || ex.Message.StartsWith("Güvenlik İhlali") || ex.Message.Contains("Kullanıcı adı veya şifre hatalı"))
+                    {
+                        this.Text = "WinBeyazEsya - Giriş Yap";
+                        Serilog.Log.Error(ex, "Giriş işlemi sırasında beklenmeyen bir hata oluştu. Kullanıcı: {Username}", username);
+                        
+                        if (ex.Message.StartsWith("Güvenlik İhlali"))
+                            Messages.HataBasligi(ex.Message, "Erişim Engellendi");
+                        else if (ex.Message.Contains("Kullanıcı adı veya şifre hatalı"))
+                            Messages.HataBasligi(ex.Message, "Hata");
+                        else
+                            Messages.HataBasligi("Veritabanı bağlantısı kurulamadı, lütfen ağınızı kontrol edin.\nHata: " + ex.Message, "Hata");
+                        
+                        return; // 3 deneme de bittiyse veya kritik/beklenen hataysa çık
+                    }
+                    else
+                    {
+                        await Task.Delay(3000); // 3 saniye bekle ve tekrar dene
+                    }
+                }
             }
         }
 
