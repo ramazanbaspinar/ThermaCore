@@ -1,4 +1,4 @@
-﻿using WinBeyazEsya.Application.DTOs.Base;
+using WinBeyazEsya.Application.DTOs.Base;
 
 namespace WinBeyazEsya.Application.DTOs.Management;
 
@@ -8,6 +8,9 @@ public class UserDto : BaseDto
     public string LastName { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;
     public string Password { get; set; } = string.Empty;
+
+    public byte[]? PasswordHash { get; set; }
+    public byte[]? PasswordSalt { get; set; }
 
     public long UserRoleId { get; set; }
     public string RoleName { get; set; } = string.Empty;

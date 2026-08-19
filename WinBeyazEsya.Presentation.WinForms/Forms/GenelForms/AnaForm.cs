@@ -86,6 +86,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             if (aceKullaniciTanimlari != null) aceKullaniciTanimlari.Click += KullaniciTanimlari_Click;
             if (aceYetkiGruplariRoller != null) aceYetkiGruplariRoller.Click += miYetkiGruplariRoller_Click;
             if (aceTerminalCihazYonetimi != null) aceTerminalCihazYonetimi.Click += miTerminalYonetim_Click;
+            if (aceParolaDegistir != null) aceParolaDegistir.Click += aceParolaDegistir_Click;
             if (btnFabrikaDegistir != null) btnFabrikaDegistir.ItemClick += btnFabrikaDegistir_ItemClick;
             if (aceKodSablonlari != null) aceKodSablonlari.Click += miCodeTemplatelari_Click;
             if (aceGenelParametreler != null) aceGenelParametreler.Click += miGenelParametreler_Click;
@@ -1206,6 +1207,15 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
         private void miTerminalYonetim_Click(object? sender, EventArgs e)
         {
             FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.TerminalForms.TerminalListForm>();
+        }
+
+        private void aceParolaDegistir_Click(object? sender, EventArgs e)
+        {
+            var userService = _serviceProvider.GetRequiredService<WinBeyazEsya.Application.Interfaces.Management.IUserService>();
+            using (var form = new WinBeyazEsya.Presentation.WinForms.Forms.GenelForms.ParolaDegistirForm(userService, _currentTenantService.UserId))
+            {
+                form.ShowDialog(this);
+            }
         }
 
         private void BtnMusteriCariKartlar_Click(object? sender, EventArgs e)
