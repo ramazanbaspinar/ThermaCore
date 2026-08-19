@@ -49,6 +49,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             this.txtKullaniciAdi.Leave += txtKullaniciAdi_Leave;
             this.gluSirket.EditValueChanged += gluSirket_EditValueChanged;
             this.picExit.Click += picExit_Click;
+            this.linkSifremiUnuttum.Click += linkSifremiUnuttum_Click;
         }
 
         private async void GirisForm_Load(object? sender, EventArgs e)
@@ -353,6 +354,12 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
         private void picExit_Click(object? sender, EventArgs e)
         {
             System.Windows.Forms.Application.ExitThread();
+        }
+
+        private void linkSifremiUnuttum_Click(object? sender, EventArgs e)
+        {
+            var sifremiUnuttumForm = Program.ServiceProvider.GetRequiredService<WinBeyazEsya.Presentation.WinForms.Forms.GenelForms.SifremiUnuttumForm>();
+            sifremiUnuttumForm.ShowDialog();
         }
 
         public string GetConnectionString()

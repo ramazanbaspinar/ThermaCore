@@ -141,6 +141,7 @@ internal static class Program
                         services.AddInfrastructureServices(connectionString);
 
                         services.AddTransient<GirisForm>();
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.GenelForms.SifremiUnuttumForm>();
                         services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.GenelForms.AnaForm>();
                         services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.SirketForms.SirketListForm>();
                         services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.SirketForms.SirketEditForm>();

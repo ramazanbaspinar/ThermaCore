@@ -34,6 +34,7 @@ public static class ApplicationServiceRegistration
         services.AddScoped<ISystemParameterService, SystemParameterManager>();
         services.AddScoped<IValidator<WinBeyazEsya.Application.DTOs.Management.CodeTemplateDto>, WinBeyazEsya.Application.Validations.Management.CodeTemplateValidator>();
         services.AddScoped<IValidator<WinBeyazEsya.Application.DTOs.Management.CodeLogDto>, WinBeyazEsya.Application.Validations.Management.CodeLogValidator>();
+        services.AddScoped<IValidator<WinBeyazEsya.Application.DTOs.Management.EmailParameterDto>, WinBeyazEsya.Application.Validations.Management.EmailParameterValidator>();
         services.AddScoped<IValidator<WinBeyazEsya.Application.DTOs.Management.MaliyetParametreDto>, WinBeyazEsya.Application.Validations.Management.MaliyetParametreValidator>();
         services.AddScoped<IMaliyetParametreService, MaliyetParametreManager>();
 

@@ -35,7 +35,7 @@
             lblVersiyon = new DevExpress.XtraEditors.LabelControl();
             pictureBox1 = new PictureBox();
             panel1 = new Panel();
-            linkSifremi = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyHyperlinkLabelControl();
+            linkSifremiUnuttum = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyHyperlinkLabelControl();
             chcBeniHatirla = new DevExpress.XtraEditors.CheckEdit();
             picExit = new DevExpress.XtraEditors.PictureEdit();
             panel5 = new Panel();
@@ -101,7 +101,7 @@
             lblLisansKalanGun.Appearance.Options.UseForeColor = true;
             lblLisansKalanGun.Location = new Point(4, 217);
             lblLisansKalanGun.Name = "lblLisansKalanGun";
-            lblLisansKalanGun.Size = new Size(69, 13);
+            lblLisansKalanGun.Size = new Size(76, 13);
             lblLisansKalanGun.TabIndex = 14;
             lblLisansKalanGun.Text = "Lisans Durumu";
             // 
@@ -111,7 +111,7 @@
             lblVersiyon.Appearance.Options.UseForeColor = true;
             lblVersiyon.Location = new Point(4, 199);
             lblVersiyon.Name = "lblVersiyon";
-            lblVersiyon.Size = new Size(105, 13);
+            lblVersiyon.Size = new Size(109, 13);
             lblVersiyon.TabIndex = 12;
             lblVersiyon.Text = "Versiyon Yükleniyor...";
             // 
@@ -126,7 +126,7 @@
             // panel1
             // 
             panel1.BackColor = Color.White;
-            panel1.Controls.Add(linkSifremi);
+            panel1.Controls.Add(linkSifremiUnuttum);
             panel1.Controls.Add(chcBeniHatirla);
             panel1.Controls.Add(picExit);
             panel1.Controls.Add(panel5);
@@ -139,40 +139,40 @@
             panel1.Size = new Size(259, 250);
             panel1.TabIndex = 3;
             // 
-            // linkSifremi
+            // linkSifremiUnuttum
             // 
-            linkSifremi.Appearance.ForeColor = Color.FromArgb(238, 29, 35);
-            linkSifremi.Appearance.LinkColor = Color.FromArgb(238, 29, 35);
-            linkSifremi.Appearance.Options.UseForeColor = true;
-            linkSifremi.Appearance.Options.UseLinkColor = true;
-            linkSifremi.AppearanceDisabled.ForeColor = Color.FromArgb(238, 29, 35);
-            linkSifremi.AppearanceDisabled.LinkColor = Color.FromArgb(238, 29, 35);
-            linkSifremi.AppearanceDisabled.Options.UseForeColor = true;
-            linkSifremi.AppearanceDisabled.Options.UseLinkColor = true;
-            linkSifremi.AppearanceHovered.ForeColor = Color.FromArgb(238, 29, 35);
-            linkSifremi.AppearanceHovered.LinkColor = Color.FromArgb(238, 29, 35);
-            linkSifremi.AppearanceHovered.Options.UseForeColor = true;
-            linkSifremi.AppearanceHovered.Options.UseLinkColor = true;
-            linkSifremi.AppearancePressed.ForeColor = Color.FromArgb(238, 29, 35);
-            linkSifremi.AppearancePressed.LinkColor = Color.FromArgb(238, 29, 35);
-            linkSifremi.AppearancePressed.Options.UseForeColor = true;
-            linkSifremi.AppearancePressed.Options.UseLinkColor = true;
-            linkSifremi.Cursor = Cursors.Hand;
-            linkSifremi.LineColor = Color.FromArgb(238, 29, 35);
-            linkSifremi.LinkBehavior = LinkBehavior.NeverUnderline;
-            linkSifremi.Location = new Point(6, 223);
-            linkSifremi.Name = "linkSifremi";
-            linkSifremi.Size = new Size(74, 13);
-            linkSifremi.StatusBarAciklama = null;
-            linkSifremi.TabIndex = 14;
-            linkSifremi.Text = "şifremi unuttum";
+            linkSifremiUnuttum.Appearance.ForeColor = Color.FromArgb(238, 29, 35);
+            linkSifremiUnuttum.Appearance.LinkColor = Color.FromArgb(238, 29, 35);
+            linkSifremiUnuttum.Appearance.Options.UseForeColor = true;
+            linkSifremiUnuttum.Appearance.Options.UseLinkColor = true;
+            linkSifremiUnuttum.AppearanceDisabled.ForeColor = Color.FromArgb(238, 29, 35);
+            linkSifremiUnuttum.AppearanceDisabled.LinkColor = Color.FromArgb(238, 29, 35);
+            linkSifremiUnuttum.AppearanceDisabled.Options.UseForeColor = true;
+            linkSifremiUnuttum.AppearanceDisabled.Options.UseLinkColor = true;
+            linkSifremiUnuttum.AppearanceHovered.ForeColor = Color.FromArgb(238, 29, 35);
+            linkSifremiUnuttum.AppearanceHovered.LinkColor = Color.FromArgb(238, 29, 35);
+            linkSifremiUnuttum.AppearanceHovered.Options.UseForeColor = true;
+            linkSifremiUnuttum.AppearanceHovered.Options.UseLinkColor = true;
+            linkSifremiUnuttum.AppearancePressed.ForeColor = Color.FromArgb(238, 29, 35);
+            linkSifremiUnuttum.AppearancePressed.LinkColor = Color.FromArgb(238, 29, 35);
+            linkSifremiUnuttum.AppearancePressed.Options.UseForeColor = true;
+            linkSifremiUnuttum.AppearancePressed.Options.UseLinkColor = true;
+            linkSifremiUnuttum.Cursor = Cursors.Hand;
+            linkSifremiUnuttum.LineColor = Color.FromArgb(238, 29, 35);
+            linkSifremiUnuttum.LinkBehavior = LinkBehavior.NeverUnderline;
+            linkSifremiUnuttum.Location = new Point(6, 223);
+            linkSifremiUnuttum.Name = "linkSifremiUnuttum";
+            linkSifremiUnuttum.Size = new Size(82, 13);
+            linkSifremiUnuttum.StatusBarAciklama = null;
+            linkSifremiUnuttum.TabIndex = 14;
+            linkSifremiUnuttum.Text = "şifremi unuttum";
             // 
             // chcBeniHatirla
             // 
             chcBeniHatirla.Location = new Point(6, 198);
             chcBeniHatirla.Name = "chcBeniHatirla";
             chcBeniHatirla.Properties.Caption = "Beni Hatırla";
-            chcBeniHatirla.Size = new Size(92, 19);
+            chcBeniHatirla.Size = new Size(92, 20);
             chcBeniHatirla.TabIndex = 0;
             // 
             // picExit
@@ -216,7 +216,7 @@
             gluSirket.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
             gluSirket.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] { new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Id", "Id", 20, DevExpress.Utils.FormatType.None, "", false, DevExpress.Utils.HorzAlignment.Default, DevExpress.Data.ColumnSortOrder.None, DevExpress.Utils.DefaultBoolean.Default), new DevExpress.XtraEditors.Controls.LookUpColumnInfo("CompanyName", "Şirket Adı") });
             gluSirket.Properties.NullText = " ";
-            gluSirket.Size = new Size(222, 22);
+            gluSirket.Size = new Size(222, 24);
             gluSirket.StatusBarAciklama = null;
             gluSirket.StatusBarKisaYol = "F4 :";
             gluSirket.StatusBarKisaYolAciklama = null;
@@ -234,7 +234,7 @@
             // btnGiris
             // 
             btnGiris.Appearance.BackColor = Color.FromArgb(238, 29, 35);
-            btnGiris.Appearance.Font = new Font("Tahoma", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            btnGiris.Appearance.Font = new Font("Tahoma", 9.75F, FontStyle.Bold);
             btnGiris.Appearance.Options.UseBackColor = true;
             btnGiris.Appearance.Options.UseFont = true;
             btnGiris.Location = new Point(179, 198);
@@ -260,7 +260,7 @@
             txtSifre.Properties.Appearance.ForeColor = Color.FromArgb(238, 29, 35);
             txtSifre.Properties.Appearance.Options.UseForeColor = true;
             txtSifre.Properties.UseSystemPasswordChar = true;
-            txtSifre.Size = new Size(222, 20);
+            txtSifre.Size = new Size(222, 22);
             txtSifre.TabIndex = 0;
             txtSifre.Tag = "Password";
             // 
@@ -291,7 +291,7 @@
             txtKullaniciAdi.Name = "txtKullaniciAdi";
             txtKullaniciAdi.Properties.Appearance.ForeColor = Color.FromArgb(238, 29, 35);
             txtKullaniciAdi.Properties.Appearance.Options.UseForeColor = true;
-            txtKullaniciAdi.Size = new Size(222, 20);
+            txtKullaniciAdi.Size = new Size(222, 22);
             txtKullaniciAdi.TabIndex = 0;
             // 
             // pictureEdit1
@@ -357,7 +357,7 @@
         private DevExpress.XtraEditors.PictureEdit pictureEdit3;
         private DevExpress.XtraEditors.CheckEdit chcBeniHatirla;
         private DevExpress.XtraEditors.LabelControl lblVersiyon;
-        private WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyHyperlinkLabelControl linkSifremi;
+        private WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyHyperlinkLabelControl linkSifremiUnuttum;
         private DevExpress.XtraEditors.LabelControl lblLisansKalanGun;
         private UserControls.Controls.MyLookUpEdit gluSirket;
         private UserControls.Controls.MyPictureEdit myPictureEdit1;
