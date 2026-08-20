@@ -36,7 +36,7 @@ namespace WinBeyazEsya.Presentation.WinForms.UserControls
             this.searchControl.Properties.AutoHeight = false;
             this.searchControl.Properties.ShowClearButton = true;
             this.searchControl.Properties.ShowSearchButton = true;
-            this.searchControl.Properties.NullValuePrompt = "Tüm sistemde arama yapın... (Menüler ve Tanımlar)";
+            this.searchControl.Properties.NullValuePrompt = string.Empty;
             this.searchControl.Size = new System.Drawing.Size(600, 45);
             this.searchControl.TabIndex = 0;
             // 

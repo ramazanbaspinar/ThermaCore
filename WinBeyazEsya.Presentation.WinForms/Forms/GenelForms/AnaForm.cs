@@ -245,7 +245,24 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             {
                 if (accordionControl1 != null)
                 {
+                    // 1. UI Çizimini durdur (Kasmayı/Titremeyi engeller)
+                    accordionControl1.BeginUpdate();
+
+                    // 2. Önce Filtreyi Uygula
                     _dummyAccordionSearch.Text = text;
+
+                    // 3. Sonra Kalan Sonuçların Durumunu Ayarla
+                    if (!string.IsNullOrWhiteSpace(text))
+                    {
+                        accordionControl1.ExpandAll();
+                    }
+                    else
+                    {
+                        accordionControl1.CollapseAll();
+                    }
+
+                    // 4. UI Çizimini devam ettir (Sadece nihai kusursuz sonucu göster)
+                    accordionControl1.EndUpdate();
                 }
             };
 
