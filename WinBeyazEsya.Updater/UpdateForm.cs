@@ -222,13 +222,25 @@ namespace WinBeyazEsya.Updater
                             }
                             break;
                         }
-                        catch (IOException)
+                        catch (Exception ex) when (ex is IOException || ex is UnauthorizedAccessException)
                         {
-                            await GracefulKillAppAsync("WinBeyazEsya", true);
-                        }
-                        catch (UnauthorizedAccessException)
-                        {
-                            await GracefulKillAppAsync("WinBeyazEsya", true);
+                            try
+                            {
+                                // ULTIMATE HACK: Kilitli dosyayı yeniden adlandır (.locked)
+                                if (File.Exists(localPath))
+                                {
+                                    string lockedPath = localPath + ".locked_" + Guid.NewGuid().ToString().Substring(0, 5);
+                                    File.Move(localPath, lockedPath);
+                                    
+                                    File.Copy(tempPath, localPath, true);
+                                    copied = true;
+                                    break;
+                                }
+                            }
+                            catch
+                            {
+                                await GracefulKillAppAsync("WinBeyazEsya", true);
+                            }
                         }
                     }
 
@@ -384,6 +396,14 @@ namespace WinBeyazEsya.Updater
                     p.WaitForExit(2000);
                 }
                 catch { }
+            }
+
+            // PROCESS KILL VE HANDLE RELEASE BEKLEMESİ (Server-Grade Fix)
+            for (int i = 0; i < 6; i++)
+            {
+                if (Process.GetProcessesByName(processName).Length == 0)
+                    break;
+                await Task.Delay(500);
             }
         }
 
