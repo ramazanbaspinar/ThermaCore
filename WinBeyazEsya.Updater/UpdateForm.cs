@@ -224,11 +224,11 @@ namespace WinBeyazEsya.Updater
                         }
                         catch (IOException)
                         {
-                            await GracefulKillAppAsync("WinBeyazEsya.Presentation.WinForms", true);
+                            await GracefulKillAppAsync("WinBeyazEsya", true);
                         }
                         catch (UnauthorizedAccessException)
                         {
-                            await GracefulKillAppAsync("WinBeyazEsya.Presentation.WinForms", true);
+                            await GracefulKillAppAsync("WinBeyazEsya", true);
                         }
                     }
 

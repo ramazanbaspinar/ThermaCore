@@ -440,9 +440,9 @@
     <Description>WinBeyazEsya ERP
 </Description>
     <Copyright>© 2026 Ramazan Başpınar. Tüm Hakları Saklıdır.</Copyright>
-    <AssemblyVersion>26.08.19.0</AssemblyVersion>
-    <FileVersion>26.08.19.0</FileVersion>
-    <Version>26.08.19.0</Version>
+    <AssemblyVersion>26.08.20.0</AssemblyVersion>
+    <FileVersion>26.08.20.0</FileVersion>
+    <Version>26.08.20.0</Version>
     <ApplicationIcon>itimat_logo_exe.ico</ApplicationIcon>
   </PropertyGroup>
 
