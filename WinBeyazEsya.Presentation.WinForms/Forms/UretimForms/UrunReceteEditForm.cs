@@ -426,7 +426,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                     bool isOpen = false;
                     if (e.Column.FieldName == "CoatingAmount" || e.Column.FieldName == "CoatingMaterialId")
                     {
-                        if (row.SurfaceCoatingType != "Diger") isOpen = true;
+                        if (row.SurfaceCoatingType != "Diger" && row.SurfaceCoatingType != "Kaplamasiz") isOpen = true;
                     }
                     else if (e.Column.FieldName == "ManualCoatingCost")
                     {
@@ -478,7 +478,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
             {
                 if (row.MaterialType != MaterialType.MetalAndSheet)
                     e.Cancel = true;
-                else if (row.SurfaceCoatingType == "Diger")
+                else if (row.SurfaceCoatingType == "Diger" || row.SurfaceCoatingType == "Kaplamasiz")
                     e.Cancel = true;
             }
             else if (view.FocusedColumn.FieldName == "ManualCoatingCost")
@@ -509,6 +509,16 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                     e.DisplayText = $"{Convert.ToDecimal(e.Value):n4} {row.CurrencyCode}";
                 }
             }
+            else if (e.Column.FieldName == "SurfaceCoatingType")
+            {
+                if (e.Value != null)
+                {
+                    if (Enum.TryParse<WinBeyazEsya.Domain.Enums.SurfaceCoatingType>(e.Value.ToString(), out var enumVal))
+                    {
+                        e.DisplayText = GetEnumDescription(enumVal);
+                    }
+                }
+            }
         }
 
         private void MyGridView1_CellValueChanged(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)
@@ -528,7 +538,11 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                 if (row.MaterialType == MaterialType.MetalAndSheet)
                 {
                     decimal coatingCost = 0;
-                    if (row.SurfaceCoatingType == "Diger")
+                    if (row.SurfaceCoatingType == "Kaplamasiz")
+                    {
+                        coatingCost = 0;
+                    }
+                    else if (row.SurfaceCoatingType == "Diger")
                     {
                         coatingCost = row.ManualCoatingCost;
                     }

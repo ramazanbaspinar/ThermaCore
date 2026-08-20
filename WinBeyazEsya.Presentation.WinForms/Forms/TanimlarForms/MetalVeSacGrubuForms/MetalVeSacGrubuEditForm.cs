@@ -125,7 +125,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.MetalVeSacGrubu
 
             if (cmbYuzeyKaplamaTipi != null)
             {
-                cmbYuzeyKaplamaTipi.Properties.Items.AddRange(Enum.GetValues(typeof(Domain.Enums.SurfaceCoatingType)));
+                cmbYuzeyKaplamaTipi.Properties.Items.AddRange(WinBeyazEsya.Domain.Extensions.EnumExtensions.GetEnumDescriptionList<Domain.Enums.SurfaceCoatingType>().ToArray());
             }
         }
 
@@ -151,7 +151,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.MetalVeSacGrubu
 
             if (cmbYuzeyKaplamaTipi != null)
             {
-                cmbYuzeyKaplamaTipi.EditValue = entity.SurfaceCoatingType;
+                cmbYuzeyKaplamaTipi.EditValue = WinBeyazEsya.Domain.Extensions.EnumExtensions.ToName(entity.SurfaceCoatingType);
             }
 
             txtAciklama.Text = entity.Description;
@@ -202,7 +202,9 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.MetalVeSacGrubu
 
             if (cmbYuzeyKaplamaTipi != null && cmbYuzeyKaplamaTipi.EditValue != null)
             {
-                dto.SurfaceCoatingType = (Domain.Enums.SurfaceCoatingType)cmbYuzeyKaplamaTipi.EditValue;
+                var parsedEnum = WinBeyazEsya.Domain.Extensions.EnumExtensions.ToEnum<Domain.Enums.SurfaceCoatingType>(cmbYuzeyKaplamaTipi.EditValue.ToString());
+                if (parsedEnum.HasValue)
+                    dto.SurfaceCoatingType = parsedEnum.Value;
             }
 
             CurrentEntity = dto;

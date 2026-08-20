@@ -1,8 +1,11 @@
+using System.ComponentModel;
+
 namespace WinBeyazEsya.Domain.Enums;
 
 public enum SurfaceCoatingType
 {
-    Boya = 1,
-    Emaye = 2,
-    Diger = 3
+    [Description("Boya")] Boya = 1,
+    [Description("Emaye")] Emaye = 2,
+    [Description("Diğer")] Diger = 3,
+    [Description("Kaplamasız")] Kaplamasiz = 4,
 }
