@@ -110,6 +110,8 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
             barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
             barDockControlRight = new DevExpress.XtraBars.BarDockControl();
+            aceSatinalma = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            aceSatinalmaSiparisleri = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             ((System.ComponentModel.ISupportInitialize)xtraTabbedMdiManager).BeginInit();
             ((System.ComponentModel.ISupportInitialize)btnAnaFormResim.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)accordionControl1).BeginInit();
@@ -286,7 +288,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             // accordionControl1
             // 
             accordionControl1.Dock = DockStyle.Left;
-            accordionControl1.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] { aceFavoriler, aceTanimlar, aceMaliyet, aceUretim, aceAyarlar });
+            accordionControl1.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] { aceFavoriler, aceTanimlar, aceMaliyet, aceSatinalma, aceUretim, aceAyarlar });
             accordionControl1.Location = new Point(0, 33);
             accordionControl1.Name = "accordionControl1";
             accordionControl1.ScrollBarMode = DevExpress.XtraBars.Navigation.ScrollBarMode.Auto;
@@ -669,6 +671,18 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             barDockControlRight.Manager = barManager1;
             barDockControlRight.Size = new Size(0, 675);
             // 
+            // aceSatinalma
+            // 
+            aceSatinalma.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] { aceSatinalmaSiparisleri });
+            aceSatinalma.Name = "aceSatinalma";
+            aceSatinalma.Text = "Satınalma";
+            // 
+            // aceSatinalmaSiparisleri
+            // 
+            aceSatinalmaSiparisleri.Name = "aceSatinalmaSiparisleri";
+            aceSatinalmaSiparisleri.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            aceSatinalmaSiparisleri.Text = "Satınalma Siparişleri";
+            // 
             // AnaForm
             // 
             Appearance.BackColor = SystemColors.Control;
@@ -781,6 +795,8 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
         private DevExpress.XtraBars.Navigation.AccordionControlElement aceUlkeTanimlari;
         private DevExpress.XtraBars.Navigation.AccordionControlElement aceDepoTanimlari;
         private DevExpress.XtraBars.Navigation.AccordionControlElement aceParolaDegistir;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement aceSatinalma;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement aceSatinalmaSiparisleri;
     }
 }
 

@@ -147,4 +147,12 @@ public static class Permissions
         public const string Update = "DigerMalzemeGrubuMaliyetleri.Update";
         public const string Delete = "DigerMalzemeGrubuMaliyetleri.Delete";
     }
+
+    public static class PurchaseOrder
+    {
+        public const string View = "PurchaseOrder.View";
+        public const string Create = "PurchaseOrder.Create";
+        public const string Update = "PurchaseOrder.Update";
+        public const string Delete = "PurchaseOrder.Delete";
+    }
 }

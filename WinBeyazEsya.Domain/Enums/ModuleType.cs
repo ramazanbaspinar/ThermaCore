@@ -188,6 +188,16 @@ public enum ModuleType
     [RequiresCodeTemplate]
     Warehouse = 42,
 
+    // ANA MENÜ (Root)
+    [Description("Satınalma")]
+    Satinalma = 4000,
+
+    // ALT MODÜL (Ekran)
+    [Description("Satınalma Siparişleri")]
+    [ParentModule(Satinalma)]
+    [RequiresCodeTemplate]
+    SatinalmaSiparisleri = 43,
+
     // MODÜLLER (Ekranlar) - MALİYETLER
     [Description("Genel Giderler")]
     [ParentModule(Maliyetler)]

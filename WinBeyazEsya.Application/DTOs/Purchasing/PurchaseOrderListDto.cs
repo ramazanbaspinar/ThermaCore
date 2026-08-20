@@ -1,0 +1,21 @@
+using WinBeyazEsya.Application.DTOs.Base;
+
+namespace WinBeyazEsya.Application.DTOs.Purchasing;
+
+public class PurchaseOrderListDto : BaseDto
+{
+    public string? DocumentNo { get; set; }
+    public DateTime OrderDate { get; set; }
+    public DateTime? DeliveryDate { get; set; }
+    
+    public string SupplierName { get; set; } = string.Empty;
+    public string SupplierCode { get; set; } = string.Empty;
+    
+    public string WarehouseName { get; set; } = string.Empty;
+    
+    public string StatusName { get; set; } = string.Empty;
+    
+    public decimal GrandTotal { get; set; }
+    
+    public string CreatedFullName { get; set; } = string.Empty;
+}

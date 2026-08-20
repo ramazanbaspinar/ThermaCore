@@ -37,6 +37,10 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IValidator<WinBeyazEsya.Application.DTOs.Management.EmailParameterDto>, WinBeyazEsya.Application.Validations.Management.EmailParameterValidator>();
         services.AddScoped<IValidator<WinBeyazEsya.Application.DTOs.Management.MaliyetParametreDto>, WinBeyazEsya.Application.Validations.Management.MaliyetParametreValidator>();
         services.AddScoped<IMaliyetParametreService, MaliyetParametreManager>();
+        
+        services.AddScoped<IValidator<WinBeyazEsya.Application.DTOs.Purchasing.PurchaseOrderDto>, WinBeyazEsya.Application.Validations.Purchasing.PurchaseOrderValidator>();
+        services.AddScoped<IValidator<WinBeyazEsya.Application.DTOs.Purchasing.PurchaseOrderLineDto>, WinBeyazEsya.Application.Validations.Purchasing.PurchaseOrderLineValidator>();
+        services.AddScoped<WinBeyazEsya.Application.Interfaces.Purchasing.IPurchaseOrderService, WinBeyazEsya.Application.Services.Purchasing.PurchaseOrderManager>();
 
         services.AddScoped<IValidator<WinBeyazEsya.Application.DTOs.Common.ItemBarcodeDto>, WinBeyazEsya.Application.Validations.Common.ItemBarcodeValidator>();
         services.AddScoped<IValidator<WinBeyazEsya.Application.DTOs.Common.SpecialCodeDto>, WinBeyazEsya.Application.Validations.Common.SpecialCodeValidator>();
