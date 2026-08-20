@@ -1686,12 +1686,21 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                 clone.Code = "< Otomatik Üretilecek >";
                 clone.RevisionNumber = "01";
                 clone.IsActive = true;
+                clone.CreatedDate = null;
+                clone.CreatedUserId = null;
+                clone.ModifiedDate = null;
+                clone.ModifiedUserId = null;
+
                 if (clone.Lines != null)
                 {
                     foreach (var line in clone.Lines)
                     {
                         line.Id = 0;
                         line.ProductRecipeId = 0;
+                        line.CreatedDate = null;
+                        line.CreatedUserId = null;
+                        line.ModifiedDate = null;
+                        line.ModifiedUserId = null;
                     }
                 }
 
@@ -1737,6 +1746,10 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                 }
 
                 clone.IsActive = true;
+                clone.CreatedDate = null;
+                clone.CreatedUserId = null;
+                clone.ModifiedDate = null;
+                clone.ModifiedUserId = null;
 
                 if (clone.Lines != null)
                 {
@@ -1744,6 +1757,10 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                     {
                         line.Id = 0;
                         line.ProductRecipeId = 0;
+                        line.CreatedDate = null;
+                        line.CreatedUserId = null;
+                        line.ModifiedDate = null;
+                        line.ModifiedUserId = null;
                     }
                 }
 
