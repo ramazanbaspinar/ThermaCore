@@ -36,7 +36,8 @@ namespace WinBeyazEsya.Presentation.WinForms.UserControls
             this.searchControl.Properties.AutoHeight = false;
             this.searchControl.Properties.ShowClearButton = true;
             this.searchControl.Properties.ShowSearchButton = true;
-            this.searchControl.Properties.NullValuePrompt = string.Empty;
+            this.searchControl.Properties.NullValuePrompt = " ";
+            this.searchControl.Properties.ShowNullValuePromptWhenFocused = false;
             this.searchControl.Size = new System.Drawing.Size(600, 45);
             this.searchControl.TabIndex = 0;
             // 
@@ -44,12 +45,12 @@ namespace WinBeyazEsya.Presentation.WinForms.UserControls
             // 
             this.lblTitle.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblTitle.Appearance.BackColor = System.Drawing.Color.Transparent;
-            this.lblTitle.Appearance.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblTitle.Appearance.ForeColor = System.Drawing.Color.White;
+            this.lblTitle.Appearance.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblTitle.Appearance.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.lblTitle.Appearance.Options.UseBackColor = true;
             this.lblTitle.Appearance.Options.UseFont = true;
             this.lblTitle.Appearance.Options.UseForeColor = true;
-            this.lblTitle.Location = new System.Drawing.Point(260, 85); // Arama çubuğunun biraz altında
+            this.lblTitle.Location = new System.Drawing.Point(260, 88); // Arama çubuğu ile çerçeve arasında ortalandı
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(200, 25);
             this.lblTitle.TabIndex = 2;
@@ -82,18 +83,18 @@ namespace WinBeyazEsya.Presentation.WinForms.UserControls
             this.tileControl.IndentBetweenGroups = 20;
             
             // 🚨 TILEITEM GERÇEK GLASSMORPHISM
-            this.tileControl.AppearanceItem.Normal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.tileControl.AppearanceItem.Normal.BorderColor = System.Drawing.Color.Transparent;
-            this.tileControl.AppearanceItem.Normal.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.tileControl.AppearanceItem.Normal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.tileControl.AppearanceItem.Normal.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.tileControl.AppearanceItem.Normal.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.tileControl.AppearanceItem.Normal.ForeColor = System.Drawing.Color.White;
             this.tileControl.AppearanceItem.Normal.Options.UseBackColor = true;
             this.tileControl.AppearanceItem.Normal.Options.UseBorderColor = true;
             this.tileControl.AppearanceItem.Normal.Options.UseFont = true;
             this.tileControl.AppearanceItem.Normal.Options.UseForeColor = true;
             
-            this.tileControl.AppearanceItem.Hovered.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.tileControl.AppearanceItem.Hovered.BorderColor = System.Drawing.Color.Transparent;
-            this.tileControl.AppearanceItem.Hovered.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.tileControl.AppearanceItem.Hovered.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.tileControl.AppearanceItem.Hovered.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.tileControl.AppearanceItem.Hovered.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.tileControl.AppearanceItem.Hovered.ForeColor = System.Drawing.Color.White;
             this.tileControl.AppearanceItem.Hovered.Options.UseBackColor = true;
             this.tileControl.AppearanceItem.Hovered.Options.UseBorderColor = true;
@@ -105,7 +106,7 @@ namespace WinBeyazEsya.Presentation.WinForms.UserControls
             this.tileControl.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tileControl.Location = new System.Drawing.Point(50, 120);
             this.tileControl.Margin = new System.Windows.Forms.Padding(50);
-            this.tileControl.Padding = new System.Windows.Forms.Padding(30);
+            this.tileControl.Padding = new System.Windows.Forms.Padding(20, 10, 20, 20);
             this.tileControl.MaxId = 1;
             this.tileControl.Name = "tileControl";
             this.tileControl.Size = new System.Drawing.Size(900, 430);
