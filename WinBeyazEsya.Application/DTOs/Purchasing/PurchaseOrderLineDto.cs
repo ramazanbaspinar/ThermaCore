@@ -12,6 +12,9 @@ public class PurchaseOrderLineDto : BaseDto
     public decimal TaxRate { get; set; }
     public decimal LineTotal { get; set; }
     public decimal ReceivedQuantity { get; set; }
+    
+    // UI için Unbound/Display kolonu
+    public string? CurrencyCode { get; set; }
 
     public decimal RemainingQuantity 
     { 

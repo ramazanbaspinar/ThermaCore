@@ -1,4 +1,4 @@
-﻿namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
+namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
 {
     partial class SatinAlmaSiparisEditForm
     {
@@ -28,19 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.XtraLayout.ColumnDefinition columnDefinition5 = new DevExpress.XtraLayout.ColumnDefinition();
-            DevExpress.XtraLayout.RowDefinition rowDefinition10 = new DevExpress.XtraLayout.RowDefinition();
-            DevExpress.XtraLayout.RowDefinition rowDefinition11 = new DevExpress.XtraLayout.RowDefinition();
-            DevExpress.XtraLayout.RowDefinition rowDefinition12 = new DevExpress.XtraLayout.RowDefinition();
-            DevExpress.XtraLayout.ColumnDefinition columnDefinition6 = new DevExpress.XtraLayout.ColumnDefinition();
-            DevExpress.XtraLayout.ColumnDefinition columnDefinition7 = new DevExpress.XtraLayout.ColumnDefinition();
-            DevExpress.XtraLayout.ColumnDefinition columnDefinition8 = new DevExpress.XtraLayout.ColumnDefinition();
-            DevExpress.XtraLayout.RowDefinition rowDefinition13 = new DevExpress.XtraLayout.RowDefinition();
-            DevExpress.XtraLayout.RowDefinition rowDefinition14 = new DevExpress.XtraLayout.RowDefinition();
-            DevExpress.XtraLayout.RowDefinition rowDefinition15 = new DevExpress.XtraLayout.RowDefinition();
-            DevExpress.XtraLayout.RowDefinition rowDefinition16 = new DevExpress.XtraLayout.RowDefinition();
-            DevExpress.XtraLayout.RowDefinition rowDefinition17 = new DevExpress.XtraLayout.RowDefinition();
-            DevExpress.XtraLayout.RowDefinition rowDefinition18 = new DevExpress.XtraLayout.RowDefinition();
+            DevExpress.XtraLayout.ColumnDefinition columnDefinition1 = new DevExpress.XtraLayout.ColumnDefinition();
+            DevExpress.XtraLayout.RowDefinition rowDefinition1 = new DevExpress.XtraLayout.RowDefinition();
+            DevExpress.XtraLayout.RowDefinition rowDefinition2 = new DevExpress.XtraLayout.RowDefinition();
+            DevExpress.XtraLayout.RowDefinition rowDefinition3 = new DevExpress.XtraLayout.RowDefinition();
+            DevExpress.XtraLayout.ColumnDefinition columnDefinition2 = new DevExpress.XtraLayout.ColumnDefinition();
+            DevExpress.XtraLayout.ColumnDefinition columnDefinition3 = new DevExpress.XtraLayout.ColumnDefinition();
+            DevExpress.XtraLayout.ColumnDefinition columnDefinition4 = new DevExpress.XtraLayout.ColumnDefinition();
+            DevExpress.XtraLayout.RowDefinition rowDefinition4 = new DevExpress.XtraLayout.RowDefinition();
+            DevExpress.XtraLayout.RowDefinition rowDefinition5 = new DevExpress.XtraLayout.RowDefinition();
+            DevExpress.XtraLayout.RowDefinition rowDefinition6 = new DevExpress.XtraLayout.RowDefinition();
+            DevExpress.XtraLayout.RowDefinition rowDefinition7 = new DevExpress.XtraLayout.RowDefinition();
+            DevExpress.XtraLayout.RowDefinition rowDefinition8 = new DevExpress.XtraLayout.RowDefinition();
+            DevExpress.XtraLayout.RowDefinition rowDefinition9 = new DevExpress.XtraLayout.RowDefinition();
             myDataLayoutControl1 = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyDataLayoutControl();
             txtDovizKuru = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyCalcEdit();
             cmbDovuzTuru = new WinBeyazEsya.Presentation.WinForms.UserControls.Controls.MyComboBoxEdit();
@@ -301,16 +301,16 @@
             layoutControlGroup1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] { layoutControlItem11, layoutControlItem12, layoutControlItem13 });
             layoutControlGroup1.LayoutMode = DevExpress.XtraLayout.Utils.LayoutMode.Table;
             layoutControlGroup1.Name = "layoutControlGroup1";
-            columnDefinition5.SizeType = SizeType.Percent;
-            columnDefinition5.Width = 100D;
-            layoutControlGroup1.OptionsTableLayoutGroup.ColumnDefinitions.AddRange(new DevExpress.XtraLayout.ColumnDefinition[] { columnDefinition5 });
-            rowDefinition10.Height = 31D;
-            rowDefinition10.SizeType = SizeType.Absolute;
-            rowDefinition11.Height = 31D;
-            rowDefinition11.SizeType = SizeType.Absolute;
-            rowDefinition12.Height = 31D;
-            rowDefinition12.SizeType = SizeType.Absolute;
-            layoutControlGroup1.OptionsTableLayoutGroup.RowDefinitions.AddRange(new DevExpress.XtraLayout.RowDefinition[] { rowDefinition10, rowDefinition11, rowDefinition12 });
+            columnDefinition1.SizeType = SizeType.Percent;
+            columnDefinition1.Width = 100D;
+            layoutControlGroup1.OptionsTableLayoutGroup.ColumnDefinitions.AddRange(new DevExpress.XtraLayout.ColumnDefinition[] { columnDefinition1 });
+            rowDefinition1.Height = 31D;
+            rowDefinition1.SizeType = SizeType.Absolute;
+            rowDefinition2.Height = 31D;
+            rowDefinition2.SizeType = SizeType.Absolute;
+            rowDefinition3.Height = 31D;
+            rowDefinition3.SizeType = SizeType.Absolute;
+            layoutControlGroup1.OptionsTableLayoutGroup.RowDefinitions.AddRange(new DevExpress.XtraLayout.RowDefinition[] { rowDefinition1, rowDefinition2, rowDefinition3 });
             layoutControlGroup1.Size = new Size(274, 117);
             layoutControlGroup1.TextVisible = false;
             // 
@@ -390,7 +390,6 @@
             colMalzeme.Caption = "Malzeme";
             colMalzeme.FieldName = "MaterialId";
             colMalzeme.Name = "colMalzeme";
-            colMalzeme.OptionsColumn.AllowEdit = false;
             colMalzeme.StatusBarAciklama = null;
             colMalzeme.StatusBarKisaYol = null;
             colMalzeme.StatusBarKisaYolAciklama = null;
@@ -403,7 +402,6 @@
             colMiktar.Caption = "Miktar";
             colMiktar.FieldName = "Quantity";
             colMiktar.Name = "colMiktar";
-            colMiktar.OptionsColumn.AllowEdit = false;
             colMiktar.StatusBarAciklama = null;
             colMiktar.StatusBarKisaYol = null;
             colMiktar.StatusBarKisaYolAciklama = null;
@@ -416,7 +414,6 @@
             colBirim.Caption = "Birim";
             colBirim.FieldName = "UnitId";
             colBirim.Name = "colBirim";
-            colBirim.OptionsColumn.AllowEdit = false;
             colBirim.StatusBarAciklama = null;
             colBirim.StatusBarKisaYol = null;
             colBirim.StatusBarKisaYolAciklama = null;
@@ -429,7 +426,6 @@
             colBirimFiyat.Caption = "Birim Fiyat";
             colBirimFiyat.FieldName = "UnitPrice";
             colBirimFiyat.Name = "colBirimFiyat";
-            colBirimFiyat.OptionsColumn.AllowEdit = false;
             colBirimFiyat.StatusBarAciklama = null;
             colBirimFiyat.StatusBarKisaYol = null;
             colBirimFiyat.StatusBarKisaYolAciklama = null;
@@ -440,7 +436,7 @@
             // colDovizTuru
             // 
             colDovizTuru.Caption = "Döviz Türü";
-            colDovizTuru.FieldName = "CurrencyId";
+            colDovizTuru.FieldName = "CurrencyCode";
             colDovizTuru.Name = "colDovizTuru";
             colDovizTuru.OptionsColumn.AllowEdit = false;
             colDovizTuru.StatusBarAciklama = null;
@@ -615,12 +611,14 @@
             txtSiparisTarihi.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             txtSiparisTarihi.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
             txtSiparisTarihi.Properties.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
-            txtSiparisTarihi.Properties.DisplayFormat.FormatString = "G";
+            txtSiparisTarihi.Properties.DisplayFormat.FormatString = "g";
             txtSiparisTarihi.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
-            txtSiparisTarihi.Properties.EditFormat.FormatString = "G";
+            txtSiparisTarihi.Properties.EditFormat.FormatString = "g";
             txtSiparisTarihi.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
             txtSiparisTarihi.Properties.MaskSettings.Set("MaskManagerType", typeof(DevExpress.Data.Mask.DateTimeMaskManager));
             txtSiparisTarihi.Properties.MaskSettings.Set("useAdvancingCaret", true);
+            txtSiparisTarihi.Properties.MaskSettings.Set("mask", "g");
+            txtSiparisTarihi.Properties.ReadOnly = true;
             txtSiparisTarihi.Size = new Size(182, 22);
             txtSiparisTarihi.StatusBarAciklama = "";
             txtSiparisTarihi.StatusBarKisaYol = "F4 :";
@@ -682,26 +680,26 @@
             Root.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] { layoutControlItem1, layoutControlItem2, layoutControlItem3, layoutControlItem7, layoutControlItem8, layoutControlItem9, layoutControlItem10, layoutControlItem6, layoutControlItem5, layoutControlItem4, layoutControlItem14, layoutControlItem15 });
             Root.LayoutMode = DevExpress.XtraLayout.Utils.LayoutMode.Table;
             Root.Name = "Root";
-            columnDefinition6.SizeType = SizeType.Percent;
-            columnDefinition6.Width = 100D;
-            columnDefinition7.SizeType = SizeType.Percent;
-            columnDefinition7.Width = 100D;
-            columnDefinition8.SizeType = SizeType.Percent;
-            columnDefinition8.Width = 100D;
-            Root.OptionsTableLayoutGroup.ColumnDefinitions.AddRange(new DevExpress.XtraLayout.ColumnDefinition[] { columnDefinition6, columnDefinition7, columnDefinition8 });
-            rowDefinition13.Height = 31D;
-            rowDefinition13.SizeType = SizeType.Absolute;
-            rowDefinition14.Height = 31D;
-            rowDefinition14.SizeType = SizeType.Absolute;
-            rowDefinition15.Height = 31D;
-            rowDefinition15.SizeType = SizeType.Absolute;
-            rowDefinition16.Height = 62D;
-            rowDefinition16.SizeType = SizeType.Absolute;
-            rowDefinition17.Height = 100D;
-            rowDefinition17.SizeType = SizeType.Percent;
-            rowDefinition18.Height = 140D;
-            rowDefinition18.SizeType = SizeType.Absolute;
-            Root.OptionsTableLayoutGroup.RowDefinitions.AddRange(new DevExpress.XtraLayout.RowDefinition[] { rowDefinition13, rowDefinition14, rowDefinition15, rowDefinition16, rowDefinition17, rowDefinition18 });
+            columnDefinition2.SizeType = SizeType.Percent;
+            columnDefinition2.Width = 100D;
+            columnDefinition3.SizeType = SizeType.Percent;
+            columnDefinition3.Width = 100D;
+            columnDefinition4.SizeType = SizeType.Percent;
+            columnDefinition4.Width = 100D;
+            Root.OptionsTableLayoutGroup.ColumnDefinitions.AddRange(new DevExpress.XtraLayout.ColumnDefinition[] { columnDefinition2, columnDefinition3, columnDefinition4 });
+            rowDefinition4.Height = 31D;
+            rowDefinition4.SizeType = SizeType.Absolute;
+            rowDefinition5.Height = 31D;
+            rowDefinition5.SizeType = SizeType.Absolute;
+            rowDefinition6.Height = 31D;
+            rowDefinition6.SizeType = SizeType.Absolute;
+            rowDefinition7.Height = 62D;
+            rowDefinition7.SizeType = SizeType.Absolute;
+            rowDefinition8.Height = 100D;
+            rowDefinition8.SizeType = SizeType.Percent;
+            rowDefinition9.Height = 140D;
+            rowDefinition9.SizeType = SizeType.Absolute;
+            Root.OptionsTableLayoutGroup.RowDefinitions.AddRange(new DevExpress.XtraLayout.RowDefinition[] { rowDefinition4, rowDefinition5, rowDefinition6, rowDefinition7, rowDefinition8, rowDefinition9 });
             Root.Size = new Size(865, 431);
             Root.TextVisible = false;
             // 

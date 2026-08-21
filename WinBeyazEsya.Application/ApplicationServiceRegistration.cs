@@ -28,6 +28,7 @@ public static class ApplicationServiceRegistration
         services.AddScoped<ITerminalService, TerminalManager>();
         services.AddScoped<IBranchService, BranchManager>();
         services.AddScoped<WinBeyazEsya.Application.Interfaces.Security.IRoleService, WinBeyazEsya.Application.Services.Security.RoleManager>();
+        services.AddScoped<WinBeyazEsya.Application.Interfaces.Production.IRawMaterialService, WinBeyazEsya.Application.Services.Production.RawMaterialManager>();
         services.AddScoped<WinBeyazEsya.Application.Interfaces.Security.IUserPermissionService, WinBeyazEsya.Application.Services.Security.UserPermissionManager>();
         services.AddScoped<WinBeyazEsya.Application.Interfaces.System.IExchangeRateService, WinBeyazEsya.Application.Services.Management.ExchangeRateManager>();
         services.AddScoped<WinBeyazEsya.Application.Interfaces.Management.ITaxRateService, WinBeyazEsya.Application.Services.Management.TaxRateManager>();

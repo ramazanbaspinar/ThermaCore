@@ -49,6 +49,10 @@ public class PurchaseOrderManager : BaseManager<PurchaseOrderListDto, PurchaseOr
         if (entity.Id == 0)
             entity.Id = IdGenerator.GenerateId();
 
+        // AutoMapper otomatik olarak Lines listesini doldurduğu için onları temizleyelim
+        // Çünkü aşağıda manuel olarak ID atayıp tekrar ekliyoruz.
+        entity.Lines.Clear();
+
         if (dto.Lines != null && dto.Lines.Any())
         {
             foreach (var lineDto in dto.Lines)
@@ -77,6 +81,9 @@ public class PurchaseOrderManager : BaseManager<PurchaseOrderListDto, PurchaseOr
         if (existingEntity == null) throw new Exception("Satınalma siparişi bulunamadı.");
 
         _mapper.Map(dto, existingEntity);
+        
+        // AutoMapper'ın kendi kendine eklediği id=0 olan satırları entity'den kopartalım
+        existingEntity.Lines.Clear();
 
         // Remove old lines
         var existingLines = _lineRepository.Find(x => x.PurchaseOrderId == existingEntity.Id).ToList();

@@ -47,6 +47,9 @@ public class WinBeyazEsyaTenantContext : DbContext
     public DbSet<WinBeyazEsya.Domain.Entities.Common.ItemBarcode> ItemBarcodes { get; set; }
     public DbSet<WinBeyazEsya.Domain.Entities.Common.AppDocument> AppDocuments { get; set; }
 
+    public DbSet<WinBeyazEsya.Domain.Entities.Production.RawMaterial> RawMaterials { get; set; }
+    public DbSet<WinBeyazEsya.Domain.Entities.Production.MaterialCost> MaterialCosts { get; set; }
+
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
