@@ -11,7 +11,7 @@ public class PurchaseOrderDto : BaseDto
 
     public long SupplierId { get; set; }
     public long? WarehouseId { get; set; }
-    public long? CurrencyId { get; set; }
+    public string? CurrencyCode { get; set; }
 
     public decimal ExchangeRate { get; set; }
     public OrderStatus Status { get; set; }

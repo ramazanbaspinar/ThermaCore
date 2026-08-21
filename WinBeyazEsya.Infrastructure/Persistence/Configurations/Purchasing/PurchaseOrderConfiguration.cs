@@ -18,7 +18,7 @@ public class PurchaseOrderConfiguration : IEntityTypeConfiguration<PurchaseOrder
         builder.HasIndex(x => x.Status);
         builder.HasIndex(x => x.SupplierId);
         builder.HasIndex(x => x.WarehouseId);
-        builder.HasIndex(x => x.CurrencyId);
+        builder.HasIndex(x => x.CurrencyCode);
 
         // İlişkiler
         builder.HasMany(x => x.Lines)

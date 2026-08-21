@@ -9,15 +9,15 @@ using WinBeyazEsya.Domain.Helpers;
 
 namespace WinBeyazEsya.Application.Services.Purchasing;
 
-public class PurchaseOrderManager : BaseMasterManager<PurchaseOrderListDto, PurchaseOrderDto, PurchaseOrder>, IPurchaseOrderService
+public class PurchaseOrderManager : BaseManager<PurchaseOrderListDto, PurchaseOrderDto, PurchaseOrder>, IPurchaseOrderService
 {
-    private readonly IMasterRepository<PurchaseOrderLine> _lineRepository;
+    private readonly IRepository<PurchaseOrderLine> _lineRepository;
 
     public PurchaseOrderManager(
         IMapper mapper,
-        IMasterRepository<PurchaseOrder> repository,
-        IMasterUnitOfWork unitOfWork,
-        IMasterRepository<PurchaseOrderLine> lineRepository,
+        IRepository<PurchaseOrder> repository,
+        IUnitOfWork unitOfWork,
+        IRepository<PurchaseOrderLine> lineRepository,
         IValidator<PurchaseOrderDto>? validator = null)
         : base(mapper, repository, unitOfWork, validator)
     {

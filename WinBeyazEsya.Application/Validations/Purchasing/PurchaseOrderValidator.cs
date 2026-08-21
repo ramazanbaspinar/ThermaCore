@@ -13,8 +13,7 @@ public class PurchaseOrderValidator : AbstractValidator<PurchaseOrderDto>
         RuleFor(x => x.SupplierId)
             .GreaterThan(0).WithMessage("Tedarikçi seçimi zorunludur.");
 
-        RuleFor(x => x.CurrencyId)
-            .NotNull().WithMessage("Döviz seçimi zorunludur.")
-            .GreaterThan(0).WithMessage("Döviz seçimi zorunludur.");
+        RuleFor(x => x.CurrencyCode)
+            .NotEmpty().WithMessage("Döviz seçimi zorunludur.");
     }
 }

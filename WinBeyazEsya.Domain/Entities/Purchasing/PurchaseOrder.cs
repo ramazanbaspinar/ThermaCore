@@ -21,7 +21,8 @@ public class PurchaseOrder : FullAuditableEntity
 
     public long? WarehouseId { get; set; }
 
-    public long? CurrencyId { get; set; }
+    [MaxLength(5)]
+    public string? CurrencyCode { get; set; }
 
     public decimal ExchangeRate { get; set; } = 1;
 
