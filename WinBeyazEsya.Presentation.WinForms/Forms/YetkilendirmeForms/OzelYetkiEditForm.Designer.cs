@@ -62,7 +62,7 @@
             myGridControl1.MainView = myGridView1;
             myGridControl1.Name = "myGridControl1";
             myGridControl1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] { repositoryItemCheckEdit1 });
-            myGridControl1.Size = new Size(374, 413);
+            myGridControl1.Size = new Size(374, 415);
             myGridControl1.TabIndex = 1;
             myGridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] { myGridView1 });
             // 
@@ -177,7 +177,6 @@
             colSecim.ColumnEdit = repositoryItemCheckEdit1;
             colSecim.FieldName = "Secim";
             colSecim.Name = "colSecim";
-            colSecim.OptionsColumn.AllowEdit = false;
             colSecim.StatusBarAciklama = null;
             colSecim.StatusBarKisaYol = null;
             colSecim.StatusBarKisaYolAciklama = null;
@@ -201,7 +200,7 @@
             myDataLayoutControl1.Name = "myDataLayoutControl1";
             myDataLayoutControl1.OptionsFocus.EnableAutoTabOrder = false;
             myDataLayoutControl1.Root = Root;
-            myDataLayoutControl1.Size = new Size(398, 468);
+            myDataLayoutControl1.Size = new Size(398, 470);
             myDataLayoutControl1.TabIndex = 2;
             myDataLayoutControl1.Text = "myDataLayoutControl1";
             // 
@@ -215,7 +214,7 @@
             btnIptal.AppearanceHovered.Options.UseFont = true;
             btnIptal.AppearancePressed.Font = new Font("Segoe UI", 9F);
             btnIptal.AppearancePressed.Options.UseFont = true;
-            btnIptal.Location = new Point(201, 429);
+            btnIptal.Location = new Point(201, 431);
             btnIptal.Name = "btnIptal";
             btnIptal.Size = new Size(185, 22);
             btnIptal.StatusBarAciklama = null;
@@ -233,7 +232,7 @@
             btnTamam.AppearanceHovered.Options.UseFont = true;
             btnTamam.AppearancePressed.Font = new Font("Segoe UI", 9F);
             btnTamam.AppearancePressed.Options.UseFont = true;
-            btnTamam.Location = new Point(12, 429);
+            btnTamam.Location = new Point(12, 431);
             btnTamam.Name = "btnTamam";
             btnTamam.Size = new Size(185, 22);
             btnTamam.StatusBarAciklama = null;
@@ -258,7 +257,7 @@
             rowDefinition2.Height = 31D;
             rowDefinition2.SizeType = SizeType.Absolute;
             Root.OptionsTableLayoutGroup.RowDefinitions.AddRange(new DevExpress.XtraLayout.RowDefinition[] { rowDefinition1, rowDefinition2 });
-            Root.Size = new Size(398, 468);
+            Root.Size = new Size(398, 470);
             Root.TextVisible = false;
             // 
             // layoutControlItem1
@@ -269,7 +268,7 @@
             layoutControlItem1.Location = new Point(0, 0);
             layoutControlItem1.Name = "layoutControlItem1";
             layoutControlItem1.OptionsTableLayoutItem.ColumnSpan = 2;
-            layoutControlItem1.Size = new Size(378, 417);
+            layoutControlItem1.Size = new Size(378, 419);
             layoutControlItem1.TextVisible = false;
             // 
             // layoutControlItem2
@@ -277,7 +276,7 @@
             layoutControlItem2.AppearanceItemCaption.Font = new Font("Segoe UI", 9F);
             layoutControlItem2.AppearanceItemCaption.Options.UseFont = true;
             layoutControlItem2.Control = btnTamam;
-            layoutControlItem2.Location = new Point(0, 417);
+            layoutControlItem2.Location = new Point(0, 419);
             layoutControlItem2.Name = "layoutControlItem2";
             layoutControlItem2.OptionsTableLayoutItem.RowIndex = 1;
             layoutControlItem2.Size = new Size(189, 31);
@@ -288,7 +287,7 @@
             layoutControlItem3.AppearanceItemCaption.Font = new Font("Segoe UI", 9F);
             layoutControlItem3.AppearanceItemCaption.Options.UseFont = true;
             layoutControlItem3.Control = btnIptal;
-            layoutControlItem3.Location = new Point(189, 417);
+            layoutControlItem3.Location = new Point(189, 419);
             layoutControlItem3.Name = "layoutControlItem3";
             layoutControlItem3.OptionsTableLayoutItem.ColumnIndex = 1;
             layoutControlItem3.OptionsTableLayoutItem.RowIndex = 1;
@@ -299,8 +298,9 @@
             // 
             AutoScaleDimensions = new SizeF(6F, 13F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(398, 468);
+            ClientSize = new Size(398, 470);
             Controls.Add(myDataLayoutControl1);
+            Font = new Font("Segoe UI", 8.25F);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MinimizeBox = false;
             Name = "OzelYetkiEditForm";

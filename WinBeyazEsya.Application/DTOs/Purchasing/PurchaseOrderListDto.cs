@@ -8,11 +8,14 @@ public class PurchaseOrderListDto : BaseDto
     public DateTime OrderDate { get; set; }
     public DateTime? DeliveryDate { get; set; }
     
+    public long SupplierId { get; set; }
     public string SupplierName { get; set; } = string.Empty;
     public string SupplierCode { get; set; } = string.Empty;
     
+    public long? WarehouseId { get; set; }
     public string WarehouseName { get; set; } = string.Empty;
     
+    public WinBeyazEsya.Domain.Enums.OrderStatus Status { get; set; }
     public string StatusName { get; set; } = string.Empty;
     
     public decimal GrandTotal { get; set; }

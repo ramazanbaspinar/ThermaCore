@@ -1,4 +1,4 @@
-﻿using WinBeyazEsya.Domain.Enums;
+using WinBeyazEsya.Domain.Enums;
 
 namespace WinBeyazEsya.Application.Registries
 {
@@ -26,6 +26,16 @@ namespace WinBeyazEsya.Application.Registries
                 {
                     new SpecialPermissionDef { Key = "CanAddBackdated", Description = "Geçmişe Dönük Kayıt Girebilir" },
                     new SpecialPermissionDef { Key = "CanResetPassword", Description = "Diğer Kullanıcıların Şifresini Sıfırlayabilir" }
+                }
+            },
+            {
+                ModuleType.SatinalmaSiparisleri,
+                new List<SpecialPermissionDef>
+                {
+                    new SpecialPermissionDef { Key = "CanApproveOrders", Description = "Siparişleri Onaylayabilir" },
+                    new SpecialPermissionDef { Key = "CanCancelOrders", Description = "Siparişleri İptal Edebilir" },
+                    new SpecialPermissionDef { Key = "CanCloseOrdersForcefully", Description = "Siparişi Zorla Kapatabilir" },
+                    new SpecialPermissionDef { Key = "CanReceiveApprovalEmails", Description = "Onay bekleyen siparişlerin e-posta bildirimini alsın" }
                 }
             }
         };

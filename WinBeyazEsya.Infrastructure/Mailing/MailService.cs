@@ -50,5 +50,39 @@ public class MailService : IMailService
         // TODO: Geliştirici veya destek ekibine e-posta gönderme altyapısı kurulacak
         throw new NotImplementedException();
     }
+
+    public async global::System.Threading.Tasks.Task SendMailAsync(global::System.Collections.Generic.List<string> to, string subject, string body)
+    {
+        if (to == null || !to.Any()) return;
+
+        var mailParam = _emailParameterRepository.GetAll().FirstOrDefault();
+        if (mailParam == null)
+            throw new Exception("Sistemde kayıtlı e-posta ayarı bulunamadı. Lütfen parametreleri kontrol ediniz.");
+
+        string decryptedPassword = _cryptoService.Decrypt(mailParam.Password);
+
+        using (SmtpClient client = new SmtpClient(mailParam.SmtpServer, mailParam.Port))
+        {
+            client.Credentials = new NetworkCredential(mailParam.SenderEmail, decryptedPassword);
+            client.EnableSsl = mailParam.EnableSsl;
+
+            MailMessage mailMessage = new MailMessage();
+            mailMessage.From = new MailAddress(mailParam.SenderEmail, mailParam.SenderName);
+            
+            foreach (var email in to)
+            {
+                if (!string.IsNullOrWhiteSpace(email))
+                    mailMessage.To.Add(email);
+            }
+
+            if (mailMessage.To.Count == 0) return;
+
+            mailMessage.Subject = subject;
+            mailMessage.Body = body;
+            mailMessage.IsBodyHtml = true;
+
+            await client.SendMailAsync(mailMessage);
+        }
+    }
 }
 

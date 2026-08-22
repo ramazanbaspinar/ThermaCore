@@ -1,7 +1,7 @@
 using DevExpress.XtraBars;
 using DevExpress.XtraEditors;
-using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraEditors.Repository;
+using DevExpress.XtraGrid.Views.Grid;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,6 +14,7 @@ using System.Windows.Forms;
 using WinBeyazEsya.Domain.Enums;
 using WinBeyazEsya.Presentation.WinForms.Forms.BaseForms;
 using WinBeyazEsya.Presentation.WinForms.Helpers;
+using WinBeyazEsya.Presentation.WinForms.UserControls.Controls;
 
 namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
 {
@@ -40,7 +41,10 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
         {
             InitializeComponent();
             BaseKartTuru = Domain.Enums.ModuleType.SatinalmaSiparisleri;
+            DataLayoutControls = new object[] { myDataLayoutControl1, myDataLayoutControl2};
             InitGridPopupMenu();
+            RegisterGridForLayout(myGridView1);
+            RegisterGridForChangeTracking(myGridView1);
         }
 
         public SatinAlmaSiparisEditForm(
@@ -67,6 +71,8 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
 
             BaseKartTuru = Domain.Enums.ModuleType.SatinalmaSiparisleri;
             InitGridPopupMenu();
+            RegisterGridForLayout(myGridView1);
+            RegisterGridForChangeTracking(myGridView1);
         }
 
         private void InitGridPopupMenu()
@@ -154,7 +160,11 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             string searchText = glufTedarikciCari.Text?.ToLower() ?? "";
             
             if (string.IsNullOrEmpty(searchText) || searchText == glufTedarikciCari.Properties.NullText.ToLower()) 
+            {
+                e.Visible = true;
+                e.Handled = true;
                 return;
+            }
                 
             var row = gridView.GetRow(e.ListSourceRow) as Application.DTOs.Definitions.CurrentAccountDto;
             if (row != null)
@@ -172,6 +182,15 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
                     e.Visible = false;
                     e.Handled = true;
                 }
+            }
+        }
+
+        private void GlufTedarikciCari_TextChanged(object sender, EventArgs e)
+        {
+            var view = glufTedarikciCari.Properties.PopupView as DevExpress.XtraGrid.Views.Grid.GridView;
+            if (view != null)
+            {
+                view.RefreshData();
             }
         }
 
@@ -242,6 +261,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             txtSiparisTarihi.Properties.Mask.UseMaskAsDisplayFormat = true;
 
             cmbSiparisDurumu.Properties.Items.AddRange(WinBeyazEsya.Presentation.WinForms.Helpers.EnumFunctions.GetEnumDescriptionList<OrderStatus>().ToArray());
+            cmbSiparisDurumu.ReadOnly = true;
 
             glufTedarikciCari.Properties.ValueMember = "Id";
             glufTedarikciCari.Properties.DisplayMember = "Title";
@@ -422,6 +442,9 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
                     
                     view.CustomRowFilter -= View_CustomRowFilter;
                     view.CustomRowFilter += View_CustomRowFilter;
+                    
+                    glufTedarikciCari.TextChanged -= GlufTedarikciCari_TextChanged;
+                    glufTedarikciCari.TextChanged += GlufTedarikciCari_TextChanged;
                 }
             }
 
@@ -444,6 +467,32 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
 
             txtDovizKuru.Value = entity.ExchangeRate;
             cmbSiparisDurumu.SelectedItem = entity.Status.ToName();
+            
+            // Sipariş durumuna göre ComboBox renklendirme
+            switch (entity.Status)
+            {
+                case OrderStatus.Draft:
+                    cmbSiparisDurumu.Properties.Appearance.BackColor = System.Drawing.ColorTranslator.FromHtml("#F5F5F5");
+                    break;
+                case OrderStatus.WaitingApproval:
+                    cmbSiparisDurumu.Properties.Appearance.BackColor = System.Drawing.ColorTranslator.FromHtml("#FFF59D");
+                    break;
+                case OrderStatus.Approved:
+                    cmbSiparisDurumu.Properties.Appearance.BackColor = System.Drawing.ColorTranslator.FromHtml("#C8E6C9");
+                    break;
+                case OrderStatus.PartialReceived:
+                    cmbSiparisDurumu.Properties.Appearance.BackColor = System.Drawing.ColorTranslator.FromHtml("#BBDEFB");
+                    break;
+                case OrderStatus.Canceled:
+                    cmbSiparisDurumu.Properties.Appearance.BackColor = System.Drawing.ColorTranslator.FromHtml("#FFCDD2");
+                    cmbSiparisDurumu.Properties.Appearance.Font = new System.Drawing.Font(cmbSiparisDurumu.Properties.Appearance.Font, System.Drawing.FontStyle.Strikeout);
+                    break;
+                case OrderStatus.Completed:
+                    cmbSiparisDurumu.Properties.Appearance.BackColor = System.Drawing.ColorTranslator.FromHtml("#E0E0E0");
+                    cmbSiparisDurumu.Properties.Appearance.Font = new System.Drawing.Font(cmbSiparisDurumu.Properties.Appearance.Font, System.Drawing.FontStyle.Italic);
+                    break;
+            }
+
             txtAciklama.Text = entity.Description;
 
             txtToplam.Value = entity.SubTotal;
@@ -488,7 +537,9 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
                 WarehouseId = (long?)glufTeslimatDeposu.EditValue,
                 CurrencyCode = cmbDovuzTuru.EditValue?.ToString(),
                 ExchangeRate = txtDovizKuru.Value,
-                Status = cmbSiparisDurumu.SelectedItem != null ? WinBeyazEsya.Presentation.WinForms.Helpers.EnumFunctions.GetEnum<OrderStatus>(cmbSiparisDurumu.SelectedItem.ToString()) : OrderStatus.Draft,
+                Status = (Id == 0) 
+                    ? OrderStatus.Draft 
+                    : (cmbSiparisDurumu.SelectedItem != null ? WinBeyazEsya.Presentation.WinForms.Helpers.EnumFunctions.GetEnum<OrderStatus>(cmbSiparisDurumu.SelectedItem.ToString()) : OrderStatus.Draft),
                 Description = txtAciklama.Text,
                 SubTotal = txtToplam.Value,
                 TaxAmount = txtToplamKDV.Value,

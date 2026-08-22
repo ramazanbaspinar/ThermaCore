@@ -12,16 +12,22 @@ namespace WinBeyazEsya.Application.Services.Purchasing;
 public class PurchaseOrderManager : BaseManager<PurchaseOrderListDto, PurchaseOrderDto, PurchaseOrder>, IPurchaseOrderService
 {
     private readonly IRepository<PurchaseOrderLine> _lineRepository;
+    private readonly WinBeyazEsya.Application.Services.Management.IAuthService _authService;
+    private readonly WinBeyazEsya.Application.Interfaces.Mailing.IMailService _mailService;
 
     public PurchaseOrderManager(
         IMapper mapper,
         IRepository<PurchaseOrder> repository,
         IUnitOfWork unitOfWork,
         IRepository<PurchaseOrderLine> lineRepository,
+        WinBeyazEsya.Application.Services.Management.IAuthService authService,
+        WinBeyazEsya.Application.Interfaces.Mailing.IMailService mailService,
         IValidator<PurchaseOrderDto>? validator = null)
         : base(mapper, repository, unitOfWork, validator)
     {
         _lineRepository = lineRepository;
+        _authService = authService;
+        _mailService = mailService;
     }
 
     public override PurchaseOrderDto GetById(long id)
@@ -80,6 +86,9 @@ public class PurchaseOrderManager : BaseManager<PurchaseOrderListDto, PurchaseOr
         var existingEntity = _repository.GetById(dto.Id);
         if (existingEntity == null) throw new Exception("Satınalma siparişi bulunamadı.");
 
+        bool isSentToApproval = existingEntity.Status == WinBeyazEsya.Domain.Enums.OrderStatus.Draft && 
+                                dto.Status == WinBeyazEsya.Domain.Enums.OrderStatus.WaitingApproval;
+
         _mapper.Map(dto, existingEntity);
         
         // AutoMapper'ın kendi kendine eklediği id=0 olan satırları entity'den kopartalım
@@ -106,5 +115,22 @@ public class PurchaseOrderManager : BaseManager<PurchaseOrderListDto, PurchaseOr
 
         _repository.Update(existingEntity);
         _unitOfWork.SaveChanges();
+
+        if (isSentToApproval)
+        {
+            try
+            {
+                var users = _authService.GetUsersWithSpecialPermission(WinBeyazEsya.Domain.Enums.ModuleType.SatinalmaSiparisleri, "CanReceiveApprovalEmails");
+                var emails = users.Where(u => !string.IsNullOrWhiteSpace(u.Email)).Select(u => u.Email!).ToList();
+                
+                if (emails.Any())
+                {
+                    string subject = $"Sipariş Onayı Bekleniyor - Sipariş No: {existingEntity.Code}";
+                    string body = $"Satınalma Modülü - {existingEntity.Code} numaralı sipariş onayınızı beklemektedir.";
+                    _ = _mailService.SendMailAsync(emails, subject, body);
+                }
+            }
+            catch { }
+        }
     }
 }

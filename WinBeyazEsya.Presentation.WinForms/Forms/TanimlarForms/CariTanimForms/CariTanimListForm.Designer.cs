@@ -34,7 +34,6 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.CariTanimForms
             myGridView1 = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridView();
             colId = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colKod = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
-            colCariTipi = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colCariUnvani = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colYetkiliKisi = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colUlke = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
@@ -47,6 +46,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.CariTanimForms
             colVergiTcKimlikNo = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colEPosta = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colOzelKod = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
+            colCariTipi = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             ((System.ComponentModel.ISupportInitialize)ribbon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)myGridControl1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)myGridView1).BeginInit();
@@ -55,7 +55,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.CariTanimForms
             // ribbon
             // 
             ribbon.ExpandCollapseItem.Id = 0;
-            ribbon.Size = new Size(711, 153);
+            ribbon.Size = new Size(711, 135);
             ribbon.Toolbar.ShowCustomizeItem = false;
             // 
             // btnDisariAktar
@@ -66,7 +66,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.CariTanimForms
             // 
             longNavigator1.Dock = DockStyle.Bottom;
             longNavigator1.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 162);
-            longNavigator1.Location = new Point(0, 380);
+            longNavigator1.Location = new Point(0, 387);
             longNavigator1.Name = "longNavigator1";
             longNavigator1.Size = new Size(711, 30);
             longNavigator1.TabIndex = 2;
@@ -74,11 +74,11 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.CariTanimForms
             // myGridControl1
             // 
             myGridControl1.Dock = DockStyle.Fill;
-            myGridControl1.Location = new Point(0, 153);
+            myGridControl1.Location = new Point(0, 135);
             myGridControl1.MainView = myGridView1;
             myGridControl1.MenuManager = ribbon;
             myGridControl1.Name = "myGridControl1";
-            myGridControl1.Size = new Size(711, 227);
+            myGridControl1.Size = new Size(711, 252);
             myGridControl1.TabIndex = 3;
             myGridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] { myGridView1 });
             // 
@@ -131,22 +131,9 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.CariTanimForms
             colKod.VisibleIndex = 0;
             colKod.Width = 120;
             // 
-            // colCariTipi
-            // 
-            colCariTipi.Caption = "Cari Tipi";
-            colCariTipi.FieldName = "CardType";
-            colCariTipi.Name = "colCariTipi";
-            colCariTipi.OptionsColumn.AllowEdit = false;
-            colCariTipi.StatusBarAciklama = null;
-            colCariTipi.StatusBarKisaYol = null;
-            colCariTipi.StatusBarKisaYolAciklama = null;
-            colCariTipi.Visible = true;
-            colCariTipi.VisibleIndex = 13;
-            colCariTipi.Width = 125;
-            // 
             // colCariUnvani
             // 
-            colCariUnvani.Caption = "Cari Ünvanı";
+            colCariUnvani.Caption = "Cari Unvanı";
             colCariUnvani.FieldName = "Title";
             colCariUnvani.Name = "colCariUnvani";
             colCariUnvani.OptionsColumn.AllowEdit = false;
@@ -299,6 +286,19 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.CariTanimForms
             colOzelKod.Visible = true;
             colOzelKod.VisibleIndex = 12;
             colOzelKod.Width = 125;
+            // 
+            // colCariTipi
+            // 
+            colCariTipi.Caption = "Cari Tipi";
+            colCariTipi.FieldName = "CardType";
+            colCariTipi.Name = "colCariTipi";
+            colCariTipi.OptionsColumn.AllowEdit = false;
+            colCariTipi.StatusBarAciklama = null;
+            colCariTipi.StatusBarKisaYol = null;
+            colCariTipi.StatusBarKisaYolAciklama = null;
+            colCariTipi.Visible = true;
+            colCariTipi.VisibleIndex = 13;
+            colCariTipi.Width = 125;
             // 
             // CariTanimListForm
             // 

@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using WinBeyazEsya.Application.DTOs.Security;
 using WinBeyazEsya.Application.Interfaces.Repositories;
 using WinBeyazEsya.Application.Interfaces.Security;
@@ -25,7 +25,28 @@ public class UserPermissionManager : IUserPermissionService
     public IEnumerable<UserPermissionDto> GetUserPermissions(long userId)
     {
         var permissions = _userPermissionRepository.Find(x => x.UserId == userId).ToList();
-        return _mapper.Map<IEnumerable<UserPermissionDto>>(permissions);
+        var dtos = _mapper.Map<IEnumerable<UserPermissionDto>>(permissions).ToList();
+
+        foreach (var existingPerm in dtos)
+        {
+            // Güvenlik Kuralı: NullReferenceException önlemi
+            if (string.IsNullOrWhiteSpace(existingPerm.SpecialPermissions))
+                existingPerm.SpecialPermissions = "{}";
+        }
+
+        return dtos;
+    }
+
+    private string GetEnumDescription(Enum value)
+    {
+        var fieldInfo = value.GetType().GetField(value.ToString());
+        if (fieldInfo != null)
+        {
+            var attributes = (global::System.ComponentModel.DescriptionAttribute[])fieldInfo.GetCustomAttributes(typeof(global::System.ComponentModel.DescriptionAttribute), false);
+            if (attributes != null && attributes.Length > 0)
+                return attributes[0].Description;
+        }
+        return value.ToString();
     }
 
     public void SaveUserPermissions(long userId, List<UserPermissionDto> permissions)
@@ -53,7 +74,7 @@ public class UserPermissionManager : IUserPermissionService
                     CanCreate = p.CanCreate,
                     CanUpdate = p.CanUpdate,
                     CanDelete = p.CanDelete,
-                    SpecialPermissions = p.SpecialPermissions
+                    SpecialPermissions = string.IsNullOrWhiteSpace(p.SpecialPermissions) ? "{}" : p.SpecialPermissions
                 };
                 _userPermissionRepository.Add(entity);
             }

@@ -19,6 +19,8 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
         #region Variables
 
         private bool _formSablonKayitEdilecek;
+        private Dictionary<DevExpress.XtraGrid.Views.Grid.GridView, bool> _gridSablonKayitEdilecek = new Dictionary<DevExpress.XtraGrid.Views.Grid.GridView, bool>();
+        protected bool _isGridModified = false;
         private bool _isSaving = false;
         protected bool _isBinding = false;
         protected bool _isCheckedListBoxModified = false;
@@ -294,6 +296,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
         protected virtual void ResetControlIsModified(Control.ControlCollection controls)
         {
             _isCheckedListBoxModified = false;
+            _isGridModified = false;
             foreach (Control control in controls)
             {
                 if (control is DevExpress.XtraEditors.BaseEdit baseEdit)
@@ -516,6 +519,46 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
         private void SablonYukle()
         {
             Helpers.LayoutHelper.YukleForm(this);
+            
+            foreach (var grid in _gridSablonKayitEdilecek.Keys)
+            {
+                Helpers.LayoutHelper.YukleGrid(grid);
+            }
+        }
+
+        protected void RegisterGridForLayout(DevExpress.XtraGrid.Views.Grid.GridView grid)
+        {
+            if (grid == null) return;
+
+            if (!_gridSablonKayitEdilecek.ContainsKey(grid))
+                _gridSablonKayitEdilecek.Add(grid, false);
+
+            grid.ColumnWidthChanged += (s, e) => _gridSablonKayitEdilecek[grid] = true;
+            grid.ColumnPositionChanged += (s, e) => _gridSablonKayitEdilecek[grid] = true;
+            grid.EndSorting += (s, e) => _gridSablonKayitEdilecek[grid] = true;
+            grid.FilterEditorCreated += (s, e) => { e.ShowFilterEditor = false; };
+            grid.ColumnFilterChanged += (s, e) =>
+            {
+                if (string.IsNullOrEmpty(grid.ActiveFilterString))
+                    _gridSablonKayitEdilecek[grid] = true;
+            };
+        }
+
+        protected void RegisterGridForChangeTracking(DevExpress.XtraGrid.Views.Grid.GridView grid)
+        {
+            if (grid == null) return;
+            
+            grid.CellValueChanged += (s, e) => GridModified();
+            grid.RowDeleted += (s, e) => GridModified();
+            grid.RowUpdated += (s, e) => GridModified();
+        }
+
+        protected virtual void GridModified()
+        {
+            if (_isBinding || !IsLoaded) return;
+            _isGridModified = true;
+            CurrentEntityGuncelle();
+            ButonEnabledDurumu();
         }
 
         private void FarkliKaydet()
@@ -542,6 +585,12 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
         protected void SablonKaydet()
         {
             if (_formSablonKayitEdilecek) Helpers.LayoutHelper.KaydetForm(this);
+            
+            foreach (var grid in _gridSablonKayitEdilecek)
+            {
+                if (grid.Value)
+                    Helpers.LayoutHelper.KaydetGrid(grid.Key);
+            }
         }
 
         protected virtual void BaskiOnizleme() { }
@@ -987,6 +1036,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
         protected virtual bool FarklilikVarMi(Control.ControlCollection controls)
         {
             if (_isCheckedListBoxModified) return true;
+            if (_isGridModified) return true;
 
             foreach (Control control in controls)
             {

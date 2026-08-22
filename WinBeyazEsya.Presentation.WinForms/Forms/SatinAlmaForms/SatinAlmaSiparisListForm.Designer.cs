@@ -33,13 +33,15 @@
             myGridControl1 = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridControl();
             myGridView1 = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridView();
             colId = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
-            colKod = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colSiparisTarihi = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
+            colSiparisDurumu = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
+            colKod = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
+            colCariHesapKodu = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colCariHesapUnvani = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colTutar = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colDepo = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
-            colCariHesapKodu = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colSiparisiOlusturan = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
+            colBelgeNo = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             ((System.ComponentModel.ISupportInitialize)ribbon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)myGridControl1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)myGridView1).BeginInit();
@@ -77,7 +79,7 @@
             // 
             // myGridView1
             // 
-            myGridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colId, colSiparisTarihi, colKod, colCariHesapUnvani, colTutar, colDepo, colCariHesapKodu, colSiparisiOlusturan });
+            myGridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colId, colSiparisTarihi, colSiparisDurumu, colKod, colBelgeNo, colCariHesapKodu, colCariHesapUnvani, colTutar, colDepo, colSiparisiOlusturan });
             myGridView1.GridControl = myGridControl1;
             myGridView1.GroupCount = 1;
             myGridView1.Name = "myGridView1";
@@ -111,6 +113,31 @@
             colId.StatusBarKisaYol = null;
             colId.StatusBarKisaYolAciklama = null;
             // 
+            // colSiparisTarihi
+            // 
+            colSiparisTarihi.Caption = "Sipariş Tarihi";
+            colSiparisTarihi.FieldName = "OrderDate";
+            colSiparisTarihi.Name = "colSiparisTarihi";
+            colSiparisTarihi.OptionsColumn.AllowEdit = false;
+            colSiparisTarihi.StatusBarAciklama = null;
+            colSiparisTarihi.StatusBarKisaYol = null;
+            colSiparisTarihi.StatusBarKisaYolAciklama = null;
+            colSiparisTarihi.Visible = true;
+            colSiparisTarihi.VisibleIndex = 0;
+            // 
+            // colSiparisDurumu
+            // 
+            colSiparisDurumu.Caption = "Sipariş Durumu";
+            colSiparisDurumu.FieldName = "StatusName";
+            colSiparisDurumu.Name = "colSiparisDurumu";
+            colSiparisDurumu.OptionsColumn.AllowEdit = false;
+            colSiparisDurumu.StatusBarAciklama = null;
+            colSiparisDurumu.StatusBarKisaYol = null;
+            colSiparisDurumu.StatusBarKisaYolAciklama = null;
+            colSiparisDurumu.Visible = true;
+            colSiparisDurumu.VisibleIndex = 2;
+            colSiparisDurumu.Width = 125;
+            // 
             // colKod
             // 
             colKod.AppearanceCell.Options.UseTextOptions = true;
@@ -126,21 +153,22 @@
             colKod.VisibleIndex = 0;
             colKod.Width = 125;
             // 
-            // colSiparisTarihi
+            // colCariHesapKodu
             // 
-            colSiparisTarihi.Caption = "Sipariş Tarihi";
-            colSiparisTarihi.FieldName = "OrderDate";
-            colSiparisTarihi.Name = "colSiparisTarihi";
-            colSiparisTarihi.OptionsColumn.AllowEdit = false;
-            colSiparisTarihi.StatusBarAciklama = null;
-            colSiparisTarihi.StatusBarKisaYol = null;
-            colSiparisTarihi.StatusBarKisaYolAciklama = null;
-            colSiparisTarihi.Visible = true;
-            colSiparisTarihi.VisibleIndex = 0;
+            colCariHesapKodu.Caption = "Cari Hesap Kodu";
+            colCariHesapKodu.FieldName = "SupplierCode";
+            colCariHesapKodu.Name = "colCariHesapKodu";
+            colCariHesapKodu.OptionsColumn.AllowEdit = false;
+            colCariHesapKodu.StatusBarAciklama = null;
+            colCariHesapKodu.StatusBarKisaYol = null;
+            colCariHesapKodu.StatusBarKisaYolAciklama = null;
+            colCariHesapKodu.Visible = true;
+            colCariHesapKodu.VisibleIndex = 3;
+            colCariHesapKodu.Width = 125;
             // 
             // colCariHesapUnvani
             // 
-            colCariHesapUnvani.Caption = "Cari Hesap Ünvanı (Tedarikçi)";
+            colCariHesapUnvani.Caption = "Cari Hesap Unvanı (Tedarikçi)";
             colCariHesapUnvani.FieldName = "SupplierName";
             colCariHesapUnvani.Name = "colCariHesapUnvani";
             colCariHesapUnvani.OptionsColumn.AllowEdit = false;
@@ -148,7 +176,7 @@
             colCariHesapUnvani.StatusBarKisaYol = null;
             colCariHesapUnvani.StatusBarKisaYolAciklama = null;
             colCariHesapUnvani.Visible = true;
-            colCariHesapUnvani.VisibleIndex = 1;
+            colCariHesapUnvani.VisibleIndex = 4;
             colCariHesapUnvani.Width = 125;
             // 
             // colTutar
@@ -161,7 +189,7 @@
             colTutar.StatusBarKisaYol = null;
             colTutar.StatusBarKisaYolAciklama = null;
             colTutar.Visible = true;
-            colTutar.VisibleIndex = 2;
+            colTutar.VisibleIndex = 5;
             colTutar.Width = 125;
             // 
             // colDepo
@@ -174,21 +202,8 @@
             colDepo.StatusBarKisaYol = null;
             colDepo.StatusBarKisaYolAciklama = null;
             colDepo.Visible = true;
-            colDepo.VisibleIndex = 3;
+            colDepo.VisibleIndex = 6;
             colDepo.Width = 125;
-            // 
-            // colCariHesapKodu
-            // 
-            colCariHesapKodu.Caption = "Cari Hesap Kodu";
-            colCariHesapKodu.FieldName = "SupplierCode";
-            colCariHesapKodu.Name = "colCariHesapKodu";
-            colCariHesapKodu.OptionsColumn.AllowEdit = false;
-            colCariHesapKodu.StatusBarAciklama = null;
-            colCariHesapKodu.StatusBarKisaYol = null;
-            colCariHesapKodu.StatusBarKisaYolAciklama = null;
-            colCariHesapKodu.Visible = true;
-            colCariHesapKodu.VisibleIndex = 4;
-            colCariHesapKodu.Width = 125;
             // 
             // colSiparisiOlusturan
             // 
@@ -200,8 +215,21 @@
             colSiparisiOlusturan.StatusBarKisaYol = null;
             colSiparisiOlusturan.StatusBarKisaYolAciklama = null;
             colSiparisiOlusturan.Visible = true;
-            colSiparisiOlusturan.VisibleIndex = 5;
+            colSiparisiOlusturan.VisibleIndex = 7;
             colSiparisiOlusturan.Width = 125;
+            // 
+            // colBelgeNo
+            // 
+            colBelgeNo.Caption = "Belge No (Tedarikçi Ref No)";
+            colBelgeNo.FieldName = "DocumentNo";
+            colBelgeNo.Name = "colBelgeNo";
+            colBelgeNo.OptionsColumn.AllowEdit = false;
+            colBelgeNo.StatusBarAciklama = null;
+            colBelgeNo.StatusBarKisaYol = null;
+            colBelgeNo.StatusBarKisaYolAciklama = null;
+            colBelgeNo.Visible = true;
+            colBelgeNo.VisibleIndex = 1;
+            colBelgeNo.Width = 125;
             // 
             // SatinAlmaSiparisListForm
             // 
@@ -210,6 +238,7 @@
             ClientSize = new Size(806, 425);
             Controls.Add(myGridControl1);
             Controls.Add(longNavigator1);
+            Font = new Font("Segoe UI", 8.25F);
             IconOptions.ShowIcon = false;
             Name = "SatinAlmaSiparisListForm";
             Text = "Satınalma Siparişleri";
@@ -236,5 +265,7 @@
         private UserControls.Grid.MyGridColumn colDepo;
         private UserControls.Grid.MyGridColumn colCariHesapKodu;
         private UserControls.Grid.MyGridColumn colSiparisiOlusturan;
+        private UserControls.Grid.MyGridColumn colSiparisDurumu;
+        private UserControls.Grid.MyGridColumn colBelgeNo;
     }
 }

@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using WinBeyazEsya.Application.DTOs.Management;
 using WinBeyazEsya.Application.Interfaces.Repositories;
 using WinBeyazEsya.Application.Interfaces.Security;
@@ -299,6 +299,100 @@ public class AuthManager : IAuthService
             WinBeyazEsya.Domain.Enums.PermissionType.CanDelete => rolePermission.CanDelete,
             _ => false
         };
+    }
+
+    public bool HasSpecialPermission(WinBeyazEsya.Domain.Enums.ModuleType moduleType, string specialPermissionKey)
+    {
+        long userId = _currentTenantService.UserId;
+        if (userId <= 0) return false;
+
+        var user = _userRepository.Find(u => u.Id == userId).FirstOrDefault();
+        if (user == null) return false;
+
+        if (user.Code.ToLower() == "winbeyazesya")
+            return true;
+
+        long tenantId = _currentTenantService.TenantId;
+        int moduleId = (int)moduleType;
+
+        // Aşama 1: Kullanıcı bazlı özel yetki kontrolü
+        var userPermission = _userPermissionRepository.Find(up => up.UserId == userId && up.ModuleId == moduleId).FirstOrDefault();
+        if (userPermission != null && !string.IsNullOrWhiteSpace(userPermission.SpecialPermissions))
+        {
+            try
+            {
+                var dict = global::System.Text.Json.JsonSerializer.Deserialize<global::System.Collections.Generic.Dictionary<string, bool>>(userPermission.SpecialPermissions);
+                bool val;
+                if (dict != null && dict.TryGetValue(specialPermissionKey, out val))
+                    return val;
+            }
+            catch { }
+        }
+
+        // Aşama 2: Rol bazlı özel yetki kontrolü
+        long roleId = user.UserRoleId;
+        var rolePermission = _rolePermissionRepository.Find(rp => rp.RoleId == roleId && rp.ModuleId == moduleId).FirstOrDefault();
+        if (rolePermission != null && !string.IsNullOrWhiteSpace(rolePermission.SpecialPermissions))
+        {
+            try
+            {
+                var dict = global::System.Text.Json.JsonSerializer.Deserialize<global::System.Collections.Generic.Dictionary<string, bool>>(rolePermission.SpecialPermissions);
+                bool val;
+                if (dict != null && dict.TryGetValue(specialPermissionKey, out val))
+                    return val;
+            }
+            catch { }
+        }
+
+        return false;
+    }
+
+    public global::System.Collections.Generic.List<User> GetUsersWithSpecialPermission(WinBeyazEsya.Domain.Enums.ModuleType moduleType, string specialPermissionKey)
+    {
+        int moduleId = (int)moduleType;
+        var resultUsers = new global::System.Collections.Generic.List<User>();
+
+        var allUsers = _userRepository.GetAll().ToList();
+        var rolePermissions = _rolePermissionRepository.Find(rp => rp.ModuleId == moduleId).ToList();
+        var userPermissions = _userPermissionRepository.Find(up => up.ModuleId == moduleId).ToList();
+
+        foreach (var user in allUsers)
+        {
+            if (!user.IsActive) continue;
+
+            bool hasPermission = false;
+            
+            var rolePerm = rolePermissions.FirstOrDefault(rp => rp.RoleId == user.UserRoleId);
+            if (rolePerm != null && !string.IsNullOrWhiteSpace(rolePerm.SpecialPermissions))
+            {
+                try
+                {
+                    var dict = global::System.Text.Json.JsonSerializer.Deserialize<global::System.Collections.Generic.Dictionary<string, bool>>(rolePerm.SpecialPermissions);
+                    if (dict != null && dict.TryGetValue(specialPermissionKey, out bool val))
+                        hasPermission = val;
+                }
+                catch { }
+            }
+
+            var userPerm = userPermissions.FirstOrDefault(up => up.UserId == user.Id);
+            if (userPerm != null && !string.IsNullOrWhiteSpace(userPerm.SpecialPermissions))
+            {
+                try
+                {
+                    var dict = global::System.Text.Json.JsonSerializer.Deserialize<global::System.Collections.Generic.Dictionary<string, bool>>(userPerm.SpecialPermissions);
+                    if (dict != null && dict.TryGetValue(specialPermissionKey, out bool val))
+                        hasPermission = val; // Ezici (Override) özellik!
+                }
+                catch { }
+            }
+
+            if (hasPermission)
+            {
+                resultUsers.Add(user);
+            }
+        }
+
+        return resultUsers;
     }
 
     public Task<string> GetDefaultTenantConnectionStringAsync(long? preferredTenantId = null)

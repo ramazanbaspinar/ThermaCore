@@ -40,7 +40,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
         protected internal FormAcilisTuru FormAcilisTuru;
 
         // Sağ tık menüsü
-        private PopupMenu _sagTikMenu = default!;
+        protected internal PopupMenu SagTikMenu = default!;
         private BarButtonItem _btnKayitBilgileri = default!;
 
         private bool? _hasInsertPermission;
@@ -515,7 +515,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
             if (e.MenuType == GridMenuType.Row && Tablo != null && Tablo.FocusedRowHandle >= 0)
             {
                 e.Allow = false; // DevExpress varsayılan menüsünü kapat
-                _sagTikMenu?.ShowPopup(ribbon.Manager, Control.MousePosition);
+                SagTikMenu?.ShowPopup(ribbon.Manager, Control.MousePosition);
             }
         }
 
@@ -524,18 +524,18 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
             if (ribbon == null) return;
 
             var manager = ribbon.Manager;
-            _sagTikMenu = new PopupMenu(manager);
+            SagTikMenu = new PopupMenu(manager);
 
             // Mevcut ribbon butonlarını PopupMenu'ye bağla (yetki kısıtlamaları otomatik yansır)
-            if (btnYeni != null) _sagTikMenu.ItemLinks.Add(btnYeni);
-            if (btnDuzelt != null) _sagTikMenu.ItemLinks.Add(btnDuzelt);
-            if (btnSil != null) _sagTikMenu.ItemLinks.Add(btnSil);
-            if (btnYenile != null) _sagTikMenu.ItemLinks.Add(btnYenile);
-            if (btnKolonlar != null) _sagTikMenu.ItemLinks.Add(btnKolonlar);
+            if (btnYeni != null) SagTikMenu.ItemLinks.Add(btnYeni);
+            if (btnDuzelt != null) SagTikMenu.ItemLinks.Add(btnDuzelt);
+            if (btnSil != null) SagTikMenu.ItemLinks.Add(btnSil);
+            if (btnYenile != null) SagTikMenu.ItemLinks.Add(btnYenile);
+            if (btnKolonlar != null) SagTikMenu.ItemLinks.Add(btnKolonlar);
 
             // Ayırıcı (separator) ekle
-            if (_sagTikMenu.ItemLinks.Count > 0)
-                _sagTikMenu.ItemLinks[_sagTikMenu.ItemLinks.Count - 1].BeginGroup = false;
+            if (SagTikMenu.ItemLinks.Count > 0)
+                SagTikMenu.ItemLinks[SagTikMenu.ItemLinks.Count - 1].BeginGroup = false;
 
             // Kayıt Bilgileri butonu — SADECE sağ tık menüsüne eklenir, Ribbon'a KESİNLİKLE EKLENMEZ
             _btnKayitBilgileri = new BarButtonItem(manager, "Kayıt Bilgileri")
@@ -545,13 +545,13 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
             _btnKayitBilgileri.ItemClick += BtnKayitBilgileri_ItemClick;
 
             // Separator ile ayırarak ekle
-            var link = _sagTikMenu.ItemLinks.Add(_btnKayitBilgileri);
+            var link = SagTikMenu.ItemLinks.Add(_btnKayitBilgileri);
             link.BeginGroup = true;
 
             // Kapat butonunu en sona ekle
             if (btnKapat != null)
             {
-                var kapatLink = _sagTikMenu.ItemLinks.Add(btnKapat);
+                var kapatLink = SagTikMenu.ItemLinks.Add(btnKapat);
                 kapatLink.BeginGroup = true;
             }
         }
