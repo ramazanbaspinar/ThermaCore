@@ -20,4 +20,10 @@ public class PurchaseOrderLineDto : BaseDto
     { 
         get { return Quantity - ReceivedQuantity; } 
     }
+
+    public decimal ConversionFactor { get; set; } = 1m;
+
+    public decimal BaseReceivedQuantity => ReceivedQuantity * ConversionFactor;
+    
+    public decimal BaseRemainingQuantity => (Quantity - ReceivedQuantity) * ConversionFactor;
 }

@@ -34,6 +34,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
         private RepositoryItemLookUpEdit repoBirim;
         private List<MaterialLookupDto> _allMaterials;
         private Dictionary<long, List<UnitDropdownItem>> _materialUnitsCache = new Dictionary<long, List<UnitDropdownItem>>();
+        private object _oldUnitId;
 
         public SatinAlmaSiparisEditForm()
         {
@@ -129,6 +130,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             myGridView1.ShownEditor += MyGridView1_ShownEditor;
             myGridView1.PopupMenuShowing += MyGridView1_PopupMenuShowing;
             myGridView1.InitNewRow += MyGridView1_InitNewRow;
+            myGridView1.CustomColumnDisplayText += MyGridView1_CustomColumnDisplayText;
 
             glufTedarikciCari.SearchButtonClicked += GlufTedarikciCari_SearchButtonClicked;
             glufTeslimatDeposu.SearchButtonClicked += GlufTeslimatDeposu_SearchButtonClicked;
@@ -143,6 +145,68 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             if (e.HitInfo.InRow || e.HitInfo.InRowCell || e.HitInfo.HitTest == DevExpress.XtraGrid.Views.Grid.ViewInfo.GridHitTest.EmptyRow)
             {
                 popupMenuGrid.ShowPopup(myGridControl1.PointToScreen(e.Point));
+            }
+        }
+
+        private void View_CustomRowFilter(object sender, DevExpress.XtraGrid.Views.Base.RowFilterEventArgs e)
+        {
+            var gridView = sender as DevExpress.XtraGrid.Views.Grid.GridView;
+            string searchText = glufTedarikciCari.Text?.ToLower() ?? "";
+            
+            if (string.IsNullOrEmpty(searchText) || searchText == glufTedarikciCari.Properties.NullText.ToLower()) 
+                return;
+                
+            var row = gridView.GetRow(e.ListSourceRow) as Application.DTOs.Definitions.CurrentAccountDto;
+            if (row != null)
+            {
+                bool matchCode = row.Code != null && row.Code.ToLower().Contains(searchText);
+                bool matchTitle = row.Title != null && row.Title.ToLower().Contains(searchText);
+                
+                if (matchCode || matchTitle)
+                {
+                    e.Visible = true;
+                    e.Handled = true;
+                }
+                else
+                {
+                    e.Visible = false;
+                    e.Handled = true;
+                }
+            }
+        }
+
+        private void MyGridView1_CustomColumnDisplayText(object sender, DevExpress.XtraGrid.Views.Base.CustomColumnDisplayTextEventArgs e)
+        {
+            if (e.Column.FieldName == "BaseReceivedQuantity" || e.Column.FieldName == "BaseRemainingQuantity")
+            {
+                var view = sender as GridView;
+                if (view != null && e.ListSourceRowIndex >= 0)
+                {
+                    var materialIdValue = view.GetListSourceRowCellValue(e.ListSourceRowIndex, "MaterialId");
+                    if (materialIdValue != null && materialIdValue != DBNull.Value)
+                    {
+                        long materialId = Convert.ToInt64(materialIdValue);
+                        var material = _allMaterials?.FirstOrDefault(x => x.Id == materialId);
+                        
+                        string baseUnitName = "";
+                        if (material != null && material.BaseUnitId.HasValue)
+                        {
+                            var allUnits = repoBirim.DataSource as List<UnitDropdownItem>;
+                            var unit = allUnits?.FirstOrDefault(u => u.Id == material.BaseUnitId.Value);
+                            if (unit != null)
+                            {
+                                baseUnitName = unit.Name;
+                            }
+                        }
+                        
+                        if (e.Value != null)
+                        {
+                            decimal val = Convert.ToDecimal(e.Value);
+                            string formattedValue = val.ToString("#,##0.####");
+                            e.DisplayText = $"{formattedValue} {baseUnitName}".Trim();
+                        }
+                    }
+                }
             }
         }
 
@@ -162,6 +226,17 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
         public override void Yukle()
         {
             myGridView1.OptionsView.ShowAutoFilterRow = false;
+
+            if (colGelenMiktar != null)
+            {
+                colGelenMiktar.FieldName = "BaseReceivedQuantity";
+                colGelenMiktar.Caption = "Gelen Miktar";
+            }
+            if (colBekleyenMiktar != null)
+            {
+                colBekleyenMiktar.FieldName = "BaseRemainingQuantity";
+                colBekleyenMiktar.Caption = "Bekleyen Miktar";
+            }
 
             txtSiparisTarihi.Properties.Mask.EditMask = "g";
             txtSiparisTarihi.Properties.Mask.UseMaskAsDisplayFormat = true;
@@ -317,6 +392,37 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
                 glufTedarikciCari.Properties.DataSource = _currentAccountService.GetAll()
                     .Where(x => x.CardType == (int)CardType.Tedarikci || x.CardType == (int)CardType.MusteriVeTedarikci)
                     .ToList();
+                    
+                var view = glufTedarikciCari.Properties.PopupView as DevExpress.XtraGrid.Views.Grid.GridView;
+                if (view != null)
+                {
+                    view.Columns.Clear();
+                    
+                    var colCode = view.Columns.AddField("Code");
+                    colCode.Caption = "Cari Kod";
+                    colCode.Visible = true;
+                    colCode.VisibleIndex = 0;
+                    colCode.Width = 60;
+
+                    var colTitle = view.Columns.AddField("Title");
+                    colTitle.Caption = "Cari Unvan";
+                    colTitle.Visible = true;
+                    colTitle.VisibleIndex = 1;
+                    colTitle.Width = 240;
+                    
+                    // Çoklu arama özelliği (Hem kod hem unvan)
+                    view.OptionsFind.AlwaysVisible = true;
+                    view.OptionsFind.FindMode = DevExpress.XtraEditors.FindMode.Always;
+                    view.OptionsFind.FindFilterColumns = "Code;Title";
+                    view.OptionsFind.FindNullPrompt = "Kod veya Unvan Ara...";
+                    
+                    glufTedarikciCari.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
+                    glufTedarikciCari.Properties.PopupFilterMode = DevExpress.XtraEditors.PopupFilterMode.Contains;
+                    glufTedarikciCari.Properties.ImmediatePopup = true;
+                    
+                    view.CustomRowFilter -= View_CustomRowFilter;
+                    view.CustomRowFilter += View_CustomRowFilter;
+                }
             }
 
             if (_warehouseService != null && !DesignMode)
@@ -343,6 +449,15 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             txtToplam.Value = entity.SubTotal;
             txtToplamKDV.Value = entity.TaxAmount;
             txtNet.Value = entity.GrandTotal;
+
+            if (entity.Lines != null)
+            {
+                foreach (var line in entity.Lines)
+                {
+                    line.ConversionFactor = GetUnitConversionFactor(line.MaterialId, line.UnitId);
+                    line.CurrencyCode = entity.CurrencyCode;
+                }
+            }
 
             myGridControl1.DataSource = new BindingList<Application.DTOs.Purchasing.PurchaseOrderLineDto>(entity.Lines ?? new List<Application.DTOs.Purchasing.PurchaseOrderLineDto>());
 
@@ -499,6 +614,8 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
 
             if (view.FocusedColumn.FieldName == "UnitId")
             {
+                _oldUnitId = view.GetFocusedRowCellValue("UnitId");
+                
                 var materialIdValue = view.GetFocusedRowCellValue("MaterialId");
                 if (materialIdValue == null || materialIdValue == DBNull.Value || Convert.ToInt64(materialIdValue) <= 0)
                 {
@@ -550,6 +667,44 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
                     view.SetRowCellValue(e.RowHandle, "UnitId", null);
                 }
             }
+            else if (e.Column.FieldName == "UnitId")
+            {
+                var newUnitIdValue = e.Value;
+                if (newUnitIdValue != null && newUnitIdValue != DBNull.Value && _oldUnitId != null && _oldUnitId != DBNull.Value)
+                {
+                    long newUnitId = Convert.ToInt64(newUnitIdValue);
+                    long oldUnitId = Convert.ToInt64(_oldUnitId);
+
+                    if (newUnitId != oldUnitId)
+                    {
+                        var materialIdValue = view.GetRowCellValue(e.RowHandle, "MaterialId");
+                        if (materialIdValue != null && materialIdValue != DBNull.Value)
+                        {
+                            long materialId = Convert.ToInt64(materialIdValue);
+
+                            decimal oldFactor = GetUnitConversionFactor(materialId, oldUnitId);
+                            decimal newFactor = GetUnitConversionFactor(materialId, newUnitId);
+                            
+                            var row = view.GetRow(e.RowHandle) as Application.DTOs.Purchasing.PurchaseOrderLineDto;
+                            if (row != null)
+                            {
+                                row.ConversionFactor = newFactor;
+                            }
+                            
+                            var currentPrice = Convert.ToDecimal(view.GetRowCellValue(e.RowHandle, "UnitPrice") ?? 0);
+
+                            if (oldFactor != 0)
+                            {
+                                decimal basePrice = currentPrice / oldFactor;
+                                decimal newPrice = basePrice * newFactor;
+                                view.SetRowCellValue(e.RowHandle, "UnitPrice", newPrice);
+                            }
+                            
+                            view.RefreshRow(e.RowHandle);
+                        }
+                    }
+                }
+            }
             else if (e.Column.FieldName == "Quantity" || e.Column.FieldName == "UnitPrice")
             {
                 var quantity = Convert.ToDecimal(view.GetRowCellValue(e.RowHandle, "Quantity") ?? 0);
@@ -558,6 +713,11 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
 
                 view.SetRowCellValue(e.RowHandle, "LineTotal", lineTotal);
                 CalculateTotals();
+                
+                if (e.Column.FieldName == "Quantity")
+                {
+                    view.RefreshRow(e.RowHandle);
+                }
             }
             else if (e.Column.FieldName == "TaxRate" || e.Column.FieldName == "LineTotal")
             {
@@ -624,7 +784,24 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             return unitList;
         }
 
-
+        private decimal GetUnitConversionFactor(long materialId, long unitId)
+        {
+            var material = _allMaterials?.FirstOrDefault(x => x.Id == materialId);
+            if (material == null) return 1m;
+            
+            if (material.BaseUnitId.HasValue && material.BaseUnitId.Value == unitId)
+                return 1m;
+                
+            if (_unitConversionService != null)
+            {
+                var conv = _unitConversionService.GetByEntityId(materialId).FirstOrDefault(x => x.UnitId == unitId);
+                if (conv != null && conv.Divisor != 0)
+                {
+                    return conv.Multiplier / conv.Divisor;
+                }
+            }
+            return 1m;
+        }
 
         #endregion
 

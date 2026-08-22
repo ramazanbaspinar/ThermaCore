@@ -6,6 +6,7 @@ public class CurrentAccountDto : BaseDto
 {
     public long LogicalRef { get; set; }
     public int CardType { get; set; }
+    public string Code { get; set; } = string.Empty;
     public string Title { get; set; } = string.Empty;
     public string? SpeCode { get; set; }
     public string? Addr1 { get; set; }
