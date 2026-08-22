@@ -140,7 +140,10 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
                 }
                 else if (control is DevExpress.XtraGrid.GridControl gridControl)
                 {
-                    gridControl.Enabled = false;
+                    if (gridControl.MainView is DevExpress.XtraGrid.Views.Grid.GridView gridView)
+                    {
+                        gridView.OptionsBehavior.Editable = false;
+                    }
                 }
                 else if (control is DevExpress.XtraEditors.SimpleButton simpleButton)
                 {

@@ -158,6 +158,8 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
 
         private void MyGridView1_PopupMenuShowing(object sender, PopupMenuShowingEventArgs e)
         {
+            if (!myGridView1.OptionsBehavior.Editable) return;
+            
             if (e.HitInfo.InRow || e.HitInfo.InRowCell || e.HitInfo.HitTest == DevExpress.XtraGrid.Views.Grid.ViewInfo.GridHitTest.EmptyRow)
             {
                 popupMenuGrid.ShowPopup(myGridControl1.PointToScreen(e.Point));
@@ -542,6 +544,86 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             {
                 cmbDovuzTuru.ReadOnly = false;
                 txtKod.Text = "Yeni Sipariş";
+            }
+        }
+
+        protected internal override void ButonEnabledDurumu()
+        {
+            base.ButonEnabledDurumu();
+
+            var entity = CurrentEntity as Application.DTOs.Purchasing.PurchaseOrderDto;
+            if (entity != null && IsLoaded)
+            {
+                btnEkstra.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
+                btnEkstra.ItemClick -= BtnEkstra_ItemClick;
+
+                if (entity.Status == OrderStatus.Approved ||
+                    entity.Status == OrderStatus.PartialReceived ||
+                    entity.Status == OrderStatus.Completed ||
+                    entity.Status == OrderStatus.Canceled)
+                {
+                    if (btnKaydet != null) btnKaydet.Enabled = false;
+                    if (btnGerial != null) btnGerial.Enabled = false;
+                    if (btnSil != null) btnSil.Enabled = false;
+
+                    LockFormControls(this.Controls);
+                    myGridView1.OptionsBehavior.Editable = false;
+                    myGridView1.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.False;
+                    myGridView1.OptionsBehavior.AllowDeleteRows = DevExpress.Utils.DefaultBoolean.False;
+
+                    if (entity.Status == OrderStatus.Approved)
+                    {
+                        btnEkstra.Caption = "Siparişi Revize Et";
+                        btnEkstra.ImageOptions.Image = DevExpress.Images.ImageResourceCache.Default.GetImage("images/actions/reset_16x16.png");
+                        btnEkstra.ImageOptions.LargeImage = DevExpress.Images.ImageResourceCache.Default.GetImage("images/actions/reset_32x32.png");
+                        btnEkstra.Visibility = DevExpress.XtraBars.BarItemVisibility.Always;
+                        btnEkstra.ItemClick += BtnEkstra_ItemClick;
+                    }
+                }
+                else
+                {
+                    myGridView1.OptionsBehavior.Editable = true;
+                    myGridView1.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.Default;
+                    myGridView1.OptionsBehavior.AllowDeleteRows = DevExpress.Utils.DefaultBoolean.Default;
+                }
+            }
+        }
+
+        private void BtnEkstra_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            var entity = CurrentEntity as Application.DTOs.Purchasing.PurchaseOrderDto;
+            if (entity == null || entity.Status != OrderStatus.Approved) return;
+
+            if (DevExpress.XtraEditors.XtraMessageBox.Show("Sipariş onayı iptal edilip Taslak durumuna alınacaktır. Emin misiniz?", "Onay İptali", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+            {
+                entity.Status = OrderStatus.Draft;
+                
+                if (_purchaseOrderService != null)
+                {
+                    _purchaseOrderService.Update(entity);
+                }
+                
+                DevExpress.XtraEditors.XtraMessageBox.Show("Sipariş statüsü Taslak olarak güncellendi. Artık değişiklik yapabilirsiniz.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                
+                Yukle();
+                ButonEnabledDurumu();
+            }
+        }
+
+        protected override void BaseEditForm_Shown(object? sender, EventArgs e)
+        {
+            base.BaseEditForm_Shown(sender, e);
+            var entity = CurrentEntity as Application.DTOs.Purchasing.PurchaseOrderDto;
+            if (entity != null)
+            {
+                if (entity.Status == OrderStatus.Approved ||
+                    entity.Status == OrderStatus.PartialReceived ||
+                    entity.Status == OrderStatus.Completed ||
+                    entity.Status == OrderStatus.Canceled)
+                {
+                    string statusName = WinBeyazEsya.Domain.Helpers.EnumFunctions.GetDescription(entity.Status);
+                    this.Text += $" - [KİLİTLİ: {statusName}]";
+                }
             }
         }
 

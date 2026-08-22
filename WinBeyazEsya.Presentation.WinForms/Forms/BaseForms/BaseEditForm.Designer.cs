@@ -1,4 +1,4 @@
-ï»¿namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
+namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
 {
     partial class BaseEditForm
     {
@@ -53,6 +53,7 @@
             ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             ribbonStatusBar = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
+            btnEkstra = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)ribbon).BeginInit();
             SuspendLayout();
             // 
@@ -61,9 +62,9 @@
             ribbon.DrawGroupCaptions = DevExpress.Utils.DefaultBoolean.False;
             ribbon.DrawGroupsBorderMode = DevExpress.Utils.DefaultBoolean.False;
             ribbon.ExpandCollapseItem.Id = 0;
-            ribbon.Items.AddRange(new DevExpress.XtraBars.BarItem[] { ribbon.ExpandCollapseItem, btnYeni, btnKaydet, btnGerial, btnYenile, btnYazdir, btnBaskiOnizle, btnKapat, btnSifreDegistir, btnSil, bsiYeni, bsiYeniAciklama, bsiKaydet, bsiKaydetAciklama, bsiYenile, bsiYenileAciklama, bsiGerial, bsiGerialAciklama, bsiSil, bsiSilAciklama, bsiKapat, bsiKapatAciklama });
+            ribbon.Items.AddRange(new DevExpress.XtraBars.BarItem[] { ribbon.ExpandCollapseItem, btnYeni, btnKaydet, btnGerial, btnYenile, btnYazdir, btnBaskiOnizle, btnKapat, btnSifreDegistir, btnSil, bsiYeni, bsiYeniAciklama, bsiKaydet, bsiKaydetAciklama, bsiYenile, bsiYenileAciklama, bsiGerial, bsiGerialAciklama, bsiSil, bsiSilAciklama, bsiKapat, bsiKapatAciklama, btnEkstra });
             ribbon.Location = new Point(0, 0);
-            ribbon.MaxItemId = 22;
+            ribbon.MaxItemId = 23;
             ribbon.Name = "ribbon";
             ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] { ribbonPage1 });
             ribbon.ShowApplicationButton = DevExpress.Utils.DefaultBoolean.False;
@@ -73,7 +74,7 @@
             ribbon.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.Hide;
             ribbon.ShowQatLocationSelector = false;
             ribbon.ShowToolbarCustomizeItem = false;
-            ribbon.Size = new Size(609, 135);
+            ribbon.Size = new Size(609, 155);
             ribbon.StatusBar = ribbonStatusBar;
             ribbon.Toolbar.ShowCustomizeItem = false;
             // 
@@ -112,7 +113,7 @@
             // 
             // btnYazdir
             // 
-            btnYazdir.Caption = "YazdÄ±r";
+            btnYazdir.Caption = "Yazdýr";
             btnYazdir.Id = 5;
             btnYazdir.ImageOptions.SvgImage = Properties.Resources.print;
             btnYazdir.ItemShortcut = new DevExpress.XtraBars.BarShortcut(Keys.Control | Keys.P);
@@ -121,7 +122,7 @@
             // 
             // btnBaskiOnizle
             // 
-            btnBaskiOnizle.Caption = "BaskÄ± Ã–nizle";
+            btnBaskiOnizle.Caption = "Baský Önizle";
             btnBaskiOnizle.Id = 6;
             btnBaskiOnizle.ImageOptions.SvgImage = Properties.Resources.showprintpreview;
             btnBaskiOnizle.ItemShortcut = new DevExpress.XtraBars.BarShortcut(Keys.Control | Keys.Shift | Keys.P);
@@ -138,7 +139,7 @@
             // 
             // btnSifreDegistir
             // 
-            btnSifreDegistir.Caption = "Åžifre DeÄŸiÅŸtir";
+            btnSifreDegistir.Caption = "Þifre Deðiþtir";
             btnSifreDegistir.Id = 8;
             btnSifreDegistir.ImageOptions.SvgImage = Properties.Resources.bo_user;
             btnSifreDegistir.Name = "btnSifreDegistir";
@@ -261,6 +262,7 @@
             ribbonPageGroup1.ItemLinks.Add(btnYenile);
             ribbonPageGroup1.ItemLinks.Add(btnGerial);
             ribbonPageGroup1.ItemLinks.Add(btnSil);
+            ribbonPageGroup1.ItemLinks.Add(btnEkstra);
             ribbonPageGroup1.ItemLinks.Add(btnYazdir);
             ribbonPageGroup1.ItemLinks.Add(btnBaskiOnizle);
             ribbonPageGroup1.ItemLinks.Add(btnSifreDegistir);
@@ -282,10 +284,17 @@
             ribbonStatusBar.ItemLinks.Add(bsiSilAciklama);
             ribbonStatusBar.ItemLinks.Add(bsiKapat, true);
             ribbonStatusBar.ItemLinks.Add(bsiKapatAciklama);
-            ribbonStatusBar.Location = new Point(0, 378);
+            ribbonStatusBar.Location = new Point(0, 371);
             ribbonStatusBar.Name = "ribbonStatusBar";
             ribbonStatusBar.Ribbon = ribbon;
-            ribbonStatusBar.Size = new Size(609, 24);
+            ribbonStatusBar.Size = new Size(609, 31);
+            // 
+            // btnEkstra
+            // 
+            btnEkstra.Caption = "Ekstra Buton";
+            btnEkstra.Id = 22;
+            btnEkstra.Name = "btnEkstra";
+            btnEkstra.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
             // 
             // BaseEditForm
             // 
@@ -294,6 +303,7 @@
             ClientSize = new Size(609, 402);
             Controls.Add(ribbon);
             Controls.Add(ribbonStatusBar);
+            Font = new Font("Segoe UI", 8.25F);
             IconOptions.ShowIcon = false;
             MinimizeBox = false;
             Name = "BaseEditForm";
@@ -331,5 +341,6 @@
         private DevExpress.XtraBars.BarStaticItem bsiSilAciklama;
         private DevExpress.XtraBars.BarStaticItem bsiKapat;
         private DevExpress.XtraBars.BarStaticItem bsiKapatAciklama;
+        protected DevExpress.XtraBars.BarButtonItem btnEkstra;
     }
 }
