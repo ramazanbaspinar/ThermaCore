@@ -19,6 +19,7 @@ public class PurchaseOrderListDto : BaseDto
     public string StatusName { get; set; } = string.Empty;
     
     public decimal GrandTotal { get; set; }
+    public string? Description { get; set; }
     
     public string CreatedFullName { get; set; } = string.Empty;
 }

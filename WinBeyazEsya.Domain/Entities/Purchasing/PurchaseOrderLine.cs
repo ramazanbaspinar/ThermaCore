@@ -20,5 +20,7 @@ public class PurchaseOrderLine : FullAuditableEntity
 
     public decimal ReceivedQuantity { get; set; } = 0;
 
+    public long? WarehouseId { get; set; }
+
     public virtual PurchaseOrder PurchaseOrder { get; set; } = null!;
 }

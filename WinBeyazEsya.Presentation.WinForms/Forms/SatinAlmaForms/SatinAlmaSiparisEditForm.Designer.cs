@@ -67,6 +67,9 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             colBirim = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colBirimFiyat = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colDovizTuru = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
+            colTeslimatDeposu = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
+            repositoryItemGridLookUpEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemGridLookUpEdit();
+            repositoryItemGridLookUpEdit1View = new DevExpress.XtraGrid.Views.Grid.GridView();
             colKdv = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colSatirTutari = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colGelenMiktar = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
@@ -118,6 +121,8 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             ((System.ComponentModel.ISupportInitialize)cmbDovuzTuru.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)myGridControl1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)myGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)repositoryItemGridLookUpEdit1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)repositoryItemGridLookUpEdit1View).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtAciklama.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)glufTeslimatDeposu.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)gridView1).BeginInit();
@@ -148,7 +153,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             // ribbon
             // 
             ribbon.ExpandCollapseItem.Id = 0;
-            ribbon.Size = new Size(1178, 135);
+            ribbon.Size = new Size(1178, 155);
             ribbon.Toolbar.ShowCustomizeItem = false;
             // 
             // myDataLayoutControl1
@@ -167,12 +172,12 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             myDataLayoutControl1.Controls.Add(txtBelgeNo);
             myDataLayoutControl1.Controls.Add(txtKod);
             myDataLayoutControl1.Dock = DockStyle.Fill;
-            myDataLayoutControl1.Location = new Point(0, 135);
+            myDataLayoutControl1.Location = new Point(0, 155);
             myDataLayoutControl1.Name = "myDataLayoutControl1";
             myDataLayoutControl1.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new Rectangle(1065, 300, 650, 400);
             myDataLayoutControl1.OptionsFocus.EnableAutoTabOrder = false;
             myDataLayoutControl1.Root = Root;
-            myDataLayoutControl1.Size = new Size(1178, 446);
+            myDataLayoutControl1.Size = new Size(1178, 419);
             myDataLayoutControl1.TabIndex = 0;
             myDataLayoutControl1.Text = "myDataLayoutControl1";
             // 
@@ -180,7 +185,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             // 
             myDataLayoutControl2.AllowCustomization = false;
             myDataLayoutControl2.Controls.Add(groupControl1);
-            myDataLayoutControl2.Location = new Point(784, 268);
+            myDataLayoutControl2.Location = new Point(784, 241);
             myDataLayoutControl2.Name = "myDataLayoutControl2";
             myDataLayoutControl2.OptionsFocus.EnableAutoTabOrder = false;
             myDataLayoutControl2.Root = layoutControlGroup1;
@@ -204,18 +209,18 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             myDataLayoutControl3.Controls.Add(txtToplamKDV);
             myDataLayoutControl3.Controls.Add(txtToplam);
             myDataLayoutControl3.Dock = DockStyle.Fill;
-            myDataLayoutControl3.Location = new Point(2, 23);
+            myDataLayoutControl3.Location = new Point(2, 17);
             myDataLayoutControl3.Name = "myDataLayoutControl3";
             myDataLayoutControl3.OptionsFocus.EnableAutoTabOrder = false;
             myDataLayoutControl3.Root = layoutControlGroup2;
-            myDataLayoutControl3.Size = new Size(304, 117);
+            myDataLayoutControl3.Size = new Size(304, 123);
             myDataLayoutControl3.TabIndex = 0;
             myDataLayoutControl3.Text = "myDataLayoutControl3";
             // 
             // txtNet
             // 
             txtNet.EnterMoveNextControl = true;
-            txtNet.Location = new Point(80, 74);
+            txtNet.Location = new Point(85, 74);
             txtNet.MenuManager = ribbon;
             txtNet.Name = "txtNet";
             txtNet.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
@@ -227,7 +232,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             txtNet.Properties.Mask.UseMaskAsDisplayFormat = true;
             txtNet.Properties.MaskSettings.Set("mask", "n2");
             txtNet.Properties.ReadOnly = true;
-            txtNet.Size = new Size(212, 20);
+            txtNet.Size = new Size(207, 22);
             txtNet.StatusBarAciklama = null;
             txtNet.StatusBarKisaYol = "F4 :";
             txtNet.StatusBarKisaYolAciklama = "Hesap Makinesi";
@@ -237,7 +242,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             // txtToplamKDV
             // 
             txtToplamKDV.EnterMoveNextControl = true;
-            txtToplamKDV.Location = new Point(80, 43);
+            txtToplamKDV.Location = new Point(85, 43);
             txtToplamKDV.MenuManager = ribbon;
             txtToplamKDV.Name = "txtToplamKDV";
             txtToplamKDV.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
@@ -249,7 +254,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             txtToplamKDV.Properties.Mask.UseMaskAsDisplayFormat = true;
             txtToplamKDV.Properties.MaskSettings.Set("mask", "n2");
             txtToplamKDV.Properties.ReadOnly = true;
-            txtToplamKDV.Size = new Size(212, 20);
+            txtToplamKDV.Size = new Size(207, 22);
             txtToplamKDV.StatusBarAciklama = null;
             txtToplamKDV.StatusBarKisaYol = "F4 :";
             txtToplamKDV.StatusBarKisaYolAciklama = "Hesap Makinesi";
@@ -259,7 +264,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             // txtToplam
             // 
             txtToplam.EnterMoveNextControl = true;
-            txtToplam.Location = new Point(80, 12);
+            txtToplam.Location = new Point(85, 12);
             txtToplam.MenuManager = ribbon;
             txtToplam.Name = "txtToplam";
             txtToplam.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
@@ -271,7 +276,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             txtToplam.Properties.Mask.UseMaskAsDisplayFormat = true;
             txtToplam.Properties.MaskSettings.Set("mask", "n2");
             txtToplam.Properties.ReadOnly = true;
-            txtToplam.Size = new Size(212, 20);
+            txtToplam.Size = new Size(207, 22);
             txtToplam.StatusBarAciklama = null;
             txtToplam.StatusBarKisaYol = "F4 :";
             txtToplam.StatusBarKisaYolAciklama = "Hesap Makinesi";
@@ -295,7 +300,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             rowDefinition3.Height = 31D;
             rowDefinition3.SizeType = SizeType.Absolute;
             layoutControlGroup2.OptionsTableLayoutGroup.RowDefinitions.AddRange(new DevExpress.XtraLayout.RowDefinition[] { rowDefinition1, rowDefinition2, rowDefinition3 });
-            layoutControlGroup2.Size = new Size(304, 117);
+            layoutControlGroup2.Size = new Size(304, 123);
             layoutControlGroup2.TextVisible = false;
             // 
             // layoutControlItem11
@@ -305,7 +310,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             layoutControlItem11.Name = "layoutControlItem11";
             layoutControlItem11.Size = new Size(284, 31);
             layoutControlItem11.Text = "Toplam";
-            layoutControlItem11.TextSize = new Size(56, 13);
+            layoutControlItem11.TextSize = new Size(61, 13);
             // 
             // layoutControlItem12
             // 
@@ -315,7 +320,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             layoutControlItem12.OptionsTableLayoutItem.RowIndex = 1;
             layoutControlItem12.Size = new Size(284, 31);
             layoutControlItem12.Text = "Toplam KDV";
-            layoutControlItem12.TextSize = new Size(56, 13);
+            layoutControlItem12.TextSize = new Size(61, 13);
             // 
             // layoutControlItem13
             // 
@@ -323,9 +328,9 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             layoutControlItem13.Location = new Point(0, 62);
             layoutControlItem13.Name = "layoutControlItem13";
             layoutControlItem13.OptionsTableLayoutItem.RowIndex = 2;
-            layoutControlItem13.Size = new Size(284, 35);
+            layoutControlItem13.Size = new Size(284, 41);
             layoutControlItem13.Text = "Net";
-            layoutControlItem13.TextSize = new Size(56, 13);
+            layoutControlItem13.TextSize = new Size(61, 13);
             // 
             // layoutControlGroup1
             // 
@@ -357,7 +362,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             // txtDovizKuru
             // 
             txtDovizKuru.EnterMoveNextControl = true;
-            txtDovizKuru.Location = new Point(874, 74);
+            txtDovizKuru.Location = new Point(880, 74);
             txtDovizKuru.MenuManager = ribbon;
             txtDovizKuru.Name = "txtDovizKuru";
             txtDovizKuru.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
@@ -369,7 +374,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             txtDovizKuru.Properties.Mask.UseMaskAsDisplayFormat = true;
             txtDovizKuru.Properties.MaskSettings.Set("mask", "n2");
             txtDovizKuru.Properties.ReadOnly = true;
-            txtDovizKuru.Size = new Size(292, 20);
+            txtDovizKuru.Size = new Size(286, 22);
             txtDovizKuru.StatusBarAciklama = null;
             txtDovizKuru.StatusBarKisaYol = "F4 :";
             txtDovizKuru.StatusBarKisaYolAciklama = "Hesap Makinesi";
@@ -380,14 +385,14 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             // cmbDovuzTuru
             // 
             cmbDovuzTuru.EnterMoveNextControl = true;
-            cmbDovuzTuru.Location = new Point(488, 74);
+            cmbDovuzTuru.Location = new Point(494, 74);
             cmbDovuzTuru.MenuManager = ribbon;
             cmbDovuzTuru.Name = "cmbDovuzTuru";
             cmbDovuzTuru.Properties.Appearance.Options.UseTextOptions = true;
             cmbDovuzTuru.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             cmbDovuzTuru.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
             cmbDovuzTuru.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            cmbDovuzTuru.Size = new Size(292, 20);
+            cmbDovuzTuru.Size = new Size(286, 22);
             cmbDovuzTuru.StatusBarAciklama = "";
             cmbDovuzTuru.StatusBarKisaYol = "F4 :";
             cmbDovuzTuru.StatusBarKisaYolAciklama = "";
@@ -401,13 +406,14 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             myGridControl1.MainView = myGridView1;
             myGridControl1.MenuManager = ribbon;
             myGridControl1.Name = "myGridControl1";
-            myGridControl1.Size = new Size(1154, 97);
+            myGridControl1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] { repositoryItemGridLookUpEdit1 });
+            myGridControl1.Size = new Size(1154, 70);
             myGridControl1.TabIndex = 10;
             myGridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] { myGridView1 });
             // 
             // myGridView1
             // 
-            myGridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colId, colMalzeme, colMiktar, colBirim, colBirimFiyat, colDovizTuru, colKdv, colSatirTutari, colGelenMiktar, colBekleyenMiktar });
+            myGridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colId, colMalzeme, colMiktar, colBirim, colBirimFiyat, colDovizTuru, colTeslimatDeposu, colKdv, colSatirTutari, colGelenMiktar, colBekleyenMiktar });
             myGridView1.GridControl = myGridControl1;
             myGridView1.Name = "myGridView1";
             myGridView1.OptionsMenu.EnableColumnMenu = false;
@@ -498,6 +504,33 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             colDovizTuru.VisibleIndex = 4;
             colDovizTuru.Width = 125;
             // 
+            // colTeslimatDeposu
+            // 
+            colTeslimatDeposu.Caption = "Teslimat Deposu";
+            colTeslimatDeposu.ColumnEdit = repositoryItemGridLookUpEdit1;
+            colTeslimatDeposu.FieldName = "WarehouseId";
+            colTeslimatDeposu.Name = "colTeslimatDeposu";
+            colTeslimatDeposu.StatusBarAciklama = null;
+            colTeslimatDeposu.StatusBarKisaYol = null;
+            colTeslimatDeposu.StatusBarKisaYolAciklama = null;
+            colTeslimatDeposu.Visible = true;
+            colTeslimatDeposu.VisibleIndex = 5;
+            colTeslimatDeposu.Width = 125;
+            // 
+            // repositoryItemGridLookUpEdit1
+            // 
+            repositoryItemGridLookUpEdit1.AutoHeight = false;
+            repositoryItemGridLookUpEdit1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
+            repositoryItemGridLookUpEdit1.Name = "repositoryItemGridLookUpEdit1";
+            repositoryItemGridLookUpEdit1.PopupView = repositoryItemGridLookUpEdit1View;
+            // 
+            // repositoryItemGridLookUpEdit1View
+            // 
+            repositoryItemGridLookUpEdit1View.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
+            repositoryItemGridLookUpEdit1View.Name = "repositoryItemGridLookUpEdit1View";
+            repositoryItemGridLookUpEdit1View.OptionsSelection.EnableAppearanceFocusedCell = false;
+            repositoryItemGridLookUpEdit1View.OptionsView.ShowGroupPanel = false;
+            // 
             // colKdv
             // 
             colKdv.Caption = "KDV (%)";
@@ -508,7 +541,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             colKdv.StatusBarKisaYol = null;
             colKdv.StatusBarKisaYolAciklama = null;
             colKdv.Visible = true;
-            colKdv.VisibleIndex = 5;
+            colKdv.VisibleIndex = 6;
             colKdv.Width = 125;
             // 
             // colSatirTutari
@@ -521,7 +554,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             colSatirTutari.StatusBarKisaYol = null;
             colSatirTutari.StatusBarKisaYolAciklama = null;
             colSatirTutari.Visible = true;
-            colSatirTutari.VisibleIndex = 6;
+            colSatirTutari.VisibleIndex = 7;
             colSatirTutari.Width = 125;
             // 
             // colGelenMiktar
@@ -534,7 +567,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             colGelenMiktar.StatusBarKisaYol = null;
             colGelenMiktar.StatusBarKisaYolAciklama = null;
             colGelenMiktar.Visible = true;
-            colGelenMiktar.VisibleIndex = 7;
+            colGelenMiktar.VisibleIndex = 8;
             colGelenMiktar.Width = 125;
             // 
             // colBekleyenMiktar
@@ -547,17 +580,17 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             colBekleyenMiktar.StatusBarKisaYol = null;
             colBekleyenMiktar.StatusBarKisaYolAciklama = null;
             colBekleyenMiktar.Visible = true;
-            colBekleyenMiktar.VisibleIndex = 8;
+            colBekleyenMiktar.VisibleIndex = 9;
             colBekleyenMiktar.Width = 125;
             // 
             // txtAciklama
             // 
             txtAciklama.EnterMoveNextControl = true;
-            txtAciklama.Location = new Point(102, 105);
+            txtAciklama.Location = new Point(108, 105);
             txtAciklama.MenuManager = ribbon;
             txtAciklama.Name = "txtAciklama";
             txtAciklama.Properties.MaxLength = 500;
-            txtAciklama.Size = new Size(1064, 58);
+            txtAciklama.Size = new Size(1058, 58);
             txtAciklama.StatusBarAciklama = "Açıklama Giriniz.";
             txtAciklama.StyleController = myDataLayoutControl1;
             txtAciklama.TabIndex = 9;
@@ -566,13 +599,13 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             // glufTeslimatDeposu
             // 
             glufTeslimatDeposu.EnterMoveNextControl = true;
-            glufTeslimatDeposu.Location = new Point(102, 74);
+            glufTeslimatDeposu.Location = new Point(108, 74);
             glufTeslimatDeposu.MenuManager = ribbon;
             glufTeslimatDeposu.Name = "glufTeslimatDeposu";
             glufTeslimatDeposu.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo), new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Search), new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Delete) });
             glufTeslimatDeposu.Properties.NullText = "";
             glufTeslimatDeposu.Properties.PopupView = gridView1;
-            glufTeslimatDeposu.Size = new Size(292, 20);
+            glufTeslimatDeposu.Size = new Size(286, 22);
             glufTeslimatDeposu.StatusBarAciklama = "Kayıt Seçiniz";
             glufTeslimatDeposu.StatusBarKisaYol = "F4 :";
             glufTeslimatDeposu.StatusBarKisaYolAciklama = "Seçim Yap";
@@ -599,13 +632,13 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             // glufTedarikciCari
             // 
             glufTedarikciCari.EnterMoveNextControl = true;
-            glufTedarikciCari.Location = new Point(102, 43);
+            glufTedarikciCari.Location = new Point(108, 43);
             glufTedarikciCari.MenuManager = ribbon;
             glufTedarikciCari.Name = "glufTedarikciCari";
             glufTedarikciCari.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo), new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Search), new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Delete) });
             glufTedarikciCari.Properties.NullText = "";
             glufTedarikciCari.Properties.PopupView = myGridLookUpFind1View;
-            glufTedarikciCari.Size = new Size(292, 20);
+            glufTedarikciCari.Size = new Size(286, 22);
             glufTedarikciCari.StatusBarAciklama = "Kayıt Seçiniz";
             glufTedarikciCari.StatusBarKisaYol = "F4 :";
             glufTedarikciCari.StatusBarKisaYolAciklama = "Seçim Yap";
@@ -633,7 +666,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             // 
             txtTeslimatTarihi.EditValue = null;
             txtTeslimatTarihi.EnterMoveNextControl = true;
-            txtTeslimatTarihi.Location = new Point(874, 43);
+            txtTeslimatTarihi.Location = new Point(880, 43);
             txtTeslimatTarihi.MenuManager = ribbon;
             txtTeslimatTarihi.Name = "txtTeslimatTarihi";
             txtTeslimatTarihi.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
@@ -644,7 +677,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             txtTeslimatTarihi.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.DateTimeAdvancingCaret;
             txtTeslimatTarihi.Properties.MaskSettings.Set("MaskManagerType", typeof(DevExpress.Data.Mask.DateTimeMaskManager));
             txtTeslimatTarihi.Properties.MaskSettings.Set("useAdvancingCaret", true);
-            txtTeslimatTarihi.Size = new Size(292, 20);
+            txtTeslimatTarihi.Size = new Size(286, 22);
             txtTeslimatTarihi.StatusBarAciklama = "";
             txtTeslimatTarihi.StatusBarKisaYol = "F4 :";
             txtTeslimatTarihi.StatusBarKisaYolAciklama = "Tarih Seç";
@@ -656,7 +689,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             // 
             txtSiparisTarihi.EditValue = null;
             txtSiparisTarihi.EnterMoveNextControl = true;
-            txtSiparisTarihi.Location = new Point(488, 43);
+            txtSiparisTarihi.Location = new Point(494, 43);
             txtSiparisTarihi.MenuManager = ribbon;
             txtSiparisTarihi.Name = "txtSiparisTarihi";
             txtSiparisTarihi.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
@@ -672,7 +705,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             txtSiparisTarihi.Properties.MaskSettings.Set("MaskManagerType", typeof(DevExpress.Data.Mask.DateTimeMaskManager));
             txtSiparisTarihi.Properties.MaskSettings.Set("useAdvancingCaret", true);
             txtSiparisTarihi.Properties.ReadOnly = true;
-            txtSiparisTarihi.Size = new Size(292, 20);
+            txtSiparisTarihi.Size = new Size(286, 22);
             txtSiparisTarihi.StatusBarAciklama = "";
             txtSiparisTarihi.StatusBarKisaYol = "F4 :";
             txtSiparisTarihi.StatusBarKisaYolAciklama = "Tarih Seç";
@@ -683,12 +716,12 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             // cmbSiparisDurumu
             // 
             cmbSiparisDurumu.EnterMoveNextControl = true;
-            cmbSiparisDurumu.Location = new Point(874, 12);
+            cmbSiparisDurumu.Location = new Point(880, 12);
             cmbSiparisDurumu.MenuManager = ribbon;
             cmbSiparisDurumu.Name = "cmbSiparisDurumu";
             cmbSiparisDurumu.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
             cmbSiparisDurumu.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            cmbSiparisDurumu.Size = new Size(292, 20);
+            cmbSiparisDurumu.Size = new Size(286, 22);
             cmbSiparisDurumu.StatusBarAciklama = "";
             cmbSiparisDurumu.StatusBarKisaYol = "F4 :";
             cmbSiparisDurumu.StatusBarKisaYolAciklama = "";
@@ -699,13 +732,13 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             // txtBelgeNo
             // 
             txtBelgeNo.EnterMoveNextControl = true;
-            txtBelgeNo.Location = new Point(534, 12);
+            txtBelgeNo.Location = new Point(542, 12);
             txtBelgeNo.MenuManager = ribbon;
             txtBelgeNo.Name = "txtBelgeNo";
             txtBelgeNo.Properties.Appearance.Options.UseTextOptions = true;
             txtBelgeNo.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             txtBelgeNo.Properties.MaxLength = 100;
-            txtBelgeNo.Size = new Size(246, 20);
+            txtBelgeNo.Size = new Size(238, 22);
             txtBelgeNo.StatusBarAciklama = "Kod Giriniz.";
             txtBelgeNo.StyleController = myDataLayoutControl1;
             txtBelgeNo.TabIndex = 7;
@@ -714,13 +747,13 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             // txtKod
             // 
             txtKod.EnterMoveNextControl = true;
-            txtKod.Location = new Point(102, 12);
+            txtKod.Location = new Point(108, 12);
             txtKod.MenuManager = ribbon;
             txtKod.Name = "txtKod";
             txtKod.Properties.Appearance.Options.UseTextOptions = true;
             txtKod.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             txtKod.Properties.MaxLength = 100;
-            txtKod.Size = new Size(292, 20);
+            txtKod.Size = new Size(286, 22);
             txtKod.StatusBarAciklama = "Kod Giriniz.";
             txtKod.StyleController = myDataLayoutControl1;
             txtKod.TabIndex = 8;
@@ -753,7 +786,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             rowDefinition10.Height = 170D;
             rowDefinition10.SizeType = SizeType.Absolute;
             Root.OptionsTableLayoutGroup.RowDefinitions.AddRange(new DevExpress.XtraLayout.RowDefinition[] { rowDefinition5, rowDefinition6, rowDefinition7, rowDefinition8, rowDefinition9, rowDefinition10 });
-            Root.Size = new Size(1178, 446);
+            Root.Size = new Size(1178, 419);
             Root.TextVisible = false;
             // 
             // layoutControlItem1
@@ -763,7 +796,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             layoutControlItem1.Name = "layoutControlItem1";
             layoutControlItem1.Size = new Size(386, 31);
             layoutControlItem1.Text = "Kod";
-            layoutControlItem1.TextSize = new Size(78, 13);
+            layoutControlItem1.TextSize = new Size(84, 13);
             // 
             // layoutControlItem2
             // 
@@ -774,7 +807,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             layoutControlItem2.Size = new Size(386, 31);
             layoutControlItem2.Text = "Belge No (Tedarikçi Ref No)";
             layoutControlItem2.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.AutoSize;
-            layoutControlItem2.TextSize = new Size(131, 13);
+            layoutControlItem2.TextSize = new Size(139, 13);
             layoutControlItem2.TextToControlDistance = 5;
             // 
             // layoutControlItem3
@@ -785,7 +818,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             layoutControlItem3.OptionsTableLayoutItem.ColumnIndex = 2;
             layoutControlItem3.Size = new Size(386, 31);
             layoutControlItem3.Text = "Sipariş Durumu";
-            layoutControlItem3.TextSize = new Size(78, 13);
+            layoutControlItem3.TextSize = new Size(84, 13);
             // 
             // layoutControlItem7
             // 
@@ -795,7 +828,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             layoutControlItem7.OptionsTableLayoutItem.RowIndex = 2;
             layoutControlItem7.Size = new Size(386, 31);
             layoutControlItem7.Text = "Teslimat Deposu";
-            layoutControlItem7.TextSize = new Size(78, 13);
+            layoutControlItem7.TextSize = new Size(84, 13);
             // 
             // layoutControlItem8
             // 
@@ -806,7 +839,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             layoutControlItem8.OptionsTableLayoutItem.RowIndex = 3;
             layoutControlItem8.Size = new Size(1158, 62);
             layoutControlItem8.Text = "Açıklama";
-            layoutControlItem8.TextSize = new Size(78, 13);
+            layoutControlItem8.TextSize = new Size(84, 13);
             // 
             // layoutControlItem9
             // 
@@ -815,7 +848,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             layoutControlItem9.Name = "layoutControlItem9";
             layoutControlItem9.OptionsTableLayoutItem.ColumnSpan = 3;
             layoutControlItem9.OptionsTableLayoutItem.RowIndex = 4;
-            layoutControlItem9.Size = new Size(1158, 101);
+            layoutControlItem9.Size = new Size(1158, 74);
             layoutControlItem9.TextVisible = false;
             // 
             // layoutControlItem6
@@ -826,7 +859,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             layoutControlItem6.OptionsTableLayoutItem.RowIndex = 1;
             layoutControlItem6.Size = new Size(386, 31);
             layoutControlItem6.Text = "Tedarikçi (Cari)";
-            layoutControlItem6.TextSize = new Size(78, 13);
+            layoutControlItem6.TextSize = new Size(84, 13);
             // 
             // layoutControlItem5
             // 
@@ -837,7 +870,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             layoutControlItem5.OptionsTableLayoutItem.RowIndex = 1;
             layoutControlItem5.Size = new Size(386, 31);
             layoutControlItem5.Text = "Teslimat Tarihi";
-            layoutControlItem5.TextSize = new Size(78, 13);
+            layoutControlItem5.TextSize = new Size(84, 13);
             // 
             // layoutControlItem4
             // 
@@ -848,7 +881,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             layoutControlItem4.OptionsTableLayoutItem.RowIndex = 1;
             layoutControlItem4.Size = new Size(386, 31);
             layoutControlItem4.Text = "Sipariş Tarihi";
-            layoutControlItem4.TextSize = new Size(78, 13);
+            layoutControlItem4.TextSize = new Size(84, 13);
             // 
             // layoutControlItem14
             // 
@@ -859,7 +892,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             layoutControlItem14.OptionsTableLayoutItem.RowIndex = 2;
             layoutControlItem14.Size = new Size(386, 31);
             layoutControlItem14.Text = "Döviz Türü";
-            layoutControlItem14.TextSize = new Size(78, 13);
+            layoutControlItem14.TextSize = new Size(84, 13);
             // 
             // layoutControlItem15
             // 
@@ -870,12 +903,12 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             layoutControlItem15.OptionsTableLayoutItem.RowIndex = 2;
             layoutControlItem15.Size = new Size(386, 31);
             layoutControlItem15.Text = "Döviz Kuru";
-            layoutControlItem15.TextSize = new Size(78, 13);
+            layoutControlItem15.TextSize = new Size(84, 13);
             // 
             // layoutControlItem10
             // 
             layoutControlItem10.Control = myDataLayoutControl2;
-            layoutControlItem10.Location = new Point(772, 256);
+            layoutControlItem10.Location = new Point(772, 229);
             layoutControlItem10.Name = "layoutControlItem10";
             layoutControlItem10.OptionsTableLayoutItem.ColumnIndex = 2;
             layoutControlItem10.OptionsTableLayoutItem.RowIndex = 5;
@@ -918,6 +951,8 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             ((System.ComponentModel.ISupportInitialize)cmbDovuzTuru.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)myGridControl1).EndInit();
             ((System.ComponentModel.ISupportInitialize)myGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)repositoryItemGridLookUpEdit1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)repositoryItemGridLookUpEdit1View).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtAciklama.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)glufTeslimatDeposu.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)gridView1).EndInit();
@@ -1001,5 +1036,8 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem12;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem13;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem16;
+        private UserControls.Grid.MyGridColumn colTeslimatDeposu;
+        private DevExpress.XtraEditors.Repository.RepositoryItemGridLookUpEdit repositoryItemGridLookUpEdit1;
+        private DevExpress.XtraGrid.Views.Grid.GridView repositoryItemGridLookUpEdit1View;
     }
 }

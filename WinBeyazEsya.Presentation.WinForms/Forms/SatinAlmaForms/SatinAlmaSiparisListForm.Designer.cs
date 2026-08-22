@@ -36,12 +36,13 @@
             colSiparisTarihi = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colSiparisDurumu = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colKod = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
+            colBelgeNo = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colCariHesapKodu = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colCariHesapUnvani = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colTutar = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colDepo = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colSiparisiOlusturan = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
-            colBelgeNo = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
+            colAciklama = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             ((System.ComponentModel.ISupportInitialize)ribbon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)myGridControl1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)myGridView1).BeginInit();
@@ -79,7 +80,7 @@
             // 
             // myGridView1
             // 
-            myGridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colId, colSiparisTarihi, colSiparisDurumu, colKod, colBelgeNo, colCariHesapKodu, colCariHesapUnvani, colTutar, colDepo, colSiparisiOlusturan });
+            myGridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colId, colSiparisTarihi, colSiparisDurumu, colKod, colBelgeNo, colCariHesapKodu, colCariHesapUnvani, colTutar, colDepo, colSiparisiOlusturan, colAciklama });
             myGridView1.GridControl = myGridControl1;
             myGridView1.GroupCount = 1;
             myGridView1.Name = "myGridView1";
@@ -153,6 +154,19 @@
             colKod.VisibleIndex = 0;
             colKod.Width = 125;
             // 
+            // colBelgeNo
+            // 
+            colBelgeNo.Caption = "Belge No (Tedarikçi Ref No)";
+            colBelgeNo.FieldName = "DocumentNo";
+            colBelgeNo.Name = "colBelgeNo";
+            colBelgeNo.OptionsColumn.AllowEdit = false;
+            colBelgeNo.StatusBarAciklama = null;
+            colBelgeNo.StatusBarKisaYol = null;
+            colBelgeNo.StatusBarKisaYolAciklama = null;
+            colBelgeNo.Visible = true;
+            colBelgeNo.VisibleIndex = 1;
+            colBelgeNo.Width = 125;
+            // 
             // colCariHesapKodu
             // 
             colCariHesapKodu.Caption = "Cari Hesap Kodu";
@@ -218,21 +232,22 @@
             colSiparisiOlusturan.VisibleIndex = 7;
             colSiparisiOlusturan.Width = 125;
             // 
-            // colBelgeNo
+            // colAciklama
             // 
-            colBelgeNo.Caption = "Belge No (Tedarikçi Ref No)";
-            colBelgeNo.FieldName = "DocumentNo";
-            colBelgeNo.Name = "colBelgeNo";
-            colBelgeNo.OptionsColumn.AllowEdit = false;
-            colBelgeNo.StatusBarAciklama = null;
-            colBelgeNo.StatusBarKisaYol = null;
-            colBelgeNo.StatusBarKisaYolAciklama = null;
-            colBelgeNo.Visible = true;
-            colBelgeNo.VisibleIndex = 1;
-            colBelgeNo.Width = 125;
+            colAciklama.Caption = "Açıklama";
+            colAciklama.FieldName = "Description";
+            colAciklama.Name = "colAciklama";
+            colAciklama.OptionsColumn.AllowEdit = false;
+            colAciklama.StatusBarAciklama = null;
+            colAciklama.StatusBarKisaYol = null;
+            colAciklama.StatusBarKisaYolAciklama = null;
+            colAciklama.Visible = true;
+            colAciklama.VisibleIndex = 8;
+            colAciklama.Width = 125;
             // 
             // SatinAlmaSiparisListForm
             // 
+            Appearance.Options.UseFont = true;
             AutoScaleDimensions = new SizeF(6F, 13F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(806, 425);
@@ -267,5 +282,6 @@
         private UserControls.Grid.MyGridColumn colSiparisiOlusturan;
         private UserControls.Grid.MyGridColumn colSiparisDurumu;
         private UserControls.Grid.MyGridColumn colBelgeNo;
+        private UserControls.Grid.MyGridColumn colAciklama;
     }
 }

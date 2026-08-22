@@ -1686,6 +1686,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                 clone.Code = "< Otomatik Üretilecek >";
                 clone.RevisionNumber = "01";
                 clone.IsActive = true;
+                clone.Date = DateTime.Now;
                 clone.CreatedDate = null;
                 clone.CreatedUserId = null;
                 clone.ModifiedDate = null;
@@ -1746,6 +1747,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.UretimForms
                 }
 
                 clone.IsActive = true;
+                clone.Date = DateTime.Now;
                 clone.CreatedDate = null;
                 clone.CreatedUserId = null;
                 clone.ModifiedDate = null;

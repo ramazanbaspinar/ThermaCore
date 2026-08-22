@@ -15,6 +15,7 @@ using WinBeyazEsya.Domain.Enums;
 using WinBeyazEsya.Presentation.WinForms.Forms.BaseForms;
 using WinBeyazEsya.Presentation.WinForms.Helpers;
 using WinBeyazEsya.Presentation.WinForms.UserControls.Controls;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
 {
@@ -114,12 +115,20 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
         {
             var view = sender as GridView;
             if (view == null) return;
+            
+            var headerWarehouseId = glufTeslimatDeposu.EditValue;
+            if (headerWarehouseId != null && headerWarehouseId != DBNull.Value)
+            {
+                view.SetRowCellValue(e.RowHandle, "WarehouseId", headerWarehouseId);
+            }
 
             string currentCurrency = cmbDovuzTuru.EditValue?.ToString() ?? "";
             
             view.SetRowCellValue(e.RowHandle, "CurrencyCode", currentCurrency);
             view.SetRowCellValue(e.RowHandle, "Quantity", 1);
             view.SetRowCellValue(e.RowHandle, "TaxRate", 20m);
+            
+            CalculateTotals();
         }
 
         private void BtnDelete_ItemClick(object sender, ItemClickEventArgs e)
@@ -140,6 +149,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
 
             glufTedarikciCari.SearchButtonClicked += GlufTedarikciCari_SearchButtonClicked;
             glufTeslimatDeposu.SearchButtonClicked += GlufTeslimatDeposu_SearchButtonClicked;
+            glufTeslimatDeposu.EditValueChanged += GlufTeslimatDeposu_EditValueChanged;
             
             cmbDovuzTuru.EditValueChanged += KurHesapla_EditValueChanged;
             txtSiparisTarihi.EditValueChanged += KurHesapla_EditValueChanged;
@@ -396,6 +406,9 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
                 myGridView1.Columns["UnitId"].ColumnEdit = repoBirim;
             }
 
+            repoMalzeme.EditValueChanged += (s, e) => myGridView1.PostEditor();
+            repoBirim.EditValueChanged += (s, e) => myGridView1.PostEditor();
+
             if (myGridView1.Columns["CurrencyCode"] != null)
                 myGridView1.Columns["CurrencyCode"].OptionsColumn.AllowEdit = false;
                 
@@ -450,9 +463,20 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
 
             if (_warehouseService != null && !DesignMode)
             {
-                glufTeslimatDeposu.Properties.DataSource = _warehouseService.GetAll()
-                    .Where(x => x.IsActive)
-                    .ToList();
+                var depolar = _warehouseService.GetAll().Where(x => x.IsActive).ToList();
+                glufTeslimatDeposu.Properties.DataSource = depolar;
+                
+                repositoryItemGridLookUpEdit1.DataSource = depolar;
+                repositoryItemGridLookUpEdit1.ValueMember = "Id";
+                repositoryItemGridLookUpEdit1.DisplayMember = "Name";
+                
+                if (repositoryItemGridLookUpEdit1View.Columns.Count == 0)
+                {
+                    repositoryItemGridLookUpEdit1View.Columns.AddVisible("Name", "Teslimat Deposu");
+                }
+                
+                repositoryItemGridLookUpEdit1.EditValueChanged -= RepositoryItemGridLookUpEdit1_EditValueChanged;
+                repositoryItemGridLookUpEdit1.EditValueChanged += RepositoryItemGridLookUpEdit1_EditValueChanged;
             }
 
             txtKod.Text = entity.Code;
@@ -581,6 +605,35 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
                     glufTeslimatDeposu.EditValue = form.SelectedEntities[0].Id;
                 }
             }
+        }
+
+        private void GlufTeslimatDeposu_EditValueChanged(object sender, EventArgs e)
+        {
+            if (_isBinding || !IsLoaded) return;
+            
+            if (myGridView1.RowCount > 0)
+            {
+                var yeniDepoId = glufTeslimatDeposu.EditValue;
+                
+                DialogResult result = DevExpress.XtraEditors.XtraMessageBox.Show(
+                    "Başlık (Header) teslimat deposunu değiştirdiniz. Siparişteki mevcut tüm kalemlerin (satırların) depoları da bu yeni depoya güncellensin mi?", 
+                    "Toplu Depo Güncelleme", 
+                    MessageBoxButtons.YesNo, 
+                    MessageBoxIcon.Question);
+                    
+                if (result == DialogResult.Yes)
+                {
+                    for (int i = 0; i < myGridView1.RowCount; i++)
+                    {
+                        myGridView1.SetRowCellValue(i, "WarehouseId", yeniDepoId);
+                    }
+                }
+            }
+        }
+
+        private void RepositoryItemGridLookUpEdit1_EditValueChanged(object? sender, EventArgs e)
+        {
+            myGridView1.PostEditor();
         }
 
         private void KurHesapla_EditValueChanged(object sender, EventArgs e)
