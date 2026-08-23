@@ -1,4 +1,4 @@
-﻿namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
+namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
 {
     partial class SatinAlmaSiparisListForm
     {
@@ -97,7 +97,7 @@
             myGridView1.OptionsView.ShowAutoFilterRow = true;
             myGridView1.OptionsView.ShowGroupPanel = false;
             myGridView1.OptionsView.ShowViewCaption = true;
-            myGridView1.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] { new DevExpress.XtraGrid.Columns.GridColumnSortInfo(colSiparisTarihi, DevExpress.Data.ColumnSortOrder.Ascending) });
+            myGridView1.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] { new DevExpress.XtraGrid.Columns.GridColumnSortInfo(colSiparisTarihi, DevExpress.Data.ColumnSortOrder.Descending) });
             myGridView1.StatusBarAciklama = null;
             myGridView1.StatusBarKisaYol = null;
             myGridView1.StatusBarKisaYolAciklama = null;

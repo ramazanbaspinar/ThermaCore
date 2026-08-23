@@ -579,12 +579,36 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
                         btnEkstra.Visibility = DevExpress.XtraBars.BarItemVisibility.Always;
                         btnEkstra.ItemClick += BtnEkstra_ItemClick;
                     }
+
+                    foreach (DevExpress.XtraEditors.Controls.EditorButton btn in glufTedarikciCari.Properties.Buttons)
+                    {
+                        if (btn.Kind == DevExpress.XtraEditors.Controls.ButtonPredefines.Search || btn.Kind == DevExpress.XtraEditors.Controls.ButtonPredefines.Delete)
+                            btn.Enabled = false;
+                    }
+
+                    foreach (DevExpress.XtraEditors.Controls.EditorButton btn in glufTeslimatDeposu.Properties.Buttons)
+                    {
+                        if (btn.Kind == DevExpress.XtraEditors.Controls.ButtonPredefines.Search || btn.Kind == DevExpress.XtraEditors.Controls.ButtonPredefines.Delete)
+                            btn.Enabled = false;
+                    }
                 }
                 else
                 {
                     myGridView1.OptionsBehavior.Editable = true;
                     myGridView1.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.Default;
                     myGridView1.OptionsBehavior.AllowDeleteRows = DevExpress.Utils.DefaultBoolean.Default;
+
+                    foreach (DevExpress.XtraEditors.Controls.EditorButton btn in glufTedarikciCari.Properties.Buttons)
+                    {
+                        if (btn.Kind == DevExpress.XtraEditors.Controls.ButtonPredefines.Search || btn.Kind == DevExpress.XtraEditors.Controls.ButtonPredefines.Delete)
+                            btn.Enabled = true;
+                    }
+
+                    foreach (DevExpress.XtraEditors.Controls.EditorButton btn in glufTeslimatDeposu.Properties.Buttons)
+                    {
+                        if (btn.Kind == DevExpress.XtraEditors.Controls.ButtonPredefines.Search || btn.Kind == DevExpress.XtraEditors.Controls.ButtonPredefines.Delete)
+                            btn.Enabled = true;
+                    }
                 }
             }
         }

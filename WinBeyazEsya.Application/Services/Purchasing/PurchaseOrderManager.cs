@@ -133,4 +133,26 @@ public class PurchaseOrderManager : BaseManager<PurchaseOrderListDto, PurchaseOr
             catch { }
         }
     }
+
+    public override void Delete(long id)
+    {
+        var existingEntity = _repository.GetById(id);
+        if (existingEntity == null) throw new global::System.Exception("Silinmek istenen satınalma siparişi bulunamadı.");
+
+        if (existingEntity.Status != WinBeyazEsya.Domain.Enums.OrderStatus.Draft && 
+            existingEntity.Status != WinBeyazEsya.Domain.Enums.OrderStatus.WaitingApproval)
+        {
+            throw new global::System.Exception("GÜVENLİK KISITLAMASI: Onaylanmış veya işlem görmüş siparişler silinemez! Silmek için önce onayını geri çekmelisiniz.");
+        }
+
+        // Bağımlı satırların temizlenmesi (Eğer cascade delete yoksa zorunlu)
+        var lines = _lineRepository.Find(x => x.PurchaseOrderId == id).ToList();
+        foreach (var line in lines)
+        {
+            _lineRepository.Remove(line);
+        }
+
+        // Kalkanı geçtiyse asıl silme işlemini base'e devret
+        base.Delete(id);
+    }
 }

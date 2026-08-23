@@ -104,7 +104,10 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
 
         protected override void Listele()
         {
-            var liste = _purchaseOrderService.GetAll().Where(x => x.IsActive == AktifKartlariGoster).ToList();
+            var liste = _purchaseOrderService.GetAll()
+                .Where(x => x.IsActive == AktifKartlariGoster)
+                .OrderByDescending(x => x.OrderDate)
+                .ToList();
 
             if (ListeDisiTutulacakKayitlar != null && ListeDisiTutulacakKayitlar.Any())
             {
@@ -179,6 +182,17 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             long.TryParse(Tablo.GetFocusedRowCellValue("Id")?.ToString(), out entityId);
 
             if (entityId <= 0) return;
+
+            var statusVal = Tablo.GetRowCellValue(Tablo.FocusedRowHandle, "Status");
+            if (statusVal != null && statusVal is WinBeyazEsya.Domain.Enums.OrderStatus status)
+            {
+                if (status != WinBeyazEsya.Domain.Enums.OrderStatus.Draft && 
+                    status != WinBeyazEsya.Domain.Enums.OrderStatus.WaitingApproval)
+                {
+                    Helpers.Messages.UyariMesaji("Onaylanmış veya işlem görmüş siparişler silinemez! Silmek için önce onayını geri çekmelisiniz.");
+                    return;
+                }
+            }
 
             var result = Helpers.Messages.SilMesaj(Tablo.GetRowCellValue(Tablo.FocusedRowHandle, "DocumentNo")?.ToString() ?? Tablo.GetRowCellValue(Tablo.FocusedRowHandle, "Code")?.ToString() ?? "");
             if (result == DialogResult.Yes)

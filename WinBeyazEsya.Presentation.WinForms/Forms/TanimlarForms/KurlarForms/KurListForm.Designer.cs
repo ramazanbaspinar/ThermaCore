@@ -1,4 +1,4 @@
-﻿namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.KurlarForms
+namespace WinBeyazEsya.Presentation.WinForms.Forms.TanimlarForms.KurlarForms
 {
     partial class KurListForm
     {
@@ -93,7 +93,7 @@
             myGridViewPro1.OptionsView.ShowAutoFilterRow = true;
             myGridViewPro1.OptionsView.ShowGroupPanel = false;
             myGridViewPro1.OptionsView.ShowViewCaption = true;
-            myGridViewPro1.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] { new DevExpress.XtraGrid.Columns.GridColumnSortInfo(colTarih, DevExpress.Data.ColumnSortOrder.Ascending) });
+            myGridViewPro1.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] { new DevExpress.XtraGrid.Columns.GridColumnSortInfo(colTarih, DevExpress.Data.ColumnSortOrder.Descending) });
             myGridViewPro1.StatusBarAciklama = null;
             myGridViewPro1.StatusBarKisaYol = null;
             myGridViewPro1.StatusBarKisaYolAciklama = null;
