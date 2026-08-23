@@ -291,7 +291,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinalmaForms
 
         private void MyGridView1_CustomColumnDisplayText(object sender, DevExpress.XtraGrid.Views.Base.CustomColumnDisplayTextEventArgs e)
         {
-            if (e.Column.FieldName == "BaseReceivedQuantity" || e.Column.FieldName == "BaseRemainingQuantity")
+            if (e.Column.FieldName == "Quantity")
             {
                 var view = sender as GridView;
                 if (view != null && e.ListSourceRowIndex >= 0)
@@ -340,6 +340,29 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinalmaForms
         public override void Yukle()
         {
             myGridView1.OptionsView.ShowAutoFilterRow = false;
+            
+            // Focuslanan satırdaki mavi rengi kaldır
+            myGridView1.OptionsSelection.EnableAppearanceFocusedRow = false;
+            myGridView1.OptionsSelection.EnableAppearanceHideSelection = false;
+            myGridView1.OptionsSelection.EnableAppearanceFocusedCell = false;
+
+            // Renklendirmeler
+            Color erpColor = System.Drawing.Color.LightYellow;
+            if (colMiktar != null)
+            {
+                colMiktar.AppearanceCell.BackColor = erpColor;
+                colMiktar.AppearanceCell.Options.UseBackColor = true;
+            }
+            if (colBirimFiyat != null)
+            {
+                colBirimFiyat.AppearanceCell.BackColor = erpColor;
+                colBirimFiyat.AppearanceCell.Options.UseBackColor = true;
+            }
+            if (colSatirTutari != null)
+            {
+                colSatirTutari.AppearanceCell.BackColor = erpColor;
+                colSatirTutari.AppearanceCell.Options.UseBackColor = true;
+            }
 
             txtSiparisTarihi.Properties.Mask.EditMask = "g";
             txtSiparisTarihi.Properties.Mask.UseMaskAsDisplayFormat = true;
@@ -582,7 +605,10 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinalmaForms
 
             if (entity.Lines != null)
             {
-                // Removed invalid conversions
+                foreach(var line in entity.Lines)
+                {
+                    line.CurrencyCode = entity.CurrencyCode;
+                }
             }
 
             myGridControl1.DataSource = new BindingList<Application.DTOs.Purchasing.PurchaseReceiptLineDto>(entity.Lines != null ? entity.Lines.ToList() : new List<Application.DTOs.Purchasing.PurchaseReceiptLineDto>());
