@@ -458,7 +458,11 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             // colMiktar
             // 
             colMiktar.Caption = "Miktar";
+            colMiktar.DisplayFormat.FormatString = "n2";
+            colMiktar.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             colMiktar.FieldName = "Quantity";
+            colMiktar.GroupFormat.FormatString = "n2";
+            colMiktar.GroupFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             colMiktar.Name = "colMiktar";
             colMiktar.StatusBarAciklama = null;
             colMiktar.StatusBarKisaYol = null;
@@ -547,7 +551,11 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             // colSatirTutari
             // 
             colSatirTutari.Caption = "Satır Tutarı";
+            colSatirTutari.DisplayFormat.FormatString = "n2";
+            colSatirTutari.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             colSatirTutari.FieldName = "LineTotal";
+            colSatirTutari.GroupFormat.FormatString = "n2";
+            colSatirTutari.GroupFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             colSatirTutari.Name = "colSatirTutari";
             colSatirTutari.OptionsColumn.AllowEdit = false;
             colSatirTutari.StatusBarAciklama = null;
@@ -922,7 +930,6 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1178, 605);
             Controls.Add(myDataLayoutControl1);
-            Font = new Font("Segoe UI", 8.25F);
             IconOptions.ShowIcon = false;
             MinimumSize = new Size(1180, 606);
             Name = "SatinAlmaSiparisEditForm";

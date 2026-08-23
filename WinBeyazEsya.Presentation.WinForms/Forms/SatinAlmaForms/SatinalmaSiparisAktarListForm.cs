@@ -77,6 +77,25 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinalmaForms
                 
                 Tablo.MouseDown += Tablo_MouseDown;
                 Tablo.KeyDown += Tablo_KeyDown_Custom;
+                Tablo.CustomColumnDisplayText += Tablo_CustomColumnDisplayText;
+            }
+        }
+
+        private void Tablo_CustomColumnDisplayText(object sender, DevExpress.XtraGrid.Views.Base.CustomColumnDisplayTextEventArgs e)
+        {
+            if (e.Column.FieldName == "Quantity" || e.Column.FieldName == "ReceivedQuantity" || e.Column.FieldName == "PendingQuantity")
+            {
+                var view = sender as DevExpress.XtraGrid.Views.Grid.GridView;
+                if (view != null && e.ListSourceRowIndex >= 0)
+                {
+                    var unitName = view.GetListSourceRowCellValue(e.ListSourceRowIndex, "UnitName")?.ToString() ?? "";
+                    if (e.Value != null)
+                    {
+                        decimal val = Convert.ToDecimal(e.Value);
+                        string formattedValue = val.ToString("#,##0.####");
+                        e.DisplayText = $"{formattedValue} {unitName}".Trim();
+                    }
+                }
             }
         }
 
@@ -151,6 +170,24 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinalmaForms
                 {
                     Tablo.Columns["UnitPrice"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
                     Tablo.Columns["UnitPrice"].DisplayFormat.FormatString = "n4";
+                }
+
+                // Miktar kolonlarına ERP tarzı belirgin renk ataması
+                Color erpColor = System.Drawing.Color.LightYellow;
+                if (Tablo.Columns["Quantity"] != null)
+                {
+                    Tablo.Columns["Quantity"].AppearanceCell.BackColor = erpColor;
+                    Tablo.Columns["Quantity"].AppearanceCell.Options.UseBackColor = true;
+                }
+                if (Tablo.Columns["ReceivedQuantity"] != null)
+                {
+                    Tablo.Columns["ReceivedQuantity"].AppearanceCell.BackColor = erpColor;
+                    Tablo.Columns["ReceivedQuantity"].AppearanceCell.Options.UseBackColor = true;
+                }
+                if (Tablo.Columns["PendingQuantity"] != null)
+                {
+                    Tablo.Columns["PendingQuantity"].AppearanceCell.BackColor = erpColor;
+                    Tablo.Columns["PendingQuantity"].AppearanceCell.Options.UseBackColor = true;
                 }
             }
         }

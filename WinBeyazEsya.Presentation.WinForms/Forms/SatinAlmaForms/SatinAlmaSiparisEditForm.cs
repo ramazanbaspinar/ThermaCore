@@ -131,6 +131,21 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             CalculateTotals();
         }
 
+        private void MyGridView1_RowCountChanged(object? sender, EventArgs e)
+        {
+            var view = sender as GridView;
+            if (view == null) return;
+
+            if (view.RowCount > 0)
+            {
+                cmbDovuzTuru.ReadOnly = true;
+            }
+            else
+            {
+                cmbDovuzTuru.ReadOnly = false;
+            }
+        }
+
         private void BtnDelete_ItemClick(object sender, ItemClickEventArgs e)
         {
             myGridView1.DeleteSelectedRows();
@@ -145,6 +160,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             myGridView1.ShownEditor += MyGridView1_ShownEditor;
             myGridView1.PopupMenuShowing += MyGridView1_PopupMenuShowing;
             myGridView1.InitNewRow += MyGridView1_InitNewRow;
+            myGridView1.RowCountChanged += MyGridView1_RowCountChanged;
             myGridView1.CustomColumnDisplayText += MyGridView1_CustomColumnDisplayText;
 
             glufTedarikciCari.SearchButtonClicked += GlufTedarikciCari_SearchButtonClicked;
@@ -257,6 +273,35 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
         public override void Yukle()
         {
             myGridView1.OptionsView.ShowAutoFilterRow = false;
+            
+            // Focuslanan satırdaki mavi rengi kaldır
+            myGridView1.OptionsSelection.EnableAppearanceFocusedRow = false;
+            myGridView1.OptionsSelection.EnableAppearanceHideSelection = false;
+            myGridView1.OptionsSelection.EnableAppearanceFocusedCell = false;
+
+            // Miktar, Fiyat ve Kalan bilgilerine ERP tarzı (Logo Tiger) belirgin renk ataması
+            Color erpColor = System.Drawing.Color.LightYellow;
+            
+            if (colMiktar != null)
+            {
+                colMiktar.AppearanceCell.BackColor = erpColor;
+                colMiktar.AppearanceCell.Options.UseBackColor = true;
+            }
+            if (colBirimFiyat != null)
+            {
+                colBirimFiyat.AppearanceCell.BackColor = erpColor;
+                colBirimFiyat.AppearanceCell.Options.UseBackColor = true;
+            }
+            if (colGelenMiktar != null)
+            {
+                colGelenMiktar.AppearanceCell.BackColor = erpColor;
+                colGelenMiktar.AppearanceCell.Options.UseBackColor = true;
+            }
+            if (colBekleyenMiktar != null)
+            {
+                colBekleyenMiktar.AppearanceCell.BackColor = erpColor;
+                colBekleyenMiktar.AppearanceCell.Options.UseBackColor = true;
+            }
 
             if (colGelenMiktar != null)
             {
@@ -535,15 +580,12 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
 
             myGridControl1.DataSource = new BindingList<Application.DTOs.Purchasing.PurchaseOrderLineDto>(entity.Lines ?? new List<Application.DTOs.Purchasing.PurchaseOrderLineDto>());
 
-            if (BaseIslemTuru == ActionType.EntityUpdate)
+            if (BaseIslemTuru != ActionType.EntityUpdate)
             {
-                cmbDovuzTuru.ReadOnly = true;
-            }
-            else
-            {
-                cmbDovuzTuru.ReadOnly = false;
                 txtKod.Text = "Yeni Sipariş";
             }
+            
+            MyGridView1_RowCountChanged(myGridView1, EventArgs.Empty);
         }
 
         protected internal override void ButonEnabledDurumu()
@@ -599,12 +641,10 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
 
                     // Sipariş revize edildiğinde kilitlenen BaseEdit'leri tekrar açıyoruz
                     txtBelgeNo.Properties.ReadOnly = false;
-                    txtSiparisTarihi.Properties.ReadOnly = false;
                     txtTeslimatTarihi.Properties.ReadOnly = false;
                     glufTedarikciCari.Properties.ReadOnly = false;
                     glufTeslimatDeposu.Properties.ReadOnly = false;
                     txtAciklama.Properties.ReadOnly = false;
-                    txtDovizKuru.Properties.ReadOnly = false;
 
                     foreach (DevExpress.XtraEditors.Controls.EditorButton btn in glufTedarikciCari.Properties.Buttons)
                     {

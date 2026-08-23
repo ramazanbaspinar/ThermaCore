@@ -44,7 +44,6 @@
             colBirimFiyat = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colDovizTuru = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colTeslimatDeposu = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
-            colTutar = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colTerminTarihi = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             ((System.ComponentModel.ISupportInitialize)ribbon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)myGridControl1).BeginInit();
@@ -83,7 +82,7 @@
             // 
             // myGridView1
             // 
-            myGridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colId, colSiparisTarihi, colKod, colBelgeKodu, colMalzemeAdi, colIstenenMiktar, colGelenMiktar, colBekleyenMiktar, colBirim, colBirimFiyat, colDovizTuru, colTeslimatDeposu, colTutar, colTerminTarihi });
+            myGridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colId, colSiparisTarihi, colKod, colBelgeKodu, colMalzemeAdi, colIstenenMiktar, colGelenMiktar, colBekleyenMiktar, colBirim, colBirimFiyat, colDovizTuru, colTeslimatDeposu, colTerminTarihi });
             myGridView1.GridControl = myGridControl1;
             myGridView1.Name = "myGridView1";
             myGridView1.OptionsMenu.EnableColumnMenu = false;
@@ -174,7 +173,11 @@
             // colIstenenMiktar
             // 
             colIstenenMiktar.Caption = "İstenen Miktar";
+            colIstenenMiktar.DisplayFormat.FormatString = "n2";
+            colIstenenMiktar.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             colIstenenMiktar.FieldName = "Quantity";
+            colIstenenMiktar.GroupFormat.FormatString = "n2";
+            colIstenenMiktar.GroupFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             colIstenenMiktar.Name = "colIstenenMiktar";
             colIstenenMiktar.OptionsColumn.AllowEdit = false;
             colIstenenMiktar.StatusBarAciklama = null;
@@ -187,7 +190,11 @@
             // colGelenMiktar
             // 
             colGelenMiktar.Caption = "Gelen Miktar";
+            colGelenMiktar.DisplayFormat.FormatString = "n2";
+            colGelenMiktar.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             colGelenMiktar.FieldName = "ReceivedQuantity";
+            colGelenMiktar.GroupFormat.FormatString = "n2";
+            colGelenMiktar.GroupFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             colGelenMiktar.Name = "colGelenMiktar";
             colGelenMiktar.OptionsColumn.AllowEdit = false;
             colGelenMiktar.StatusBarAciklama = null;
@@ -200,7 +207,11 @@
             // colBekleyenMiktar
             // 
             colBekleyenMiktar.Caption = "Bekleyen Miktar";
+            colBekleyenMiktar.DisplayFormat.FormatString = "n2";
+            colBekleyenMiktar.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             colBekleyenMiktar.FieldName = "PendingQuantity";
+            colBekleyenMiktar.GroupFormat.FormatString = "n2";
+            colBekleyenMiktar.GroupFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             colBekleyenMiktar.Name = "colBekleyenMiktar";
             colBekleyenMiktar.OptionsColumn.AllowEdit = false;
             colBekleyenMiktar.StatusBarAciklama = null;
@@ -219,21 +230,23 @@
             colBirim.StatusBarAciklama = null;
             colBirim.StatusBarKisaYol = null;
             colBirim.StatusBarKisaYolAciklama = null;
-            colBirim.Visible = true;
-            colBirim.VisibleIndex = 8;
             colBirim.Width = 125;
             // 
             // colBirimFiyat
             // 
             colBirimFiyat.Caption = "Birim Fiyat";
+            colBirimFiyat.DisplayFormat.FormatString = "n4";
+            colBirimFiyat.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             colBirimFiyat.FieldName = "UnitPrice";
+            colBirimFiyat.GroupFormat.FormatString = "n4";
+            colBirimFiyat.GroupFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             colBirimFiyat.Name = "colBirimFiyat";
             colBirimFiyat.OptionsColumn.AllowEdit = false;
             colBirimFiyat.StatusBarAciklama = null;
             colBirimFiyat.StatusBarKisaYol = null;
             colBirimFiyat.StatusBarKisaYolAciklama = null;
             colBirimFiyat.Visible = true;
-            colBirimFiyat.VisibleIndex = 9;
+            colBirimFiyat.VisibleIndex = 8;
             colBirimFiyat.Width = 125;
             // 
             // colDovizTuru
@@ -246,7 +259,7 @@
             colDovizTuru.StatusBarKisaYol = null;
             colDovizTuru.StatusBarKisaYolAciklama = null;
             colDovizTuru.Visible = true;
-            colDovizTuru.VisibleIndex = 10;
+            colDovizTuru.VisibleIndex = 9;
             colDovizTuru.Width = 125;
             // 
             // colTeslimatDeposu
@@ -259,21 +272,8 @@
             colTeslimatDeposu.StatusBarKisaYol = null;
             colTeslimatDeposu.StatusBarKisaYolAciklama = null;
             colTeslimatDeposu.Visible = true;
-            colTeslimatDeposu.VisibleIndex = 11;
+            colTeslimatDeposu.VisibleIndex = 10;
             colTeslimatDeposu.Width = 125;
-            // 
-            // colTutar
-            // 
-            colTutar.Caption = "Bekleyen Tutar";
-            colTutar.FieldName = "PendingLineTotal";
-            colTutar.Name = "colTutar";
-            colTutar.OptionsColumn.AllowEdit = false;
-            colTutar.StatusBarAciklama = null;
-            colTutar.StatusBarKisaYol = null;
-            colTutar.StatusBarKisaYolAciklama = null;
-            colTutar.Visible = true;
-            colTutar.VisibleIndex = 12;
-            colTutar.Width = 125;
             // 
             // colTerminTarihi
             // 
@@ -285,7 +285,7 @@
             colTerminTarihi.StatusBarKisaYol = null;
             colTerminTarihi.StatusBarKisaYolAciklama = null;
             colTerminTarihi.Visible = true;
-            colTerminTarihi.VisibleIndex = 13;
+            colTerminTarihi.VisibleIndex = 11;
             colTerminTarihi.Width = 125;
             // 
             // SatinalmaSiparisAktarListForm
@@ -327,7 +327,6 @@
         private UserControls.Grid.MyGridColumn colBirimFiyat;
         private UserControls.Grid.MyGridColumn colDovizTuru;
         private UserControls.Grid.MyGridColumn colTeslimatDeposu;
-        private UserControls.Grid.MyGridColumn colTutar;
         private UserControls.Grid.MyGridColumn colTerminTarihi;
     }
 }

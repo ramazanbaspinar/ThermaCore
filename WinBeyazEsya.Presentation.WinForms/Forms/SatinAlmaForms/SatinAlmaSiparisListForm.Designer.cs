@@ -196,7 +196,11 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             // colTutar
             // 
             colTutar.Caption = "Tutar";
+            colTutar.DisplayFormat.FormatString = "n2";
+            colTutar.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             colTutar.FieldName = "GrandTotal";
+            colTutar.GroupFormat.FormatString = "n2";
+            colTutar.GroupFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             colTutar.Name = "colTutar";
             colTutar.OptionsColumn.AllowEdit = false;
             colTutar.StatusBarAciklama = null;
@@ -253,6 +257,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             ClientSize = new Size(806, 425);
             Controls.Add(myGridControl1);
             Controls.Add(longNavigator1);
+            Font = new Font("Segoe UI", 8.25F);
             IconOptions.ShowIcon = false;
             Name = "SatinAlmaSiparisListForm";
             Text = "Satınalma Siparişleri";
