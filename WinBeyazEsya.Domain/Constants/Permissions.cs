@@ -155,4 +155,12 @@ public static class Permissions
         public const string Update = "PurchaseOrder.Update";
         public const string Delete = "PurchaseOrder.Delete";
     }
+
+    public static class PurchaseReceipt
+    {
+        public const string View = "PurchaseReceipt.View";
+        public const string Create = "PurchaseReceipt.Create";
+        public const string Update = "PurchaseReceipt.Update";
+        public const string Delete = "PurchaseReceipt.Delete";
+    }
 }

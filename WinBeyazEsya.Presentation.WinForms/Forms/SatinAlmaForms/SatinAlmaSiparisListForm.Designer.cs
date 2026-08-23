@@ -253,7 +253,6 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             ClientSize = new Size(806, 425);
             Controls.Add(myGridControl1);
             Controls.Add(longNavigator1);
-            Font = new Font("Segoe UI", 8.25F);
             IconOptions.ShowIcon = false;
             Name = "SatinAlmaSiparisListForm";
             Text = "Satınalma Siparişleri";

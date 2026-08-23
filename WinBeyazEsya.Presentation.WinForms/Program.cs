@@ -239,6 +239,8 @@ internal static class Program
 
                         services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms.SatinAlmaSiparisListForm>();
                         services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms.SatinAlmaSiparisEditForm>();
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.SatinalmaForms.SatinalmaIrsaliyeListForm>();
+                        services.AddTransient<WinBeyazEsya.Presentation.WinForms.Forms.SatinalmaForms.SatinalmaIrsaliyeEditForm>();
                     })
                     .Build();
 

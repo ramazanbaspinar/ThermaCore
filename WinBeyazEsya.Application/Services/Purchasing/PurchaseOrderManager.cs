@@ -14,6 +14,9 @@ public class PurchaseOrderManager : BaseManager<PurchaseOrderListDto, PurchaseOr
     private readonly IRepository<PurchaseOrderLine> _lineRepository;
     private readonly WinBeyazEsya.Application.Services.Management.IAuthService _authService;
     private readonly WinBeyazEsya.Application.Interfaces.Mailing.IMailService _mailService;
+    private readonly IRepository<WinBeyazEsya.Domain.Entities.Production.RawMaterial> _rawMaterialRepository;
+    private readonly IRepository<WinBeyazEsya.Domain.Entities.Definitions.Unit> _unitRepository;
+    private readonly IRepository<WinBeyazEsya.Domain.Entities.Definitions.Warehouse> _warehouseRepository;
 
     public PurchaseOrderManager(
         IMapper mapper,
@@ -22,12 +25,18 @@ public class PurchaseOrderManager : BaseManager<PurchaseOrderListDto, PurchaseOr
         IRepository<PurchaseOrderLine> lineRepository,
         WinBeyazEsya.Application.Services.Management.IAuthService authService,
         WinBeyazEsya.Application.Interfaces.Mailing.IMailService mailService,
+        IRepository<WinBeyazEsya.Domain.Entities.Production.RawMaterial> rawMaterialRepository,
+        IRepository<WinBeyazEsya.Domain.Entities.Definitions.Unit> unitRepository,
+        IRepository<WinBeyazEsya.Domain.Entities.Definitions.Warehouse> warehouseRepository,
         IValidator<PurchaseOrderDto>? validator = null)
         : base(mapper, repository, unitOfWork, validator)
     {
         _lineRepository = lineRepository;
         _authService = authService;
         _mailService = mailService;
+        _rawMaterialRepository = rawMaterialRepository;
+        _unitRepository = unitRepository;
+        _warehouseRepository = warehouseRepository;
     }
 
     public override PurchaseOrderDto GetById(long id)
@@ -154,5 +163,49 @@ public class PurchaseOrderManager : BaseManager<PurchaseOrderListDto, PurchaseOr
 
         // Kalkanı geçtiyse asıl silme işlemini base'e devret
         base.Delete(id);
+    }
+
+    public async Task<List<PurchaseOrderLineTransferListDto>> GetOpenOrderLinesAsync(long supplierId)
+    {
+        // _lineRepository üzerinden Include işlemi yapıyoruz (x => x.PurchaseOrder).
+        // IRepository.GetAll() parametre olarak params Expression<Func<T, object>>[] includes alıyor.
+        var query = _lineRepository.GetAll(x => x.PurchaseOrder)
+            .Where(x => !x.IsDeleted &&
+                        x.PurchaseOrder.SupplierId == supplierId &&
+                        !x.PurchaseOrder.IsDeleted &&
+                        (x.PurchaseOrder.Status == WinBeyazEsya.Domain.Enums.OrderStatus.Approved || 
+                         x.PurchaseOrder.Status == WinBeyazEsya.Domain.Enums.OrderStatus.PartialReceived) &&
+                        (x.Quantity - x.ReceivedQuantity) > 0);
+
+        var list = query.ToList();
+
+        var dtoList = new List<PurchaseOrderLineTransferListDto>();
+        foreach (var item in list)
+        {
+            var dto = new PurchaseOrderLineTransferListDto
+            {
+                PurchaseOrderId = item.PurchaseOrderId,
+                PurchaseOrderLineId = item.Id,
+                OrderDate = item.PurchaseOrder.OrderDate,
+                Code = item.PurchaseOrder.Code,
+                DocumentNo = item.PurchaseOrder.DocumentNo ?? item.PurchaseOrder.Code,
+                MaterialId = item.MaterialId,
+                Quantity = item.Quantity,
+                ReceivedQuantity = item.ReceivedQuantity,
+                PendingQuantity = item.Quantity - item.ReceivedQuantity,
+                UnitId = item.UnitId,
+                UnitName = _unitRepository.Find(x => x.Id == item.UnitId).FirstOrDefault()?.Name,
+                UnitPrice = item.UnitPrice,
+                TaxRate = item.TaxRate,
+                WarehouseId = item.WarehouseId ?? item.PurchaseOrder.WarehouseId,
+                WarehouseName = _warehouseRepository.Find(x => x.Id == (item.WarehouseId ?? item.PurchaseOrder.WarehouseId)).FirstOrDefault()?.Name,
+                CurrencyCode = item.PurchaseOrder.CurrencyCode,
+                PendingLineTotal = (item.Quantity - item.ReceivedQuantity) * item.UnitPrice,
+                DeliveryDate = item.PurchaseOrder.DeliveryDate
+            };
+            dtoList.Add(dto);
+        }
+
+        return await Task.FromResult(dtoList);
     }
 }

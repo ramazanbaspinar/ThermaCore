@@ -12,16 +12,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WinBeyazEsya.Domain.Enums;
+using WinBeyazEsya.Application.DTOs.Purchasing;
 using WinBeyazEsya.Presentation.WinForms.Forms.BaseForms;
-using WinBeyazEsya.Presentation.WinForms.Helpers;
 using WinBeyazEsya.Presentation.WinForms.UserControls.Controls;
 using Microsoft.Extensions.DependencyInjection;
+using WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms;
+using WinBeyazEsya.Presentation.WinForms.Helpers;
 
-namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
+namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinalmaForms
 {
-    public partial class SatinAlmaSiparisEditForm : BaseEditForm
+    public partial class SatinalmaIrsaliyeEditForm : BaseEditForm
     {
-        private readonly WinBeyazEsya.Application.Interfaces.Purchasing.IPurchaseOrderService _purchaseOrderService = default!;
+        private readonly WinBeyazEsya.Application.Interfaces.Purchasing.IPurchaseReceiptService _purchaseReceiptService = default!;
         private readonly WinBeyazEsya.Application.Interfaces.Definitions.ICurrentAccountService _currentAccountService = default!;
         private readonly WinBeyazEsya.Application.Interfaces.Definitions.IWarehouseService _warehouseService = default!;
         private readonly WinBeyazEsya.Application.Interfaces.System.IExchangeRateService _exchangeRateService = default!;
@@ -38,18 +40,18 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
         private Dictionary<long, List<UnitDropdownItem>> _materialUnitsCache = new Dictionary<long, List<UnitDropdownItem>>();
         private object _oldUnitId;
 
-        public SatinAlmaSiparisEditForm()
+        public SatinalmaIrsaliyeEditForm()
         {
             InitializeComponent();
-            BaseKartTuru = Domain.Enums.ModuleType.SatinalmaSiparisleri;
+            BaseKartTuru = Domain.Enums.ModuleType.SatinalmaIrsaliyeleri;
             DataLayoutControls = new object[] { myDataLayoutControl1, myDataLayoutControl2};
             InitGridPopupMenu();
             RegisterGridForLayout(myGridView1);
             RegisterGridForChangeTracking(myGridView1);
         }
 
-        public SatinAlmaSiparisEditForm(
-            WinBeyazEsya.Application.Interfaces.Purchasing.IPurchaseOrderService purchaseOrderService,
+        public SatinalmaIrsaliyeEditForm(
+            WinBeyazEsya.Application.Interfaces.Purchasing.IPurchaseReceiptService purchaseOrderService,
             WinBeyazEsya.Application.Interfaces.Definitions.ICurrentAccountService currentAccountService,
             WinBeyazEsya.Application.Interfaces.Definitions.IWarehouseService warehouseService,
             WinBeyazEsya.Application.Interfaces.System.IExchangeRateService exchangeRateService,
@@ -60,17 +62,17 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
 
             if (!DesignMode && Program.ServiceProvider != null)
             {
-                _purchaseOrderService = purchaseOrderService;
+                _purchaseReceiptService = purchaseOrderService;
                 _currentAccountService = currentAccountService;
                 _warehouseService = warehouseService;
                 _exchangeRateService = exchangeRateService;
                 _rawMaterialService = rawMaterialService;
                 _unitConversionService = unitConversionService;
                 
-                Bll = _purchaseOrderService;
+                Bll = _purchaseReceiptService;
             }
 
-            BaseKartTuru = Domain.Enums.ModuleType.SatinalmaSiparisleri;
+            BaseKartTuru = Domain.Enums.ModuleType.SatinalmaIrsaliyeleri;
             InitGridPopupMenu();
             RegisterGridForLayout(myGridView1);
             RegisterGridForChangeTracking(myGridView1);
@@ -82,14 +84,79 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             barManager.Form = this;
             popupMenuGrid = new PopupMenu(barManager);
             
+            var btnTransfer = new DevExpress.XtraBars.BarButtonItem(barManager, "Açık Siparişleri Aktar");
+            btnTransfer.ItemClick += BtnTransfer_ItemClick;
+
             var btnAdd = new DevExpress.XtraBars.BarButtonItem(barManager, "Satır Ekle");
             btnAdd.ItemClick += BtnAdd_ItemClick;
             
             var btnDelete = new DevExpress.XtraBars.BarButtonItem(barManager, "Satır Sil");
             btnDelete.ItemClick += BtnDelete_ItemClick;
 
+            popupMenuGrid.ItemLinks.Add(btnTransfer);
             popupMenuGrid.ItemLinks.Add(btnAdd);
             popupMenuGrid.ItemLinks.Add(btnDelete);
+        }
+
+        private void BtnTransfer_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if (glufTedarikciCari.EditValue == null)
+            {
+                XtraMessageBox.Show("Lütfen önce Cari (Tedarikçi) seçiniz!", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            long supplierId = (long)glufTedarikciCari.EditValue;
+
+            if (Program.ServiceProvider != null)
+            {
+                var form = Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateInstance<SatinalmaSiparisAktarListForm>(Program.ServiceProvider);
+                form.SupplierId = supplierId;
+                form.FormAcilisTuru = WinBeyazEsya.Presentation.WinForms.Enums.FormAcilisTuru.Secim;
+                form.Text = $"{glufTedarikciCari.Text} - Açık Siparişler";
+
+                var lines = myGridControl1.DataSource as BindingList<Application.DTOs.Purchasing.PurchaseReceiptLineDto>;
+                if (lines == null)
+                {
+                    var list = myGridControl1.DataSource as List<Application.DTOs.Purchasing.PurchaseReceiptLineDto> ?? new List<Application.DTOs.Purchasing.PurchaseReceiptLineDto>();
+                    lines = new BindingList<Application.DTOs.Purchasing.PurchaseReceiptLineDto>(list);
+                    myGridControl1.DataSource = lines;
+                }
+
+                // Önceden eklenmiş satırları aktarım listesinde tekrar göstermemek için filtre veriyoruz.
+                form.ExcludedLineIds = lines.Where(x => x.PurchaseOrderLineId.HasValue).Select(x => x.PurchaseOrderLineId.Value).ToList();
+
+                form.ShowDialog();
+
+                if (form.DialogResult == DialogResult.OK && form.SelectedLines != null && form.SelectedLines.Any())
+                {
+                    bool setCurrency = true;
+                    foreach (var line in form.SelectedLines)
+                    {
+                        if (setCurrency && !string.IsNullOrWhiteSpace(line.CurrencyCode))
+                        {
+                            cmbDovuzTuru.EditValue = line.CurrencyCode;
+                            setCurrency = false;
+                        }
+
+                        lines.Add(new WinBeyazEsya.Application.DTOs.Purchasing.PurchaseReceiptLineDto 
+                        { 
+                            MaterialId = line.MaterialId, 
+                            PurchaseOrderLineId = line.PurchaseOrderLineId, 
+                            Quantity = line.PendingQuantity, 
+                            UnitId = line.UnitId, 
+                            UnitPrice = line.UnitPrice, 
+                            TaxRate = line.TaxRate,
+                            WarehouseId = line.WarehouseId,
+                            CurrencyCode = line.CurrencyCode,
+                            LineTotal = line.PendingQuantity * line.UnitPrice
+                        });
+                    }
+                    
+                    CalculateTotals();
+                    myGridView1.RefreshData();
+                }
+            }
         }
 
         private void BtnAdd_ItemClick(object sender, ItemClickEventArgs e)
@@ -100,11 +167,11 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
                 return;
             }
 
-            var lines = myGridControl1.DataSource as BindingList<Application.DTOs.Purchasing.PurchaseOrderLineDto>;
+            var lines = myGridControl1.DataSource as BindingList<Application.DTOs.Purchasing.PurchaseReceiptLineDto>;
             if (lines == null)
             {
-                var list = myGridControl1.DataSource as List<Application.DTOs.Purchasing.PurchaseOrderLineDto> ?? new List<Application.DTOs.Purchasing.PurchaseOrderLineDto>();
-                lines = new BindingList<Application.DTOs.Purchasing.PurchaseOrderLineDto>(list);
+                var list = myGridControl1.DataSource as List<Application.DTOs.Purchasing.PurchaseReceiptLineDto> ?? new List<Application.DTOs.Purchasing.PurchaseReceiptLineDto>();
+                lines = new BindingList<Application.DTOs.Purchasing.PurchaseReceiptLineDto>(list);
                 myGridControl1.DataSource = lines;
             }
 
@@ -131,6 +198,21 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             CalculateTotals();
         }
 
+        private void MyGridView1_RowCountChanged(object? sender, EventArgs e)
+        {
+            var view = sender as GridView;
+            if (view == null) return;
+
+            if (view.RowCount > 0)
+            {
+                cmbDovuzTuru.ReadOnly = true;
+            }
+            else
+            {
+                cmbDovuzTuru.ReadOnly = false;
+            }
+        }
+
         private void BtnDelete_ItemClick(object sender, ItemClickEventArgs e)
         {
             myGridView1.DeleteSelectedRows();
@@ -145,6 +227,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             myGridView1.ShownEditor += MyGridView1_ShownEditor;
             myGridView1.PopupMenuShowing += MyGridView1_PopupMenuShowing;
             myGridView1.InitNewRow += MyGridView1_InitNewRow;
+            myGridView1.RowCountChanged += MyGridView1_RowCountChanged;
             myGridView1.CustomColumnDisplayText += MyGridView1_CustomColumnDisplayText;
 
             glufTedarikciCari.SearchButtonClicked += GlufTedarikciCari_SearchButtonClicked;
@@ -258,22 +341,12 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
         {
             myGridView1.OptionsView.ShowAutoFilterRow = false;
 
-            if (colGelenMiktar != null)
-            {
-                colGelenMiktar.FieldName = "BaseReceivedQuantity";
-                colGelenMiktar.Caption = "Gelen Miktar";
-            }
-            if (colBekleyenMiktar != null)
-            {
-                colBekleyenMiktar.FieldName = "BaseRemainingQuantity";
-                colBekleyenMiktar.Caption = "Bekleyen Miktar";
-            }
-
             txtSiparisTarihi.Properties.Mask.EditMask = "g";
             txtSiparisTarihi.Properties.Mask.UseMaskAsDisplayFormat = true;
-
-            cmbSiparisDurumu.Properties.Items.AddRange(WinBeyazEsya.Presentation.WinForms.Helpers.EnumFunctions.GetEnumDescriptionList<OrderStatus>().ToArray());
-            cmbSiparisDurumu.ReadOnly = true;
+            
+            // Set label text to İrsaliye Tarihi dynamically if it is inside a LayoutControlItem
+            var item = myDataLayoutControl1.GetItemByControl(txtSiparisTarihi);
+            if (item != null) item.Text = "İrsaliye Tarihi";
 
             glufTedarikciCari.Properties.ValueMember = "Id";
             glufTedarikciCari.Properties.DisplayMember = "Title";
@@ -291,9 +364,9 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             InitGridRepositoryItems();
 
             if (BaseIslemTuru == ActionType.EntityInsert)
-                CurrentEntity = new Application.DTOs.Purchasing.PurchaseOrderDto { OrderDate = DateTime.Now, Status = OrderStatus.Draft, ExchangeRate = 1 };
+                CurrentEntity = new Application.DTOs.Purchasing.PurchaseReceiptDto { ReceiptDate = DateTime.Now, ExchangeRate = 1 };
             else
-                CurrentEntity = _purchaseOrderService.GetById(Id);
+                CurrentEntity = _purchaseReceiptService.GetById(Id);
 
             NesneyiKontrollereBagla();
         }
@@ -420,7 +493,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
 
         protected override void NesneyiKontrollereBagla()
         {
-            var entity = (Application.DTOs.Purchasing.PurchaseOrderDto)CurrentEntity;
+            var entity = (Application.DTOs.Purchasing.PurchaseReceiptDto)CurrentEntity;
 
             if (_currentAccountService != null && !DesignMode)
             {
@@ -473,17 +546,22 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
                 repositoryItemGridLookUpEdit1.DisplayMember = "Name";
                 repositoryItemGridLookUpEdit1.NullText = "";
                 
-                repositoryItemGridLookUpEdit1View.Columns.Clear();
-                repositoryItemGridLookUpEdit1View.Columns.AddVisible("Name", "Teslimat Deposu");
+                var repoView = repositoryItemGridLookUpEdit1.PopupView as DevExpress.XtraGrid.Views.Grid.GridView ?? repositoryItemGridLookUpEdit1.View;
+                if (repoView != null)
+                {
+                    repoView.Columns.Clear();
+                    repoView.Columns.AddVisible("Name", "Teslimat Deposu");
+                }
                 
+                // repositoryItemGridLookUpEdit1View logic removed
                 repositoryItemGridLookUpEdit1.EditValueChanged -= RepositoryItemGridLookUpEdit1_EditValueChanged;
                 repositoryItemGridLookUpEdit1.EditValueChanged += RepositoryItemGridLookUpEdit1_EditValueChanged;
             }
 
             txtKod.Text = entity.Code;
             txtBelgeNo.Text = entity.DocumentNo;
-            txtSiparisTarihi.EditValue = entity.OrderDate;
-            txtTeslimatTarihi.EditValue = entity.DeliveryDate;
+            txtSiparisTarihi.EditValue = entity.ReceiptDate;
+            
             glufTedarikciCari.EditValue = entity.SupplierId == 0 ? null : entity.SupplierId;
             glufTeslimatDeposu.EditValue = entity.WarehouseId;
             
@@ -491,32 +569,10 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
                 cmbDovuzTuru.EditValue = entity.CurrencyCode;
 
             txtDovizKuru.Value = entity.ExchangeRate;
-            cmbSiparisDurumu.SelectedItem = entity.Status.ToName();
+            
             
             // Sipariş durumuna göre ComboBox renklendirme
-            switch (entity.Status)
-            {
-                case OrderStatus.Draft:
-                    cmbSiparisDurumu.Properties.Appearance.BackColor = System.Drawing.ColorTranslator.FromHtml("#F5F5F5");
-                    break;
-                case OrderStatus.WaitingApproval:
-                    cmbSiparisDurumu.Properties.Appearance.BackColor = System.Drawing.ColorTranslator.FromHtml("#FFF59D");
-                    break;
-                case OrderStatus.Approved:
-                    cmbSiparisDurumu.Properties.Appearance.BackColor = System.Drawing.ColorTranslator.FromHtml("#C8E6C9");
-                    break;
-                case OrderStatus.PartialReceived:
-                    cmbSiparisDurumu.Properties.Appearance.BackColor = System.Drawing.ColorTranslator.FromHtml("#BBDEFB");
-                    break;
-                case OrderStatus.Canceled:
-                    cmbSiparisDurumu.Properties.Appearance.BackColor = System.Drawing.ColorTranslator.FromHtml("#FFCDD2");
-                    cmbSiparisDurumu.Properties.Appearance.Font = new System.Drawing.Font(cmbSiparisDurumu.Properties.Appearance.Font, System.Drawing.FontStyle.Strikeout);
-                    break;
-                case OrderStatus.Completed:
-                    cmbSiparisDurumu.Properties.Appearance.BackColor = System.Drawing.ColorTranslator.FromHtml("#E0E0E0");
-                    cmbSiparisDurumu.Properties.Appearance.Font = new System.Drawing.Font(cmbSiparisDurumu.Properties.Appearance.Font, System.Drawing.FontStyle.Italic);
-                    break;
-            }
+            
 
             txtAciklama.Text = entity.Description;
 
@@ -526,14 +582,10 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
 
             if (entity.Lines != null)
             {
-                foreach (var line in entity.Lines)
-                {
-                    line.ConversionFactor = GetUnitConversionFactor(line.MaterialId, line.UnitId);
-                    line.CurrencyCode = entity.CurrencyCode;
-                }
+                // Removed invalid conversions
             }
 
-            myGridControl1.DataSource = new BindingList<Application.DTOs.Purchasing.PurchaseOrderLineDto>(entity.Lines ?? new List<Application.DTOs.Purchasing.PurchaseOrderLineDto>());
+            myGridControl1.DataSource = new BindingList<Application.DTOs.Purchasing.PurchaseReceiptLineDto>(entity.Lines != null ? entity.Lines.ToList() : new List<Application.DTOs.Purchasing.PurchaseReceiptLineDto>());
 
             if (BaseIslemTuru == ActionType.EntityUpdate)
             {
@@ -544,22 +596,20 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
                 cmbDovuzTuru.ReadOnly = false;
                 txtKod.Text = "Yeni Sipariş";
             }
+            
+            MyGridView1_RowCountChanged(myGridView1, EventArgs.Empty);
         }
 
         protected internal override void ButonEnabledDurumu()
         {
             base.ButonEnabledDurumu();
 
-            var entity = CurrentEntity as Application.DTOs.Purchasing.PurchaseOrderDto;
+            var entity = CurrentEntity as Application.DTOs.Purchasing.PurchaseReceiptDto;
             if (entity != null && IsLoaded)
             {
                 btnEkstra.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
-                btnEkstra.ItemClick -= BtnEkstra_ItemClick;
 
-                if (entity.Status == OrderStatus.Approved ||
-                    entity.Status == OrderStatus.PartialReceived ||
-                    entity.Status == OrderStatus.Completed ||
-                    entity.Status == OrderStatus.Canceled)
+                if (entity.Id > 0)
                 {
                     if (btnKaydet != null) btnKaydet.Enabled = false;
                     if (btnGerial != null) btnGerial.Enabled = false;
@@ -569,15 +619,6 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
                     myGridView1.OptionsBehavior.Editable = false;
                     myGridView1.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.False;
                     myGridView1.OptionsBehavior.AllowDeleteRows = DevExpress.Utils.DefaultBoolean.False;
-
-                    if (entity.Status == OrderStatus.Approved)
-                    {
-                        btnEkstra.Caption = "Siparişi Revize Et";
-                        btnEkstra.ImageOptions.Image = DevExpress.Images.ImageResourceCache.Default.GetImage("images/actions/reset_16x16.png");
-                        btnEkstra.ImageOptions.LargeImage = DevExpress.Images.ImageResourceCache.Default.GetImage("images/actions/reset_32x32.png");
-                        btnEkstra.Visibility = DevExpress.XtraBars.BarItemVisibility.Always;
-                        btnEkstra.ItemClick += BtnEkstra_ItemClick;
-                    }
 
                     foreach (DevExpress.XtraEditors.Controls.EditorButton btn in glufTedarikciCari.Properties.Buttons)
                     {
@@ -597,15 +638,6 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
                     myGridView1.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.Default;
                     myGridView1.OptionsBehavior.AllowDeleteRows = DevExpress.Utils.DefaultBoolean.Default;
 
-                    // Sipariş revize edildiğinde kilitlenen BaseEdit'leri tekrar açıyoruz
-                    txtBelgeNo.Properties.ReadOnly = false;
-                    txtSiparisTarihi.Properties.ReadOnly = false;
-                    txtTeslimatTarihi.Properties.ReadOnly = false;
-                    glufTedarikciCari.Properties.ReadOnly = false;
-                    glufTeslimatDeposu.Properties.ReadOnly = false;
-                    txtAciklama.Properties.ReadOnly = false;
-                    txtDovizKuru.Properties.ReadOnly = false;
-
                     foreach (DevExpress.XtraEditors.Controls.EditorButton btn in glufTedarikciCari.Properties.Buttons)
                     {
                         if (btn.Kind == DevExpress.XtraEditors.Controls.ButtonPredefines.Search || btn.Kind == DevExpress.XtraEditors.Controls.ButtonPredefines.Delete)
@@ -621,63 +653,35 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             }
         }
 
-        private void BtnEkstra_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
-        {
-            var entity = CurrentEntity as Application.DTOs.Purchasing.PurchaseOrderDto;
-            if (entity == null || entity.Status != OrderStatus.Approved) return;
-
-            if (DevExpress.XtraEditors.XtraMessageBox.Show("Sipariş onayı iptal edilip Taslak durumuna alınacaktır. Emin misiniz?", "Onay İptali", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-            {
-                entity.Status = OrderStatus.Draft;
-                
-                if (_purchaseOrderService != null)
-                {
-                    _purchaseOrderService.Update(entity);
-                }
-                
-                DevExpress.XtraEditors.XtraMessageBox.Show("Sipariş statüsü Taslak olarak güncellendi. Artık değişiklik yapabilirsiniz.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                
-                Yukle();
-                ButonEnabledDurumu();
-            }
-        }
-
         protected override void BaseEditForm_Shown(object? sender, EventArgs e)
         {
             base.BaseEditForm_Shown(sender, e);
-            var entity = CurrentEntity as Application.DTOs.Purchasing.PurchaseOrderDto;
+            var entity = CurrentEntity as Application.DTOs.Purchasing.PurchaseReceiptDto;
             if (entity != null)
             {
-                if (entity.Status == OrderStatus.Approved ||
-                    entity.Status == OrderStatus.PartialReceived ||
-                    entity.Status == OrderStatus.Completed ||
-                    entity.Status == OrderStatus.Canceled)
+                if (entity.Id > 0)
                 {
-                    string statusName = WinBeyazEsya.Domain.Helpers.EnumFunctions.GetDescription(entity.Status);
-                    this.Text += $" - [KİLİTLİ: {statusName}]";
+                    this.Text += $" - [KİLİTLİ]";
                 }
             }
         }
 
         protected override void GuncelNesneOlustur()
         {
-            var lines = myGridControl1.DataSource as BindingList<Application.DTOs.Purchasing.PurchaseOrderLineDto>;
-            var dtoList = lines != null ? lines.ToList() : new List<Application.DTOs.Purchasing.PurchaseOrderLineDto>();
+            var lines = myGridControl1.DataSource as BindingList<Application.DTOs.Purchasing.PurchaseReceiptLineDto>;
+            var dtoList = lines != null ? lines.ToList() : new List<Application.DTOs.Purchasing.PurchaseReceiptLineDto>();
 
-            var dto = new Application.DTOs.Purchasing.PurchaseOrderDto
+            var dto = new Application.DTOs.Purchasing.PurchaseReceiptDto
             {
                 Id = Id,
                 Code = txtKod.Text,
                 DocumentNo = txtBelgeNo.Text,
-                OrderDate = txtSiparisTarihi.EditValue != null ? (DateTime)txtSiparisTarihi.EditValue : DateTime.Now,
-                DeliveryDate = txtTeslimatTarihi.EditValue as DateTime?,
+                ReceiptDate = txtSiparisTarihi.EditValue != null ? (DateTime)txtSiparisTarihi.EditValue : DateTime.Now,
+                
                 SupplierId = (long)(glufTedarikciCari.EditValue ?? 0L),
                 WarehouseId = (long?)glufTeslimatDeposu.EditValue,
                 CurrencyCode = cmbDovuzTuru.EditValue?.ToString(),
                 ExchangeRate = txtDovizKuru.Value,
-                Status = (Id == 0) 
-                    ? OrderStatus.Draft 
-                    : (cmbSiparisDurumu.SelectedItem != null ? WinBeyazEsya.Presentation.WinForms.Helpers.EnumFunctions.GetEnum<OrderStatus>(cmbSiparisDurumu.SelectedItem.ToString()) : OrderStatus.Draft),
                 Description = txtAciklama.Text,
                 SubTotal = txtToplam.Value,
                 TaxAmount = txtToplamKDV.Value,
@@ -757,7 +761,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             if (cmbDovuzTuru.EditValue != null)
             {
                 string currencyCode = cmbDovuzTuru.EditValue.ToString();
-                DateTime orderDate = (DateTime)txtSiparisTarihi.EditValue;
+                DateTime ReceiptDate = (DateTime)txtSiparisTarihi.EditValue;
 
                 if (currencyCode == "TRY" || currencyCode == "TL")
                 {
@@ -766,7 +770,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
                 else
                 {
                     var rates = _exchangeRateService.GetAllRates()
-                        .Where(x => x.CurrencyCode == currencyCode && x.RateDate.Date <= orderDate.Date)
+                        .Where(x => x.CurrencyCode == currencyCode && x.RateDate.Date <= ReceiptDate.Date)
                         .OrderByDescending(x => x.RateDate)
                         .ToList();
 
@@ -796,9 +800,9 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             myGridView1.PostEditor();
             try
             {
-                var dto = (Application.DTOs.Purchasing.PurchaseOrderDto)CurrentEntity;
+                var dto = (Application.DTOs.Purchasing.PurchaseReceiptDto)CurrentEntity;
                 dto.Id = BaseIslemTuru.IdOlustur(OldEntity);
-                Id = _purchaseOrderService.Insert(dto);
+                Id = _purchaseReceiptService.Insert(dto);
                 return Id > 0;
             }
             catch (Exception ex)
@@ -814,7 +818,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             myGridView1.PostEditor();
             try
             {
-                _purchaseOrderService.Update((Application.DTOs.Purchasing.PurchaseOrderDto)CurrentEntity);
+                _purchaseReceiptService.Update((Application.DTOs.Purchasing.PurchaseReceiptDto)CurrentEntity);
                 return true;
             }
             catch (Exception ex)
@@ -903,10 +907,10 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
                             decimal oldFactor = GetUnitConversionFactor(materialId, oldUnitId);
                             decimal newFactor = GetUnitConversionFactor(materialId, newUnitId);
                             
-                            var row = view.GetRow(e.RowHandle) as Application.DTOs.Purchasing.PurchaseOrderLineDto;
+                            var row = view.GetRow(e.RowHandle) as Application.DTOs.Purchasing.PurchaseReceiptLineDto;
                             if (row != null)
                             {
-                                row.ConversionFactor = newFactor;
+                                // row.ConversionFactor removed
                             }
                             
                             var currentPrice = Convert.ToDecimal(view.GetRowCellValue(e.RowHandle, "UnitPrice") ?? 0);
@@ -948,7 +952,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             myGridView1.PostEditor();
             myGridView1.UpdateCurrentRow();
 
-            var lines = myGridControl1.DataSource as BindingList<Application.DTOs.Purchasing.PurchaseOrderLineDto>;
+            var lines = myGridControl1.DataSource as BindingList<Application.DTOs.Purchasing.PurchaseReceiptLineDto>;
             if (lines != null)
             {
                 decimal subTotal = lines.Sum(x => x.LineTotal);
@@ -1063,20 +1067,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
         }
         #endregion
     }
-
-    public class MaterialLookupDto
-    {
-        public long Id { get; set; }
-        public string Code { get; set; } = string.Empty;
-        public string Name { get; set; } = string.Empty;
-        public long? BaseUnitId { get; set; }
-        public string BaseUnitName { get; set; } = string.Empty;
-        public string MaterialGroupName { get; set; } = string.Empty;
-    }
-
-    public class UnitDropdownItem
-    {
-        public long Id { get; set; }
-        public string Name { get; set; } = string.Empty;
-    }
 }
+
+
+

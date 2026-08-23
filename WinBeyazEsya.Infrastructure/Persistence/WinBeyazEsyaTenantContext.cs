@@ -39,6 +39,11 @@ public class WinBeyazEsyaTenantContext : DbContext
     public DbSet<WinBeyazEsya.Domain.Entities.Purchasing.PurchaseOrder> PurchaseOrders { get; set; }
     public DbSet<WinBeyazEsya.Domain.Entities.Purchasing.PurchaseOrderLine> PurchaseOrderLines { get; set; }
 
+    public DbSet<WinBeyazEsya.Domain.Entities.Purchasing.PurchaseReceipt> PurchaseReceipts { get; set; }
+    public DbSet<WinBeyazEsya.Domain.Entities.Purchasing.PurchaseReceiptLine> PurchaseReceiptLines { get; set; }
+
+    public DbSet<WinBeyazEsya.Domain.Entities.Inventory.StockTransaction> StockTransactions { get; set; }
+
     public DbSet<WinBeyazEsya.Domain.Entities.Management.ExchangeRate> ExchangeRates { get; set; }
     public DbSet<WinBeyazEsya.Domain.Entities.Management.TaxRate> TaxRates { get; set; }
     public DbSet<WinBeyazEsya.Domain.Entities.Management.SystemParameter> SystemParameters { get; set; }

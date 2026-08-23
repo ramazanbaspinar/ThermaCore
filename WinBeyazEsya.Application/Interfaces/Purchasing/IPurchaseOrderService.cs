@@ -9,4 +9,5 @@ public interface IPurchaseOrderService
     long Insert(PurchaseOrderDto dto);
     void Update(PurchaseOrderDto dto);
     void Delete(long id);
+    Task<List<PurchaseOrderLineTransferListDto>> GetOpenOrderLinesAsync(long supplierId);
 }

@@ -4,7 +4,7 @@ using WinBeyazEsya.Domain.Enums;
 
 namespace WinBeyazEsya.Domain.Entities.Purchasing;
 
-public class PurchaseOrder : FullAuditableEntity
+public class PurchaseReceipt : FullAuditableEntity
 {
     [Required]
     [MaxLength(100)]
@@ -13,9 +13,7 @@ public class PurchaseOrder : FullAuditableEntity
     [MaxLength(50)]
     public string? DocumentNo { get; set; }
 
-    public DateTime OrderDate { get; set; }
-
-    public DateTime? DeliveryDate { get; set; }
+    public DateTime ReceiptDate { get; set; }
 
     public long SupplierId { get; set; }
 
@@ -25,8 +23,6 @@ public class PurchaseOrder : FullAuditableEntity
     public string? CurrencyCode { get; set; }
 
     public decimal ExchangeRate { get; set; } = 1;
-
-    public OrderStatus Status { get; set; } = OrderStatus.Draft;
 
     public decimal SubTotal { get; set; }
 
@@ -39,5 +35,5 @@ public class PurchaseOrder : FullAuditableEntity
     [MaxLength(500)]
     public string? Description { get; set; }
 
-    public virtual ICollection<PurchaseOrderLine> Lines { get; set; } = new List<PurchaseOrderLine>();
+    public virtual ICollection<PurchaseReceiptLine> Lines { get; set; } = new List<PurchaseReceiptLine>();
 }

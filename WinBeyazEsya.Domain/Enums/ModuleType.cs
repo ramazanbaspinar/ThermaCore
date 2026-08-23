@@ -198,6 +198,11 @@ public enum ModuleType
     [RequiresCodeTemplate]
     SatinalmaSiparisleri = 43,
 
+    [Description("Satınalma İrsaliyeleri")]
+    [ParentModule(Satinalma)]
+    [RequiresCodeTemplate]
+    SatinalmaIrsaliyeleri = 44,
+
     // MODÜLLER (Ekranlar) - MALİYETLER
     [Description("Genel Giderler")]
     [ParentModule(Maliyetler)]

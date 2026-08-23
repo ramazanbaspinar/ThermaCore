@@ -13,8 +13,7 @@ public class PurchaseOrderConfiguration : IEntityTypeConfiguration<PurchaseOrder
         // Master Unique Index
         builder.HasIndex(x => x.Code).IsUnique();
 
-        // Performans İndeksleri (IsActive, Status, FK'lar)
-        builder.HasIndex(x => x.IsActive);
+        // Performans İndeksleri (Status, FK'lar)
         builder.HasIndex(x => x.Status);
         builder.HasIndex(x => x.SupplierId);
         builder.HasIndex(x => x.WarehouseId);

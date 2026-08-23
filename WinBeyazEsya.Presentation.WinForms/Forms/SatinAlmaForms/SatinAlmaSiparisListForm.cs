@@ -40,7 +40,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             Tablo = myGridView1;
             BaseKartTuru = Domain.Enums.ModuleType.SatinalmaSiparisleri;
             Navigator = longNavigator1.Navigator;
-            AktifPasifButonGoster = true;
+            AktifPasifButonGoster = false;
 
             Tablo.RowStyle -= Tablo_RowStyle;
             Tablo.RowStyle += Tablo_RowStyle;
@@ -105,7 +105,6 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
         protected override void Listele()
         {
             var liste = _purchaseOrderService.GetAll()
-                .Where(x => x.IsActive == AktifKartlariGoster)
                 .OrderByDescending(x => x.OrderDate)
                 .ToList();
 
