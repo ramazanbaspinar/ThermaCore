@@ -1,11 +1,8 @@
+using Microsoft.Extensions.DependencyInjection;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
 using WinBeyazEsya.Domain.Enums;
 using WinBeyazEsya.Presentation.WinForms.Forms.BaseForms;
 using WinBeyazEsya.Presentation.WinForms.Helpers;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
 {
@@ -58,7 +55,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             if (!IsDesignMode && SagTikMenu != null && ribbon != null)
             {
                 _btnOnayaGonder = new DevExpress.XtraBars.BarButtonItem(ribbon.Manager, "Siparişi Onaya Gönder");
-                _btnOnayaGonder.ItemClick += (s, args) => 
+                _btnOnayaGonder.ItemClick += (s, args) =>
                 {
                     if (Helpers.Messages.HayirSeciliEvetHayir("Siparişi onaya göndermek istediğinize emin misiniz?", "Onaya Gönder") == DialogResult.Yes)
                     {
@@ -68,7 +65,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
                 SagTikMenu.ItemLinks.Insert(0, _btnOnayaGonder);
 
                 _btnOnayla = new DevExpress.XtraBars.BarButtonItem(ribbon.Manager, "Siparişi Onayla");
-                _btnOnayla.ItemClick += (s, args) => 
+                _btnOnayla.ItemClick += (s, args) =>
                 {
                     if (Helpers.Messages.HayirSeciliEvetHayir("Seçili siparişi onaylamak istediğinize emin misiniz?", "Sipariş Onayı") == DialogResult.Yes)
                     {
@@ -78,7 +75,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
                 SagTikMenu.ItemLinks.Insert(1, _btnOnayla);
 
                 _btnIptalEt = new DevExpress.XtraBars.BarButtonItem(ribbon.Manager, "Siparişi İptal Et");
-                _btnIptalEt.ItemClick += (s, args) => 
+                _btnIptalEt.ItemClick += (s, args) =>
                 {
                     if (Helpers.Messages.HayirSeciliEvetHayir("Seçili siparişi iptal etmek istediğinize emin misiniz?", "Sipariş İptali") == DialogResult.Yes)
                     {
@@ -88,7 +85,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
                 SagTikMenu.ItemLinks.Insert(2, _btnIptalEt);
 
                 _btnZorlaKapat = new DevExpress.XtraBars.BarButtonItem(ribbon.Manager, "Siparişi Zorla Kapat");
-                _btnZorlaKapat.ItemClick += (s, args) => 
+                _btnZorlaKapat.ItemClick += (s, args) =>
                 {
                     if (Helpers.Messages.HayirSeciliEvetHayir("Seçili siparişi zorla kapatmak istediğinize emin misiniz?", "Siparişi Kapatma") == DialogResult.Yes)
                     {
@@ -148,7 +145,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
                             item.CreatedFullName = $"{user.FirstName} {user.LastName}".Trim();
                         }
                     }
-                    
+
                     item.StatusName = item.Status.ToName();
                 }
             }
@@ -185,7 +182,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             var statusVal = Tablo.GetRowCellValue(Tablo.FocusedRowHandle, "Status");
             if (statusVal != null && statusVal is WinBeyazEsya.Domain.Enums.OrderStatus status)
             {
-                if (status != WinBeyazEsya.Domain.Enums.OrderStatus.Draft && 
+                if (status != WinBeyazEsya.Domain.Enums.OrderStatus.Draft &&
                     status != WinBeyazEsya.Domain.Enums.OrderStatus.WaitingApproval)
                 {
                     Helpers.Messages.UyariMesaji("Onaylanmış veya işlem görmüş siparişler silinemez! Silmek için önce onayını geri çekmelisiniz.");
@@ -214,7 +211,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             {
                 var view = sender as DevExpress.XtraGrid.Views.Grid.GridView;
                 if (view == null) return;
-                
+
                 var dto = view.GetRow(e.RowHandle) as WinBeyazEsya.Application.DTOs.Purchasing.PurchaseOrderListDto;
                 if (dto == null) return;
 
@@ -283,7 +280,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
         private void ChangeOrderStatus(int rowHandle, OrderStatus newStatus)
         {
             if (rowHandle < 0) return;
-            
+
             long entityId = 0;
             if (long.TryParse(Tablo.GetRowCellValue(rowHandle, "Id")?.ToString(), out entityId) && entityId > 0)
             {

@@ -13,18 +13,18 @@ public class PurchaseOrderLineDto : BaseDto
     public decimal LineTotal { get; set; }
     public decimal ReceivedQuantity { get; set; }
     public long? WarehouseId { get; set; }
-    
+
     // UI için Unbound/Display kolonu
     public string? CurrencyCode { get; set; }
 
-    public decimal RemainingQuantity 
-    { 
-        get { return Quantity - ReceivedQuantity; } 
+    public decimal RemainingQuantity
+    {
+        get { return Quantity - ReceivedQuantity; }
     }
 
     public decimal ConversionFactor { get; set; } = 1m;
 
     public decimal BaseReceivedQuantity => ReceivedQuantity * ConversionFactor;
-    
+
     public decimal BaseRemainingQuantity => (Quantity - ReceivedQuantity) * ConversionFactor;
 }

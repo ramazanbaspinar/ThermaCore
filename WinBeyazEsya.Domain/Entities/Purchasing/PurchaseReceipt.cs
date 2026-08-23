@@ -1,6 +1,5 @@
 using System.ComponentModel.DataAnnotations;
 using WinBeyazEsya.Domain.Entities.Base;
-using WinBeyazEsya.Domain.Enums;
 
 namespace WinBeyazEsya.Domain.Entities.Purchasing;
 

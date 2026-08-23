@@ -15,7 +15,7 @@ public enum DocumentType
 
     [Description("Sayım Fişi")]
     PhysicalInventory = 3,
-    
+
     [Description("Satış İrsaliyesi")]
     SalesReceipt = 4
 }

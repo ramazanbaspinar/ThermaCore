@@ -361,7 +361,7 @@ public class AuthManager : IAuthService
             if (!user.IsActive) continue;
 
             bool hasPermission = false;
-            
+
             var rolePerm = rolePermissions.FirstOrDefault(rp => rp.RoleId == user.UserRoleId);
             if (rolePerm != null && !string.IsNullOrWhiteSpace(rolePerm.SpecialPermissions))
             {

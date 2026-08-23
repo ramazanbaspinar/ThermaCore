@@ -58,7 +58,7 @@ public class PurchaseOrderManager : BaseManager<PurchaseOrderListDto, PurchaseOr
         }
 
         var entity = _mapper.Map<PurchaseOrder>(dto);
-        
+
         // Let AutoMapper and DB handle IDs if IdGenerator is not strictly needed for primary entity,
         // but typically in this structure IdGenerator is used. We'll assign it here.
         if (entity.Id == 0)
@@ -95,11 +95,11 @@ public class PurchaseOrderManager : BaseManager<PurchaseOrderListDto, PurchaseOr
         var existingEntity = _repository.GetById(dto.Id);
         if (existingEntity == null) throw new Exception("Satınalma siparişi bulunamadı.");
 
-        bool isSentToApproval = existingEntity.Status == WinBeyazEsya.Domain.Enums.OrderStatus.Draft && 
+        bool isSentToApproval = existingEntity.Status == WinBeyazEsya.Domain.Enums.OrderStatus.Draft &&
                                 dto.Status == WinBeyazEsya.Domain.Enums.OrderStatus.WaitingApproval;
 
         _mapper.Map(dto, existingEntity);
-        
+
         // AutoMapper'ın kendi kendine eklediği id=0 olan satırları entity'den kopartalım
         existingEntity.Lines.Clear();
 
@@ -131,7 +131,7 @@ public class PurchaseOrderManager : BaseManager<PurchaseOrderListDto, PurchaseOr
             {
                 var users = _authService.GetUsersWithSpecialPermission(WinBeyazEsya.Domain.Enums.ModuleType.SatinalmaSiparisleri, "CanReceiveApprovalEmails");
                 var emails = users.Where(u => !string.IsNullOrWhiteSpace(u.Email)).Select(u => u.Email!).ToList();
-                
+
                 if (emails.Any())
                 {
                     string subject = $"Sipariş Onayı Bekleniyor - Sipariş No: {existingEntity.Code}";
@@ -148,7 +148,7 @@ public class PurchaseOrderManager : BaseManager<PurchaseOrderListDto, PurchaseOr
         var existingEntity = _repository.GetById(id);
         if (existingEntity == null) throw new global::System.Exception("Silinmek istenen satınalma siparişi bulunamadı.");
 
-        if (existingEntity.Status != WinBeyazEsya.Domain.Enums.OrderStatus.Draft && 
+        if (existingEntity.Status != WinBeyazEsya.Domain.Enums.OrderStatus.Draft &&
             existingEntity.Status != WinBeyazEsya.Domain.Enums.OrderStatus.WaitingApproval)
         {
             throw new global::System.Exception("GÜVENLİK KISITLAMASI: Onaylanmış veya işlem görmüş siparişler silinemez! Silmek için önce onayını geri çekmelisiniz.");
@@ -173,7 +173,7 @@ public class PurchaseOrderManager : BaseManager<PurchaseOrderListDto, PurchaseOr
             .Where(x => !x.IsDeleted &&
                         x.PurchaseOrder.SupplierId == supplierId &&
                         !x.PurchaseOrder.IsDeleted &&
-                        (x.PurchaseOrder.Status == WinBeyazEsya.Domain.Enums.OrderStatus.Approved || 
+                        (x.PurchaseOrder.Status == WinBeyazEsya.Domain.Enums.OrderStatus.Approved ||
                          x.PurchaseOrder.Status == WinBeyazEsya.Domain.Enums.OrderStatus.PartialReceived) &&
                         (x.Quantity - x.ReceivedQuantity) > 0);
 

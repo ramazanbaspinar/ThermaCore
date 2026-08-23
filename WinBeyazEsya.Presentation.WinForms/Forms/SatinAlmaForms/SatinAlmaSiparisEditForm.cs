@@ -2,20 +2,11 @@ using DevExpress.XtraBars;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraGrid.Views.Grid;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using WinBeyazEsya.Domain.Enums;
 using WinBeyazEsya.Presentation.WinForms.Forms.BaseForms;
 using WinBeyazEsya.Presentation.WinForms.Helpers;
-using WinBeyazEsya.Presentation.WinForms.UserControls.Controls;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
 {
@@ -42,7 +33,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
         {
             InitializeComponent();
             BaseKartTuru = Domain.Enums.ModuleType.SatinalmaSiparisleri;
-            DataLayoutControls = new object[] { myDataLayoutControl1, myDataLayoutControl2};
+            DataLayoutControls = new object[] { myDataLayoutControl1, myDataLayoutControl2 };
             InitGridPopupMenu();
             RegisterGridForLayout(myGridView1);
             RegisterGridForChangeTracking(myGridView1);
@@ -66,7 +57,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
                 _exchangeRateService = exchangeRateService;
                 _rawMaterialService = rawMaterialService;
                 _unitConversionService = unitConversionService;
-                
+
                 Bll = _purchaseOrderService;
             }
 
@@ -81,10 +72,10 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             barManager = new BarManager();
             barManager.Form = this;
             popupMenuGrid = new PopupMenu(barManager);
-            
+
             var btnAdd = new DevExpress.XtraBars.BarButtonItem(barManager, "Satır Ekle");
             btnAdd.ItemClick += BtnAdd_ItemClick;
-            
+
             var btnDelete = new DevExpress.XtraBars.BarButtonItem(barManager, "Satır Sil");
             btnDelete.ItemClick += BtnDelete_ItemClick;
 
@@ -115,7 +106,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
         {
             var view = sender as GridView;
             if (view == null) return;
-            
+
             var headerWarehouseId = glufTeslimatDeposu.EditValue;
             if (headerWarehouseId != null && headerWarehouseId != DBNull.Value)
             {
@@ -123,11 +114,11 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             }
 
             string currentCurrency = cmbDovuzTuru.EditValue?.ToString() ?? "";
-            
+
             view.SetRowCellValue(e.RowHandle, "CurrencyCode", currentCurrency);
             view.SetRowCellValue(e.RowHandle, "Quantity", 1);
             view.SetRowCellValue(e.RowHandle, "TaxRate", 20m);
-            
+
             CalculateTotals();
         }
 
@@ -166,7 +157,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             glufTedarikciCari.SearchButtonClicked += GlufTedarikciCari_SearchButtonClicked;
             glufTeslimatDeposu.SearchButtonClicked += GlufTeslimatDeposu_SearchButtonClicked;
             glufTeslimatDeposu.EditValueChanged += GlufTeslimatDeposu_EditValueChanged;
-            
+
             cmbDovuzTuru.EditValueChanged += KurHesapla_EditValueChanged;
             txtSiparisTarihi.EditValueChanged += KurHesapla_EditValueChanged;
             cmbDovuzTuru.EditValueChanged += CmbDovuzTuru_EditValueChanged;
@@ -175,7 +166,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
         private void MyGridView1_PopupMenuShowing(object sender, PopupMenuShowingEventArgs e)
         {
             if (!myGridView1.OptionsBehavior.Editable) return;
-            
+
             if (e.HitInfo.InRow || e.HitInfo.InRowCell || e.HitInfo.HitTest == DevExpress.XtraGrid.Views.Grid.ViewInfo.GridHitTest.EmptyRow)
             {
                 popupMenuGrid.ShowPopup(myGridControl1.PointToScreen(e.Point));
@@ -186,20 +177,20 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
         {
             var gridView = sender as DevExpress.XtraGrid.Views.Grid.GridView;
             string searchText = glufTedarikciCari.Text?.ToLower() ?? "";
-            
-            if (string.IsNullOrEmpty(searchText) || searchText == glufTedarikciCari.Properties.NullText.ToLower()) 
+
+            if (string.IsNullOrEmpty(searchText) || searchText == glufTedarikciCari.Properties.NullText.ToLower())
             {
                 e.Visible = true;
                 e.Handled = true;
                 return;
             }
-                
+
             var row = gridView.GetRow(e.ListSourceRow) as Application.DTOs.Definitions.CurrentAccountDto;
             if (row != null)
             {
                 bool matchCode = row.Code != null && row.Code.ToLower().Contains(searchText);
                 bool matchTitle = row.Title != null && row.Title.ToLower().Contains(searchText);
-                
+
                 if (matchCode || matchTitle)
                 {
                     e.Visible = true;
@@ -234,7 +225,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
                     {
                         long materialId = Convert.ToInt64(materialIdValue);
                         var material = _allMaterials?.FirstOrDefault(x => x.Id == materialId);
-                        
+
                         string baseUnitName = "";
                         if (material != null && material.BaseUnitId.HasValue)
                         {
@@ -245,7 +236,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
                                 baseUnitName = unit.Name;
                             }
                         }
-                        
+
                         if (e.Value != null)
                         {
                             decimal val = Convert.ToDecimal(e.Value);
@@ -273,7 +264,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
         public override void Yukle()
         {
             myGridView1.OptionsView.ShowAutoFilterRow = false;
-            
+
             // Focuslanan satırdaki mavi rengi kaldır
             myGridView1.OptionsSelection.EnableAppearanceFocusedRow = false;
             myGridView1.OptionsSelection.EnableAppearanceHideSelection = false;
@@ -281,7 +272,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
 
             // Miktar, Fiyat ve Kalan bilgilerine ERP tarzı (Logo Tiger) belirgin renk ataması
             Color erpColor = System.Drawing.Color.LightYellow;
-            
+
             if (colMiktar != null)
             {
                 colMiktar.AppearanceCell.BackColor = erpColor;
@@ -359,38 +350,38 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
                 try
                 {
                     LoadAllMaterials();
-                    
+
                     if (_allMaterials == null || _allMaterials.Count == 0)
                     {
                         XtraMessageBox.Show("Uyarı: Veritabanında aktif malzeme bulunamadı!", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
-                    
+
                     repoMalzeme.DataSource = _allMaterials;
                     repoMalzeme.DisplayMember = "Name";
                     repoMalzeme.ValueMember = "Id";
                     repoMalzeme.NullText = "Malzeme Seçiniz";
                     repoMalzeme.PopulateViewColumns();
-                    
+
                     var view = repoMalzeme.View;
                     if (view.Columns["Id"] != null) view.Columns["Id"].Visible = false;
                     if (view.Columns["BaseUnitId"] != null) view.Columns["BaseUnitId"].Visible = false;
                     if (view.Columns["BaseUnitName"] != null) view.Columns["BaseUnitName"].Visible = false;
-                    
-                    if (view.Columns["Code"] != null) 
+
+                    if (view.Columns["Code"] != null)
                     {
                         view.Columns["Code"].Caption = "Kodu";
                         view.Columns["Code"].Visible = true;
                         view.Columns["Code"].Width = 50;
                     }
-                    
-                    if (view.Columns["Name"] != null) 
+
+                    if (view.Columns["Name"] != null)
                     {
                         view.Columns["Name"].Caption = "Adı";
                         view.Columns["Name"].Visible = true;
                         view.Columns["Name"].Width = 250;
                     }
-                    
-                    if (view.Columns["MaterialGroupName"] != null) 
+
+                    if (view.Columns["MaterialGroupName"] != null)
                     {
                         view.Columns["MaterialGroupName"].Caption = "Grup";
                         view.Columns["MaterialGroupName"].Visible = true;
@@ -399,7 +390,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
 
                     // Grup başlığındaki "Grup: " yazısını kaldır sadece grubun adı kalsın
                     view.GroupFormat = "{1} {2}";
-                    
+
                     // Arama yapıldığında grupları otomatik aç, silindiğinde kapat
                     view.RowCountChanged += (s, e) =>
                     {
@@ -458,7 +449,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
 
             if (myGridView1.Columns["CurrencyCode"] != null)
                 myGridView1.Columns["CurrencyCode"].OptionsColumn.AllowEdit = false;
-                
+
             if (myGridView1.Columns["LineTotal"] != null)
                 myGridView1.Columns["LineTotal"].OptionsColumn.AllowEdit = false;
         }
@@ -472,12 +463,12 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
                 glufTedarikciCari.Properties.DataSource = _currentAccountService.GetAll()
                     .Where(x => x.CardType == (int)CardType.Tedarikci || x.CardType == (int)CardType.MusteriVeTedarikci)
                     .ToList();
-                    
+
                 var view = glufTedarikciCari.Properties.PopupView as DevExpress.XtraGrid.Views.Grid.GridView;
                 if (view != null)
                 {
                     view.Columns.Clear();
-                    
+
                     var colCode = view.Columns.AddField("Code");
                     colCode.Caption = "Cari Kod";
                     colCode.Visible = true;
@@ -489,20 +480,20 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
                     colTitle.Visible = true;
                     colTitle.VisibleIndex = 1;
                     colTitle.Width = 240;
-                    
+
                     // Çoklu arama özelliği (Hem kod hem unvan)
                     view.OptionsFind.AlwaysVisible = true;
                     view.OptionsFind.FindMode = DevExpress.XtraEditors.FindMode.Always;
                     view.OptionsFind.FindFilterColumns = "Code;Title";
                     view.OptionsFind.FindNullPrompt = "Kod veya Unvan Ara...";
-                    
+
                     glufTedarikciCari.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
                     glufTedarikciCari.Properties.PopupFilterMode = DevExpress.XtraEditors.PopupFilterMode.Contains;
                     glufTedarikciCari.Properties.ImmediatePopup = true;
-                    
+
                     view.CustomRowFilter -= View_CustomRowFilter;
                     view.CustomRowFilter += View_CustomRowFilter;
-                    
+
                     glufTedarikciCari.TextChanged -= GlufTedarikciCari_TextChanged;
                     glufTedarikciCari.TextChanged += GlufTedarikciCari_TextChanged;
                 }
@@ -512,15 +503,15 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             {
                 var depolar = _warehouseService.GetAll().Where(x => x.IsActive).ToList();
                 glufTeslimatDeposu.Properties.DataSource = depolar;
-                
+
                 repositoryItemGridLookUpEdit1.DataSource = depolar;
                 repositoryItemGridLookUpEdit1.ValueMember = "Id";
                 repositoryItemGridLookUpEdit1.DisplayMember = "Name";
                 repositoryItemGridLookUpEdit1.NullText = "";
-                
+
                 repositoryItemGridLookUpEdit1View.Columns.Clear();
                 repositoryItemGridLookUpEdit1View.Columns.AddVisible("Name", "Teslimat Deposu");
-                
+
                 repositoryItemGridLookUpEdit1.EditValueChanged -= RepositoryItemGridLookUpEdit1_EditValueChanged;
                 repositoryItemGridLookUpEdit1.EditValueChanged += RepositoryItemGridLookUpEdit1_EditValueChanged;
             }
@@ -531,13 +522,13 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             txtTeslimatTarihi.EditValue = entity.DeliveryDate;
             glufTedarikciCari.EditValue = entity.SupplierId == 0 ? null : entity.SupplierId;
             glufTeslimatDeposu.EditValue = entity.WarehouseId;
-            
+
             if (!string.IsNullOrEmpty(entity.CurrencyCode))
                 cmbDovuzTuru.EditValue = entity.CurrencyCode;
 
             txtDovizKuru.Value = entity.ExchangeRate;
             cmbSiparisDurumu.SelectedItem = entity.Status.ToName();
-            
+
             // Sipariş durumuna göre ComboBox renklendirme
             switch (entity.Status)
             {
@@ -584,7 +575,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             {
                 txtKod.Text = "Yeni Sipariş";
             }
-            
+
             MyGridView1_RowCountChanged(myGridView1, EventArgs.Empty);
         }
 
@@ -669,14 +660,14 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             if (DevExpress.XtraEditors.XtraMessageBox.Show("Sipariş onayı iptal edilip Taslak durumuna alınacaktır. Emin misiniz?", "Onay İptali", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
             {
                 entity.Status = OrderStatus.Draft;
-                
+
                 if (_purchaseOrderService != null)
                 {
                     _purchaseOrderService.Update(entity);
                 }
-                
+
                 DevExpress.XtraEditors.XtraMessageBox.Show("Sipariş statüsü Taslak olarak güncellendi. Artık değişiklik yapabilirsiniz.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                
+
                 Yukle();
                 ButonEnabledDurumu();
             }
@@ -715,8 +706,8 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
                 WarehouseId = (long?)glufTeslimatDeposu.EditValue,
                 CurrencyCode = cmbDovuzTuru.EditValue?.ToString(),
                 ExchangeRate = txtDovizKuru.Value,
-                Status = (Id == 0) 
-                    ? OrderStatus.Draft 
+                Status = (Id == 0)
+                    ? OrderStatus.Draft
                     : (cmbSiparisDurumu.SelectedItem != null ? WinBeyazEsya.Presentation.WinForms.Helpers.EnumFunctions.GetEnum<OrderStatus>(cmbSiparisDurumu.SelectedItem.ToString()) : OrderStatus.Draft),
                 Description = txtAciklama.Text,
                 SubTotal = txtToplam.Value,
@@ -764,17 +755,17 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
         private void GlufTeslimatDeposu_EditValueChanged(object sender, EventArgs e)
         {
             if (_isBinding || !IsLoaded) return;
-            
+
             if (myGridView1.RowCount > 0)
             {
                 var yeniDepoId = glufTeslimatDeposu.EditValue;
-                
+
                 DialogResult result = DevExpress.XtraEditors.XtraMessageBox.Show(
-                    "Başlık (Header) teslimat deposunu değiştirdiniz. Siparişteki mevcut tüm kalemlerin (satırların) depoları da bu yeni depoya güncellensin mi?", 
-                    "Toplu Depo Güncelleme", 
-                    MessageBoxButtons.YesNo, 
+                    "Başlık (Header) teslimat deposunu değiştirdiniz. Siparişteki mevcut tüm kalemlerin (satırların) depoları da bu yeni depoya güncellensin mi?",
+                    "Toplu Depo Güncelleme",
+                    MessageBoxButtons.YesNo,
                     MessageBoxIcon.Question);
-                    
+
                 if (result == DialogResult.Yes)
                 {
                     for (int i = 0; i < myGridView1.RowCount; i++)
@@ -793,7 +784,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
         private void KurHesapla_EditValueChanged(object sender, EventArgs e)
         {
             if (cmbDovuzTuru.SelectedItem == null || txtSiparisTarihi.EditValue == null || _exchangeRateService == null) return;
-            
+
             if (cmbDovuzTuru.EditValue != null)
             {
                 string currencyCode = cmbDovuzTuru.EditValue.ToString();
@@ -826,7 +817,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
                 }
             }
         }
-        
+
         #endregion
 
         #region Helpers & Data Methods
@@ -873,7 +864,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             if (view.FocusedColumn.FieldName == "UnitId")
             {
                 _oldUnitId = view.GetFocusedRowCellValue("UnitId");
-                
+
                 var materialIdValue = view.GetFocusedRowCellValue("MaterialId");
                 if (materialIdValue == null || materialIdValue == DBNull.Value || Convert.ToInt64(materialIdValue) <= 0)
                 {
@@ -913,7 +904,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
                 if (materialIdValue != null && materialIdValue != DBNull.Value)
                 {
                     long materialId = Convert.ToInt64(materialIdValue);
-                    
+
                     var material = _allMaterials?.FirstOrDefault(x => x.Id == materialId);
                     if (material != null && material.BaseUnitId.HasValue)
                     {
@@ -942,13 +933,13 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
 
                             decimal oldFactor = GetUnitConversionFactor(materialId, oldUnitId);
                             decimal newFactor = GetUnitConversionFactor(materialId, newUnitId);
-                            
+
                             var row = view.GetRow(e.RowHandle) as Application.DTOs.Purchasing.PurchaseOrderLineDto;
                             if (row != null)
                             {
                                 row.ConversionFactor = newFactor;
                             }
-                            
+
                             var currentPrice = Convert.ToDecimal(view.GetRowCellValue(e.RowHandle, "UnitPrice") ?? 0);
 
                             if (oldFactor != 0)
@@ -957,7 +948,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
                                 decimal newPrice = basePrice * newFactor;
                                 view.SetRowCellValue(e.RowHandle, "UnitPrice", newPrice);
                             }
-                            
+
                             view.RefreshRow(e.RowHandle);
                         }
                     }
@@ -971,7 +962,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
 
                 view.SetRowCellValue(e.RowHandle, "LineTotal", lineTotal);
                 CalculateTotals();
-                
+
                 if (e.Column.FieldName == "Quantity")
                 {
                     view.RefreshRow(e.RowHandle);
@@ -1046,10 +1037,10 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
         {
             var material = _allMaterials?.FirstOrDefault(x => x.Id == materialId);
             if (material == null) return 1m;
-            
+
             if (material.BaseUnitId.HasValue && material.BaseUnitId.Value == unitId)
                 return 1m;
-                
+
             if (_unitConversionService != null)
             {
                 var conv = _unitConversionService.GetByEntityId(materialId).FirstOrDefault(x => x.UnitId == unitId);
@@ -1079,25 +1070,25 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
 
             if (metalService != null)
                 _allMaterials.AddRange(metalService.GetAll().Where(x => x.IsActive).Select(x => new MaterialLookupDto { Id = x.Id, Code = x.Code, Name = x.Name, BaseUnitId = x.BaseUnitId, BaseUnitName = x.BaseUnitName, MaterialGroupName = "Metal ve Sac Grubu" }));
-            
+
             if (electricService != null)
                 _allMaterials.AddRange(electricService.GetAll().Where(x => x.IsActive).Select(x => new MaterialLookupDto { Id = x.Id, Code = x.Code, Name = x.Name, BaseUnitId = x.BaseUnitId, BaseUnitName = x.BaseUnitName, MaterialGroupName = "Elektrik ve Elektronik Grubu" }));
-                
+
             if (plasticService != null)
                 _allMaterials.AddRange(plasticService.GetAll().Where(x => x.IsActive).Select(x => new MaterialLookupDto { Id = x.Id, Code = x.Code, Name = x.Name, BaseUnitId = x.BaseUnitId, BaseUnitName = x.BaseUnitName, MaterialGroupName = "Plastik ve Görsel Aksam Grubu" }));
-                
+
             if (chemicalService != null)
                 _allMaterials.AddRange(chemicalService.GetAll().Where(x => x.IsActive).Select(x => new MaterialLookupDto { Id = x.Id, Code = x.Code, Name = x.Name, BaseUnitId = x.BaseUnitId, BaseUnitName = x.BaseUnitName, MaterialGroupName = "Kimya ve Yalıtım Grubu" }));
-                
+
             if (mechanicService != null)
                 _allMaterials.AddRange(mechanicService.GetAll().Where(x => x.IsActive).Select(x => new MaterialLookupDto { Id = x.Id, Code = x.Code, Name = x.Name, BaseUnitId = x.BaseUnitId, BaseUnitName = x.BaseUnitName, MaterialGroupName = "Mekanik ve Hırdavat Grubu" }));
-                
+
             if (packService != null)
                 _allMaterials.AddRange(packService.GetAll().Where(x => x.IsActive).Select(x => new MaterialLookupDto { Id = x.Id, Code = x.Code, Name = x.Name, BaseUnitId = x.BaseUnitId, BaseUnitName = x.BaseUnitName, MaterialGroupName = "Ambalaj ve Matbaa Grubu" }));
-                
+
             if (wireService != null)
                 _allMaterials.AddRange(wireService.GetAll().Where(x => x.IsActive).Select(x => new MaterialLookupDto { Id = x.Id, Code = x.Code, Name = x.Name, BaseUnitId = x.BaseUnitId, BaseUnitName = x.BaseUnitName, MaterialGroupName = "Tel ve Izgara Grubu" }));
-                
+
             if (otherService != null)
                 _allMaterials.AddRange(otherService.GetAll().Where(x => x.IsActive).Select(x => new MaterialLookupDto { Id = x.Id, Code = x.Code, Name = x.Name, BaseUnitId = x.BaseUnitId, BaseUnitName = x.BaseUnitName, MaterialGroupName = "Diğer Malzeme Grubu" }));
         }

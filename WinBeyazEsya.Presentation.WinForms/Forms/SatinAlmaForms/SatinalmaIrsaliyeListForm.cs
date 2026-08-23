@@ -1,7 +1,4 @@
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Linq;
-using System.Windows.Forms;
 using WinBeyazEsya.Presentation.WinForms.Forms.BaseForms;
 using WinBeyazEsya.Presentation.WinForms.Helpers;
 
@@ -23,7 +20,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinalmaForms
             System.IServiceProvider serviceProvider)
         {
             InitializeComponent();
-            
+
             if (!DesignMode && Program.ServiceProvider != null)
             {
                 _purchaseReceiptService = purchaseReceiptService;
@@ -42,7 +39,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinalmaForms
                 _serviceProvider = Program.ServiceProvider;
                 Bll = _purchaseReceiptService;
             }
-            
+
             Tablo = myGridView1;
             BaseKartTuru = WinBeyazEsya.Domain.Enums.ModuleType.SatinalmaIrsaliyeleri;
             Navigator = longNavigator1.Navigator;

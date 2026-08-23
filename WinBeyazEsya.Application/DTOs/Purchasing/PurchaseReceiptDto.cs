@@ -1,5 +1,4 @@
 using WinBeyazEsya.Application.DTOs.Base;
-using WinBeyazEsya.Domain.Enums;
 
 namespace WinBeyazEsya.Application.DTOs.Purchasing;
 

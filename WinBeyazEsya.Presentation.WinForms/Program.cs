@@ -293,6 +293,30 @@ internal static class Program
                         {
                             errMsg += "\nInner Exception: " + ex.InnerException.Message;
                         }
+
+                        if (errMsg.Contains("Kullandığınız uygulama sürümü eskidir"))
+                        {
+                            var result = MessageBox.Show($"{errMsg}\n\nUygulamayı şimdi güncellemek ister misiniz?", "Güncelleme Gerekli", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                            if (result == DialogResult.Yes)
+                            {
+                                string appPath = AppDomain.CurrentDomain.BaseDirectory;
+                                string updaterPath = Path.Combine(appPath, "WinBeyazEsya.Updater.exe");
+                                if (File.Exists(updaterPath))
+                                {
+                                    System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                                    {
+                                        FileName = updaterPath,
+                                        UseShellExecute = true
+                                    });
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Güncelleyici program bulunamadı (WinBeyazEsya.Updater.exe). Lütfen sistem yöneticinize başvurun.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
+                            }
+                            return;
+                        }
+
                         MessageBox.Show($"Başlangıç hatası: {errMsg}", "WinBeyazEsya", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }

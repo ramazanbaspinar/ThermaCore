@@ -9,13 +9,13 @@ public class PurchaseOrderProfile : Profile
     public PurchaseOrderProfile()
     {
         CreateMap<PurchaseOrder, PurchaseOrderDto>().ReverseMap();
-        
+
         CreateMap<PurchaseOrder, PurchaseOrderListDto>()
             .ForMember(dest => dest.StatusName, opt => opt.MapFrom(src => WinBeyazEsya.Domain.Helpers.EnumFunctions.GetDescription(src.Status)));
-        
+
         CreateMap<PurchaseOrderLine, PurchaseOrderLineDto>()
             .ForMember(dest => dest.CurrencyCode, opt => opt.Ignore());
-            
+
         CreateMap<PurchaseOrderLineDto, PurchaseOrderLine>();
     }
 }

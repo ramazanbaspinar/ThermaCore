@@ -14,5 +14,5 @@ public class PurchaseReceiptLineDto : BaseDto
     public long? WarehouseId { get; set; }
     public long? PurchaseOrderLineId { get; set; }
     public string CurrencyCode { get; set; } = string.Empty;
-    
+
 }

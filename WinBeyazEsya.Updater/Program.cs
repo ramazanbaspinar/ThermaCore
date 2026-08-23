@@ -30,6 +30,34 @@ static class Program
             }
         }
 
+        if (string.IsNullOrWhiteSpace(serverUrl))
+        {
+            string configPath = Path.Combine(targetAppPath, "update_config.json");
+            if (File.Exists(configPath))
+            {
+                try
+                {
+                    string json = File.ReadAllText(configPath);
+                    using (var doc = System.Text.Json.JsonDocument.Parse(json))
+                    {
+                        if (doc.RootElement.TryGetProperty("UpdateUrl", out var updateUrlElement))
+                        {
+                            serverUrl = updateUrlElement.GetString() ?? "";
+                        }
+                    }
+                }
+                catch
+                {
+                    // Ignore parse errors, fallback will be used
+                }
+            }
+
+            if (string.IsNullOrWhiteSpace(serverUrl))
+            {
+                serverUrl = "http://192.168.1.141:8080/";
+            }
+        }
+
         if (!runFromTemp)
         {
             // Orijinal exe dosya yolu

@@ -71,7 +71,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
                 string currentVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "1.0.0.0";
 
                 bool shouldUpdate = false;
-                if (manifest != null && 
+                if (manifest != null &&
                     Version.TryParse(manifest.Version, out Version serverVersion) &&
                     Version.TryParse(currentVersion, out Version localVersion))
                 {
@@ -167,7 +167,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             // 2. Lisans Formatlaması ve Transient Fault Handling (Retry)
             WinBeyazEsya.Domain.Enums.LicenseStatus status = WinBeyazEsya.Domain.Enums.LicenseStatus.Invalid;
             string message = "";
-            
+
             for (int i = 1; i <= 3; i++)
             {
                 try
@@ -291,7 +291,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
                 try
                 {
                     this.Text = $"WinBeyazEsya - Sunucuya bağlanılıyor... (Deneme {i}/3)";
-                    
+
                     // Şifre doğrulama ve giriş denemesi (Master DB üzerinden)
                     var loginResult = await _authService.LoginAsync(username, password, tenantId);
 
@@ -349,7 +349,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
                         Serilog.Log.Warning("Giriş başarısız. Kullanıcı adı veya şifre hatalı. Kullanıcı: {Username}", username);
                         Messages.HataBasligi("Kullanıcı adı veya şifre hatalı.", "Hata");
                     }
-                    
+
                     break; // Başarılı veya validation hatası durumunda döngüden çık
                 }
                 catch (Exception ex)
@@ -358,14 +358,14 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
                     {
                         this.Text = "WinBeyazEsya - Giriş Yap";
                         Serilog.Log.Error(ex, "Giriş işlemi sırasında beklenmeyen bir hata oluştu. Kullanıcı: {Username}", username);
-                        
+
                         if (ex.Message.StartsWith("Güvenlik İhlali"))
                             Messages.HataBasligi(ex.Message, "Erişim Engellendi");
                         else if (ex.Message.Contains("Kullanıcı adı veya şifre hatalı"))
                             Messages.HataBasligi(ex.Message, "Hata");
                         else
                             Messages.HataBasligi("Veritabanı bağlantısı kurulamadı, lütfen ağınızı kontrol edin.\nHata: " + ex.Message, "Hata");
-                        
+
                         return; // 3 deneme de bittiyse veya kritik/beklenen hataysa çık
                     }
                     else

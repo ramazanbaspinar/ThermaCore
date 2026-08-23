@@ -231,7 +231,7 @@ namespace WinBeyazEsya.Updater
                                 {
                                     string lockedPath = localPath + ".locked_" + Guid.NewGuid().ToString().Substring(0, 5);
                                     File.Move(localPath, lockedPath);
-                                    
+
                                     File.Copy(tempPath, localPath, true);
                                     copied = true;
                                     break;

@@ -71,7 +71,7 @@ public class PurchaseReceiptManager : BaseManager<PurchaseReceiptListDto, Purcha
                 var lineEntity = _mapper.Map<PurchaseReceiptLine>(lineDto);
                 lineEntity.Id = IdGenerator.GenerateId();
                 lineEntity.PurchaseReceiptId = entity.Id;
-                
+
                 // Fallback warehouse id
                 if (lineEntity.WarehouseId == null || lineEntity.WarehouseId == 0)
                 {
@@ -118,7 +118,7 @@ public class PurchaseReceiptManager : BaseManager<PurchaseReceiptListDto, Purcha
                 {
                     // Siparişin veritabanındaki (veya az önce güncellenen) güncel tüm satırlarını kontrol et
                     var allLinesOfOrder = _orderLineRepository.Find(x => x.PurchaseOrderId == orderId).ToList();
-                    
+
                     bool isCompleted = allLinesOfOrder.All(x => x.ReceivedQuantity >= x.Quantity);
                     bool isPartial = allLinesOfOrder.Any(x => x.ReceivedQuantity > 0);
 
@@ -137,7 +137,7 @@ public class PurchaseReceiptManager : BaseManager<PurchaseReceiptListDto, Purcha
         }
 
         _repository.Add(entity);
-        
+
         _unitOfWork.SaveChanges();
 
         return entity.Id;

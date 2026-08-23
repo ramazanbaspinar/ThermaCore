@@ -1,15 +1,6 @@
-using DevExpress.XtraEditors;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using WinBeyazEsya.Presentation.WinForms.Forms.BaseForms;
 using Microsoft.Extensions.DependencyInjection;
+using System.Data;
+using WinBeyazEsya.Presentation.WinForms.Forms.BaseForms;
 
 namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinalmaForms
 {
@@ -19,10 +10,10 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinalmaForms
         public long SupplierId { get; set; }
         public List<long> ExcludedLineIds { get; set; } = new List<long>();
         public List<WinBeyazEsya.Application.DTOs.Purchasing.PurchaseOrderLineTransferListDto> SelectedLines { get; private set; } = new List<WinBeyazEsya.Application.DTOs.Purchasing.PurchaseOrderLineTransferListDto>();
-        
+
         private List<MaterialLookupDto> _allMaterials;
         private bool _isSecButton = false;
-        
+
         private class MaterialLookupDto
         {
             public long Id { get; set; }
@@ -37,24 +28,24 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinalmaForms
         protected override void DegiskenleriDoldur()
         {
             if (IsDesignMode) return;
-            
+
             _purchaseOrderService = Program.ServiceProvider.GetRequiredService<WinBeyazEsya.Application.Interfaces.Purchasing.IPurchaseOrderService>();
-            
+
             Tablo = myGridView1;
             BaseKartTuru = WinBeyazEsya.Domain.Enums.ModuleType.SatinalmaSiparisleri;
-            
+
             // Base formun MultiSelect özelliğini true yapıyoruz
             this.MultiSelect = true;
-            
+
             if (longNavigator1 != null)
             {
                 Navigator = longNavigator1.Navigator;
             }
-            
+
             if (btnYeni != null) btnYeni.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
             if (btnSil != null) btnSil.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
             if (btnDuzelt != null) btnDuzelt.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
-            if (btnSec != null) 
+            if (btnSec != null)
             {
                 btnSec.Visibility = DevExpress.XtraBars.BarItemVisibility.Always;
                 btnSec.ItemClick += BtnSec_ItemClick;
@@ -70,11 +61,11 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinalmaForms
                 Tablo.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CheckBoxRowSelect;
                 Tablo.OptionsSelection.ShowCheckBoxSelectorInColumnHeader = DevExpress.Utils.DefaultBoolean.True;
                 Tablo.OptionsSelection.CheckBoxSelectorColumnWidth = 40;
-                
+
                 // Hücre odaklanmasını kapat, sadece satıra odaklan
                 Tablo.OptionsSelection.EnableAppearanceFocusedCell = false;
                 Tablo.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
-                
+
                 Tablo.MouseDown += Tablo_MouseDown;
                 Tablo.KeyDown += Tablo_KeyDown_Custom;
                 Tablo.CustomColumnDisplayText += Tablo_CustomColumnDisplayText;
@@ -141,17 +132,17 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinalmaForms
         protected override void Listele()
         {
             if (_purchaseOrderService == null) return;
-            
+
             var list = _purchaseOrderService.GetOpenOrderLinesAsync(SupplierId).GetAwaiter().GetResult();
-            
+
             // Mevcut irsaliyede seçilmiş olanları filtrele
             if (ExcludedLineIds != null && ExcludedLineIds.Any())
             {
                 list = list.Where(x => !ExcludedLineIds.Contains(x.PurchaseOrderLineId)).ToList();
             }
-            
+
             LoadAllMaterials();
-            foreach(var item in list)
+            foreach (var item in list)
             {
                 if (_allMaterials != null)
                 {
@@ -164,7 +155,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinalmaForms
             if (Tablo != null && Tablo.GridControl != null)
             {
                 Tablo.GridControl.DataSource = list;
-                
+
                 // Birim Fiyat kolonunu n4 yapalım
                 if (Tablo.Columns["UnitPrice"] != null)
                 {
@@ -191,7 +182,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinalmaForms
                 }
             }
         }
-        
+
         private void LoadAllMaterials()
         {
             _allMaterials = new List<MaterialLookupDto>();
@@ -237,7 +228,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinalmaForms
         protected override void OnShown(EventArgs e)
         {
             base.OnShown(e);
-            
+
             // Sadece bu formda "Kayıt Bilgileri" sağ tık menüsünü gizleyelim
             if (SagTikMenu != null)
             {

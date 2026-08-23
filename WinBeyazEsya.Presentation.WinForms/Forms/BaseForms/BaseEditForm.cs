@@ -522,7 +522,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
         private void SablonYukle()
         {
             Helpers.LayoutHelper.YukleForm(this);
-            
+
             foreach (var grid in _gridSablonKayitEdilecek.Keys)
             {
                 Helpers.LayoutHelper.YukleGrid(grid);
@@ -550,7 +550,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
         protected void RegisterGridForChangeTracking(DevExpress.XtraGrid.Views.Grid.GridView grid)
         {
             if (grid == null) return;
-            
+
             grid.CellValueChanged += (s, e) => GridModified();
             grid.RowDeleted += (s, e) => GridModified();
             grid.RowUpdated += (s, e) => GridModified();
@@ -588,7 +588,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.BaseForms
         protected void SablonKaydet()
         {
             if (_formSablonKayitEdilecek) Helpers.LayoutHelper.KaydetForm(this);
-            
+
             foreach (var grid in _gridSablonKayitEdilecek)
             {
                 if (grid.Value)

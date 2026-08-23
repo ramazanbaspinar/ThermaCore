@@ -1,5 +1,3 @@
-using System;
-using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using WinBeyazEsya.Application.DTOs.Management;
 using WinBeyazEsya.Application.Interfaces.Management;
@@ -29,8 +27,8 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
         private void btnKaydet_Click(object sender, EventArgs e)
         {
             // Kural 1: Boş alan kontrolü
-            if (string.IsNullOrWhiteSpace(txtEskiParola.Text) || 
-                string.IsNullOrWhiteSpace(txtYeniParola.Text) || 
+            if (string.IsNullOrWhiteSpace(txtEskiParola.Text) ||
+                string.IsNullOrWhiteSpace(txtYeniParola.Text) ||
                 string.IsNullOrWhiteSpace(txtYeniParolaTekrar.Text))
             {
                 Messages.UyariMesaji("Lütfen tüm parola alanlarını eksiksiz doldurunuz.");
@@ -65,7 +63,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
 
                 // Eski parolayı doğrula
                 bool isValid = false;
-                
+
                 // DTO içerisindeki Hash ve Salt mevcutsa (UserDto'ya eklendiyse) doğrudan PasswordHasher kullanılır.
                 if (userDto.PasswordHash != null && userDto.PasswordSalt != null && userDto.PasswordHash.Length > 0)
                 {
@@ -94,10 +92,10 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
 
                 // Yeni şifreyi PasswordHasher ile oluşturup atama
                 PasswordHasher.CreatePasswordHash(txtYeniParola.Text, out byte[] newHash, out byte[] newSalt);
-                
+
                 userDto.PasswordHash = newHash;
                 userDto.PasswordSalt = newSalt;
-                
+
                 // Ayrıca UserManager.Update metodunun şifrelemeyi yeniden tetiklemesi veya kontrol etmesi durumuna 
                 // karşılık düz metni de set ediyoruz.
                 userDto.Password = txtYeniParola.Text;

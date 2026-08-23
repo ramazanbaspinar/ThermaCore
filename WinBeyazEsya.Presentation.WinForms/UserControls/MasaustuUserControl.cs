@@ -1,7 +1,4 @@
 using DevExpress.XtraEditors;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using WinBeyazEsya.Application.DTOs.Management;
 
 namespace WinBeyazEsya.Presentation.WinForms.UserControls
@@ -41,9 +38,9 @@ namespace WinBeyazEsya.Presentation.WinForms.UserControls
             this.DoubleBuffered = true;
             SetStyle(System.Windows.Forms.ControlStyles.OptimizedDoubleBuffer, true);
             SetStyle(System.Windows.Forms.ControlStyles.AllPaintingInWmPaint, true);
-            
+
             InitializeComponent();
-            
+
             // Event Bindings
             searchControl.EditValueChanged += SearchControl_EditValueChanged;
             this.Resize += MasaustuUserControl_Resize;
@@ -71,7 +68,7 @@ namespace WinBeyazEsya.Presentation.WinForms.UserControls
         private void SearchControl_EditValueChanged(object sender, EventArgs e)
         {
             string text = searchControl.EditValue?.ToString() ?? "";
-            
+
             // Kendi tile'larımızı filtrele
             FilterTiles(text);
 
@@ -140,7 +137,7 @@ namespace WinBeyazEsya.Presentation.WinForms.UserControls
         private TileItem CreateFavoriteTile(UserFavoriteDto fav)
         {
             var item = new TileItem();
-            item.ItemSize = TileItemSize.Wide; 
+            item.ItemSize = TileItemSize.Wide;
             item.Tag = fav;
 
             var elem = new TileItemElement();

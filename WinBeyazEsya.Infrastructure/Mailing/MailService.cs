@@ -1,9 +1,9 @@
 using System.Net;
 using System.Net.Mail;
+using WinBeyazEsya.Application.Interfaces.Mailing;
 using WinBeyazEsya.Application.Interfaces.Repositories;
 using WinBeyazEsya.Application.Interfaces.Security;
 using WinBeyazEsya.Domain.Entities.Management;
-using WinBeyazEsya.Application.Interfaces.Mailing;
 
 namespace WinBeyazEsya.Infrastructure.Mailing;
 
@@ -68,7 +68,7 @@ public class MailService : IMailService
 
             MailMessage mailMessage = new MailMessage();
             mailMessage.From = new MailAddress(mailParam.SenderEmail, mailParam.SenderName);
-            
+
             foreach (var email in to)
             {
                 if (!string.IsNullOrWhiteSpace(email))

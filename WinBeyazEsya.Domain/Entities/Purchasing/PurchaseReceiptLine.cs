@@ -23,6 +23,6 @@ public class PurchaseReceiptLine : FullAuditableEntity
     public long? PurchaseOrderLineId { get; set; }
 
     public virtual PurchaseReceipt PurchaseReceipt { get; set; } = null!;
-    
+
     public virtual PurchaseOrderLine? PurchaseOrderLine { get; set; }
 }

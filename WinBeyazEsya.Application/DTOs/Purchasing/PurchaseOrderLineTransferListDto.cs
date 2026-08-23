@@ -9,20 +9,20 @@ public class PurchaseOrderLineTransferListDto : BaseDto
     public DateTime OrderDate { get; set; }
     public string? Code { get; set; }
     public string? DocumentNo { get; set; }
-    
+
     public long MaterialId { get; set; }
     public string? MaterialName { get; set; }
-    
+
     public decimal Quantity { get; set; }
     public decimal ReceivedQuantity { get; set; }
     public decimal PendingQuantity { get; set; }
-    
+
     public long UnitId { get; set; }
     public string? UnitName { get; set; }
-    
+
     public decimal UnitPrice { get; set; }
     public decimal TaxRate { get; set; }
-    
+
     public long? WarehouseId { get; set; }
     public string? WarehouseName { get; set; }
 

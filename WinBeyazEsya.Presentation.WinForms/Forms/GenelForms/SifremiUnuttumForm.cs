@@ -1,11 +1,8 @@
-using System;
-using System.Linq;
-using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using DevExpress.XtraLayout.Utils;
 using WinBeyazEsya.Application.DTOs.Management;
-using WinBeyazEsya.Application.Interfaces.Management;
 using WinBeyazEsya.Application.Interfaces.Mailing;
+using WinBeyazEsya.Application.Interfaces.Management;
 
 namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
 {
@@ -13,7 +10,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
     {
         private readonly IUserService _userService;
         private readonly IMailService _mailService;
-        
+
         private string _currentOtp;
         private DateTime _otpExpirationTime;
         private UserDto _currentUser;
@@ -69,13 +66,13 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
                 txtDogrulamaKodu.Visible = true;
                 txtYeniParola.Visible = true;
                 txtYeniParolaTekrar.Visible = true;
-                
+
                 btnSifreGuncelle.Visible = true;
                 btnKodGonder.Visible = false; // Artık tekrar basamasın veya istersen Enabled = false yap
 
                 txtKullaniciAdi.Enabled = false; // Kullanıcı adını değiştirmesin
                 txtDogrulamaKodu.Focus();
-                
+
                 this.AcceptButton = btnSifreGuncelle;
             }
             catch (Exception ex)
@@ -115,7 +112,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
                 var fullUser = _userService.GetById(_currentUser.Id);
                 fullUser.Password = txtYeniParola.Text;
                 _userService.Update(fullUser);
-                
+
                 XtraMessageBox.Show("Parolanız başarıyla güncellendi. Yeni parolanızla giriş yapabilirsiniz.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.DialogResult = DialogResult.OK;
                 this.Close();
