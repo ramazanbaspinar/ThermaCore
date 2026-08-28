@@ -203,6 +203,15 @@ public enum ModuleType
     [RequiresCodeTemplate]
     SatinalmaIrsaliyeleri = 44,
 
+    // ANA MENÜ (Root)
+    [Description("Stok Yönetimi")]
+    StokYonetimi = 5000,
+
+    // ALT MODÜL (Ekran)
+    [Description("Stok Bakiye İzleme")]
+    [ParentModule(StokYonetimi)]
+    StokBakiyeIzleme = 45,
+
     // MODÜLLER (Ekranlar) - MALİYETLER
     [Description("Genel Giderler")]
     [ParentModule(Maliyetler)]

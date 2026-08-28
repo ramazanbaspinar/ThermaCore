@@ -152,7 +152,11 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             // colTarih
             // 
             colTarih.Caption = "Tarih";
+            colTarih.DisplayFormat.FormatString = "g";
+            colTarih.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
             colTarih.FieldName = "ReceiptDate";
+            colTarih.GroupFormat.FormatString = "g";
+            colTarih.GroupFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
             colTarih.Name = "colTarih";
             colTarih.OptionsColumn.AllowEdit = false;
             colTarih.StatusBarAciklama = null;
@@ -195,6 +199,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             ClientSize = new Size(806, 425);
             Controls.Add(myGridControl1);
             Controls.Add(longNavigator1);
+            Font = new Font("Segoe UI", 8.25F);
             IconOptions.ShowIcon = false;
             Name = "SatinalmaSiparisSevkBilgileriListForm";
             Text = "Sevk Bilgileri";

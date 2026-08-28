@@ -1,4 +1,4 @@
-using Microsoft.Extensions.DependencyInjection;
+ï»¿using Microsoft.Extensions.DependencyInjection;
 using System.ComponentModel;
 using WinBeyazEsya.Application.DTOs.Security;
 using WinBeyazEsya.Application.Interfaces.Security;
@@ -50,7 +50,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
 
             treeList1.OptionsView.ShowCheckBoxes = true;
             treeList1.CheckBoxFieldName = "IsChecked";
-            treeList1.OptionsBehavior.AllowRecursiveNodeChecking = false; // Kendi mantýðýmýzý yazacaðýz
+            treeList1.OptionsBehavior.AllowRecursiveNodeChecking = false; // Kendi mantï¿½ï¿½ï¿½mï¿½zï¿½ yazacaï¿½ï¿½z
             treeList1.OptionsView.ShowAutoFilterRow = true;
             treeList1.NodeCellStyle += TreeList1_NodeCellStyle;
             treeList1.CustomNodeCellEdit += TreeList1_CustomNodeCellEdit;
@@ -59,7 +59,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
             treeList1.ShowingEditor += TreeList1_ShowingEditor;
             repositoryItemButtonEdit1.ButtonClick += RepositoryItemButtonEdit1_ButtonClick;
 
-            // TextEditStyle'ý düzenlenemez yapýyoruz, sadece butona týklanabilsin.
+            // TextEditStyle'ï¿½ dï¿½zenlenemez yapï¿½yoruz, sadece butona tï¿½klanabilsin.
             repositoryItemButtonEdit1.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
 
             treeList1.PopupMenuShowing += TreeList1_PopupMenuShowing;
@@ -69,10 +69,10 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
             {
                 if (col.FieldName == "Name")
                 {
-                    col.Caption = "Yetki / Modül Adý";
+                    col.Caption = "Yetki / Modï¿½l Adï¿½";
                     col.Visible = true;
-                    // Buton editörünün týklanabilmesi için AllowEdit true olmalý
-                    // Fakat ShowingEditor event'i ile diðer satýrlarýn düzenlenmesini engelleyeceðiz.
+                    // Buton editï¿½rï¿½nï¿½n tï¿½klanabilmesi iï¿½in AllowEdit true olmalï¿½
+                    // Fakat ShowingEditor event'i ile diï¿½er satï¿½rlarï¿½n dï¿½zenlenmesini engelleyeceï¿½iz.
                     col.OptionsColumn.AllowEdit = true;
                     col.VisibleIndex = 0;
                 }
@@ -88,7 +88,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
             if (txtRolKodu.Text == "WINBEYAZESYA_ROLE" && BaseIslemTuru == ActionType.EntityUpdate)
             {
                 treeList1.OptionsBehavior.Editable = false;
-                treeList1.Enabled = false; // Aðaç listesi týklanamaz hale gelir
+                treeList1.Enabled = false; // Aï¿½aï¿½ listesi tï¿½klanamaz hale gelir
                 txtRolKodu.Properties.ReadOnly = true;
                 txtRolAdi.Properties.ReadOnly = true;
                 txtAciklama.Properties.ReadOnly = true;
@@ -106,7 +106,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                 tglDurum.Enabled = true;
             }
 
-            // Ýlk yüklemede, parent (Modül ve Klasör) check durumlarýný çocuklarýn durumuna göre gerçek zamanlý düzelt (E-mail vs için)
+            // ï¿½lk yï¿½klemede, parent (Modï¿½l ve Klasï¿½r) check durumlarï¿½nï¿½ ï¿½ocuklarï¿½n durumuna gï¿½re gerï¿½ek zamanlï¿½ dï¿½zelt (E-mail vs iï¿½in)
             foreach (DevExpress.XtraTreeList.Nodes.TreeListNode node in treeList1.GetNodeList())
             {
                 if (!node.HasChildren)
@@ -115,20 +115,20 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                 }
             }
 
-            // Düzenleme sonucu deðiþen TreeList Datasource'u baz alarak orjinal JSON'ý yeniden oluþtur (Deðiþiklik olmadan Kaydet butonunun aktifleþmesi bug fix)
+            // Dï¿½zenleme sonucu deï¿½iï¿½en TreeList Datasource'u baz alarak orjinal JSON'ï¿½ yeniden oluï¿½tur (Deï¿½iï¿½iklik olmadan Kaydet butonunun aktifleï¿½mesi bug fix)
             if (treeList1.DataSource != null)
             {
                 var currentNodes = (List<WinBeyazEsya.Presentation.WinForms.Models.PermissionNodeDto>)treeList1.DataSource;
                 _originalPermissionsJson = System.Text.Json.JsonSerializer.Serialize(currentNodes);
             }
 
-            // Kontrol deðiþikliklerinde Kaydet butonunu aktif etmek için event'leri baðlýyoruz
+            // Kontrol deï¿½iï¿½ikliklerinde Kaydet butonunu aktif etmek iï¿½in event'leri baï¿½lï¿½yoruz
             txtRolKodu.EditValueChanged += Control_EditValueChanged;
             txtRolAdi.EditValueChanged += Control_EditValueChanged;
             txtAciklama.EditValueChanged += Control_EditValueChanged;
             tglDurum.EditValueChanged += Control_EditValueChanged;
 
-            // TreeList hücre veya check deðiþikliklerinde Kaydet butonunu tetikle
+            // TreeList hï¿½cre veya check deï¿½iï¿½ikliklerinde Kaydet butonunu tetikle
             treeList1.CellValueChanged += (s, e) =>
             {
                 GuncelNesneOlustur();
@@ -154,7 +154,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                         if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" ||
                             pTypeObj.ToString() == "Delete" || pTypeObj.ToString() == "3")
                         {
-                            continue; // Bu yetkiler yok sayýlýr
+                            continue; // Bu yetkiler yok sayï¿½lï¿½r
                         }
                     }
                     else if (modType == ModuleType.SystemLicense)
@@ -163,7 +163,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                             pTypeObj.ToString() == "Update" || pTypeObj.ToString() == "2" ||
                             pTypeObj.ToString() == "Delete" || pTypeObj.ToString() == "3")
                         {
-                            continue; // Bu yetkiler yok sayýlýr
+                            continue; // Bu yetkiler yok sayï¿½lï¿½r
                         }
                     }
                     else if (modType == ModuleType.UserInterfaceTemplate)
@@ -171,7 +171,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                         if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" || pTypeObj.ToString() == "2" ||
                             pTypeObj.ToString() == "Update" || pTypeObj.ToString() == "3")
                         {
-                            continue; // Bu yetkiler yok sayýlýr
+                            continue; // Bu yetkiler yok sayï¿½lï¿½r
                         }
                     }
                 }
@@ -205,7 +205,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                             if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" ||
                                 pTypeObj.ToString() == "Delete" || pTypeObj.ToString() == "3")
                             {
-                                continue; // Sayýma katma!
+                                continue; // Sayï¿½ma katma!
                             }
                         }
                         else if (modType == ModuleType.SystemLicense)
@@ -214,7 +214,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                                 pTypeObj.ToString() == "Update" || pTypeObj.ToString() == "2" ||
                                 pTypeObj.ToString() == "Delete" || pTypeObj.ToString() == "3")
                             {
-                                continue; // Sayýma katma!
+                                continue; // Sayï¿½ma katma!
                             }
                         }
                         else if (modType == ModuleType.UserInterfaceTemplate)
@@ -222,7 +222,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                             if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" || pTypeObj.ToString() == "2" ||
                                 pTypeObj.ToString() == "Update" || pTypeObj.ToString() == "3")
                             {
-                                continue; // Sayýma katma!
+                                continue; // Sayï¿½ma katma!
                             }
                         }
                     }
@@ -265,24 +265,24 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
 
         private void TreeList1_PopupMenuShowing(object sender, DevExpress.XtraTreeList.PopupMenuShowingEventArgs e)
         {
-            e.Allow = false; // DevExpress'in varsayýlan menüsünü tamamen iptal et ki Ýngilizce menü anlýk olarak gözükmesin
+            e.Allow = false; // DevExpress'in varsayï¿½lan menï¿½sï¿½nï¿½ tamamen iptal et ki ï¿½ngilizce menï¿½ anlï¿½k olarak gï¿½zï¿½kmesin
 
             var menu = new DevExpress.Utils.Menu.DXPopupMenu();
 
-            var itemSelectAll = new DevExpress.Utils.Menu.DXMenuItem("Tüm Yetkileri Seç");
+            var itemSelectAll = new DevExpress.Utils.Menu.DXMenuItem("Tï¿½m Yetkileri Seï¿½");
             itemSelectAll.Click += (s, ev) => SetAllNodesChecked(true);
             menu.Items.Add(itemSelectAll);
 
-            var itemDeselectAll = new DevExpress.Utils.Menu.DXMenuItem("Tüm Yetkileri Kaldýr");
+            var itemDeselectAll = new DevExpress.Utils.Menu.DXMenuItem("Tï¿½m Yetkileri Kaldï¿½r");
             itemDeselectAll.Click += (s, ev) => SetAllNodesChecked(false);
             menu.Items.Add(itemDeselectAll);
 
-            var itemExpand = new DevExpress.Utils.Menu.DXMenuItem("Aðacý Geniþlet");
+            var itemExpand = new DevExpress.Utils.Menu.DXMenuItem("Aï¿½acï¿½ Geniï¿½let");
             itemExpand.Click += (s, ev) => treeList1.ExpandAll();
-            itemExpand.BeginGroup = true; // Araya çizgi (Separator) ekler
+            itemExpand.BeginGroup = true; // Araya ï¿½izgi (Separator) ekler
             menu.Items.Add(itemExpand);
 
-            var itemCollapse = new DevExpress.Utils.Menu.DXMenuItem("Aðacý Daralt");
+            var itemCollapse = new DevExpress.Utils.Menu.DXMenuItem("Aï¿½acï¿½ Daralt");
             itemCollapse.Click += (s, ev) => treeList1.CollapseAll();
             menu.Items.Add(itemCollapse);
 
@@ -298,7 +298,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                 foreach (DevExpress.XtraTreeList.Nodes.TreeListNode node in treeList1.GetNodeList())
                 {
                     var pTypeObj = node.GetValue("PermissionType");
-                    // Sadece Special olmayanlara dokun, çünkü Special node'un checkbox'ý yok
+                    // Sadece Special olmayanlara dokun, ï¿½ï¿½nkï¿½ Special node'un checkbox'ï¿½ yok
                     if (pTypeObj == null || (pTypeObj.ToString() != "Special" && pTypeObj.ToString() != "5"))
                     {
                         node.SetValue("IsChecked", isChecked);
@@ -320,7 +320,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
             var pTypeObj = node.GetValue("PermissionType");
             if (pTypeObj == null || (pTypeObj.ToString() != "Special" && pTypeObj.ToString() != "5"))
             {
-                e.Cancel = true; // Sadece Special (Özel Yetkiler) node'unun editörünü açmaya izin ver.
+                e.Cancel = true; // Sadece Special (ï¿½zel Yetkiler) node'unun editï¿½rï¿½nï¿½ aï¿½maya izin ver.
             }
         }
 
@@ -366,7 +366,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
 
             if (pTypeObj != null && (pTypeObj.ToString() == "Special" || pTypeObj.ToString() == "5"))
             {
-                e.Handled = true; // Özel yetkiler satýrýnda CheckBox çizme
+                e.Handled = true; // ï¿½zel yetkiler satï¿½rï¿½nda CheckBox ï¿½izme
             }
             else if (pTypeObj != null && modObj != null)
             {
@@ -376,7 +376,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                     if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" ||
                         pTypeObj.ToString() == "Delete" || pTypeObj.ToString() == "3")
                     {
-                        e.Handled = true; // Boþ/Kare çizme (Checkbox gizlenir, anlamsýz olur)
+                        e.Handled = true; // Boï¿½/Kare ï¿½izme (Checkbox gizlenir, anlamsï¿½z olur)
                     }
                 }
                 else if (modType == ModuleType.SystemLicense)
@@ -385,7 +385,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                         pTypeObj.ToString() == "Update" || pTypeObj.ToString() == "2" ||
                         pTypeObj.ToString() == "Delete" || pTypeObj.ToString() == "3")
                     {
-                        e.Handled = true; // Boþ/Kare çizme (Checkbox gizlenir, anlamsýz olur)
+                        e.Handled = true; // Boï¿½/Kare ï¿½izme (Checkbox gizlenir, anlamsï¿½z olur)
                     }
                 }
                 else if (modType == ModuleType.UserInterfaceTemplate)
@@ -393,7 +393,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                     if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" || pTypeObj.ToString() == "2" ||
                         pTypeObj.ToString() == "Update" || pTypeObj.ToString() == "3")
                     {
-                        e.Handled = true; // Boþ/Kare çizme (Checkbox gizlenir, anlamsýz olur)
+                        e.Handled = true; // Boï¿½/Kare ï¿½izme (Checkbox gizlenir, anlamsï¿½z olur)
                     }
                 }
             }
@@ -435,7 +435,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                 if (frm.ShowDialog() == DialogResult.OK)
                 {
                     node.SetValue("SpecialPermissions", frm.SpecialPermissionsJson);
-                    Control_EditValueChanged(this, EventArgs.Empty); // Özel yetki eklendiðinde butonu aktif et
+                    Control_EditValueChanged(this, EventArgs.Empty); // ï¿½zel yetki eklendiï¿½inde butonu aktif et
                 }
             }
         }
@@ -465,7 +465,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                                 if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" ||
                                     pTypeObj.ToString() == "Delete" || pTypeObj.ToString() == "3")
                                 {
-                                    continue; // Sayýma katma
+                                    continue; // Sayï¿½ma katma
                                 }
                             }
                             else if (modType == ModuleType.SystemLicense)
@@ -474,7 +474,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                                     pTypeObj.ToString() == "Update" || pTypeObj.ToString() == "2" ||
                                     pTypeObj.ToString() == "Delete" || pTypeObj.ToString() == "3")
                                 {
-                                    continue; // Sayýma katma
+                                    continue; // Sayï¿½ma katma
                                 }
                             }
                             else if (modType == ModuleType.UserInterfaceTemplate)
@@ -482,7 +482,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                                 if (pTypeObj.ToString() == "Create" || pTypeObj.ToString() == "1" || pTypeObj.ToString() == "2" ||
                                     pTypeObj.ToString() == "Update" || pTypeObj.ToString() == "3")
                                 {
-                                    continue; // Sayýma katma
+                                    continue; // Sayï¿½ma katma
                                 }
                             }
                         }
@@ -516,7 +516,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                 else
                 {
                     var pTypeObj = e.Node.GetValue("PermissionType");
-                    if (pTypeObj != null && (pTypeObj.ToString() == "Special" || pTypeObj.ToString() == "5")) return; // Özel yetkiler node'unu renklendirme
+                    if (pTypeObj != null && (pTypeObj.ToString() == "Special" || pTypeObj.ToString() == "5")) return; // ï¿½zel yetkiler node'unu renklendirme
 
                     if (e.Node.Checked)
                     {
@@ -540,7 +540,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
             {
                 int moduleNodeId = dto.ModuleId;
 
-                // Klasörler için (Görebilir vb. yetkiler yok, sadece baþlýk)
+                // Klasï¿½rler iï¿½in (Gï¿½rebilir vb. yetkiler yok, sadece baï¿½lï¿½k)
                 bool isFolder = dtoList.Any(x => x.ParentId == moduleNodeId);
 
                 nodes.Add(new WinBeyazEsya.Presentation.WinForms.Models.PermissionNodeDto
@@ -560,7 +560,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                         Id = moduleNodeId * 10000 + 1,
                         ParentId = moduleNodeId,
                         ModuleId = dto.ModuleId,
-                        Name = "Görebilir",
+                        Name = "Gï¿½rebilir",
                         PermissionType = WinBeyazEsya.Presentation.WinForms.Models.PermissionType.Read,
                         IsChecked = dto.CanRead
                     });
@@ -580,7 +580,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                         Id = moduleNodeId * 10000 + 3,
                         ParentId = moduleNodeId,
                         ModuleId = dto.ModuleId,
-                        Name = "Düzenleyebilir",
+                        Name = "Dï¿½zenleyebilir",
                         PermissionType = WinBeyazEsya.Presentation.WinForms.Models.PermissionType.Update,
                         IsChecked = dto.CanUpdate
                     });
@@ -600,7 +600,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
                         Id = moduleNodeId * 10000 + 5,
                         ParentId = moduleNodeId,
                         ModuleId = dto.ModuleId,
-                        Name = "Özel Yetkiler",
+                        Name = "ï¿½zel Yetkiler",
                         PermissionType = WinBeyazEsya.Presentation.WinForms.Models.PermissionType.Special,
                         IsChecked = false,
                         SpecialPermissions = dto.SpecialPermissions
@@ -720,7 +720,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
         {
             if (txtRolKodu.Text == "WINBEYAZESYA_ROLE")
             {
-                Messages.UyariMesaji("Sistem Yöneticisi (WINBEYAZESYA_ROLE) üzerinde deðiþiklik yapýlamaz!");
+                Messages.UyariMesaji("Sistem Yï¿½neticisi (WINBEYAZESYA_ROLE) ï¿½zerinde deï¿½iï¿½iklik yapï¿½lamaz!");
                 return false;
             }
             return SaveRole();
@@ -730,7 +730,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
         {
             if (txtRolKodu.Text == "WINBEYAZESYA_ROLE")
             {
-                Messages.UyariMesaji("Sistem Yöneticisi (WINBEYAZESYA_ROLE) silinemez!");
+                Messages.UyariMesaji("Sistem Yï¿½neticisi (WINBEYAZESYA_ROLE) silinemez!");
                 return;
             }
 
@@ -763,8 +763,8 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
             {
                 Id = _roleService.SaveRoleWithPermissions(roleDto, permissions);
 
-                // Baþarýlý kayýttan sonra mevcut durumu "orijinal" olarak güncelle,
-                // böylece ButonEnabledDurumu formun kapanýþý sýrasýnda tekrar Kaydet sormaz.
+                // Baï¿½arï¿½lï¿½ kayï¿½ttan sonra mevcut durumu "orijinal" olarak gï¿½ncelle,
+                // bï¿½ylece ButonEnabledDurumu formun kapanï¿½ï¿½ï¿½ sï¿½rasï¿½nda tekrar Kaydet sormaz.
                 _originalPermissionsJson = System.Text.Json.JsonSerializer.Serialize(nodes);
 
                 return true;
@@ -813,5 +813,4 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.YetkilendirmeForms
         }
     }
 }
-
 

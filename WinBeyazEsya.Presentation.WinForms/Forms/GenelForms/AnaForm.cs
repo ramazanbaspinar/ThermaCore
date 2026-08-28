@@ -487,6 +487,20 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             {
                 Cursor.Current = Cursors.Default;
                 LoadFavorites();
+                if (aceSatinalmaSiparisleri != null)
+                {
+                    aceSatinalmaSiparisleri.Click += (s, e) =>
+                    {
+                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms.SatinAlmaSiparisListForm>();
+                    };
+                }
+                if (aceStokBakiyeIzleme != null)
+                {
+                    aceStokBakiyeIzleme.Click += (s, e) =>
+                    {
+                        FormYukle<WinBeyazEsya.Presentation.WinForms.Forms.StokYonetimiForms.StokBakiyeListForm>();
+                    };
+                }
             }
         }
 
@@ -498,6 +512,8 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             if (aceSatinalma != null) aceSatinalma.Tag = WinBeyazEsya.Domain.Enums.ModuleType.Satinalma;
             if (aceSatinalmaSiparisleri != null) aceSatinalmaSiparisleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.SatinalmaSiparisleri;
             if (aceSatinalmaIrsaliyeleri != null) aceSatinalmaIrsaliyeleri.Tag = WinBeyazEsya.Domain.Enums.ModuleType.SatinalmaIrsaliyeleri;
+            if (aceStokYonetimi != null) aceStokYonetimi.Tag = WinBeyazEsya.Domain.Enums.ModuleType.StokYonetimi;
+            if (aceStokBakiyeIzleme != null) aceStokBakiyeIzleme.Tag = WinBeyazEsya.Domain.Enums.ModuleType.StokBakiyeIzleme;
 
             aceKurumsalTanimlar.Tag = WinBeyazEsya.Domain.Enums.ModuleType.KurumsalTanimlar;
             aceGuvenlikVeYetkilendirme.Tag = WinBeyazEsya.Domain.Enums.ModuleType.GuvenlikVeYetkilendirme;

@@ -87,6 +87,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             aceDigerMalzemeGrubuMaliyetleri = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             aceSatinalma = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             aceSatinalmaSiparisleri = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            aceSatinalmaIrsaliyeleri = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             aceUretim = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             aceUrunMamulReceteleri = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             aceAyarlar = new DevExpress.XtraBars.Navigation.AccordionControlElement();
@@ -112,7 +113,8 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
             barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
             barDockControlRight = new DevExpress.XtraBars.BarDockControl();
-            aceSatinalmaIrsaliyeleri = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            aceStokYonetimi = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            aceStokBakiyeIzleme = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             ((System.ComponentModel.ISupportInitialize)xtraTabbedMdiManager).BeginInit();
             ((System.ComponentModel.ISupportInitialize)btnAnaFormResim.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)accordionControl1).BeginInit();
@@ -280,7 +282,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             btnAnaFormResim.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
             btnAnaFormResim.Properties.ShowMenu = false;
             btnAnaFormResim.Properties.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Stretch;
-            btnAnaFormResim.Size = new Size(696, 675);
+            btnAnaFormResim.Size = new Size(696, 677);
             btnAnaFormResim.StatusBarAciklama = null;
             btnAnaFormResim.StatusBarKisaYol = "F4 :";
             btnAnaFormResim.StatusBarKisaYolAciklama = null;
@@ -289,12 +291,12 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             // accordionControl1
             // 
             accordionControl1.Dock = DockStyle.Left;
-            accordionControl1.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] { aceFavoriler, aceTanimlar, aceMaliyet, aceSatinalma, aceUretim, aceAyarlar });
+            accordionControl1.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] { aceFavoriler, aceTanimlar, aceMaliyet, aceSatinalma, aceUretim, aceStokYonetimi, aceAyarlar });
             accordionControl1.Location = new Point(0, 33);
             accordionControl1.Name = "accordionControl1";
             accordionControl1.ScrollBarMode = DevExpress.XtraBars.Navigation.ScrollBarMode.Auto;
             accordionControl1.ShowFilterControl = DevExpress.XtraBars.Navigation.ShowFilterControl.Always;
-            accordionControl1.Size = new Size(260, 675);
+            accordionControl1.Size = new Size(260, 677);
             accordionControl1.TabIndex = 4;
             accordionControl1.ViewType = DevExpress.XtraBars.Navigation.AccordionControlViewType.HamburgerMenu;
             // 
@@ -507,6 +509,12 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             aceSatinalmaSiparisleri.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
             aceSatinalmaSiparisleri.Text = "Satınalma Siparişleri";
             // 
+            // aceSatinalmaIrsaliyeleri
+            // 
+            aceSatinalmaIrsaliyeleri.Name = "aceSatinalmaIrsaliyeleri";
+            aceSatinalmaIrsaliyeleri.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            aceSatinalmaIrsaliyeleri.Text = "Satınalma İrsaliyeleri";
+            // 
             // aceUretim
             // 
             aceUretim.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] { aceUrunMamulReceteleri });
@@ -664,7 +672,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             // 
             barDockControlBottom.CausesValidation = false;
             barDockControlBottom.Dock = DockStyle.Bottom;
-            barDockControlBottom.Location = new Point(0, 708);
+            barDockControlBottom.Location = new Point(0, 710);
             barDockControlBottom.Manager = barManager1;
             barDockControlBottom.Size = new Size(956, 0);
             // 
@@ -674,7 +682,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             barDockControlLeft.Dock = DockStyle.Left;
             barDockControlLeft.Location = new Point(0, 33);
             barDockControlLeft.Manager = barManager1;
-            barDockControlLeft.Size = new Size(0, 675);
+            barDockControlLeft.Size = new Size(0, 677);
             // 
             // barDockControlRight
             // 
@@ -682,13 +690,19 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             barDockControlRight.Dock = DockStyle.Right;
             barDockControlRight.Location = new Point(956, 33);
             barDockControlRight.Manager = barManager1;
-            barDockControlRight.Size = new Size(0, 675);
+            barDockControlRight.Size = new Size(0, 677);
             // 
-            // aceSatinalmaIrsaliyeleri
+            // aceStokYonetimi
             // 
-            aceSatinalmaIrsaliyeleri.Name = "aceSatinalmaIrsaliyeleri";
-            aceSatinalmaIrsaliyeleri.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            aceSatinalmaIrsaliyeleri.Text = "Satınalma İrsaliyeleri";
+            aceStokYonetimi.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] { aceStokBakiyeIzleme });
+            aceStokYonetimi.Name = "aceStokYonetimi";
+            aceStokYonetimi.Text = "Stok Yönetimi";
+            // 
+            // aceStokBakiyeIzleme
+            // 
+            aceStokBakiyeIzleme.Name = "aceStokBakiyeIzleme";
+            aceStokBakiyeIzleme.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            aceStokBakiyeIzleme.Text = "Stok Bakiye İzleme";
             // 
             // AnaForm
             // 
@@ -697,7 +711,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
             Appearance.Options.UseFont = true;
             AutoScaleDimensions = new SizeF(7F, 16F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(956, 708);
+            ClientSize = new Size(956, 710);
             Controls.Add(btnAnaFormResim);
             Controls.Add(accordionControl1);
             Controls.Add(barDockControlLeft);
@@ -805,6 +819,8 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.GenelForms
         private DevExpress.XtraBars.Navigation.AccordionControlElement aceSatinalma;
         private DevExpress.XtraBars.Navigation.AccordionControlElement aceSatinalmaSiparisleri;
         private DevExpress.XtraBars.Navigation.AccordionControlElement aceSatinalmaIrsaliyeleri;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement aceStokYonetimi;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement aceStokBakiyeIzleme;
     }
 }
 

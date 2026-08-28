@@ -132,6 +132,8 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IValidator<WinBeyazEsya.Application.DTOs.Purchasing.PurchaseReceiptDto>, WinBeyazEsya.Application.Validations.Purchasing.PurchaseReceiptDtoValidator>();
         services.AddScoped<IValidator<WinBeyazEsya.Application.DTOs.Purchasing.PurchaseReceiptLineDto>, WinBeyazEsya.Application.Validations.Purchasing.PurchaseReceiptLineDtoValidator>();
 
+        services.AddScoped<WinBeyazEsya.Application.Interfaces.Services.IStockTransactionService, WinBeyazEsya.Application.Services.Inventory.StockTransactionManager>();
+
         return services;
     }
 }
