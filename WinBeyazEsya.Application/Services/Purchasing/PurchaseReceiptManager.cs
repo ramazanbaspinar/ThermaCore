@@ -154,10 +154,57 @@ public class PurchaseReceiptManager : BaseManager<PurchaseReceiptListDto, Purcha
         return entity.Id;
     }
 
+    public async Task<IEnumerable<PurchaseOrderDispatchListDto>> GetDispatchInfoAsync(long? orderId, long? orderLineId)
+    {
+        var query = _lineRepository.GetAll();
+
+        if (orderLineId.HasValue && orderLineId.Value > 0)
+        {
+            query = query.Where(x => x.PurchaseOrderLineId == orderLineId.Value);
+        }
+        else if (orderId.HasValue && orderId.Value > 0)
+        {
+            // First get order line ids for this order
+            var orderLineIds = _orderLineRepository.Find(x => x.PurchaseOrderId == orderId.Value).Select(x => x.Id).ToList();
+            query = query.Where(x => x.PurchaseOrderLineId.HasValue && orderLineIds.Contains(x.PurchaseOrderLineId.Value));
+        }
+        else
+        {
+            return new List<PurchaseOrderDispatchListDto>();
+        }
+
+        var lines = query.ToList();
+        var receiptIds = lines.Select(x => x.PurchaseReceiptId).Distinct().ToList();
+        var receipts = _repository.Find(x => receiptIds.Contains(x.Id)).ToList();
+
+        var result = new List<PurchaseOrderDispatchListDto>();
+
+        foreach (var line in lines)
+        {
+            var receipt = receipts.FirstOrDefault(x => x.Id == line.PurchaseReceiptId);
+            if (receipt != null)
+            {
+                result.Add(new PurchaseOrderDispatchListDto
+                {
+                    Id = line.Id,
+                    MaterialId = line.MaterialId,
+                    Quantity = line.Quantity,
+                    UnitId = line.UnitId,
+                    ReceiptDate = receipt.ReceiptDate,
+                    ReceiptCode = receipt.Code,
+                    DocumentNo = receipt.DocumentNo ?? string.Empty
+                });
+            }
+        }
+
+        return await Task.FromResult(result);
+    }
+
     public override void Update(PurchaseReceiptDto dto)
     {
         throw new NotImplementedException("Güncelleme işlemi için Sipariş/Stok geri alma (reverse) kurguları gereklidir.");
     }
+
 
     public override void Delete(long id)
     {

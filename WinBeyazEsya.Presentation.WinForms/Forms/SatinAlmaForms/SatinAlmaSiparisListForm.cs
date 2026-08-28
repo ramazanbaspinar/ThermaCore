@@ -47,6 +47,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
         private DevExpress.XtraBars.BarButtonItem _btnOnayla;
         private DevExpress.XtraBars.BarButtonItem _btnIptalEt;
         private DevExpress.XtraBars.BarButtonItem _btnZorlaKapat;
+        private DevExpress.XtraBars.BarButtonItem _btnSevkBilgileri;
 
         protected override void OnLoad(System.EventArgs e)
         {
@@ -94,6 +95,23 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
                 };
                 var link = SagTikMenu.ItemLinks.Insert(3, _btnZorlaKapat);
                 link.BeginGroup = true; // separator
+
+                _btnSevkBilgileri = new DevExpress.XtraBars.BarButtonItem(ribbon.Manager, "Sevk Bilgileri (İrsaliyeler)");
+                _btnSevkBilgileri.ItemClick += (s, args) =>
+                {
+                    if (Tablo.FocusedRowHandle >= 0)
+                    {
+                        var row = Tablo.GetRow(Tablo.FocusedRowHandle) as WinBeyazEsya.Application.DTOs.Purchasing.PurchaseOrderListDto;
+                        if (row != null)
+                        {
+                            var form = new SatinalmaSiparisSevkBilgileriListForm();
+                            form.PurchaseOrderId = row.Id;
+                            form.ShowDialog();
+                        }
+                    }
+                };
+                var sevkLink = SagTikMenu.ItemLinks.Insert(0, _btnSevkBilgileri);
+                sevkLink.BeginGroup = true;
 
                 SagTikMenu.BeforePopup += SagTikMenu_BeforePopup;
             }
@@ -243,6 +261,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             _btnOnayla.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
             _btnIptalEt.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
             _btnZorlaKapat.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
+            _btnSevkBilgileri.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
 
             if (Tablo == null || Tablo.FocusedRowHandle < 0) return;
 
@@ -265,6 +284,9 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
 
             if (canClose && dto.Status == OrderStatus.PartialReceived)
                 _btnZorlaKapat.Visibility = DevExpress.XtraBars.BarItemVisibility.Always;
+
+            if (dto.Status == OrderStatus.Approved || dto.Status == OrderStatus.PartialReceived || dto.Status == OrderStatus.Completed || dto.Status == OrderStatus.Canceled)
+                _btnSevkBilgileri.Visibility = DevExpress.XtraBars.BarItemVisibility.Always;
         }
 
         private void ChangeOrderStatus(int rowHandle, OrderStatus newStatus)

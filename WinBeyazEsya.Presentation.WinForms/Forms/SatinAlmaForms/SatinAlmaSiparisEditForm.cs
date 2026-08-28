@@ -79,8 +79,43 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             var btnDelete = new DevExpress.XtraBars.BarButtonItem(barManager, "Satır Sil");
             btnDelete.ItemClick += BtnDelete_ItemClick;
 
+            var btnSevkBilgileri = new DevExpress.XtraBars.BarButtonItem(barManager, "Sevk Bilgileri (İrsaliyeler)");
+            btnSevkBilgileri.ItemClick += BtnSevkBilgileri_ItemClick;
+
             popupMenuGrid.ItemLinks.Add(btnAdd);
             popupMenuGrid.ItemLinks.Add(btnDelete);
+            
+            var sevkLink = popupMenuGrid.ItemLinks.Add(btnSevkBilgileri);
+            sevkLink.BeginGroup = true;
+
+            popupMenuGrid.BeforePopup += (s, e) =>
+            {
+                var dto = CurrentEntity as Application.DTOs.Purchasing.PurchaseOrderDto;
+                bool showSevk = dto != null && (dto.Status == Domain.Enums.OrderStatus.Approved || dto.Status == Domain.Enums.OrderStatus.PartialReceived || dto.Status == Domain.Enums.OrderStatus.Completed || dto.Status == Domain.Enums.OrderStatus.Canceled);
+                btnSevkBilgileri.Visibility = showSevk ? DevExpress.XtraBars.BarItemVisibility.Always : DevExpress.XtraBars.BarItemVisibility.Never;
+                
+                bool isEditable = myGridView1.OptionsBehavior.Editable;
+                btnAdd.Visibility = isEditable ? DevExpress.XtraBars.BarItemVisibility.Always : DevExpress.XtraBars.BarItemVisibility.Never;
+                btnDelete.Visibility = isEditable ? DevExpress.XtraBars.BarItemVisibility.Always : DevExpress.XtraBars.BarItemVisibility.Never;
+            };
+        }
+
+        private void BtnSevkBilgileri_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            if (myGridView1.FocusedRowHandle >= 0)
+            {
+                var row = myGridView1.GetRow(myGridView1.FocusedRowHandle) as Application.DTOs.Purchasing.PurchaseOrderLineDto;
+                if (row != null && row.Id > 0)
+                {
+                    var form = new SatinalmaSiparisSevkBilgileriListForm();
+                    form.PurchaseOrderLineId = row.Id;
+                    form.ShowDialog();
+                }
+                else
+                {
+                    XtraMessageBox.Show("Sevk bilgilerini görmek için kaydedilmiş bir satır seçmelisiniz.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
         }
 
         private void BtnAdd_ItemClick(object sender, ItemClickEventArgs e)
@@ -165,8 +200,6 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
 
         private void MyGridView1_PopupMenuShowing(object sender, PopupMenuShowingEventArgs e)
         {
-            if (!myGridView1.OptionsBehavior.Editable) return;
-
             if (e.HitInfo.InRow || e.HitInfo.InRowCell || e.HitInfo.HitTest == DevExpress.XtraGrid.Views.Grid.ViewInfo.GridHitTest.EmptyRow)
             {
                 popupMenuGrid.ShowPopup(myGridControl1.PointToScreen(e.Point));

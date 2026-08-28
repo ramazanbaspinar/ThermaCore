@@ -9,4 +9,5 @@ public interface IPurchaseReceiptService
     long Insert(PurchaseReceiptDto dto);
     void Update(PurchaseReceiptDto dto);
     void Delete(long id);
+    Task<IEnumerable<PurchaseOrderDispatchListDto>> GetDispatchInfoAsync(long? orderId, long? orderLineId);
 }
