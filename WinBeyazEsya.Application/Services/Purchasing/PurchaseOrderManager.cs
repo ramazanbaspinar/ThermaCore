@@ -98,28 +98,74 @@ public class PurchaseOrderManager : BaseManager<PurchaseOrderListDto, PurchaseOr
         bool isSentToApproval = existingEntity.Status == WinBeyazEsya.Domain.Enums.OrderStatus.Draft &&
                                 dto.Status == WinBeyazEsya.Domain.Enums.OrderStatus.WaitingApproval;
 
-        _mapper.Map(dto, existingEntity);
+        // AutoMapper koleksiyonları (Lines) kendi maplerken yeni objeler ürettiği için 
+        // EF Core ChangeTracker'da aynı Id'ye sahip 2 farklı kopya oluşuyor ve patlıyor.
+        // Bunu önlemek için başlık (Header) alanlarını manuel mapliyoruz:
+        existingEntity.DocumentNo = dto.DocumentNo;
+        existingEntity.OrderDate = dto.OrderDate;
+        existingEntity.DeliveryDate = dto.DeliveryDate;
+        existingEntity.SupplierId = dto.SupplierId;
+        existingEntity.WarehouseId = dto.WarehouseId;
+        existingEntity.CurrencyCode = dto.CurrencyCode;
+        existingEntity.ExchangeRate = dto.ExchangeRate;
+        existingEntity.Status = dto.Status;
+        existingEntity.SubTotal = dto.SubTotal;
+        existingEntity.TaxAmount = dto.TaxAmount;
+        existingEntity.DiscountAmount = dto.DiscountAmount;
+        existingEntity.GrandTotal = dto.GrandTotal;
+        existingEntity.Description = dto.Description;
 
-        // AutoMapper'ın kendi kendine eklediği id=0 olan satırları entity'den kopartalım
-        existingEntity.Lines.Clear();
-
-        // Remove old lines
         var existingLines = _lineRepository.Find(x => x.PurchaseOrderId == existingEntity.Id).ToList();
-        foreach (var line in existingLines)
-        {
-            _lineRepository.Remove(line);
-        }
-
-        // Add new lines
+        
         if (dto.Lines != null && dto.Lines.Any())
         {
             foreach (var lineDto in dto.Lines)
             {
-                var lineEntity = _mapper.Map<PurchaseOrderLine>(lineDto);
-                lineEntity.Id = IdGenerator.GenerateId();
-                lineEntity.PurchaseOrderId = existingEntity.Id;
-                _lineRepository.Add(lineEntity);
+                if (lineDto.Id > 0)
+                {
+                    // Find() cache'den getirdiği için RowVersion eski kalabiliyordu. 
+                    // GetById() içerisinde Reload() olduğu için güncel RowVersion'ı DB'den çeker! (Concurrency hatasını çözer)
+                    var existingLine = _lineRepository.GetById(lineDto.Id);
+                    if (existingLine != null)
+                    {
+                        // AutoMapper'ın RowVersion veya takip edilen base field'ları bozmasını önlemek için manuel set ediyoruz:
+                        existingLine.MaterialId = lineDto.MaterialId;
+                        existingLine.Quantity = lineDto.Quantity;
+                        existingLine.UnitId = lineDto.UnitId;
+                        existingLine.UnitPrice = lineDto.UnitPrice;
+                        existingLine.TaxRate = lineDto.TaxRate;
+                        existingLine.LineTotal = lineDto.LineTotal;
+                        existingLine.ReceivedQuantity = lineDto.ReceivedQuantity;
+                        existingLine.WarehouseId = lineDto.WarehouseId;
+
+                        _lineRepository.Update(existingLine);
+                        
+                        // existingLines listesinden çıkaralım ki silme işlemine girmesin
+                        var itemToRemove = existingLines.FirstOrDefault(x => x.Id == existingLine.Id);
+                        if (itemToRemove != null) existingLines.Remove(itemToRemove);
+                    }
+                    else
+                    {
+                        var lineEntity = _mapper.Map<PurchaseOrderLine>(lineDto);
+                        lineEntity.Id = lineDto.Id; // Preserve original ID if it somehow got detached
+                        lineEntity.PurchaseOrderId = existingEntity.Id;
+                        _lineRepository.Add(lineEntity);
+                    }
+                }
+                else
+                {
+                    var lineEntity = _mapper.Map<PurchaseOrderLine>(lineDto);
+                    lineEntity.Id = IdGenerator.GenerateId();
+                    lineEntity.PurchaseOrderId = existingEntity.Id;
+                    _lineRepository.Add(lineEntity);
+                }
             }
+        }
+
+        // Remove lines that were not in the incoming DTO
+        foreach (var line in existingLines)
+        {
+            _lineRepository.Remove(line);
         }
 
         _repository.Update(existingEntity);
