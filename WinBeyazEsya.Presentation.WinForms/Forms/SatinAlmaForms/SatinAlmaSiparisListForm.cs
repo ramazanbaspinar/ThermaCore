@@ -113,7 +113,6 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             if (_serviceProvider != null)
             {
                 var currentAccountRepo = _serviceProvider.GetService<WinBeyazEsya.Application.Interfaces.Repositories.IRepository<WinBeyazEsya.Domain.Entities.Definitions.CurrentAccount>>();
-                var warehouseRepo = _serviceProvider.GetService<WinBeyazEsya.Application.Interfaces.Repositories.IRepository<WinBeyazEsya.Domain.Entities.Definitions.Warehouse>>();
                 var userRepo = _serviceProvider.GetService<WinBeyazEsya.Application.Interfaces.Repositories.IMasterRepository<WinBeyazEsya.Domain.Entities.Management.User>>();
 
                 foreach (var item in liste)
@@ -125,15 +124,6 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
                         {
                             item.SupplierName = supplier.Title ?? "";
                             item.SupplierCode = supplier.Code ?? "";
-                        }
-                    }
-
-                    if (warehouseRepo != null && item.WarehouseId.HasValue && item.WarehouseId > 0)
-                    {
-                        var warehouse = warehouseRepo.GetById(item.WarehouseId.Value);
-                        if (warehouse != null)
-                        {
-                            item.WarehouseName = warehouse.Name ?? "";
                         }
                     }
 

@@ -116,8 +116,19 @@ public class PurchaseReceiptManager : BaseManager<PurchaseReceiptListDto, Purcha
                 var order = _orderRepository.GetById(orderId);
                 if (order != null)
                 {
-                    // Siparişin veritabanındaki (veya az önce güncellenen) güncel tüm satırlarını kontrol et
+                    // Siparişin veritabanındaki tüm satırlarını çekelim
                     var allLinesOfOrder = _orderLineRepository.Find(x => x.PurchaseOrderId == orderId).ToList();
+
+                    // ORM (Entity Framework/Dapper) DbContext'i anında senkronize etmemiş olabilir (SaveChanges henüz çağrılmadı),
+                    // bu yüzden o an bellekteki (bu metodda güncellenmiş) ReceivedQuantity değerlerini üzerine yazalım.
+                    foreach (var updatedLine in orderLines)
+                    {
+                        var lineInAll = allLinesOfOrder.FirstOrDefault(x => x.Id == updatedLine.Id);
+                        if (lineInAll != null)
+                        {
+                            lineInAll.ReceivedQuantity = updatedLine.ReceivedQuantity;
+                        }
+                    }
 
                     bool isCompleted = allLinesOfOrder.All(x => x.ReceivedQuantity >= x.Quantity);
                     bool isPartial = allLinesOfOrder.Any(x => x.ReceivedQuantity > 0);

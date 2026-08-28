@@ -40,7 +40,6 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             colCariHesapKodu = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colCariHesapUnvani = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colTutar = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
-            colDepo = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colSiparisiOlusturan = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colAciklama = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             ((System.ComponentModel.ISupportInitialize)ribbon).BeginInit();
@@ -80,7 +79,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             // 
             // myGridView1
             // 
-            myGridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colId, colSiparisTarihi, colSiparisDurumu, colKod, colBelgeNo, colCariHesapKodu, colCariHesapUnvani, colTutar, colDepo, colSiparisiOlusturan, colAciklama });
+            myGridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colId, colSiparisTarihi, colSiparisDurumu, colKod, colBelgeNo, colCariHesapKodu, colCariHesapUnvani, colTutar, colSiparisiOlusturan, colAciklama });
             myGridView1.GridControl = myGridControl1;
             myGridView1.GroupCount = 1;
             myGridView1.Name = "myGridView1";
@@ -210,19 +209,6 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             colTutar.VisibleIndex = 5;
             colTutar.Width = 125;
             // 
-            // colDepo
-            // 
-            colDepo.Caption = "Depo";
-            colDepo.FieldName = "WarehouseName";
-            colDepo.Name = "colDepo";
-            colDepo.OptionsColumn.AllowEdit = false;
-            colDepo.StatusBarAciklama = null;
-            colDepo.StatusBarKisaYol = null;
-            colDepo.StatusBarKisaYolAciklama = null;
-            colDepo.Visible = true;
-            colDepo.VisibleIndex = 6;
-            colDepo.Width = 125;
-            // 
             // colSiparisiOlusturan
             // 
             colSiparisiOlusturan.Caption = "Siparişi Oluşturan";
@@ -233,7 +219,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             colSiparisiOlusturan.StatusBarKisaYol = null;
             colSiparisiOlusturan.StatusBarKisaYolAciklama = null;
             colSiparisiOlusturan.Visible = true;
-            colSiparisiOlusturan.VisibleIndex = 7;
+            colSiparisiOlusturan.VisibleIndex = 6;
             colSiparisiOlusturan.Width = 125;
             // 
             // colAciklama
@@ -246,7 +232,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
             colAciklama.StatusBarKisaYol = null;
             colAciklama.StatusBarKisaYolAciklama = null;
             colAciklama.Visible = true;
-            colAciklama.VisibleIndex = 8;
+            colAciklama.VisibleIndex = 7;
             colAciklama.Width = 125;
             // 
             // SatinAlmaSiparisListForm
@@ -281,7 +267,6 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinAlmaForms
         private UserControls.Grid.MyGridColumn colKod;
         private UserControls.Grid.MyGridColumn colCariHesapUnvani;
         private UserControls.Grid.MyGridColumn colTutar;
-        private UserControls.Grid.MyGridColumn colDepo;
         private UserControls.Grid.MyGridColumn colCariHesapKodu;
         private UserControls.Grid.MyGridColumn colSiparisiOlusturan;
         private UserControls.Grid.MyGridColumn colSiparisDurumu;

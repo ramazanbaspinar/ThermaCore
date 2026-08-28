@@ -18,6 +18,9 @@ namespace WinBeyazEsya.Application.Validations.Purchasing
 
             RuleFor(x => x.UnitPrice)
                 .GreaterThanOrEqualTo(0).WithMessage("Satır Birim Fiyatı 0'dan küçük olamaz.");
+
+            RuleFor(x => x.WarehouseId)
+                .NotEmpty().WithMessage("İrsaliye satırlarında Teslimat Deposu boş bırakılamaz!");
         }
     }
 }

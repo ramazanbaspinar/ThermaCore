@@ -709,6 +709,64 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinalmaForms
             ButonEnabledDurumu();
         }
 
+
+        private bool CheckOverReceiving()
+        {
+            var lines = myGridControl1.DataSource as BindingList<Application.DTOs.Purchasing.PurchaseReceiptLineDto>;
+            if (lines != null && lines.Any(x => x.PurchaseOrderLineId.HasValue && x.PurchaseOrderLineId > 0))
+            {
+                bool hasOverReceiving = false;
+
+                if (Program.ServiceProvider != null)
+                {
+                    var orderLineRepo = Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetService<WinBeyazEsya.Application.Interfaces.Repositories.IRepository<WinBeyazEsya.Domain.Entities.Purchasing.PurchaseOrderLine>>(Program.ServiceProvider);
+                    
+                    if (orderLineRepo != null)
+                    {
+                        var orderLineIds = lines.Where(x => x.PurchaseOrderLineId.HasValue && x.PurchaseOrderLineId > 0).Select(x => x.PurchaseOrderLineId!.Value).Distinct().ToList();
+                        var orderLines = orderLineRepo.Find(x => orderLineIds.Contains(x.Id)).ToList();
+
+                        foreach (var line in lines)
+                        {
+                            if (line.PurchaseOrderLineId.HasValue && line.PurchaseOrderLineId > 0)
+                            {
+                                var dbOrderLine = orderLines.FirstOrDefault(x => x.Id == line.PurchaseOrderLineId.Value);
+                                if (dbOrderLine != null)
+                                {
+                                    // Eğer edit (güncelleme) modundaysak, dbOrderLine.ReceivedQuantity içinde 
+                                    // bu irsaliyenin daha önce kaydettiği miktar DA VARDIR!
+                                    // Ancak biz bu sorunu engellemek için OrderPendingQuantity (Hidden prop) kullanıyorduk.
+                                    // İlk aktarımda OrderPendingQuantity dolu gelir. Yeni miktar OrderPendingQuantity'den büyükse uyarı.
+                                    // Mevcut bir irsaliyeyi açıp güncelliyorsak, OrderPendingQuantity sıfır olabilir.
+                                    // Bu durumda Pending = Quantity - ReceivedQuantity'dir, 
+                                    // AMA mevcut irsaliye satırının veritabanındaki eski miktarını bu hesaba katmamız gerekirdi (Reverse logic).
+                                    // Gelişmiş ERP mantığı için, şimdilik sadece UI aktarımındaki gizli property'i kontrol ediyoruz, 
+                                    // eğer OrderPendingQuantity > 0 ise aktarımdan gelmiştir, doğrudan onu baz alalım.
+                                    decimal checkQuantity = line.OrderPendingQuantity > 0 ? line.OrderPendingQuantity : (dbOrderLine.Quantity - dbOrderLine.ReceivedQuantity);
+
+                                    if (line.Quantity > checkQuantity)
+                                    {
+                                        hasOverReceiving = true;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (hasOverReceiving)
+                {
+                    var result = XtraMessageBox.Show("Bazı malzemeler için sipariş edilenden daha fazla miktar (Over-Receiving) girdiniz. Yine de kaydetmek istiyor musunuz?", "Fazla Mal Kabulü", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (result == DialogResult.No)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
         #region Event Handlers & Lookup Seçimleri
 
         private void GlufTedarikciCari_SearchButtonClicked(object? sender, EventArgs e)
@@ -748,6 +806,11 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinalmaForms
             if (myGridView1.RowCount > 0)
             {
                 var yeniDepoId = glufTeslimatDeposu.EditValue;
+
+                if (yeniDepoId == null || yeniDepoId == DBNull.Value || (yeniDepoId is long l && l == 0))
+                {
+                    return; // Clean butonuna basıldığında soru sorma ve satırları değiştirme.
+                }
 
                 DialogResult result = DevExpress.XtraEditors.XtraMessageBox.Show(
                     "Başlık (Header) teslimat deposunu değiştirdiniz. Siparişteki mevcut tüm kalemlerin (satırların) depoları da bu yeni depoya güncellensin mi?",
@@ -813,6 +876,8 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinalmaForms
 
         protected override bool EntityInsert()
         {
+            if (!CheckOverReceiving()) return false;
+
             myGridView1.PostEditor();
             try
             {
@@ -831,6 +896,8 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinalmaForms
 
         protected override bool EntityUpdate()
         {
+            if (!CheckOverReceiving()) return false;
+
             myGridView1.PostEditor();
             try
             {

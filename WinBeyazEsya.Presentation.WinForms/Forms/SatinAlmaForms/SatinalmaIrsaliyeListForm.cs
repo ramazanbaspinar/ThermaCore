@@ -60,6 +60,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinalmaForms
             if (_serviceProvider != null)
             {
                 var currentAccountRepo = _serviceProvider.GetService<WinBeyazEsya.Application.Interfaces.Repositories.IRepository<WinBeyazEsya.Domain.Entities.Definitions.CurrentAccount>>();
+                var userRepo = _serviceProvider.GetService<WinBeyazEsya.Application.Interfaces.Repositories.IMasterRepository<WinBeyazEsya.Domain.Entities.Management.User>>();
 
                 foreach (var item in liste)
                 {
@@ -69,6 +70,16 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinalmaForms
                         if (supplier != null)
                         {
                             item.SupplierName = supplier.Title ?? "";
+                            item.SupplierCode = supplier.Code ?? "";
+                        }
+                    }
+
+                    if (userRepo != null && item.CreatedUserId.HasValue && item.CreatedUserId > 0)
+                    {
+                        var user = userRepo.GetById(item.CreatedUserId.Value);
+                        if (user != null)
+                        {
+                            item.CreatedUserName = $"{user.FirstName} {user.LastName}".Trim();
                         }
                     }
                 }

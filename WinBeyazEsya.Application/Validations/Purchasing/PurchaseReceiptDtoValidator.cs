@@ -8,7 +8,7 @@ namespace WinBeyazEsya.Application.Validations.Purchasing
         public PurchaseReceiptDtoValidator()
         {
             RuleFor(x => x.SupplierId)
-                .GreaterThan(0).WithMessage("Lütfen bir Tedarikçi (Cari) seçiniz.");
+                .GreaterThan(0).WithMessage("Lütfen bir Tedarikçi (Cari) seçiniz!");
 
             RuleFor(x => x.CurrencyCode)
                 .NotEmpty().WithMessage("Lütfen Döviz Türü seçiniz.");

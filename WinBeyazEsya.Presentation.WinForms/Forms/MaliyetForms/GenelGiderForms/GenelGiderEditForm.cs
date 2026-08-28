@@ -82,6 +82,8 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.GenelGiderForms
 
         protected override void GuncelNesneOlustur()
         {
+            var currentDto = CurrentEntity as GeneralExpenseDto;
+
             var dto = new GeneralExpenseDto
             {
                 Id = Id,
@@ -89,6 +91,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.MaliyetForms.GenelGiderForms
                 Name = txtGenelGider.Text,
                 Cost = txtGenelGiderMaliyeti.Value,
                 CurrencyCode = cmbParaBirimi.EditValue?.ToString() ?? string.Empty,
+                BranchId = currentDto?.BranchId ?? 0
             };
 
             CurrentEntity = dto;

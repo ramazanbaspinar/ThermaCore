@@ -9,7 +9,9 @@ public class PurchaseReceiptListDto : BaseDto
     public DateTime ReceiptDate { get; set; }
     public long SupplierId { get; set; }
     public string? SupplierName { get; set; }
+    public string? SupplierCode { get; set; }
     public decimal GrandTotal { get; set; }
     public string? Description { get; set; }
     public bool IsActive { get; set; }
+    public string CreatedUserName { get; set; } = string.Empty;
 }

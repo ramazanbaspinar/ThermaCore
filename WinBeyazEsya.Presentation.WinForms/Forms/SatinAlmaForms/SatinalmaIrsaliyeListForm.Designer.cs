@@ -39,8 +39,8 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinalmaForms
             colCariHesapKodu = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colCariHesapUnvani = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colTutar = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
-            colDepo = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             colAciklama = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
+            colTeslimAlan = new WinBeyazEsya.Presentation.WinForms.UserControls.Grid.MyGridColumn();
             ((System.ComponentModel.ISupportInitialize)ribbon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)myGridControl1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)myGridView1).BeginInit();
@@ -78,7 +78,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinalmaForms
             // 
             // myGridView1
             // 
-            myGridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colId, colIrsaliyeTarihi, colKod, colBelgeNo, colCariHesapKodu, colCariHesapUnvani, colTutar, colDepo, colAciklama });
+            myGridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colId, colIrsaliyeTarihi, colKod, colBelgeNo, colCariHesapKodu, colCariHesapUnvani, colTutar, colTeslimAlan, colAciklama });
             myGridView1.GridControl = myGridControl1;
             myGridView1.GroupCount = 1;
             myGridView1.Name = "myGridView1";
@@ -192,19 +192,6 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinalmaForms
             colTutar.VisibleIndex = 4;
             colTutar.Width = 125;
             // 
-            // colDepo
-            // 
-            colDepo.Caption = "Depo";
-            colDepo.FieldName = "WarehouseName";
-            colDepo.Name = "colDepo";
-            colDepo.OptionsColumn.AllowEdit = false;
-            colDepo.StatusBarAciklama = null;
-            colDepo.StatusBarKisaYol = null;
-            colDepo.StatusBarKisaYolAciklama = null;
-            colDepo.Visible = true;
-            colDepo.VisibleIndex = 5;
-            colDepo.Width = 125;
-            // 
             // colAciklama
             // 
             colAciklama.Caption = "Açıklama";
@@ -218,14 +205,27 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinalmaForms
             colAciklama.VisibleIndex = 6;
             colAciklama.Width = 125;
             // 
+            // colTeslimAlan
+            // 
+            colTeslimAlan.Caption = "Teslim Alan";
+            colTeslimAlan.FieldName = "CreatedUserName";
+            colTeslimAlan.Name = "colTeslimAlan";
+            colTeslimAlan.OptionsColumn.AllowEdit = false;
+            colTeslimAlan.StatusBarAciklama = null;
+            colTeslimAlan.StatusBarKisaYol = null;
+            colTeslimAlan.StatusBarKisaYolAciklama = null;
+            colTeslimAlan.Visible = true;
+            colTeslimAlan.VisibleIndex = 5;
+            colTeslimAlan.Width = 125;
+            // 
             // SatinalmaIrsaliyeListForm
             // 
+            Appearance.Options.UseFont = true;
             AutoScaleDimensions = new SizeF(6F, 13F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(790, 462);
             Controls.Add(myGridControl1);
             Controls.Add(longNavigator1);
-            Font = new Font("Segoe UI", 8.25F);
             IconOptions.ShowIcon = false;
             Name = "SatinalmaIrsaliyeListForm";
             Text = "Satınalma İrsaliyeleri";
@@ -251,7 +251,7 @@ namespace WinBeyazEsya.Presentation.WinForms.Forms.SatinalmaForms
         private UserControls.Grid.MyGridColumn colCariHesapKodu;
         private UserControls.Grid.MyGridColumn colCariHesapUnvani;
         private UserControls.Grid.MyGridColumn colTutar;
-        private UserControls.Grid.MyGridColumn colDepo;
         private UserControls.Grid.MyGridColumn colAciklama;
+        private UserControls.Grid.MyGridColumn colTeslimAlan;
     }
 }

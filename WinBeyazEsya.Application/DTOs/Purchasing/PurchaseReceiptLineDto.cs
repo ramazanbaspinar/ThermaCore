@@ -14,5 +14,6 @@ public class PurchaseReceiptLineDto : BaseDto
     public long? WarehouseId { get; set; }
     public long? PurchaseOrderLineId { get; set; }
     public string CurrencyCode { get; set; } = string.Empty;
+    public decimal OrderPendingQuantity { get; set; } // For over-receiving UI validation
 
 }
